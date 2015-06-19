@@ -28,7 +28,7 @@ import stat
 import tempfile
 import urllib
 
-import Image
+from PIL import Image
 
 import imtools
 import system

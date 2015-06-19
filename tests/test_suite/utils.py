@@ -139,7 +139,7 @@ def info_diff(original_info, other_info):
 
 def image_diff(im1, im2):
     """Return the diff of two images"""
-    from PIL import Image, ImageMath
+    from PIL from PIL import Image, ImageMath
     r1, g1, b1, a1 = im1.convert('RGBA').split()
     r2, g2, b2, a2 = im2.convert('RGBA').split()
     diff_image = ImageMath.eval(

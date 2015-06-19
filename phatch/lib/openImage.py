@@ -18,7 +18,7 @@
 import os
 import re
 
-import Image
+from PIL import Image
 
 import imtools
 import system

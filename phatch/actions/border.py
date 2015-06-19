@@ -30,8 +30,8 @@ from lib.imtools import has_transparency, has_alpha, get_alpha, \
 
 def init():
     global Image, ImageDraw
-    import Image
-    import ImageDraw
+    from PIL import Image
+    from PIL import ImageDraw
 
 OPTIONS = [_t('Equal for all sides'), _t('Different for each side')]
 

@@ -29,9 +29,9 @@ from lib.imtools import has_alpha, has_transparency, paste
 
 def init():
     global Image, ImageColor, ImageFilter
-    import Image
-    import ImageColor
-    import ImageFilter
+    from PIL import Image
+    from PIL import ImageColor
+    from PIL import ImageFilter
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA
 

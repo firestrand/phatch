@@ -71,8 +71,8 @@
 
 __version__ = "1.3.5"
 
-import Image, ImageFile
-import ImagePalette
+from PIL import Image, ImageFile
+from PIL import ImagePalette
 
 import array, string, sys
 

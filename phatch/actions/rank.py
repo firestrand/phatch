@@ -28,8 +28,8 @@ from lib.reverse_translation import _t
 
 def init():
     global Image, ImageFilter, imtools
-    import Image
-    import ImageFilter
+    from PIL import Image
+    from PIL import ImageFilter
     from lib import imtools
 
 

@@ -30,7 +30,7 @@ from lib.imtools import convert_safe_mode, paste
 
 def init():
     global Image
-    import Image
+    from PIL import Image
 
 # Declare constants here
 

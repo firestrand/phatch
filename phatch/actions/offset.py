@@ -28,7 +28,7 @@ from lib.reverse_translation import _t
 
 def init():
     global ImageChops
-    import ImageChops
+    from PIL import ImageChops
 
 
 def offset(image, horizontal_offset, vertical_offset=None):

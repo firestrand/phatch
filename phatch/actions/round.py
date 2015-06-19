@@ -31,9 +31,9 @@ from lib.reverse_translation import _t
 
 def init():
     global Image, ImageChops, ImageDraw, imtools
-    import Image
-    import ImageChops
-    import ImageDraw
+    from PIL import Image
+    from PIL import ImageChops
+    from PIL import ImageDraw
     from lib import imtools
 
 

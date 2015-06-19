@@ -34,9 +34,9 @@ from core.translation import _t
 #---PIL
 def init():
     global Image, ImageMath, ImageColor, imtools
-    import Image
-    import ImageMath
-    import ImageColor
+    from PIL import Image
+    from PIL import ImageMath
+    from PIL import ImageColor
     from lib import imtools
 
 

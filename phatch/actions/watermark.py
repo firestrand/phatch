@@ -28,7 +28,7 @@ from lib.imtools import convert_safe_mode
 def init():
     #lazily import
     global Image
-    import Image
+    from PIL import Image
     global generate_layer
     from lib.imtools import generate_layer
 

@@ -63,7 +63,7 @@
 __version__ = "0.5"
 
 import array, string
-import Image, ImageFile, ImageChops
+from PIL import Image, ImageFile, ImageChops
 
 def i16(c,o=0):
     return ord(c[o+1]) + (ord(c[o])<<8)

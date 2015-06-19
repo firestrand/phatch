@@ -30,7 +30,7 @@ except NameError:
 
 import os
 
-import Image
+from PIL import Image
 
 from lib.formField import files_dictionary, Form, Field, \
     ImageDictionaryReadFileField, \

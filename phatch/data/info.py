@@ -474,7 +474,7 @@ HEADER = "Phatch is the result of work by (in no particular order):"
 
 def all_credits():
     #PIL - Python Image Library
-    import Image
+    from PIL import Image
     pil_credits = PIL_CREDITS
     pil_credits['name'] += ' %s' % Image.VERSION
     if not (pil_credits in CREDITS['libraries']):

@@ -28,8 +28,8 @@ from lib.reverse_translation import _t
 
 def init():
     global Image, ImageColor, imtools
-    import Image
-    import ImageColor
+    from PIL import Image
+    from PIL import ImageColor
     from lib import imtools
 
 

@@ -30,9 +30,9 @@ from lib.imtools import has_transparency, paste
 def init():
     #lazily import
     global Image, ImageChops, ImageFilter, imtools
-    import Image
-    import ImageChops
-    import ImageFilter
+    from PIL import Image
+    from PIL import ImageChops
+    from PIL import ImageFilter
     from lib import imtools
 
 

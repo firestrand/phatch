@@ -30,7 +30,7 @@ from lib.imtools import fill_background_color, generate_layer, \
 
 def init():
     global Image, HTMLColorToRGBA
-    import Image
+    from PIL import Image
     from lib.colors import HTMLColorToRGBA
 
 

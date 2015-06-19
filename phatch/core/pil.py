@@ -30,7 +30,7 @@ import os
 import re
 import types
 
-import Image
+from PIL import Image
 
 #todo make this lazy
 from lib import formField

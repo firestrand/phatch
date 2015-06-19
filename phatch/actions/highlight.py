@@ -31,8 +31,8 @@ from lib.imtools import has_transparency, paste
 
 def init():
     global Image, ImageMath, imtools
-    import Image
-    import ImageMath
+    from PIL import Image
+    from PIL import ImageMath
     from lib import imtools
 
 

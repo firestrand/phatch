@@ -20,10 +20,10 @@ from cStringIO import StringIO
 from itertools import cycle
 from urllib import urlopen
 
-import Image
-import ImageDraw
-import ImageEnhance
-import ImageOps
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageEnhance
+from PIL import ImageOps
 
 import system
 

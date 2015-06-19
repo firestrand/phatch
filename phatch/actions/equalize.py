@@ -27,8 +27,8 @@ from lib.reverse_translation import _t
 def init():
     #lazy import
     global Image, ImageOps, imtools
-    import Image
-    import ImageOps
+    from PIL import Image
+    from PIL import ImageOps
     from lib import imtools
 
 

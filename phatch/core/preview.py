@@ -25,7 +25,7 @@ if __name__ == '__main__':
     init_config_paths()
 
 import os
-import Image
+from PIL import Image
 import api
 from config import USER_PREVIEW_PATH
 from lib import openImage

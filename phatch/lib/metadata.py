@@ -475,7 +475,7 @@ class _InfoPil(_InfoCache):
             import openImage
             cls.Image = openImage
         except ImportError:
-            import Image
+            from PIL import Image
             cls.Image = Image
 
     @classmethod
@@ -495,7 +495,7 @@ class InfoPil(_InfoPil):
     :type image: Pil.Image/function
 
     >>> import pprint
-    >>> import Image
+    >>> from PIL import Image
     >>> image = Image.new('L',(1,2))
     >>> info = InfoPil(image)
     >>> info['format']
@@ -715,7 +715,7 @@ class InfoPexif(_InfoPilMetadata):
     DateTime('2010:03:03 11:03:08')
     >>> pprint.pprint(info.dict.keys())
     ['Pexif_DateTimeOriginal', 'orientation']
-    >>> import Image
+    >>> from PIL import Image
     >>> image = Image.open(filename)
     >>> info = InfoPexif(image)
     >>> info['Pexif_DateTimeOriginal']
@@ -803,7 +803,7 @@ class InfoZexif(_InfoPilMetadata):
     >>> info = InfoZexif(filename)
     >>> info['Zexif_0x9202']
     (128, 32)
-    >>> import Image
+    >>> from PIL import Image
     >>> image = Image.open(filename)
     >>> info = InfoZexif(image)
     >>> info['Zexif_0x9202']
@@ -1425,7 +1425,7 @@ class InfoExtract:
     """Create an info like dictionary which uses a collection of several
     info instances and can evaluate Python expressions.
 
-    >>> import Image
+    >>> from PIL import Image
     >>> import pprint
     >>> list(InfoExtract.get_vars_by_info(['mode'])[0].values())
     [['mode', 'orientation']]

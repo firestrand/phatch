@@ -26,9 +26,9 @@ from lib.reverse_translation import _t
 
 def init():
     global Image, ImageDraw, ImageFont
-    import Image
-    import ImageDraw
-    import ImageFont
+    from PIL import Image
+    from PIL import ImageDraw
+    from PIL import ImageFont
     global calculate_location, convert_safe_mode
     from lib.imtools import calculate_location, convert_safe_mode
 

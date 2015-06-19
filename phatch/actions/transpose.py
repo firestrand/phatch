@@ -28,7 +28,7 @@ from lib.reverse_translation import _t
 
 def init():
     global Image, imtools
-    import Image
+    from PIL import Image
     from lib import imtools
 
 

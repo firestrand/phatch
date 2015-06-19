@@ -29,8 +29,8 @@ from lib.imtools import has_transparency, paste
 
 def init():
     global Image, ImageOps, imtools
-    import Image
-    import ImageOps
+    from PIL import Image
+    from PIL import ImageOps
     from lib import imtools
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA

@@ -31,7 +31,7 @@ CHOICES = [_t('Description'), _t('Image')]
 
 def init(cls=None):
     global Image
-    import Image
+    from PIL import Image
 
 
 def foo(image, dpi, horizontal):

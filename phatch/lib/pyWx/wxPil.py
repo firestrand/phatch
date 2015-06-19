@@ -15,7 +15,7 @@
 
 # Follows PEP8
 
-import Image
+from PIL import Image
 import wx
 
 

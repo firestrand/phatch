@@ -39,8 +39,8 @@ ZERO = ['', '0']
 #---PIL
 def init():
     global Image, ImageColor, HTMLColorToRGBA, imtools
-    import Image
-    import ImageColor
+    from PIL import Image
+    from PIL import ImageColor
     from lib import imtools
     from lib.colors import HTMLColorToRGBA
 

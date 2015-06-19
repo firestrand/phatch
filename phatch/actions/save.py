@@ -33,7 +33,7 @@ import os
 
 def init():
     global Image
-    import Image
+    from PIL import Image
     global get_quality, get_size, InvalidWriteFormatError
     from lib.imtools import get_quality, get_size, InvalidWriteFormatError
 
