@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>EXIF &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="other" href="other.html" />
+    <link rel="next" title="findsystem" href="other.findsystem.html" />
+    <link rel="prev" title="other" href="other.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="other.findsystem.html" title="findsystem"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="other.html" title="other"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" accesskey="U">other</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-other.EXIF">
+<h1>EXIF<a class="headerlink" href="#module-other.EXIF" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="other.EXIF.EXIF_header">
+<em class="property">
+class </em><tt class="descclassname">other.EXIF.</tt><tt class="descname">EXIF_header</tt><big>(</big><em>file</em>, <em>endian</em>, <em>offset</em>, <em>fake_exif</em>, <em>strict</em>, <em>debug=0</em><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="other.EXIF.EXIF_header.canon_decode_tag">
+<tt class="descname">canon_decode_tag</tt><big>(</big><em>value</em>, <em>dict</em><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header.canon_decode_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.EXIF.EXIF_header.decode_maker_note">
+<tt class="descname">decode_maker_note</tt><big>(</big><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header.decode_maker_note" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.EXIF.EXIF_header.dump_IFD">
+<tt class="descname">dump_IFD</tt><big>(</big><em>ifd</em>, <em>ifd_name</em>, <em>dict={36864: ('ExifVersion'</em>, <em>&lt;function make_string at 0x1055dc08&gt;)</em>, <em>37377: ('ShutterSpeedValue'</em>, <em>)</em>, <em>37378: ('ApertureValue'</em>, <em>)</em>, <em>36867: ('DateTimeOriginal'</em>, <em>)</em>, <em>36868: ('DateTimeDigitized'</em>, <em>)</em>, <em>37381: ('MaxApertureValue'</em>, <em>)</em>, <em>37382: ('SubjectDistance'</em>, <em>)</em>, <em>37383: ('MeteringMode'</em>, <em>{0: 'Unidentified'</em>, <em>1: 'Average'</em>, <em>2: 'CenterWeightedAverage'</em>, <em>3: 'Spot'</em>, <em>4: 'MultiSpot'</em>, <em>5: 'Pattern'})</em>, <em>37384: ('LightSource'</em>, <em>{0: 'Unknown'</em>, <em>1: 'Daylight'</em>, <em>2: 'Fluorescent'</em>, <em>3: 'Tungsten'</em>, <em>9: 'Fine Weather'</em>, <em>10: 'Flash'</em>, <em>11: 'Shade'</em>, <em>12: 'Daylight Fluorescent'</em>, <em>13: 'Day White Fluorescent'</em>, <em>14: 'Cool White Fluorescent'</em>, <em>15: 'White Fluorescent'</em>, <em>17: 'Standard Light A'</em>, <em>18: 'Standard Light B'</em>, <em>19: 'Standard Light C'</em>, <em>20: 'D55'</em>, <em>21: 'D65'</em>, <em>22: 'D75'</em>, <em>255: 'Other'})</em>, <em>37385: ('Flash'</em>, <em>{0: 'No'</em>, <em>1: 'Fired'</em>, <em>5: 'Fired (?)'</em>, <em>7: 'Fired (!)'</em>, <em>9: 'Fill Fired'</em>, <em>13: 'Fill Fired (?)'</em>, <em>15: 'Fill Fired (!)'</em>, <em>16: 'Off'</em>, <em>24: 'Auto Off'</em>, <em>25: 'Auto Fired'</em>, <em>29: 'Auto Fired (?)'</em>, <em>31: 'Auto Fired (!)'</em>, <em>32: 'Not Available'})</em>, <em>37386: ('FocalLength'</em>, <em>)</em>, <em>41483: ('FlashEnergy'</em>, <em>)</em>, <em>41484: ('SpatialFrequencyResponse'</em>, <em>)</em>, <em>40962: ('ExifImageWidth'</em>, <em>)</em>, <em>41486: ('FocalPlaneXResolution'</em>, <em>)</em>, <em>41487: ('FocalPlaneYResolution'</em>, <em>)</em>, <em>41488: ('FocalPlaneResolutionUnit'</em>, <em>)</em>, <em>529: ('YCbCrCoefficients'</em>, <em>)</em>, <em>530: ('YCbCrSubSampling'</em>, <em>)</em>, <em>531: ('YCbCrPositioning'</em>, <em>{1: 'Centered'</em>, <em>2: 'Co-sited'})</em>, <em>532: ('ReferenceBlackWhite'</em>, <em>)</em>, <em>41493: ('ExposureIndex'</em>, <em>)</em>, <em>512: ('JPEGProc'</em>, <em>)</em>, <em>41495: ('SensingMethod'</em>, <em>{1: 'Not defined'</em>, <em>2: 'One-chip color area'</em>, <em>3: 'Two-chip color area'</em>, <em>4: 'Three-chip color area'</em>, <em>5: 'Color sequential area'</em>, <em>7: 'Trilinear'</em>, <em>8: 'Color sequential linear'})</em>, <em>37380: ('ExposureBiasValue'</em>, <em>)</em>, <em>59932: ('Padding'</em>, <em>)</em>, <em>40965: ('InteroperabilityOffset'</em>, <em>)</em>, <em>34850: ('ExposureProgram'</em>, <em>{0: 'Unidentified'</em>, <em>1: 'Manual'</em>, <em>2: 'Program Normal'</em>, <em>3: 'Aperture Priority'</em>, <em>4: 'Shutter Priority'</em>, <em>5: 'Program Creative'</em>, <em>6: 'Program Action'</em>, <em>7: 'Portrait Mode'</em>, <em>8: 'Landscape Mode'})</em>, <em>34852: ('SpectralSensitivity'</em>, <em>)</em>, <em>34853: ('GPSInfo'</em>, <em>)</em>, <em>34855: ('ISOSpeedRatings'</em>, <em>)</em>, <em>34856: ('OECF'</em>, <em>)</em>, <em>41991: ('GainControl'</em>, <em>{0: 'None'</em>, <em>1: 'Low gain up'</em>, <em>2: 'High gain up'</em>, <em>3: 'Low gain down'</em>, <em>4: 'High gain down'})</em>, <em>41992: ('Contrast'</em>, <em>{0: 'Normal'</em>, <em>1: 'Soft'</em>, <em>2: 'Hard'})</em>, <em>513: ('JPEGInterchangeFormat'</em>, <em>)</em>, <em>41993: ('Saturation'</em>, <em>{0: 'Normal'</em>, <em>1: 'Soft'</em>, <em>2: 'Hard'})</em>, <em>41994: ('Sharpness'</em>, <em>{0: 'Normal'</em>, <em>1: 'Soft'</em>, <em>2: 'Hard'})</em>, <em>41995: ('DeviceSettingDescription'</em>, <em>)</em>, <em>41996: ('SubjectDistanceRange'</em>, <em>)</em>, <em>514: ('JPEGInterchangeFormatLength'</em>, <em>)</em>, <em>37396: ('SubjectArea'</em>, <em>)</em>, <em>37500: ('MakerNote'</em>, <em>)</em>, <em>37510: ('UserComment'</em>, <em>&lt;function make_string_uc at 0x1055dc80&gt;)</em>, <em>33421: ('CFARepeatPatternDim'</em>, <em>)</em>, <em>33422: ('CFAPattern'</em>, <em>)</em>, <em>33423: ('BatteryLevel'</em>, <em>)</em>, <em>37520: ('SubSecTime'</em>, <em>)</em>, <em>37521: ('SubSecTimeOriginal'</em>, <em>)</em>, <em>37522: ('SubSecTimeDigitized'</em>, <em>)</em>, <em>33432: ('Copyright'</em>, <em>)</em>, <em>33434: ('ExposureTime'</em>, <em>)</em>, <em>40091: ('XPTitle'</em>, <em>)</em>, <em>40092: ('XPComment'</em>, <em>)</em>, <em>33437: ('FNumber'</em>, <em>)</em>, <em>40094: ('XPKeywords'</em>, <em>)</em>, <em>40095: ('XPSubject'</em>, <em>)</em>, <em>50341: ('PrintIM'</em>, <em>)</em>, <em>37121: ('ComponentsConfiguration'</em>, <em>{0: ''</em>, <em>1: 'Y'</em>, <em>2: 'Cb'</em>, <em>3: 'Cr'</em>, <em>4: 'Red'</em>, <em>5: 'Green'</em>, <em>6: 'Blue'})</em>, <em>37122: ('CompressedBitsPerPixel'</em>, <em>)</em>, <em>37379: ('BrightnessValue'</em>, <em>)</em>, <em>256: ('ImageWidth'</em>, <em>)</em>, <em>257: ('ImageLength'</em>, <em>)</em>, <em>258: ('BitsPerSample'</em>, <em>)</em>, <em>259: ('Compression'</em>, <em>{32896: 'IT8LW'</em>, <em>1: 'Uncompressed'</em>, <em>2: 'CCITT 1D'</em>, <em>3: 'T4/Group 3 Fax'</em>, <em>4: 'T6/Group 4 Fax'</em>, <em>5: 'LZW'</em>, <em>6: 'JPEG (old-style)'</em>, <em>7: 'JPEG'</em>, <em>8: 'Adobe Deflate'</em>, <em>9: 'JBIG B&amp;W'</em>, <em>10: 'JBIG Color'</em>, <em>32908: 'PixarFilm'</em>, <em>32898: 'IT8BL'</em>, <em>32771: 'CCIRLEW'</em>, <em>34712: 'JPEG 2000'</em>, <em>34713: 'Nikon NEF Compressed'</em>, <em>32773: 'PackBits'</em>, <em>32769: 'Epson ERF Compressed'</em>, <em>32897: 'IT8MP'</em>, <em>32809: 'Thunderscan'</em>, <em>32946: 'Deflate'</em>, <em>32947: 'DCS'</em>, <em>32909: 'PixarLog'</em>, <em>34661: 'JBIG'</em>, <em>65000: 'Kodak DCR Compressed'</em>, <em>34676: 'SGILog'</em>, <em>34677: 'SGILog24'</em>, <em>65535: 'Pentax PEF Compressed'</em>, <em>32766: 'Next'</em>, <em>32895: 'IT8CTPAD'})</em>, <em>262: ('PhotometricInterpretation'</em>, <em>)</em>, <em>263: ('Thresholding'</em>, <em>)</em>, <em>266: ('FillOrder'</em>, <em>)</em>, <em>269: ('DocumentName'</em>, <em>)</em>, <em>270: ('ImageDescription'</em>, <em>)</em>, <em>271: ('Make'</em>, <em>)</em>, <em>272: ('Model'</em>, <em>)</em>, <em>273: ('StripOffsets'</em>, <em>)</em>, <em>274: ('Orientation'</em>, <em>{1: 'Horizontal (normal)'</em>, <em>2: 'Mirrored horizontal'</em>, <em>3: 'Rotated 180'</em>, <em>4: 'Mirrored vertical'</em>, <em>5: 'Mirrored horizontal then rotated 90 CCW'</em>, <em>6: 'Rotated 90 CW'</em>, <em>7: 'Mirrored horizontal then rotated 90 CW'</em>, <em>8: 'Rotated 90 CCW'})</em>, <em>277: ('SamplesPerPixel'</em>, <em>)</em>, <em>278: ('RowsPerStrip'</em>, <em>)</em>, <em>279: ('StripByteCounts'</em>, <em>)</em>, <em>282: ('XResolution'</em>, <em>)</em>, <em>283: ('YResolution'</em>, <em>)</em>, <em>284: ('PlanarConfiguration'</em>, <em>)</em>, <em>285: ('PageName'</em>, <em>&lt;function make_string at 0x1055dc08&gt;)</em>, <em>41728: ('FileSource'</em>, <em>{1: 'Film Scanner'</em>, <em>2: 'Reflection Print Scanner'</em>, <em>3: 'Digital Camera'})</em>, <em>40961: ('ColorSpace'</em>, <em>{1: 'sRGB'</em>, <em>2: 'Adobe RGB'</em>, <em>65535: 'Uncalibrated'})</em>, <em>296: ('ResolutionUnit'</em>, <em>{1: 'Not Absolute'</em>, <em>2: 'Pixels/Inch'</em>, <em>3: 'Pixels/Centimeter'})</em>, <em>301: ('TransferFunction'</em>, <em>)</em>, <em>42240: ('Gamma'</em>, <em>)</em>, <em>305: ('Software'</em>, <em>)</em>, <em>306: ('DateTime'</em>, <em>)</em>, <em>315: ('Artist'</em>, <em>)</em>, <em>41729: ('SceneType'</em>, <em>{1: 'Directly Photographed'})</em>, <em>318: ('WhitePoint'</em>, <em>)</em>, <em>319: ('PrimaryChromaticities'</em>, <em>)</em>, <em>41985: ('CustomRendered'</em>, <em>{0: 'Normal'</em>, <em>1: 'Custom'})</em>, <em>18246: ('Rating'</em>, <em>)</em>, <em>40960: ('FlashPixVersion'</em>, <em>&lt;function make_string at 0x1055dc08&gt;)</em>, <em>342: ('TransferRange'</em>, <em>)</em>, <em>41730: ('CVAPattern'</em>, <em>)</em>, <em>40963: ('ExifImageLength'</em>, <em>)</em>, <em>41986: ('ExposureMode'</em>, <em>{0: 'Auto Exposure'</em>, <em>1: 'Manual Exposure'</em>, <em>2: 'Auto Bracket'})</em>, <em>34665: ('ExifOffset'</em>, <em>)</em>, <em>41492: ('SubjectLocation'</em>, <em>)</em>, <em>34675: ('InterColorProfile'</em>, <em>)</em>, <em>41987: ('WhiteBalance'</em>, <em>{0: 'Auto'</em>, <em>1: 'Manual'})</em>, <em>41988: ('DigitalZoomRatio'</em>, <em>)</em>, <em>40093: ('XPAuthor'</em>, <em>)</em>, <em>33723: ('IPTC/NAA'</em>, <em>)</em>, <em>41989: ('FocalLengthIn35mmFilm'</em>, <em>)</em>, <em>41990: ('SceneCaptureType'</em>, <em>{0: 'Standard'</em>, <em>1: 'Landscape'</em>, <em>2: 'Portrait'</em>, <em>3: 'Night)'})}</em>, <em>relative=0</em>, <em>stop_tag='UNDEF'</em><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header.dump_IFD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.EXIF.EXIF_header.extract_TIFF_thumbnail">
+<tt class="descname">extract_TIFF_thumbnail</tt><big>(</big><em>thumb_ifd</em><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header.extract_TIFF_thumbnail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.EXIF.EXIF_header.first_IFD">
+<tt class="descname">first_IFD</tt><big>(</big><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header.first_IFD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.EXIF.EXIF_header.list_IFDs">
+<tt class="descname">list_IFDs</tt><big>(</big><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header.list_IFDs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.EXIF.EXIF_header.n2s">
+<tt class="descname">n2s</tt><big>(</big><em>offset</em>, <em>length</em><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header.n2s" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.EXIF.EXIF_header.next_IFD">
+<tt class="descname">next_IFD</tt><big>(</big><em>ifd</em><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header.next_IFD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.EXIF.EXIF_header.olympus_decode_tag">
+<tt class="descname">olympus_decode_tag</tt><big>(</big><em>value</em>, <em>dict</em><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header.olympus_decode_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.EXIF.EXIF_header.s2n">
+<tt class="descname">s2n</tt><big>(</big><em>offset</em>, <em>length</em>, <em>signed=0</em><big>)</big><a class="headerlink" href="#other.EXIF.EXIF_header.s2n" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="other.EXIF.IFD_Tag">
+<em class="property">
+class </em><tt class="descclassname">other.EXIF.</tt><tt class="descname">IFD_Tag</tt><big>(</big><em>printable</em>, <em>tag</em>, <em>field_type</em>, <em>values</em>, <em>field_offset</em>, <em>field_length</em><big>)</big><a class="headerlink" href="#other.EXIF.IFD_Tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="other.EXIF.Ratio">
+<em class="property">
+class </em><tt class="descclassname">other.EXIF.</tt><tt class="descname">Ratio</tt><big>(</big><em>num</em>, <em>den</em><big>)</big><a class="headerlink" href="#other.EXIF.Ratio" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="other.EXIF.Ratio.reduce">
+<tt class="descname">reduce</tt><big>(</big><big>)</big><a class="headerlink" href="#other.EXIF.Ratio.reduce" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="other.EXIF.gcd">
+<tt class="descclassname">other.EXIF.</tt><tt class="descname">gcd</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#other.EXIF.gcd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.EXIF.make_string">
+<tt class="descclassname">other.EXIF.</tt><tt class="descname">make_string</tt><big>(</big><em>seq</em><big>)</big><a class="headerlink" href="#other.EXIF.make_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.EXIF.make_string_uc">
+<tt class="descclassname">other.EXIF.</tt><tt class="descname">make_string_uc</tt><big>(</big><em>seq</em><big>)</big><a class="headerlink" href="#other.EXIF.make_string_uc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.EXIF.nikon_ev_bias">
+<tt class="descclassname">other.EXIF.</tt><tt class="descname">nikon_ev_bias</tt><big>(</big><em>seq</em><big>)</big><a class="headerlink" href="#other.EXIF.nikon_ev_bias" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.EXIF.olympus_special_mode">
+<tt class="descclassname">other.EXIF.</tt><tt class="descname">olympus_special_mode</tt><big>(</big><em>v</em><big>)</big><a class="headerlink" href="#other.EXIF.olympus_special_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.EXIF.process_file">
+<tt class="descclassname">other.EXIF.</tt><tt class="descname">process_file</tt><big>(</big><em>f</em>, <em>stop_tag='UNDEF'</em>, <em>details=True</em>, <em>strict=False</em>, <em>debug=False</em><big>)</big><a class="headerlink" href="#other.EXIF.process_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.EXIF.s2n_intel">
+<tt class="descclassname">other.EXIF.</tt><tt class="descname">s2n_intel</tt><big>(</big><em>str</em><big>)</big><a class="headerlink" href="#other.EXIF.s2n_intel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.EXIF.s2n_motorola">
+<tt class="descclassname">other.EXIF.</tt><tt class="descname">s2n_motorola</tt><big>(</big><em>str</em><big>)</big><a class="headerlink" href="#other.EXIF.s2n_motorola" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.EXIF.usage">
+<tt class="descclassname">other.EXIF.</tt><tt class="descname">usage</tt><big>(</big><em>exit_status</em><big>)</big><a class="headerlink" href="#other.EXIF.usage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="other.html"
+                                  title="previous chapter">other</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="other.findsystem.html"
+                                  title="next chapter">findsystem</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="other.findsystem.html" title="findsystem"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="other.html" title="other"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" >other</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

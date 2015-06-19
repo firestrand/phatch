@@ -1,0 +1,3689 @@
+# Serbian translation for phatch
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the phatch package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: phatch\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-03-09 04:12+0100\n"
+"PO-Revision-Date: 2009-11-06 20:59+0000\n"
+"Last-Translator: Saša Pavić <provalia@gmail.com>\n"
+"Language-Team: Serbian <sr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-03-10 10:36+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: /home/stani/sync/python/phatch/repo/trunk/linux/nautilus/phatch_image_inspector.py:60
+msgid "Inspect with Phatch"
+msgstr "Испитај у Фечу"
+
+#: /home/stani/sync/python/phatch/repo/trunk/linux/nautilus/phatch_image_inspector.py:61
+msgid "Inspect EXIF & IPTC tags"
+msgstr "Inspect EXIF & IPTC"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:64
+msgid "Examples"
+msgstr "Примери"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:70
+#, python-format
+msgid "Run %s as console program without a gui"
+msgstr "Покрените %s као конзолни програм без графичког окружења"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:74
+#, python-format
+msgid "Run %s as a gui droplet"
+msgstr "Покрените %s као дроплет"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:78
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:288
+msgid "Always save on desktop"
+msgstr "Увек сачувај на радној површини"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:82
+msgid "Ignore errors"
+msgstr "Занемарите грешке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:86
+msgid "Initialize fonts (only for installation scripts)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:90
+msgid "Interactive"
+msgstr "Интерактивно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:94
+msgid "Keep existing images (don't overwrite)"
+msgstr "Сачувај постојеће слике (не пиши преко њих)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:99
+msgid "Specify locale language (for example en or en_GB)"
+msgstr "Одреди локални језик (нпр. en или en_GB)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:103
+msgid "Inspect metadata (requires exif & iptc plugin)"
+msgstr "Надгледај метаподатке (захтева exif & iptc додатак)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:107
+msgid "No save action required at the end"
+msgstr "Без акције снимања потребне на крају"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:111
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:286
+msgid "Include all subfolders"
+msgstr "Укључите све поддиректуријуме"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:115
+msgid "Do not check images first"
+msgstr "Не проверавај слике прво"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:119
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:97
+msgid "Allow Geek action and unsafe expressions"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:123
+msgid "Verbose"
+msgstr "Опширно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:84
+msgid "You can paste it as text into the properties of a new launcher."
+msgstr "Текст се може копирати у подешавања новог launcher-а."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:86
+#, python-format
+msgid "Sorry, you need to install the %s action for this action list."
+msgstr "Потребно је инсталирати %s акцију за ову листу акција."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:88
+#, python-format
+msgid ""
+"Sorry, the values of these options will be lost in %(name)s %(version)s:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:90
+msgid "The droplet command for this action list was copied to the clipboard."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:92
+msgid ""
+"The droplet command for recent action lists was copied to the clipboard."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:94
+msgid ""
+"The droplet command for the image inspector was copied to the clipboard."
+msgstr "Дроплет наредба за Инспектор Слика је снимљена на clipboard."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:96
+msgid "In Phatch you need to open or create an action list first."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:97
+msgid "As an example try out the polaroid action list from the library."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:99
+msgid ""
+"Afterwards you can drag&drop images on the Phatch window to batch them."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:101
+msgid "For more information see the tutorials (Help>Documentation)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:203
+msgid "No images have been processed to report."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:211
+msgid "Hooray, no issues!"
+msgstr "Ура, нема проблема!"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:213
+msgid "Nothing has been logged yet."
+msgstr "Још ништа није уписано у запис."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:215
+msgid "Log"
+msgstr "Дневник рада"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:232
+msgid "abort"
+msgstr "прекид"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:235
+msgid "skip"
+msgstr "прескочи"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:237
+msgid "ignore"
+msgstr "занемари"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:280
+#, python-format
+msgid "This action list was made by a different %(name)s version."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:322
+msgid "click '+' to add actions"
+msgstr "кликни '+' да додате акцију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:375
+msgid "Open &Recent"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:463
+msgid "Open"
+msgstr "Отвори"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:464
+msgid "Open an action list"
+msgstr "Отвори листу акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:466
+msgid "Execute"
+msgstr "Изврши"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:467
+msgid "Execute the action"
+msgstr "Изврши акцију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:470
+msgid "Add"
+msgstr "Додај"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:471
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:66
+msgid "Add an action"
+msgstr "Додај акцију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:473
+msgid "Remove"
+msgstr "Уклони"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:474
+msgid "Remove the selected action"
+msgstr "Уклони изабрану акцију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:475
+msgid "Up"
+msgstr "Горе"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:476
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:76
+msgid "Move the selected action up"
+msgstr "Премести изабрану акцију навише"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:477
+msgid "Down"
+msgstr "Доле"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:478
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:78
+msgid "Move the selected action down"
+msgstr "Премести изабрану акцију наниже"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:481
+msgid "Image Inspector"
+msgstr "Инспектор Слика"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:482
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:100
+msgid "Look up exif and iptc tags"
+msgstr "Претражи exif и iptc параметре"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:485
+msgid "Description"
+msgstr "Опис"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:486
+msgid "Show description of the action list"
+msgstr "Прикажи опис листе акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:542
+msgid "Library Action Lists"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:561
+msgid "Choose an Action List File..."
+msgstr "Изабери Листу Акција..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:593
+msgid "Save Action List As..."
+msgstr "Сачувај Листу Акција Као..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:605
+msgid "This file exists already."
+msgstr "Ова датотека већ постоји."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:606
+msgid "Do you want to overwrite it?"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:651
+#, python-format
+msgid "%(name)s actions"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:734
+#, python-format
+msgid "%(name)s Shell"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:737
+msgid "application"
+msgstr "програм"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:738
+msgid "frame"
+msgstr "оквир"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:739
+msgid "actions"
+msgstr "акције"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:769
+msgid "A html tutorial will open in your internet browser."
+msgstr "Упутство ће се отворити у Интернет претраживачу."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:771
+msgid "You only need to know PIL to write a plugin for Phatch."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:772
+msgid "Phatch will generate the user interface automatically."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:773
+msgid "Study the action plugins in:"
+msgstr "Проучавајте додатке у:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:775
+msgid "If you want to contribute a plugin for Phatch,"
+msgstr "Уколико желите да креирате додатке за Феч,"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:776
+msgid "please email: "
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:786
+msgid "PHoto bATCH Processor"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:802
+#, python-format
+msgid "Sorry, \"%s\" is not a valid path."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:869
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:192
+msgid "Drag & Drop"
+msgstr "Превуци & Пусти"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:881
+msgid ""
+"Drop any files and/or folders on this Phatch droplet\n"
+"to batch process them.\n"
+"Right-click or double-click to switch to normal view."
+msgstr ""
+"Превуците било које документе или директоријуме на овај Phatch droplet\n"
+"да примените batch процедуру на њих.\n"
+"Десним кликом или дуплим кликом промените на нормални приказ."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:899
+msgid "Phatch will add one for you, please check its settings."
+msgstr "Феч ће додати једну за вас, проверите подешавања."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:902
+msgid "The action list only processes metadata."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:903
+msgid "Phatch chooses the lossless \"Save Tags\" action."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:949
+msgid "Save last changes to"
+msgstr "Сачувајте последње измене у"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:999
+msgid ""
+"Safe mode protects you from the execution of possibly harmful scripts.\n"
+"Are you sure you want to disable it?"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1011
+msgid "Choose the folder for the droplet"
+msgstr "Изаберите директоријум за droplet"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1022
+msgid "Phatch successfully created the droplet."
+msgstr "Phatch је успешно креирао droplet."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1025
+msgid "Phatch could not create the droplet: "
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1081
+msgid "Impossible to load data from action list."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1129
+msgid "Select action list"
+msgstr "Изаберите листу акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1152
+msgid "Sorry, your settings seem corrupt."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1153
+#, python-format
+msgid "Please delete \"%s\"."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1154
+msgid "Also check if your hard disk not full.\n"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:76
+msgid "Choose a folder"
+msgstr "Одабери фасциклу"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:143
+msgid "Choose File(s)"
+msgstr "Изабери Датотеку(е)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:156
+msgid "Choose an image folder"
+msgstr "Изабери директоријум са сликама"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:238
+msgid "All selected types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:240
+msgid "All readable and writable types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:242
+msgid "All readable types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:245
+msgid "images"
+msgstr "слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:258
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:265
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:291
+msgid "&All Types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:263
+msgid "&No Types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:269
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "Clipboard"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:271
+msgid "Browse"
+msgstr "Прегледај"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:276
+#, python-format
+msgid "Browse %s"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:285
+msgid "File"
+msgstr "Датотека"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:286
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "Folder"
+msgstr "Директоријум"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:345
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:477
+msgid "default"
+msgstr "подразумевани"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:415
+msgid "View Source"
+msgstr "Погледај Извор"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:454
+msgid "broaden your search"
+msgstr "проширите претрагу"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:503
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:116
+msgid "Path"
+msgstr "Путања"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:650
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:671
+msgid "&Open..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:652
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:673
+msgid "&Inspect..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:707
+msgid "&Insert Tag in Action List..."
+msgstr "&Убаци Ознаку у Листу Команди..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:43
+msgid "&New\tCtrl-N"
+msgstr "&Нови\tCtrl-N"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:43
+msgid "Start a new action list"
+msgstr "Нова листа акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:45
+msgid "&Open...\tCtrl-O"
+msgstr "&Отвори...\tCtrl-O"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:45
+msgid "Opens an actions list"
+msgstr "Отвара листу акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:47
+msgid "Open &Library...\tCtrl-Shift-O"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:47
+msgid "Opens a ready-made actionlist from the library"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:49
+msgid "&Save\tCtrl-S"
+msgstr "&Сними\tCtrl-S"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:49
+msgid "Saves an action list"
+msgstr "Снима листу акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:51
+msgid "Save &As...\tCtrl-Shift-S"
+msgstr "Сними &Као...\tCtrl-Shift-S"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:51
+msgid "Saves an action list as"
+msgstr "Снима листу акција као"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:55
+msgid "Copy Actionlist as &Command to Clipboard"
+msgstr "Сними Листу Акција као &Команду на Clipboard"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:55
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:57
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:59
+msgid "Paste this command in a launcher"
+msgstr "Копирај ову команду у launcher"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:57
+msgid "Copy R&ecent as Command to Clipboard"
+msgstr "Упамти П&редходне као команде за Clipboard"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:59
+msgid "Copy Image I&nspector as Command to Clipboard"
+msgstr "Упамти И&нспектор Слика као Команду у Clipboard"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:61
+msgid "&Export"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:62
+msgid "&Quit\tCtrl-Q"
+msgstr "&Излаз\tCtrl-Q"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:62
+msgid "Quit the application."
+msgstr "Излаз из програма"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:64
+msgid "&Action List"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:66
+msgid "&Add...\tCtrl-+"
+msgstr "&Додај...\tCtrl-+"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:68
+msgid "&Remove\tCtrl--"
+msgstr "&Уклони\tCtrl--"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:68
+msgid "Remove the selected action."
+msgstr "Уклони означену акцију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:71
+msgid "&Enable\tCtrl-1"
+msgstr "&Омогућити\tCtrl-1"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:71
+msgid "Enable action"
+msgstr "Омогућити акцију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:73
+msgid "&Disable\tCtrl-0"
+msgstr "&Онемогућити\tCtrl-0"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:73
+msgid "Disable action"
+msgstr "Онемогућити акцију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:76
+msgid "&Up\tCtrl-Up"
+msgstr "&Горе\tCtrl-Up"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:78
+msgid "&Down\tCtrl-Down"
+msgstr "&Доле\tCtrl-Down"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:80
+msgid "&Edit"
+msgstr "Ур&еди"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:82
+msgid "&Droplet\tCtrl-D"
+msgstr "&Дроплет\tCtrl-D"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:82
+msgid "View as a droplet to drag and drop files"
+msgstr "Приказати као дроплет за превлачење докумената"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:84
+msgid "&Show Description\tCtrl-H"
+msgstr "&Прикажи Опис\tCtrl-H"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:84
+msgid "Tools to handle the current action list"
+msgstr "Алат за рад са тренутном листом акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:87
+msgid "&Expand All\tCtrl-E"
+msgstr "&Прошири Све\tCtrl-E"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:87
+msgid "Show all the parameters of the actions."
+msgstr "Приказује сва подешавања акције."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:89
+msgid "&Collapse All\tCtrl-Shift-E"
+msgstr "&Скупи Све\tCtrl-Shift-E"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:89
+msgid "Show only the labels of the actions."
+msgstr "Приказује само називе акција."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:91
+msgid "&Collapse Automatically"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:91
+msgid "Expanding one action collapses the others."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:93
+msgid "&View"
+msgstr "&Прикажи"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:95
+msgid "&Execute...\tCtrl-Return"
+msgstr "&Изврши...\tCtrl-Return"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:95
+msgid "Execute the action list"
+msgstr "Извршава листу акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:97
+msgid "&Safe Mode (recommended)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:100
+msgid "&Image Inspector (exif)\tCtrl-I"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:103
+msgid "&User"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:103
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:105
+msgid "Browse action lists, masks, highlights and fonts"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:105
+msgid "&Phatch"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:107
+msgid "&Browse Library"
+msgstr "&Прегледај библиотеку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:109
+msgid "Show &Report...\tCtrl+R"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:109
+msgid "Show report of processed images"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:111
+msgid "Show &Log...\tCtrl-L"
+msgstr "Приказ &Записа...\tCtrl-L"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:111
+msgid "Show log file"
+msgstr "Прикажи датотеку са евиденцијом"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:115
+msgid "&Fonts"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:115
+msgid "Scan for new fonts on your system"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:117
+msgid "&Update"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:118
+msgid "&Tools"
+msgstr "&Алати"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:120
+msgid "&Website...\tCtrl-W"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:120
+msgid "Go to the Phatch homepage."
+msgstr "Отвара страницу на интернету програма Phatch."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:122
+msgid "&Documentation...\tCtrl-M"
+msgstr "&Документација...\tCtrl-M"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:122
+msgid "Go to the Phatch documentation."
+msgstr "Отвара документацију програма Phatch."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:124
+msgid "&Forum...\tCtrl-F"
+msgstr "&Форум...\tCtrl-F"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:124
+msgid "Go to the Phatch forum"
+msgstr "Отвара форум програма Phatch"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:127
+msgid "&Translate Phatch...\tCtrl-T"
+msgstr "&Преведи Phatch...\tCtrl-T"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:127
+msgid "Translate Phatch in your native language."
+msgstr "Превођење програма Phatch на матерњи језик."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:129
+msgid "&Report a Bug...\tCtrl-B"
+msgstr "&Пријави Грешку...\tCtrl-B"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:129
+msgid "Report a bug on launchpad."
+msgstr "Пријављивање грешке на launchpad."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:131
+msgid "De&veloper Documentation...\tCtrl-P"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:131
+msgid "Learn to develop Phatch with Python and PIL."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:134
+msgid "&About Phatch...\tCtrl-Shift-A"
+msgstr "&О Phatch-у...\tCtrl-Shift-A"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:134
+msgid "Displays information about this application."
+msgstr "Прикажи информације о овој апликацији"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:136
+msgid "&Help"
+msgstr "&Помоћ"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:15
+msgid "Done"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:16
+msgid "Show Log"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:17
+msgid "Show &Report"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:29
+msgid "Ready!"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:72
+msgid "Double click to open or right click for more options."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:82
+msgid "Explorer"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:114
+msgid "You only need to know PIL to write a plugin for Phatch,"
+msgstr "Потребно је познавање PIL-а да би писали додатке за Phatch,"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:115
+msgid "&Show template for action plugin"
+msgstr "&Прикажи образац за акцију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:117
+msgid "Code"
+msgstr "Кôд"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:118
+msgid "&Ask for Help"
+msgstr "&Затражи подршку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:119
+msgid "&OK"
+msgstr "&Потврди"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:130
+msgid "Write Action Plugin"
+msgstr "Креирај Акције Додатке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:174
+msgid "Apply for future errors        "
+msgstr "Пријава за будуће грешке        "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:175
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:240
+msgid "&Abort"
+msgstr "&Прекини"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:176
+msgid "&Skip to Next Action"
+msgstr "&Пређи на следећу команду"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:177
+msgid "Skip To Next &Image"
+msgstr "Пређи на Следећу &Слику"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:238
+msgid "Message"
+msgstr "Порука"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:241
+msgid "&Continue Anyway"
+msgstr "&Свеједно Настави"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:277
+msgid "Options"
+msgstr "Опције"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:278
+msgid "Types"
+msgstr "Типови"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:279
+msgid "Browse Folder"
+msgstr "Претражи директоријум"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "Source"
+msgstr "Извор"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "File(s)"
+msgstr "Датотека(е)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:283
+msgid "Stop for errors"
+msgstr "Заустави при грешкама"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:284
+msgid "Check images first"
+msgstr "Провери слике прво"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:285
+msgid "Overwrite existing images"
+msgstr "Пресними постојеће слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:287
+msgid "Always show status dialog when done"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:289
+msgid "Repeat images"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:292
+msgid "&Cancel"
+msgstr "&"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:293
+msgid "&Batch"
+msgstr "&Batch"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:27
+msgid "Image"
+msgstr "Слика"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:45
+msgid "Label"
+msgstr "Етикета"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:50
+msgid "tag"
+msgstr "ознака"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:54
+msgid "Boolean"
+msgstr "Boolean"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:55
+msgid "String"
+msgstr "String"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:56
+msgid "Choice"
+msgstr "Избор"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:57
+msgid "Color"
+msgstr "Боја"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:58
+msgid "Resolution"
+msgstr "Резолуција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:60
+msgid "File Name"
+msgstr "Име датотеке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:61
+msgid "In"
+msgstr "У"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:62
+msgid "Float"
+msgstr "Float"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:63
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:64
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:65
+msgid "As"
+msgstr "Као"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:66
+msgid "Mode"
+msgstr "Режим"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:67
+msgid "Resample"
+msgstr "Преузоркуј"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:67
+msgid "bicubic"
+msgstr "бикубно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:68
+msgid "Integer"
+msgstr "Integer"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:69
+msgid "Integer+"
+msgstr "Интеграл+"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:70
+msgid "Integer+0"
+msgstr "Интеграл+0"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:71
+msgid "Horizontal"
+msgstr "Хоризонтално"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:72
+msgid "Slider"
+msgstr "Клизач"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:71
+msgid "pyexiv2 needs to be installed"
+msgstr "pyexiv2 мора бити инсталиран"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:74
+#, python-format
+msgid "%(mode)s has been converted to %(mode_copy)s to save as %(format)s."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "January"
+msgstr "Јануар"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "February"
+msgstr "Фебруар"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "March"
+msgstr "Март"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "April"
+msgstr "Април"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "May"
+msgstr "Мај"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "June"
+msgstr "Јун"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "July"
+msgstr "Јул"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "August"
+msgstr "Август"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "September"
+msgstr "Септембар"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:81
+msgid "October"
+msgstr "Октобар"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:81
+msgid "November"
+msgstr "Новембар"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:81
+msgid "December"
+msgstr "Децембар"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Monday"
+msgstr "Понедељак"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Tuesday"
+msgstr "Уторак"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Wednesday"
+msgstr "Среда"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Thursday"
+msgstr "Четвртак"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:83
+msgid "Friday"
+msgstr "Петак"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:83
+msgid "Saturday"
+msgstr "Субота"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:83
+msgid "Sunday"
+msgstr "Недеља"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:91
+msgid "Only palette images have transparency."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:212
+msgid "Unable extract variables from file"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:352
+#, python-format
+msgid "Tag \"%s\" is read only."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:360
+#, python-format
+msgid "Impossible to write tag \"%s\""
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:420
+#, python-format
+msgid "Tag \"%s\" is not writable."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:425
+#, python-format
+msgid "Format %(format)s does not support overwriting \"%(tag)s\"."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:463
+msgid "background"
+msgstr "позадина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:611
+msgid "source"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:719
+#, python-format
+msgid ""
+"Command did not produce an output image:\n"
+"%s"
+msgstr ""
+"Наредба није направила излазну слику:\\n\n"
+"%s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/settings.py:47
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:368
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:376
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:42
+msgid "All"
+msgstr "Све"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:191
+msgid "Select Projection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:219
+msgid "Select Object"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:223
+msgid "Select Rotation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:236
+msgid "Center"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:237
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:368
+msgid "Custom"
+msgstr "Прилагођено"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:238
+msgid "Middle"
+msgstr "Средина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:239
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:378
+msgid "Left"
+msgstr "Лево"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:240
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:380
+msgid "Right"
+msgstr "Десно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:241
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:382
+msgid "Top"
+msgstr "Врх"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:242
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:384
+msgid "Bottom"
+msgstr "Дно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:243
+msgid "Bottom Left"
+msgstr "Доле лево"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:243
+msgid "Bottom Right"
+msgstr "Доле десно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:244
+msgid "Top Left"
+msgstr "Горе лево"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:244
+msgid "Top Right"
+msgstr "Горе десно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:249
+msgid "Orientation"
+msgstr "Орјентација"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:251
+msgid "Position"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:253
+msgid "Offset"
+msgstr "Померај"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:255
+msgid "Horizontal Offset"
+msgstr "Хоризонтални померај"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:257
+msgid "Vertical Offset"
+msgstr "Вертикални померај"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:259
+msgid "Horizontal Justification"
+msgstr "Хоризонтално поравнавање"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:262
+msgid "Vertical Justification"
+msgstr "Вертикално поравнавање"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:319
+msgid "By Offset"
+msgstr "Померај"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:319
+msgid "Tile"
+msgstr "Поплочај"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:319
+msgid "Scale"
+msgstr "Скалирана"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:322
+msgid "Mark"
+msgstr "Означи са"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:323
+msgid "Opacity"
+msgstr "Непровидност"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:324
+msgid "Method"
+msgstr "Метод"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:368
+msgid "Auto"
+msgstr "Аутоматски"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:36
+msgid "Easily batch process images and edit metadata"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:37
+msgid "Photo Batch Processor"
+msgstr "Пакетска Обрада Слика"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "True"
+msgstr "Тачно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "False"
+msgstr "Нетачно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "true"
+msgstr "тачно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "false"
+msgstr "нетачно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:64
+msgid "Unsaved Action List"
+msgstr "Несачуване Акције"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:66
+msgid "Action Lists"
+msgstr "Акционе листе"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:67
+msgid "All Files"
+msgstr "Све датотеке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:68
+msgid "Describe here the action list."
+msgstr "Опиши листу акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:69
+msgid "There should be a 'Save' action at the end."
+msgstr "На крају је потребна акција 'Сачувај'"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:82
+msgid "with"
+msgstr "са"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:83
+#, python-format
+msgid "%s Recent"
+msgstr "%s Скорашњи"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:86
+#, python-format
+msgid "Associate Images with Action List in %s..."
+msgstr "Повезивање Слика са Листом Акција у %s..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:88
+#, python-format
+msgid "Associate Images with Recent Action Lists in %s..."
+msgstr "Повезивање Слика са Претходном Листом Акција у %s..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:90
+#, python-format
+msgid "Associate Images with Image Inspector in %s..."
+msgstr "Повезивање Слика са Инспектором Слика у %s..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:91
+#, python-format
+msgid "Remove Association from %s..."
+msgstr "Уклањање Повезаности из %s..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:93
+msgid "&Action List Droplet..."
+msgstr "Дроплет &Акционе Листе..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:94
+msgid "&Recent Droplet..."
+msgstr "П&рошли Дроплет..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:95
+msgid "&Image Inspector Droplet..."
+msgstr "Дроплет &Инспектора Слика..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:130
+msgid "Batch process with recent action lists"
+msgstr "Batch процес са претходном листом акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:131
+msgid "Inspect EXIF &amp; IPTC tags"
+msgstr "Провера EXIF &amp; IPTC тагова"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:58
+#, python-format
+msgid "See \"%s\" for more details."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:64
+#, python-format
+msgid "Sorry, the action list seems incompatible with %(name)s %(version)s."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:66
+msgid "This action list is unsafe:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:68
+msgid "Disable Safe Mode in the Tools menu if you trust this action list."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:70
+msgid "Never run action lists from untrusted sources."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:71
+msgid "Please check if this action list doesn't contain harmful code."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:87
+#, python-format
+msgid "\"%s\" is not a valid path."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:184
+msgid "Action"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:189
+msgid "Geek actions are not allowed in safe mode."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:368
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:382
+msgid "Nothing to do."
+msgstr "Не ради ништа"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:369
+msgid "The action list is empty."
+msgstr "Акциона листа је празна"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:383
+msgid "There is no action enabled."
+msgstr "Није омогућена ниједна акција."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:410
+msgid "Checking images"
+msgstr "Проверавам слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:427
+#, python-format
+msgid "Phatch can not handle %d image(s):"
+msgstr "Феч не може прхватити %d слику(е):"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:428
+msgid "Invalid images"
+msgstr "Неисправне слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:434
+msgid "Sorry, no valid files found"
+msgstr "Жао ми је, није пронађена исправна датотека"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:444
+msgid "C&ontinue"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:473
+msgid "No files or folder selected."
+msgstr "Нисте изабрали фајл нити директоријум."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:503
+msgid "Unable to open file"
+msgstr "Немогуће отворити датотеку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:589
+#, python-format
+msgid "Can not apply action %(a)s:"
+msgstr "Немогуће применити акцију %(a)s:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:628
+#, python-format
+msgid "Can not apply action %(a)s on image '%(i)s' in folder:"
+msgstr "Немогуће применити акцију %(a)s на слику '%(i)s' у директоријуму:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:723
+msgid "Executing action list"
+msgstr "Извршавање акција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:749
+#, python-format
+msgid "One image done in %s"
+msgstr "Једна слика завршена у %s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:751
+#, python-format
+msgid "%(amount)d images done in %(duration)s"
+msgstr "%(amount)d слика завршена за %(duration)s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:755
+msgid "One issue was logged"
+msgstr "Један проблем је евидентиран"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:757
+#, python-format
+msgid "%d issues were logged"
+msgstr "%d проблем је евидентиран"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:43
+msgid "Select"
+msgstr "Изаберите"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:45
+#, python-format
+msgid ""
+"The tag \"%s\" is not valid.\n"
+"It should follow the syntax: Exif_* or Iptc_*"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:202
+msgid "Unable to change label."
+msgstr "Није могуће променити етикету."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:232
+#, python-format
+msgid "Unable to delete tag <%s>"
+msgstr "Није  могуће обрисати ознаку<%s>"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:277
+#, python-format
+msgid "Unable to rename tag <%s>"
+msgstr "Није могуће преименовати ознаку<%s>"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:316
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:325
+#, python-format
+msgid "Unable to save tag <%s>"
+msgstr "Није могуће сачувати ознаку<%s>"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:446
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:162
+msgid "day"
+msgstr "дан"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:447
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:159
+msgid "desktop"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:448
+msgid "foldername"
+msgstr "Име директоријума"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:449
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:157
+msgid "filename"
+msgstr "име датотеке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:450
+msgid "filesize"
+msgstr "величина датотеке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:451
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:158
+msgid "folder"
+msgstr "директоријум"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:452
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:164
+msgid "hour"
+msgstr "час"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:453
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:164
+msgid "minute"
+msgstr "минут"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:454
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:162
+msgid "month"
+msgstr "месец"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:455
+msgid "monthname"
+msgstr "име месеца"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:456
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:209
+msgid "path"
+msgstr "путања"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:457
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:168
+msgid "root"
+msgstr "основа"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:458
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:164
+msgid "second"
+msgstr "секунда"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:459
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:170
+msgid "subfolder"
+msgstr "поддиректоријум"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:460
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:172
+msgid "type"
+msgstr "врста"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:461
+msgid "weekday"
+msgstr "дан у недељи"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:462
+msgid "weekdayname"
+msgstr "име дана у недељи"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:463
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:162
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:204
+msgid "year"
+msgstr "година"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:631
+msgid "aspect"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:632
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:173
+msgid "compression"
+msgstr "компресија"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:633
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:161
+msgid "dpi"
+msgstr "тпи"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:634
+msgid "gamma"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:635
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:169
+msgid "height"
+msgstr "висина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:636
+msgid "interlace"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:637
+msgid "mode"
+msgstr "режим"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:638
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:169
+msgid "width"
+msgstr "ширина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:639
+msgid "format"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:640
+msgid "formatdescription"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:641
+msgid "size"
+msgstr "величина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:642
+msgid "transparency"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:703
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:1140
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:1365
+msgid "orientation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:48
+msgid "Use the Image Inspector to list all the variables."
+msgstr "Искористи Инспектора Слика да излиста све променљиве."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:49
+msgid "You can only use files with the following extensions"
+msgstr "Можеш само користити овај тип датотеке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:52
+msgid "left"
+msgstr "лево"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:52
+msgid "center"
+msgstr "средина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:52
+msgid "right"
+msgstr "десно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:53
+msgid "top"
+msgstr "врх"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:53
+msgid "middle"
+msgstr "у средини"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:53
+msgid "bottom"
+msgstr "дно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:69
+msgid "Monochrome (1-bit pixels, black and white)"
+msgstr "Једнобојно (1 бит по пикселу, црно-бело)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:70
+msgid "Grayscale (8-bit pixels)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:71
+msgid "LA (8-bit pixels, grayscale with transparency mask)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:72
+msgid "RGB (3x8-bit pixels, true color)"
+msgstr "RGB (3x8-битни пиксели, истинита боја)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:73
+msgid "RGBA (4x8-bit pixels, RGB with transparency mask)"
+msgstr "RGBA (4x8 бита по пикселу, RGB са прозирном маском)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:74
+msgid "CMYK (4x8-bit pixels, color separation)"
+msgstr "CMYK (4x8-битни пиксели, дељење боје)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:75
+msgid "P (8-bit pixels, mapped using a color palette)"
+msgstr "P (8-битни пиксели, мапирано палетом боја)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:76
+msgid "YCbCr (3x8-bit pixels, color video format)"
+msgstr "YCbCr (3x8-битни пиксели, боја видео формата)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:77
+msgid "blur"
+msgstr "замућено"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:77
+msgid "contour"
+msgstr "контура"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:77
+msgid "detail"
+msgstr "детаљ"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:78
+msgid "edge enhance"
+msgstr "појачај ивицу"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:78
+msgid "edge enhance more"
+msgstr "појачај ивицу више"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:79
+msgid "emboss"
+msgstr "рељеф"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:79
+msgid "find edges"
+msgstr "нађи ивице"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:79
+msgid "smooth"
+msgstr "углади"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:80
+msgid "smooth more"
+msgstr "углади више"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:80
+msgid "sharpen"
+msgstr "изоштри"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:81
+msgid "nearest"
+msgstr "приближно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:81
+msgid "bilinear"
+msgstr "билинеарно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:82
+msgid "antialias"
+msgstr "антиалиас"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:83
+msgid "Rotate 90"
+msgstr "Окрени за 90 степени"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:83
+msgid "Rotate 180"
+msgstr "Окрени за 180 степени"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:83
+msgid "Rotate 270"
+msgstr "Окрени за 270 степени"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:84
+msgid "Flip Left Right"
+msgstr "Окрени Лево Десно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:84
+msgid "Flip Top Bottom"
+msgstr "Окрени Горе Доле"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:86
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:920
+msgid "Normal"
+msgstr "Нормалнo"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:88
+msgid "none"
+msgstr "ништа"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:498
+msgid "can not be empty"
+msgstr "не може бити празно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:547
+#, python-format
+msgid "invalid syntax \"%s\" for integer"
+msgstr "неисправна синтакса \"%s\" за цео број"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:552
+msgid "string"
+msgstr "низ"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:571
+msgid "integer"
+msgstr "интеграл"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:576
+#, python-format
+msgid "invalid literal \"%s\" for integer"
+msgstr "неисправна вредност \"%s\" за цео број"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:587
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:635
+msgid "positive integer"
+msgstr "позитивни интеграл"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:594
+#, python-format
+msgid "the integer value \"%s\" is negative, but should be positive"
+msgstr "вредност броја \"%s\" је негативна, а требала би бити позитивна"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:601
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:649
+msgid "positive, non-zero integer"
+msgstr "позитивни, интеграл различит од нуле"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:608
+#, python-format
+msgid "the integer value \"%s\" is zero, but should be non-zero"
+msgstr "вредност броја \"%s\" је нула, а требала би бити неки број сем нуле"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:618
+msgid "resolution"
+msgstr "резолуција"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:622
+msgid "float"
+msgstr "float"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:630
+#, python-format
+msgid "invalid literal \"%s\" for float"
+msgstr "погрешан литерал \"%s\" за float"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:642
+#, python-format
+msgid "the float value \"%s\" is negative, but should be positive"
+msgstr "врердност float \"%s\" је негативна, требала би бити позитивна"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:656
+#, python-format
+msgid "the float value \"%s\" is zero, but should be non-zero"
+msgstr "врердност float \"%s\" је нула, требала би бити различита од нуле"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:662
+msgid "boolean"
+msgstr "логичка вредност"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:674
+#, python-format
+msgid "invalid literal \"%s\" for boolean"
+msgstr "погрешан литерал \"%s\" за boolean"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:679
+msgid "choice"
+msgstr "избор"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:708
+#, python-format
+msgid "the file extension \"%s\" is invalid"
+msgstr "ознака типа датотеке \"%s\" је погрешна"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:715
+msgid "a filename with a valid extension was expected"
+msgstr "очекивано је име датотеке са исправним типом датотеке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:736
+#, python-format
+msgid "the filename \"%s\" does not exist"
+msgstr "име датотеке \"%s\" не постоји"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:823
+#, python-format
+msgid "\"%s\" can not be found."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:827
+#, python-format
+msgid "Parameter \"%s.*\" is missing"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:831
+#, python-format
+msgid "Maximum one parameter \"%s\" is allowed"
+msgstr "Само један параметар \"%s\" је дозвољен"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:896
+msgid "automatic"
+msgstr "аутоматски"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:910
+msgid "None"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:1014
+msgid "Tag should start with \"Exif_\" or \"Iptc_\""
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/fonts.py:53
+#, python-format
+msgid "Please install \"%s\" first."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:162
+#, python-format
+msgid "Could not open image with %s."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:164
+msgid "Command"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:164
+msgid "Output"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:164
+msgid "Error"
+msgstr "Грешка"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/safe.py:145
+msgid "The following name(s) are invalid: "
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageFileBrowser.py:109
+msgid "&Select"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:42
+msgid "Warning: python-wxversion is not installed.\n"
+msgstr "Упозорење: python-wxversion није инсталиран.\n"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:49
+#, python-format
+msgid ""
+"Error: wxPython %(recommended)s (or at least %(minimal)s) can not be found, "
+"but is required."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:53
+msgid "Please (re)install it."
+msgstr "Потребно (ре)инсталирати."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:58
+#, python-format
+msgid ""
+"This application needs 'python-wxversion' and 'python-wxgtk%(recommended)s' "
+"(or at least 'python-wxgtk%(minimal)s')."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:71
+#, python-format
+msgid ""
+"This application is known to be compatible with\n"
+"wxPython version(s) %(recommended)s (or at least %(minimal)s),\n"
+"but you have %(version)s installed."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:76
+msgid "Please upgrade your wxPython."
+msgstr "Молимо надоградите wxPython."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:77
+msgid "wxPython Version Error"
+msgstr "Погрешна верзија wxPython"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:55
+msgid "Program Version"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:58
+msgid "C&redits"
+msgstr "&Zaslužni"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:59
+msgid "&License"
+msgstr "&Лиценце"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:60
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:126
+msgid "&Close"
+msgstr "&Затвори"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:72
+msgid "About"
+msgstr "О програму"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:136
+msgid "Credits"
+msgstr "Заслуге"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:161
+msgid "Documentation"
+msgstr "Документација"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:162
+msgid "Translation"
+msgstr "Превод"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:163
+msgid "Artwork"
+msgstr "Графика"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:164
+msgid "Libraries"
+msgstr "Библиотеке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:165
+msgid "Sponsors"
+msgstr "Спонзори"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:230
+msgid "License"
+msgstr "Лиценца"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:16
+msgid "Tag"
+msgstr "Ознака"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:17
+msgid "Exif_Photo_UserComment"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:18
+msgid "Value"
+msgstr "Вредност"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:20
+msgid "warning"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:34
+msgid "Add Tag"
+msgstr "Додај Ознаку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/folderFileBrowser.py:143
+msgid "all"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:59
+#, python-format
+msgid "Are you sure you want to delete this tag from \"%s\"?"
+msgstr "Желите ли стварно да обришете ову ознаку са \"%s\"?"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:61
+msgid "Are you sure you want to delete this tag from all images?"
+msgstr "Да  ли стварно желите да обришете ову ознаку са свих слика?"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:118
+msgid "Tag should start with Exif_* or Iptc_*"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:120
+msgid "Tag exists already"
+msgstr "Ознака већ постоји"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:243
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:327
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:519
+msgid "Images"
+msgstr "Слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:244
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:415
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:443
+msgid "All files"
+msgstr "Све датотеке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:445
+msgid "&Copy Value"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:448
+msgid "&Add Tag"
+msgstr "&Додај ознаку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:451
+msgid "&Delete Tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:477
+msgid "Open &Url..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:484
+msgid "&Remove Image"
+msgstr "&Обриши Слику"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:520
+msgid "&Copy Tag"
+msgstr "&Копирај Ознаку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:524
+msgid "&Add Tag to All Images..."
+msgstr "&Додај ознаку свим сликама..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:528
+msgid "&Delete Tag from All Images..."
+msgstr "&Обриши ознаку са свих слика..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:531
+msgid "&Rename Tag for All Images..."
+msgstr "&Промени ознаку за све слике..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:534
+msgid "&Modify Value for All Images..."
+msgstr "Промени &вредност за све слике..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:547
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:558
+#, python-format
+msgid "Unable to add tag <%s>"
+msgstr "Није могуће додати ознаку <%s>"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:584
+msgid "Unable to remove image"
+msgstr "Немогуће уклонити слику"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:590
+msgid "Rename tag for all images to:"
+msgstr "Промени ознаку за све слике у:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:600
+msgid "Change value for all images to:"
+msgstr "Промени вредност за све слике у:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:606
+#, python-format
+msgid "Unable to change tag <%s>"
+msgstr "Није могуће променити ознаку <%s>"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:741
+#, python-format
+msgid "Sorry, %s."
+msgstr "Жао ми  је, %s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:756
+msgid "Sorry, unable to open these images:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:799
+msgid "Choose an image"
+msgstr "Изабери слику"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:808
+msgid "Enter an image url"
+msgstr "Унети url слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:859
+msgid "drag & drop any images here"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:862
+msgid "please install pyexiv2"
+msgstr "молим вас инсталирајте pyexiv2"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:865
+#, python-format
+msgid "no %s tags found"
+msgstr "%s тагови нису нађени"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/vlistTag.py:77
+msgid "&Add"
+msgstr "&Додај"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/inspectorTag.py:59
+msgid "decimal"
+msgstr "децимал"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:55
+msgid "loading"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:285
+msgid "no"
+msgstr "Не"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:285
+msgid "yes"
+msgstr "Да"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:442
+msgid "Selection"
+msgstr "Избор"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:500
+msgid "Fonts"
+msgstr "Писма"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:151
+msgid "Shadow"
+msgstr "Сенка"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:158
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:66
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/offset.py:47
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/watermark.py:58
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:134
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:104
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:139
+msgid "filter"
+msgstr "филтер"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:159
+msgid "Drops a blurred shadow under a photo"
+msgstr "Постави замућену сенку испод слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:166
+msgid "Border"
+msgstr "Ивица"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:168
+msgid "Shadow Blur"
+msgstr "Мутна Сенка"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:169
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:275
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:88
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:153
+msgid "Background Color"
+msgstr "Боја Позадине"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:170
+msgid "Shadow Color"
+msgstr "Боја Сенке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:171
+msgid "Force Background Color"
+msgstr "Форсирај боју позадине"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:63
+msgid "Fit Image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:64
+msgid "Letterbox"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:65
+msgid "Scale Image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:66
+msgid "Scale Model"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:116
+msgid "Wrap Both"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:116
+msgid "Separate"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:118
+msgid "Cover Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:119
+msgid "Page Mapping"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:121
+msgid "Left Page"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:147
+msgid "Box Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:148
+msgid "Box Depth"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:163
+msgid "Lid Rotation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:200
+msgid "Camera"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:201
+msgid "Camera Horizontal Rotation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:203
+msgid "Camera Vertical Rotation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:204
+msgid "Camera Roll"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:205
+msgid "Camera Lens Angle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:207
+msgid "Camera Distance"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:249
+msgid "Show Floor Options"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:250
+msgid "Use Floor"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:251
+msgid "Floor Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:252
+msgid "Floor Reflection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:253
+msgid "Floor Opacity"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:271
+msgid "Transparent Background"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:272
+msgid "Show Background Options"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:273
+msgid "Background"
+msgstr "Позадина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:274
+msgid "Gradient"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:274
+msgid "Transparent"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:276
+msgid "Gradient Top"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:277
+msgid "Gradient Bottom"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:278
+msgid "Auto Crop"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:279
+msgid "Stars"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:280
+msgid "Stars Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:281
+msgid "Mist"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:323
+msgid "Blender"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:327
+msgid "plugin"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:328
+msgid "3D Objects"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:342
+msgid "Sorry, you have the wrong version of Blender installed."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:343
+#, python-format
+msgid "Blender %s is required."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:346
+msgid "Render Width"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:347
+msgid "Render Height"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:348
+msgid "Object"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:349
+msgid "Image Size"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:387
+#, python-format
+msgid "Select Rotation for %s"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:60
+msgid "Effect"
+msgstr "Ефекат"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:68
+msgid "Blur, Sharpen, Emboss, Smooth, ..."
+msgstr "Мрња, Оштрина, Рељеф, Глаткоћа, ..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:71
+msgid "Filter"
+msgstr "Филтер"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:73
+msgid "Repeat"
+msgstr "Понови"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:74
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:57
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:59
+msgid "Amount"
+msgstr "Количина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/offset.py:47
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:77
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:48
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:53
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:104
+msgid "transform"
+msgstr "трансформиши"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/offset.py:48
+msgid "Offset by distance and wrap around"
+msgstr "Померај по дужини и у круг"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:70
+msgid "Canvas"
+msgstr "Платно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:78
+msgid "Crop or expand the canvas without scaling"
+msgstr "Исеци или прошири платно без скалирања"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:81
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:52
+msgid "Canvas Width"
+msgstr "Ширина платна"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:83
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:54
+msgid "Canvas Height"
+msgstr "Висина платна"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:86
+msgid "Align Horizontal"
+msgstr "Поређај по хоризонтали"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:87
+msgid "Align Vertical"
+msgstr "Поређај по вертикали"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:136
+msgid "Color to Alpha"
+msgstr "Боја у алфу"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:143
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:53
+msgid "color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:144
+msgid "Make selected color transparent"
+msgstr "Направи изабрану боју прозирном"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:164
+msgid "Select Color By"
+msgstr "Изабери боју путем"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:166
+msgid "Color Value"
+msgstr "Вредност боје"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/watermark.py:52
+msgid "Watermark"
+msgstr "Водени жиг"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/watermark.py:59
+msgid "Apply with tiling, scaling and opacity"
+msgstr "Примени поплочавање, скалирање и прозирност"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:47
+msgid "Desaturate"
+msgstr "Обезбоји"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:54
+msgid "Fade all colors to gray"
+msgstr "Постепено утопи све боје у сиву"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:49
+msgid "Make the image smaller or bigger"
+msgstr "Направи мању или већу слику"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:57
+msgid "Constrain Proportions"
+msgstr "Ограничи Размеру"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:58
+msgid "Resample Image"
+msgstr "Преузоркуј Слику"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:59
+msgid "Scale Down Only"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:47
+msgid "Transpose"
+msgstr "Промени"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:54
+msgid "Flip or rotate 90 degrees"
+msgstr "Изврни или ротирај за 90 степени"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:127
+msgid "Grid"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:136
+msgid "Make n x m matrix of image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:139
+msgid "Columns"
+msgstr "Колоне"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:140
+msgid "Rows"
+msgstr "Редови"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:141
+msgid "Scale to Keep Size"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:142
+msgid "Column Line Width"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:144
+msgid "Row Line Width"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:146
+msgid "Line Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:147
+msgid "Line Opacity"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:37
+msgid "Both"
+msgstr "Оба"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:39
+msgid "Vertical"
+msgstr "Усправно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:98
+msgid "Mirror"
+msgstr "Одраз"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:105
+msgid "Symmetrical tile texture"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:108
+msgid "Direction"
+msgstr "Правац"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename.py:34
+msgid "Rename"
+msgstr "Промени име"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename.py:38
+msgid "file"
+msgstr "датотека"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename.py:39
+msgid "Rename the original image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:42
+msgid "Cross"
+msgstr "Унакрсно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:43
+msgid "Rounded"
+msgstr "Заобљеност"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:44
+msgid "Square"
+msgstr "Квадратно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:132
+msgid "Round"
+msgstr "Кружно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:140
+msgid "Rounded or crossed corners"
+msgstr "Заобљени или прави углови"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:143
+msgid "Radius"
+msgstr "Полупречник"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:145
+msgid "Same Method for All Corners"
+msgstr "Исти метод за све углове"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:147
+msgid "Top Left Corner"
+msgstr "Горњи леви угао"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:148
+msgid "Top Right Corner"
+msgstr "Горњи десни угао"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:149
+msgid "Bottom Left Corner"
+msgstr "Доњи леви угао"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:151
+msgid "Bottom Right Corner"
+msgstr "Доњи десни угао"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:79
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:90
+msgid "Highlight"
+msgstr "Наглашавање"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:87
+msgid "Apply a transparency highlight"
+msgstr "Примени прозирно наглашавање"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:91
+msgid "Resample Highlight"
+msgstr "Измени наглашавање"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/background.py:72
+msgid "Put color under transparent image"
+msgstr "Стави боју испод прозирне слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/background.py:75
+msgid "Fill"
+msgstr "Попуни"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/convert_mode.py:31
+msgid "Convert Mode"
+msgstr "Режим Претварања"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/convert_mode.py:37
+msgid "Convert the color mode of an image"
+msgstr "Промени режим боја слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/fit.py:44
+msgid "Fit"
+msgstr "Уклопи"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/fit.py:52
+msgid "Downsize and crop image with fixed ratio"
+msgstr "Смањи и исеци слику сразмерно"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/fit.py:62
+msgid "Bleed"
+msgstr "Преклапање"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/autocontrast.py:59
+msgid "Auto Contrast"
+msgstr "Аутоматски контраст"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/autocontrast.py:63
+msgid "Maximize image contrast"
+msgstr "Максимизуј контраст слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/autocontrast.py:66
+msgid "Cutoff"
+msgstr "Граница"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:47
+msgid "Save"
+msgstr "Сачувај"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:53
+msgid "Save and convert to other types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:64
+msgid "Show Type Options"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:65
+msgid "PNG Optimize"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:66
+msgid "JPEG Quality"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:67
+msgid "JPEG Size Maximum"
+msgstr "JPEG Највећа Величина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:69
+msgid "JPEG Size Tolerance"
+msgstr "JPEG Величина одступања"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:71
+msgid "TIFF Compression"
+msgstr "TIFF Компресија"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:73
+msgid "Metadata"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/median.py:49
+msgid "Median"
+msgstr "Медијана"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/median.py:56
+msgid "Copies the median pixel value"
+msgstr "Умножава средњу вредност пиксела"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:31
+msgid "Exif time"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:31
+msgid "File time"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:31
+msgid "Exif and file"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:50
+msgid "Time Shift"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:55
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:35
+msgid "metadata"
+msgstr "метаподаци"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:56
+msgid "Shift time values of tags"
+msgstr "Промени временске вредности ознака"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:61
+msgid "Change"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:62
+msgid "Use exif datetime"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:63
+msgid "Seconds"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:64
+msgid "Minutes"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:65
+msgid "Hours"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:66
+msgid "Days"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:67
+msgid "Months"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:68
+msgid "Years"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:86
+msgid "Sorry, time shift can only handle dates before 2038-1-19"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:68
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:79
+msgid "Mask"
+msgstr "Маска"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:76
+msgid "Apply a transparency mask"
+msgstr "Примени провидност маске"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:80
+msgid "Resample Mask"
+msgstr "Преузоркуј Маску"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:69
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:79
+msgid "Text"
+msgstr "Текст"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:76
+msgid "Write text at a given position"
+msgstr "Упиши текст на задату позицију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:81
+msgid "Font"
+msgstr "Фонт"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:82
+msgid "Size"
+msgstr "Величина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:55
+msgid "Colorize"
+msgstr "Обојеност"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:62
+msgid "Colorize grayscale image"
+msgstr "Обоји сиву слику"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:65
+msgid "Black"
+msgstr "Црна"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:66
+msgid "White"
+msgstr "Бела"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/copy.py:35
+msgid "Copy"
+msgstr "Умножи"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/copy.py:40
+msgid "Copy the original image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/posterize.py:54
+msgid "Posterize"
+msgstr "Плакат"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/posterize.py:61
+msgid "Reduce the number of bits of color channel"
+msgstr "Смањи број бита канала са бојом"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/posterize.py:64
+msgid "Bits"
+msgstr "Битова"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:31
+msgid "Write Tag"
+msgstr "Упиши Ознаку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:36
+msgid "Write new value to a tag"
+msgstr "Упиши нову вредност у ознаку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:39
+msgid "Tag (Exif, Iptc)"
+msgstr "Ознака (Exif, Iptc)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:36
+msgid "Equal for all sides"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:36
+msgid "Different for each side"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:101
+msgid "Draw border inside or outside"
+msgstr "Исцртај ивице споља или изнутра"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:105
+msgid "Border Width"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rank.py:53
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rank.py:64
+msgid "Rank"
+msgstr "Ранг"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rank.py:60
+msgid "Copies the rank'th pixel value"
+msgstr "Умножава рангирану вредност пиксела"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/solarize.py:52
+msgid "Solarize"
+msgstr "Осветљавање"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/solarize.py:59
+msgid "Invert all pixel values above threshold"
+msgstr "Изокрени ведности пиксела изнад прага"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/solarize.py:62
+msgid "Treshold"
+msgstr "Праг"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/equalize.py:52
+msgid "Equalize"
+msgstr "Изједначи"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/equalize.py:59
+msgid "Equalize the image histogram"
+msgstr "Изједначи хистограм слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:35
+msgid "Automatic (use exif orientation)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:37
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/crop.py:56
+msgid "Crop"
+msgstr "Исеци"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:38
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:53
+msgid "Rotate"
+msgstr "Окренути"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:39
+msgid "Flip"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:40
+msgid "Grayscale"
+msgstr "Сиве нијансе"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:41
+msgid "Regenerate thumbnail"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:43
+msgid "Transverse"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:50
+#, python-format
+msgid "Lossless JPEG transformation does not work on a %s image:"
+msgstr "JPEG преображај без губитака не ради на %s слици"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:77
+msgid "Transformation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:79
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:63
+msgid "Angle"
+msgstr "Угао"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:83
+msgid "Preserve Timestamp"
+msgstr "Сачувај временску ознаку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:84
+msgid "Show Advanced Options"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:85
+msgid "Update JPEG"
+msgstr "Ажурирај JPEG"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:86
+msgid "Update Exif Thumbnail"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:87
+msgid "Update Orientation Tag"
+msgstr "Ажурирај Орјентациону Ознаку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:147
+msgid "Comments"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:154
+msgid "Transformation "
+msgstr "Преображај "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:158
+msgid "Angle "
+msgstr "Угао "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:160
+msgid "Direction "
+msgstr "Правац "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:234
+msgid "Utility"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:287
+msgid "Lossless JPEG"
+msgstr "JPEG без губитака квалитета"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:292
+msgid "Rotate, flip, grayscale and crop"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/crop.py:63
+msgid "Crop the image"
+msgstr "Сеци слику"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:51
+msgid "Tamogen"
+msgstr "Тамоген"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:58
+msgid "Tone altering mosaic generator"
+msgstr "Мозаични генератор"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:61
+msgid "Fill Type"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:63
+msgid "Fill Image"
+msgstr "Испуни Слику"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:64
+msgid "Fill Folder"
+msgstr "Испуни Директпријум"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:60
+msgid "Rotate with random angle"
+msgstr "Окрени насумично"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:65
+msgid "Expand"
+msgstr "Рашири"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:68
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:135
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:125
+msgid "Background Opacity"
+msgstr "Непрозирност Позадине"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/invert.py:48
+msgid "Invert"
+msgstr "Изврни"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/invert.py:55
+msgid "Invert the colors of an image"
+msgstr "Изврни боје"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:36
+msgid "Geotag"
+msgstr "Географска ознака"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:42
+msgid "Add gps data"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:46
+msgid "GPS Data (gpx)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:47
+msgid "GPS Report (csv)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:48
+msgid "Time Shift (seconds)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:115
+msgid "Reflection"
+msgstr "Рефлексија"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:123
+msgid "Drops a reflection"
+msgstr "Поставља рефлексију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:126
+msgid "Depth"
+msgstr "Дубина"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:128
+msgid "Gap"
+msgstr "Размак"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:131
+msgid "Blur Reflection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:132
+msgid "Scale Reflection"
+msgstr "Скалирај Рефлексију"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:133
+msgid "Scale Method"
+msgstr "Метод Скалирања"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/common.py:49
+msgid "Common"
+msgstr "Опште"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/common.py:56
+msgid "Copies the most common pixel value"
+msgstr "Умножава најопштију вредност пиксела"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/minimum.py:51
+msgid "Minimum"
+msgstr "Минимум"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/minimum.py:58
+msgid "Copies the minimum pixel value"
+msgstr "Умножава најмању вредност пиксела"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:89
+msgid "Contour"
+msgstr "Контура"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:96
+msgid "Draw a contour around image edges"
+msgstr "Опцртавање ивица слике контуром"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:101
+msgid "Contour Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:102
+msgid "Fill Color"
+msgstr "Испуни бојом"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:104
+msgid "Include image"
+msgstr "Користи Слику"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:51
+msgid "Top Stretched"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:53
+msgid "Bottom Stretched"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:55
+msgid "Left Stretched"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:57
+msgid "Right Stretched"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:58
+msgid "Corner Top Left"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:59
+msgid "Corner Top Right"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:60
+msgid "Corner Bottom Left"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:61
+msgid "Corner Bottom Right"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:67
+msgid "User"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:104
+msgid "Perspective"
+msgstr "Перспектива"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:111
+msgid "Shear 2d or 3d"
+msgstr "Искриви у 2d или 3d"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:114
+msgid "Projection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:116
+msgid "Left Shear Angle"
+msgstr "Леви Угао Искриви"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:117
+msgid "Top Shear Angle"
+msgstr "Горњи Угао Искриви"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:118
+msgid "Bottom Shear Factor"
+msgstr "Доњи Фактор Закривљења"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:119
+msgid "Right Shear Factor"
+msgstr "Десни Фактор Закривљења"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contrast.py:65
+msgid "Contrast"
+msgstr "Контраст"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contrast.py:72
+msgid "Adjust from grey to black & white"
+msgstr "Подешавање од сиве ка црно-белој"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save_metadata.py:34
+msgid "Save Tags"
+msgstr "Сачувај ознаке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save_metadata.py:39
+msgid "Save only metadata (lossless)"
+msgstr "Сачувај само метаподатке (без губитака квалитета)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:83
+msgid "Warm Up"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:90
+msgid "Colorize midtones of an image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:93
+msgid "Midtone"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:94
+msgid "Brighten"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/delete_tags.py:30
+msgid "One"
+msgstr "Један"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/delete_tags.py:34
+msgid "Delete Tags"
+msgstr "Обриши ознаке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/delete_tags.py:39
+msgid "Delete Exif or Iptc tags"
+msgstr "Обриши Exif или Iptc ознаке"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/maximum.py:49
+msgid "Maximum"
+msgstr "Максимум"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/maximum.py:56
+msgid "Copies the maximum pixel value"
+msgstr "Умножи максималну вредност пиксела"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/saturation.py:63
+msgid "Saturation"
+msgstr "Засићеност"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/saturation.py:70
+msgid "Adjust saturation from grayscale to high"
+msgstr "Подеси засићеност од слабијих ка вишим"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:32
+msgid "Rename Tag"
+msgstr "Преименуј Ознаку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:37
+msgid "Rename a tag"
+msgstr "Преименуј ознаку"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:40
+msgid "From (Exif, Iptc)"
+msgstr "Из (Exif, Iptc)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:42
+msgid "To (Exif, Iptc)"
+msgstr "У (Exif, Iptc)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/brightness.py:67
+msgid "Brightness"
+msgstr "Осветљеност"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/brightness.py:74
+msgid "Adjust brightness from black to white"
+msgstr "Подеси осветљеност од тамне ка светлој"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:28
+msgid "3D Edge"
+msgstr "3Д Ивица"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:36
+msgid "Blur"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:40
+msgid "Bullet"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:48
+msgid "Charcoal"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:51
+msgid "Motion Blur"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:55
+msgid "Pencil Sketch"
+msgstr "Скица оловком"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:59
+msgid "Paint"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:62
+msgid "Polaroid"
+msgstr "Полароид"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:74
+msgid "Sharpen"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:78
+msgid "Sigmoidal Contrast"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:83
+msgid "Unsharp"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:87
+msgid "Wave"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:99
+msgid "Imagemagick"
+msgstr "Imagemagick"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:105
+msgid "Blur, Polaroid, Shadow, Unsharp..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:118
+msgid "Border Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:120
+msgid "Caption"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:121
+msgid "Charcoal Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:122
+msgid "Contrast Factor"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:123
+msgid "Contrast Treshold"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:124
+msgid "Blur Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:125
+msgid "Blur Sigma"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:126
+msgid "Blur Angle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:127
+msgid "Paint Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:128
+msgid "Sharpen Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:129
+msgid "Sharpen Sigma"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:130
+msgid "Sketch Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:131
+msgid "Sketch Sigma"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:132
+msgid "Sketch Angle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:133
+msgid "Unsharp Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:134
+msgid "Unsharp Sigma"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:135
+msgid "Wave Height"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:136
+msgid "Wave Length"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/sketch.py:56
+msgid "Sketch"
+msgstr "Скица"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/sketch.py:64
+msgid "Transform to a grayscale pencil drawing"
+msgstr "Преобрази у цртеж оловком сивих тонова"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/sketch.py:67
+msgid "Details Degree"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:44
+msgid "Geek"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:49
+msgid "Execute external command"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:71
+msgid "Verify Program"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:72
+msgid "Verify Input"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:73
+msgid "Verify Output"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:74
+msgid "Allow as last action"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:30
+msgid ""
+"These extensions have been succesfully installed:\n"
+"\n"
+msgstr ""
+"Ови додатци су успешно инсталирани:\n"
+"\n"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:32
+msgid "Phatch did not succeed to install the requested feature."
+msgstr "Феч није успео да инсталира жељени додатак."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:34
+msgid "Phatch tried to uninstall itself from the Windows Explorer."
+msgstr "Phatch је покушао да се деинсталира из Windows Explorer-а."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:52
+msgid "You need to install the Python Win32 Extensions for this feature."
+msgstr ""
+"За ову могућност програма је потребно инсталирати Python Win32 Extensions."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:148
+msgid "Action list"
+msgstr "Акције"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:152
+msgid "No action list provided."
+msgstr "Није обезбеђена акциона листа."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:157
+msgid "Image paths"
+msgstr "Путања до слике"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:166
+msgid "Do you want to continue?"
+msgstr "Желите ли да наставите?"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:178
+msgid "What do you want to do now?"
+msgstr "Шта желите да урадите?"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:52
+#, python-format
+msgid "If you restart %s, the action will appear in the context menu."
+msgstr ""
+"Уколико поново покренете %s, акција ће се појавити у контекстуалном менију."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:56
+#, python-format
+msgid "Phatch could not install the action in %s:"
+msgstr "Феч није могао инсталирати акцију у %s:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:157
+msgid "This requires also that the python-nautilus package is installed."
+msgstr "Ово захтева и да python-nautilus пакет буде инсталиран."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:158
+msgid "Batch process images with Phatch"
+msgstr "Пакетна обрада слика са Фечом"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:170
+#, python-format
+msgid "Phatch with %s"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:182
+msgid "Process with recent Phatch action list"
+msgstr "Обради са прошлом Фечовом акционом листом"
+
+#~ msgid "Colour"
+#~ msgstr "У боји"
+
+#~ msgid "Filename"
+#~ msgstr "Име датотеке"
+
+#~ msgid "colours"
+#~ msgstr "боје"
+
+#~ msgid "Save metadata (requires exif & iptc plugin)"
+#~ msgstr "Сачувај метаподатке (захтева exif & iptc додатак)"
+
+#~ msgid "Crop or add border to all sides"
+#~ msgstr "Исеци или додај ивицу"
+
+#~ msgid "border"
+#~ msgstr "ивица"
+
+#~ msgid "Height"
+#~ msgstr "Висина"
+
+#~ msgid "Width"
+#~ msgstr "Ширина"
+
+#~ msgid "Force Background Colour"
+#~ msgstr "Присили Боју Позадине"
+
+#~ msgid "Shadow Colour"
+#~ msgstr "Боја Сенке"
+
+#~ msgid "Background Colour"
+#~ msgstr "Боја Позадине"
+
+#~ msgid "Reduce the number of bits of colour channel"
+#~ msgstr "Смањи број бита у каналу боја"
+
+#~ msgid "Fade all colours to gray"
+#~ msgstr "Промени све боје у сиву"
+
+#~ msgid "Put colour under transparent image"
+#~ msgstr "Постави боју испод провидне слике"
+
+#~ msgid "Copy the image file"
+#~ msgstr "Умножи слику"
+
+#~ msgid "Scale down only"
+#~ msgstr "Скалирај наниже"
+
+#~ msgid "Rename the image file"
+#~ msgstr "Промени име слике"
+
+#~ msgid "Resample Shadow"
+#~ msgstr "Преузоркуј Сенку"
+
+#~ msgid "Save an image"
+#~ msgstr "Сачувај слику"
+
+#~ msgid "watermark"
+#~ msgstr "водени жиг"
+
+#~ msgid "By offset"
+#~ msgstr "По померају"
+
+#~ msgid "february"
+#~ msgstr "фебруар"
+
+#~ msgid "january"
+#~ msgstr "јануар"
+
+#~ msgid "april"
+#~ msgstr "април"
+
+#~ msgid "march"
+#~ msgstr "март"
+
+#~ msgid "september"
+#~ msgstr "септембар"
+
+#~ msgid "may"
+#~ msgstr "мај"
+
+#~ msgid "june"
+#~ msgstr "јун"
+
+#~ msgid "july"
+#~ msgstr "јул"
+
+#~ msgid "august"
+#~ msgstr "август"
+
+#~ msgid "saturday"
+#~ msgstr "субота"
+
+#~ msgid "friday"
+#~ msgstr "петак"
+
+#~ msgid "thursday"
+#~ msgstr "четвртак"
+
+#~ msgid "wednesday"
+#~ msgstr "среда"
+
+#~ msgid "sunday"
+#~ msgstr "недеља"
+
+#~ msgid "monday"
+#~ msgstr "понедељак"
+
+#~ msgid "tuesday"
+#~ msgstr "уторак"
+
+#~ msgid "october"
+#~ msgstr "октобар"
+
+#~ msgid "november"
+#~ msgstr "новембар"
+
+#~ msgid "december"
+#~ msgstr "децембар"
+
+#~ msgid "new"
+#~ msgstr "ново"
+
+#~ msgid "doesn't exist"
+#~ msgstr "не постоји"
+
+#~ msgid "invalid syntax"
+#~ msgstr "погрешна синтакса"
+
+#~ msgid "&File"
+#~ msgstr "&Датотека"
+
+#~ msgid "&Export..."
+#~ msgstr "&Извези..."
+
+#~ msgid "Do not create missing folders"
+#~ msgstr "Не креирај фасцикле који недостају"
+
+#~ msgid "the variable"
+#~ msgstr "променљива"
+
+#~ msgid "invalid literal"
+#~ msgstr "неисправна ниска"
+
+#~ msgid "is negative, but should be positive"
+#~ msgstr "је негативно, морао би бити позитиван"
+
+#~ msgid "the file extension"
+#~ msgstr "тип датотеке"
+
+#~ msgid "a filename with a valid extension was expected."
+#~ msgstr "очекивана је датотека са исправним типом."
+
+#~ msgid "does not exist."
+#~ msgstr "не постоји"
+
+#~ msgid "is invalid."
+#~ msgstr "је неисправан."
+
+#~ msgid "Save metadata"
+#~ msgstr "Сачувај метаподатке"
+
+#~ msgid "All selected image types"
+#~ msgstr "Сви изабрани типови слика"
+
+#~ msgid "All default image types"
+#~ msgstr "Сви подразумевани типови слика"
+
+#~ msgid "&Recent"
+#~ msgstr "&Прошли"
+
+#~ msgid "See Tools>Show Log for more details."
+#~ msgstr "Види Алати>Прикажи Дневник за више информација."
+
+#~ msgid "as Phatch will generate the user interface automatically."
+#~ msgstr "пошто Феч аутоматски генерише кориснички интерфејс."
+
+#~ msgid "PHoto bATCH Processor & Renamer"
+#~ msgstr "PHoto bATCH Processor & Renamer"
+
+#~ msgid "please email"
+#~ msgstr "пошаљите е-пошту"
+
+#~ msgid "Only an image file is allowed."
+#~ msgstr "Само су слике дозвољене"
+
+#~ msgid "drag & drop any image here"
+#~ msgstr "превуци & пусти било коју слику овде"
+
+#~ msgid "Create missing folders"
+#~ msgstr "Креирајте директоријуме који недостају"

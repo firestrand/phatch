@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>treeEdit &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="lib.pyWx.html" />
+    <link rel="next" title="vlist" href="lib.pyWx.vlist.html" />
+    <link rel="prev" title="treeDragDrop" href="lib.pyWx.treeDragDrop.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.vlist.html" title="vlist"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.treeDragDrop.html" title="treeDragDrop"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.pyWx.treeEdit">
+<h1>treeEdit<a class="headerlink" href="#module-lib.pyWx.treeEdit" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lib.pyWx.treeEdit.TreeMixin">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.treeEdit.</tt><tt class="descname">TreeMixin</tt><big>(</big><em>form_factory={}</em>, <em>CtrlMixin=</em><span class="optional">[</span><span class="optional">]</span>, <em>icon_size=(28</em>, <em>28)</em>, <em>show_error=&lt;function _do_nothing at 0xeecd320&gt;</em>, <em>set_dirty=&lt;function _do_nothing at 0xeecd320&gt;</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.treeDragDrop.Mixin" class="reference" href="lib.pyWx.treeDragDrop.html#lib.pyWx.treeDragDrop.Mixin"><tt class="xref docutils literal"><span class="pre">lib.pyWx.treeDragDrop.Mixin</span></tt></a></p>
+<ul class="simple">
+<li>form is like an action</li>
+</ul>
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.CreateImageList">
+<tt class="descname">CreateImageList</tt><big>(</big><em>icon_size</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.CreateImageList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.append_field">
+<tt class="descname">append_field</tt><big>(</big><em>parent</em>, <em>label</em>, <em>field</em>, <em>method=None</em>, <em>item=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.append_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.append_form">
+<tt class="descname">append_form</tt><big>(</big><em>form</em>, <em>item=-1</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.append_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.append_form_by_label">
+<tt class="descname">append_form_by_label</tt><big>(</big><em>item</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.append_form_by_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.append_form_by_label_to_last">
+<tt class="descname">append_form_by_label_to_last</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.append_form_by_label_to_last" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.append_form_by_label_to_selected">
+<tt class="descname">append_form_by_label_to_selected</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.append_form_by_label_to_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.append_forms">
+<tt class="descname">append_forms</tt><big>(</big><em>forms</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.append_forms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.close_popup">
+<tt class="descname">close_popup</tt><big>(</big><em>event=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.close_popup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.collapse_forms">
+<tt class="descname">collapse_forms</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.collapse_forms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.create_popup">
+<tt class="descname">create_popup</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.create_popup" title="Permalink to this definition">¶</a></dt>
+<dd>Connect formField.field to popup.Ctrl (VIP!)</dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.create_popup_selected">
+<tt class="descname">create_popup_selected</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.create_popup_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.delete_all_forms">
+<tt class="descname">delete_all_forms</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.delete_all_forms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.enable_collapse_automatic">
+<tt class="descname">enable_collapse_automatic</tt><big>(</big><em>state</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.enable_collapse_automatic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.enable_form">
+<tt class="descname">enable_form</tt><big>(</big><em>item</em>, <em>bool</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.enable_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.enable_form_item">
+<tt class="descname">enable_form_item</tt><big>(</big><em>item</em>, <em>bool</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.enable_form_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.enable_selected_form">
+<tt class="descname">enable_selected_form</tt><big>(</big><em>bool</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.enable_selected_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.events">
+<tt class="descname">events</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.events" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.expand_forms">
+<tt class="descname">expand_forms</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.expand_forms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.export_form">
+<tt class="descname">export_form</tt><big>(</big><em>item</em>, <em>label=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.export_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.export_forms">
+<tt class="descname">export_forms</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.export_forms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.get_form">
+<tt class="descname">get_form</tt><big>(</big><em>item</em>, <em>label=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.get_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.get_form_field">
+<tt class="descname">get_form_field</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.get_form_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.get_form_fields_visible">
+<tt class="descname">get_form_fields_visible</tt><big>(</big><em>item</em>, <em>form</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.get_form_fields_visible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the visible fields and their values. If a field
+is dirty, its value will be overwritten with the newly given
+value.</p>
+<p>Very important: this handles the dirty fields.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.get_form_item">
+<tt class="descname">get_form_item</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.get_form_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.get_form_selected">
+<tt class="descname">get_form_selected</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.get_form_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.get_last_form">
+<tt class="descname">get_last_form</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.get_last_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.get_popup_pos_offset_size">
+<tt class="descname">get_popup_pos_offset_size</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.get_popup_pos_offset_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.has_forms">
+<tt class="descname">has_forms</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.has_forms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.import_form">
+<tt class="descname">import_form</tt><big>(</big><em>item</em>, <em>form</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.import_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.is_field">
+<tt class="descname">is_field</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.is_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.is_field_selected">
+<tt class="descname">is_field_selected</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.is_field_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.is_form">
+<tt class="descname">is_form</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.is_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.is_form_enabled">
+<tt class="descname">is_form_enabled</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.is_form_enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.is_form_selected">
+<tt class="descname">is_form_selected</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.is_form_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.move_form_selected_down">
+<tt class="descname">move_form_selected_down</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.move_form_selected_down" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.move_form_selected_up">
+<tt class="descname">move_form_selected_up</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.move_form_selected_up" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.on_item_activated">
+<tt class="descname">on_item_activated</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.on_item_activated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.on_item_expanding">
+<tt class="descname">on_item_expanding</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.on_item_expanding" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.on_left_down">
+<tt class="descname">on_left_down</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.on_left_down" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.on_sel_changed">
+<tt class="descname">on_sel_changed</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.on_sel_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.on_sel_changing">
+<tt class="descname">on_sel_changing</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.on_sel_changing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.on_select">
+<tt class="descname">on_select</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.on_select" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.remove_selected_form">
+<tt class="descname">remove_selected_form</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.remove_selected_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.resize_popup">
+<tt class="descname">resize_popup</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.resize_popup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.set_form_field_value">
+<tt class="descname">set_form_field_value</tt><big>(</big><em>item</em>, <em>value_as_string</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.set_form_field_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.set_form_field_value_selected">
+<tt class="descname">set_form_field_value_selected</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.set_form_field_value_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.set_item_image">
+<tt class="descname">set_item_image</tt><big>(</big><em>x</em>, <em>image</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.set_item_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.toggle_form_item">
+<tt class="descname">toggle_form_item</tt><big>(</big><em>item</em>, <em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.toggle_form_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.tree_label">
+<tt class="descname">tree_label</tt><big>(</big><em>name</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.tree_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.treeEdit.TreeMixin.update_form_relevance">
+<tt class="descname">update_form_relevance</tt><big>(</big><em>field_item</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.TreeMixin.update_form_relevance" title="Permalink to this definition">¶</a></dt>
+<dd>Conditional form</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.pyWx.treeEdit.example">
+<tt class="descclassname">lib.pyWx.treeEdit.</tt><tt class="descname">example</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.example" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.pyWx.treeEdit.get_index">
+<tt class="descclassname">lib.pyWx.treeEdit.</tt><tt class="descname">get_index</tt><big>(</big><em>li</em>, <em>index</em>, <em>n=3</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.get_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.pyWx.treeEdit.rescale">
+<tt class="descclassname">lib.pyWx.treeEdit.</tt><tt class="descname">rescale</tt><big>(</big><em>image</em>, <em>x</em>, <em>y</em>, <em>filter=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.treeEdit.rescale" title="Permalink to this definition">¶</a></dt>
+<dd>For compatibility with wxPython 2.6</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.pyWx.treeDragDrop.html"
+                                  title="previous chapter">treeDragDrop</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.pyWx.vlist.html"
+                                  title="next chapter">vlist</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.vlist.html" title="vlist"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.treeDragDrop.html" title="treeDragDrop"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

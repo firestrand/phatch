@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>inspector &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="lib.pyWx.html" />
+    <link rel="next" title="inspectorTag" href="lib.pyWx.inspectorTag.html" />
+    <link rel="prev" title="imageInspector" href="lib.pyWx.imageInspector.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.inspectorTag.html" title="inspectorTag"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.imageInspector.html" title="imageInspector"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.pyWx.inspector">
+<h1>inspector<a class="headerlink" href="#module-lib.pyWx.inspector" title="Permalink to this headline">¶</a></h1>
+<p>This unites Table and Grid in one with the following presumptions:
+- the grid only grows in rows</p>
+<dl class="class">
+<dt id="lib.pyWx.inspector.Grid">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.inspector.</tt><tt class="descname">Grid</tt><big>(</big><em>parent</em>, <em>data</em>, <em>*arg</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx.grid.Grid</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.AttrIncRef">
+<tt class="descname">AttrIncRef</tt><big>(</big><em>attr</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.AttrIncRef" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.GetTableAttr">
+<tt class="descname">GetTableAttr</tt><big>(</big><em>row</em>, <em>col</em>, <em>kind</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.GetTableAttr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.GetTableValue">
+<tt class="descname">GetTableValue</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.GetTableValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.IsTableEmptyCell">
+<tt class="descname">IsTableEmptyCell</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.IsTableEmptyCell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.OnRightDown">
+<tt class="descname">OnRightDown</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.OnRightDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.RefreshAll">
+<tt class="descname">RefreshAll</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.RefreshAll" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.SetAttrReadOnly">
+<tt class="descname">SetAttrReadOnly</tt><big>(</big><em>attr</em>, <em>bool</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.SetAttrReadOnly" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.SetRowColours">
+<tt class="descname">SetRowColours</tt><big>(</big><em>odd=wx.Colour(250</em>, <em>250</em>, <em>250</em>, <em>255)</em>, <em>even=wx.Colour(254</em>, <em>255</em>, <em>255</em>, <em>255)</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.SetRowColours" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.SetTableValue">
+<tt class="descname">SetTableValue</tt><big>(</big><em>row</em>, <em>col</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.SetTableValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.inspector.Grid.Table">
+<em class="property">
+class </em><tt class="descname">Table</tt><big>(</big><em>grid</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx.grid.PyGridTableBase</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.Table.DeleteRows">
+<tt class="descname">DeleteRows</tt><big>(</big><em>pos=0</em>, <em>numRows=1</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.Table.DeleteRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.Table.GetAttr">
+<tt class="descname">GetAttr</tt><big>(</big><em>row</em>, <em>col</em>, <em>kind</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.Table.GetAttr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.Table.GetGrid">
+<tt class="descname">GetGrid</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.Table.GetGrid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.Table.GetNumberCols">
+<tt class="descname">GetNumberCols</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.Table.GetNumberCols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.Table.GetNumberRows">
+<tt class="descname">GetNumberRows</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.Table.GetNumberRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.Table.GetValue">
+<tt class="descname">GetValue</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.Table.GetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.Table.IsEmptyCell">
+<tt class="descname">IsEmptyCell</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.Table.IsEmptyCell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.Table.SetValue">
+<tt class="descname">SetValue</tt><big>(</big><em>row</em>, <em>col</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.Table.SetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.UpdateNumberRows">
+<tt class="descclassname">Grid.</tt><tt class="descname">UpdateNumberRows</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.UpdateNumberRows" title="Permalink to this definition">¶</a></dt>
+<dd>Only consider adding or removing rows.</dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Grid.UpdateValues">
+<tt class="descclassname">Grid.</tt><tt class="descname">UpdateValues</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Grid.UpdateValues" title="Permalink to this definition">¶</a></dt>
+<dd>Send an event to the grid table to update all displayed values</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.inspector.Table">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.inspector.</tt><tt class="descname">Table</tt><big>(</big><em>grid</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx.grid.PyGridTableBase</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.inspector.Table.DeleteRows">
+<tt class="descname">DeleteRows</tt><big>(</big><em>pos=0</em>, <em>numRows=1</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Table.DeleteRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Table.GetAttr">
+<tt class="descname">GetAttr</tt><big>(</big><em>row</em>, <em>col</em>, <em>kind</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Table.GetAttr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Table.GetGrid">
+<tt class="descname">GetGrid</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Table.GetGrid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Table.GetNumberCols">
+<tt class="descname">GetNumberCols</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Table.GetNumberCols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Table.GetNumberRows">
+<tt class="descname">GetNumberRows</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Table.GetNumberRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Table.GetValue">
+<tt class="descname">GetValue</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Table.GetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Table.IsEmptyCell">
+<tt class="descname">IsEmptyCell</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Table.IsEmptyCell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspector.Table.SetValue">
+<tt class="descname">SetValue</tt><big>(</big><em>row</em>, <em>col</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.Table.SetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.inspector.TestFrame">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.inspector.</tt><tt class="descname">TestFrame</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspector.TestFrame" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">wx._windows.Frame</span></tt></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.pyWx.imageInspector.html"
+                                  title="previous chapter">imageInspector</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.pyWx.inspectorTag.html"
+                                  title="next chapter">inspectorTag</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.inspectorTag.html" title="inspectorTag"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.imageInspector.html" title="imageInspector"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

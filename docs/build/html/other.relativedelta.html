@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>relativedelta &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="other" href="other.html" />
+    <link rel="next" title="surd" href="other.surd.html" />
+    <link rel="prev" title="toasterbox" href="other.pyWx.toasterbox.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="other.surd.html" title="surd"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.toasterbox.html" title="toasterbox"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" accesskey="U">other</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-other.relativedelta">
+<h1>relativedelta<a class="headerlink" href="#module-other.relativedelta" title="Permalink to this headline">¶</a></h1>
+<p>Copyright (c) 2003-2007  Gustavo Niemeyer &lt;<a class="reference" href="mailto:gustavo&#37;&#52;&#48;niemeyer&#46;net">gustavo<span>&#64;</span>niemeyer<span>&#46;</span>net</a>&gt;</p>
+<p>This module offers extensions to the standard python 2.3+
+datetime module.</p>
+<dl class="class">
+<dt id="other.relativedelta.relativedelta">
+<em class="property">
+class </em><tt class="descclassname">other.relativedelta.</tt><tt class="descname">relativedelta</tt><big>(</big><em>dt1=None</em>, <em>dt2=None</em>, <em>years=0</em>, <em>months=0</em>, <em>days=0</em>, <em>leapdays=0</em>, <em>weeks=0</em>, <em>hours=0</em>, <em>minutes=0</em>, <em>seconds=0</em>, <em>microseconds=0</em>, <em>year=None</em>, <em>month=None</em>, <em>day=None</em>, <em>weekday=None</em>, <em>yearday=None</em>, <em>nlyearday=None</em>, <em>hour=None</em>, <em>minute=None</em>, <em>second=None</em>, <em>microsecond=None</em><big>)</big><a class="headerlink" href="#other.relativedelta.relativedelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>The relativedelta type is based on the specification of the excelent
+work done by M.-A. Lemburg in his mx.DateTime extension. However,
+notice that this type does <em>NOT</em> implement the same algorithm as
+his work. Do <em>NOT</em> expect it to behave like mx.DateTime&#8217;s counterpart.</p>
+<p>There&#8217;s two different ways to build a relativedelta instance. The
+first one is passing it two date/datetime classes:</p>
+<blockquote>
+relativedelta(datetime1, datetime2)</blockquote>
+<p>And the other way is to use the following keyword arguments:</p>
+<blockquote>
+<dl class="docutils">
+<dt>year, month, day, hour, minute, second, microsecond:</dt>
+<dd>Absolute information.</dd>
+<dt>years, months, weeks, days, hours, minutes, seconds, microseconds:</dt>
+<dd>Relative information, may be negative.</dd>
+<dt>weekday:</dt>
+<dd>One of the weekday instances (MO, TU, etc). These instances may
+receive a parameter N, specifying the Nth weekday, which could
+be positive or negative (like MO(+1) or MO(-2). Not specifying
+it is the same as specifying +1. You can also use an integer,
+where 0=MO.</dd>
+<dt>leapdays:</dt>
+<dd>Will add given days to the date found, if year is a leap
+year, and the date found is post 28 of february.</dd>
+<dt>yearday, nlyearday:</dt>
+<dd>Set the yearday or the non-leap year day (jump leap days).
+These are converted to day/month/leapdays information.</dd>
+</dl>
+</blockquote>
+<p>Here is the behavior of operations with relativedelta:</p>
+<ol class="arabic simple">
+<li>Calculate the absolute year, using the &#8216;year&#8217; argument, or the
+original datetime year, if the argument is not present.</li>
+<li>Add the relative &#8216;years&#8217; argument to the absolute year.</li>
+<li>Do steps 1 and 2 for month/months.</li>
+<li>Calculate the absolute day, using the &#8216;day&#8217; argument, or the
+original datetime day, if the argument is not present. Then,
+subtract from the day until it fits in the year and month
+found after their operations.</li>
+<li>Add the relative &#8216;days&#8217; argument to the absolute day. Notice
+that the &#8216;weeks&#8217; argument is multiplied by 7 and added to
+&#8216;days&#8217;.</li>
+<li>Do steps 1 and 2 for hour/hours, minute/minutes, second/seconds,
+microsecond/microseconds.</li>
+<li>If the &#8216;weekday&#8217; argument is present, calculate the weekday,
+with the given (wday, nth) tuple. wday is the index of the
+weekday (0-6, 0=Mon), and nth is the number of weeks to add
+forward or backward, depending on its signal. Notice that if
+the calculated date is already Monday, for example, using
+(0, 1) or (0, -1) won&#8217;t change the day.</li>
+</ol>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="other.pyWx.toasterbox.html"
+                                  title="previous chapter">toasterbox</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="other.surd.html"
+                                  title="next chapter">surd</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="other.surd.html" title="surd"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.toasterbox.html" title="toasterbox"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" >other</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

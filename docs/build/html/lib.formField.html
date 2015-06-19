@@ -1,0 +1,1363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>formField &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="gettextFix" href="lib.gettextFix.html" />
+    <link rel="prev" title="fonts" href="lib.fonts.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.gettextFix.html" title="gettextFix"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.fonts.html" title="fonts"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.formField">
+<h1>formField<a class="headerlink" href="#module-lib.formField" title="Permalink to this headline">¶</a></h1>
+<p>Store internally as a string.
+Provide validation routines.</p>
+<dl class="class">
+<dt id="lib.formField.AlignHorizontalField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">AlignHorizontalField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.AlignHorizontalField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.AlignVerticalField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">AlignVerticalField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.AlignVerticalField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.BooleanField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">BooleanField</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.BooleanField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.Field" class="reference" href="#lib.formField.Field"><tt class="xref docutils literal"><span class="pre">lib.formField.Field</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.BooleanField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.BooleanField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.BooleanField.to_string">
+<tt class="descname">to_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.BooleanField.to_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.CharField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">CharField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.CharField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.Field" class="reference" href="#lib.formField.Field"><tt class="xref docutils literal"><span class="pre">lib.formField.Field</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ChoiceField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ChoiceField</tt><big>(</big><em>value</em>, <em>choices</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.ChoiceField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.ChoiceField.set_choices">
+<tt class="descname">set_choices</tt><big>(</big><em>choices</em><big>)</big><a class="headerlink" href="#lib.formField.ChoiceField.set_choices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ColorField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ColorField</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.ColorField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.Field" class="reference" href="#lib.formField.Field"><tt class="xref docutils literal"><span class="pre">lib.formField.Field</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.CommandLineField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">CommandLineField</tt><big>(</big><em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.CommandLineField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.CommandLineField.raise_error_file">
+<tt class="descname">raise_error_file</tt><big>(</big><em>label</em>, <em>what</em><big>)</big><a class="headerlink" href="#lib.formField.CommandLineField.raise_error_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.CommandLineField.raise_error_not_found">
+<tt class="descname">raise_error_not_found</tt><big>(</big><em>label</em>, <em>what</em><big>)</big><a class="headerlink" href="#lib.formField.CommandLineField.raise_error_not_found" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.CommandLineField.raise_error_out_max">
+<tt class="descname">raise_error_out_max</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#lib.formField.CommandLineField.raise_error_out_max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.CommandLineField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.CommandLineField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.CsvFileField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">CsvFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.CsvFileField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.FileField" class="reference" href="#lib.formField.FileField"><tt class="xref docutils literal"><span class="pre">lib.formField.FileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.DictionaryReadFileField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">DictionaryReadFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.DictionaryReadFileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ReadFileField" class="reference" href="#lib.formField.ReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ReadFileField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.DictionaryReadFileField.init_dictionary">
+<tt class="descname">init_dictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.formField.DictionaryReadFileField.init_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.DictionaryReadFileField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em>, <em>test=False</em><big>)</big><a class="headerlink" href="#lib.formField.DictionaryReadFileField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.DpiField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">DpiField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.DpiField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.PositiveNonZeroIntegerField" class="reference" href="#lib.formField.PositiveNonZeroIntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.PositiveNonZeroIntegerField</span></tt></a></p>
+<p>PIL defines the resolution in two dimensions as a tuple (x, y).
+Phatch ignores this possibility and simplifies by using only one resolution</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.EmptyFileField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">EmptyFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.EmptyFileField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.FileField" class="reference" href="#lib.formField.FileField"><tt class="xref docutils literal"><span class="pre">lib.formField.FileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ExifItpcField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ExifItpcField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.ExifItpcField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.ExifItpcField.fix_string">
+<tt class="descname">fix_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.ExifItpcField.fix_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.ExifItpcField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.ExifItpcField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Field">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">Field</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.Field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<p>Base class for fields. This needs to be subclassed but,
+never used directly.</p>
+<p>Required to overwrite:
+description - describes the expected value</p>
+<p>Optional to overwrite
+to_python   - raise here exceptions in case of validation errors (defaults</p>
+<blockquote>
+to string).</blockquote>
+<p>to_string   - (defaults to string)</p>
+<p>Never overwrite:
+validate    - will work right out of the box as exceptions are raised by</p>
+<blockquote>
+the to_python method</blockquote>
+<p>get         - gets the current value as a string
+set         - sets the current value as a string</p>
+<p>You can access the value by self.value_as_string</p>
+<p>This field interpolates &lt;variables&gt; within a info.
+&lt;&lt; or &gt;&gt; will be interpolated as &lt; or &gt;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>value</em> (str) &#8211; initial value</li>
+<li><em>visible</em> (str) &#8211; if the field will be visible as a field</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Invisible fields request a different kind of user interaction
+to change their values than a normal field. In Phatch this
+is used eg for enabling/disabling actions.</p>
+<p>A get_relevant_* method of a Form will show/hide fields
+which depend on other conditions.</p>
+<dl class="method">
+<dt id="lib.formField.Field.assert_safe">
+<tt class="descname">assert_safe</tt><big>(</big><em>label</em>, <em>info</em><big>)</big><a class="headerlink" href="#lib.formField.Field.assert_safe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.eval">
+<tt class="descname">eval</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Field.eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.fix_string">
+<tt class="descname">fix_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Field.fix_string" title="Permalink to this definition">¶</a></dt>
+<dd>For the ui (see &#8216;write tag&#8217; action)</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.get">
+<tt class="descname">get</tt><big>(</big><em>info=None</em>, <em>label='?'</em>, <em>value_as_string=None</em>, <em>test=False</em><big>)</big><a class="headerlink" href="#lib.formField.Field.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>For code: Interpolated, but not translated
+- value_as_string can be optionally provided to test the expression</p>
+<p>Ignore test parameter (only for compatiblity with TestField)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.get_as_string">
+<tt class="descname">get_as_string</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.formField.Field.get_as_string" title="Permalink to this definition">¶</a></dt>
+<dd>For GUI: Translation, but no interpolation here</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.interpolate">
+<tt class="descname">interpolate</tt><big>(</big><em>x</em>, <em>info</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Field.interpolate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.set">
+<tt class="descname">set</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Field.set" title="Permalink to this definition">¶</a></dt>
+<dd>For code: Interpolated, but not translated</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.set_as_string">
+<tt class="descname">set_as_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Field.set_as_string" title="Permalink to this definition">¶</a></dt>
+<dd>For GUI: Translation, but no interpolation here</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.set_as_string_dirty">
+<tt class="descname">set_as_string_dirty</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Field.set_as_string_dirty" title="Permalink to this definition">¶</a></dt>
+<dd>For GUI: Translation, but no interpolation here</dd></dl>
+
+<dl class="staticmethod">
+<dt id="lib.formField.Field.set_globals">
+<em class="property">
+static </em><tt class="descname">set_globals</tt><big>(</big><em>_globals</em><big>)</big><a class="headerlink" href="#lib.formField.Field.set_globals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Field.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.to_string">
+<tt class="descname">to_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Field.to_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Field.validate">
+<tt class="descname">validate</tt><big>(</big><em>names</em>, <em>_globals</em>, <em>_locals</em><big>)</big><a class="headerlink" href="#lib.formField.Field.validate" title="Permalink to this definition">¶</a></dt>
+<dd>Helper method for <tt class="xref docutils literal"><span class="pre">safe.compile_expr()</span></tt>.</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.FileField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">FileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.FileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.FileField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.FileField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.FileNameField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">FileNameField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.FileNameField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<p>Without extension</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.FileSizeField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">FileSizeField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.FileSizeField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.IntegerField" class="reference" href="#lib.formField.IntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.IntegerField</span></tt></a></p>
+<p>Can be in bytes (<tt class="docutils literal"><span class="pre">bt</span></tt>), kilo bytes (<tt class="docutils literal"><span class="pre">kb</span></tt>), mega bytes (<tt class="docutils literal"><span class="pre">mb</span></tt>),
+or giga bytes (<tt class="docutils literal"><span class="pre">gb</span></tt>).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">FileSizeField</span><span class="p">(</span><span class="s">&#39;5kb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">5120</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">FileSizeField</span><span class="p">(</span><span class="s">&#39;5mb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">5242880</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="lib.formField.FileSizeField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.FileSizeField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.FloatField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">FloatField</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.FloatField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.Field" class="reference" href="#lib.formField.Field"><tt class="xref docutils literal"><span class="pre">lib.formField.Field</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.FloatField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.FloatField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.FloatSliderField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">FloatSliderField</tt><big>(</big><em>value</em>, <em>minValue</em>, <em>maxValue</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.FloatSliderField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.FloatField" class="reference" href="#lib.formField.FloatField"><tt class="xref docutils literal"><span class="pre">lib.formField.FloatField</span></tt></a>, <a title="lib.formField.SliderField" class="reference" href="#lib.formField.SliderField"><tt class="xref docutils literal"><span class="pre">lib.formField.SliderField</span></tt></a></p>
+<p>A value with boundaries set by a slider.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.FolderField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">FolderField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.FolderField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.FontFileField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">FontFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.FontFileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.DictionaryReadFileField" class="reference" href="#lib.formField.DictionaryReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.DictionaryReadFileField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.FontFileField.init_dictionary">
+<tt class="descname">init_dictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.formField.FontFileField.init_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">Form</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#lib.formField.Form" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="class">
+<dt id="lib.formField.Form.AlignHorizontalField">
+<em class="property">
+class </em><tt class="descname">AlignHorizontalField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.AlignHorizontalField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.AlignVerticalField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">AlignVerticalField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.AlignVerticalField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.BooleanField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">BooleanField</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.Form.BooleanField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.Field" class="reference" href="#lib.formField.Field"><tt class="xref docutils literal"><span class="pre">lib.formField.Field</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.BooleanField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.BooleanField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.BooleanField.to_string">
+<tt class="descname">to_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Form.BooleanField.to_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.CharField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">CharField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.CharField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.Field" class="reference" href="#lib.formField.Field"><tt class="xref docutils literal"><span class="pre">lib.formField.Field</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ChoiceField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ChoiceField</tt><big>(</big><em>value</em>, <em>choices</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ChoiceField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.ChoiceField.set_choices">
+<tt class="descname">set_choices</tt><big>(</big><em>choices</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ChoiceField.set_choices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ColorField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ColorField</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ColorField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.Field" class="reference" href="#lib.formField.Field"><tt class="xref docutils literal"><span class="pre">lib.formField.Field</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.CommandLineField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">CommandLineField</tt><big>(</big><em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.CommandLineField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.CommandLineField.raise_error_file">
+<tt class="descname">raise_error_file</tt><big>(</big><em>label</em>, <em>what</em><big>)</big><a class="headerlink" href="#lib.formField.Form.CommandLineField.raise_error_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.CommandLineField.raise_error_not_found">
+<tt class="descname">raise_error_not_found</tt><big>(</big><em>label</em>, <em>what</em><big>)</big><a class="headerlink" href="#lib.formField.Form.CommandLineField.raise_error_not_found" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.CommandLineField.raise_error_out_max">
+<tt class="descname">raise_error_out_max</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.CommandLineField.raise_error_out_max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.CommandLineField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.CommandLineField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.CsvFileField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">CsvFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.CsvFileField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.FileField" class="reference" href="#lib.formField.FileField"><tt class="xref docutils literal"><span class="pre">lib.formField.FileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.DictionaryReadFileField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">DictionaryReadFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.DictionaryReadFileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ReadFileField" class="reference" href="#lib.formField.ReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ReadFileField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.DictionaryReadFileField.init_dictionary">
+<tt class="descname">init_dictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.formField.Form.DictionaryReadFileField.init_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.DictionaryReadFileField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em>, <em>test=False</em><big>)</big><a class="headerlink" href="#lib.formField.Form.DictionaryReadFileField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.DpiField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">DpiField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.DpiField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.PositiveNonZeroIntegerField" class="reference" href="#lib.formField.PositiveNonZeroIntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.PositiveNonZeroIntegerField</span></tt></a></p>
+<p>PIL defines the resolution in two dimensions as a tuple (x, y).
+Phatch ignores this possibility and simplifies by using only one resolution</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.EmptyFileField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">EmptyFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.EmptyFileField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.FileField" class="reference" href="#lib.formField.FileField"><tt class="xref docutils literal"><span class="pre">lib.formField.FileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ExifItpcField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ExifItpcField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ExifItpcField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.ExifItpcField.fix_string">
+<tt class="descname">fix_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ExifItpcField.fix_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.ExifItpcField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ExifItpcField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.Field">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">Field</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<p>Base class for fields. This needs to be subclassed but,
+never used directly.</p>
+<p>Required to overwrite:
+description - describes the expected value</p>
+<p>Optional to overwrite
+to_python   - raise here exceptions in case of validation errors (defaults</p>
+<blockquote>
+to string).</blockquote>
+<p>to_string   - (defaults to string)</p>
+<p>Never overwrite:
+validate    - will work right out of the box as exceptions are raised by</p>
+<blockquote>
+the to_python method</blockquote>
+<p>get         - gets the current value as a string
+set         - sets the current value as a string</p>
+<p>You can access the value by self.value_as_string</p>
+<p>This field interpolates &lt;variables&gt; within a info.
+&lt;&lt; or &gt;&gt; will be interpolated as &lt; or &gt;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>value</em> (str) &#8211; initial value</li>
+<li><em>visible</em> (str) &#8211; if the field will be visible as a field</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Invisible fields request a different kind of user interaction
+to change their values than a normal field. In Phatch this
+is used eg for enabling/disabling actions.</p>
+<p>A get_relevant_* method of a Form will show/hide fields
+which depend on other conditions.</p>
+<dl class="method">
+<dt id="lib.formField.Form.Field.assert_safe">
+<tt class="descname">assert_safe</tt><big>(</big><em>label</em>, <em>info</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.assert_safe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.eval">
+<tt class="descname">eval</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.fix_string">
+<tt class="descname">fix_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.fix_string" title="Permalink to this definition">¶</a></dt>
+<dd>For the ui (see &#8216;write tag&#8217; action)</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.get">
+<tt class="descname">get</tt><big>(</big><em>info=None</em>, <em>label='?'</em>, <em>value_as_string=None</em>, <em>test=False</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>For code: Interpolated, but not translated
+- value_as_string can be optionally provided to test the expression</p>
+<p>Ignore test parameter (only for compatiblity with TestField)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.get_as_string">
+<tt class="descname">get_as_string</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.get_as_string" title="Permalink to this definition">¶</a></dt>
+<dd>For GUI: Translation, but no interpolation here</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.interpolate">
+<tt class="descname">interpolate</tt><big>(</big><em>x</em>, <em>info</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.interpolate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.set">
+<tt class="descname">set</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.set" title="Permalink to this definition">¶</a></dt>
+<dd>For code: Interpolated, but not translated</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.set_as_string">
+<tt class="descname">set_as_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.set_as_string" title="Permalink to this definition">¶</a></dt>
+<dd>For GUI: Translation, but no interpolation here</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.set_as_string_dirty">
+<tt class="descname">set_as_string_dirty</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.set_as_string_dirty" title="Permalink to this definition">¶</a></dt>
+<dd>For GUI: Translation, but no interpolation here</dd></dl>
+
+<dl class="staticmethod">
+<dt id="lib.formField.Form.Field.set_globals">
+<em class="property">
+static </em><tt class="descname">set_globals</tt><big>(</big><em>_globals</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.set_globals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.to_string">
+<tt class="descname">to_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.to_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.Field.validate">
+<tt class="descname">validate</tt><big>(</big><em>names</em>, <em>_globals</em>, <em>_locals</em><big>)</big><a class="headerlink" href="#lib.formField.Form.Field.validate" title="Permalink to this definition">¶</a></dt>
+<dd>Helper method for <tt class="xref docutils literal"><span class="pre">safe.compile_expr()</span></tt>.</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.FileField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">FileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.FileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.FileField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.FileField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.FileNameField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">FileNameField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.FileNameField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<p>Without extension</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.FileSizeField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">FileSizeField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.FileSizeField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.IntegerField" class="reference" href="#lib.formField.IntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.IntegerField</span></tt></a></p>
+<p>Can be in bytes (<tt class="docutils literal"><span class="pre">bt</span></tt>), kilo bytes (<tt class="docutils literal"><span class="pre">kb</span></tt>), mega bytes (<tt class="docutils literal"><span class="pre">mb</span></tt>),
+or giga bytes (<tt class="docutils literal"><span class="pre">gb</span></tt>).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">FileSizeField</span><span class="p">(</span><span class="s">&#39;5kb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">5120</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">FileSizeField</span><span class="p">(</span><span class="s">&#39;5mb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="go">5242880</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="lib.formField.Form.FileSizeField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.FileSizeField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.FloatField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">FloatField</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.Form.FloatField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.Field" class="reference" href="#lib.formField.Field"><tt class="xref docutils literal"><span class="pre">lib.formField.Field</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.FloatField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.FloatField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.FloatSliderField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">FloatSliderField</tt><big>(</big><em>value</em>, <em>minValue</em>, <em>maxValue</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.FloatSliderField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.FloatField" class="reference" href="#lib.formField.FloatField"><tt class="xref docutils literal"><span class="pre">lib.formField.FloatField</span></tt></a>, <a title="lib.formField.SliderField" class="reference" href="#lib.formField.SliderField"><tt class="xref docutils literal"><span class="pre">lib.formField.SliderField</span></tt></a></p>
+<p>A value with boundaries set by a slider.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.FolderField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">FolderField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.FolderField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.FontFileField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">FontFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.FontFileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.DictionaryReadFileField" class="reference" href="#lib.formField.DictionaryReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.DictionaryReadFileField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.FontFileField.init_dictionary">
+<tt class="descname">init_dictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.formField.Form.FontFileField.init_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.GeoReadFileField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">GeoReadFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.GeoReadFileField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ReadFileField" class="reference" href="#lib.formField.ReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ReadFileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageDictionaryField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageDictionaryField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageDictionaryField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ImageDictionaryReadFileField" class="reference" href="#lib.formField.ImageDictionaryReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ImageDictionaryReadFileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageDictionaryReadFileField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageDictionaryReadFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageDictionaryReadFileField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ImageReadFileField" class="reference" href="#lib.formField.ImageReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ImageReadFileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageEffectField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageEffectField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageEffectField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageFilterField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageFilterField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageFilterField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageModeField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageModeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageModeField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.ImageModeField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageModeField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageReadFileField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageReadFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageReadFileField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.DictionaryReadFileField" class="reference" href="#lib.formField.DictionaryReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.DictionaryReadFileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageReadTypeField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageReadTypeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageReadTypeField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageResampleAutoField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageResampleAutoField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageResampleAutoField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageResampleField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageResampleField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageResampleField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageTransposeField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageTransposeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageTransposeField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageTypeField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageTypeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageTypeField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.ImageTypeField.fix_string">
+<tt class="descname">fix_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageTypeField.fix_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ImageWriteTypeField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ImageWriteTypeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ImageWriteTypeField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.IntegerField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">IntegerField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.IntegerField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.IntegerField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.IntegerField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.NotEmptyCharField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">NotEmptyCharField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.NotEmptyCharField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.CharField" class="reference" href="#lib.formField.CharField"><tt class="xref docutils literal"><span class="pre">lib.formField.CharField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.OptionalTransposeField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">OptionalTransposeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.OptionalTransposeField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.OrientationField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">OrientationField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.OrientationField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.OrientationField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.OrientationField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.PixelField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">PixelField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.PixelField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.IntegerField" class="reference" href="#lib.formField.IntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.IntegerField</span></tt></a></p>
+<p>Can be pixels, cm, inch, %.</p>
+<dl class="method">
+<dt id="lib.formField.Form.PixelField.get_size">
+<tt class="descname">get_size</tt><big>(</big><em>info</em>, <em>base</em>, <em>dpi</em>, <em>label</em>, <em>value_as_string=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.PixelField.get_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.PositiveFloatField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">PositiveFloatField</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.Form.PositiveFloatField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.FloatField" class="reference" href="#lib.formField.FloatField"><tt class="xref docutils literal"><span class="pre">lib.formField.FloatField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.PositiveFloatField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.PositiveFloatField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.PositiveIntegerField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">PositiveIntegerField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.PositiveIntegerField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.IntegerField" class="reference" href="#lib.formField.IntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.IntegerField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.PositiveIntegerField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.PositiveIntegerField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.PositiveNonZeroFloatField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">PositiveNonZeroFloatField</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.Form.PositiveNonZeroFloatField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.PositiveFloatField" class="reference" href="#lib.formField.PositiveFloatField"><tt class="xref docutils literal"><span class="pre">lib.formField.PositiveFloatField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.PositiveNonZeroFloatField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.PositiveNonZeroFloatField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.PositiveNonZeroIntegerField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">PositiveNonZeroIntegerField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.PositiveNonZeroIntegerField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.PositiveIntegerField" class="reference" href="#lib.formField.PositiveIntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.PositiveIntegerField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.Form.PositiveNonZeroIntegerField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.PositiveNonZeroIntegerField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.RankSizeField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">RankSizeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.RankSizeField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.IntegerField" class="reference" href="#lib.formField.IntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.IntegerField</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.ReadFileField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">ReadFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ReadFileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.TestFieldMixin" class="reference" href="#lib.formField.TestFieldMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.TestFieldMixin</span></tt></a>, <a title="lib.formField.FileField" class="reference" href="#lib.formField.FileField"><tt class="xref docutils literal"><span class="pre">lib.formField.FileField</span></tt></a></p>
+<p>This is a test field to ensure that the file exists.
+It could also have been called the MustExistFileField.</p>
+<dl class="method">
+<dt id="lib.formField.Form.ReadFileField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em>, <em>test=False</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ReadFileField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.SliderField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">SliderField</tt><big>(</big><em>value</em>, <em>minValue</em>, <em>maxValue</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.SliderField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.IntegerField" class="reference" href="#lib.formField.IntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.IntegerField</span></tt></a></p>
+<p>A value with boundaries set by a slider.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.Form.TiffCompressionField">
+<em class="property">
+class </em><tt class="descclassname">Form.</tt><tt class="descname">TiffCompressionField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.Form.TiffCompressionField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.dump">
+<tt class="descclassname">Form.</tt><tt class="descname">dump</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.formField.Form.dump" title="Permalink to this definition">¶</a></dt>
+<dd>Dump as raw strings</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.ensure_path">
+<tt class="descclassname">Form.</tt><tt class="descname">ensure_path</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#lib.formField.Form.ensure_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.find_exe">
+<tt class="descclassname">Form.</tt><tt class="descname">find_exe</tt><big>(</big><em>program</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.find_exe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.get_field">
+<tt class="descclassname">Form.</tt><tt class="descname">get_field</tt><big>(</big><em>label</em>, <em>info=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.get_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.get_field_labels">
+<tt class="descclassname">Form.</tt><tt class="descname">get_field_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.formField.Form.get_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.get_field_size">
+<tt class="descclassname">Form.</tt><tt class="descname">get_field_size</tt><big>(</big><em>label</em>, <em>info</em>, <em>base</em>, <em>dpi</em><big>)</big><a class="headerlink" href="#lib.formField.Form.get_field_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.get_field_string">
+<tt class="descclassname">Form.</tt><tt class="descname">get_field_string</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.get_field_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.get_fields">
+<tt class="descclassname">Form.</tt><tt class="descname">get_fields</tt><big>(</big><em>info</em>, <em>convert=False</em>, <em>pixel_fields=None</em>, <em>exclude=None</em><big>)</big><a class="headerlink" href="#lib.formField.Form.get_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.interface">
+<tt class="descclassname">Form.</tt><tt class="descname">interface</tt><big>(</big><em>fields</em><big>)</big><a class="headerlink" href="#lib.formField.Form.interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describe here the fields. This is called from the __init__
+method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>fields</em> (odict) &#8211; an (usually empty) ordered dictionary</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.is_enabled">
+<tt class="descclassname">Form.</tt><tt class="descname">is_enabled</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.formField.Form.is_enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.is_field_true">
+<tt class="descclassname">Form.</tt><tt class="descname">is_field_true</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#lib.formField.Form.is_field_true" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.load">
+<tt class="descclassname">Form.</tt><tt class="descname">load</tt><big>(</big><em>fields</em><big>)</big><a class="headerlink" href="#lib.formField.Form.load" title="Permalink to this definition">¶</a></dt>
+<dd>Load dumped, raw strings.</dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.set_field">
+<tt class="descclassname">Form.</tt><tt class="descname">set_field</tt><big>(</big><em>label</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.formField.Form.set_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.set_field_as_string">
+<tt class="descclassname">Form.</tt><tt class="descname">set_field_as_string</tt><big>(</big><em>label</em>, <em>value_as_string</em><big>)</big><a class="headerlink" href="#lib.formField.Form.set_field_as_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.set_field_as_string_dirty">
+<tt class="descclassname">Form.</tt><tt class="descname">set_field_as_string_dirty</tt><big>(</big><em>label</em>, <em>value_as_string</em><big>)</big><a class="headerlink" href="#lib.formField.Form.set_field_as_string_dirty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.formField.Form.set_fields">
+<tt class="descclassname">Form.</tt><tt class="descname">set_fields</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#lib.formField.Form.set_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.GeoReadFileField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">GeoReadFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.GeoReadFileField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ReadFileField" class="reference" href="#lib.formField.ReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ReadFileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageDictionaryField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageDictionaryField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.ImageDictionaryField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ImageDictionaryReadFileField" class="reference" href="#lib.formField.ImageDictionaryReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ImageDictionaryReadFileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageDictionaryReadFileField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageDictionaryReadFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.ImageDictionaryReadFileField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ImageReadFileField" class="reference" href="#lib.formField.ImageReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ImageReadFileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageEffectField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageEffectField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.ImageEffectField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageFilterField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageFilterField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.ImageFilterField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageModeField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageModeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.ImageModeField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.ImageModeField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.ImageModeField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageReadFileField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageReadFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.ImageReadFileField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.DictionaryReadFileField" class="reference" href="#lib.formField.DictionaryReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.DictionaryReadFileField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageReadTypeField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageReadTypeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.ImageReadTypeField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageResampleAutoField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageResampleAutoField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.ImageResampleAutoField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageResampleField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageResampleField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.ImageResampleField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageTransposeField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageTransposeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.ImageTransposeField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageTypeField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageTypeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.ImageTypeField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.ImageTypeField.fix_string">
+<tt class="descname">fix_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.formField.ImageTypeField.fix_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ImageWriteTypeField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ImageWriteTypeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.ImageWriteTypeField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.IntegerField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">IntegerField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.IntegerField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.NotEmptyCharField" class="reference" href="#lib.formField.NotEmptyCharField"><tt class="xref docutils literal"><span class="pre">lib.formField.NotEmptyCharField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.IntegerField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.IntegerField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.NotEmptyCharField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">NotEmptyCharField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.NotEmptyCharField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.CharField" class="reference" href="#lib.formField.CharField"><tt class="xref docutils literal"><span class="pre">lib.formField.CharField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.OptionalTransposeField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">OptionalTransposeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.OptionalTransposeField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.OrientationField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">OrientationField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.OrientationField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.PilConstantMixin" class="reference" href="#lib.formField.PilConstantMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.PilConstantMixin</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.OrientationField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.OrientationField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.PilConstantMixin">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">PilConstantMixin</tt><a class="headerlink" href="#lib.formField.PilConstantMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="lib.formField.PilConstantMixin.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.PilConstantMixin.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.PixelField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">PixelField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.PixelField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.IntegerField" class="reference" href="#lib.formField.IntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.IntegerField</span></tt></a></p>
+<p>Can be pixels, cm, inch, %.</p>
+<dl class="method">
+<dt id="lib.formField.PixelField.get_size">
+<tt class="descname">get_size</tt><big>(</big><em>info</em>, <em>base</em>, <em>dpi</em>, <em>label</em>, <em>value_as_string=None</em><big>)</big><a class="headerlink" href="#lib.formField.PixelField.get_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.PositiveFloatField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">PositiveFloatField</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.PositiveFloatField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.FloatField" class="reference" href="#lib.formField.FloatField"><tt class="xref docutils literal"><span class="pre">lib.formField.FloatField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.PositiveFloatField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.PositiveFloatField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.PositiveIntegerField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">PositiveIntegerField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.PositiveIntegerField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.IntegerField" class="reference" href="#lib.formField.IntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.IntegerField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.PositiveIntegerField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.PositiveIntegerField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.PositiveNonZeroFloatField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">PositiveNonZeroFloatField</tt><big>(</big><em>value</em>, <em>visible=True</em><big>)</big><a class="headerlink" href="#lib.formField.PositiveNonZeroFloatField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.PositiveFloatField" class="reference" href="#lib.formField.PositiveFloatField"><tt class="xref docutils literal"><span class="pre">lib.formField.PositiveFloatField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.PositiveNonZeroFloatField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.PositiveNonZeroFloatField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.PositiveNonZeroIntegerField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">PositiveNonZeroIntegerField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.PositiveNonZeroIntegerField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.PositiveIntegerField" class="reference" href="#lib.formField.PositiveIntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.PositiveIntegerField</span></tt></a></p>
+<dl class="method">
+<dt id="lib.formField.PositiveNonZeroIntegerField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em><big>)</big><a class="headerlink" href="#lib.formField.PositiveNonZeroIntegerField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.RankSizeField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">RankSizeField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.RankSizeField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.IntegerField" class="reference" href="#lib.formField.IntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.IntegerField</span></tt></a>, <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.ReadFileField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ReadFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#lib.formField.ReadFileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.TestFieldMixin" class="reference" href="#lib.formField.TestFieldMixin"><tt class="xref docutils literal"><span class="pre">lib.formField.TestFieldMixin</span></tt></a>, <a title="lib.formField.FileField" class="reference" href="#lib.formField.FileField"><tt class="xref docutils literal"><span class="pre">lib.formField.FileField</span></tt></a></p>
+<p>This is a test field to ensure that the file exists.
+It could also have been called the MustExistFileField.</p>
+<dl class="method">
+<dt id="lib.formField.ReadFileField.to_python">
+<tt class="descname">to_python</tt><big>(</big><em>x</em>, <em>label</em>, <em>test=False</em><big>)</big><a class="headerlink" href="#lib.formField.ReadFileField.to_python" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.SliderField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">SliderField</tt><big>(</big><em>value</em>, <em>minValue</em>, <em>maxValue</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.SliderField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.IntegerField" class="reference" href="#lib.formField.IntegerField"><tt class="xref docutils literal"><span class="pre">lib.formField.IntegerField</span></tt></a></p>
+<p>A value with boundaries set by a slider.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.TestFieldMixin">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">TestFieldMixin</tt><a class="headerlink" href="#lib.formField.TestFieldMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mixin class, the to_python method should</p>
+<dl class="docutils">
+<dt>def to_python(self, x, label, test=False):</dt>
+<dd>&#8220;test parameter to signal test-validate&#8221;
+return x</dd>
+</dl>
+<p>See set_form_field_value in treeEdit.py</p>
+<dl class="method">
+<dt id="lib.formField.TestFieldMixin.get">
+<tt class="descname">get</tt><big>(</big><em>info=None</em>, <em>label='?'</em>, <em>value_as_string=None</em>, <em>test=False</em><big>)</big><a class="headerlink" href="#lib.formField.TestFieldMixin.get" title="Permalink to this definition">¶</a></dt>
+<dd>Use this method to test-validate the user input, for example:
+field.get(IMAGE_TEST_INFO, value_as_string, label, test=True)</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.formField.TiffCompressionField">
+<em class="property">
+class </em><tt class="descclassname">lib.formField.</tt><tt class="descname">TiffCompressionField</tt><big>(</big><em>value</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.formField.TiffCompressionField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.formField.ChoiceField" class="reference" href="#lib.formField.ChoiceField"><tt class="xref docutils literal"><span class="pre">lib.formField.ChoiceField</span></tt></a></dd></dl>
+
+<dl class="exception">
+<dt id="lib.formField.ValidationError">
+<em class="property">
+exception </em><tt class="descclassname">lib.formField.</tt><tt class="descname">ValidationError</tt><big>(</big><em>expected</em>, <em>message</em>, <em>details=None</em><big>)</big><a class="headerlink" href="#lib.formField.ValidationError" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">exceptions.Exception</span></tt></dd></dl>
+
+<dl class="function">
+<dt id="lib.formField.files_dictionary">
+<tt class="descclassname">lib.formField.</tt><tt class="descname">files_dictionary</tt><big>(</big><em>paths</em>, <em>extensions</em>, <em>title_parser=None</em><big>)</big><a class="headerlink" href="#lib.formField.files_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collects files with a certain extension in different folders and
+stores the files in a dictionary of which the keys are titled
+versions of the filename.</p>
+<p>Phatch uses this for fonts, highlights and masks.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">files_dictionary</span><span class="p">([</span><span class="s">&#39;/etc/apt&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;.list&#39;</span><span class="p">])</span>
+<span class="go">{&#39;Sources&#39;: &#39;/etc/apt/sources.list&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.formField.get_safe">
+<tt class="descclassname">lib.formField.</tt><tt class="descname">get_safe</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.formField.get_safe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.formField.rotation_title_parser">
+<tt class="descclassname">lib.formField.</tt><tt class="descname">rotation_title_parser</tt><big>(</big><em>field</em>, <em>filename</em><big>)</big><a class="headerlink" href="#lib.formField.rotation_title_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.formField.set_safe">
+<tt class="descclassname">lib.formField.</tt><tt class="descname">set_safe</tt><big>(</big><em>state</em><big>)</big><a class="headerlink" href="#lib.formField.set_safe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.fonts.html"
+                                  title="previous chapter">fonts</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.gettextFix.html"
+                                  title="next chapter">gettextFix</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.gettextFix.html" title="gettextFix"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.fonts.html" title="fonts"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

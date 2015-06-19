@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>fonts &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="formField" href="lib.formField.html" />
+    <link rel="prev" title="events" href="lib.events.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.formField.html" title="formField"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.events.html" title="events"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.fonts">
+<h1>fonts<a class="headerlink" href="#module-lib.fonts" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="lib.fonts.basename">
+<tt class="descclassname">lib.fonts.</tt><tt class="descname">basename</tt><big>(</big><em>font_file</em><big>)</big><a class="headerlink" href="#lib.fonts.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.fonts.collect_fonts">
+<tt class="descclassname">lib.fonts.</tt><tt class="descname">collect_fonts</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.fonts.collect_fonts" title="Permalink to this definition">¶</a></dt>
+<dd>Collect a list of all font filenames.</dd></dl>
+
+<dl class="function">
+<dt id="lib.fonts.example">
+<tt class="descclassname">lib.fonts.</tt><tt class="descname">example</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.fonts.example" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.fonts.font_dictionary">
+<tt class="descclassname">lib.fonts.</tt><tt class="descname">font_dictionary</tt><big>(</big><em>filename=None</em>, <em>force=False</em><big>)</big><a class="headerlink" href="#lib.fonts.font_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd>Path specification for the font dictionary, cached</dd></dl>
+
+<dl class="function">
+<dt id="lib.fonts.font_names">
+<tt class="descclassname">lib.fonts.</tt><tt class="descname">font_names</tt><big>(</big><em>filename=None</em><big>)</big><a class="headerlink" href="#lib.fonts.font_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.fonts.locate_files">
+<tt class="descclassname">lib.fonts.</tt><tt class="descname">locate_files</tt><big>(</big><em>command</em><big>)</big><a class="headerlink" href="#lib.fonts.locate_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.fonts.merge">
+<tt class="descclassname">lib.fonts.</tt><tt class="descname">merge</tt><big>(</big><em>*paths</em><big>)</big><a class="headerlink" href="#lib.fonts.merge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.fonts.name">
+<tt class="descclassname">lib.fonts.</tt><tt class="descname">name</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.fonts.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split camelcase filenames and ensure title case.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">name</span><span class="p">(</span><span class="s">&#39;ArialBlack italic&#39;</span><span class="p">)</span>
+<span class="go">&#39;Arial Black Italic&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.fonts.set_font_cache">
+<tt class="descclassname">lib.fonts.</tt><tt class="descname">set_font_cache</tt><big>(</big><em>user_fonts_path</em>, <em>root_fonts_path</em>, <em>user_fonts_cache_path</em>, <em>root_fonts_cache_path</em><big>)</big><a class="headerlink" href="#lib.fonts.set_font_cache" title="Permalink to this definition">¶</a></dt>
+<dd>Expose global variables</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.events.html"
+                                  title="previous chapter">events</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.formField.html"
+                                  title="next chapter">formField</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.formField.html" title="formField"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.events.html" title="events"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

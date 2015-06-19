@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   id="svg2399"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   version="1.0"
+   sodipodi:docname="glass.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/stani/sync/python/phatch/trunk/images/source/highlights/glass.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs2401">
+    <linearGradient
+       id="linearGradient2469">
+      <stop
+         style="stop-color:#808080;stop-opacity:1"
+         offset="0"
+         id="stop2471" />
+      <stop
+         style="stop-color:#e6e6e6;stop-opacity:1"
+         offset="1"
+         id="stop2473" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient2461">
+      <stop
+         style="stop-color:#ececec;stop-opacity:1"
+         offset="0"
+         id="stop2463" />
+      <stop
+         style="stop-color:#808080;stop-opacity:1"
+         offset="1"
+         id="stop2465" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 32 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="64 : 32 : 1"
+       inkscape:persp3d-origin="32 : 21.333333 : 1"
+       id="perspective2407" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2461"
+       id="linearGradient2467"
+       x1="253"
+       y1="420.43417"
+       x2="86.038025"
+       y2="201.37012"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2469"
+       id="linearGradient2475"
+       x1="236.94101"
+       y1="290.33902"
+       x2="0"
+       y2="-4.2319298e-06"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2461"
+       id="linearGradient2393"
+       gradientUnits="userSpaceOnUse"
+       x1="196.02055"
+       y1="456.21078"
+       x2="86.038025"
+       y2="201.37012" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2469"
+       id="linearGradient2394"
+       gradientUnits="userSpaceOnUse"
+       x1="236.94101"
+       y1="290.33902"
+       x2="0"
+       y2="-4.2319298e-06" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2461"
+       id="linearGradient2396"
+       gradientUnits="userSpaceOnUse"
+       x1="196.02055"
+       y1="456.21078"
+       x2="86.038025"
+       y2="201.37012" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2461"
+       id="linearGradient2399"
+       gradientUnits="userSpaceOnUse"
+       x1="196.02055"
+       y1="456.21078"
+       x2="86.038025"
+       y2="201.37012"
+       gradientTransform="matrix(-1.3423216,0.1399106,-0.1353047,-1.2981319,433.88298,555.43575)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2469"
+       id="linearGradient2402"
+       gradientUnits="userSpaceOnUse"
+       x1="236.94101"
+       y1="290.33902"
+       x2="0"
+       y2="-4.2319298e-06"
+       gradientTransform="translate(-513.74778,-513.68596)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.43640351"
+     inkscape:cx="559.50035"
+     inkscape:cy="31.534307"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     inkscape:window-width="1385"
+     inkscape:window-height="827"
+     inkscape:window-x="119"
+     inkscape:window-y="166"
+     inkscape:snap-global="false" />
+  <metadata
+     id="metadata2404">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://www.gnu.org/copyleft/gpl.html" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Nadia Alramli (nadiana.com)</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Nadia Alramli (nadiana.com)</dc:title>
+          </cc:Agent>
+        </dc:rights>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>www.stani.be</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:description>specially designed for Phatch, a Photo Batch Processor.
+http://photobatch.stani.be</dc:description>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <rect
+       style="fill:url(#linearGradient2402);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.01992226px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2429"
+       width="510.98007"
+       height="510.98007"
+       x="-513.23785"
+       y="-513.17596"
+       transform="scale(-1,-1)" />
+    <path
+       style="fill:url(#linearGradient2399);fill-opacity:1"
+       d="M -455.56885,119.31299 C -471.47743,-33.31617 -262.48688,-180.31801 10.927923,-208.81612 C 284.34272,-237.31423 519.15591,-136.57019 535.06449,16.058964 C 550.97308,168.68812 414.02411,344.18807 68.567725,344.18807 C -206.32826,344.18808 -439.66026,271.94214 -455.56885,119.31299 z"
+       id="path2451"
+       sodipodi:nodetypes="csssc" />
+  </g>
+</svg>

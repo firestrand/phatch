@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-phatch">
+    <sub-class-of type="text/plain"/>
+    <comment>Phatch action list</comment>
+    <comment xml:lang="nl">Phatch actielijst</comment>
+    <glob pattern="*.phatch"/>
+  </mime-type>
+</mime-info>

@@ -1,0 +1,82 @@
+.TH PHATCH "1" "February 2009" "User Commands"
+.SH NAME
+Phatch \- Photo Batch Processor
+.SH DESCRIPTION
+\fBPhatch\fP is a simple photo batch processor.
+It handles all popular image formats and can duplicate (sub)folder hierarchies. It can also batch resize, rotate, rename, ... and more in minutes instead of hours or days if you do it manually.
+
+.SH SYNOPSIS
+.TP
+Phatch [actionlist]
+.TP
+Phatch [options] [actionlist] [image folders/files/urls]
+.TP
+Phatch \-\-inspect [image files/urls]
+.TP
+Phatch \-\-droplet [actionlist/recent] [image files/urls]
+
+.SH OPTIONS
+.TP
+\fB\-\-version\fR
+Show program's version number and exit.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show the command line options which are accepted by Phatch
+.TP
+\fB\-c\fR, \fB\-\-console\fR
+Run Phatch as console program without a gui
+.TP
+\fB\-d\fR, \fB\-\-droplet\fR
+Run Phatch as a gui droplet
+.TP
+\fB\-\-desktop\fR
+Save always on desktop
+.TP
+\fB\-f\fR, \fB\-\-force\fR
+Ignore errors
+.TP
+\fB\-\-fonts\fR
+Initialize fonts (only for installation scripts)
+.TP
+\fB\-i\fR, \fB\-\-interactive\fR
+Interactive
+.TP
+\fB\-k\fR, \fB\-\-keep\fR
+Keep existing images (don't overwrite)
+.TP
+\fB\-l LOCALE\fR
+Specify locale language (for example en or en_GB)
+.TP
+\fB\-n\fR, \fB\-\-inspect\fR
+Inspect metadata (requires exif & iptc plugin)
+.TP
+\fB\-\-no\-save\fR
+No save action required at the end
+.TP
+\fB\-r\fR, \fB\-\-recursive\fR
+Include all subfolders
+.TP
+\fB\-t\fR, \fB\-\-trust\fR
+Do not check images first
+.TP
+\fB\-\-unsafe\fR
+Allow Geek action and unsafe expressions
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR
+Verbose
+
+.SH EXAMPLES
+.TP
+phatch action_list.phatch
+.TP
+phatch \-\-verbose \-\-recursive action_list.py image_file.png image_folder
+.TP
+phatch \-\-inspect image_file.jpg
+.TP
+phatch \-\-droplet recent
+.TP
+phatch \-l el
+
+.SH AUTHOR
+Stani (spe.stani.be (at) gmail.com)
+

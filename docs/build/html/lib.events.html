@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>events &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="fonts" href="lib.fonts.html" />
+    <link rel="prev" title="desktop" href="lib.desktop.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.fonts.html" title="fonts"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.desktop.html" title="desktop"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.events">
+<h1>events<a class="headerlink" href="#module-lib.events" title="Permalink to this headline">¶</a></h1>
+<p>The aim of this library is to abstract pubsub.</p>
+<dl class="class">
+<dt id="lib.events.ReceiveListener">
+<em class="property">
+class </em><tt class="descclassname">lib.events.</tt><tt class="descname">ReceiveListener</tt><big>(</big><em>obj</em>, <em>method</em><big>)</big><a class="headerlink" href="#lib.events.ReceiveListener" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="lib.events.Receiver">
+<em class="property">
+class </em><tt class="descclassname">lib.events.</tt><tt class="descname">Receiver</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#lib.events.Receiver" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="lib.events.Receiver.subscribe">
+<tt class="descname">subscribe</tt><big>(</big><em>method</em><big>)</big><a class="headerlink" href="#lib.events.Receiver.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd>Subscribe with some class magic.
+Example: self.subscribe(&#8216;error&#8217;) -&gt; subscribe(&#8216;frame.error&#8217;)
+Afterwars you can call it with send.frame_error()</dd></dl>
+
+<dl class="method">
+<dt id="lib.events.Receiver.unsubscribe">
+<tt class="descname">unsubscribe</tt><big>(</big><em>method</em><big>)</big><a class="headerlink" href="#lib.events.Receiver.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd>Subscribe with some class magic.
+Example: self.subscribe(&#8216;error&#8217;) -&gt; subscribe(&#8216;frame.error&#8217;)</dd></dl>
+
+<dl class="method">
+<dt id="lib.events.Receiver.unsubscribe_all">
+<tt class="descname">unsubscribe_all</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.events.Receiver.unsubscribe_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.events.SendListener">
+<em class="property">
+class </em><tt class="descclassname">lib.events.</tt><tt class="descname">SendListener</tt><big>(</big><em>topic=''</em><big>)</big><a class="headerlink" href="#lib.events.SendListener" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="lib.events.Sender">
+<em class="property">
+class </em><tt class="descclassname">lib.events.</tt><tt class="descname">Sender</tt><a class="headerlink" href="#lib.events.Sender" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.events.example">
+<tt class="descclassname">lib.events.</tt><tt class="descname">example</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.events.example" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="lib.events.send">
+<tt class="descclassname">lib.events.</tt><tt class="descname">send</tt><a class="headerlink" href="#lib.events.send" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.events.subscribe">
+<tt class="descclassname">lib.events.</tt><tt class="descname">subscribe</tt><big>(</big><em>method</em>, <em>obj</em><big>)</big><a class="headerlink" href="#lib.events.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.desktop.html"
+                                  title="previous chapter">desktop</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.fonts.html"
+                                  title="next chapter">fonts</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.fonts.html" title="fonts"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.desktop.html" title="desktop"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

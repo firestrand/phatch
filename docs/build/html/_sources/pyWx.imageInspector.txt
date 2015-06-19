@@ -1,0 +1,7 @@
+imageInspector
+**************
+
+.. automodule:: pyWx.imageInspector
+   :members:
+   :undoc-members:
+   :show-inheritance:

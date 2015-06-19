@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>round &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="actions" href="actions.html" />
+    <link rel="next" title="saturation" href="actions.saturation.html" />
+    <link rel="prev" title="rotate" href="actions.rotate.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="actions.saturation.html" title="saturation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="actions.rotate.html" title="rotate"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="actions.html" accesskey="U">actions</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-actions.round">
+<h1>round<a class="headerlink" href="#module-actions.round" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="actions.round.Action">
+<em class="property">
+class </em><tt class="descclassname">actions.round.</tt><tt class="descname">Action</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#actions.round.Action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a></p>
+<p>Rounded or crossed corners</p>
+<dl class="method">
+<dt id="actions.round.Action.get_relevant_field_labels">
+<tt class="descname">get_relevant_field_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.round.Action.get_relevant_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this method is present, Phatch will only show relevant
+fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">list of the field labels which are relevant</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is very important that the list of labels has EXACTLY
+the same order as defined in the interface method.</p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="actions.round.Action.init">
+<em class="property">
+static </em><tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.round.Action.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.round.Action.interface">
+<tt class="descname">interface</tt><big>(</big><em>fields</em><big>)</big><a class="headerlink" href="#actions.round.Action.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="actions.round.Action.pil">
+<em class="property">
+static </em><tt class="descname">pil</tt><big>(</big><em>image</em>, <em>cache={}</em>, <em>round_all=True</em>, <em>rounding_type=None</em>, <em>radius=100</em>, <em>opacity=255</em>, <em>pos=('Rounded'</em>, <em>'Rounded'</em>, <em>'Rounded'</em>, <em>'Rounded')</em>, <em>back_color='#FFFFFF'</em><big>)</big><a class="headerlink" href="#actions.round.Action.pil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.round.Action.values">
+<tt class="descname">values</tt><big>(</big><em>info</em><big>)</big><a class="headerlink" href="#actions.round.Action.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="actions.round.create_corner">
+<tt class="descclassname">actions.round.</tt><tt class="descname">create_corner</tt><big>(</big><em>radius=100</em>, <em>opacity=255</em>, <em>factor=2</em><big>)</big><a class="headerlink" href="#actions.round.create_corner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="actions.round.create_rounded_rectangle">
+<tt class="descclassname">actions.round.</tt><tt class="descname">create_rounded_rectangle</tt><big>(</big><em>size=(600</em>, <em>400)</em>, <em>cache={}</em>, <em>radius=100</em>, <em>opacity=255</em>, <em>pos=('Rounded'</em>, <em>'Rounded'</em>, <em>'Rounded'</em>, <em>'Rounded')</em><big>)</big><a class="headerlink" href="#actions.round.create_rounded_rectangle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="actions.round.init">
+<tt class="descclassname">actions.round.</tt><tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.round.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="actions.round.round_image">
+<tt class="descclassname">actions.round.</tt><tt class="descname">round_image</tt><big>(</big><em>image</em>, <em>cache={}</em>, <em>round_all=True</em>, <em>rounding_type=None</em>, <em>radius=100</em>, <em>opacity=255</em>, <em>pos=('Rounded'</em>, <em>'Rounded'</em>, <em>'Rounded'</em>, <em>'Rounded')</em>, <em>back_color='#FFFFFF'</em><big>)</big><a class="headerlink" href="#actions.round.round_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="actions.rotate.html"
+                                  title="previous chapter">rotate</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="actions.saturation.html"
+                                  title="next chapter">saturation</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="actions.saturation.html" title="saturation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="actions.rotate.html" title="rotate"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="actions.html" >actions</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

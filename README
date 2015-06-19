@@ -1,0 +1,26 @@
+Phatch = PHoto bATCH Processor
+    
+http://photobatch.stani.be
+
+Batch your photo's with one mouse click. Typical examples are resizing,
+rotating, applying shadows, watermarks, rounded corners, EXIF renaming, ...
+
+Phatch was developed with the SPE editor (http://pythonide.stani.be) on 
+Ubuntu (GNU/Linux), but should run fine as well on Windows and Mac Os X.
+
+Please read first carefully the installation instructions for your platform
+on the documentation website, which you can find at:
+http://photobatch.stani.be > documentation > install
+
+If you are a python developer, you can write easily your own plugins with PIL
+ (Python Image Library). Please send your plugins to spe.stani.be@gmail.com 
+You probably first want to read the developers documentation:
+http://photobatch.stani.be > documentation > developers
+
+All credits are in the AUTHORS file or in the Help> About dialog box.
+
+Phatch is licensed under the GPL v.3, of which you can find the details
+in the COPYING file. Phatch has no limitations, no time-outs, no nags, no 
+adware, no banner ads and no spyware. It is 100% free and open source.
+
+(c) 2007-2008 www.stani.be

@@ -1,0 +1,85 @@
+Default
+  watermark.py
+  save.py
+  scale.py
+  round.py
+  transpose.py
+  shadow.py
+  text.py
+
+File
+  copy.py
+  rename.py
+  save.py
+  save_metadata.py
+
+Metadata
+  write_tag.py
+  delete_tags.py
+  rename_tag.py
+  geotag.py
+  time_shift.py
+  save_metadata.py
+
+Transform
+  canvas.py
+  crop.py
+  fit.py
+  lossless_jpeg.py
+  rotate.py
+  scale.py
+  transpose.py
+  offset.py
+  perspective.py
+  mirror.py
+
+Size
+  canvas.py
+  crop.py
+  fit.py
+  scale.py
+  lossless_jpeg.py
+
+Color
+  autocontrast.py
+  background.py
+  brightness.py
+  color_to_alpha.py
+  colorize.py
+  contrast.py
+  convert_mode.py
+  desaturate.py
+  equalize.py
+  invert.py
+  posterize.py
+  saturation.py
+
+Filter
+  border.py
+  background.py
+  common.py
+  contour.py
+  effect.py
+  highlight.py
+  imagemagick.py
+  mask.py
+  maximum.py
+  median.py
+  minimum.py
+  mirror.py
+  offset.py
+  perspective.py
+  rank.py
+  reflection.py
+  round.py
+  shadow.py
+  sketch.py
+  solarize.py
+  tamogen.py
+  text.py
+  watermark.py
+
+Plugin
+  blender.py
+  geek.py
+  imagemagick.py

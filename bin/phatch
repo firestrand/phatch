@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+
+"""Launch script from the bin folder."""
+
+import sys
+
+if sys.version_info[0] != 2:
+    sys.exit('Sorry, Phatch is only compatible with Python 2.x!\n')
+
+import phatch
+
+from core import config
+config_paths = config.init_config_paths()
+
+from app import main
+main(config_paths, app_file = __file__)

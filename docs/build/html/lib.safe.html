@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>safe &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="system" href="lib.system.html" />
+    <link rel="prev" title="reverse_translation" href="lib.reverse_translation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.system.html" title="system"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.reverse_translation.html" title="reverse_translation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.safe">
+<h1>safe<a class="headerlink" href="#module-lib.safe" title="Permalink to this headline">¶</a></h1>
+<dl class="exception">
+<dt id="lib.safe.UnsafeError">
+<em class="property">
+exception </em><tt class="descclassname">lib.safe.</tt><tt class="descname">UnsafeError</tt><a class="headerlink" href="#lib.safe.UnsafeError" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">exceptions.Exception</span></tt></dd></dl>
+
+<dl class="function">
+<dt id="lib.safe.assert_safe">
+<tt class="descclassname">lib.safe.</tt><tt class="descname">assert_safe</tt><big>(</big><em>expr</em>, <em>_globals=None</em>, <em>_locals=None</em>, <em>validate=None</em><big>)</big><a class="headerlink" href="#lib.safe.assert_safe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.safe.assert_safe_expr">
+<tt class="descclassname">lib.safe.</tt><tt class="descname">assert_safe_expr</tt><big>(</big><em>meta_expr</em>, <em>_globals=None</em>, <em>_locals=None</em>, <em>validate=None</em>, <em>preprocess=&lt;function &lt;lambda&gt; at 0x26a9398&gt;</em><big>)</big><a class="headerlink" href="#lib.safe.assert_safe_expr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.safe.compile_expr">
+<tt class="descclassname">lib.safe.</tt><tt class="descname">compile_expr</tt><big>(</big><em>meta_expr</em>, <em>_globals=None</em>, <em>_locals=None</em>, <em>validate=None</em>, <em>preprocess=&lt;function &lt;lambda&gt; at 0x26a92a8&gt;</em>, <em>safe=True</em><big>)</big><a class="headerlink" href="#lib.safe.compile_expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>If safe is a list, a restricted evaluation will be executed.
+Otherwise if safe is None, a unrestriced eval will be executed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>meta_expr</em> (string) &#8211; meta-expression with &lt;subexpressions&gt;</li>
+<li><em>_globals</em> (dict) &#8211; globals</li>
+<li><em>_locals</em> (dict) &#8211; locals</li>
+<li><em>safe</em> (list or None) &#8211; safe names which will be accepted by the compiler</li>
+<li><em>preprocess</em> (callable) &#8211; preprocess expression (e.g. for ## formatting)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">compile_expr</span><span class="p">(</span><span class="s">&#39;&lt;1+1&gt;_&lt;abs(2-3)&gt;&#39;</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">u&#39;2_1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compile_expr</span><span class="p">(</span><span class="s">&#39;&lt;###(index+1)&gt;&#39;</span><span class="p">,</span> <span class="n">_locals</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;index&#39;</span><span class="p">:</span><span class="mf">1</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="n">preprocess</span><span class="o">=</span><span class="n">format_expr</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">u&#39;002&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.safe.eval_restricted">
+<tt class="descclassname">lib.safe.</tt><tt class="descname">eval_restricted</tt><big>(</big><em>s</em>, <em>_globals=None</em>, <em>_locals=None</em>, <em>allowed=</em><span class="optional">[</span>, <em>'abs'</em>, <em>'int'</em>, <em>'min'</em>, <em>'max'</em>, <em>'pow'</em>, <em>'sum'</em>, <em>'True'</em>, <em>'False'</em>, <em>'denominator'</em>, <em>'numerator'</em>, <em>'chr'</em>, <em>'lower'</em>, <em>'str'</em>, <em>'title'</em>, <em>'upper'</em>, <em>'day'</em>, <em>'hour'</em>, <em>'microsecond'</em>, <em>'minute'</em>, <em>'month'</em>, <em>'monthname'</em>, <em>'second'</em>, <em>'weekday'</em>, <em>'weekdayname'</em>, <em>'year'</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#lib.safe.eval_restricted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate an expression while allowing a restricted set of names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>allowed</em> (list of string) &#8211; allowed names</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">result</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">eval_restricted</span><span class="p">(</span><span class="s">&#39;max(a, a+b)&#39;</span><span class="p">,</span> <span class="n">_globals</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span><span class="mf">0</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span><span class="mf">2</span><span class="p">},</span>
+<span class="gp">... </span><span class="n">_locals</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span><span class="mf">1</span><span class="p">},</span> <span class="n">allowed</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;max&#39;</span><span class="p">])</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">eval_restricted</span><span class="p">(</span><span class="s">&#39;a+b+c&#39;</span><span class="p">,</span> <span class="n">_globals</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span><span class="mf">0</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span><span class="mf">2</span><span class="p">},</span> <span class="n">_locals</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span><span class="mf">1</span><span class="p">})</span>
+<span class="gp">... </span><span class="k">except</span> <span class="n">UnsafeError</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+<span class="go">The following name(s) are invalid: c</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.safe.eval_safe">
+<tt class="descclassname">lib.safe.</tt><tt class="descname">eval_safe</tt><big>(</big><em>expr</em>, <em>_globals=None</em>, <em>_locals=None</em>, <em>validate=None</em><big>)</big><a class="headerlink" href="#lib.safe.eval_safe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Safely evaluate an expression. It will raise a <tt class="docutils literal"><span class="pre">ValueError</span></tt> if
+non validated names are used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>expr</em> (string) &#8211; expression</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">result</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">eval_safe</span><span class="p">(</span><span class="s">&#39;1+1&#39;</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">eval_safe</span><span class="p">(</span><span class="s">&#39;&quot;lowercase&quot;.upper()&#39;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">except</span> <span class="n">UnsafeError</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+<span class="go">The following name(s) are invalid: upper</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.safe.extend_vars">
+<tt class="descclassname">lib.safe.</tt><tt class="descname">extend_vars</tt><big>(</big><em>vars</em>, <em>s</em><big>)</big><a class="headerlink" href="#lib.safe.extend_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend <tt class="docutils literal"><span class="pre">vars</span></tt> with new unique variables from <tt class="docutils literal"><span class="pre">s</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>vars</em> (list of string) &#8211; collection of previous variables</li>
+<li><em>s</em> (string) &#8211; multiple expressions</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">vars</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a1&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">extend_vars</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="s">&#39;&lt;a1&gt;_&lt;foo&gt;_&lt;world&gt;_&lt;###index&gt;&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">vars</span>
+<span class="go">[&#39;a1&#39;, &#39;foo&#39;, &#39;world&#39;, &#39;index&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.safe.format_expr">
+<tt class="descclassname">lib.safe.</tt><tt class="descname">format_expr</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#lib.safe.format_expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an expression with <tt class="docutils literal"><span class="pre">####</span></tt> in a pure python expression
+which can be evaluated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>s</em> (expression) &#8211; expression</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">format_expr</span><span class="p">(</span><span class="s">&#39;###(5+1)&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span>
+<span class="go">&#39;&quot;%03d&quot;%(5+1)&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">eval</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="go">&#39;006&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.reverse_translation.html"
+                                  title="previous chapter">reverse_translation</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.system.html"
+                                  title="next chapter">system</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.system.html" title="system"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.reverse_translation.html" title="reverse_translation"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

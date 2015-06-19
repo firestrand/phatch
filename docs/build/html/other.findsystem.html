@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>findsystem &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="other" href="other.html" />
+    <link rel="next" title="pep8" href="other.pep8.html" />
+    <link rel="prev" title="EXIF" href="other.EXIF.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="other.pep8.html" title="pep8"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="other.EXIF.html" title="EXIF"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" accesskey="U">other</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-other.findsystem">
+<h1>findsystem<a class="headerlink" href="#module-other.findsystem" title="Permalink to this headline">¶</a></h1>
+<p>Find system fonts (only works on Linux and Win32 at the moment)</p>
+<dl class="function">
+<dt id="other.findsystem.findFonts">
+<tt class="descclassname">other.findsystem.</tt><tt class="descname">findFonts</tt><big>(</big><em>paths=None</em><big>)</big><a class="headerlink" href="#other.findsystem.findFonts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find fonts in paths, or the system paths if not given</p>
+<p>XXX Doesn&#8217;t current support OS-X system paths</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.findsystem.linuxFontDirectories">
+<tt class="descclassname">other.findsystem.</tt><tt class="descname">linuxFontDirectories</tt><big>(</big><big>)</big><a class="headerlink" href="#other.findsystem.linuxFontDirectories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get system font directories on Linux/Unix</p>
+<p>Uses /usr/sbin/chkfontpath to get the list
+of system-font directories, note that many
+of these will <em>not</em> be truetype font directories.</p>
+<p>If /usr/sbin/chkfontpath isn&#8217;t available, uses
+returns a set of common Linux/Unix paths</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.findsystem.win32FontDirectory">
+<tt class="descclassname">other.findsystem.</tt><tt class="descname">win32FontDirectory</tt><big>(</big><big>)</big><a class="headerlink" href="#other.findsystem.win32FontDirectory" title="Permalink to this definition">¶</a></dt>
+<dd>Get User-specific font directory on Win32</dd></dl>
+
+<dl class="function">
+<dt id="other.findsystem.win32InstalledFonts">
+<tt class="descclassname">other.findsystem.</tt><tt class="descname">win32InstalledFonts</tt><big>(</big><em>fontDirectory=None</em><big>)</big><a class="headerlink" href="#other.findsystem.win32InstalledFonts" title="Permalink to this definition">¶</a></dt>
+<dd>Get list of explicitly <em>installed</em> font names</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="other.EXIF.html"
+                                  title="previous chapter">EXIF</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="other.pep8.html"
+                                  title="next chapter">pep8</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="other.pep8.html" title="pep8"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="other.EXIF.html" title="EXIF"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" >other</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

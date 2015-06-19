@@ -1,0 +1,646 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gui &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="pyWx.html" />
+    <link rel="next" title="images" href="pyWx.images.html" />
+    <link rel="prev" title="dialogs" href="pyWx.dialogs.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="pyWx.images.html" title="images"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyWx.dialogs.html" title="dialogs"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pyWx.gui">
+<h1>gui<a class="headerlink" href="#module-pyWx.gui" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyWx.gui.App">
+<em class="property">
+class </em><tt class="descclassname">pyWx.gui.</tt><tt class="descname">App</tt><big>(</big><em>settings</em>, <em>actionlist</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.gui.App" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="pyWx.gui.DropletMixin" class="reference" href="#pyWx.gui.DropletMixin"><tt class="xref docutils literal"><span class="pre">pyWx.gui.DropletMixin</span></tt></a>, <tt class="xref docutils literal"><span class="pre">wx._core.App</span></tt></p>
+<dl class="method">
+<dt id="pyWx.gui.App.MacReopenApp">
+<tt class="descname">MacReopenApp</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.App.MacReopenApp" title="Permalink to this definition">¶</a></dt>
+<dd>Called when the doc icon is clicked, and ???</dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.App.OnInit">
+<tt class="descname">OnInit</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.App.OnInit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.App.init">
+<tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.App.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.App.show_frame">
+<tt class="descname">show_frame</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.App.show_frame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.gui.DialogsMixin">
+<em class="property">
+class </em><tt class="descclassname">pyWx.gui.</tt><tt class="descname">DialogsMixin</tt><a class="headerlink" href="#pyWx.gui.DialogsMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pyWx.gui.DialogsMixin.get_icon_filename">
+<tt class="descname">get_icon_filename</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.get_icon_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.get_setting">
+<tt class="descname">get_setting</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.get_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.load_actionlist_data">
+<tt class="descname">load_actionlist_data</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.load_actionlist_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.set_report">
+<tt class="descname">set_report</tt><big>(</big><em>report</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.set_report" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.set_setting">
+<tt class="descname">set_setting</tt><big>(</big><em>name</em>, <em>value</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.set_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_error">
+<tt class="descname">show_error</tt><big>(</big><em>message</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_execute_dialog">
+<tt class="descname">show_execute_dialog</tt><big>(</big><em>result</em>, <em>settings</em>, <em>files=None</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_execute_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_files_message">
+<tt class="descname">show_files_message</tt><big>(</big><em>result</em>, <em>message</em>, <em>title</em>, <em>files</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_files_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_image_tree">
+<tt class="descname">show_image_tree</tt><big>(</big><em>result</em>, <em>image_infos</em>, <em>widths</em>, <em>headers</em>, <em>ok_label='&amp;OK'</em>, <em>buttons=False</em>, <em>modal=False</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_image_tree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_info">
+<tt class="descname">show_info</tt><big>(</big><em>message</em>, <em>title=''</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_log">
+<tt class="descname">show_log</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_message">
+<tt class="descname">show_message</tt><big>(</big><em>message</em>, <em>title=''</em>, <em>style=260</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_notification">
+<tt class="descname">show_notification</tt><big>(</big><em>message</em>, <em>force=False</em>, <em>report=None</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_notification" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_progress">
+<tt class="descname">show_progress</tt><big>(</big><em>title</em>, <em>parent_max</em>, <em>child_max=1</em>, <em>message=''</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_progress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_progress_error">
+<tt class="descname">show_progress_error</tt><big>(</big><em>result</em>, <em>message</em>, <em>ignore=True</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_progress_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_question">
+<tt class="descname">show_question</tt><big>(</big><em>message</em>, <em>style=1034</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_question" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_report">
+<tt class="descname">show_report</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_report" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_scrolled_message">
+<tt class="descname">show_scrolled_message</tt><big>(</big><em>message</em>, <em>title</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_scrolled_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DialogsMixin.show_status">
+<tt class="descname">show_status</tt><big>(</big><em>message</em>, <em>log=True</em><big>)</big><a class="headerlink" href="#pyWx.gui.DialogsMixin.show_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.gui.DropletApp">
+<em class="property">
+class </em><tt class="descclassname">pyWx.gui.</tt><tt class="descname">DropletApp</tt><big>(</big><em>actionlist</em>, <em>paths</em>, <em>settings</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.gui.DropletApp" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="pyWx.gui.DropletMixin" class="reference" href="#pyWx.gui.DropletMixin"><tt class="xref docutils literal"><span class="pre">pyWx.gui.DropletMixin</span></tt></a>, <tt class="xref docutils literal"><span class="pre">wx._core.App</span></tt></dd></dl>
+
+<dl class="class">
+<dt id="pyWx.gui.DropletFrame">
+<em class="property">
+class </em><tt class="descclassname">pyWx.gui.</tt><tt class="descname">DropletFrame</tt><big>(</big><em>actionlist</em>, <em>paths</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.gui.DropletFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="pyWx.gui.DialogsMixin" class="reference" href="#pyWx.gui.DialogsMixin"><tt class="xref docutils literal"><span class="pre">pyWx.gui.DialogsMixin</span></tt></a>, <tt class="xref docutils literal"><span class="pre">wx._windows.Frame</span></tt>, <a title="core.message.FrameReceiver" class="reference" href="core.message.html#core.message.FrameReceiver"><tt class="xref docutils literal"><span class="pre">core.message.FrameReceiver</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.gui.DropletFrame.execute">
+<tt class="descname">execute</tt><big>(</big><em>actionlist</em>, <em>paths</em><big>)</big><a class="headerlink" href="#pyWx.gui.DropletFrame.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.gui.DropletMixin">
+<em class="property">
+class </em><tt class="descclassname">pyWx.gui.</tt><tt class="descname">DropletMixin</tt><a class="headerlink" href="#pyWx.gui.DropletMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pyWx.gui.DropletMixin.OnInit">
+<tt class="descname">OnInit</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.DropletMixin.OnInit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DropletMixin.get_action_list">
+<tt class="descname">get_action_list</tt><big>(</big><em>file_list</em><big>)</big><a class="headerlink" href="#pyWx.gui.DropletMixin.get_action_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DropletMixin.get_action_list_files">
+<tt class="descname">get_action_list_files</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.DropletMixin.get_action_list_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.DropletMixin.init">
+<tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.DropletMixin.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.gui.Frame">
+<em class="property">
+class </em><tt class="descclassname">pyWx.gui.</tt><tt class="descname">Frame</tt><big>(</big><em>actionlist</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="pyWx.gui.DialogsMixin" class="reference" href="#pyWx.gui.DialogsMixin"><tt class="xref docutils literal"><span class="pre">pyWx.gui.DialogsMixin</span></tt></a>, <a title="pyWx.dialogs.BrowseMixin" class="reference" href="pyWx.dialogs.html#pyWx.dialogs.BrowseMixin"><tt class="xref docutils literal"><span class="pre">pyWx.dialogs.BrowseMixin</span></tt></a>, <a title="lib.pyWx.droplet.Mixin" class="reference" href="lib.pyWx.droplet.html#lib.pyWx.droplet.Mixin"><tt class="xref docutils literal"><span class="pre">lib.pyWx.droplet.Mixin</span></tt></a>, <a title="lib.pyWx.paint.Mixin" class="reference" href="lib.pyWx.paint.html#lib.pyWx.paint.Mixin"><tt class="xref docutils literal"><span class="pre">lib.pyWx.paint.Mixin</span></tt></a>, <a title="pyWx.wxGlade.frame.Frame" class="reference" href="pyWx.wxGlade.frame.html#pyWx.wxGlade.frame.Frame"><tt class="xref docutils literal"><span class="pre">pyWx.wxGlade.frame.Frame</span></tt></a>, <a title="core.message.FrameReceiver" class="reference" href="core.message.html#core.message.FrameReceiver"><tt class="xref docutils literal"><span class="pre">core.message.FrameReceiver</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.gui.Frame.IsEmpty">
+<tt class="descname">IsEmpty</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.IsEmpty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.add_tool">
+<tt class="descname">add_tool</tt><big>(</big><em>bitmap</em>, <em>label</em>, <em>tooltip</em>, <em>method</em>, <em>item=0</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.add_tool" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.append_save_action">
+<tt class="descname">append_save_action</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.append_save_action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.droplet_label_format">
+<tt class="descname">droplet_label_format</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.droplet_label_format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.enable_actions">
+<tt class="descname">enable_actions</tt><big>(</big><em>state=True</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.enable_actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.enable_collapse_automatic">
+<tt class="descname">enable_collapse_automatic</tt><big>(</big><em>checked</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.enable_collapse_automatic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.enable_menu">
+<tt class="descname">enable_menu</tt><big>(</big><em>state=True</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.enable_menu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.enable_toolbar">
+<tt class="descname">enable_toolbar</tt><big>(</big><em>state=True</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.enable_toolbar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.get_droplet_folder">
+<tt class="descname">get_droplet_folder</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.get_droplet_folder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.install_menu_item">
+<tt class="descname">install_menu_item</tt><big>(</big><em>menu</em>, <em>name</em>, <em>label</em>, <em>method</em>, <em>tooltip=''</em>, <em>style=0</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.install_menu_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.is_protected_actionlist">
+<tt class="descname">is_protected_actionlist</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.is_protected_actionlist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.is_save_not_ok">
+<tt class="descname">is_save_not_ok</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.is_save_not_ok" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.menu_file_export_droplet">
+<tt class="descname">menu_file_export_droplet</tt><big>(</big><em>method</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.menu_file_export_droplet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_close">
+<tt class="descname">on_close</tt><big>(</big><em>event=None</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_context_menu">
+<tt class="descname">on_context_menu</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_context_menu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_description_text">
+<tt class="descname">on_description_text</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_description_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_drop">
+<tt class="descname">on_drop</tt><big>(</big><em>filenames</em>, <em>x</em>, <em>y</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_drop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_edit_add">
+<tt class="descname">on_menu_edit_add</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_edit_add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_edit_disable">
+<tt class="descname">on_menu_edit_disable</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_edit_disable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_edit_down">
+<tt class="descname">on_menu_edit_down</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_edit_down" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_edit_enable">
+<tt class="descname">on_menu_edit_enable</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_edit_enable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_edit_remove">
+<tt class="descname">on_menu_edit_remove</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_edit_remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_edit_up">
+<tt class="descname">on_menu_edit_up</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_edit_up" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_file_export_actionlist_to_clipboard">
+<tt class="descname">on_menu_file_export_actionlist_to_clipboard</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_file_export_actionlist_to_clipboard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_file_export_inspector_to_clipboard">
+<tt class="descname">on_menu_file_export_inspector_to_clipboard</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_file_export_inspector_to_clipboard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_file_export_recent_to_clipboard">
+<tt class="descname">on_menu_file_export_recent_to_clipboard</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_file_export_recent_to_clipboard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_file_history">
+<tt class="descname">on_menu_file_history</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_file_history" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_file_new">
+<tt class="descname">on_menu_file_new</tt><big>(</big><em>event=None</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_file_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_file_open">
+<tt class="descname">on_menu_file_open</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_file_open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_file_open_library">
+<tt class="descname">on_menu_file_open_library</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_file_open_library" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_file_quit">
+<tt class="descname">on_menu_file_quit</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_file_quit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_file_save">
+<tt class="descname">on_menu_file_save</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_file_save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_file_save_as">
+<tt class="descname">on_menu_file_save_as</tt><big>(</big><em>event=None</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_file_save_as" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_help_about">
+<tt class="descname">on_menu_help_about</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_help_about" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_help_bug">
+<tt class="descname">on_menu_help_bug</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_help_bug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_help_documentation">
+<tt class="descname">on_menu_help_documentation</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_help_documentation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_help_forum">
+<tt class="descname">on_menu_help_forum</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_help_forum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_help_plugin">
+<tt class="descname">on_menu_help_plugin</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_help_plugin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_help_translate">
+<tt class="descname">on_menu_help_translate</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_help_translate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_help_website">
+<tt class="descname">on_menu_help_website</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_help_website" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_tool_enter">
+<tt class="descname">on_menu_tool_enter</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_tool_enter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_tools_browse_library_phatch">
+<tt class="descname">on_menu_tools_browse_library_phatch</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_tools_browse_library_phatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_tools_browse_library_user">
+<tt class="descname">on_menu_tools_browse_library_user</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_tools_browse_library_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_tools_execute">
+<tt class="descname">on_menu_tools_execute</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_tools_execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_tools_image_inspector">
+<tt class="descname">on_menu_tools_image_inspector</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_tools_image_inspector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_tools_python_shell">
+<tt class="descname">on_menu_tools_python_shell</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_tools_python_shell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_tools_safe">
+<tt class="descname">on_menu_tools_safe</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_tools_safe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_tools_show_log">
+<tt class="descname">on_menu_tools_show_log</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_tools_show_log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_tools_show_report">
+<tt class="descname">on_menu_tools_show_report</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_tools_show_report" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_tools_update_fonts">
+<tt class="descname">on_menu_tools_update_fonts</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_tools_update_fonts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_view_collapse_all">
+<tt class="descname">on_menu_view_collapse_all</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_view_collapse_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_view_collapse_automatic">
+<tt class="descname">on_menu_view_collapse_automatic</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_view_collapse_automatic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_view_description">
+<tt class="descname">on_menu_view_description</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_view_description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_view_droplet">
+<tt class="descname">on_menu_view_droplet</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_view_droplet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_menu_view_expand_all">
+<tt class="descname">on_menu_view_expand_all</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_menu_view_expand_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_show_droplet">
+<tt class="descname">on_show_droplet</tt><big>(</big><em>bool</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_show_droplet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_size">
+<tt class="descname">on_size</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.on_tree_end_drag">
+<tt class="descname">on_tree_end_drag</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.on_tree_end_drag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.only_actions_with_tag">
+<tt class="descname">only_actions_with_tag</tt><big>(</big><em>actions</em>, <em>tag</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.only_actions_with_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.set_dirty">
+<tt class="descname">set_dirty</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.set_dirty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.set_safe_mode">
+<tt class="descname">set_safe_mode</tt><big>(</big><em>state</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.set_safe_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.show_description">
+<tt class="descname">show_description</tt><big>(</big><em>checked</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.show_description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.show_droplet">
+<tt class="descname">show_droplet</tt><big>(</big><em>checked</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.show_droplet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.gui.Frame.show_paint_message">
+<tt class="descname">show_paint_message</tt><big>(</big><em>message=None</em><big>)</big><a class="headerlink" href="#pyWx.gui.Frame.show_paint_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.gui.ImageInspectorApp">
+<em class="property">
+class </em><tt class="descclassname">pyWx.gui.</tt><tt class="descname">ImageInspectorApp</tt><big>(</big><em>paths</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.gui.ImageInspectorApp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx._core.App</span></tt></p>
+<dl class="method">
+<dt id="pyWx.gui.ImageInspectorApp.OnInit">
+<tt class="descname">OnInit</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.gui.ImageInspectorApp.OnInit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyWx.gui.drop">
+<tt class="descclassname">pyWx.gui.</tt><tt class="descname">drop</tt><big>(</big><em>actionlist</em>, <em>paths</em>, <em>settings</em><big>)</big><a class="headerlink" href="#pyWx.gui.drop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyWx.gui.findWindowById">
+<tt class="descclassname">pyWx.gui.</tt><tt class="descname">findWindowById</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#pyWx.gui.findWindowById" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyWx.gui.inspect">
+<tt class="descclassname">pyWx.gui.</tt><tt class="descname">inspect</tt><big>(</big><em>paths</em><big>)</big><a class="headerlink" href="#pyWx.gui.inspect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyWx.gui.main">
+<tt class="descclassname">pyWx.gui.</tt><tt class="descname">main</tt><big>(</big><em>settings</em>, <em>actionlist</em><big>)</big><a class="headerlink" href="#pyWx.gui.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyWx.gui.set_theme">
+<tt class="descclassname">pyWx.gui.</tt><tt class="descname">set_theme</tt><big>(</big><em>name='default'</em><big>)</big><a class="headerlink" href="#pyWx.gui.set_theme" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="pyWx.dialogs.html"
+                                  title="previous chapter">dialogs</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="pyWx.images.html"
+                                  title="next chapter">images</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyWx.images.html" title="images"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyWx.dialogs.html" title="dialogs"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

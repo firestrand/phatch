@@ -1,0 +1,2 @@
+convert file_in.tif -bordercolor snow -background black +polaroid file_out.png
+convert -blur 0x5 file_in.tif file_out.png

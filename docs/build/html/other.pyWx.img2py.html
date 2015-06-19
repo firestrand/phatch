@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>img2py &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="other.pyWx.html" />
+    <link rel="next" title="toasterbox" href="other.pyWx.toasterbox.html" />
+    <link rel="prev" title="img2img" href="other.pyWx.img2img.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.toasterbox.html" title="toasterbox"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.img2img.html" title="img2img"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" >other</a> &raquo;</li>
+          <li><a href="other.pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-other.pyWx.img2py">
+<h1>img2py<a class="headerlink" href="#module-other.pyWx.img2py" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>img2py.py  &#8211;  Convert an image to PNG format and embed it in a Python</dt>
+<dd>module with appropriate code so it can be loaded into
+a program at runtime.  The benefit is that since it is
+Python source code it can be delivered as a .pyc or
+&#8216;compiled&#8217; into the program using freeze, py2exe, etc.</dd>
+</dl>
+<p>Usage:</p>
+<blockquote>
+img2py.py [options] image_file python_file</blockquote>
+<p>Options:</p>
+<blockquote>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-m <var>&lt;#rrggbb&gt;</var></span></kbd></td>
+<td>If the original image has a mask or transparency defined
+it will be used by default.  You can use this option to
+override the default or provide a new mask by specifying
+a colour in the image to mark as transparent.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n <var>&lt;name&gt;</var></span></kbd></td>
+<td>Normally generic names (getBitmap, etc.) are used for the
+image access functions.  If you use this option you can
+specify a name that should be used to customize the access
+fucntions, (getNameBitmap, etc.)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-c</span></kbd></td>
+<td>Maintain a catalog of names that can be used to reference
+images.  Catalog can be accessed via catalog and index attributes
+of the module.  If the -n &lt;name&gt; option is specified then &lt;name&gt;
+is used for the catalog key and index value, otherwise
+the filename without any path or extension is used as the key.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-a</span></kbd></td>
+<td>This flag specifies that the python_file should be appended
+to instead of overwritten.  This in combination with -n will
+allow you to put multiple images in one Python source file.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-u</span></kbd></td>
+<td>Don&#8217;t use compression.  Leaves the data uncompressed.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-i</span></kbd></td>
+<td>Also output a function to return the image as a wxIcon.</td></tr>
+</tbody>
+</table>
+</blockquote>
+<dl class="function">
+<dt id="other.pyWx.img2py.crunch_data">
+<tt class="descclassname">other.pyWx.img2py.</tt><tt class="descname">crunch_data</tt><big>(</big><em>data</em>, <em>compressed</em><big>)</big><a class="headerlink" href="#other.pyWx.img2py.crunch_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.pyWx.img2py.main">
+<tt class="descclassname">other.pyWx.img2py.</tt><tt class="descname">main</tt><big>(</big><em>args</em><big>)</big><a class="headerlink" href="#other.pyWx.img2py.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="other.pyWx.img2img.html"
+                                  title="previous chapter">img2img</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="other.pyWx.toasterbox.html"
+                                  title="next chapter">toasterbox</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.toasterbox.html" title="toasterbox"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.img2img.html" title="img2img"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" >other</a> &raquo;</li>
+          <li><a href="other.pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

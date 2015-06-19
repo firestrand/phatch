@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>_pyexiv2 &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="colors" href="lib.colors.html" />
+    <link rel="prev" title="lib" href="lib.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.colors.html" title="colors"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.html" title="lib"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib._pyexiv2">
+<h1>_pyexiv2<a class="headerlink" href="#module-lib._pyexiv2" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="lib._pyexiv2.extension_to_image_format">
+<tt class="descclassname">lib._pyexiv2.</tt><tt class="descname">extension_to_image_format</tt><big>(</big><em>ext</em><big>)</big><a class="headerlink" href="#lib._pyexiv2.extension_to_image_format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib._pyexiv2.flush">
+<tt class="descclassname">lib._pyexiv2.</tt><tt class="descname">flush</tt><big>(</big><em>image</em>, <em>thumbdata</em><big>)</big><a class="headerlink" href="#lib._pyexiv2.flush" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib._pyexiv2.is_readable_format">
+<tt class="descclassname">lib._pyexiv2.</tt><tt class="descname">is_readable_format</tt><big>(</big><em>format</em><big>)</big><a class="headerlink" href="#lib._pyexiv2.is_readable_format" title="Permalink to this definition">¶</a></dt>
+<dd>Returns True if pyexiv2 can read Exif or Iptc metadata from
+the image file <tt class="docutils literal"><span class="pre">format</span></tt>.</dd></dl>
+
+<dl class="function">
+<dt id="lib._pyexiv2.is_writable_format">
+<tt class="descclassname">lib._pyexiv2.</tt><tt class="descname">is_writable_format</tt><big>(</big><em>format</em><big>)</big><a class="headerlink" href="#lib._pyexiv2.is_writable_format" title="Permalink to this definition">¶</a></dt>
+<dd>Returns True if pyexiv2 can write Exif or Iptc metadata to
+the image file <tt class="docutils literal"><span class="pre">format</span></tt>.</dd></dl>
+
+<dl class="function">
+<dt id="lib._pyexiv2.is_writable_format_exif">
+<tt class="descclassname">lib._pyexiv2.</tt><tt class="descname">is_writable_format_exif</tt><big>(</big><em>format</em><big>)</big><a class="headerlink" href="#lib._pyexiv2.is_writable_format_exif" title="Permalink to this definition">¶</a></dt>
+<dd>Returns True if pyexiv2 can write Exif metadata to
+the image file <tt class="docutils literal"><span class="pre">format</span></tt>.</dd></dl>
+
+<dl class="function">
+<dt id="lib._pyexiv2.is_writable_format_iptc">
+<tt class="descclassname">lib._pyexiv2.</tt><tt class="descname">is_writable_format_iptc</tt><big>(</big><em>format</em><big>)</big><a class="headerlink" href="#lib._pyexiv2.is_writable_format_iptc" title="Permalink to this definition">¶</a></dt>
+<dd>Returns True if pyexiv2 can write Iptc metadata to
+the image file <tt class="docutils literal"><span class="pre">format</span></tt>.</dd></dl>
+
+<dl class="function">
+<dt id="lib._pyexiv2.read_thumbdata">
+<tt class="descclassname">lib._pyexiv2.</tt><tt class="descname">read_thumbdata</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib._pyexiv2.read_thumbdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib._pyexiv2.write_metadata">
+<tt class="descclassname">lib._pyexiv2.</tt><tt class="descname">write_metadata</tt><big>(</big><em>source_pyexiv2_image</em>, <em>target</em>, <em>source_format=None</em>, <em>target_format=None</em>, <em>thumbdata=None</em><big>)</big><a class="headerlink" href="#lib._pyexiv2.write_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>source_pyexiv2_image</em> (pyexiv2.Image) &#8211; file opened by pyexiv2</li>
+<li><em>target</em> (string) &#8211; target filename</li>
+<li><em>source_format</em> (string) &#8211; source format e.g. obtained by PIL</li>
+<li><em>target_format</em> (string) &#8211; target format e.g. obtained by PIL</li>
+<li><em>thumbdata</em> (string) &#8211; new thumbnail (e.g. with StringIO, see <tt class="xref docutils literal"><span class="pre">imtools</span></tt>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib._pyexiv2.write_thumbdata">
+<tt class="descclassname">lib._pyexiv2.</tt><tt class="descname">write_thumbdata</tt><big>(</big><em>image</em>, <em>thumbdata=None</em><big>)</big><a class="headerlink" href="#lib._pyexiv2.write_thumbdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.html"
+                                  title="previous chapter">lib</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.colors.html"
+                                  title="next chapter">colors</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.colors.html" title="colors"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.html" title="lib"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

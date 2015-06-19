@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bazaar and Launchpad &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="next" title="Code Style: PEP8" href="pep8.html" />
+    <link rel="prev" title="Become a Phatch developer!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="pep8.html" title="Code Style: PEP8"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Become a Phatch developer!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bazaar-and-launchpad">
+<h1>Bazaar and Launchpad<a class="headerlink" href="#bazaar-and-launchpad" title="Permalink to this headline">¶</a></h1>
+<p>For Phatch we use <a class="reference" href="http://bazaar.canonical.com">bazaar</a> (distributed version control) and <a class="reference" href="https://launchpad.net/phatch">launchpad</a>. We will describe the steps here to get you up and running for Phatch development.</p>
+<div class="section" id="id1">
+<h2>Launchpad<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>To <a class="reference" href="https://help.launchpad.net/YourAccount/NewAccount">create a new Launchpad account</a>, visit the account <a class="reference" href="https://launchpad.net/+login">sign-up page</a>. All you need is an email address that Launchpad can use to contact you.</li>
+<li>Create a ssh key and <a class="reference" href="https://help.launchpad.net/YourAccount/CreatingAnSSHKeyPair">upload</a> it to your launchpad profile.</li>
+<li>Apply for membership of the <a class="reference" href="https://launchpad.net/~phatch-dev">phatch-dev</a> team.</li>
+<li>This last step is optional. If you want to stay up to date with all bug reports, blueprints (new features), ... apply for membership of the <a class="reference" href="https://launchpad.net/~phatch-launchpad">phatch-launchpad</a> team. Warning: this might flood your inbox with a lot of email!</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is very important that you not only log any activity you do for Phatch on launchpad as bugs or blueprints, but also report progress and de-assign yourself if you quit working on something.</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>Bazaar<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="getting-started-with-bazaar">
+<h3>Getting Started with Bazaar<a class="headerlink" href="#getting-started-with-bazaar" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">Download and install bazaar.</p>
+<ul>
+<li><p class="first">Windows: Download the <a class="reference" href="http://wiki.bazaar.canonical.com/WindowsDownloads">standalone installer</a>.</p>
+</li>
+<li><p class="first">Mac OS X: Download the <a class="reference" href="http://wiki.bazaar.canonical.com/MacOSXDownloads">application bundle</a>.</p>
+</li>
+<li><p class="first">Linux: Get bazaar from the repositories, for example for Ubuntu/Debian ...</p>
+<p>If you want only the command line version:</p>
+<div class="highlight-python"><pre>sudo apt-get install bzr</pre>
+</div>
+<p>If you want to use bzr with a GUI and nautilus integration, you could install (some only available from Ubuntu Lucid):</p>
+<div class="highlight-python"><pre>sudo apt-get install bzr bzr-gtk bzr-explorer nautilus-bzr</pre>
+</div>
+</li>
+</ul>
+</li>
+<li><p class="first">Tell bazaar who you are:</p>
+<div class="highlight-python"><pre>bzr whoami "Your name &lt;email@adress&gt;"</pre>
+</div>
+</li>
+<li><p class="first">Login to launchpad:</p>
+<div class="highlight-python"><pre>bzr launchpad-login</pre>
+</div>
+</li>
+<li><p class="first">Install the Phatch precommit hook.</p>
+<p>This will check your code before committing to your branch. It tests your code it follows <a class="reference" href="http://www.python.org/dev/peps/pep-0008/">PEP8</a>, does not break any doctests and has the right copyright and license. The precommit hook is the file <tt class="docutils literal"><span class="pre">tests/test_suite/bzr_precommit_test.py</span></tt> and should be placed in your bazaar plugin folder. In order to get your code accepted, you <strong>must</strong> use the precommit hook.</p>
+<ul>
+<li><p class="first">Linux and Mac OS X:</p>
+<ol class="arabic simple">
+<li>Install <tt class="docutils literal"><span class="pre">nosetests</span></tt> and <tt class="docutils literal"><span class="pre">licensecheck</span></tt>:</li>
+</ol>
+<blockquote>
+<p>sudo apt-get install python-nose devscripts</p>
+</blockquote>
+<ol class="arabic simple" start="2">
+<li>Symlink <tt class="docutils literal"><span class="pre">bzr_precommit_test.py</span></tt> to <tt class="docutils literal"><span class="pre">~/.bazaar/plugins/</span></tt></li>
+</ol>
+</li>
+<li><p class="first">Windows:</p>
+<ol class="arabic simple">
+<li>Install <tt class="docutils literal"><span class="pre">nosetests</span></tt> (see <a class="reference" href="http://somethingaboutorange.com/mrl/projects/nose">nose</a> website for more info):</li>
+</ol>
+<blockquote>
+<p>easy_install nose</p>
+</blockquote>
+<ol class="arabic simple" start="2">
+<li>Copy <tt class="docutils literal"><span class="pre">bzr_precommit_test.py</span></tt> to <tt class="docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files\Bazaar\plugins</span></tt> and update it every time it changes.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="using-bazaar">
+<h3>Using Bazaar<a class="headerlink" href="#using-bazaar" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">For every new feature or bugfix you need to start a separate branch:</p>
+<div class="highlight-python"><pre>bzr branch lp:phatch</pre>
+</div>
+<p>Or if you want to give it a specific name:</p>
+<div class="highlight-python"><pre>bzr branch lp:phatch name_of_branch</pre>
+</div>
+<p>So it is not unusual that one user works on more than one branch. We prefer to merge branches as soon as they are stable to prevent large differences.</p>
+</li>
+<li><p class="first">To let other developers follow your progress, push your branch to launchpad:</p>
+<div class="highlight-python"><pre>bzr push lp:~user_name/phatch/name_of_branch</pre>
+</div>
+</li>
+<li><p class="first">Merge regularly with the main branch so it does not divert. At least merge every time before you start coding. The command is:</p>
+<div class="highlight-python"><pre>bzr merge lp:phatch</pre>
+</div>
+<p>Do not use the command <tt class="docutils literal"><span class="pre">bzr</span> <span class="pre">update</span></tt> or <tt class="docutils literal"><span class="pre">bzr</span> <span class="pre">pull</span></tt>.</p>
+</li>
+<li><p class="first">When your branch is ready file a merge request. To do so, visit your branch&#8217;s overview page, click <em>Propose for merging into another branch</em>, then follow the on-screen instructions.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference" href="">Bazaar and Launchpad</a><ul>
+<li><a class="reference" href="#id1">Launchpad</a></li>
+<li><a class="reference" href="#id2">Bazaar</a><ul>
+<li><a class="reference" href="#getting-started-with-bazaar">Getting Started with Bazaar</a></li>
+<li><a class="reference" href="#using-bazaar">Using Bazaar</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Become a Phatch developer!</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="pep8.html"
+                                  title="next chapter">Code Style: PEP8</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pep8.html" title="Code Style: PEP8"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Become a Phatch developer!"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

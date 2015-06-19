@@ -1,0 +1,7 @@
+information
+***********
+
+.. automodule:: core.information
+   :members:
+   :undoc-members:
+   :show-inheritance:

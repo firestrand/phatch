@@ -1,0 +1,7 @@
+dialogsInspector
+****************
+
+.. automodule:: pyWx.wxGlade.dialogsInspector
+   :members:
+   :undoc-members:
+   :show-inheritance:

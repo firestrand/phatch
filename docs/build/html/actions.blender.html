@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>blender &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="actions" href="actions.html" />
+    <link rel="next" title="border" href="actions.border.html" />
+    <link rel="prev" title="background" href="actions.background.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="actions.border.html" title="border"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="actions.background.html" title="background"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="actions.html" accesskey="U">actions</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-actions.blender">
+<h1>blender<a class="headerlink" href="#module-actions.blender" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="actions.blender.Action">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">Action</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#actions.blender.Action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a></p>
+<p>3D Objects</p>
+<dl class="method">
+<dt id="actions.blender.Action.apply">
+<tt class="descname">apply</tt><big>(</big><em>photo</em>, <em>setting</em>, <em>cache</em><big>)</big><a class="headerlink" href="#actions.blender.Action.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Action.construct_command">
+<tt class="descname">construct_command</tt><big>(</big><em>values</em><big>)</big><a class="headerlink" href="#actions.blender.Action.construct_command" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Action.get_relevant_field_labels">
+<tt class="descname">get_relevant_field_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.blender.Action.get_relevant_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this method is present, Phatch will only show relevant
+options.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">list of the field labels which are relevant</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is very important that the list of labels has EXACTLY
+the same order as defined in the interface method.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Action.init">
+<tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.blender.Action.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Action.interface">
+<tt class="descname">interface</tt><big>(</big><em>fields</em><big>)</big><a class="headerlink" href="#actions.blender.Action.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.Background">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">Background</tt><a class="headerlink" href="#actions.blender.Background" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="actions.blender.Background.get_relevant">
+<tt class="descname">get_relevant</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#actions.blender.Background.get_relevant" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Background.interface">
+<tt class="descname">interface</tt><big>(</big><em>action</em>, <em>fields</em><big>)</big><a class="headerlink" href="#actions.blender.Background.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Background.set_args">
+<tt class="descname">set_args</tt><big>(</big><em>action</em>, <em>values</em><big>)</big><a class="headerlink" href="#actions.blender.Background.set_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.BlenderObject">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">BlenderObject</tt><a class="headerlink" href="#actions.blender.BlenderObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="actions.blender.BlenderObject.get_command">
+<tt class="descname">get_command</tt><big>(</big><em>values</em><big>)</big><a class="headerlink" href="#actions.blender.BlenderObject.get_command" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.BlenderObject.get_name">
+<tt class="descname">get_name</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.blender.BlenderObject.get_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.BlenderObject.get_relevant">
+<tt class="descname">get_relevant</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#actions.blender.BlenderObject.get_relevant" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.BlenderObject.interface">
+<tt class="descname">interface</tt><big>(</big><em>action</em>, <em>fields</em><big>)</big><a class="headerlink" href="#actions.blender.BlenderObject.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="actions.blender.BlenderObject.name">
+<tt class="descname">name</tt><a class="headerlink" href="#actions.blender.BlenderObject.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.BlenderObject.set_args">
+<tt class="descname">set_args</tt><big>(</big><em>action</em>, <em>values</em><big>)</big><a class="headerlink" href="#actions.blender.BlenderObject.set_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.BlenderObjects">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">BlenderObjects</tt><a class="headerlink" href="#actions.blender.BlenderObjects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">list</span></tt></p>
+<dl class="method">
+<dt id="actions.blender.BlenderObjects.get_selected_object">
+<tt class="descname">get_selected_object</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#actions.blender.BlenderObjects.get_selected_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.BlenderObjects.interface">
+<tt class="descname">interface</tt><big>(</big><em>action</em>, <em>fields</em><big>)</big><a class="headerlink" href="#actions.blender.BlenderObjects.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.Book">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">Book</tt><a class="headerlink" href="#actions.blender.Book" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="actions.blender.BlenderObject" class="reference" href="#actions.blender.BlenderObject"><tt class="xref docutils literal"><span class="pre">actions.blender.BlenderObject</span></tt></a></p>
+<dl class="method">
+<dt id="actions.blender.Book.get_relevant">
+<tt class="descname">get_relevant</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#actions.blender.Book.get_relevant" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Book.interface">
+<tt class="descname">interface</tt><big>(</big><em>action</em>, <em>fields</em><big>)</big><a class="headerlink" href="#actions.blender.Book.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Book.set_args">
+<tt class="descname">set_args</tt><big>(</big><em>action</em>, <em>values</em><big>)</big><a class="headerlink" href="#actions.blender.Book.set_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.Box">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">Box</tt><a class="headerlink" href="#actions.blender.Box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="actions.blender.BlenderObject" class="reference" href="#actions.blender.BlenderObject"><tt class="xref docutils literal"><span class="pre">actions.blender.BlenderObject</span></tt></a></p>
+<dl class="method">
+<dt id="actions.blender.Box.get_relevant">
+<tt class="descname">get_relevant</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#actions.blender.Box.get_relevant" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Box.interface">
+<tt class="descname">interface</tt><big>(</big><em>action</em>, <em>fields</em><big>)</big><a class="headerlink" href="#actions.blender.Box.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.Camera">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">Camera</tt><a class="headerlink" href="#actions.blender.Camera" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="actions.blender.Camera.get_relevant">
+<tt class="descname">get_relevant</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#actions.blender.Camera.get_relevant" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Camera.interface">
+<tt class="descname">interface</tt><big>(</big><em>action</em>, <em>fields</em><big>)</big><a class="headerlink" href="#actions.blender.Camera.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Camera.set_args">
+<tt class="descname">set_args</tt><big>(</big><em>action</em>, <em>values</em><big>)</big><a class="headerlink" href="#actions.blender.Camera.set_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.Can">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">Can</tt><a class="headerlink" href="#actions.blender.Can" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="actions.blender.BlenderObject" class="reference" href="#actions.blender.BlenderObject"><tt class="xref docutils literal"><span class="pre">actions.blender.BlenderObject</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.Cd">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">Cd</tt><a class="headerlink" href="#actions.blender.Cd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="actions.blender.BlenderObject" class="reference" href="#actions.blender.BlenderObject"><tt class="xref docutils literal"><span class="pre">actions.blender.BlenderObject</span></tt></a></p>
+<dl class="method">
+<dt id="actions.blender.Cd.get_relevant">
+<tt class="descname">get_relevant</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#actions.blender.Cd.get_relevant" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Cd.interface">
+<tt class="descname">interface</tt><big>(</big><em>action</em>, <em>fields</em><big>)</big><a class="headerlink" href="#actions.blender.Cd.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.Floor">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">Floor</tt><a class="headerlink" href="#actions.blender.Floor" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="actions.blender.Floor.get_relevant">
+<tt class="descname">get_relevant</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#actions.blender.Floor.get_relevant" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.blender.Floor.interface">
+<tt class="descname">interface</tt><big>(</big><em>action</em>, <em>fields</em><big>)</big><a class="headerlink" href="#actions.blender.Floor.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.Lcd">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">Lcd</tt><a class="headerlink" href="#actions.blender.Lcd" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="actions.blender.BlenderObject" class="reference" href="#actions.blender.BlenderObject"><tt class="xref docutils literal"><span class="pre">actions.blender.BlenderObject</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="actions.blender.Sphere">
+<em class="property">
+class </em><tt class="descclassname">actions.blender.</tt><tt class="descname">Sphere</tt><a class="headerlink" href="#actions.blender.Sphere" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="actions.blender.BlenderObject" class="reference" href="#actions.blender.BlenderObject"><tt class="xref docutils literal"><span class="pre">actions.blender.BlenderObject</span></tt></a></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="actions.background.html"
+                                  title="previous chapter">background</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="actions.border.html"
+                                  title="next chapter">border</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="actions.border.html" title="border"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="actions.background.html" title="background"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="actions.html" >actions</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

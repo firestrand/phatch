@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>actions &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="next" title="autocontrast" href="actions.autocontrast.html" />
+    <link rel="prev" title="Release Manager" href="release.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="actions.autocontrast.html" title="autocontrast"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="release.html" title="Release Manager"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-actions">
+<h1>actions<a class="headerlink" href="#module-actions" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li class="toctree-l1"><a class="reference" href="actions.autocontrast.html">autocontrast</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.background.html">background</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.blender.html">blender</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.border.html">border</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.brightness.html">brightness</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.canvas.html">canvas</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.color_to_alpha.html">color_to_alpha</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.colorize.html">colorize</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.common.html">common</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.contour.html">contour</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.contrast.html">contrast</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.convert_mode.html">convert_mode</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.copy.html">copy</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.crop.html">crop</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.delete_tags.html">delete_tags</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.desaturate.html">desaturate</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.effect.html">effect</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.equalize.html">equalize</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.fit.html">fit</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.geek.html">geek</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.geotag.html">geotag</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.grid.html">grid</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.highlight.html">highlight</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.imagemagick.html">imagemagick</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.invert.html">invert</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.lossless_jpeg.html">lossless_jpeg</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.mask.html">mask</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.maximum.html">maximum</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.median.html">median</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.minimum.html">minimum</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.mirror.html">mirror</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.offset.html">offset</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.perspective.html">perspective</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.posterize.html">posterize</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.rank.html">rank</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.reflection.html">reflection</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.rename.html">rename</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.rename_tag.html">rename_tag</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.rotate.html">rotate</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.round.html">round</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.saturation.html">saturation</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.save.html">save</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.save_metadata.html">save_metadata</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.scale.html">scale</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.shadow.html">shadow</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.sketch.html">sketch</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.solarize.html">solarize</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.tamogen.html">tamogen</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.text.html">text</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.time_shift.html">time_shift</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.transpose.html">transpose</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.warm_up.html">warm_up</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.watermark.html">watermark</a></li>
+<li class="toctree-l1"><a class="reference" href="actions.write_tag.html">write_tag</a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="release.html"
+                                  title="previous chapter">Release Manager</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="actions.autocontrast.html"
+                                  title="next chapter">autocontrast</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="actions.autocontrast.html" title="autocontrast"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="release.html" title="Release Manager"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

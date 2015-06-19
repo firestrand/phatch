@@ -1,0 +1,508 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dialogs &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="pyWx.html" />
+    <link rel="next" title="gui" href="pyWx.gui.html" />
+    <link rel="prev" title="pyWx" href="pyWx.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="pyWx.gui.html" title="gui"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyWx.html" title="pyWx"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pyWx.dialogs">
+<h1>dialogs<a class="headerlink" href="#module-pyWx.dialogs" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyWx.dialogs.ActionBrowser">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">ActionBrowser</tt><big>(</big><em>parent</em>, <em>tags</em>, <em>content_ctrl_keyw</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionBrowser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.tag.Browser" class="reference" href="lib.pyWx.tag.html#lib.pyWx.tag.Browser"><tt class="xref docutils literal"><span class="pre">lib.pyWx.tag.Browser</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyWx.dialogs.ActionBrowser.ContentCtrl">
+<tt class="descname">ContentCtrl</tt><a class="headerlink" href="#pyWx.dialogs.ActionBrowser.ContentCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="pyWx.dialogs.ActionListBox" class="reference" href="#pyWx.dialogs.ActionListBox"><tt class="xref docutils literal"><span class="pre">ActionListBox</span></tt></a></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.ActionDialog">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">ActionDialog</tt><big>(</big><em>parent</em>, <em>actions</em>, <em>tag='default'</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.paint.Mixin" class="reference" href="lib.pyWx.paint.html#lib.pyWx.paint.Mixin"><tt class="xref docutils literal"><span class="pre">lib.pyWx.paint.Mixin</span></tt></a>, <a title="lib.pyWx.vlistTag.Dialog" class="reference" href="lib.pyWx.vlistTag.html#lib.pyWx.vlistTag.Dialog"><tt class="xref docutils literal"><span class="pre">lib.pyWx.vlistTag.Dialog</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyWx.dialogs.ActionDialog.ContentBrowser">
+<tt class="descname">ContentBrowser</tt><a class="headerlink" href="#pyWx.dialogs.ActionDialog.ContentBrowser" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="pyWx.dialogs.ActionBrowser" class="reference" href="#pyWx.dialogs.ActionBrowser"><tt class="xref docutils literal"><span class="pre">ActionBrowser</span></tt></a></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionDialog.ExtractTags">
+<tt class="descname">ExtractTags</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionDialog.ExtractTags" title="Permalink to this definition">¶</a></dt>
+<dd>Called by SetActions.</dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionDialog.GetListBox">
+<tt class="descname">GetListBox</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionDialog.GetListBox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionDialog.GetStringSelection">
+<tt class="descname">GetStringSelection</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionDialog.GetStringSelection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionDialog.GetTagSelection">
+<tt class="descname">GetTagSelection</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionDialog.GetTagSelection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionDialog.OnActivate">
+<tt class="descname">OnActivate</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionDialog.OnActivate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.ActionListBox">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">ActionListBox</tt><big>(</big><em>parent</em>, <em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.tag.ContentMixin" class="reference" href="lib.pyWx.tag.html#lib.pyWx.tag.ContentMixin"><tt class="xref docutils literal"><span class="pre">lib.pyWx.tag.ContentMixin</span></tt></a>, <a title="lib.pyWx.vlist.Box" class="reference" href="lib.pyWx.vlist.html#lib.pyWx.vlist.Box"><tt class="xref docutils literal"><span class="pre">lib.pyWx.vlist.Box</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.dialogs.ActionListBox.GetItem">
+<tt class="descname">GetItem</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox.GetItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionListBox.GetStringSelection">
+<tt class="descname">GetStringSelection</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox.GetStringSelection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionListBox.IsEmpty">
+<tt class="descname">IsEmpty</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox.IsEmpty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionListBox.OnContextMenu">
+<tt class="descname">OnContextMenu</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox.OnContextMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionListBox.OnViewSource">
+<tt class="descname">OnViewSource</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox.OnViewSource" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionListBox.RefreshList">
+<tt class="descname">RefreshList</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox.RefreshList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionListBox.SetActions">
+<tt class="descname">SetActions</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox.SetActions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionListBox.SetFilter">
+<tt class="descname">SetFilter</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox.SetFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionListBox.SetTag">
+<tt class="descname">SetTag</tt><big>(</big><em>tag=u'All'</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox.SetTag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ActionListBox.TranslateAction">
+<tt class="descname">TranslateAction</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ActionListBox.TranslateAction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.BrowseMixin">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">BrowseMixin</tt><a class="headerlink" href="#pyWx.dialogs.BrowseMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pyWx.dialogs.BrowseMixin.show_dir_dialog">
+<tt class="descname">show_dir_dialog</tt><big>(</big><em>defaultPath</em>, <em>message=u'Choose a folder'</em>, <em>style=536877056</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.BrowseMixin.show_dir_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.ErrorDialog">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">ErrorDialog</tt><big>(</big><em>parent</em>, <em>message</em>, <em>ignore=True</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ErrorDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="pyWx.wxGlade.dialogs.ErrorDialog" class="reference" href="pyWx.wxGlade.dialogs.html#pyWx.wxGlade.dialogs.ErrorDialog"><tt class="xref docutils literal"><span class="pre">pyWx.wxGlade.dialogs.ErrorDialog</span></tt></a>, <a title="pyWx.dialogs.IconMixin" class="reference" href="#pyWx.dialogs.IconMixin"><tt class="xref docutils literal"><span class="pre">pyWx.dialogs.IconMixin</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.dialogs.ErrorDialog.on_abort">
+<tt class="descname">on_abort</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ErrorDialog.on_abort" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ErrorDialog.on_ignore">
+<tt class="descname">on_ignore</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ErrorDialog.on_ignore" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ErrorDialog.on_skip">
+<tt class="descname">on_skip</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ErrorDialog.on_skip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.ExecuteDialog">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">ExecuteDialog</tt><big>(</big><em>parent</em>, <em>drop=False</em>, <em>**options</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="pyWx.dialogs.BrowseMixin" class="reference" href="#pyWx.dialogs.BrowseMixin"><tt class="xref docutils literal"><span class="pre">pyWx.dialogs.BrowseMixin</span></tt></a>, <a title="pyWx.wxGlade.dialogs.ExecuteDialog" class="reference" href="pyWx.wxGlade.dialogs.html#pyWx.wxGlade.dialogs.ExecuteDialog"><tt class="xref docutils literal"><span class="pre">pyWx.wxGlade.dialogs.ExecuteDialog</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.browse_files">
+<tt class="descname">browse_files</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.browse_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.browse_folder">
+<tt class="descname">browse_folder</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.browse_folder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.export_settings">
+<tt class="descname">export_settings</tt><big>(</big><em>settings</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.export_settings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.get_default_path">
+<tt class="descname">get_default_path</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.get_default_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.get_selected_extensions">
+<tt class="descname">get_selected_extensions</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.get_selected_extensions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.import_settings">
+<tt class="descname">import_settings</tt><big>(</big><em>settings</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.import_settings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.on_browse">
+<tt class="descname">on_browse</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.on_browse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.on_default">
+<tt class="descname">on_default</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.on_default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.on_source">
+<tt class="descname">on_source</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.on_source" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.set_drop">
+<tt class="descname">set_drop</tt><big>(</big><em>drop</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.set_drop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ExecuteDialog.wildcard">
+<tt class="descname">wildcard</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ExecuteDialog.wildcard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.FilesDialog">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">FilesDialog</tt><big>(</big><em>parent</em>, <em>message</em>, <em>title</em>, <em>files</em>, <em>icon='warning'</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.FilesDialog" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="pyWx.wxGlade.dialogs.FilesDialog" class="reference" href="pyWx.wxGlade.dialogs.html#pyWx.wxGlade.dialogs.FilesDialog"><tt class="xref docutils literal"><span class="pre">pyWx.wxGlade.dialogs.FilesDialog</span></tt></a>, <a title="pyWx.dialogs.IconMixin" class="reference" href="#pyWx.dialogs.IconMixin"><tt class="xref docutils literal"><span class="pre">pyWx.dialogs.IconMixin</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.IconMixin">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">IconMixin</tt><a class="headerlink" href="#pyWx.dialogs.IconMixin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.ImageInspectorBrowser">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">ImageInspectorBrowser</tt><big>(</big><em>parent</em>, <em>tags</em>, <em>content_ctrl_keyw</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageInspectorBrowser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.imageInspector.Browser" class="reference" href="lib.pyWx.imageInspector.html#lib.pyWx.imageInspector.Browser"><tt class="xref docutils literal"><span class="pre">lib.pyWx.imageInspector.Browser</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyWx.dialogs.ImageInspectorBrowser.ContentCtrl">
+<tt class="descname">ContentCtrl</tt><a class="headerlink" href="#pyWx.dialogs.ImageInspectorBrowser.ContentCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="pyWx.dialogs.ImageInspectorGrid" class="reference" href="#pyWx.dialogs.ImageInspectorGrid"><tt class="xref docutils literal"><span class="pre">ImageInspectorGrid</span></tt></a></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.ImageInspectorFrame">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">ImageInspectorFrame</tt><big>(</big><em>parent</em>, <em>filename=''</em>, <em>icon=None</em>, <em>thumb_size=(128</em>, <em>128)</em>, <em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageInspectorFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.imageInspector.Frame" class="reference" href="lib.pyWx.imageInspector.html#lib.pyWx.imageInspector.Frame"><tt class="xref docutils literal"><span class="pre">lib.pyWx.imageInspector.Frame</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyWx.dialogs.ImageInspectorFrame.Browser">
+<tt class="descname">Browser</tt><a class="headerlink" href="#pyWx.dialogs.ImageInspectorFrame.Browser" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="pyWx.dialogs.ImageInspectorBrowser" class="reference" href="#pyWx.dialogs.ImageInspectorBrowser"><tt class="xref docutils literal"><span class="pre">ImageInspectorBrowser</span></tt></a></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.ImageInspectorGrid">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">ImageInspectorGrid</tt><big>(</big><em>parent</em>, <em>thumb_size=(128</em>, <em>128)</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageInspectorGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.imageInspector.GridTag" class="reference" href="lib.pyWx.imageInspector.html#lib.pyWx.imageInspector.GridTag"><tt class="xref docutils literal"><span class="pre">lib.pyWx.imageInspector.GridTag</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.dialogs.ImageInspectorGrid.CreateRowLabelMenu">
+<tt class="descname">CreateRowLabelMenu</tt><big>(</big><em>menu</em>, <em>row</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageInspectorGrid.CreateRowLabelMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageInspectorGrid.HasActionList">
+<tt class="descname">HasActionList</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageInspectorGrid.HasActionList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageInspectorGrid.InsertTagInActionList">
+<tt class="descname">InsertTagInActionList</tt><big>(</big><em>row</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageInspectorGrid.InsertTagInActionList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageInspectorGrid.ProcessKey">
+<tt class="descname">ProcessKey</tt><big>(</big><em>key_code</em>, <em>row</em>, <em>col</em>, <em>shift</em>, <em>ctrl</em>, <em>alt</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageInspectorGrid.ProcessKey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.ImageTreeDialog">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">ImageTreeDialog</tt><big>(</big><em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="pyWx.wxGlade.dialogs.ImageTreeDialog" class="reference" href="pyWx.wxGlade.dialogs.html#pyWx.wxGlade.dialogs.ImageTreeDialog"><tt class="xref docutils literal"><span class="pre">pyWx.wxGlade.dialogs.ImageTreeDialog</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.dialogs.ImageTreeDialog.SetColumnWidths">
+<tt class="descname">SetColumnWidths</tt><big>(</big><em>*widths</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog.SetColumnWidths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageTreeDialog.SetData">
+<tt class="descname">SetData</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog.SetData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageTreeDialog.SetOkLabel">
+<tt class="descname">SetOkLabel</tt><big>(</big><em>label</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog.SetOkLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageTreeDialog.ShowButtons">
+<tt class="descname">ShowButtons</tt><big>(</big><em>visible</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog.ShowButtons" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageTreeDialog.UpdateHeaders">
+<tt class="descname">UpdateHeaders</tt><big>(</big><em>headers=None</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog.UpdateHeaders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageTreeDialog.inspect">
+<tt class="descname">inspect</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog.inspect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageTreeDialog.inspect_list_item">
+<tt class="descname">inspect_list_item</tt><big>(</big><em>index</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog.inspect_list_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageTreeDialog.inspect_tree_item">
+<tt class="descname">inspect_tree_item</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog.inspect_tree_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageTreeDialog.on_list_item_right_click">
+<tt class="descname">on_list_item_right_click</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog.on_list_item_right_click" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ImageTreeDialog.on_tree_item_right_click">
+<tt class="descname">on_tree_item_right_click</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ImageTreeDialog.on_tree_item_right_click" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.ProgressDialog">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">ProgressDialog</tt><big>(</big><em>parent</em>, <em>title</em>, <em>parent_max=1</em>, <em>child_max=1</em>, <em>message=''</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ProgressDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx._windows.ProgressDialog</span></tt>, <a title="core.message.ProgressReceiver" class="reference" href="core.message.html#core.message.ProgressReceiver"><tt class="xref docutils literal"><span class="pre">core.message.ProgressReceiver</span></tt></a></p>
+<p>+1 is added because eg opening a file is also an action</p>
+<dl class="method">
+<dt id="pyWx.dialogs.ProgressDialog.close">
+<tt class="descname">close</tt><big>(</big><em>event=None</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ProgressDialog.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ProgressDialog.sleep">
+<tt class="descname">sleep</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.ProgressDialog.sleep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.ProgressDialog.update">
+<tt class="descname">update</tt><big>(</big><em>result</em>, <em>value</em>, <em>**message</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.ProgressDialog.update" title="Permalink to this definition">¶</a></dt>
+<dd>Fix for wxPython2.6</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.StatusDialog">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">StatusDialog</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.StatusDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="pyWx.wxGlade.dialogs.StatusDialog" class="reference" href="pyWx.wxGlade.dialogs.html#pyWx.wxGlade.dialogs.StatusDialog"><tt class="xref docutils literal"><span class="pre">pyWx.wxGlade.dialogs.StatusDialog</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.dialogs.StatusDialog.SetMessage">
+<tt class="descname">SetMessage</tt><big>(</big><em>text</em>, <em>report=None</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.StatusDialog.SetMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.StatusDialog.on_button_log">
+<tt class="descname">on_button_log</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.StatusDialog.on_button_log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.StatusDialog.on_button_report">
+<tt class="descname">on_button_report</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.StatusDialog.on_button_report" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.dialogs.WritePluginDialog">
+<em class="property">
+class </em><tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">WritePluginDialog</tt><big>(</big><em>parent</em>, <em>message</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.WritePluginDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="pyWx.wxGlade.dialogs.WritePluginDialog" class="reference" href="pyWx.wxGlade.dialogs.html#pyWx.wxGlade.dialogs.WritePluginDialog"><tt class="xref docutils literal"><span class="pre">pyWx.wxGlade.dialogs.WritePluginDialog</span></tt></a>, <a title="pyWx.dialogs.IconMixin" class="reference" href="#pyWx.dialogs.IconMixin"><tt class="xref docutils literal"><span class="pre">pyWx.dialogs.IconMixin</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.dialogs.WritePluginDialog.on_help">
+<tt class="descname">on_help</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.WritePluginDialog.on_help" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.WritePluginDialog.on_template">
+<tt class="descname">on_template</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.WritePluginDialog.on_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.dialogs.WritePluginDialog.template_show">
+<tt class="descname">template_show</tt><big>(</big><em>show</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.WritePluginDialog.template_show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyWx.dialogs.example">
+<tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">example</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.dialogs.example" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyWx.dialogs.get_max_height">
+<tt class="descclassname">pyWx.dialogs.</tt><tt class="descname">get_max_height</tt><big>(</big><em>height=510</em><big>)</big><a class="headerlink" href="#pyWx.dialogs.get_max_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="pyWx.html"
+                                  title="previous chapter">pyWx</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="pyWx.gui.html"
+                                  title="next chapter">gui</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyWx.gui.html" title="gui"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyWx.html" title="pyWx"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

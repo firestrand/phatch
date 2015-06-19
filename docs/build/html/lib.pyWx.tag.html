@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tag &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="lib.pyWx.html" />
+    <link rel="next" title="treeDragDrop" href="lib.pyWx.treeDragDrop.html" />
+    <link rel="prev" title="shell" href="lib.pyWx.shell.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.treeDragDrop.html" title="treeDragDrop"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.shell.html" title="shell"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.pyWx.tag">
+<h1>tag<a class="headerlink" href="#module-lib.pyWx.tag" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lib.pyWx.tag.Browser">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.tag.</tt><tt class="descname">Browser</tt><big>(</big><em>parent</em>, <em>tags</em>, <em>content_ctrl_keyw</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.Browser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.paint.Mixin" class="reference" href="lib.pyWx.paint.html#lib.pyWx.paint.Mixin"><tt class="xref docutils literal"><span class="pre">lib.pyWx.paint.Mixin</span></tt></a>, <tt class="xref docutils literal"><span class="pre">wx._windows.Panel</span></tt></p>
+<p>ContentCtrl needs to be a class which implements these methods:
+- content.SetTag    &lt;- browser.OnTag
+- content.SetFilter &lt;- browser.OnFilter</p>
+<dl class="method">
+<dt id="lib.pyWx.tag.Browser.CheckEmpty">
+<tt class="descname">CheckEmpty</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.tag.Browser.CheckEmpty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="lib.pyWx.tag.Browser.ContentCtrl">
+<tt class="descname">ContentCtrl</tt><a class="headerlink" href="#lib.pyWx.tag.Browser.ContentCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <tt class="xref docutils literal"><span class="pre">Panel</span></tt></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.Browser.EnableResize">
+<tt class="descname">EnableResize</tt><big>(</big><em>state=True</em>, <em>object=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.Browser.EnableResize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.Browser.GetContent">
+<tt class="descname">GetContent</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.tag.Browser.GetContent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.Browser.GetItemTags">
+<tt class="descname">GetItemTags</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.Browser.GetItemTags" title="Permalink to this definition">¶</a></dt>
+<dd>Can be overwritten.</dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.Browser.GetTags">
+<tt class="descname">GetTags</tt><big>(</big><em>items</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.Browser.GetTags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.Browser.IsEmpty">
+<tt class="descname">IsEmpty</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.tag.Browser.IsEmpty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.Browser.OnFilter">
+<tt class="descname">OnFilter</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.Browser.OnFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.Browser.OnSize">
+<tt class="descname">OnSize</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.Browser.OnSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.Browser.OnTag">
+<tt class="descname">OnTag</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.Browser.OnTag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.tag.ContentMixin">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.tag.</tt><tt class="descname">ContentMixin</tt><a class="headerlink" href="#lib.pyWx.tag.ContentMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.tag.ContentMixin.CheckEmpty">
+<tt class="descname">CheckEmpty</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.tag.ContentMixin.CheckEmpty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.ContentMixin.GetBrowser">
+<tt class="descname">GetBrowser</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.tag.ContentMixin.GetBrowser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.ContentMixin.GetEmpty">
+<tt class="descname">GetEmpty</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.tag.ContentMixin.GetEmpty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.ContentMixin.GetFilter">
+<tt class="descname">GetFilter</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.tag.ContentMixin.GetFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.ContentMixin.GetTag">
+<tt class="descname">GetTag</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.tag.ContentMixin.GetTag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.ContentMixin.SetTag">
+<tt class="descname">SetTag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.ContentMixin.SetTag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.tag.TestBrowser">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.tag.</tt><tt class="descname">TestBrowser</tt><big>(</big><em>parent</em>, <em>tags</em>, <em>content_ctrl_keyw</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.TestBrowser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.tag.Browser" class="reference" href="#lib.pyWx.tag.Browser"><tt class="xref docutils literal"><span class="pre">lib.pyWx.tag.Browser</span></tt></a></p>
+<dl class="attribute">
+<dt id="lib.pyWx.tag.TestBrowser.ContentCtrl">
+<tt class="descname">ContentCtrl</tt><a class="headerlink" href="#lib.pyWx.tag.TestBrowser.ContentCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="lib.pyWx.tag.TestContentCtrl" class="reference" href="#lib.pyWx.tag.TestContentCtrl"><tt class="xref docutils literal"><span class="pre">TestContentCtrl</span></tt></a></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.tag.TestContentCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.tag.</tt><tt class="descname">TestContentCtrl</tt><big>(</big><em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.TestContentCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.tag.ContentMixin" class="reference" href="#lib.pyWx.tag.ContentMixin"><tt class="xref docutils literal"><span class="pre">lib.pyWx.tag.ContentMixin</span></tt></a>, <tt class="xref docutils literal"><span class="pre">wx._controls.TextCtrl</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.tag.TestContentCtrl.IsEmpty">
+<tt class="descname">IsEmpty</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.tag.TestContentCtrl.IsEmpty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.TestContentCtrl.SetFilter">
+<tt class="descname">SetFilter</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.TestContentCtrl.SetFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.tag.TestContentCtrl.SetTag">
+<tt class="descname">SetTag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.TestContentCtrl.SetTag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.tag.TestFrame">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.tag.</tt><tt class="descname">TestFrame</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.TestFrame" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">wx._windows.Frame</span></tt></dd></dl>
+
+<dl class="function">
+<dt id="lib.pyWx.tag.example">
+<tt class="descclassname">lib.pyWx.tag.</tt><tt class="descname">example</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.tag.example" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.pyWx.tag.extract_tags">
+<tt class="descclassname">lib.pyWx.tag.</tt><tt class="descname">extract_tags</tt><big>(</big><em>items</em><big>)</big><a class="headerlink" href="#lib.pyWx.tag.extract_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.pyWx.shell.html"
+                                  title="previous chapter">shell</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.pyWx.treeDragDrop.html"
+                                  title="next chapter">treeDragDrop</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.treeDragDrop.html" title="treeDragDrop"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.shell.html" title="shell"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

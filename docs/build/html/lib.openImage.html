@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>openImage &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="pyWx" href="lib.pyWx.html" />
+    <link rel="prev" title="odict" href="lib.odict.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.html" title="pyWx"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.odict.html" title="odict"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.openImage">
+<h1>openImage<a class="headerlink" href="#module-lib.openImage" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="lib.openImage.check_libtiff">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">check_libtiff</tt><big>(</big><em>compression</em><big>)</big><a class="headerlink" href="#lib.openImage.check_libtiff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.get_info_libtiff">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">get_info_libtiff</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.openImage.get_info_libtiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get tiff info of a file with <tt class="docutils literal"><span class="pre">tiffinfo</span></tt>, which needs to be
+installed on your system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> (string) &#8211; name of tiff image file</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">info about the file</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open</tt><big>(</big><em>uri</em><big>)</big><a class="headerlink" href="#lib.openImage.open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_dcraw">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_dcraw</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.openImage.open_dcraw" title="Permalink to this definition">¶</a></dt>
+<dd>Open a camera raw image file.</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_image_exif">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_image_exif</tt><big>(</big><em>uri</em><big>)</big><a class="headerlink" href="#lib.openImage.open_image_exif" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_image_exif_thumb">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_image_exif_thumb</tt><big>(</big><em>uri</em><big>)</big><a class="headerlink" href="#lib.openImage.open_image_exif_thumb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_image_with_command">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_image_with_command</tt><big>(</big><em>filename</em>, <em>command</em>, <em>app</em>, <em>extension='png'</em>, <em>temp_ext=None</em><big>)</big><a class="headerlink" href="#lib.openImage.open_image_with_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open with an external command (such as Inkscape, dcraw, imagemagick).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>filename</em> (string) &#8211; filename, from which a temporary filename will be derived</li>
+<li><em>command</em> (string) &#8211; conversion command with optional temp file interpolation</li>
+<li><em>extension</em> (string) &#8211; file type</li>
+<li><em>temp_ext</em> (string) &#8211; if a temp file can not be specified to the command (eg dcraw),
+give the file extension of the command output</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_image_with_pil">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_image_with_pil</tt><big>(</big><em>uri</em><big>)</big><a class="headerlink" href="#lib.openImage.open_image_with_pil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_image_without_pil">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_image_without_pil</tt><big>(</big><em>filename</em>, <em>method_register</em><big>)</big><a class="headerlink" href="#lib.openImage.open_image_without_pil" title="Permalink to this definition">¶</a></dt>
+<dd>Try to open images which PIL can&#8217;t handle.</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_imagemagick">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_imagemagick</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.openImage.open_imagemagick" title="Permalink to this definition">¶</a></dt>
+<dd>Open an image with Imagemagick.</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_inkscape">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_inkscape</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.openImage.open_inkscape" title="Permalink to this definition">¶</a></dt>
+<dd>Open an Inkscape file.</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_libtiff">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_libtiff</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.openImage.open_libtiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a tiff file with <tt class="docutils literal"><span class="pre">tiffcp</span></tt>, which needs to be installed
+on your system.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> (string) &#8211; name of tiff image file</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">PIL image</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">Image.Image</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_thumb">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_thumb</tt><big>(</big><em>filename</em>, <em>image=None</em>, <em>open_image=&lt;function open_image_exif_thumb at 0x271f050&gt;</em>, <em>size=(128</em>, <em>128)</em>, <em>save_cache=True</em><big>)</big><a class="headerlink" href="#lib.openImage.open_thumb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.open_xcf">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">open_xcf</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.openImage.open_xcf" title="Permalink to this definition">¶</a></dt>
+<dd>Open a gimp file.</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.save_libtiff">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">save_libtiff</tt><big>(</big><em>image</em>, <em>filename</em>, <em>compression=None</em>, <em>**options</em><big>)</big><a class="headerlink" href="#lib.openImage.save_libtiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves a tiff compressed file with tiffcp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> (Image.Image) &#8211; PIL image</li>
+<li><em>filename</em> (string) &#8211; name of tiff image file</li>
+<li><em>compression</em> (string) &#8211; g3, g4, jpeg, lzw, tiff_lzw</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">log message</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.verify_dcraw">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">verify_dcraw</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.openImage.verify_dcraw" title="Permalink to this definition">¶</a></dt>
+<dd>Verify a camera raw image file.</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.verify_image">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">verify_image</tt><big>(</big><em>info_file</em>, <em>valid</em>, <em>invalid</em>, <em>method_register=&lt;lib.system.MethodRegister instance at 0x2724cf8&gt;</em><big>)</big><a class="headerlink" href="#lib.openImage.verify_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.verify_image_with_pil">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">verify_image_with_pil</tt><big>(</big><em>info_file</em>, <em>valid</em>, <em>invalid</em><big>)</big><a class="headerlink" href="#lib.openImage.verify_image_with_pil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.verify_image_without_pil">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">verify_image_without_pil</tt><big>(</big><em>info_file</em>, <em>method_register</em>, <em>valid</em>, <em>invalid</em><big>)</big><a class="headerlink" href="#lib.openImage.verify_image_without_pil" title="Permalink to this definition">¶</a></dt>
+<dd>Try to verify images which PIL can&#8217;t handle.</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.verify_imagemagick">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">verify_imagemagick</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.openImage.verify_imagemagick" title="Permalink to this definition">¶</a></dt>
+<dd>Verify an image with Imagemagick.</dd></dl>
+
+<dl class="function">
+<dt id="lib.openImage.verify_xcf">
+<tt class="descclassname">lib.openImage.</tt><tt class="descname">verify_xcf</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.openImage.verify_xcf" title="Permalink to this definition">¶</a></dt>
+<dd>Verify a gimp file.</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.odict.html"
+                                  title="previous chapter">odict</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.pyWx.html"
+                                  title="next chapter">pyWx</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.html" title="pyWx"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.odict.html" title="odict"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

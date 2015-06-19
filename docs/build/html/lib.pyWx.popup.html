@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popup &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="lib.pyWx.html" />
+    <link rel="next" title="screenshot" href="lib.pyWx.screenshot.html" />
+    <link rel="prev" title="paint" href="lib.pyWx.paint.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.screenshot.html" title="screenshot"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.paint.html" title="paint"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.pyWx.popup">
+<h1>popup<a class="headerlink" href="#module-lib.pyWx.popup" title="Permalink to this headline">¶</a></h1>
+<p>All translations should be done here. Only controls eg. choice controls
+can give 100%safe english strings.
+SetValue(english)
+Display(dutch) #or any other language
+GetValue(english)</p>
+<p>The bridge between fields and ctrls is done as follows:
+formField.Field &lt;-&gt; treeEdit.create_popup &lt;-&gt; popup.Ctrl</p>
+<dl class="class">
+<dt id="lib.pyWx.popup.AutoCompleteDictionaryFileCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">AutoCompleteDictionaryFileCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>dictionary</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.AutoCompleteDictionaryFileCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.popup.DictionaryFileCtrl" class="reference" href="#lib.pyWx.popup.DictionaryFileCtrl"><tt class="xref docutils literal"><span class="pre">lib.pyWx.popup.DictionaryFileCtrl</span></tt></a></p>
+<dl class="attribute">
+<dt id="lib.pyWx.popup.AutoCompleteDictionaryFileCtrl.InputCtrl">
+<tt class="descname">InputCtrl</tt><a class="headerlink" href="#lib.pyWx.popup.AutoCompleteDictionaryFileCtrl.InputCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <tt class="xref docutils literal"><span class="pre">AutoCompleteTextCtrl</span></tt></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.BooleanCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">BooleanCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>on_change=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.BooleanCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._CtrlRelevantMixin</span></tt>, <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._Ctrl</span></tt>, <tt class="xref docutils literal"><span class="pre">wx._controls.CheckBox</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.BooleanCtrl.Get">
+<tt class="descname">Get</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.BooleanCtrl.Get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.ChoiceCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">ChoiceCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>choices</em>, <em>on_change=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ChoiceCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._CtrlRelevantMixin</span></tt>, <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._CtrlWithItems</span></tt>, <tt class="xref docutils literal"><span class="pre">wx._controls.Choice</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.ChoiceCtrl.SetValue">
+<tt class="descname">SetValue</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ChoiceCtrl.SetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.ColorCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">ColorCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ColorCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._Ctrl</span></tt>, <tt class="xref docutils literal"><span class="pre">wx.lib.colourselect.ColourSelect</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.ColorCtrl.GetColorAsString">
+<tt class="descname">GetColorAsString</tt><big>(</big><em>color=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ColorCtrl.GetColorAsString" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.ColorCtrl.GetValue">
+<tt class="descname">GetValue</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ColorCtrl.GetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.ColorCtrl.OnSelectColor">
+<tt class="descname">OnSelectColor</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ColorCtrl.OnSelectColor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.ComboCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">ComboCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>choices</em>, <em>style=</em><span class="optional">[</span>, <em>'DROPDOWN'</em>, <em>'SORT'</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ComboCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._CtrlWithItems</span></tt>, <tt class="xref docutils literal"><span class="pre">wx._controls.ComboBox</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.ComboCtrl.Get">
+<tt class="descname">Get</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ComboCtrl.Get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.ComboCtrl.RegisterStyle">
+<tt class="descname">RegisterStyle</tt><big>(</big><em>style</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ComboCtrl.RegisterStyle" title="Permalink to this definition">¶</a></dt>
+<dd>from a list of strings [&#8216;DROPDOWN&#8217;,&#8217;SORT&#8217;] to wx</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.DictionaryFileCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">DictionaryFileCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>dictionary</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.DictionaryFileCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.popup.LabelFileCtrl" class="reference" href="#lib.pyWx.popup.LabelFileCtrl"><tt class="xref docutils literal"><span class="pre">lib.pyWx.popup.LabelFileCtrl</span></tt></a></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.DictionaryFileCtrl.GetDefaultPath">
+<tt class="descname">GetDefaultPath</tt><big>(</big><em>default_path=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.DictionaryFileCtrl.GetDefaultPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.EditPanel">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">EditPanel</tt><big>(</big><em>parent</em>, <em>typ</em>, <em>value</em>, <em>extra={}</em>, <em>size=(28</em>, <em>28)</em>, <em>pos=(0</em>, <em>0)</em>, <em>offset=0</em>, <em>label=''</em>, <em>border=0</em>, <em>CtrlMixin=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.EditPanel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx._windows.Panel</span></tt></p>
+<p>See for example create_popup in treeEdit</p>
+<dl class="method">
+<dt id="lib.pyWx.popup.EditPanel.Close">
+<tt class="descname">Close</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.EditPanel.Close" title="Permalink to this definition">¶</a></dt>
+<dd>Loses focus</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.FileCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">FileCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FileCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._PathCtrl</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.FileCtrl.GetWildcard">
+<tt class="descname">GetWildcard</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FileCtrl.GetWildcard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.FileCtrl.OnBrowse">
+<tt class="descname">OnBrowse</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FileCtrl.OnBrowse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.FileSizeCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">FileSizeCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FileSizeCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.pyWx.popup.PixelCtrl" class="reference" href="#lib.pyWx.popup.PixelCtrl"><tt class="xref docutils literal"><span class="pre">lib.pyWx.popup.PixelCtrl</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.FloatSliderCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">FloatSliderCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FloatSliderCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.popup.SliderCtrl" class="reference" href="#lib.pyWx.popup.SliderCtrl"><tt class="xref docutils literal"><span class="pre">lib.pyWx.popup.SliderCtrl</span></tt></a></p>
+<p>Needs to mimic a wx.SliderCtrl</p>
+<dl class="method">
+<dt id="lib.pyWx.popup.FloatSliderCtrl.GetValue">
+<tt class="descname">GetValue</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FloatSliderCtrl.GetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.FloatSliderCtrl.OnScroll">
+<tt class="descname">OnScroll</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FloatSliderCtrl.OnScroll" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.FloatSliderCtrl.OnSpin">
+<tt class="descname">OnSpin</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FloatSliderCtrl.OnSpin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.FolderCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">FolderCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FolderCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._PathCtrl</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.FolderCtrl.OnBrowse">
+<tt class="descname">OnBrowse</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FolderCtrl.OnBrowse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.FontFileCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">FontFileCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>dictionary</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FontFileCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.popup.AutoCompleteDictionaryFileCtrl" class="reference" href="#lib.pyWx.popup.AutoCompleteDictionaryFileCtrl"><tt class="xref docutils literal"><span class="pre">lib.pyWx.popup.AutoCompleteDictionaryFileCtrl</span></tt></a></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.FontFileCtrl.Close">
+<tt class="descname">Close</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FontFileCtrl.Close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.FontFileCtrl.GetDefaultPath">
+<tt class="descname">GetDefaultPath</tt><big>(</big><em>default_path=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.FontFileCtrl.GetDefaultPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.ForcedBoxSizer">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">ForcedBoxSizer</tt><big>(</big><em>orient</em>, <em>height</em>, <em>border=0</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ForcedBoxSizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx._core.BoxSizer</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.ForcedBoxSizer.AddForced">
+<tt class="descname">AddForced</tt><big>(</big><em>item</em>, <em>proportion</em>, <em>flag=2288</em>, <em>border=None</em>, <em>size=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ForcedBoxSizer.AddForced" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.ImageDictionaryFileCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">ImageDictionaryFileCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>extensions</em>, <em>dictionary</em>, <em>dialog</em>, <em>show_path=True</em>, <em>on_change=None</em>, <em>icon_size=(64</em>, <em>64)</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ImageDictionaryFileCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._CtrlRelevantMixin</span></tt>, <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._Ctrl</span></tt>, <tt class="xref docutils literal"><span class="pre">wx._controls.Button</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.ImageDictionaryFileCtrl.GetValue">
+<tt class="descname">GetValue</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ImageDictionaryFileCtrl.GetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.ImageDictionaryFileCtrl.OnChange">
+<tt class="descname">OnChange</tt><big>(</big><em>event</em>, <em>value=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ImageDictionaryFileCtrl.OnChange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.ImageDictionaryFileCtrl.SetValue">
+<tt class="descname">SetValue</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ImageDictionaryFileCtrl.SetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.ImageReadFileCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">ImageReadFileCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ImageReadFileCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <a title="lib.pyWx.popup.LabelFileCtrl" class="reference" href="#lib.pyWx.popup.LabelFileCtrl"><tt class="xref docutils literal"><span class="pre">lib.pyWx.popup.LabelFileCtrl</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.LabelFileCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">LabelFileCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.LabelFileCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.popup.FileCtrl" class="reference" href="#lib.pyWx.popup.FileCtrl"><tt class="xref docutils literal"><span class="pre">lib.pyWx.popup.FileCtrl</span></tt></a></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.LabelFileCtrl.GetWildcard">
+<tt class="descname">GetWildcard</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.LabelFileCtrl.GetWildcard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="lib.pyWx.popup.NotImplementedError">
+<em class="property">
+exception </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">NotImplementedError</tt><big>(</big><em>instance</em>, <em>method</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.NotImplementedError" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">exceptions.Exception</span></tt></dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.PixelCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">PixelCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.PixelCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._ComposedCtrl</span></tt></p>
+<dl class="method">
+<dt id="lib.pyWx.popup.PixelCtrl.GetValue">
+<tt class="descname">GetValue</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.PixelCtrl.GetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.PixelCtrl.SetFocus">
+<tt class="descname">SetFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.PixelCtrl.SetFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.PixelCtrl.SetValue">
+<tt class="descname">SetValue</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.PixelCtrl.SetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="lib.pyWx.popup.PixelCtrl.SizeCtrl">
+<tt class="descname">SizeCtrl</tt><a class="headerlink" href="#lib.pyWx.popup.PixelCtrl.SizeCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="lib.pyWx.popup.TextCtrl" class="reference" href="#lib.pyWx.popup.TextCtrl"><tt class="xref docutils literal"><span class="pre">TextCtrl</span></tt></a></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.PixelCtrl.SplitValue">
+<tt class="descname">SplitValue</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.PixelCtrl.SplitValue" title="Permalink to this definition">¶</a></dt>
+<dd>Split value and unit</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.pyWx.popup.SetMinVerSize">
+<tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">SetMinVerSize</tt><big>(</big><em>item</em>, <em>size</em>, <em>border=0</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.SetMinVerSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.SliderCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">SliderCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>size</em>, <em>**extra</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.SliderCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._ComposedCtrl</span></tt></p>
+<p>Needs to mimic a wx.SliderCtrl</p>
+<dl class="method">
+<dt id="lib.pyWx.popup.SliderCtrl.GetValue">
+<tt class="descname">GetValue</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.SliderCtrl.GetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.SliderCtrl.OnScroll">
+<tt class="descname">OnScroll</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.SliderCtrl.OnScroll" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.SliderCtrl.OnSpin">
+<tt class="descname">OnSpin</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.SliderCtrl.OnSpin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.SliderCtrl.SetBackgroundColour">
+<tt class="descname">SetBackgroundColour</tt><big>(</big><em>color</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.SliderCtrl.SetBackgroundColour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.popup.SliderCtrl.SetFocus">
+<tt class="descname">SetFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.SliderCtrl.SetFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.popup.TextCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">TextCtrl</tt><big>(</big><em>parent</em>, <em>value</em>, <em>id=-1</em>, <em>choices=None</em>, <em>on_change=None</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.TextCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._CtrlRelevantMixin</span></tt>, <tt class="xref docutils literal"><span class="pre">lib.pyWx.popup._CtrlChoices</span></tt>, <tt class="xref docutils literal"><span class="pre">wx._controls.ComboBox</span></tt></dd></dl>
+
+<dl class="function">
+<dt id="lib.pyWx.popup.ctrl_factory">
+<tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">ctrl_factory</tt><big>(</big><em>name</em>, <em>CtrlMixin</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.ctrl_factory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.pyWx.popup.example">
+<tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">example</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.popup.example" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.pyWx.popup.untranslated">
+<tt class="descclassname">lib.pyWx.popup.</tt><tt class="descname">untranslated</tt><big>(</big><em>self</em>, <em>x</em><big>)</big><a class="headerlink" href="#lib.pyWx.popup.untranslated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.pyWx.paint.html"
+                                  title="previous chapter">paint</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.pyWx.screenshot.html"
+                                  title="next chapter">screenshot</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.screenshot.html" title="screenshot"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.paint.html" title="paint"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

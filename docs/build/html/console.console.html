@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>console &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="console" href="console.html" />
+    <link rel="next" title="core" href="core.html" />
+    <link rel="prev" title="console" href="console.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="core.html" title="core"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="console.html" title="console"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="console.html" accesskey="U">console</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-console.console">
+<h1>console<a class="headerlink" href="#module-console.console" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="console.console.CliMixin">
+<em class="property">
+class </em><tt class="descclassname">console.console.</tt><tt class="descname">CliMixin</tt><a class="headerlink" href="#console.console.CliMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="console.console.CliMixin.exit">
+<tt class="descname">exit</tt><big>(</big><big>)</big><a class="headerlink" href="#console.console.CliMixin.exit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.CliMixin.show_error">
+<tt class="descname">show_error</tt><big>(</big><em>message</em>, <em>exit=True</em><big>)</big><a class="headerlink" href="#console.console.CliMixin.show_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.CliMixin.show_info">
+<tt class="descname">show_info</tt><big>(</big><em>*messages</em><big>)</big><a class="headerlink" href="#console.console.CliMixin.show_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.CliMixin.show_message">
+<tt class="descname">show_message</tt><big>(</big><em>*messages</em><big>)</big><a class="headerlink" href="#console.console.CliMixin.show_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.CliMixin.show_notification">
+<tt class="descname">show_notification</tt><big>(</big><em>message</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#console.console.CliMixin.show_notification" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.CliMixin.write">
+<tt class="descname">write</tt><big>(</big><em>message</em><big>)</big><a class="headerlink" href="#console.console.CliMixin.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="console.console.Frame">
+<em class="property">
+class </em><tt class="descclassname">console.console.</tt><tt class="descname">Frame</tt><big>(</big><em>actionlist</em>, <em>paths</em>, <em>settings</em>, <em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b88d1bb0140&gt;</em><big>)</big><a class="headerlink" href="#console.console.Frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="console.console.CliMixin" class="reference" href="#console.console.CliMixin"><tt class="xref docutils literal"><span class="pre">console.console.CliMixin</span></tt></a>, <a title="core.message.FrameReceiver" class="reference" href="core.message.html#core.message.FrameReceiver"><tt class="xref docutils literal"><span class="pre">core.message.FrameReceiver</span></tt></a></p>
+<dl class="class">
+<dt id="console.console.Frame.Progress">
+<em class="property">
+class </em><tt class="descname">Progress</tt><big>(</big><em>title</em>, <em>parent_max</em>, <em>child_max</em>, <em>verbose</em>, <em>output</em>, <em>message=''</em><big>)</big><a class="headerlink" href="#console.console.Frame.Progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="console.console.CliMixin" class="reference" href="#console.console.CliMixin"><tt class="xref docutils literal"><span class="pre">console.console.CliMixin</span></tt></a>, <a title="core.message.ProgressReceiver" class="reference" href="core.message.html#core.message.ProgressReceiver"><tt class="xref docutils literal"><span class="pre">core.message.ProgressReceiver</span></tt></a></p>
+<dl class="method">
+<dt id="console.console.Frame.Progress.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#console.console.Frame.Progress.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.Progress.erase">
+<tt class="descname">erase</tt><big>(</big><big>)</big><a class="headerlink" href="#console.console.Frame.Progress.erase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.Progress.update">
+<tt class="descname">update</tt><big>(</big><em>result</em>, <em>value</em>, <em>newmsg=''</em><big>)</big><a class="headerlink" href="#console.console.Frame.Progress.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.append_save_action">
+<tt class="descclassname">Frame.</tt><tt class="descname">append_save_action</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#console.console.Frame.append_save_action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.show_execute_dialog">
+<tt class="descclassname">Frame.</tt><tt class="descname">show_execute_dialog</tt><big>(</big><em>result</em>, <em>settings</em>, <em>files=None</em><big>)</big><a class="headerlink" href="#console.console.Frame.show_execute_dialog" title="Permalink to this definition">¶</a></dt>
+<dd>To be overwritten.</dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.show_files_message">
+<tt class="descclassname">Frame.</tt><tt class="descname">show_files_message</tt><big>(</big><em>result</em>, <em>message</em>, <em>title</em>, <em>files</em><big>)</big><a class="headerlink" href="#console.console.Frame.show_files_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.show_image_tree">
+<tt class="descclassname">Frame.</tt><tt class="descname">show_image_tree</tt><big>(</big><em>result</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#console.console.Frame.show_image_tree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.show_progress">
+<tt class="descclassname">Frame.</tt><tt class="descname">show_progress</tt><big>(</big><em>title</em>, <em>parent_max</em>, <em>child_max=1</em>, <em>message=''</em><big>)</big><a class="headerlink" href="#console.console.Frame.show_progress" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.show_progress_error">
+<tt class="descclassname">Frame.</tt><tt class="descname">show_progress_error</tt><big>(</big><em>result</em>, <em>message</em>, <em>ignore=True</em><big>)</big><a class="headerlink" href="#console.console.Frame.show_progress_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.show_scrolled_message">
+<tt class="descclassname">Frame.</tt><tt class="descname">show_scrolled_message</tt><big>(</big><em>message</em>, <em>title</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#console.console.Frame.show_scrolled_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.show_status">
+<tt class="descclassname">Frame.</tt><tt class="descname">show_status</tt><big>(</big><em>message</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#console.console.Frame.show_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Frame.verify_actionlist">
+<tt class="descclassname">Frame.</tt><tt class="descname">verify_actionlist</tt><big>(</big><em>actionlist</em><big>)</big><a class="headerlink" href="#console.console.Frame.verify_actionlist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="console.console.Progress">
+<em class="property">
+class </em><tt class="descclassname">console.console.</tt><tt class="descname">Progress</tt><big>(</big><em>title</em>, <em>parent_max</em>, <em>child_max</em>, <em>verbose</em>, <em>output</em>, <em>message=''</em><big>)</big><a class="headerlink" href="#console.console.Progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="console.console.CliMixin" class="reference" href="#console.console.CliMixin"><tt class="xref docutils literal"><span class="pre">console.console.CliMixin</span></tt></a>, <a title="core.message.ProgressReceiver" class="reference" href="core.message.html#core.message.ProgressReceiver"><tt class="xref docutils literal"><span class="pre">core.message.ProgressReceiver</span></tt></a></p>
+<dl class="method">
+<dt id="console.console.Progress.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#console.console.Progress.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Progress.erase">
+<tt class="descname">erase</tt><big>(</big><big>)</big><a class="headerlink" href="#console.console.Progress.erase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="console.console.Progress.update">
+<tt class="descname">update</tt><big>(</big><em>result</em>, <em>value</em>, <em>newmsg=''</em><big>)</big><a class="headerlink" href="#console.console.Progress.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="console.console.ask">
+<tt class="descclassname">console.console.</tt><tt class="descname">ask</tt><big>(</big><em>message</em>, <em>answers</em><big>)</big><a class="headerlink" href="#console.console.ask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="console.console.ask_yes_no">
+<tt class="descclassname">console.console.</tt><tt class="descname">ask_yes_no</tt><big>(</big><em>message</em><big>)</big><a class="headerlink" href="#console.console.ask_yes_no" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="console.console.example">
+<tt class="descclassname">console.console.</tt><tt class="descname">example</tt><big>(</big><big>)</big><a class="headerlink" href="#console.console.example" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="console.console.main">
+<tt class="descclassname">console.console.</tt><tt class="descname">main</tt><big>(</big><em>actionlist</em>, <em>paths</em>, <em>settings</em><big>)</big><a class="headerlink" href="#console.console.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="console.console.u">
+<tt class="descclassname">console.console.</tt><tt class="descname">u</tt><big>(</big><em>txt</em><big>)</big><a class="headerlink" href="#console.console.u" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="console.html"
+                                  title="previous chapter">console</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="core.html"
+                                  title="next chapter">core</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="core.html" title="core"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="console.html" title="console"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="console.html" >console</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

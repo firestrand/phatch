@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Release Manager &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="next" title="actions" href="actions.html" />
+    <link rel="prev" title="Testing" href="testing.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="actions.html" title="actions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="testing.html" title="Testing"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="release-manager">
+<h1>Release Manager<a class="headerlink" href="#release-manager" title="Permalink to this headline">¶</a></h1>
+<p>For every release we chose a release manager. If you want to volunteer please let us know.</p>
+<p>These are the steps a release manager has to do:</p>
+<ol class="arabic">
+<li><p class="first">Check the code with these tools:</p>
+<div class="highlight-python"><pre>pyflakes ../phatch/ | grep -v "undefined name '_'" | grep -v 'but unused'| grep -v redefinition &gt; pyflakes.txt
+pylint --errors-only ../phatch/  | grep -v "Undefined variable '_'" | grep -v "already defined" &gt; pylint.txt</pre>
+</div>
+<p>Do not fix any code in <tt class="docutils literal"><span class="pre">phatch/other</span></tt>. Be carefull to fix errors to prevent breaking. For example if you remove an unused imported function <tt class="docutils literal"><span class="pre">bar</span></tt> in the module <tt class="docutils literal"><span class="pre">foo</span></tt>, be sure to check it is nowhere used as <tt class="docutils literal"><span class="pre">foo.bar</span></tt>. So ignore unused items unless you are 100% sure what you are doing.</p>
+</li>
+<li><p class="first">License and Copyrights</p>
+<p>Check license and copyrights of any new files:</p>
+<div class="highlight-python"><pre>python license_test.py</pre>
+</div>
+<p>The above command will only check source code on Debian/Ubuntu, so please check other files manually (such as artwork, ...). Update the copyright file both in trunk as in the PAPT svn.</p>
+<p>Check if in the <tt class="docutils literal"><span class="pre">Help&gt;About</span></tt> dialog box everyone with substantial contributions is listed. Otherwise add it to <tt class="docutils literal"><span class="pre">phatch/data/info.py</span></tt>.</p>
+</li>
+<li><p class="first">Developer Documentation</p>
+<p>Update developer documentation, by running this command in the <tt class="docutils literal"><span class="pre">docs</span></tt> folder:</p>
+<div class="highlight-python"><pre>python update.py</pre>
+</div>
+</li>
+<li><p class="first">Translations</p>
+<p>Download the latest <tt class="docutils literal"><span class="pre">po</span></tt> translations. Test them with <a class="reference" href="https://launchpad.net/potest">potest</a> and fix any errors immediately in launchpad. When all errors are fixed download the latest <tt class="docutils literal"><span class="pre">po</span></tt> and <tt class="docutils literal"><span class="pre">mo</span></tt> translations to trunk.</p>
+</li>
+<li><p class="first"><a class="reference" href="https://help.launchpad.net/Packaging/PPA">PPA</a> (Personal Package Archive)</p>
+<p>Build and upload to the Phatch PPA to check if no errors are thrown by the build systems and if Phatch can be correctly installed. Invite users to test the PPA and look for any user interface errors. Do not release a version in the PPA with the new version number yet.</p>
+</li>
+<li><p class="first">Version number</p>
+<p>Bump up the version number after PPA testing. In the file <tt class="docutils literal"><span class="pre">phatch/data/version.py</span></tt> the variables <tt class="docutils literal"><span class="pre">BASE</span></tt> and <tt class="docutils literal"><span class="pre">VERSION</span></tt> should be identical:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">BASE</span> <span class="o">=</span> <span class="s">&quot;0.2.8&quot;</span>
+<span class="n">VERSION</span> <span class="o">=</span> <span class="s">&quot;0.2.8&quot;</span>
+<span class="n">DATE</span> <span class="o">=</span> <span class="s">&quot;Tue, 09 Mar 2010 21:01:25&quot;</span>
+</pre></div>
+</div>
+<p>Check in the <tt class="docutils literal"><span class="pre">Help&gt;About</span></tt> dialog box if the version number is displayed correctly.</p>
+</li>
+<li><p class="first">Commit last changes if necessary. Tag the release, for example:</p>
+<div class="highlight-python"><pre>bzr tag 0.2.8</pre>
+</div>
+</li>
+<li><p class="first">Export as zip:</p>
+<div class="highlight-python"><pre>bzr export ../phatch-0.2.8.zip</pre>
+</div>
+</li>
+<li><p class="first"><a class="reference" href="http://wiki.debian.org/Teams/PythonAppsPackagingTeam">PAPT</a> (Debian Python Application Package Team)</p>
+<p>Be sure you have an <a class="reference" href="https://alioth.debian.org/account/register.php">alioth account</a>. Update the Phatch files from the <a class="reference" href="http://svn.debian.org/wsvn/python-apps/packages/phatch/trunk/debian/#_packages_phatch_trunk_debian_">PAPT svn</a> as far as you can:</p>
+<ul>
+<li><p class="first">copyright</p>
+<ul class="simple">
+<li>check differences and sync both from the same file in trunk</li>
+</ul>
+</li>
+<li><p class="first">changelog</p>
+<ul>
+<li><p class="first">create a new entry with the command:</p>
+<div class="highlight-python"><pre>dch -v 0.2.8-1</pre>
+</div>
+</li>
+<li><p class="first">change the entry in:</p>
+<div class="highlight-python"><pre>phatch (0.2.8-1) UNRELEASED; urgency=low</pre>
+</div>
+</li>
+<li><p class="first">mention all bug fixes</p>
+</li>
+<li><p class="first">list new or removed dependencies</p>
+</li>
+<li><p class="first">send a mail to POX with the subject &#8220;RFS: phatch 0.2.8-1&#8221; and mention the download url in the message</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">If the package has been accepted by Debian, release with the new version number in the Phatch PPA.</p>
+</li>
+<li><p class="first">Ensure the Phatch website gets updated.</p>
+</li>
+<li><p class="first">Spread the word and announce the Phatch release on (ask help of others if needed):</p>
+<ul class="simple">
+<li><a class="reference" href="http://freshmeat.net/">http://freshmeat.net/</a></li>
+<li><a class="reference" href="http://groups.google.com/group/comp.lang.python">http://groups.google.com/group/comp.lang.python</a></li>
+<li><a class="reference" href="http://groups.google.com/group/comp.lang.python.announce">http://groups.google.com/group/comp.lang.python.announce</a></li>
+<li><a class="reference" href="http://pypi.python.org">http://pypi.python.org</a></li>
+<li><a class="reference" href="http://groups.google.com/group/wxpython-users">http://groups.google.com/group/wxpython-users</a></li>
+<li><a class="reference" href="http://ubuntuforums.org/forumdisplay.php?f=16">http://ubuntuforums.org/forumdisplay.php?f=16</a></li>
+<li><a class="reference" href="http://mail.python.org/mailman/listinfo/image-sig">http://mail.python.org/mailman/listinfo/image-sig</a> (PIL)</li>
+<li><a class="reference" href="http://blenderartists.org/forum/forumdisplay.php?f=11">http://blenderartists.org/forum/forumdisplay.php?f=11</a></li>
+</ul>
+<p>If you have a blog, announce it there too.</p>
+<p>Specific annoucements by people:</p>
+<ul class="simple">
+<li>Stani:<ul>
+<li>python-nl mailing list</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">Give your feedback on this release documentation, so it can be improved.</p>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="testing.html"
+                                  title="previous chapter">Testing</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="actions.html"
+                                  title="next chapter">actions</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="actions.html" title="actions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="testing.html" title="Testing"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

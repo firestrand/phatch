@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>shadow &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="actions" href="actions.html" />
+    <link rel="next" title="sketch" href="actions.sketch.html" />
+    <link rel="prev" title="scale" href="actions.scale.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="actions.sketch.html" title="sketch"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="actions.scale.html" title="scale"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="actions.html" accesskey="U">actions</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-actions.shadow">
+<h1>shadow<a class="headerlink" href="#module-actions.shadow" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="actions.shadow.Action">
+<em class="property">
+class </em><tt class="descclassname">actions.shadow.</tt><tt class="descname">Action</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#actions.shadow.Action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a></p>
+<p>Drops a blurred shadow under a photo</p>
+<dl class="staticmethod">
+<dt id="actions.shadow.Action.init">
+<em class="property">
+static </em><tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.shadow.Action.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.shadow.Action.interface">
+<tt class="descname">interface</tt><big>(</big><em>fields</em><big>)</big><a class="headerlink" href="#actions.shadow.Action.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="actions.shadow.Action.pil">
+<em class="property">
+static </em><tt class="descname">pil</tt><big>(</big><em>image</em>, <em>horizontal_offset=5</em>, <em>vertical_offset=5</em>, <em>background_color=(255</em>, <em>255</em>, <em>255</em>, <em>0)</em>, <em>shadow_color=4473924</em>, <em>border=8</em>, <em>shadow_blur=3</em>, <em>force_background_color=False</em>, <em>cache=None</em><big>)</big><a class="headerlink" href="#actions.shadow.Action.pil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a gaussian blur drop shadow to an image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>image</em> &#8211; The image to overlay on top of the shadow.</li>
+<li><em>type</em> &#8211; PIL Image</li>
+<li><em>offset</em> (tuple of integers) &#8211; Offset of the shadow from the image as an (x,y) tuple.
+Can be positive or negative.</li>
+<li><em>background_color</em> &#8211; Background color behind the image.</li>
+<li><em>shadow_color</em> &#8211; Shadow color (darkness).</li>
+<li><em>border</em> &#8211; Width of the border around the image.  This must be wide
+enough to account for the blurring of the shadow.</li>
+<li><em>shadow_blur</em> &#8211; Number of times to apply the filter.  More shadow_blur
+produce a more blurred shadow, but increase processing time.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="actions.shadow.Action.values">
+<tt class="descname">values</tt><big>(</big><em>info</em><big>)</big><a class="headerlink" href="#actions.shadow.Action.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="actions.shadow.drop_shadow">
+<tt class="descclassname">actions.shadow.</tt><tt class="descname">drop_shadow</tt><big>(</big><em>image</em>, <em>horizontal_offset=5</em>, <em>vertical_offset=5</em>, <em>background_color=(255</em>, <em>255</em>, <em>255</em>, <em>0)</em>, <em>shadow_color=4473924</em>, <em>border=8</em>, <em>shadow_blur=3</em>, <em>force_background_color=False</em>, <em>cache=None</em><big>)</big><a class="headerlink" href="#actions.shadow.drop_shadow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a gaussian blur drop shadow to an image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>image</em> &#8211; The image to overlay on top of the shadow.</li>
+<li><em>type</em> &#8211; PIL Image</li>
+<li><em>offset</em> (tuple of integers) &#8211; Offset of the shadow from the image as an (x,y) tuple.
+Can be positive or negative.</li>
+<li><em>background_color</em> &#8211; Background color behind the image.</li>
+<li><em>shadow_color</em> &#8211; Shadow color (darkness).</li>
+<li><em>border</em> &#8211; Width of the border around the image.  This must be wide
+enough to account for the blurring of the shadow.</li>
+<li><em>shadow_blur</em> &#8211; Number of times to apply the filter.  More shadow_blur
+produce a more blurred shadow, but increase processing time.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="actions.shadow.init">
+<tt class="descclassname">actions.shadow.</tt><tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.shadow.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="actions.scale.html"
+                                  title="previous chapter">scale</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="actions.sketch.html"
+                                  title="next chapter">sketch</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="actions.sketch.html" title="sketch"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="actions.scale.html" title="scale"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="actions.html" >actions</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

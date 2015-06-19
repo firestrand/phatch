@@ -1,0 +1,636 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pep8 &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="other" href="other.html" />
+    <link rel="next" title="pil_1_1_6" href="other.pil_1_1_6.html" />
+    <link rel="prev" title="findsystem" href="other.findsystem.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="other.pil_1_1_6.html" title="pil_1_1_6"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="other.findsystem.html" title="findsystem"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" accesskey="U">other</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-other.pep8">
+<h1>pep8<a class="headerlink" href="#module-other.pep8" title="Permalink to this headline">¶</a></h1>
+<p>Check Python source code formatting, according to PEP 8:
+<a class="reference" href="http://www.python.org/dev/peps/pep-0008/">http://www.python.org/dev/peps/pep-0008/</a></p>
+<p>For usage and a list of options, try this:
+$ python pep8.py -h</p>
+<p>This program and its regression test suite live here:
+<a class="reference" href="http://github.com/jcrocholl/pep8">http://github.com/jcrocholl/pep8</a></p>
+<p>Groups of errors and warnings:
+E errors
+W warnings
+100 indentation
+200 whitespace
+300 blank lines
+400 imports
+500 line length
+600 deprecation
+700 statements</p>
+<p>You can add checks to this program by writing plugins. Each plugin is
+a simple function that is called for each line of source code, either
+physical or logical.</p>
+<p>Physical line:
+- Raw line of text from the input file.</p>
+<p>Logical line:
+- Multi-line statements converted to a single line.
+- Stripped left and right.
+- Contents of strings replaced with &#8216;xxx&#8217; of same length.
+- Comments removed.</p>
+<p>The check function requests physical or logical lines by the name of
+the first argument:</p>
+<p>def maximum_line_length(physical_line)
+def extraneous_whitespace(logical_line)
+def blank_lines(logical_line, blank_lines, indent_level, line_number)</p>
+<p>The last example above demonstrates how check plugins can request
+additional information with extra arguments. All attributes of the
+Checker object are available. Some examples:</p>
+<p>lines: a list of the raw lines from the input file
+tokens: the tokens that contribute to this logical line
+line_number: line number in the input file
+blank_lines: blank lines before this one
+indent_char: first indentation character in this file (&#8216; &#8216; or &#8216; &#8216;)
+indent_level: indentation (with tabs expanded to multiples of 8)
+previous_indent_level: indentation on previous line
+previous_logical: previous logical line</p>
+<p>The docstring of each check function shall be the relevant part of
+text from PEP 8. It is printed if the user enables &#8211;show-pep8.
+Several docstrings contain examples directly from the PEP 8 document.</p>
+<p>Okay: spam(ham[1], {eggs: 2})
+E201: spam( ham[1], {eggs: 2})</p>
+<p>These examples are verified automatically when pep8.py is run with the
+&#8211;doctest option. You can add examples for your own check functions.
+The format is simple: &#8220;Okay&#8221; or error/warning code followed by colon
+and space, the rest of the line is example source code. If you put &#8216;r&#8217;
+before the docstring, you can use</p>
+<blockquote>
+for newline,    for tab and s</blockquote>
+<p>for space.</p>
+<dl class="class">
+<dt id="other.pep8.Checker">
+<em class="property">
+class </em><tt class="descclassname">other.pep8.</tt><tt class="descname">Checker</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#other.pep8.Checker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<p>Load a Python source file, tokenize it, check coding style.</p>
+<dl class="method">
+<dt id="other.pep8.Checker.build_tokens_line">
+<tt class="descname">build_tokens_line</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pep8.Checker.build_tokens_line" title="Permalink to this definition">¶</a></dt>
+<dd>Build a logical line from tokens.</dd></dl>
+
+<dl class="method">
+<dt id="other.pep8.Checker.check_all">
+<tt class="descname">check_all</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pep8.Checker.check_all" title="Permalink to this definition">¶</a></dt>
+<dd>Run all checks on the input file.</dd></dl>
+
+<dl class="method">
+<dt id="other.pep8.Checker.check_logical">
+<tt class="descname">check_logical</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pep8.Checker.check_logical" title="Permalink to this definition">¶</a></dt>
+<dd>Build a line from tokens and run all logical checks on it.</dd></dl>
+
+<dl class="method">
+<dt id="other.pep8.Checker.check_physical">
+<tt class="descname">check_physical</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#other.pep8.Checker.check_physical" title="Permalink to this definition">¶</a></dt>
+<dd>Run all physical checks on a raw input line.</dd></dl>
+
+<dl class="method">
+<dt id="other.pep8.Checker.readline">
+<tt class="descname">readline</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pep8.Checker.readline" title="Permalink to this definition">¶</a></dt>
+<dd>Get the next line from the input buffer.</dd></dl>
+
+<dl class="method">
+<dt id="other.pep8.Checker.readline_check_physical">
+<tt class="descname">readline_check_physical</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pep8.Checker.readline_check_physical" title="Permalink to this definition">¶</a></dt>
+<dd>Check and return the next physical line. This method can be
+used to feed tokenize.generate_tokens.</dd></dl>
+
+<dl class="method">
+<dt id="other.pep8.Checker.report_error">
+<tt class="descname">report_error</tt><big>(</big><em>line_number</em>, <em>offset</em>, <em>text</em>, <em>check</em><big>)</big><a class="headerlink" href="#other.pep8.Checker.report_error" title="Permalink to this definition">¶</a></dt>
+<dd>Report an error, according to options.</dd></dl>
+
+<dl class="method">
+<dt id="other.pep8.Checker.run_check">
+<tt class="descname">run_check</tt><big>(</big><em>check</em>, <em>argument_names</em><big>)</big><a class="headerlink" href="#other.pep8.Checker.run_check" title="Permalink to this definition">¶</a></dt>
+<dd>Run a check plugin.</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.blank_lines">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">blank_lines</tt><big>(</big><em>logical_line</em>, <em>blank_lines</em>, <em>indent_level</em>, <em>line_number</em>, <em>previous_logical</em>, <em>blank_lines_before_comment</em><big>)</big><a class="headerlink" href="#other.pep8.blank_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Separate top-level function and class definitions with two blank lines.</p>
+<p>Method definitions inside a class are separated by a single blank line.</p>
+<p>Extra blank lines may be used (sparingly) to separate groups of related
+functions.  Blank lines may be omitted between a bunch of related
+one-liners (e.g. a set of dummy implementations).</p>
+<p>Use blank lines in functions, sparingly, to indicate logical sections.</p>
+<p>Okay: def a():n    passnnndef b():n    pass
+Okay: def a():n    passnnn# Foon# Barnndef b():n    pass</p>
+<p>E301: class Foo:n    b = 0n    def bar():n        pass
+E302: def a():n    passnndef b(n):n    pass
+E303: def a():n    passnnnndef b(n):n    pass
+E303: def a():nnnn    pass
+E304: &#64;decoratornndef a():n    pass</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.compound_statements">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">compound_statements</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.compound_statements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compound statements (multiple statements on the same line) are
+generally discouraged.</p>
+<p>While sometimes it&#8217;s okay to put an if/for/while with a small body
+on the same line, never do this for multi-clause statements. Also
+avoid folding such long lines!</p>
+<p>Okay: if foo == &#8216;blah&#8217;:n    do_blah_thing()
+Okay: do_one()
+Okay: do_two()
+Okay: do_three()</p>
+<p>E701: if foo == &#8216;blah&#8217;: do_blah_thing()
+E701: for x in lst: total += x
+E701: while t &lt; 10: t = delay()
+E701: if foo == &#8216;blah&#8217;: do_blah_thing()
+E701: else: do_non_blah_thing()
+E701: try: something()
+E701: finally: cleanup()
+E701: if foo == &#8216;blah&#8217;: one(); two(); three()</p>
+<p>E702: do_one(); do_two(); do_three()</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.excluded">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">excluded</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#other.pep8.excluded" title="Permalink to this definition">¶</a></dt>
+<dd>Check if options.exclude contains a pattern that matches filename.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.expand_indent">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">expand_indent</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#other.pep8.expand_indent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the amount of indentation.
+Tabs are expanded to the next multiple of 8.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">expand_indent</span><span class="p">(</span><span class="s">&#39;    &#39;</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expand_indent</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expand_indent</span><span class="p">(</span><span class="s">&#39;    </span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expand_indent</span><span class="p">(</span><span class="s">&#39;       </span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expand_indent</span><span class="p">(</span><span class="s">&#39;        </span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="go">16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.extraneous_whitespace">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">extraneous_whitespace</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.extraneous_whitespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Avoid extraneous whitespace in the following situations:</p>
+<ul class="simple">
+<li>Immediately inside parentheses, brackets or braces.</li>
+<li>Immediately before a comma, semicolon, or colon.</li>
+</ul>
+<p>Okay: spam(ham[1], {eggs: 2})
+E201: spam( ham[1], {eggs: 2})
+E201: spam(ham[ 1], {eggs: 2})
+E201: spam(ham[1], { eggs: 2})
+E202: spam(ham[1], {eggs: 2} )
+E202: spam(ham[1 ], {eggs: 2})
+E202: spam(ham[1], {eggs: 2 })</p>
+<p>E203: if x == 4: print x, y; x, y = y , x
+E203: if x == 4: print x, y ; x, y = y, x
+E203: if x == 4 : print x, y; x, y = y, x</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.filename_match">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">filename_match</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#other.pep8.filename_match" title="Permalink to this definition">¶</a></dt>
+<dd>Check if options.filename contains a pattern that matches filename.
+If options.filename is unspecified, this always returns True.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.find_checks">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">find_checks</tt><big>(</big><em>argument_name</em><big>)</big><a class="headerlink" href="#other.pep8.find_checks" title="Permalink to this definition">¶</a></dt>
+<dd>Find all globally visible functions where the first argument name
+starts with argument_name.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.get_count">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">get_count</tt><big>(</big><em>prefix=''</em><big>)</big><a class="headerlink" href="#other.pep8.get_count" title="Permalink to this definition">¶</a></dt>
+<dd>Return the total count of errors and warnings.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.get_error_statistics">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">get_error_statistics</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pep8.get_error_statistics" title="Permalink to this definition">¶</a></dt>
+<dd>Get error statistics.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.get_statistics">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">get_statistics</tt><big>(</big><em>prefix=''</em><big>)</big><a class="headerlink" href="#other.pep8.get_statistics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get statistics for message codes that start with the prefix.</p>
+<p>prefix=&#8217;&#8217; matches all errors and warnings
+prefix=&#8217;E&#8217; matches all errors
+prefix=&#8217;W&#8217; matches all warnings
+prefix=&#8217;E4&#8217; matches all errors that have to do with imports</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.get_warning_statistics">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">get_warning_statistics</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pep8.get_warning_statistics" title="Permalink to this definition">¶</a></dt>
+<dd>Get warning statistics.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.ignore_code">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">ignore_code</tt><big>(</big><em>code</em><big>)</big><a class="headerlink" href="#other.pep8.ignore_code" title="Permalink to this definition">¶</a></dt>
+<dd>Check if options.ignore contains a prefix of the error code.
+If options.select contains a prefix of the error code, do not ignore it.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.imports_on_separate_lines">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">imports_on_separate_lines</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.imports_on_separate_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports should usually be on separate lines.</p>
+<p>Okay: import osnimport sys
+E401: import sys, os</p>
+<p>Okay: from subprocess import Popen, PIPE
+Okay: from myclas import MyClass
+Okay: from foo.bar.yourclass import YourClass
+Okay: import myclass
+Okay: import foo.bar.yourclass</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.indentation">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">indentation</tt><big>(</big><em>logical_line</em>, <em>previous_logical</em>, <em>indent_char</em>, <em>indent_level</em>, <em>previous_indent_level</em><big>)</big><a class="headerlink" href="#other.pep8.indentation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use 4 spaces per indentation level.</p>
+<p>For really old code that you don&#8217;t want to mess up, you can continue to
+use 8-space tabs.</p>
+<p>Okay: a = 1
+Okay: if a == 0:n    a = 1
+E111:   a = 1</p>
+<p>Okay: for item in items:n    pass
+E112: for item in items:npass</p>
+<p>Okay: a = 1nb = 2
+E113: a = 1n    b = 2</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.input_dir">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">input_dir</tt><big>(</big><em>dirname</em><big>)</big><a class="headerlink" href="#other.pep8.input_dir" title="Permalink to this definition">¶</a></dt>
+<dd>Check all Python source files in this directory and all subdirectories.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.input_file">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">input_file</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#other.pep8.input_file" title="Permalink to this definition">¶</a></dt>
+<dd>Run all checks on a Python source file.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.iskeyword">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">iskeyword</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pep8.iskeyword" title="Permalink to this definition">¶</a></dt>
+<dd>x.__contains__(y) &lt;==&gt; y in x.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.maximum_line_length">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">maximum_line_length</tt><big>(</big><em>physical_line</em><big>)</big><a class="headerlink" href="#other.pep8.maximum_line_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limit all lines to a maximum of 79 characters.</p>
+<p>There are still many devices around that are limited to 80 character
+lines; plus, limiting windows to 80 characters makes it possible to have
+several windows side-by-side.  The default wrapping on such devices looks
+ugly.  Therefore, please limit all lines to a maximum of 79 characters.
+For flowing long blocks of text (docstrings or comments), limiting the
+length to 72 characters is recommended.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.message">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">message</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#other.pep8.message" title="Permalink to this definition">¶</a></dt>
+<dd>Print a message.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.missing_newline">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">missing_newline</tt><big>(</big><em>physical_line</em><big>)</big><a class="headerlink" href="#other.pep8.missing_newline" title="Permalink to this definition">¶</a></dt>
+<dd>JCR: The last line should have a newline.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.missing_whitespace">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">missing_whitespace</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.missing_whitespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>JCR: Each comma, semicolon or colon should be followed by whitespace.</p>
+<p>Okay: [a, b]
+Okay: (3,)
+Okay: a[1:4]
+Okay: a[:4]
+Okay: a[1:]
+Okay: a[1:4:2]
+E231: [&#8216;a&#8217;,&#8217;b&#8217;]
+E231: foo(bar,baz)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.missing_whitespace_around_operator">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">missing_whitespace_around_operator</tt><big>(</big><em>logical_line</em>, <em>tokens</em><big>)</big><a class="headerlink" href="#other.pep8.missing_whitespace_around_operator" title="Permalink to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li>Always surround these binary operators with a single space on
+either side: assignment (=), augmented assignment (+=, -= etc.),
+comparisons (==, &lt;, &gt;, !=, &lt;&gt;, &lt;=, &gt;=, in, not in, is, is not),
+Booleans (and, or, not).</li>
+<li>Use spaces around arithmetic operators.</li>
+</ul>
+<p>Okay: i = i + 1
+Okay: submitted += 1
+Okay: x = x * 2 - 1
+Okay: hypot2 = x * x + y * y
+Okay: c = (a + b) * (a - b)
+Okay: foo(bar, key=&#8217;word&#8217;, <a href="#id1" name="id2"><span class="problematic" id="id2">*</span></a>args, <a href="#id3" name="id4"><span class="problematic" id="id4">**</span></a>kwargs)
+Okay: baz(<a href="#id5" name="id6"><span class="problematic" id="id6">**</span></a>kwargs)
+Okay: negative = -1
+Okay: spam(-1)
+Okay: alpha[:-i]
+Okay: if not -5 &lt; x &lt; +5:n    pass
+Okay: lambda <a href="#id7" name="id8"><span class="problematic" id="id8">*</span></a>args, <a href="#id9" name="id10"><span class="problematic" id="id10">**</span></a>kw: (args, kw)</p>
+<p>E225: i=i+1
+E225: submitted +=1
+E225: x = x*2 - 1
+E225: hypot2 = x*x + y*y
+E225: c = (a+b) * (a-b)
+E225: c = alpha -4
+E225: z = x <a href="#id11" name="id12"><span class="problematic" id="id12">**</span></a>y</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.mute_string">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">mute_string</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#other.pep8.mute_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace contents with &#8216;xxx&#8217; to prevent syntax matching.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mute_string</span><span class="p">(</span><span class="s">&#39;&quot;abc&quot;&#39;</span><span class="p">)</span>
+<span class="go">&#39;&quot;xxx&quot;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mute_string</span><span class="p">(</span><span class="s">&quot;&#39;&#39;&#39;abc&#39;&#39;&#39;&quot;</span><span class="p">)</span>
+<span class="go">&quot;&#39;&#39;&#39;xxx&#39;&#39;&#39;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mute_string</span><span class="p">(</span><span class="s">&quot;r&#39;abc&#39;&quot;</span><span class="p">)</span>
+<span class="go">&quot;r&#39;xxx&#39;&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.print_benchmark">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">print_benchmark</tt><big>(</big><em>elapsed</em><big>)</big><a class="headerlink" href="#other.pep8.print_benchmark" title="Permalink to this definition">¶</a></dt>
+<dd>Print benchmark numbers.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.print_statistics">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">print_statistics</tt><big>(</big><em>prefix=''</em><big>)</big><a class="headerlink" href="#other.pep8.print_statistics" title="Permalink to this definition">¶</a></dt>
+<dd>Print overall statistics (number of errors and warnings).</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.process_options">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">process_options</tt><big>(</big><em>arglist=None</em><big>)</big><a class="headerlink" href="#other.pep8.process_options" title="Permalink to this definition">¶</a></dt>
+<dd>Process options passed either via arglist or via command line args.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.python_3000_backticks">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">python_3000_backticks</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.python_3000_backticks" title="Permalink to this definition">¶</a></dt>
+<dd>Backticks are removed in Python 3000.
+Use repr() instead.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.python_3000_has_key">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">python_3000_has_key</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.python_3000_has_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>The {}.has_key() method will be removed in the future version of
+Python. Use the &#8216;in&#8217; operation instead, like:
+d = {&#8220;a&#8221;: 1, &#8220;b&#8221;: 2}
+if &#8220;b&#8221; in d:</p>
+<blockquote>
+print d[&#8220;b&#8221;]</blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.python_3000_not_equal">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">python_3000_not_equal</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.python_3000_not_equal" title="Permalink to this definition">¶</a></dt>
+<dd>!= can also be written &lt;&gt;, but this is an obsolete usage kept for
+backwards compatibility only. New code should always use !=.
+The older syntax is removed in Python 3000.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.python_3000_raise_comma">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">python_3000_raise_comma</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.python_3000_raise_comma" title="Permalink to this definition">¶</a></dt>
+<dd><p>When raising an exception, use &#8220;raise ValueError(&#8216;message&#8217;)&#8221;
+instead of the older form &#8220;raise ValueError, &#8216;message&#8217;&#8221;.</p>
+<p>The paren-using form is preferred because when the exception arguments
+are long or include string formatting, you don&#8217;t need to use line
+continuation characters thanks to the containing parentheses.  The older
+form will be removed in Python 3000.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.selftest">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">selftest</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pep8.selftest" title="Permalink to this definition">¶</a></dt>
+<dd>Test all check functions with test cases in docstrings.</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.tabs_obsolete">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">tabs_obsolete</tt><big>(</big><em>physical_line</em><big>)</big><a class="headerlink" href="#other.pep8.tabs_obsolete" title="Permalink to this definition">¶</a></dt>
+<dd><p>For new projects, spaces-only are strongly recommended over tabs.  Most
+editors have features that make this easy to do.</p>
+<p>Okay: if True:n    return
+W191: if True:ntreturn</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.tabs_or_spaces">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">tabs_or_spaces</tt><big>(</big><em>physical_line</em>, <em>indent_char</em><big>)</big><a class="headerlink" href="#other.pep8.tabs_or_spaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Never mix tabs and spaces.</p>
+<p>The most popular way of indenting Python is with spaces only.  The
+second-most popular way is with tabs only.  Code indented with a mixture
+of tabs and spaces should be converted to using spaces exclusively.  When
+invoking the Python command line interpreter with the -t option, it issues
+warnings about code that illegally mixes tabs and spaces.  When using -tt
+these warnings become errors.  These options are highly recommended!</p>
+<p>Okay: if a == 0:n        a = 1n        b = 1
+E101: if a == 0:n        a = 1ntb = 1</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.trailing_blank_lines">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">trailing_blank_lines</tt><big>(</big><em>physical_line</em>, <em>lines</em>, <em>line_number</em><big>)</big><a class="headerlink" href="#other.pep8.trailing_blank_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>JCR: Trailing blank lines are superfluous.</p>
+<p>Okay: spam(1)
+W391: spam(1)n</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.trailing_whitespace">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">trailing_whitespace</tt><big>(</big><em>physical_line</em><big>)</big><a class="headerlink" href="#other.pep8.trailing_whitespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>JCR: Trailing whitespace is superfluous.</p>
+<p>Okay: spam(1)
+W291: spam(1)s</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.whitespace_around_comma">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">whitespace_around_comma</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.whitespace_around_comma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Avoid extraneous whitespace in the following situations:</p>
+<ul class="simple">
+<li>More than one space around an assignment (or other) operator to
+align it with another.</li>
+</ul>
+<p>JCR: This should also be applied around comma etc.
+Note: these checks are disabled by default</p>
+<p>Okay: a = (1, 2)
+E241: a = (1,  2)
+E242: a = (1,       2)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.whitespace_around_named_parameter_equals">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">whitespace_around_named_parameter_equals</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.whitespace_around_named_parameter_equals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Don&#8217;t use spaces around the &#8216;=&#8217; sign when used to indicate a
+keyword argument or a default parameter value.</p>
+<p>Okay: def complex(real, imag=0.0):
+Okay: return magic(r=real, i=imag)
+Okay: boolean(a == b)
+Okay: boolean(a != b)
+Okay: boolean(a &lt;= b)
+Okay: boolean(a &gt;= b)</p>
+<p>E251: def complex(real, imag = 0.0):
+E251: return magic(r = real, i = imag)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.whitespace_around_operator">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">whitespace_around_operator</tt><big>(</big><em>logical_line</em><big>)</big><a class="headerlink" href="#other.pep8.whitespace_around_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Avoid extraneous whitespace in the following situations:</p>
+<ul class="simple">
+<li>More than one space around an assignment (or other) operator to
+align it with another.</li>
+</ul>
+<p>Okay: a = 12 + 3
+E221: a = 4  + 5
+E222: a = 4 +  5
+E223: a = 4 + 5
+E224: a = 4 +       5</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.whitespace_before_inline_comment">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">whitespace_before_inline_comment</tt><big>(</big><em>logical_line</em>, <em>tokens</em><big>)</big><a class="headerlink" href="#other.pep8.whitespace_before_inline_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Separate inline comments by at least two spaces.</p>
+<p>An inline comment is a comment on the same line as a statement.  Inline
+comments should be separated by at least two spaces from the statement.
+They should start with a # and a single space.</p>
+<p>Okay: x = x + 1  # Increment x
+Okay: x = x + 1    # Increment x
+E261: x = x + 1 # Increment x
+E262: x = x + 1  #Increment x
+E262: x = x + 1  #  Increment x</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pep8.whitespace_before_parameters">
+<tt class="descclassname">other.pep8.</tt><tt class="descname">whitespace_before_parameters</tt><big>(</big><em>logical_line</em>, <em>tokens</em><big>)</big><a class="headerlink" href="#other.pep8.whitespace_before_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Avoid extraneous whitespace in the following situations:</p>
+<ul class="simple">
+<li>Immediately before the open parenthesis that starts the argument
+list of a function call.</li>
+<li>Immediately before the open parenthesis that starts an indexing or
+slicing.</li>
+</ul>
+<p>Okay: spam(1)
+E211: spam (1)</p>
+<p>Okay: dict[&#8216;key&#8217;] = list[index]
+E211: dict [&#8216;key&#8217;] = list[index]
+E211: dict[&#8216;key&#8217;] = list [index]</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="other.findsystem.html"
+                                  title="previous chapter">findsystem</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="other.pil_1_1_6.html"
+                                  title="next chapter">pil_1_1_6</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="other.pil_1_1_6.html" title="pil_1_1_6"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="other.findsystem.html" title="findsystem"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" >other</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

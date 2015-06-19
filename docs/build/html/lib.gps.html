@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gps &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="imageTable" href="lib.imageTable.html" />
+    <link rel="prev" title="gettextFix" href="lib.gettextFix.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.imageTable.html" title="imageTable"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.gettextFix.html" title="gettextFix"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.gps">
+<h1>gps<a class="headerlink" href="#module-lib.gps" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="lib.gps.d">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">d</tt><big>(</big><em>angle</em><big>)</big><a class="headerlink" href="#lib.gps.d" title="Permalink to this definition">¶</a></dt>
+<dd>d(any) - get degrees from a number :eg d(33.41) -&gt; 33</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.get_metadata">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">get_metadata</tt><big>(</big><em>dateString</em>, <em>timedict</em>, <em>timeshift</em>, <em>path</em>, <em>report=None</em><big>)</big><a class="headerlink" href="#lib.gps.get_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>get_metadata(float) - get a dictionary of changes to the metadata
+dateString - EXIF date format string /* in <a href="#id1" name="id2"><span class="problematic" id="id2">*</span></a>/
+timeshift  - delta between GMT and local time (seconds.</p>
+<blockquote>
+Positive to West)</blockquote>
+<p>path       - path to the image (only for stdout reporting)
+report     - log file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.get_node_value">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">get_node_value</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#lib.gps.get_node_value" title="Permalink to this definition">¶</a></dt>
+<dd>get_node_value((node) - return the value of a node</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.get_text">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">get_text</tt><big>(</big><em>nodelist</em><big>)</big><a class="headerlink" href="#lib.gps.get_text" title="Permalink to this definition">¶</a></dt>
+<dd>get_text(nodeList) - return the text in nodelist</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.get_xml_timez">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">get_xml_timez</tt><big>(</big><em>phototime</em>, <em>timeshift</em><big>)</big><a class="headerlink" href="#lib.gps.get_xml_timez" title="Permalink to this definition">¶</a></dt>
+<dd>getXMLtimez - convert a datetime to an XML formatted date</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.handle_gpx">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">handle_gpx</tt><big>(</big><em>gpx</em>, <em>timedict</em>, <em>ns</em><big>)</big><a class="headerlink" href="#lib.gps.handle_gpx" title="Permalink to this definition">¶</a></dt>
+<dd>handle_gpx</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.handle_trk">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">handle_trk</tt><big>(</big><em>trk</em>, <em>timedict</em>, <em>ns</em><big>)</big><a class="headerlink" href="#lib.gps.handle_trk" title="Permalink to this definition">¶</a></dt>
+<dd>handle_trk</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.handle_trkpt">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">handle_trkpt</tt><big>(</big><em>trkpt</em>, <em>timedict</em>, <em>ns</em><big>)</big><a class="headerlink" href="#lib.gps.handle_trkpt" title="Permalink to this definition">¶</a></dt>
+<dd>handle_trkpt</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.handle_trkseg">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">handle_trkseg</tt><big>(</big><em>trkseg</em>, <em>timedict</em>, <em>ns</em><big>)</big><a class="headerlink" href="#lib.gps.handle_trkseg" title="Permalink to this definition">¶</a></dt>
+<dd>handle_trkseg</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.m">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">m</tt><big>(</big><em>angle</em><big>)</big><a class="headerlink" href="#lib.gps.m" title="Permalink to this definition">¶</a></dt>
+<dd>m(any) - get minutes from a number :eg d(33.41) -&gt; 24</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.r">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">r</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#lib.gps.r" title="Permalink to this definition">¶</a></dt>
+<dd>r(float) - get a Rational number for a float</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.read_gpx">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">read_gpx</tt><big>(</big><em>gpx_file</em><big>)</big><a class="headerlink" href="#lib.gps.read_gpx" title="Permalink to this definition">¶</a></dt>
+<dd>read_gpx(string) -
+get a dictionary of time/position information</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.s">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">s</tt><big>(</big><em>angle</em><big>)</big><a class="headerlink" href="#lib.gps.s" title="Permalink to this definition">¶</a></dt>
+<dd>s(any) - get seconds from a number :eg s(33.41) -&gt; 36</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.search">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">search</tt><big>(</big><em>dict</em>, <em>target</em><big>)</big><a class="headerlink" href="#lib.gps.search" title="Permalink to this definition">¶</a></dt>
+<dd>search(dict,taget) - search for closest match</dd></dl>
+
+<dl class="function">
+<dt id="lib.gps.write_header">
+<tt class="descclassname">lib.gps.</tt><tt class="descname">write_header</tt><big>(</big><em>report</em><big>)</big><a class="headerlink" href="#lib.gps.write_header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.gettextFix.html"
+                                  title="previous chapter">gettextFix</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.imageTable.html"
+                                  title="next chapter">imageTable</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.imageTable.html" title="imageTable"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.gettextFix.html" title="gettextFix"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

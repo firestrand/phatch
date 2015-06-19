@@ -1,0 +1,592 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>system &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="thumbnail" href="lib.thumbnail.html" />
+    <link rel="prev" title="safe" href="lib.safe.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.thumbnail.html" title="thumbnail"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.safe.html" title="safe"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.system">
+<h1>system<a class="headerlink" href="#module-lib.system" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lib.system.MethodRegister">
+<em class="property">
+class </em><tt class="descclassname">lib.system.</tt><tt class="descname">MethodRegister</tt><a class="headerlink" href="#lib.system.MethodRegister" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="lib.system.MethodRegister.does_process">
+<tt class="descname">does_process</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.system.MethodRegister.does_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the filename can be processed by any of the
+registered methods.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> (string) &#8211; filename</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.system.MethodRegister.get_methods">
+<tt class="descname">get_methods</tt><big>(</big><em>extension</em><big>)</big><a class="headerlink" href="#lib.system.MethodRegister.get_methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all methods registered for an extension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>extension</em> (string) &#8211; file extension</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">list of methods registered for the extension</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.system.MethodRegister.register">
+<tt class="descname">register</tt><big>(</big><em>extensions</em>, <em>method</em><big>)</big><a class="headerlink" href="#lib.system.MethodRegister.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register one method for multiple extensions. If the method
+is None, it will cancel the registration.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>extensions</em> (list of strings) &#8211; list of file extensions</li>
+<li><em>method</em> &#8211; method to open a file</li>
+<li><em>method</em> &#8211; function</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.system.MethodRegister.unregister_extension">
+<tt class="descname">unregister_extension</tt><big>(</big><em>extension</em><big>)</big><a class="headerlink" href="#lib.system.MethodRegister.unregister_extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregister an extension from all methods.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>extensions</em> (list of strings) &#8211; list of file extensions</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.system.MethodRegister.unregister_method">
+<tt class="descname">unregister_method</tt><big>(</big><em>method</em><big>)</big><a class="headerlink" href="#lib.system.MethodRegister.unregister_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregister a method from all extensions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>method</em> &#8211; method to open a file</li>
+<li><em>method</em> &#8211; function</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.system.TempFile">
+<em class="property">
+class </em><tt class="descclassname">lib.system.</tt><tt class="descname">TempFile</tt><big>(</big><em>suffix=''</em>, <em>path=None</em><big>)</big><a class="headerlink" href="#lib.system.TempFile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="lib.system.TempFile.close">
+<tt class="descname">close</tt><big>(</big><em>force_remove=True</em>, <em>dest=''</em><big>)</big><a class="headerlink" href="#lib.system.TempFile.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>It is important to call this method when finished with
+the temporary file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>force_remove</em> (boolean) &#8211; Remove temporary file and raise IOError when it does not exist
+anymore. Set to False too allow for processes that delete the
+temporary file when failing to exit succesfully.</li>
+<li><em>dest</em> (string) &#8211; This is eg used for thumbnails in order to rename them to
+their proper location</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.call">
+<tt class="descclassname">lib.system.</tt><tt class="descname">call</tt><big>(</big><em>args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.system.call" title="Permalink to this definition">¶</a></dt>
+<dd>Same as subprocess.call, but if only a command line text is
+given it breaks it in a list of arguments so it can be used
+also with <tt class="docutils literal"><span class="pre">shell=False</span></tt> on Unix.</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.ensure_path">
+<tt class="descclassname">lib.system.</tt><tt class="descname">ensure_path</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#lib.system.ensure_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure a path exists, create all not existing paths.</p>
+<p>It raises an OSError, if an invalid path is specified.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>path</em> (str) &#8211; the absolute folder path (not relative!)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.file_extension">
+<tt class="descclassname">lib.system.</tt><tt class="descname">file_extension</tt><big>(</big><em>uri</em><big>)</big><a class="headerlink" href="#lib.system.file_extension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.system.filename_to_title">
+<tt class="descclassname">lib.system.</tt><tt class="descname">filename_to_title</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.system.filename_to_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a filename to a title. It replaces dashes with spaces
+and converts every first character to uppercase.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> (str) &#8211; an absolute or relative path</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">titled version of the filename</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">filename_to_title</span><span class="p">(</span><span class="s">&#39;~/highlight_mask.png&#39;</span><span class="p">)</span>
+<span class="go">&#39;Highlight Mask&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.find_command">
+<tt class="descclassname">lib.system.</tt><tt class="descname">find_command</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#lib.system.find_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find command in text</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>text</em> (string) &#8211; command line</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">text</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">text</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">find_command</span><span class="p">(</span><span class="s">&#39;convert image.jpg image.jpg&#39;</span><span class="p">)</span>
+<span class="go">&#39;convert&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_command</span><span class="p">(</span><span class="s">&#39;&quot;/my apps/convert&quot; image.jpg image.jpg&#39;</span><span class="p">)</span>
+<span class="go">&#39;&quot;/my apps/convert&quot;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_command</span><span class="p">(</span><span class="s">&#39;/my apps/convert image.jpg image.jpg&#39;</span><span class="p">)</span>
+<span class="go">&#39;/my&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.find_exe">
+<tt class="descclassname">lib.system.</tt><tt class="descname">find_exe</tt><big>(</big><em>executable</em>, <em>quote=True</em>, <em>use_which=True</em>, <em>raise_exception=False</em><big>)</big><a class="headerlink" href="#lib.system.find_exe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds an executable binary. Returns None if the binary can
+not be found.</p>
+<p>This method need some extra love for Windows and Mac.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>executable</em> (string) &#8211; binary which will be used as a plugin (eg imagemagick)</li>
+<li><em>quote</em> (bool) &#8211; quote the path if it contains spaces</li>
+<li><em>use_which</em> (bool) &#8211; use the command <tt class="docutils literal"><span class="pre">which</span></tt> on non windows platforms</li>
+<li><em>raise_exception</em> (bool) &#8211; raise exception if not found</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">absolute path to the binary</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string or None</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">find_exe</span><span class="p">(</span><span class="s">&#39;python&#39;</span><span class="p">)</span>
+<span class="go">&#39;/usr/bin/python&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">find_exe</span><span class="p">(</span><span class="s">&#39;python&#39;</span><span class="p">,</span> <span class="n">use_which</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">&#39;/usr/bin/python&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.find_in">
+<tt class="descclassname">lib.system.</tt><tt class="descname">find_in</tt><big>(</big><em>filename</em>, <em>paths</em><big>)</big><a class="headerlink" href="#lib.system.find_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds a filename in a list of paths.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>filename</em> (str) &#8211; filename</li>
+<li><em>paths</em> (list of strings) &#8211; paths</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">found filename with path or None</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string or None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.fix_quotes">
+<tt class="descclassname">lib.system.</tt><tt class="descname">fix_quotes</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#lib.system.fix_quotes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fix quotes for a command line parameter. Only surround
+by quotes if a space is present in the filename.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>text</em> (string) &#8211; command line parameter</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">text with quotes if needed</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fix_quotes</span><span class="p">(</span><span class="s">&#39;blender&#39;</span><span class="p">)</span>
+<span class="go">&#39;blender&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fix_quotes</span><span class="p">(</span><span class="s">&#39;/my programs/blender&#39;</span><span class="p">)</span>
+<span class="go">&#39;&quot;/my programs/blender&quot;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.is_file">
+<tt class="descclassname">lib.system.</tt><tt class="descname">is_file</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#lib.system.is_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks wether a path is a valid local or remote file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>path</em> (str) &#8211; the path which has to be checked</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">True if path is a valid local or remote file, False otherwise</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">is_file</span><span class="p">(</span><span class="s">&#39;http://www.foo.com/logo.png&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_file</span><span class="p">(</span><span class="s">&#39;ftp://foo.com/logo.png&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_file</span><span class="p">(</span><span class="s">&#39;/etc/fstab&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_file</span><span class="p">(</span><span class="s">&#39;/etc/fstap&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.is_www_file">
+<tt class="descclassname">lib.system.</tt><tt class="descname">is_www_file</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#lib.system.is_www_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether a file is remote (http or ftp).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>url</em> (str) &#8211; file path or url</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">True if remote, False if local</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">is_www_file</span><span class="p">(</span><span class="s">&#39;http://www.foo.com/logo.png&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_www_file</span><span class="p">(</span><span class="s">&#39;ftp://foo.com/logo.png&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_www_file</span><span class="p">(</span><span class="s">&#39;logo.png&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.set_bin_paths">
+<tt class="descclassname">lib.system.</tt><tt class="descname">set_bin_paths</tt><big>(</big><em>paths=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#lib.system.set_bin_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes where binaries can be found.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>paths</em> (list of strings) &#8211; list of paths where binaries might be found</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.shell">
+<tt class="descclassname">lib.system.</tt><tt class="descname">shell</tt><big>(</big><em>*args</em>, <em>**options</em><big>)</big><a class="headerlink" href="#lib.system.shell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a shell command and captures the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>args</em> (tuple of strings) &#8211; the command to be executed in the shell</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">stdout and stdout</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">typle of strings</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">shell</span><span class="p">(</span><span class="s">&#39;echo world&#39;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">(&#39;world\n&#39;, &#39;&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.shell_cache">
+<tt class="descclassname">lib.system.</tt><tt class="descname">shell_cache</tt><big>(</big><em>args</em>, <em>cache=''</em>, <em>key=None</em>, <em>validate=None</em>, <em>**options</em><big>)</big><a class="headerlink" href="#lib.system.shell_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a shell command and captures the output. It uses a caching system
+so that cached results don&#8217;t need to run a subprocess anymore. The results
+are cached by sys.platform</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>args</em> (tuple of strings) &#8211; the command to be executed in the shell</li>
+<li><em>cache</em> (string) &#8211; the filename of the cache file</li>
+<li><em>validate</em> &#8211; a validate (eg mtime) to validate the cache result</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">stdout and stdout</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">typle of strings</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">shell</span><span class="p">(</span><span class="s">&#39;echo world&#39;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">(&#39;world\n&#39;, &#39;&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.shell_returncode">
+<tt class="descclassname">lib.system.</tt><tt class="descname">shell_returncode</tt><big>(</big><em>*args</em>, <em>**options</em><big>)</big><a class="headerlink" href="#lib.system.shell_returncode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a shell command and returns it&#8217;s exit code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>args</em> (tuple of strings) &#8211; the command to be executed in the shell</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">command exit code</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">integer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.split_command">
+<tt class="descclassname">lib.system.</tt><tt class="descname">split_command</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#lib.system.split_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Breaks a single command line into a list of string arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>text</em> (str) &#8211; command line text</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">list of arguments</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">list of str</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">split_command</span><span class="p">(</span><span class="s">&#39;blender file_in.png file_out.png&#39;</span><span class="p">)</span>
+<span class="go">[&#39;blender&#39;, &#39;file_in.png&#39;, &#39;file_out.png&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">split_command</span><span class="p">(</span><span class="s">&#39;&quot;/my progs/blender&quot; file_in.png file_out.png&#39;</span><span class="p">)</span>
+<span class="go">[&#39;&quot;/my progs/blender&quot;&#39;, &#39;file_in.png&#39;, &#39;file_out.png&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.start">
+<tt class="descclassname">lib.system.</tt><tt class="descname">start</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#lib.system.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a file or browse a folder.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>path</em> (string) &#8211; location of the file</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.title">
+<tt class="descclassname">lib.system.</tt><tt class="descname">title</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#lib.system.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turns a text in a title</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>text</em> (str) &#8211; text</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">title</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">title</span><span class="p">(</span><span class="s">&#39;hello_world&#39;</span><span class="p">)</span>
+<span class="go">&#39;Hello World&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.system.wrap">
+<tt class="descclassname">lib.system.</tt><tt class="descname">wrap</tt><big>(</big><em>text</em>, <em>fill=70</em><big>)</big><a class="headerlink" href="#lib.system.wrap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.safe.html"
+                                  title="previous chapter">safe</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.thumbnail.html"
+                                  title="next chapter">thumbnail</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.thumbnail.html" title="thumbnail"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.safe.html" title="safe"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

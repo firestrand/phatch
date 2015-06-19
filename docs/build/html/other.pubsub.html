@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pubsub &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="other" href="other.html" />
+    <link rel="next" title="pyWx" href="other.pyWx.html" />
+    <link rel="prev" title="TiffImagePlugin" href="other.pil_1_1_6.TiffImagePlugin.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.html" title="pyWx"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="other.pil_1_1_6.TiffImagePlugin.html" title="TiffImagePlugin"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" accesskey="U">other</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-other.pubsub">
+<h1>pubsub<a class="headerlink" href="#module-other.pubsub" title="Permalink to this headline">¶</a></h1>
+<p>This module provides a publish-subscribe component that allows
+listeners to subcribe to messages of a given topic. Contrary to the
+original wxPython.lib.pubsub module (which it is based on), it uses 
+weak referencing to the subscribers so the lifetime of subscribers 
+is not affected by Publisher. Also, callable objects can be used in 
+addition to functions and bound methods. See Publisher class docs for 
+more details.</p>
+<p>Thanks to Robb Shecter and Robin Dunn for having provided 
+the basis for this module (which now shares most of the concepts but
+very little design or implementation with the original 
+wxPython.lib.pubsub).</p>
+<p>The publisher is a singleton instance of the PublisherClass class. You 
+access the instance via the Publisher object available from the module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">wx.lib.pubsub</span> <span class="kn">import</span> <span class="n">Publisher</span>
+<span class="n">Publisher</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">Publisher</span><span class="p">()</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Oliver Schoenborn</td>
+</tr>
+<tr class="field"><th class="field-name">Since:</th><td class="field-body">Apr 2004</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">$Id: pubsub.py,v 1.8 2006/06/11 00:12:59 RD Exp $</td>
+</tr>
+<tr class="field"><th class="field-name">Copyright:</th><td class="field-body">(c) 2004 Oliver Schoenborn</td>
+</tr>
+<tr class="field"><th class="field-name">License:</th><td class="field-body">wxWidgets</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="other.pubsub.Message">
+<em class="property">
+class </em><tt class="descclassname">other.pubsub.</tt><tt class="descname">Message</tt><big>(</big><em>topic</em>, <em>data</em><big>)</big><a class="headerlink" href="#other.pubsub.Message" title="Permalink to this definition">¶</a></dt>
+<dd>A simple container object for the two components of a message: the 
+topic and the user data. An instance of Message is given to your 
+listener when called by Publisher().sendMessage(topic) (if your
+listener callback was registered for that topic).</dd></dl>
+
+<dl class="class">
+<dt id="other.pubsub.PublisherClass">
+<em class="property">
+class </em><tt class="descclassname">other.pubsub.</tt><tt class="descname">PublisherClass</tt><big>(</big><em>singletonKey</em><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>The publish/subscribe manager.  It keeps track of which listeners
+are interested in which topics (see subscribe()), and sends a
+Message for a given topic to listeners that have subscribed to
+that topic, with optional user data (see sendMessage()).</p>
+<p>The three important concepts for Publisher are:</p>
+<ul>
+<li><p class="first">listener: a function, bound method or
+callable object that can be called with one parameter
+(not counting &#8216;self&#8217; in the case of methods). The parameter
+will be a reference to a Message object. E.g., these listeners
+are ok:</p>
+<div class="highlight-python"><pre>class Foo:
+    def __call__(self, a, b=1): pass # can be called with only one arg
+    def meth(self,  a):         pass # takes only one arg
+    def meth2(self, a=2, b=''): pass # can be called with one arg
+
+def func(a, b=''): pass
+
+Foo foo
+Publisher().subscribe(foo)           # functor
+Publisher().subscribe(foo.meth)      # bound method
+Publisher().subscribe(foo.meth2)     # bound method
+Publisher().subscribe(func)          # function</pre>
+</div>
+<p>The three types of callables all have arguments that allow a call 
+with only one argument. In every case, the parameter &#8216;a&#8217; will contain
+the message.</p>
+</li>
+<li><p class="first">topic: a single word, a tuple of words, or a string containing a
+set of words separated by dots, for example: &#8216;sports.baseball&#8217;.
+A tuple or a dotted notation string denotes a hierarchy of
+topics from most general to least. For example, a listener of
+this topic:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="s">&#39;sports&#39;</span><span class="p">,</span><span class="s">&#39;baseball&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>would receive messages for these topics:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="s">&#39;sports&#39;</span><span class="p">,</span> <span class="s">&#39;baseball&#39;</span><span class="p">)</span>                 <span class="c"># because same</span>
+<span class="p">(</span><span class="s">&#39;sports&#39;</span><span class="p">,</span> <span class="s">&#39;baseball&#39;</span><span class="p">,</span> <span class="s">&#39;highscores&#39;</span><span class="p">)</span>   <span class="c"># because more specific</span>
+</pre></div>
+</div>
+<p>but not these:</p>
+<div class="highlight-python"><pre> 'sports'      # because more general
+('sports',)    # because more general
+() or ('')     # because only for those listening to 'all' topics
+('news')       # because different topic</pre>
+</div>
+</li>
+<li><p class="first">message: this is an instance of Message, containing the topic for 
+which the message was sent, and any data the sender specified.</p>
+</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Note:</th><td class="field-body">This class is visible to importers of pubsub only as a
+Singleton. I.e., every time you execute &#8216;Publisher()&#8217;, it&#8217;s
+actually the same instance of PublisherClass that is
+returned. So to use, just do&#8217;Publisher().method()&#8217;.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="other.pubsub.PublisherClass.getAssociatedTopics">
+<tt class="descname">getAssociatedTopics</tt><big>(</big><em>listener</em><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass.getAssociatedTopics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of topics the given listener is registered with. 
+Returns [] if listener never subscribed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Attention:</th><td class="field-body"><p class="first">when using the return of this method to compare to
+expected list of topics, remember that topics that are
+not in the form of a tuple appear as a one-tuple in
+the return. E.g. if you have subscribed a listener to
+&#8216;topic1&#8217; and (&#8216;topic2&#8217;,&#8217;subtopic2&#8217;), this method
+returns:</p>
+<p class="last">associatedTopics = [(&#8216;topic1&#8217;,), (&#8216;topic2&#8217;,&#8217;subtopic2&#8217;)]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="other.pubsub.PublisherClass.getDeliveryCount">
+<tt class="descname">getDeliveryCount</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass.getDeliveryCount" title="Permalink to this definition">¶</a></dt>
+<dd>How many listeners have received a message since beginning of run</dd></dl>
+
+<dl class="method">
+<dt id="other.pubsub.PublisherClass.getMessageCount">
+<tt class="descname">getMessageCount</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass.getMessageCount" title="Permalink to this definition">¶</a></dt>
+<dd>How many times sendMessage() was called since beginning of run</dd></dl>
+
+<dl class="method">
+<dt id="other.pubsub.PublisherClass.isSubscribed">
+<tt class="descname">isSubscribed</tt><big>(</big><em>listener</em>, <em>topic=None</em><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass.isSubscribed" title="Permalink to this definition">¶</a></dt>
+<dd>Return true if listener has subscribed to topic specified. 
+If no topic specified, return true if subscribed to something.
+Use topic=getStrAllTopics() to determine if a listener will receive 
+messages for all topics.</dd></dl>
+
+<dl class="method">
+<dt id="other.pubsub.PublisherClass.isValid">
+<tt class="descname">isValid</tt><big>(</big><em>listener</em><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass.isValid" title="Permalink to this definition">¶</a></dt>
+<dd>Return true only if listener will be able to subscribe to 
+Publisher.</dd></dl>
+
+<dl class="method">
+<dt id="other.pubsub.PublisherClass.sendMessage">
+<tt class="descname">sendMessage</tt><big>(</big><em>topic=''</em>, <em>data=None</em>, <em>onTopicNeverCreated=None</em><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass.sendMessage" title="Permalink to this definition">¶</a></dt>
+<dd>Send a message for given topic, with optional data, to
+subscribed listeners. If topic is not specified, only the
+listeners that are interested in all topics will receive message. 
+The onTopicNeverCreated is an optional callback of your choice that 
+will be called if the topic given was never created (i.e. it, or 
+one of its subtopics, was never subscribed to by any listener). 
+It will be called as onTopicNeverCreated(topic).</dd></dl>
+
+<dl class="method">
+<dt id="other.pubsub.PublisherClass.subscribe">
+<tt class="descname">subscribe</tt><big>(</big><em>listener</em>, <em>topic=''</em><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subscribe listener for given topic. If topic is not specified,
+listener will be subscribed for all topics (that listener will 
+receive a Message for any topic for which a message is generated).</p>
+<p>This method may be called multiple times for one listener,
+registering it with many topics.  It can also be invoked many
+times for a particular topic, each time with a different
+listener.  See the class doc for requirements on listener and
+topic.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Note:</th><td class="field-body"><p class="first">The listener is held by Publisher() only by <em>weak</em>
+reference.  This means you must ensure you have at
+least one strong reference to listener, otherwise it
+will be DOA (&#8220;dead on arrival&#8221;). This is particularly
+easy to forget when wrapping a listener method in a
+proxy object (e.g. to bind some of its parameters),
+e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span> 
+    <span class="k">def</span> <span class="nf">listener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span> <span class="k">pass</span>
+<span class="k">class</span> <span class="nc">Wrapper</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fun</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">fun</span> <span class="o">=</span> <span class="n">fun</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
+<span class="n">Publisher</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span> <span class="n">Wrapper</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">listener</span><span class="p">)</span> <span class="p">)</span> <span class="c"># whoops: DOA!</span>
+<span class="n">wrapper</span> <span class="o">=</span> <span class="n">Wrapper</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">listener</span><span class="p">)</span>
+<span class="n">Publisher</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">wrapper</span><span class="p">)</span> <span class="c"># good!</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Note:</th><td class="field-body"><p class="first last">Calling this method for the same listener, with two
+topics in the same branch of the topic hierarchy, will
+cause the listener to be notified twice when a message
+for the deepest topic is sent. E.g.
+subscribe(listener, &#8216;t1&#8217;) and then subscribe(listener,
+(&#8216;t1&#8217;,&#8217;t2&#8217;)) means that when calling sendMessage(&#8216;t1&#8217;),
+listener gets one message, but when calling
+sendMessage((&#8216;t1&#8217;,&#8217;t2&#8217;)), listener gets message twice.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="other.pubsub.PublisherClass.unsubAll">
+<tt class="descname">unsubAll</tt><big>(</big><em>topics=None</em>, <em>onNoSuchTopic=None</em><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass.unsubAll" title="Permalink to this definition">¶</a></dt>
+<dd>Unsubscribe all listeners subscribed for topics. Topics can 
+be a single topic (string or tuple) or a list of topics (ie 
+list containing strings and/or tuples). If topics is not 
+specified, all listeners for all topics will be unsubscribed, 
+ie. the Publisher singleton will have no topics and no listeners
+left. If onNoSuchTopic is given, it will be called as 
+onNoSuchTopic(topic) for each topic that is unknown.</dd></dl>
+
+<dl class="method">
+<dt id="other.pubsub.PublisherClass.unsubscribe">
+<tt class="descname">unsubscribe</tt><big>(</big><em>listener</em>, <em>topics=None</em><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unsubscribe listener. If topics not specified, listener is
+completely unsubscribed. Otherwise, it is unsubscribed only 
+for the topic (the usual tuple) or list of topics (ie a list
+of tuples) specified. Nothing happens if listener is not actually
+subscribed to any of the topics.</p>
+<p>Note that if listener subscribed for two topics (a,b) and (a,c), 
+then unsubscribing for topic (a) will do nothing. You must 
+use getAssociatedTopics(listener) and give unsubscribe() the returned 
+list (or a subset thereof).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="other.pubsub.PublisherClass.validate">
+<tt class="descname">validate</tt><big>(</big><em>listener</em><big>)</big><a class="headerlink" href="#other.pubsub.PublisherClass.validate" title="Permalink to this definition">¶</a></dt>
+<dd>Similar to isValid(), but raises a TypeError exception if not valid</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pubsub.getStrAllTopics">
+<tt class="descclassname">other.pubsub.</tt><tt class="descname">getStrAllTopics</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pubsub.getStrAllTopics" title="Permalink to this definition">¶</a></dt>
+<dd>Function to call if, for whatever reason, you need to know 
+explicitely what is the string to use to indicate &#8216;all topics&#8217;.</dd></dl>
+
+<dl class="function">
+<dt id="other.pubsub.test">
+<tt class="descclassname">other.pubsub.</tt><tt class="descname">test</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pubsub.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="other.pil_1_1_6.TiffImagePlugin.html"
+                                  title="previous chapter">TiffImagePlugin</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="other.pyWx.html"
+                                  title="next chapter">pyWx</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.html" title="pyWx"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="other.pil_1_1_6.TiffImagePlugin.html" title="TiffImagePlugin"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" >other</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

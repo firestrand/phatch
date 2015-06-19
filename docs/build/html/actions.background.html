@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>background &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="actions" href="actions.html" />
+    <link rel="next" title="blender" href="actions.blender.html" />
+    <link rel="prev" title="autocontrast" href="actions.autocontrast.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="actions.blender.html" title="blender"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="actions.autocontrast.html" title="autocontrast"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="actions.html" accesskey="U">actions</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-actions.background">
+<h1>background<a class="headerlink" href="#module-actions.background" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="actions.background.Action">
+<em class="property">
+class </em><tt class="descclassname">actions.background.</tt><tt class="descname">Action</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#actions.background.Action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="core.models.StampMixin" class="reference" href="core.models.html#core.models.StampMixin"><tt class="xref docutils literal"><span class="pre">core.models.StampMixin</span></tt></a>, <a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a></p>
+<p>Put color under transparent image</p>
+<dl class="method">
+<dt id="actions.background.Action.get_relevant_field_labels">
+<tt class="descname">get_relevant_field_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.background.Action.get_relevant_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this method is present, Phatch will only show relevant
+fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">list of the field labels which are relevant</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is very important that the list of labels has EXACTLY
+the same order as defined in the interface method.</p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="actions.background.Action.init">
+<em class="property">
+static </em><tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.background.Action.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.background.Action.interface">
+<tt class="descname">interface</tt><big>(</big><em>fields</em><big>)</big><a class="headerlink" href="#actions.background.Action.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="actions.background.Action.pil">
+<em class="property">
+static </em><tt class="descname">pil</tt><big>(</big><em>image</em>, <em>fill</em>, <em>mark</em>, <em>color</em>, <em>horizontal_offset=None</em>, <em>vertical_offset=None</em>, <em>horizontal_justification=None</em>, <em>vertical_justification=None</em>, <em>orientation=None</em>, <em>method=None</em>, <em>opacity=100</em><big>)</big><a class="headerlink" href="#actions.background.Action.pil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="actions.background.background">
+<tt class="descclassname">actions.background.</tt><tt class="descname">background</tt><big>(</big><em>image</em>, <em>fill</em>, <em>mark</em>, <em>color</em>, <em>horizontal_offset=None</em>, <em>vertical_offset=None</em>, <em>horizontal_justification=None</em>, <em>vertical_justification=None</em>, <em>orientation=None</em>, <em>method=None</em>, <em>opacity=100</em><big>)</big><a class="headerlink" href="#actions.background.background" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="actions.background.init">
+<tt class="descclassname">actions.background.</tt><tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.background.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="actions.autocontrast.html"
+                                  title="previous chapter">autocontrast</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="actions.blender.html"
+                                  title="next chapter">blender</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="actions.blender.html" title="blender"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="actions.autocontrast.html" title="autocontrast"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="actions.html" >actions</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

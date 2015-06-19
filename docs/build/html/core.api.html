@@ -1,0 +1,594 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>api &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="core" href="core.html" />
+    <link rel="next" title="config" href="core.config.html" />
+    <link rel="prev" title="core" href="core.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="core.config.html" title="config"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="core.html" title="core"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="core.html" accesskey="U">core</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-core.api">
+<h1>api<a class="headerlink" href="#module-core.api" title="Permalink to this headline">¶</a></h1>
+<dl class="exception">
+<dt id="core.api.PathError">
+<em class="property">
+exception </em><tt class="descclassname">core.api.</tt><tt class="descname">PathError</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#core.api.PathError" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">exceptions.Exception</span></tt></dd></dl>
+
+<dl class="function">
+<dt id="core.api.apply_action_to_photo">
+<tt class="descclassname">core.api.</tt><tt class="descname">apply_action_to_photo</tt><big>(</big><em>action</em>, <em>photo</em>, <em>read_only_settings</em>, <em>cache</em>, <em>image_file</em>, <em>result</em><big>)</big><a class="headerlink" href="#core.api.apply_action_to_photo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a single action to a photo. It uses <a title="core.api.log_error" class="reference" href="#core.api.log_error"><tt class="xref docutils literal"><span class="pre">log_error()</span></tt></a> for
+non fatal errors or <a title="core.api.process_error" class="reference" href="#core.api.process_error"><tt class="xref docutils literal"><span class="pre">process_error()</span></tt></a> for serious errors. The
+settings are read only as the actions don&#8217;t have permission to
+change them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>action</em> (<a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a>) &#8211; action</li>
+<li><em>photo</em> (<a title="core.pil.Photo" class="reference" href="core.pil.html#core.pil.Photo"><tt class="xref docutils literal"><span class="pre">core.pil.Photo</span></tt></a>) &#8211; photo</li>
+<li><em>read_only_settings</em> (<a title="lib.odict.ReadOnlyDict" class="reference" href="lib.odict.html#lib.odict.ReadOnlyDict"><tt class="xref docutils literal"><span class="pre">lib.odict.ReadOnlyDict</span></tt></a>) &#8211; read only settings</li>
+<li><em>cache</em> (dictionary) &#8211; cache for data which is usefull across photos</li>
+<li><em>image_file</em> (string) &#8211; filename reference during error logging</li>
+<li><em>result</em> (dictionary) &#8211; settings for dialog (eg <tt class="docutils literal"><span class="pre">stop_for_errors</span></tt>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.apply_actions_to_photo">
+<tt class="descclassname">core.api.</tt><tt class="descname">apply_actions_to_photo</tt><big>(</big><em>actions</em>, <em>image_info</em>, <em>info_not_file</em>, <em>cache</em>, <em>read_only_settings</em>, <em>skip_existing_images</em>, <em>result</em>, <em>report</em>, <em>is_done</em>, <em>image_index</em>, <em>repeat</em><big>)</big><a class="headerlink" href="#core.api.apply_actions_to_photo" title="Permalink to this definition">¶</a></dt>
+<dd>Apply the action list to one photo.</dd></dl>
+
+<dl class="function">
+<dt id="core.api.apply_actions_to_photos">
+<tt class="descclassname">core.api.</tt><tt class="descname">apply_actions_to_photos</tt><big>(</big><em>actions</em>, <em>settings</em>, <em>paths=None</em>, <em>drop=False</em>, <em>update=None</em><big>)</big><a class="headerlink" href="#core.api.apply_actions_to_photos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply all the actions to the photos in path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>actions</em> (list of <a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a>) &#8211; actions</li>
+<li><em>settings</em> (dictionary) &#8211; process settings (writable, eg recursion, ...)</li>
+<li><em>paths</em> (list of strings) &#8211; paths where the images are located. If they are not specified,
+Phatch will ask them to the user.</li>
+<li><em>drop</em> (bool) &#8211; True in case files were dropped or phatch is started as a
+droplet.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.assert_safe">
+<tt class="descclassname">core.api.</tt><tt class="descname">assert_safe</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#core.api.assert_safe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.api.check_actionlist">
+<tt class="descclassname">core.api.</tt><tt class="descname">check_actionlist</tt><big>(</big><em>actions</em>, <em>settings</em><big>)</big><a class="headerlink" href="#core.api.check_actionlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verifies action list before executing. It checks whether:</p>
+<ul class="simple">
+<li>the action list is not empty</li>
+<li>all actions are not disabled</li>
+<li>if there is a save action at the end or only file actions</li>
+<li>overwriting images is forced</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>actions</em> (list of <a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a>) &#8211; actions of the action list</li>
+<li><em>settings</em> (dictionary) &#8211; execution settings</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">settings</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;no_save&#39;</span><span class="p">:</span><span class="bp">False</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">check_actionlist</span><span class="p">([],</span> <span class="n">settings</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">actions</span> <span class="kn">import</span> <span class="n">canvas</span><span class="p">,</span> <span class="n">save</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">canvas_action</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">Action</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">save_action</span> <span class="o">=</span> <span class="n">save</span><span class="o">.</span><span class="n">Action</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">check_actionlist</span><span class="p">([</span><span class="n">canvas_action</span><span class="p">,</span><span class="n">save_action</span><span class="p">],</span>
+<span class="gp">... </span><span class="p">{</span><span class="s">&#39;no_save&#39;</span><span class="p">:</span><span class="bp">False</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">check_actionlist</span><span class="p">([</span><span class="n">canvas_action</span><span class="p">],</span> <span class="n">settings</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">settings</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;no_save&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">check_actionlist</span><span class="p">([</span><span class="n">canvas_action</span><span class="p">],</span> <span class="n">settings</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">settings</span><span class="p">[</span><span class="s">&#39;overwrite_existing_images_forced&#39;</span><span class="p">]</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.check_actionlist_file_only">
+<tt class="descclassname">core.api.</tt><tt class="descname">check_actionlist_file_only</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#core.api.check_actionlist_file_only" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether the action list only exist of file operations
+(such as copy, rename, ...)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>actions</em> &#8211; actions of the action list</td>
+</tr>
+<tr class="field"><th class="field-name">Type:</th><td class="field-body">list of <a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a></td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">True if only file operations, False otherwise</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">actions</span> <span class="kn">import</span> <span class="n">canvas</span><span class="p">,</span> <span class="n">rename</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">check_actionlist_file_only</span><span class="p">([</span><span class="n">canvas</span><span class="o">.</span><span class="n">Action</span><span class="p">()])</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">check_actionlist_file_only</span><span class="p">([</span><span class="n">rename</span><span class="o">.</span><span class="n">Action</span><span class="p">()])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.filter_image_infos">
+<tt class="descclassname">core.api.</tt><tt class="descname">filter_image_infos</tt><big>(</big><em>folder</em>, <em>extensions</em>, <em>files</em>, <em>root</em>, <em>info_file</em><big>)</big><a class="headerlink" href="#core.api.filter_image_infos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter image files by extension and verify if they are files. It
+returns a list of info dictionaries which are generated by
+<a href="#id1" name="id2"><span class="problematic" id="id2">:method:`InfoPil.dump`</span></a>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;day&#39;</span><span class="p">:</span> <span class="mf">14</span><span class="p">,</span>
+ <span class="s">&#39;filename&#39;</span><span class="p">:</span> <span class="s">&#39;beach&#39;</span><span class="p">,</span>
+ <span class="s">&#39;filesize&#39;</span><span class="p">:</span> <span class="mf">9682</span><span class="p">,</span>
+ <span class="s">&#39;folder&#39;</span><span class="p">:</span> <span class="s">u&#39;/home/stani&#39;</span><span class="p">,</span>
+ <span class="s">&#39;foldername&#39;</span><span class="p">:</span> <span class="s">u&#39;stani&#39;</span><span class="p">,</span>
+ <span class="s">&#39;hour&#39;</span><span class="p">:</span> <span class="mf">23</span><span class="p">,</span>
+ <span class="s">&#39;minute&#39;</span><span class="p">:</span> <span class="mf">43</span><span class="p">,</span>
+ <span class="s">&#39;month&#39;</span><span class="p">:</span> <span class="mf">3</span><span class="p">,</span>
+ <span class="s">&#39;monthname&#39;</span><span class="p">:</span> <span class="s">&#39;March&#39;</span><span class="p">,</span>
+ <span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;/home/stani/beach.jpg&#39;</span><span class="p">,</span>
+ <span class="s">&#39;root&#39;</span><span class="p">:</span> <span class="s">&#39;/home&#39;</span><span class="p">,</span>
+ <span class="s">&#39;second&#39;</span><span class="p">:</span> <span class="mf">26</span><span class="p">,</span>
+ <span class="s">&#39;subfolder&#39;</span><span class="p">:</span> <span class="s">u&#39;&#39;</span><span class="p">,</span>
+ <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&#39;jpg&#39;</span><span class="p">,</span>
+ <span class="s">&#39;weekday&#39;</span><span class="p">:</span> <span class="mf">4</span><span class="p">,</span>
+ <span class="s">&#39;weekdayname&#39;</span><span class="p">:</span> <span class="s">&#39;Friday&#39;</span><span class="p">,</span>
+ <span class="s">&#39;year&#39;</span><span class="p">:</span> <span class="mf">2008</span><span class="p">,</span>
+ <span class="s">&#39;$&#39;</span><span class="p">:</span> <span class="mf">0</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">$</span></tt> is the index of the file within a folder.</p>
+<p>Helper function for <a title="core.api.get_image_infos_from_folder" class="reference" href="#core.api.get_image_infos_from_folder"><tt class="xref docutils literal"><span class="pre">get_image_infos_from_folder()</span></tt></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>folder</em> (string) &#8211; folder path (recursion dependent)</li>
+<li><em>extensions</em> (list of strings) &#8211; extensions (without <tt class="docutils literal"><span class="pre">.</span></tt>)</li>
+<li><em>files</em> (list of strings) &#8211; list of filenames without folder path</li>
+<li><em>root</em> (string) &#8211; root folder path (independent from recursion)</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of image file info</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dictionaries</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.flush_log">
+<tt class="descclassname">core.api.</tt><tt class="descname">flush_log</tt><big>(</big><em>photo</em>, <em>image_file</em>, <em>action=None</em><big>)</big><a class="headerlink" href="#core.api.flush_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flushes non fatal errors/warnings with <a title="core.api.log_error" class="reference" href="#core.api.log_error"><tt class="xref docutils literal"><span class="pre">log_error()</span></tt></a>
+and warnings that have been logged from the photo to the error log
+file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>photo</em> (class:<cite>core.pil.Photo</cite>) &#8211; photo which has photo.log</li>
+<li><em>image_file</em> (string) &#8211; absolute path of the image</li>
+<li><em>action</em> (<a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a>) &#8211; action which was involved in the error (optional)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.get_image_infos">
+<tt class="descclassname">core.api.</tt><tt class="descname">get_image_infos</tt><big>(</big><em>paths</em>, <em>info_file</em>, <em>extensions</em>, <em>recursive</em><big>)</big><a class="headerlink" href="#core.api.get_image_infos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all image info dictionaries from a mix of folder and file paths.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>paths</em> (list of strings) &#8211; file and/or folderpaths</li>
+<li><em>extensions</em> (list of strings) &#8211; extensions (without <tt class="docutils literal"><span class="pre">.</span></tt>)</li>
+<li><em>recursive</em> (bool) &#8211; include subfolders</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of image file info</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dictionaries</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.get_image_infos_from_folder">
+<tt class="descclassname">core.api.</tt><tt class="descname">get_image_infos_from_folder</tt><big>(</big><em>folder</em>, <em>info_file</em>, <em>extensions</em>, <em>recursive</em><big>)</big><a class="headerlink" href="#core.api.get_image_infos_from_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all image info dictionaries from a specific folder.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>folder</em> (string) &#8211; top folder path</li>
+<li><em>extensions</em> (list of strings) &#8211; extensions (without <tt class="docutils literal"><span class="pre">.</span></tt>)</li>
+<li><em>recursive</em> (bool) &#8211; include subfolders</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of image file info</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dictionaries</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Helper function for <a title="core.api.get_image_infos" class="reference" href="#core.api.get_image_infos"><tt class="xref docutils literal"><span class="pre">get_image_infos()</span></tt></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.get_paths_and_settings">
+<tt class="descclassname">core.api.</tt><tt class="descname">get_paths_and_settings</tt><big>(</big><em>paths</em>, <em>settings</em>, <em>drop=False</em><big>)</big><a class="headerlink" href="#core.api.get_paths_and_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ask the user for paths and settings. In the GUI this shows
+the execute dialog box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>paths</em> (list of strings) &#8211; initial value of the paths (eg to fill in dialog)</li>
+<li><em>settings</em> (dictionary) &#8211; settings</li>
+<li><em>drop</em> (bool) &#8211; True in case files were dropped or phatch is started as a
+droplet.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.get_photo">
+<tt class="descclassname">core.api.</tt><tt class="descname">get_photo</tt><big>(</big><em>info_file</em>, <em>info_not_file</em>, <em>result</em><big>)</big><a class="headerlink" href="#core.api.get_photo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a <a title="core.pil.Photo" class="reference" href="core.pil.html#core.pil.Photo"><tt class="xref docutils literal"><span class="pre">core.pil.Photo</span></tt></a> instance from a file. If there is an
+error opening the file, func:<cite>process_error</cite> will be called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>info_file</em> (dictionary) &#8211; file information</li>
+<li><em>info_not_file</em> (string) &#8211; image information not related to file</li>
+<li><em>result</em> (dict) &#8211; settings to send to progress dialog box
+(such as <tt class="docutils literal"><span class="pre">stop</span> <span class="pre">for</span> <span class="pre">errors</span></tt>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">photo, result</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.get_vars">
+<tt class="descclassname">core.api.</tt><tt class="descname">get_vars</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#core.api.get_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract all used variables from actions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>actions</em> (list of dict) &#8211; list of actions</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.import_actions">
+<tt class="descclassname">core.api.</tt><tt class="descname">import_actions</tt><big>(</big><big>)</big><a class="headerlink" href="#core.api.import_actions" title="Permalink to this definition">¶</a></dt>
+<dd>Import all actions from the <tt class="docutils literal"><span class="pre">ct.PHATCH_ACTIONS_PATH</span></tt>.</dd></dl>
+
+<dl class="function">
+<dt id="core.api.import_module">
+<tt class="descclassname">core.api.</tt><tt class="descname">import_module</tt><big>(</big><em>module</em>, <em>folder=None</em><big>)</big><a class="headerlink" href="#core.api.import_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import a module, mostly used for actions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>module</em> (string) &#8211; module/action name</li>
+<li><em>folder</em> (string) &#8211; folder where the module is situated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.init">
+<tt class="descclassname">core.api.</tt><tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#core.api.init" title="Permalink to this definition">¶</a></dt>
+<dd>Verify user paths and import all actions. This function should
+be called at the start.</dd></dl>
+
+<dl class="function">
+<dt id="core.api.init_actions">
+<tt class="descclassname">core.api.</tt><tt class="descname">init_actions</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#core.api.init_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes all actions. Shows an error to the user if an
+action fails to initialize.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>actions</em> (list of <a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a>) &#8211; actions</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">False, if one action fails, True otherwise</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.init_error_log_file">
+<tt class="descclassname">core.api.</tt><tt class="descname">init_error_log_file</tt><big>(</big><big>)</big><a class="headerlink" href="#core.api.init_error_log_file" title="Permalink to this definition">¶</a></dt>
+<dd>Reset ERROR_LOG_COUNTER and create the ERROR_LOG_FILE.</dd></dl>
+
+<dl class="function">
+<dt id="core.api.log_error">
+<tt class="descclassname">core.api.</tt><tt class="descname">log_error</tt><big>(</big><em>message</em>, <em>filename</em>, <em>action=None</em>, <em>label='Error'</em><big>)</big><a class="headerlink" href="#core.api.log_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writer error message to log file.</p>
+<p>Helper function for <a title="core.api.flush_log" class="reference" href="#core.api.flush_log"><tt class="xref docutils literal"><span class="pre">flush_log()</span></tt></a>, <a title="core.api.process_error" class="reference" href="#core.api.process_error"><tt class="xref docutils literal"><span class="pre">process_error()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>message</em> (string) &#8211; error message</li>
+<li><em>filename</em> (string) &#8211; image filename</li>
+<li><em>label</em> (string) &#8211; <tt class="docutils literal"><span class="pre">'Error'</span></tt> or <tt class="docutils literal"><span class="pre">'Warning'</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">error log details</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.open_actionlist">
+<tt class="descclassname">core.api.</tt><tt class="descname">open_actionlist</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#core.api.open_actionlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open the action list from a file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> (string) &#8211; the filename of the action list</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">action list</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">dictionary</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.process_error">
+<tt class="descclassname">core.api.</tt><tt class="descname">process_error</tt><big>(</big><em>photo</em>, <em>message</em>, <em>image_file</em>, <em>action</em>, <em>result</em>, <em>ignore</em><big>)</big><a class="headerlink" href="#core.api.process_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs error to file with <a title="core.api.log_error" class="reference" href="#core.api.log_error"><tt class="xref docutils literal"><span class="pre">log_error()</span></tt></a> and show dialog box
+allowing the user to skip, abort or ignore.</p>
+<p>Helper function for <a title="core.api.get_photo" class="reference" href="#core.api.get_photo"><tt class="xref docutils literal"><span class="pre">get_photo()</span></tt></a> and <cite>apply_action</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>photo</em> (class:<cite>core.pil.Photo</cite>) &#8211; photo</li>
+<li><em>message</em> (string) &#8211; error message</li>
+<li><em>image_file</em> (string) &#8211; absolute path of the image</li>
+<li><em>result</em> (dictionary) &#8211; settings for dialog (eg <tt class="docutils literal"><span class="pre">stop_for_errors</span></tt>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">photo, result</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.save_actionlist">
+<tt class="descclassname">core.api.</tt><tt class="descname">save_actionlist</tt><big>(</big><em>filename</em>, <em>data</em><big>)</big><a class="headerlink" href="#core.api.save_actionlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save actionlist <tt class="docutils literal"><span class="pre">data</span></tt> to <tt class="docutils literal"><span class="pre">filename</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>filename</em> (string) &#8211; filename of the actionlist, if it has no extension <tt class="docutils literal"><span class="pre">.phatch</span></tt>
+will be added automatically.</li>
+<li><em>data</em> (dictionary) &#8211; action list data</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Actionlists are stored as dictionaries:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;actions&#39;</span><span class="p">:[</span><span class="o">...</span><span class="p">],</span> <span class="s">&#39;description&#39;</span><span class="p">:</span><span class="s">&#39;...&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.api.verify_images">
+<tt class="descclassname">core.api.</tt><tt class="descname">verify_images</tt><big>(</big><em>image_infos</em>, <em>repeat</em><big>)</big><a class="headerlink" href="#core.api.verify_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter invalid images out.</p>
+<p>Verify if images are not corrupt. Show the invalid images to
+the user. If no valid images are found, show an error to the user.
+Otherwise show the valid images to the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image_infos</em> (list of dictionaries) &#8211; list of image info dictionaries</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">None for error, valid image info dictionaries otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="core.html"
+                                  title="previous chapter">core</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="core.config.html"
+                                  title="next chapter">config</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="core.config.html" title="config"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="core.html" title="core"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="core.html" >core</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

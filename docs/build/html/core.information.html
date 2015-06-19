@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>information &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="core" href="core.html" />
+    <link rel="next" title="message" href="core.message.html" />
+    <link rel="prev" title="imageTable" href="core.imageTable.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="core.message.html" title="message"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="core.imageTable.html" title="imageTable"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="core.html" accesskey="U">core</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-core.information">
+<h1>information<a class="headerlink" href="#module-core.information" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="core.information.DumpInfo">
+<em class="property">
+class </em><tt class="descclassname">core.information.</tt><tt class="descname">DumpInfo</tt><big>(</big><em>d=None</em><big>)</big><a class="headerlink" href="#core.information.DumpInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">dict</span></tt></p>
+<p>Dictionary like object which tracks changes.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">DumpInfo</span><span class="p">({</span><span class="s">&#39;hello&#39;</span><span class="p">:</span> <span class="s">&#39;world&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;bar&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">changed</span>
+<span class="go">[&#39;foo&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="core.information.InfoCache">
+<em class="property">
+class </em><tt class="descclassname">core.information.</tt><tt class="descname">InfoCache</tt><big>(</big><em>source=None</em><big>)</big><a class="headerlink" href="#core.information.InfoCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="core.information.InfoCache.disable_cache">
+<tt class="descname">disable_cache</tt><big>(</big><big>)</big><a class="headerlink" href="#core.information.InfoCache.disable_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn off static caching.</p>
+<p>This makes only sense for callable sources.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoCache.enable_cache">
+<tt class="descname">enable_cache</tt><big>(</big><big>)</big><a class="headerlink" href="#core.information.InfoCache.enable_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable the static cache so that the expensive
+:method:<tt class="docutils literal"><span class="pre">_get_source_dynamic</span></tt> does not get called for
+every var access.</p>
+<p>This makes only sense for callable sources.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoCache.extract_all">
+<tt class="descname">extract_all</tt><big>(</big><big>)</big><a class="headerlink" href="#core.information.InfoCache.extract_all" title="Permalink to this definition">¶</a></dt>
+<dd>Extract all values, which is usefull for inspector.</dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoCache.extract_others">
+<tt class="descname">extract_others</tt><big>(</big><big>)</big><a class="headerlink" href="#core.information.InfoCache.extract_others" title="Permalink to this definition">¶</a></dt>
+<dd>Extract all other vars. Does nothing by default.
+(to be overwritten)</dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoCache.provides">
+<tt class="descname">provides</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#core.information.InfoCache.provides" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wether this info (might) provide the <tt class="docutils literal"><span class="pre">var</span></tt> variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">if this info should handle this variable</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoCache.set_source">
+<tt class="descname">set_source</tt><big>(</big><em>source</em><big>)</big><a class="headerlink" href="#core.information.InfoCache.set_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the source of this info. This allows reuse of the same
+info if needed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>source</em> (object or callable) &#8211; retrieve source from which to extract data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.information.InfoCollection">
+<em class="property">
+class </em><tt class="descclassname">core.information.</tt><tt class="descname">InfoCollection</tt><a class="headerlink" href="#core.information.InfoCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an info like dictionary which uses a collection of several
+info instances.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">import</span> <span class="nn">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image1</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGB&#39;</span><span class="p">,(</span><span class="mf">2</span><span class="p">,</span><span class="mf">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image2</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;L&#39;</span><span class="p">,(</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoCollection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">InfoPil</span><span class="p">(</span><span class="n">image1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">types</span><span class="p">()</span>
+<span class="go">[&#39;Pil&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+<span class="go">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Pil.Format&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+<span class="go">{&#39;Pil.Format&#39;: None}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;width&#39;</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+<span class="go">{&#39;Pil.Format&#39;: None, &#39;width&#39;: 2, &#39;Pil.Size&#39;: (2, 1), &#39;height&#39;: 1}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="s">&#39;Pil&#39;</span><span class="p">,</span> <span class="n">image2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+<span class="go">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="s">&#39;mode&#39;</span><span class="p">,</span><span class="s">&#39;height&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span>
+<span class="go">{&#39;Pil.Size&#39;: (1, 2), &#39;width&#39;: 1, &#39;mode&#39;: &#39;L&#39;, &#39;height&#39;: 2}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="n">DumpInfo</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="core.information.InfoCollection.append_info">
+<tt class="descname">append_info</tt><big>(</big><em>info</em><big>)</big><a class="headerlink" href="#core.information.InfoCollection.append_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoCollection.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#core.information.InfoCollection.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoCollection.dump">
+<tt class="descname">dump</tt><big>(</big><em>*vars</em><big>)</big><a class="headerlink" href="#core.information.InfoCollection.dump" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoCollection.provides">
+<tt class="descname">provides</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#core.information.InfoCollection.provides" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoCollection.set_source">
+<tt class="descname">set_source</tt><big>(</big><em>d</em>, <em>source=None</em><big>)</big><a class="headerlink" href="#core.information.InfoCollection.set_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set source of an info from the collection. If source is None,
+d should be a dictionary otherwise a type. Raises an
+<tt class="docutils literal"><span class="pre">UnknownTypeError</span></tt> in case an unknown type is given.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>d</em> (dict/str) &#8211; dictionary {type: source} or type</li>
+<li><em>source</em> &#8211; source (pil image, filename, ...)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoCollection.types">
+<tt class="descname">types</tt><big>(</big><big>)</big><a class="headerlink" href="#core.information.InfoCollection.types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.information.InfoFile">
+<em class="property">
+class </em><tt class="descclassname">core.information.</tt><tt class="descname">InfoFile</tt><big>(</big><em>source=None</em><big>)</big><a class="headerlink" href="#core.information.InfoFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="core.information.InfoCache" class="reference internal" href="#core.information.InfoCache"><tt class="xref docutils literal"><span class="pre">core.information.InfoCache</span></tt></a></p>
+<p>Wraps a lazy file path access around an image filename.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoFile</span><span class="p">(</span><span class="s">&#39;/home/phatch/test.png&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;foldername&#39;</span><span class="p">]</span>
+<span class="go">u&#39;phatch&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;foldername&#39;, &#39;root&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span>
+<span class="go">u&#39;png&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;filename&#39;, &#39;foldername&#39;, &#39;root&#39;, &#39;type&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="s">&#39;/home/gimp/world.jpg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span>
+<span class="go">u&#39;jpg&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;filename&#39;, &#39;type&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="core.information.InfoPexif">
+<em class="property">
+class </em><tt class="descclassname">core.information.</tt><tt class="descname">InfoPexif</tt><a class="headerlink" href="#core.information.InfoPexif" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="core.information.InfoPil">
+<em class="property">
+class </em><tt class="descclassname">core.information.</tt><tt class="descname">InfoPil</tt><big>(</big><em>source=None</em><big>)</big><a class="headerlink" href="#core.information.InfoPil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="core.information.InfoCache" class="reference internal" href="#core.information.InfoCache"><tt class="xref docutils literal"><span class="pre">core.information.InfoCache</span></tt></a></p>
+<p>Wraps a lazy PIL var access to an image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> (Pil.Image/function) &#8211; Pil.Image or callable to retrieve it</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">import</span> <span class="nn">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;L&#39;</span><span class="p">,(</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoPil</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">provides</span><span class="p">(</span><span class="s">&#39;Pil.FormatDescription&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+<span class="go">[&#39;Pil.Format&#39;,</span>
+<span class="go"> &#39;Pil.FormatDescription&#39;,</span>
+<span class="go"> &#39;Pil.Size&#39;,</span>
+<span class="go"> &#39;compression&#39;,</span>
+<span class="go"> &#39;height&#39;,</span>
+<span class="go"> &#39;mode&#39;,</span>
+<span class="go"> &#39;width&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;mode&#39;</span><span class="p">]</span>
+<span class="go">&#39;L&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;height&#39;</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Pil.Format&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;Pil.Format&#39;, &#39;Pil.Size&#39;, &#39;height&#39;, &#39;mode&#39;, &#39;width&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">reset_geometry</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;Pil.Format&#39;, &#39;Pil.Size&#39;, &#39;mode&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">extract_all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;Pil.Format&#39;,</span>
+<span class="go"> &#39;Pil.FormatDescription&#39;,</span>
+<span class="go"> &#39;Pil.Size&#39;,</span>
+<span class="go"> &#39;compression&#39;,</span>
+<span class="go"> &#39;height&#39;,</span>
+<span class="go"> &#39;mode&#39;,</span>
+<span class="go"> &#39;width&#39;]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="core.information.InfoPil.extract_others">
+<tt class="descname">extract_others</tt><big>(</big><big>)</big><a class="headerlink" href="#core.information.InfoPil.extract_others" title="Permalink to this definition">¶</a></dt>
+<dd>Extract all other vars</dd></dl>
+
+<dl class="method">
+<dt id="core.information.InfoPil.reset_geometry">
+<tt class="descname">reset_geometry</tt><big>(</big><big>)</big><a class="headerlink" href="#core.information.InfoPil.reset_geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="core.information.UnknownTypeError">
+<em class="property">
+exception </em><tt class="descclassname">core.information.</tt><tt class="descname">UnknownTypeError</tt><a class="headerlink" href="#core.information.UnknownTypeError" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">exceptions.Exception</span></tt></dd></dl>
+
+<dl class="function">
+<dt id="core.information.extract_info_pexif">
+<tt class="descclassname">core.information.</tt><tt class="descname">extract_info_pexif</tt><big>(</big><em>info</em>, <em>image</em><big>)</big><a class="headerlink" href="#core.information.extract_info_pexif" title="Permalink to this definition">¶</a></dt>
+<dd>pexif = Pil EXIF</dd></dl>
+
+<dl class="function">
+<dt id="core.information.get_module">
+<tt class="descclassname">core.information.</tt><tt class="descname">get_module</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#core.information.get_module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.information.get_modules">
+<tt class="descclassname">core.information.</tt><tt class="descname">get_modules</tt><big>(</big><em>vars</em><big>)</big><a class="headerlink" href="#core.information.get_modules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.information.get_vars">
+<tt class="descclassname">core.information.</tt><tt class="descname">get_vars</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#core.information.get_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract all used variables from actions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>actions</em> (list of dict) &#8211; list of actions</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="core.information.is_string">
+<tt class="descclassname">core.information.</tt><tt class="descname">is_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#core.information.is_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="core.imageTable.html"
+                                  title="previous chapter">imageTable</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="core.message.html"
+                                  title="next chapter">message</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/core.information.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="core.message.html" title="message"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="core.imageTable.html" title="imageTable"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="core.html" >core</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

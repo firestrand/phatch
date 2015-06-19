@@ -1,0 +1,7 @@
+regex
+*****
+
+.. automodule:: core.regex
+   :members:
+   :undoc-members:
+   :show-inheritance:

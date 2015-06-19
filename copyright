@@ -1,0 +1,328 @@
+This package was debianized by Emilio Pozuelo Monfort <pochu@ubuntu.com> on
+Wed, 05 Dec 2007 19:42:32 +0100.
+
+It was downloaded from http://photobatch.stani.be
+
+Upstream Authors: Stani <spe.stani.be@gmail.com>,
+
+Copyright: (c) 2007-2008 Stani <spe.stani.be@gmail.com>
+
+License:
+
+   This package is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
+
+   This package is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+   USA
+
+On Debian systems, the complete text of the GNU General
+Public License can be found in `/usr/share/common-licenses/GPL-3'.
+
+The Debian packaging is Copyright (C) 2007-2009 Emilio Pozuelo Monfort <pochu@ubuntu.com> and
+   is licensed under the GPL, see above.
+
+Some Files in phatch/actions are contributed:
+   - color_to_alpha.py, crop.py, highlight.py, sketch.py, contour.py:
+     Copyright (c) 2009 Nadia Alramli <mail@nadiana.com>
+
+The Files in phatch/other/pyWx:
+   - pubsub.py is Copyright (c) 2004 Oliver Schoenborn
+   - img2py.py, img2img.py is Copyright (c) 2002 Total Control Software
+   - ToasterBox.py is Copyright (c) 2005-2007 Andrea Gavana
+   - TextCtrlAutoComplete.py is Copyright (c) 2006 Edward Flick (CDF Inc,
+     http://www.cdf-imaging.com)
+   and are licensed under the wxWidgets/wxWindows license:
+   http://www.wxwidgets.org/about/newlicen.htm
+   http://www.opensource.org/licenses/wxwindows.php
+
+   WXWINDOWS LIBRARY LICENCE
+
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+   This library is free software; you can redistribute it and/or modify it
+   under the terms of the GNU Library General Public Licence as published by
+   the Free Software Foundation; either version 2 of the Licence, or (at
+   your option) any later version.
+
+   This library is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library
+   General Public Licence for more details.
+
+   You should have received a copy of the GNU Library General Public Licence
+   along with this software, usually in a file named COPYING.LIB. If not,
+   write to the Free Software Foundation, Inc., 51 Franklin Street,
+   Fifth Floor, Boston, MA  02110-1301, USA.
+
+   EXCEPTION NOTICE
+
+   1. As a special exception, the copyright holders of this library give
+   permission for additional uses of the text contained in this release of
+   the library as licenced under the wxWindows Library Licence, applying
+   either version 3 of the Licence, or (at your option) any later version of
+   the Licence as published by the copyright holders of version 3 of the
+   Licence document.
+
+   2. The exception is that you may use, copy, link, modify and distribute
+   under the user's own terms, binary object code versions of works based
+   on the Library.
+
+   3. If you copy code from files distributed under the terms of the GNU
+   General Public Licence or the GNU Library General Public Licence into a
+   copy of this library, as this licence permits, the exception does not
+   apply to the code that you add in this way. To avoid misleading anyone as
+   to the status of such modified files, you must delete this exception
+   notice from such code and/or adjust the licensing conditions notice
+   accordingly.
+
+   4. If you write modifications of your own for this library, it is your
+   choice whether to permit this exception to apply to your modifications.
+   If you do not wish that, you must delete the exception notice from such
+   code and/or adjust the licensing conditions notice accordingly.
+
+The Files JpegImagePlugin.py and TiffImagePlugin.py in phatch/other are
+   patched versions of source files of the Python Imaging Library (PIL) and
+   are licensed under its license:
+
+   http://www.pythonware.com/products/pil/license.htm
+
+   Copyright (c) 1997-2006 by Secret Labs AB
+   Copyright (c) 1995-2006 by Fredrik Lundh
+
+   By obtaining, using, and/or copying this software and/or its associated
+   documentation, you agree that you have read, understood, and will comply
+   with the following terms and conditions:
+
+   Permission to use, copy, modify, and distribute this software and its
+   associated documentation for any purpose and without fee is hereby
+   granted, provided that the above copyright notice appears in all copies,
+   and that both that copyright notice and this permission notice appear in
+   supporting documentation, and that the name of Secret Labs AB or the
+   author not be used in advertising or publicity pertaining to
+   distribution of the software without specific, written prior permission.
+
+   SECRET LABS AB AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS
+   SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.
+   IN NO EVENT SHALL SECRET LABS AB OR THE AUTHOR BE LIABLE FOR ANY SPECIAL,
+   INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING
+   FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
+   NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH
+   THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+The file phatch/other/EXIF.py is copyrighted and licensed as:
+   Copyright (c) 2002-2007 Gene Cash All rights reserved
+   Copyright (c) 2007-2008 Ianaré Sévi All rights reserved
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+
+    1. Redistributions of source code must retain the above copyright
+       notice, this list of conditions and the following disclaimer.
+
+    2. Redistributions in binary form must reproduce the above
+       copyright notice, this list of conditions and the following
+       disclaimer in the documentation and/or other materials provided
+       with the distribution.
+
+    3. Neither the name of the authors nor the names of its contributors
+       may be used to endorse or promote products derived from this
+       software without specific prior written permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+   OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The file phatch/other/findsystem.py is a source file of TTFQuery-1.0.1 and is
+licensed under its license:
+
+   http://ttfquery.sourceforge.net/
+
+   THIS SOFTWARE IS NOT FAULT TOLERANT AND SHOULD NOT BE USED IN ANY
+   SITUATION ENDANGERING HUMAN LIFE OR PROPERTY.
+
+   TTFQuery License
+
+   Copyright (c) 2003, Michael C. Fletcher and Contributors
+   All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+
+    Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+
+    Redistributions in binary form must reproduce the above
+    copyright notice, this list of conditions and the following
+    disclaimer in the documentation and/or other materials
+    provided with the distribution.
+
+    The name of Michael C. Fletcher, or the name of any Contributor,
+    may not be used to endorse or promote products derived from this
+    software without specific prior written permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+   FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+   COPYRIGHT HOLDERS AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+   INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+   HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+   OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The file phatch/other/surd.py is copyrighted as:
+   Copyright (c) 1995 Nick Seidenman, nick@osg.saic.com
+
+   It is freely available from:
+   http://www.python.org/ftp/python/contrib-09-Dec-1999/DataStructures/
+
+
+The file phatch/other/relativedelta.py is a source file of dateutil and is
+licensed under its license:
+
+   Copyright (c) 2003-2007  Gustavo Niemeyer <gustavo@niemeyer.net>
+
+   This module offers extensions to the standard python 2.3+
+   datetime module.
+
+   PSF License
+
+The file phatch/other/tamogen.py is Copyright (C) 2008-2009 Jack Whitsitt,
+Juho Vepsäläinen and is licensed under the GPL, see above.
+
+Most Icons embedded in the Files in phatch/actions are from the
+   Open Clip Art Library and their copyright information is embedded in the
+   svg image files in the image/source/openclipart folder of the original
+   phatch source tarball. The icons belong to the Public Domain:
+
+   Copyright-Only Dedication (based on United States law) or
+   Public Domain Certification
+
+   The person or persons who have associated work with this document
+   (the "Dedicator" or "Certifier") hereby either (a) certifies that, to the
+   best of his knowledge, the work of  authorship identified is in the
+   public domain of the country from which the work is published, or
+   (b) hereby dedicates whatever copyright the dedicators holds in the
+   work of authorship identified below (the "Work") to the public domain.
+   A certifier, moreover, dedicates any copyright interest he may have
+   in the associated work, and for these purposes, is described as a
+   "dedicator" below.
+
+   A certifier has taken reasonable steps to verify the copyright status
+   of this work. Certifier recognizes that his good faith efforts may not
+   shield him from liability if in fact the work certified is not in the
+   public domain.
+
+   Dedicator makes this dedication for the benefit of the public at large
+   and to the detriment of the Dedicator's heirs and successors. Dedicator
+   intends this dedication to be an overt act of relinquishment in perpetuity
+   of all present and future rights under copyright law, whether vested or
+   contingent, in the Work. Dedicator understands that such relinquishment
+   of all rights includes the relinquishment of all rights to enforce
+   (by lawsuit or otherwise) those copyrights in the Work.
+
+   Dedicator recognizes that, once placed in the public domain, the Work
+   may be freely reproduced, distributed, transmitted, used, modified,
+   built upon, or otherwise exploited by anyone for any purpose,
+   commercial or non-commercial, and in any way, including
+   by methods that have not yet been invented or conceived.
+
+   http://openclipart.org
+
+The Phatch Logo and Icon, and some Icons embedded in the Files in
+   phatch/actions are Copyright (c)2007-2008 Igor Kekeljevic and their
+   copyright information is embedded in the svg images or blender files in the
+   image/source/actions folder of the original phatch source tarball.
+   These icons are released under the GPL, see above.
+
+The Icons embedded in phatch/pyWx/nuovext.py are Copyright (c) 2005 Alexandre
+   Moore and are licensed under the GPL, see above. The icons can be obtained
+   from:
+   http://www.gnome-look.org/content/download.php?content=26448&id=1&tan=15504822&PHPSESSID=34ec3de1af33e253ee03357a124bfbeb
+
+The copyright information of the files in phatch/images is
+   embedded in the svg images:
+   - Copyright (c) 2009 Nadia Alramli <mail@nadiana.com>, GPL license
+   - Copyright (c) 2009 Stani <spe.stani.be@gmail.com>, GPL license
+
+The Icon embedded in phatch/actions/colour_to_alpha.py is Copyright (c)
+   Everaldo Coelho and is licensed under the LGPL. The icon can be obtained
+   from:
+   http://www.iconlet.com/info/9657_colorscm_128x128
+
+The Icon embedded in phatch/actions/sketch.py is Copyright (c)
+   Jonatan Castro Fernández The icon can be obtained
+   from:http://www.tutorial9.net/resources/free-icon-pack-web-injection/
+   This Free Icon Pack is for use in your personal and commercial projects,
+   and can be used without attribution. It may not be redistributed.
+
+The font fonts/FreeSans.ttf is licensed and copyrighted as:
+   Copyleft 2002, 2003, 2005, 2008 Free Software Foundation
+   The use of this font is granted subject to GNU General Public License
+
+The font fonts/Purisa.ttf is licensed and copyrighted as:
+   Copyright (C) 2003, 2004 Free Poonlap Veerathanbutr
+   The use of this font is granted subject to GNU General Public License
+
+Files book.blend, can.blend, cd.blend and lcd.blend have been licensed in the
+   following way as described at http://e2-productions.com/repository/:
+   All submissions to the Blender Model Repository can be used for any use.
+
+   None of the original files have any additional restrictions. The original files
+   are available according to the next listing:
+   book.blend - http://e2-productions.com/repository/modules/PDdownloads/singlefile.php?cid=10&lid=242
+   can.blend - http://e2-productions.com/repository/modules/PDdownloads/singlefile.php?cid=10&lid=186
+   cd.blend - http://e2-productions.com/repository/modules/PDdownloads/singlefile.php?cid=10&lid=268
+   lcd.blend - http://e2-productions.com/repository/modules/PDdownloads/singlefile.php?cid=19&lid=327
+
+box.blend and sphere.blend are Copyright (c) of Juho Vepsäläinen and licensed
+   under GPL, see above.
+
+The file tests/pep8.py is Copyright (C) 2006 Johann C. Rocholl and licensed under:
+    pep8.py - Check Python source code formatting, according to PEP 8
+    Copyright (C) 2006 Johann C. Rocholl <johann@browsershots.org>
+
+    Permission is hereby granted, free of charge, to any person
+    obtaining a copy of this software and associated documentation files
+    (the "Software"), to deal in the Software without restriction,
+    including without limitation the rights to use, copy, modify, merge,
+    publish, distribute, sublicense, and/or sell copies of the Software,
+    and to permit persons to whom the Software is furnished to do so,
+    subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+    #
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+    BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+    ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+phatch/actions/grid.py and phatch/actions/warm_up.py files are (C) 2010 by Pawel
+T. Jochym <jochym@gmail.com>

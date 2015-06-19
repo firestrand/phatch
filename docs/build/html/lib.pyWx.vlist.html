@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>vlist &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="lib.pyWx.html" />
+    <link rel="next" title="vlistTag" href="lib.pyWx.vlistTag.html" />
+    <link rel="prev" title="treeEdit" href="lib.pyWx.treeEdit.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.vlistTag.html" title="vlistTag"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.treeEdit.html" title="treeEdit"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.pyWx.vlist">
+<h1>vlist<a class="headerlink" href="#module-lib.pyWx.vlist" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lib.pyWx.vlist.Box">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.vlist.</tt><tt class="descname">Box</tt><big>(</big><em>parent</em>, <em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx._windows.VListBox</span></tt></p>
+<p>Default Icon Size is ICON_SIZE (48).</p>
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.GetIconSize">
+<tt class="descname">GetIconSize</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.GetIconSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.GetItem">
+<tt class="descname">GetItem</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.GetItem" title="Permalink to this definition">¶</a></dt>
+<dd>Needs to be overwritten.</dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.GradientColour">
+<tt class="descname">GradientColour</tt><big>(</big><em>color</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.GradientColour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.OnDrawBackground">
+<tt class="descname">OnDrawBackground</tt><big>(</big><em>dc</em>, <em>rect</em>, <em>n</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.OnDrawBackground" title="Permalink to this definition">¶</a></dt>
+<dd>Gradient fill from color 1 to color 2 with top to bottom
+or left to right.</dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.OnDrawItem">
+<tt class="descname">OnDrawItem</tt><big>(</big><em>dc</em>, <em>rect</em>, <em>n</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.OnDrawItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.OnDrawSeparator">
+<tt class="descname">OnDrawSeparator</tt><big>(</big><em>dc</em>, <em>rect</em>, <em>n</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.OnDrawSeparator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.OnMeasureItem">
+<tt class="descname">OnMeasureItem</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.OnMeasureItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.RefreshAll">
+<tt class="descname">RefreshAll</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.RefreshAll" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.SetIconSize">
+<tt class="descname">SetIconSize</tt><big>(</big><em>icon_size=(48</em>, <em>48)</em>, <em>units=5</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.SetIconSize" title="Permalink to this definition">¶</a></dt>
+<dd>All vertical spacing is calculated by the icon size.
+The higher the units, the less space in between label and summary and
+the more space between the label/summary and the separators.</dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.SetTheme">
+<tt class="descname">SetTheme</tt><big>(</big><em>theme='default'</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.SetTheme" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.vlist.Box.SetVerticalGradient">
+<tt class="descname">SetVerticalGradient</tt><big>(</big><em>bool=True</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.Box.SetVerticalGradient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.vlist.TestFrame">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.vlist.</tt><tt class="descname">TestFrame</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.TestFrame" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">wx._windows.Frame</span></tt></dd></dl>
+
+<dl class="function">
+<dt id="lib.pyWx.vlist.example">
+<tt class="descclassname">lib.pyWx.vlist.</tt><tt class="descname">example</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.vlist.example" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.pyWx.treeEdit.html"
+                                  title="previous chapter">treeEdit</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.pyWx.vlistTag.html"
+                                  title="next chapter">vlistTag</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.vlistTag.html" title="vlistTag"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.treeEdit.html" title="treeEdit"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

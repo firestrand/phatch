@@ -1,0 +1,573 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>imageInspector &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="pyWx.html" />
+    <link rel="next" title="images" href="pyWx.images.html" />
+    <link rel="prev" title="gui" href="pyWx.gui.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="pyWx.images.html" title="images"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pyWx.gui.html" title="gui"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pyWx.imageInspector">
+<h1>imageInspector<a class="headerlink" href="#module-pyWx.imageInspector" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pyWx.imageInspector.AddTagDialog">
+<em class="property">
+class </em><tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">AddTagDialog</tt><big>(</big><em>parent</em>, <em>keys</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.AddTagDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="pyWx.wxGlade.dialogsInspector.AddTagDialog" class="reference external" href="pyWx.wxGlade.dialogsInspector.html#pyWx.wxGlade.dialogsInspector.AddTagDialog"><tt class="xref docutils literal"><span class="pre">pyWx.wxGlade.dialogsInspector.AddTagDialog</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.imageInspector.AddTagDialog.GetModal">
+<tt class="descname">GetModal</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.AddTagDialog.GetModal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.AddTagDialog.OnAdd">
+<tt class="descname">OnAdd</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.AddTagDialog.OnAdd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.AddTagDialog.OnTagText">
+<tt class="descname">OnTagText</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.AddTagDialog.OnTagText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.imageInspector.Browser">
+<em class="property">
+class </em><tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">Browser</tt><big>(</big><em>parent</em>, <em>tags</em>, <em>content_ctrl_keyw</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Browser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.tag.Browser" class="reference external" href="lib.pyWx.tag.html#lib.pyWx.tag.Browser"><tt class="xref docutils literal"><span class="pre">lib.pyWx.tag.Browser</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyWx.imageInspector.Browser.ContentCtrl">
+<tt class="descname">ContentCtrl</tt><a class="headerlink" href="#pyWx.imageInspector.Browser.ContentCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="pyWx.imageInspector.GridTag" class="reference internal" href="#pyWx.imageInspector.GridTag"><tt class="xref docutils literal"><span class="pre">GridTag</span></tt></a></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Browser.GetPaintMessage">
+<tt class="descname">GetPaintMessage</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Browser.GetPaintMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.imageInspector.Frame">
+<em class="property">
+class </em><tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">Frame</tt><big>(</big><em>parent</em>, <em>filename=''</em>, <em>icon=None</em>, <em>thumb_size=(128</em>, <em>128)</em>, <em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx._windows.Frame</span></tt></p>
+<dl class="class">
+<dt id="pyWx.imageInspector.Frame.Browser">
+<em class="property">
+class </em><tt class="descname">Browser</tt><big>(</big><em>parent</em>, <em>tags</em>, <em>content_ctrl_keyw</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Frame.Browser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.tag.Browser" class="reference external" href="lib.pyWx.tag.html#lib.pyWx.tag.Browser"><tt class="xref docutils literal"><span class="pre">lib.pyWx.tag.Browser</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyWx.imageInspector.Frame.Browser.ContentCtrl">
+<tt class="descname">ContentCtrl</tt><a class="headerlink" href="#pyWx.imageInspector.Frame.Browser.ContentCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="pyWx.imageInspector.GridTag" class="reference internal" href="#pyWx.imageInspector.GridTag"><tt class="xref docutils literal"><span class="pre">GridTag</span></tt></a></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Frame.Browser.GetPaintMessage">
+<tt class="descname">GetPaintMessage</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Frame.Browser.GetPaintMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Frame.GetGrid">
+<tt class="descclassname">Frame.</tt><tt class="descname">GetGrid</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Frame.GetGrid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Frame.OnActivate">
+<tt class="descclassname">Frame.</tt><tt class="descname">OnActivate</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Frame.OnActivate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Frame.OpenImage">
+<tt class="descclassname">Frame.</tt><tt class="descname">OpenImage</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Frame.OpenImage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Frame.OpenImages">
+<tt class="descclassname">Frame.</tt><tt class="descname">OpenImages</tt><big>(</big><em>filenames</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Frame.OpenImages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.imageInspector.Grid">
+<em class="property">
+class </em><tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">Grid</tt><big>(</big><em>parent</em>, <em>thumb_size=(128</em>, <em>128)</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.droplet.Mixin" class="reference external" href="lib.pyWx.droplet.html#lib.pyWx.droplet.Mixin"><tt class="xref docutils literal"><span class="pre">lib.pyWx.droplet.Mixin</span></tt></a>, <tt class="xref docutils literal"><span class="pre">wx.grid.Grid</span></tt></p>
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.AddColumnRow">
+<tt class="descname">AddColumnRow</tt><big>(</big><em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.AddColumnRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.AddRow">
+<tt class="descname">AddRow</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.AddRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Ask">
+<tt class="descname">Ask</tt><big>(</big><em>message</em>, <em>title=''</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Ask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.AskText">
+<tt class="descname">AskText</tt><big>(</big><em>question</em>, <em>value=''</em>, <em>title=''</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.AskText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.ChangeRowValues">
+<tt class="descname">ChangeRowValues</tt><big>(</big><em>row</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.ChangeRowValues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.CopyCellValue">
+<tt class="descname">CopyCellValue</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.CopyCellValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.CopyRowLabel">
+<tt class="descname">CopyRowLabel</tt><big>(</big><em>row</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.CopyRowLabel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.CreateRowLabelMenu">
+<tt class="descname">CreateRowLabelMenu</tt><big>(</big><em>menu</em>, <em>row</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.CreateRowLabelMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.DeleteCell">
+<tt class="descname">DeleteCell</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.DeleteCell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.DeleteCols">
+<tt class="descname">DeleteCols</tt><big>(</big><em>pos=0</em>, <em>num=1</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.DeleteCols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.DeleteRows">
+<tt class="descname">DeleteRows</tt><big>(</big><em>pos=0</em>, <em>num=1</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.DeleteRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.GetCellRowCol">
+<tt class="descname">GetCellRowCol</tt><big>(</big><em>event=None</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.GetCellRowCol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.OnColLabelPaint">
+<tt class="descname">OnColLabelPaint</tt><big>(</big><em>evt</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.OnColLabelPaint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.OnDrop">
+<tt class="descname">OnDrop</tt><big>(</big><em>filenames</em>, <em>x</em>, <em>y</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.OnDrop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.OnGridCellRightClicked">
+<tt class="descname">OnGridCellRightClicked</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.OnGridCellRightClicked" title="Permalink to this definition">¶</a></dt>
+<dd>(row, evt) -&gt; display a popup menu when a row label is right clicked</dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.OnGridColLabelRightClicked">
+<tt class="descname">OnGridColLabelRightClicked</tt><big>(</big><em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.OnGridColLabelRightClicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.OnGridLabelRightClicked">
+<tt class="descname">OnGridLabelRightClicked</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.OnGridLabelRightClicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.OnGridRowLabelRightClicked">
+<tt class="descname">OnGridRowLabelRightClicked</tt><big>(</big><em>row</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.OnGridRowLabelRightClicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.OnKeyDown">
+<tt class="descname">OnKeyDown</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.OnKeyDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.OnRowLabelPaint">
+<tt class="descname">OnRowLabelPaint</tt><big>(</big><em>evt</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.OnRowLabelPaint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.OpenImage">
+<tt class="descname">OpenImage</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.OpenImage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.OpenImages">
+<tt class="descname">OpenImages</tt><big>(</big><em>filenames</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.OpenImages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.ProcessKey">
+<tt class="descname">ProcessKey</tt><big>(</big><em>key_code</em>, <em>row</em>, <em>col</em>, <em>shift</em>, <em>ctrl</em>, <em>alt</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.ProcessKey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.RefreshAll">
+<tt class="descname">RefreshAll</tt><big>(</big><em>update_column=False</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.RefreshAll" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.RenameRowLabelValue">
+<tt class="descname">RenameRowLabelValue</tt><big>(</big><em>row</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.RenameRowLabelValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.ShowError">
+<tt class="descname">ShowError</tt><big>(</big><em>message</em>, <em>title=u'Image Inspector'</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.ShowError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.ShowMessage">
+<tt class="descname">ShowMessage</tt><big>(</big><em>message</em>, <em>title=''</em>, <em>style=260</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.ShowMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="pyWx.imageInspector.Grid.Table">
+<em class="property">
+class </em><tt class="descname">Table</tt><big>(</big><em>thumb_size=(128</em>, <em>128)</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx.grid.PyGridTableBase</span></tt></p>
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.DeleteCols">
+<tt class="descname">DeleteCols</tt><big>(</big><em>pos=0</em>, <em>num=1</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.DeleteCols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.DeleteRows">
+<tt class="descname">DeleteRows</tt><big>(</big><em>pos=0</em>, <em>num=1</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.DeleteRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.GetAttr">
+<tt class="descname">GetAttr</tt><big>(</big><em>row</em>, <em>col</em>, <em>kind</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.GetAttr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.GetColLabelValue">
+<tt class="descname">GetColLabelValue</tt><big>(</big><em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.GetColLabelValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.GetNumberCols">
+<tt class="descname">GetNumberCols</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.GetNumberCols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.GetNumberRows">
+<tt class="descname">GetNumberRows</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.GetNumberRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.GetRowLabelValue">
+<tt class="descname">GetRowLabelValue</tt><big>(</big><em>row</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.GetRowLabelValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.GetValue">
+<tt class="descname">GetValue</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.GetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.IsEditableCell">
+<tt class="descname">IsEditableCell</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.IsEditableCell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.IsEmptyCell">
+<tt class="descname">IsEmptyCell</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.IsEmptyCell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.SetRowColours">
+<tt class="descname">SetRowColours</tt><big>(</big><em>colors=(wx.Colour(254</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>wx.Colour(250</em>, <em>250</em>, <em>250</em>, <em>255))</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.SetRowColours" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.SetRowLabelValue">
+<tt class="descname">SetRowLabelValue</tt><big>(</big><em>row</em>, <em>value</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.SetRowLabelValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.Table.SetValue">
+<tt class="descname">SetValue</tt><big>(</big><em>row</em>, <em>col</em>, <em>value</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.Table.SetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.UpdateRowsColsNumbers">
+<tt class="descclassname">Grid.</tt><tt class="descname">UpdateRowsColsNumbers</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.UpdateRowsColsNumbers" title="Permalink to this definition">¶</a></dt>
+<dd>Only consider adding or removing rows.</dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.UpdateThumbs">
+<tt class="descclassname">Grid.</tt><tt class="descname">UpdateThumbs</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.UpdateThumbs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Grid.UpdateValues">
+<tt class="descclassname">Grid.</tt><tt class="descname">UpdateValues</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Grid.UpdateValues" title="Permalink to this definition">¶</a></dt>
+<dd>Update all displayed values</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.imageInspector.GridTag">
+<em class="property">
+class </em><tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">GridTag</tt><big>(</big><em>parent</em>, <em>thumb_size=(128</em>, <em>128)</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.GridTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="pyWx.imageInspector.OpenMixin" class="reference internal" href="#pyWx.imageInspector.OpenMixin"><tt class="xref docutils literal"><span class="pre">pyWx.imageInspector.OpenMixin</span></tt></a>, <a title="lib.pyWx.tag.ContentMixin" class="reference external" href="lib.pyWx.tag.html#lib.pyWx.tag.ContentMixin"><tt class="xref docutils literal"><span class="pre">lib.pyWx.tag.ContentMixin</span></tt></a>, <a title="pyWx.imageInspector.Grid" class="reference internal" href="#pyWx.imageInspector.Grid"><tt class="xref docutils literal"><span class="pre">pyWx.imageInspector.Grid</span></tt></a></p>
+<dl class="method">
+<dt id="pyWx.imageInspector.GridTag.IsEmpty">
+<tt class="descname">IsEmpty</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.GridTag.IsEmpty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.GridTag.SetFilter">
+<tt class="descname">SetFilter</tt><big>(</big><em>filter=None</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.GridTag.SetFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.GridTag.SetTag">
+<tt class="descname">SetTag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.GridTag.SetTag" title="Permalink to this definition">¶</a></dt>
+<dd>Filters from all_data to tag_data</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.imageInspector.OpenMixin">
+<em class="property">
+class </em><tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">OpenMixin</tt><a class="headerlink" href="#pyWx.imageInspector.OpenMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="pyWx.imageInspector.OpenMixin.GetTopLevelParent">
+<tt class="descname">GetTopLevelParent</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.OpenMixin.GetTopLevelParent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.OpenMixin.OnOpen">
+<tt class="descname">OnOpen</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.OpenMixin.OnOpen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.OpenMixin.OnOpenUrl">
+<tt class="descname">OnOpenUrl</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.OpenMixin.OnOpenUrl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.OpenMixin.OpenImage">
+<tt class="descname">OpenImage</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.OpenMixin.OpenImage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.OpenMixin.OpenImages">
+<tt class="descname">OpenImages</tt><big>(</big><em>filenames</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.OpenMixin.OpenImages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyWx.imageInspector.Table">
+<em class="property">
+class </em><tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">Table</tt><big>(</big><em>thumb_size=(128</em>, <em>128)</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx.grid.PyGridTableBase</span></tt></p>
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.DeleteCols">
+<tt class="descname">DeleteCols</tt><big>(</big><em>pos=0</em>, <em>num=1</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.DeleteCols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.DeleteRows">
+<tt class="descname">DeleteRows</tt><big>(</big><em>pos=0</em>, <em>num=1</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.DeleteRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.GetAttr">
+<tt class="descname">GetAttr</tt><big>(</big><em>row</em>, <em>col</em>, <em>kind</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.GetAttr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.GetColLabelValue">
+<tt class="descname">GetColLabelValue</tt><big>(</big><em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.GetColLabelValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.GetNumberCols">
+<tt class="descname">GetNumberCols</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.GetNumberCols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.GetNumberRows">
+<tt class="descname">GetNumberRows</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.GetNumberRows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.GetRowLabelValue">
+<tt class="descname">GetRowLabelValue</tt><big>(</big><em>row</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.GetRowLabelValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.GetValue">
+<tt class="descname">GetValue</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.GetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.IsEditableCell">
+<tt class="descname">IsEditableCell</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.IsEditableCell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.IsEmptyCell">
+<tt class="descname">IsEmptyCell</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.IsEmptyCell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.SetRowColours">
+<tt class="descname">SetRowColours</tt><big>(</big><em>colors=(wx.Colour(254</em>, <em>255</em>, <em>255</em>, <em>255)</em>, <em>wx.Colour(250</em>, <em>250</em>, <em>250</em>, <em>255))</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.SetRowColours" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.SetRowLabelValue">
+<tt class="descname">SetRowLabelValue</tt><big>(</big><em>row</em>, <em>value</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.SetRowLabelValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyWx.imageInspector.Table.SetValue">
+<tt class="descname">SetValue</tt><big>(</big><em>row</em>, <em>col</em>, <em>value</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.Table.SetValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyWx.imageInspector.empty_bitmap">
+<tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">empty_bitmap</tt><big>(</big><em>width</em>, <em>height</em><big>)</big><a class="headerlink" href="#pyWx.imageInspector.empty_bitmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyWx.imageInspector.getPencilBitmap">
+<tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">getPencilBitmap</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.getPencilBitmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyWx.imageInspector.getPencilData">
+<tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">getPencilData</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.getPencilData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyWx.imageInspector.getPencilImage">
+<tt class="descclassname">pyWx.imageInspector.</tt><tt class="descname">getPencilImage</tt><big>(</big><big>)</big><a class="headerlink" href="#pyWx.imageInspector.getPencilImage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="pyWx.gui.html"
+                                  title="previous chapter">gui</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="pyWx.images.html"
+                                  title="next chapter">images</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/pyWx.imageInspector.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pyWx.images.html" title="images"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pyWx.gui.html" title="gui"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

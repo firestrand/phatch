@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>models &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="core" href="core.html" />
+    <link rel="next" title="pil" href="core.pil.html" />
+    <link rel="prev" title="message" href="core.message.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="core.pil.html" title="pil"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="core.message.html" title="message"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="core.html" accesskey="U">core</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-core.models">
+<h1>models<a class="headerlink" href="#module-core.models" title="Permalink to this headline">¶</a></h1>
+<p>Store internally as a string.
+Provide validation routines.</p>
+<dl class="class">
+<dt id="core.models.Action">
+<em class="property">
+class </em><tt class="descclassname">core.models.</tt><tt class="descname">Action</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#core.models.Action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.Form" class="reference" href="lib.formField.html#lib.formField.Form"><tt class="xref docutils literal"><span class="pre">lib.formField.Form</span></tt></a></p>
+<p>Action base class.</p>
+<dl class="class">
+<dt id="core.models.Action.BlenderField">
+<em class="property">
+class </em><tt class="descname">BlenderField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#core.models.Action.BlenderField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ImageDictionaryField" class="reference" href="lib.formField.html#lib.formField.ImageDictionaryField"><tt class="xref docutils literal"><span class="pre">lib.formField.ImageDictionaryField</span></tt></a></p>
+<dl class="method">
+<dt id="core.models.Action.BlenderField.get_path">
+<tt class="descname">get_path</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.Action.BlenderField.get_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.Action.BlenderField.init_dictionary">
+<tt class="descname">init_dictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.Action.BlenderField.init_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.Action.BlenderObjectField">
+<em class="property">
+class </em><tt class="descclassname">Action.</tt><tt class="descname">BlenderObjectField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#core.models.Action.BlenderObjectField" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">core.models.BlenderField</span></tt></dd></dl>
+
+<dl class="class">
+<dt id="core.models.Action.BlenderRotationField">
+<em class="property">
+class </em><tt class="descclassname">Action.</tt><tt class="descname">BlenderRotationField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#core.models.Action.BlenderRotationField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">core.models.BlenderField</span></tt></p>
+<dl class="method">
+<dt id="core.models.Action.BlenderRotationField.get_path">
+<tt class="descname">get_path</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.Action.BlenderRotationField.get_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.Action.BlenderRotationField.title_parser">
+<tt class="descname">title_parser</tt><big>(</big><em>field</em>, <em>filename</em><big>)</big><a class="headerlink" href="#core.models.Action.BlenderRotationField.title_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.Action.HighlightFileField">
+<em class="property">
+class </em><tt class="descclassname">Action.</tt><tt class="descname">HighlightFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#core.models.Action.HighlightFileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ImageDictionaryReadFileField" class="reference" href="lib.formField.html#lib.formField.ImageDictionaryReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ImageDictionaryReadFileField</span></tt></a></p>
+<dl class="method">
+<dt id="core.models.Action.HighlightFileField.init_dictionary">
+<tt class="descname">init_dictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.Action.HighlightFileField.init_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.Action.MaskFileField">
+<em class="property">
+class </em><tt class="descclassname">Action.</tt><tt class="descname">MaskFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#core.models.Action.MaskFileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ImageDictionaryReadFileField" class="reference" href="lib.formField.html#lib.formField.ImageDictionaryReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ImageDictionaryReadFileField</span></tt></a></p>
+<dl class="method">
+<dt id="core.models.Action.MaskFileField.init_dictionary">
+<tt class="descname">init_dictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.Action.MaskFileField.init_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.Action.PerspectiveField">
+<em class="property">
+class </em><tt class="descclassname">Action.</tt><tt class="descname">PerspectiveField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#core.models.Action.PerspectiveField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ImageDictionaryField" class="reference" href="lib.formField.html#lib.formField.ImageDictionaryField"><tt class="xref docutils literal"><span class="pre">lib.formField.ImageDictionaryField</span></tt></a></p>
+<dl class="method">
+<dt id="core.models.Action.PerspectiveField.init_dictionary">
+<tt class="descname">init_dictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.Action.PerspectiveField.init_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.Action.WatermarkFileField">
+<em class="property">
+class </em><tt class="descclassname">Action.</tt><tt class="descname">WatermarkFileField</tt><big>(</big><em>value=None</em>, <em>visible=True</em>, <em>choices=None</em><big>)</big><a class="headerlink" href="#core.models.Action.WatermarkFileField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.formField.ImageDictionaryReadFileField" class="reference" href="lib.formField.html#lib.formField.ImageDictionaryReadFileField"><tt class="xref docutils literal"><span class="pre">lib.formField.ImageDictionaryReadFileField</span></tt></a></p>
+<dl class="method">
+<dt id="core.models.Action.WatermarkFileField.init_dictionary">
+<tt class="descname">init_dictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.Action.WatermarkFileField.init_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="core.models.Action.apply">
+<tt class="descclassname">Action.</tt><tt class="descname">apply</tt><big>(</big><em>photo</em>, <em>setting</em>, <em>cache</em><big>)</big><a class="headerlink" href="#core.models.Action.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can be overwritten always returns the photo.</p>
+<p>If this method is not overwritten a pil method should be
+required.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.models.Action.ensure_path_or_desktop">
+<tt class="descclassname">Action.</tt><tt class="descname">ensure_path_or_desktop</tt><big>(</big><em>folder</em>, <em>photo</em>, <em>filename</em>, <em>desktop=False</em><big>)</big><a class="headerlink" href="#core.models.Action.ensure_path_or_desktop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensures that folder exists. If it can&#8217;t create the path,
+it will log an error in the photo and propose to save it in the
+desktop folder instead.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>folder</em> &#8211; folder path</li>
+<li><em>folder</em> (core.pil.Photo) &#8211; photo to log to</li>
+<li><em>filename</em> (str) &#8211; targeted filename</li>
+<li><em>desktop</em> (bool) &#8211; force saving on desktop</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">same filename, or on desktop in case of errors</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="core.models.Action.init">
+<em class="property">
+static </em><tt class="descclassname">Action.</tt><tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.Action.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.Action.is_done">
+<tt class="descclassname">Action.</tt><tt class="descname">is_done</tt><big>(</big><em>photo</em><big>)</big><a class="headerlink" href="#core.models.Action.is_done" title="Permalink to this definition">¶</a></dt>
+<dd>Method used for resuming when a batch was interrupted.
+Check if this image has been done already.</dd></dl>
+
+<dl class="method">
+<dt id="core.models.Action.values">
+<tt class="descclassname">Action.</tt><tt class="descname">values</tt><big>(</big><em>info</em>, <em>pixel_fields=None</em>, <em>exclude=None</em><big>)</big><a class="headerlink" href="#core.models.Action.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.CropMixin">
+<em class="property">
+class </em><tt class="descclassname">core.models.</tt><tt class="descname">CropMixin</tt><a class="headerlink" href="#core.models.CropMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="core.models.CropMixin.get_relevant_field_labels">
+<tt class="descname">get_relevant_field_labels</tt><big>(</big><em>action=None</em><big>)</big><a class="headerlink" href="#core.models.CropMixin.get_relevant_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this method is present, Phatch will only show relevant
+fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">list of the field labels which are relevant</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is very important that the list of labels has EXACTLY
+the same order as defined in the interface method.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="core.models.CropMixin.interface">
+<tt class="descname">interface</tt><big>(</big><em>fields</em>, <em>action=None</em><big>)</big><a class="headerlink" href="#core.models.CropMixin.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.CropMixin.values">
+<tt class="descname">values</tt><big>(</big><em>info</em>, <em>pixel_fields=None</em>, <em>exclude=None</em>, <em>action=None</em><big>)</big><a class="headerlink" href="#core.models.CropMixin.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.LosslessSaveMixin">
+<em class="property">
+class </em><tt class="descclassname">core.models.</tt><tt class="descname">LosslessSaveMixin</tt><a class="headerlink" href="#core.models.LosslessSaveMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="core.models.LosslessSaveMixin.get_lossless_filename">
+<tt class="descname">get_lossless_filename</tt><big>(</big><em>photo</em>, <em>info</em><big>)</big><a class="headerlink" href="#core.models.LosslessSaveMixin.get_lossless_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.LosslessSaveMixin.interface">
+<tt class="descname">interface</tt><big>(</big><em>fields</em><big>)</big><a class="headerlink" href="#core.models.LosslessSaveMixin.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.LosslessSaveMixin.is_done">
+<tt class="descname">is_done</tt><big>(</big><em>photo</em><big>)</big><a class="headerlink" href="#core.models.LosslessSaveMixin.is_done" title="Permalink to this definition">¶</a></dt>
+<dd>Method used for resuming when a batch was interrupted.
+For metadata there is no way to know if this image has been done
+already, so return False by default.</dd></dl>
+
+<dl class="method">
+<dt id="core.models.LosslessSaveMixin.is_overwrite_existing_images_forced">
+<tt class="descname">is_overwrite_existing_images_forced</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.LosslessSaveMixin.is_overwrite_existing_images_forced" title="Permalink to this definition">¶</a></dt>
+<dd>Always force overwrite as we want to store the tags
+in existing images.</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.OffsetMixin">
+<em class="property">
+class </em><tt class="descclassname">core.models.</tt><tt class="descname">OffsetMixin</tt><a class="headerlink" href="#core.models.OffsetMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="core.models.OffsetMixin.get_relevant_field_labels">
+<tt class="descname">get_relevant_field_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.OffsetMixin.get_relevant_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.OffsetMixin.interface">
+<tt class="descname">interface</tt><big>(</big><em>fields</em><big>)</big><a class="headerlink" href="#core.models.OffsetMixin.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.OffsetMixin.values">
+<tt class="descname">values</tt><big>(</big><em>info</em>, <em>pixel_fields=None</em>, <em>exclude=None</em><big>)</big><a class="headerlink" href="#core.models.OffsetMixin.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.models.StampMixin">
+<em class="property">
+class </em><tt class="descclassname">core.models.</tt><tt class="descname">StampMixin</tt><a class="headerlink" href="#core.models.StampMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="core.models.OffsetMixin" class="reference" href="#core.models.OffsetMixin"><tt class="xref docutils literal"><span class="pre">core.models.OffsetMixin</span></tt></a></p>
+<dl class="method">
+<dt id="core.models.StampMixin.get_relevant_field_labels">
+<tt class="descname">get_relevant_field_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.StampMixin.get_relevant_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.models.StampMixin.interface">
+<tt class="descname">interface</tt><big>(</big><em>fields</em><big>)</big><a class="headerlink" href="#core.models.StampMixin.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="core.models.init">
+<tt class="descclassname">core.models.</tt><tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#core.models.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="core.models.negative">
+<tt class="descclassname">core.models.</tt><tt class="descname">negative</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#core.models.negative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the negative value of a string expression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>value</em> (str) &#8211; int or float expression</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">negative value of expression</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">negative</span><span class="p">(</span><span class="s">&#39;5&#39;</span><span class="p">)</span>
+<span class="go">&#39;-5&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">negative</span><span class="p">(</span><span class="s">&#39;-5&#39;</span><span class="p">)</span>
+<span class="go">&#39;5&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="core.message.html"
+                                  title="previous chapter">message</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="core.pil.html"
+                                  title="next chapter">pil</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="core.pil.html" title="pil"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="core.message.html" title="message"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="core.html" >core</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

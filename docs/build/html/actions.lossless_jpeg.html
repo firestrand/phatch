@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>lossless_jpeg &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="actions" href="actions.html" />
+    <link rel="next" title="mask" href="actions.mask.html" />
+    <link rel="prev" title="invert" href="actions.invert.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="actions.mask.html" title="mask"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="actions.invert.html" title="invert"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="actions.html" accesskey="U">actions</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-actions.lossless_jpeg">
+<h1>lossless_jpeg<a class="headerlink" href="#module-actions.lossless_jpeg" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="actions.lossless_jpeg.Action">
+<em class="property">
+class </em><tt class="descclassname">actions.lossless_jpeg.</tt><tt class="descname">Action</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="actions.lossless_jpeg.LossLessSaveUtilityMixin" class="reference" href="#actions.lossless_jpeg.LossLessSaveUtilityMixin"><tt class="xref docutils literal"><span class="pre">actions.lossless_jpeg.LossLessSaveUtilityMixin</span></tt></a>, <a title="core.models.Action" class="reference" href="core.models.html#core.models.Action"><tt class="xref docutils literal"><span class="pre">core.models.Action</span></tt></a></p>
+<p>Rotate, flip, grayscale and crop</p>
+<dl class="method">
+<dt id="actions.lossless_jpeg.Action.init">
+<tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Action.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.lossless_jpeg.Arguments">
+<em class="property">
+class </em><tt class="descclassname">actions.lossless_jpeg.</tt><tt class="descname">Arguments</tt><a class="headerlink" href="#actions.lossless_jpeg.Arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">list</span></tt></p>
+<p>List with tweaked append behaviour to make it suitable for
+command line arguments.</p>
+<dl class="method">
+<dt id="actions.lossless_jpeg.Arguments.append">
+<tt class="descname">append</tt><big>(</big><em>*options</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Arguments.append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.lossless_jpeg.Exiftran">
+<em class="property">
+class </em><tt class="descclassname">actions.lossless_jpeg.</tt><tt class="descname">Exiftran</tt><a class="headerlink" href="#actions.lossless_jpeg.Exiftran" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="actions.lossless_jpeg.Exiftran.get_command_line">
+<tt class="descname">get_command_line</tt><big>(</big><em>action</em>, <em>photo</em>, <em>input</em>, <em>output</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Exiftran.get_command_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.lossless_jpeg.Exiftran.get_command_line_args">
+<tt class="descname">get_command_line_args</tt><big>(</big><em>action</em>, <em>photo</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Exiftran.get_command_line_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.lossless_jpeg.Exiftran.get_relevant_field_labels">
+<tt class="descname">get_relevant_field_labels</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Exiftran.get_relevant_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.lossless_jpeg.Exiftran.interface">
+<tt class="descname">interface</tt><big>(</big><em>action</em>, <em>fields</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Exiftran.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.lossless_jpeg.Jpegtran">
+<em class="property">
+class </em><tt class="descclassname">actions.lossless_jpeg.</tt><tt class="descname">Jpegtran</tt><a class="headerlink" href="#actions.lossless_jpeg.Jpegtran" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="core.models.CropMixin" class="reference" href="core.models.html#core.models.CropMixin"><tt class="xref docutils literal"><span class="pre">core.models.CropMixin</span></tt></a></p>
+<dl class="method">
+<dt id="actions.lossless_jpeg.Jpegtran.get_command_line">
+<tt class="descname">get_command_line</tt><big>(</big><em>action</em>, <em>photo</em>, <em>input</em>, <em>output</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Jpegtran.get_command_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.lossless_jpeg.Jpegtran.get_command_line_args">
+<tt class="descname">get_command_line_args</tt><big>(</big><em>action</em>, <em>photo</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Jpegtran.get_command_line_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.lossless_jpeg.Jpegtran.get_relevant_field_labels">
+<tt class="descname">get_relevant_field_labels</tt><big>(</big><em>action</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Jpegtran.get_relevant_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.lossless_jpeg.Jpegtran.interface">
+<tt class="descname">interface</tt><big>(</big><em>action</em>, <em>fields</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.Jpegtran.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.lossless_jpeg.LossLessSaveUtilityMixin">
+<em class="property">
+class </em><tt class="descclassname">actions.lossless_jpeg.</tt><tt class="descname">LossLessSaveUtilityMixin</tt><a class="headerlink" href="#actions.lossless_jpeg.LossLessSaveUtilityMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="core.models.LosslessSaveMixin" class="reference" href="core.models.html#core.models.LosslessSaveMixin"><tt class="xref docutils literal"><span class="pre">core.models.LosslessSaveMixin</span></tt></a>, <a title="actions.lossless_jpeg.UtilityMixin" class="reference" href="#actions.lossless_jpeg.UtilityMixin"><tt class="xref docutils literal"><span class="pre">actions.lossless_jpeg.UtilityMixin</span></tt></a></p>
+<p>For lossless JPEG operations, this has to work on the source jpeg files
+immediately, otherwise it makes no sense. So we need to overwrite the
+call method.</p>
+<dl class="method">
+<dt id="actions.lossless_jpeg.LossLessSaveUtilityMixin.call">
+<tt class="descname">call</tt><big>(</big><em>photo</em>, <em>info</em>, <em>utility</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.LossLessSaveUtilityMixin.call" title="Permalink to this definition">¶</a></dt>
+<dd>This is called by the apply method.</dd></dl>
+
+<dl class="method">
+<dt id="actions.lossless_jpeg.LossLessSaveUtilityMixin.get_relevant_field_labels">
+<tt class="descname">get_relevant_field_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.LossLessSaveUtilityMixin.get_relevant_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd>This should work like a save action. So it needs a filename and
+folder, while the file type is fixed (e.g. JPEG).</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="actions.lossless_jpeg.UtilityMixin">
+<em class="property">
+class </em><tt class="descclassname">actions.lossless_jpeg.</tt><tt class="descname">UtilityMixin</tt><a class="headerlink" href="#actions.lossless_jpeg.UtilityMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="actions.lossless_jpeg.UtilityMixin.apply">
+<tt class="descname">apply</tt><big>(</big><em>photo</em>, <em>setting</em>, <em>cache</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.UtilityMixin.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.lossless_jpeg.UtilityMixin.call">
+<tt class="descname">call</tt><big>(</big><em>photo</em>, <em>info</em>, <em>utility</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.UtilityMixin.call" title="Permalink to this definition">¶</a></dt>
+<dd>This is decoupled from the apply method so we can overwrite it.</dd></dl>
+
+<dl class="method">
+<dt id="actions.lossless_jpeg.UtilityMixin.get_relevant_field_labels">
+<tt class="descname">get_relevant_field_labels</tt><big>(</big><em>relevant=None</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.UtilityMixin.get_relevant_field_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions.lossless_jpeg.UtilityMixin.interface">
+<tt class="descname">interface</tt><big>(</big><em>fields</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.UtilityMixin.interface" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="actions.lossless_jpeg.utilities_dict">
+<tt class="descclassname">actions.lossless_jpeg.</tt><tt class="descname">utilities_dict</tt><big>(</big><em>*utilities</em><big>)</big><a class="headerlink" href="#actions.lossless_jpeg.utilities_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="actions.invert.html"
+                                  title="previous chapter">invert</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="actions.mask.html"
+                                  title="next chapter">mask</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="actions.mask.html" title="mask"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="actions.invert.html" title="invert"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="actions.html" >actions</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

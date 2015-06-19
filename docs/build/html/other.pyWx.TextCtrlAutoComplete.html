@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>TextCtrlAutoComplete &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="other.pyWx.html" />
+    <link rel="next" title="img2img" href="other.pyWx.img2img.html" />
+    <link rel="prev" title="pyWx" href="other.pyWx.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.img2img.html" title="img2img"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.html" title="pyWx"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" >other</a> &raquo;</li>
+          <li><a href="other.pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-other.pyWx.TextCtrlAutoComplete">
+<h1>TextCtrlAutoComplete<a class="headerlink" href="#module-other.pyWx.TextCtrlAutoComplete" title="Permalink to this headline">¶</a></h1>
+<p>wxPython Custom Widget Collection 20060207
+Written By: Edward Flick (eddy -=at=- cdf-imaging -=dot=- com)</p>
+<blockquote>
+Michele Petrazzo (michele -=dot=- petrazzo -=at=- unipex -=dot=- it)
+Will Sadkin (wsadkin-=at=- nameconnector -=dot=- com)</blockquote>
+<p>Copyright 2006 (c) CDF Inc. ( <a class="reference" href="http://www.cdf-imaging.com">http://www.cdf-imaging.com</a> )
+Contributed to the wxPython project under the wxPython project&#8217;s license.</p>
+<p>This was slightly adapted by Stani for Phatch:
+- disable the parent event binding
+- change styles of the popup and listctrl</p>
+<dl class="class">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete">
+<em class="property">
+class </em><tt class="descclassname">other.pyWx.TextCtrlAutoComplete.</tt><tt class="descname">TextCtrlAutoComplete</tt><big>(</big><em>parent</em>, <em>colNames=None</em>, <em>choices=None</em>, <em>multiChoices=None</em>, <em>showHead=True</em>, <em>dropDownClick=True</em>, <em>colFetch=-1</em>, <em>colSearch=0</em>, <em>hideOnNoMatch=True</em>, <em>selectCallback=None</em>, <em>entryCallback=None</em>, <em>matchFunction=None</em>, <em>**therest</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx._controls.TextCtrl</span></tt>, <tt class="xref docutils literal"><span class="pre">wx.lib.mixins.listctrl.ColumnSorterMixin</span></tt></p>
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.GetChoices">
+<tt class="descname">GetChoices</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.GetChoices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.GetListCtrl">
+<tt class="descname">GetListCtrl</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.GetListCtrl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.GetSortImages">
+<tt class="descname">GetSortImages</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.GetSortImages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.SetChoices">
+<tt class="descname">SetChoices</tt><big>(</big><em>choices</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.SetChoices" title="Permalink to this definition">¶</a></dt>
+<dd>Sets the choices available in the popup wx.ListBox.
+The items will be sorted case insensitively.</dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.SetEntryCallback">
+<tt class="descname">SetEntryCallback</tt><big>(</big><em>cb=None</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.SetEntryCallback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.SetMatchFunction">
+<tt class="descname">SetMatchFunction</tt><big>(</big><em>mf=None</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.SetMatchFunction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.SetMultipleChoices">
+<tt class="descname">SetMultipleChoices</tt><big>(</big><em>choices</em>, <em>colSearch=0</em>, <em>colFetch=-1</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.SetMultipleChoices" title="Permalink to this definition">¶</a></dt>
+<dd>Set multi-column choice</dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.SetSelectCallback">
+<tt class="descname">SetSelectCallback</tt><big>(</big><em>cb=None</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.SetSelectCallback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onClickToggleDown">
+<tt class="descname">onClickToggleDown</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onClickToggleDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onClickToggleUp">
+<tt class="descname">onClickToggleUp</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onClickToggleUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onControlChanged">
+<tt class="descname">onControlChanged</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onControlChanged" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onEnteredText">
+<tt class="descname">onEnteredText</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onEnteredText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onKeyDown">
+<tt class="descname">onKeyDown</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onKeyDown" title="Permalink to this definition">¶</a></dt>
+<dd>Do some work when the user press on the keys:
+up and down: move the cursor
+left and right: move the search</dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onListClick">
+<tt class="descname">onListClick</tt><big>(</big><em>evt</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onListClick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onListColClick">
+<tt class="descname">onListColClick</tt><big>(</big><em>evt</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onListColClick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onListDClick">
+<tt class="descname">onListDClick</tt><big>(</big><em>evt</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onListDClick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onListItemSelected">
+<tt class="descname">onListItemSelected</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete.onListItemSelected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="other.pyWx.TextCtrlAutoComplete.getSmallDnArrowBitmap">
+<tt class="descclassname">other.pyWx.TextCtrlAutoComplete.</tt><tt class="descname">getSmallDnArrowBitmap</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.getSmallDnArrowBitmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.pyWx.TextCtrlAutoComplete.getSmallDnArrowData">
+<tt class="descclassname">other.pyWx.TextCtrlAutoComplete.</tt><tt class="descname">getSmallDnArrowData</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.getSmallDnArrowData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.pyWx.TextCtrlAutoComplete.getSmallDnArrowImage">
+<tt class="descclassname">other.pyWx.TextCtrlAutoComplete.</tt><tt class="descname">getSmallDnArrowImage</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.getSmallDnArrowImage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.pyWx.TextCtrlAutoComplete.getSmallUpArrowBitmap">
+<tt class="descclassname">other.pyWx.TextCtrlAutoComplete.</tt><tt class="descname">getSmallUpArrowBitmap</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.getSmallUpArrowBitmap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.pyWx.TextCtrlAutoComplete.getSmallUpArrowData">
+<tt class="descclassname">other.pyWx.TextCtrlAutoComplete.</tt><tt class="descname">getSmallUpArrowData</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.getSmallUpArrowData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="other.pyWx.TextCtrlAutoComplete.getSmallUpArrowImage">
+<tt class="descclassname">other.pyWx.TextCtrlAutoComplete.</tt><tt class="descname">getSmallUpArrowImage</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.getSmallUpArrowImage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="other.pyWx.TextCtrlAutoComplete.myListCtrl">
+<em class="property">
+class </em><tt class="descclassname">other.pyWx.TextCtrlAutoComplete.</tt><tt class="descname">myListCtrl</tt><big>(</big><em>parent</em>, <em>ID=-1</em>, <em>pos=wx.Point(-1</em>, <em>-1)</em>, <em>size=wx.Size(-1</em>, <em>-1)</em>, <em>style=0</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.myListCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">wx._controls.ListCtrl</span></tt>, <tt class="xref docutils literal"><span class="pre">wx.lib.mixins.listctrl.ListCtrlAutoWidthMixin</span></tt></dd></dl>
+
+<dl class="class">
+<dt id="other.pyWx.TextCtrlAutoComplete.test">
+<em class="property">
+class </em><tt class="descclassname">other.pyWx.TextCtrlAutoComplete.</tt><tt class="descname">test</tt><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.test" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.test.match">
+<tt class="descname">match</tt><big>(</big><em>text</em>, <em>choice</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.test.match" title="Permalink to this definition">¶</a></dt>
+<dd>Demonstrate &#8220;smart&#8221; matching feature, by ignoring <a class="reference" href="http://">http://</a> and www. when doing
+matches.</dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.test.onBtChangeChoice">
+<tt class="descname">onBtChangeChoice</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.test.onBtChangeChoice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.test.onBtDynamicChoices">
+<tt class="descname">onBtDynamicChoices</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.test.onBtDynamicChoices" title="Permalink to this definition">¶</a></dt>
+<dd>Demonstrate dynamic adjustment of the auto-complete list, based on what&#8217;s
+been typed so far:</dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.test.onBtMultiChoice">
+<tt class="descname">onBtMultiChoice</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.test.onBtMultiChoice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.test.onBtStartChoices">
+<tt class="descname">onBtStartChoices</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.test.onBtStartChoices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.test.selectCallback">
+<tt class="descname">selectCallback</tt><big>(</big><em>values</em><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.test.selectCallback" title="Permalink to this definition">¶</a></dt>
+<dd>Simply function that receive the row values when the
+user select an item</dd></dl>
+
+<dl class="method">
+<dt id="other.pyWx.TextCtrlAutoComplete.test.setDynamicChoices">
+<tt class="descname">setDynamicChoices</tt><big>(</big><big>)</big><a class="headerlink" href="#other.pyWx.TextCtrlAutoComplete.test.setDynamicChoices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="other.pyWx.html"
+                                  title="previous chapter">pyWx</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="other.pyWx.img2img.html"
+                                  title="next chapter">img2img</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.img2img.html" title="img2img"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="other.pyWx.html" title="pyWx"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="other.html" >other</a> &raquo;</li>
+          <li><a href="other.pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

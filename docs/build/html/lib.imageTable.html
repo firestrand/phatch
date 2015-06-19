@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>imageTable &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="imtools" href="lib.imtools.html" />
+    <link rel="prev" title="gps" href="lib.gps.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.imtools.html" title="imtools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.gps.html" title="gps"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.imageTable">
+<h1>imageTable<a class="headerlink" href="#module-lib.imageTable" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lib.imageTable.Table">
+<em class="property">
+class </em><tt class="descclassname">lib.imageTable.</tt><tt class="descname">Table</tt><big>(</big><em>thumb_size=(128</em>, <em>128)</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="lib.imageTable.Table.add_image_key">
+<tt class="descname">add_image_key</tt><big>(</big><em>image</em>, <em>key</em>, <em>value=''</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.add_image_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.add_key">
+<tt class="descname">add_key</tt><big>(</big><em>key</em>, <em>value=''</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.add_key" title="Permalink to this definition">¶</a></dt>
+<dd>Add key to all images</dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.delete_cell">
+<tt class="descname">delete_cell</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.delete_cell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.delete_images">
+<tt class="descname">delete_images</tt><big>(</big><em>pos</em>, <em>num=1</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.delete_images" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.delete_keys">
+<tt class="descname">delete_keys</tt><big>(</big><em>pos</em>, <em>num=1</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.delete_keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.get_cell_value">
+<tt class="descname">get_cell_value</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.get_cell_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.get_image_amount">
+<tt class="descname">get_image_amount</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.imageTable.Table.get_image_amount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.get_image_filename">
+<tt class="descname">get_image_filename</tt><big>(</big><em>index</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.get_image_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.get_image_label">
+<tt class="descname">get_image_label</tt><big>(</big><em>index</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.get_image_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.get_key_amount">
+<tt class="descname">get_key_amount</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.imageTable.Table.get_key_amount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.get_key_label">
+<tt class="descname">get_key_label</tt><big>(</big><em>index</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.get_key_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.is_cell_deletable">
+<tt class="descname">is_cell_deletable</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.is_cell_deletable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.is_cell_editable">
+<tt class="descname">is_cell_editable</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.is_cell_editable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.is_cell_empty">
+<tt class="descname">is_cell_empty</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.is_cell_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.is_image_editable">
+<tt class="descname">is_image_editable</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.is_image_editable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.is_key_editable">
+<tt class="descname">is_key_editable</tt><big>(</big><em>index=0</em>, <em>key=None</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.is_key_editable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.is_key_empty">
+<tt class="descname">is_key_empty</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.is_key_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.open_folder">
+<tt class="descname">open_folder</tt><big>(</big><em>folder</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.open_folder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.open_image">
+<tt class="descname">open_image</tt><big>(</big><em>filename</em>, <em>update=True</em>, <em>encoding=None</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.open_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.open_images">
+<tt class="descname">open_images</tt><big>(</big><em>paths</em>, <em>encoding=None</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.open_images" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.set_cell_value">
+<tt class="descname">set_cell_value</tt><big>(</big><em>row</em>, <em>col</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.set_cell_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.set_filter">
+<tt class="descname">set_filter</tt><big>(</big><em>filter=''</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.set_filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.set_image_key_value">
+<tt class="descname">set_image_key_value</tt><big>(</big><em>image</em>, <em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.set_image_key_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.set_image_label">
+<tt class="descname">set_image_label</tt><big>(</big><em>index</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.set_image_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.set_key_label">
+<tt class="descname">set_key_label</tt><big>(</big><em>index</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.set_key_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.set_key_value">
+<tt class="descname">set_key_value</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.set_key_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.set_tag">
+<tt class="descname">set_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#lib.imageTable.Table.set_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.transpose">
+<tt class="descname">transpose</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.imageTable.Table.transpose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.Table.update">
+<tt class="descname">update</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.imageTable.Table.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.imageTable.TableImage">
+<em class="property">
+class </em><tt class="descclassname">lib.imageTable.</tt><tt class="descname">TableImage</tt><big>(</big><em>filename</em>, <em>thumb_size=(128</em>, <em>128)</em><big>)</big><a class="headerlink" href="#lib.imageTable.TableImage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="lib.imageTable.TableImage.get_time">
+<tt class="descname">get_time</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.imageTable.TableImage.get_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.TableImage.is_modified">
+<tt class="descname">is_modified</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.imageTable.TableImage.is_modified" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.TableImage.update">
+<tt class="descname">update</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.imageTable.TableImage.update" title="Permalink to this definition">¶</a></dt>
+<dd>Update the table from the image source file.</dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.TableImage.update_if_modified">
+<tt class="descname">update_if_modified</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.imageTable.TableImage.update_if_modified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the source file image has changed and update if it
+has.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">True, if source image has changed</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.imageTable.TableImage.update_time">
+<tt class="descname">update_time</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.imageTable.TableImage.update_time" title="Permalink to this definition">¶</a></dt>
+<dd>Update time. This time is used to check if the source file
+has changed.</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.gps.html"
+                                  title="previous chapter">gps</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.imtools.html"
+                                  title="next chapter">imtools</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.imtools.html" title="imtools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.gps.html" title="gps"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

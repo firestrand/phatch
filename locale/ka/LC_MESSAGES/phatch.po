@@ -1,0 +1,3512 @@
+# Georgian translation for phatch
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the phatch package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: phatch\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-03-09 04:12+0100\n"
+"PO-Revision-Date: 2008-04-14 21:58+0000\n"
+"Last-Translator: David Machakhelidze <david.machakhelidze@gmail.com>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-03-10 10:37+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: /home/stani/sync/python/phatch/repo/trunk/linux/nautilus/phatch_image_inspector.py:60
+msgid "Inspect with Phatch"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/linux/nautilus/phatch_image_inspector.py:61
+msgid "Inspect EXIF & IPTC tags"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:64
+msgid "Examples"
+msgstr "მაგალითები"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:70
+#, python-format
+msgid "Run %s as console program without a gui"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:74
+#, python-format
+msgid "Run %s as a gui droplet"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:78
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:288
+msgid "Always save on desktop"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:82
+msgid "Ignore errors"
+msgstr "შეცდომების იგნორირება"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:86
+msgid "Initialize fonts (only for installation scripts)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:90
+msgid "Interactive"
+msgstr "ინტერაქტივი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:94
+msgid "Keep existing images (don't overwrite)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:99
+msgid "Specify locale language (for example en or en_GB)"
+msgstr "მიუთითეთ ლოკალური ენა (მაგ. en ან en_GB)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:103
+msgid "Inspect metadata (requires exif & iptc plugin)"
+msgstr "მეტაინფორმაციის ინსპექტირება (საჭიროა exif და iptc მოდული)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:107
+msgid "No save action required at the end"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:111
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:286
+msgid "Include all subfolders"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:115
+msgid "Do not check images first"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:119
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:97
+msgid "Allow Geek action and unsafe expressions"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:123
+msgid "Verbose"
+msgstr "დაწვრილებით"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:84
+msgid "You can paste it as text into the properties of a new launcher."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:86
+#, python-format
+msgid "Sorry, you need to install the %s action for this action list."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:88
+#, python-format
+msgid ""
+"Sorry, the values of these options will be lost in %(name)s %(version)s:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:90
+msgid "The droplet command for this action list was copied to the clipboard."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:92
+msgid ""
+"The droplet command for recent action lists was copied to the clipboard."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:94
+msgid ""
+"The droplet command for the image inspector was copied to the clipboard."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:96
+msgid "In Phatch you need to open or create an action list first."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:97
+msgid "As an example try out the polaroid action list from the library."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:99
+msgid ""
+"Afterwards you can drag&drop images on the Phatch window to batch them."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:101
+msgid "For more information see the tutorials (Help>Documentation)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:203
+msgid "No images have been processed to report."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:211
+msgid "Hooray, no issues!"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:213
+msgid "Nothing has been logged yet."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:215
+msgid "Log"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:232
+msgid "abort"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:235
+msgid "skip"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:237
+msgid "ignore"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:280
+#, python-format
+msgid "This action list was made by a different %(name)s version."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:322
+msgid "click '+' to add actions"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:375
+msgid "Open &Recent"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:463
+msgid "Open"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:464
+msgid "Open an action list"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:466
+msgid "Execute"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:467
+msgid "Execute the action"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:470
+msgid "Add"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:471
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:66
+msgid "Add an action"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:473
+msgid "Remove"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:474
+msgid "Remove the selected action"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:475
+msgid "Up"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:476
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:76
+msgid "Move the selected action up"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:477
+msgid "Down"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:478
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:78
+msgid "Move the selected action down"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:481
+msgid "Image Inspector"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:482
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:100
+msgid "Look up exif and iptc tags"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:485
+msgid "Description"
+msgstr "აღწერილობა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:486
+msgid "Show description of the action list"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:542
+msgid "Library Action Lists"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:561
+msgid "Choose an Action List File..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:593
+msgid "Save Action List As..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:605
+msgid "This file exists already."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:606
+msgid "Do you want to overwrite it?"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:651
+#, python-format
+msgid "%(name)s actions"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:734
+#, python-format
+msgid "%(name)s Shell"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:737
+msgid "application"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:738
+msgid "frame"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:739
+msgid "actions"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:769
+msgid "A html tutorial will open in your internet browser."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:771
+msgid "You only need to know PIL to write a plugin for Phatch."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:772
+msgid "Phatch will generate the user interface automatically."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:773
+msgid "Study the action plugins in:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:775
+msgid "If you want to contribute a plugin for Phatch,"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:776
+msgid "please email: "
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:786
+msgid "PHoto bATCH Processor"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:802
+#, python-format
+msgid "Sorry, \"%s\" is not a valid path."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:869
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:192
+msgid "Drag & Drop"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:881
+msgid ""
+"Drop any files and/or folders on this Phatch droplet\n"
+"to batch process them.\n"
+"Right-click or double-click to switch to normal view."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:899
+msgid "Phatch will add one for you, please check its settings."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:902
+msgid "The action list only processes metadata."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:903
+msgid "Phatch chooses the lossless \"Save Tags\" action."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:949
+msgid "Save last changes to"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:999
+msgid ""
+"Safe mode protects you from the execution of possibly harmful scripts.\n"
+"Are you sure you want to disable it?"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1011
+msgid "Choose the folder for the droplet"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1022
+msgid "Phatch successfully created the droplet."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1025
+msgid "Phatch could not create the droplet: "
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1081
+msgid "Impossible to load data from action list."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1129
+msgid "Select action list"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1152
+msgid "Sorry, your settings seem corrupt."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1153
+#, python-format
+msgid "Please delete \"%s\"."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1154
+msgid "Also check if your hard disk not full.\n"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:76
+msgid "Choose a folder"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:143
+msgid "Choose File(s)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:156
+msgid "Choose an image folder"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:238
+msgid "All selected types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:240
+msgid "All readable and writable types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:242
+msgid "All readable types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:245
+msgid "images"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:258
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:265
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:291
+msgid "&All Types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:263
+msgid "&No Types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:269
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "Clipboard"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:271
+msgid "Browse"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:276
+#, python-format
+msgid "Browse %s"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:285
+msgid "File"
+msgstr "ფაილი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:286
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "Folder"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:345
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:477
+msgid "default"
+msgstr "ძირითადი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:415
+msgid "View Source"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:454
+msgid "broaden your search"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:503
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:116
+msgid "Path"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:650
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:671
+msgid "&Open..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:652
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:673
+msgid "&Inspect..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:707
+msgid "&Insert Tag in Action List..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:43
+msgid "&New\tCtrl-N"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:43
+msgid "Start a new action list"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:45
+msgid "&Open...\tCtrl-O"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:45
+msgid "Opens an actions list"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:47
+msgid "Open &Library...\tCtrl-Shift-O"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:47
+msgid "Opens a ready-made actionlist from the library"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:49
+msgid "&Save\tCtrl-S"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:49
+msgid "Saves an action list"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:51
+msgid "Save &As...\tCtrl-Shift-S"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:51
+msgid "Saves an action list as"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:55
+msgid "Copy Actionlist as &Command to Clipboard"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:55
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:57
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:59
+msgid "Paste this command in a launcher"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:57
+msgid "Copy R&ecent as Command to Clipboard"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:59
+msgid "Copy Image I&nspector as Command to Clipboard"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:61
+msgid "&Export"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:62
+msgid "&Quit\tCtrl-Q"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:62
+msgid "Quit the application."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:64
+msgid "&Action List"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:66
+msgid "&Add...\tCtrl-+"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:68
+msgid "&Remove\tCtrl--"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:68
+msgid "Remove the selected action."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:71
+msgid "&Enable\tCtrl-1"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:71
+msgid "Enable action"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:73
+msgid "&Disable\tCtrl-0"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:73
+msgid "Disable action"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:76
+msgid "&Up\tCtrl-Up"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:78
+msgid "&Down\tCtrl-Down"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:80
+msgid "&Edit"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:82
+msgid "&Droplet\tCtrl-D"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:82
+msgid "View as a droplet to drag and drop files"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:84
+msgid "&Show Description\tCtrl-H"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:84
+msgid "Tools to handle the current action list"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:87
+msgid "&Expand All\tCtrl-E"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:87
+msgid "Show all the parameters of the actions."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:89
+msgid "&Collapse All\tCtrl-Shift-E"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:89
+msgid "Show only the labels of the actions."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:91
+msgid "&Collapse Automatically"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:91
+msgid "Expanding one action collapses the others."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:93
+msgid "&View"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:95
+msgid "&Execute...\tCtrl-Return"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:95
+msgid "Execute the action list"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:97
+msgid "&Safe Mode (recommended)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:100
+msgid "&Image Inspector (exif)\tCtrl-I"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:103
+msgid "&User"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:103
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:105
+msgid "Browse action lists, masks, highlights and fonts"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:105
+msgid "&Phatch"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:107
+msgid "&Browse Library"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:109
+msgid "Show &Report...\tCtrl+R"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:109
+msgid "Show report of processed images"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:111
+msgid "Show &Log...\tCtrl-L"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:111
+msgid "Show log file"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:115
+msgid "&Fonts"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:115
+msgid "Scan for new fonts on your system"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:117
+msgid "&Update"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:118
+msgid "&Tools"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:120
+msgid "&Website...\tCtrl-W"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:120
+msgid "Go to the Phatch homepage."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:122
+msgid "&Documentation...\tCtrl-M"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:122
+msgid "Go to the Phatch documentation."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:124
+msgid "&Forum...\tCtrl-F"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:124
+msgid "Go to the Phatch forum"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:127
+msgid "&Translate Phatch...\tCtrl-T"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:127
+msgid "Translate Phatch in your native language."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:129
+msgid "&Report a Bug...\tCtrl-B"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:129
+msgid "Report a bug on launchpad."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:131
+msgid "De&veloper Documentation...\tCtrl-P"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:131
+msgid "Learn to develop Phatch with Python and PIL."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:134
+msgid "&About Phatch...\tCtrl-Shift-A"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:134
+msgid "Displays information about this application."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:136
+msgid "&Help"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:15
+msgid "Done"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:16
+msgid "Show Log"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:17
+msgid "Show &Report"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:29
+msgid "Ready!"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:72
+msgid "Double click to open or right click for more options."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:82
+msgid "Explorer"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:114
+msgid "You only need to know PIL to write a plugin for Phatch,"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:115
+msgid "&Show template for action plugin"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:117
+msgid "Code"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:118
+msgid "&Ask for Help"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:119
+msgid "&OK"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:130
+msgid "Write Action Plugin"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:174
+msgid "Apply for future errors        "
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:175
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:240
+msgid "&Abort"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:176
+msgid "&Skip to Next Action"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:177
+msgid "Skip To Next &Image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:238
+msgid "Message"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:241
+msgid "&Continue Anyway"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:277
+msgid "Options"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:278
+msgid "Types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:279
+msgid "Browse Folder"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "Source"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "File(s)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:283
+msgid "Stop for errors"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:284
+msgid "Check images first"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:285
+msgid "Overwrite existing images"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:287
+msgid "Always show status dialog when done"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:289
+msgid "Repeat images"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:292
+msgid "&Cancel"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:293
+msgid "&Batch"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:27
+msgid "Image"
+msgstr "სურათი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:45
+msgid "Label"
+msgstr "წარწერა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:50
+msgid "tag"
+msgstr "ტეგი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:54
+msgid "Boolean"
+msgstr "ლოგიკური მნიშნველობა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:55
+msgid "String"
+msgstr "სტრიქონი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:56
+msgid "Choice"
+msgstr "არჩევა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:57
+msgid "Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:58
+msgid "Resolution"
+msgstr "გარჩევადობა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:60
+msgid "File Name"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:61
+msgid "In"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:62
+msgid "Float"
+msgstr "მოლივლივე"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:63
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:64
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:65
+msgid "As"
+msgstr "როგორც"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:66
+msgid "Mode"
+msgstr "რეჟიმი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:67
+msgid "Resample"
+msgstr "გარჩევადობის შეცვლა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:67
+msgid "bicubic"
+msgstr "ბიკუბიკური"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:68
+msgid "Integer"
+msgstr "მთელი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:69
+msgid "Integer+"
+msgstr "მთელი+"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:70
+msgid "Integer+0"
+msgstr "მთელი+0"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:71
+msgid "Horizontal"
+msgstr "ჰორიზონტალური"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:72
+msgid "Slider"
+msgstr "მცოცავი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:71
+msgid "pyexiv2 needs to be installed"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:74
+#, python-format
+msgid "%(mode)s has been converted to %(mode_copy)s to save as %(format)s."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "January"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "February"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "March"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "April"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "May"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "June"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "July"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "August"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "September"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:81
+msgid "October"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:81
+msgid "November"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:81
+msgid "December"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Monday"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Tuesday"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Wednesday"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Thursday"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:83
+msgid "Friday"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:83
+msgid "Saturday"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:83
+msgid "Sunday"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:91
+msgid "Only palette images have transparency."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:212
+msgid "Unable extract variables from file"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:352
+#, python-format
+msgid "Tag \"%s\" is read only."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:360
+#, python-format
+msgid "Impossible to write tag \"%s\""
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:420
+#, python-format
+msgid "Tag \"%s\" is not writable."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:425
+#, python-format
+msgid "Format %(format)s does not support overwriting \"%(tag)s\"."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:463
+msgid "background"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:611
+msgid "source"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:719
+#, python-format
+msgid ""
+"Command did not produce an output image:\n"
+"%s"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/settings.py:47
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:368
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:376
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:42
+msgid "All"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:191
+msgid "Select Projection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:219
+msgid "Select Object"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:223
+msgid "Select Rotation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:236
+msgid "Center"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:237
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:368
+msgid "Custom"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:238
+msgid "Middle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:239
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:378
+msgid "Left"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:240
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:380
+msgid "Right"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:241
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:382
+msgid "Top"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:242
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:384
+msgid "Bottom"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:243
+msgid "Bottom Left"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:243
+msgid "Bottom Right"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:244
+msgid "Top Left"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:244
+msgid "Top Right"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:249
+msgid "Orientation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:251
+msgid "Position"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:253
+msgid "Offset"
+msgstr "ოფსეტი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:255
+msgid "Horizontal Offset"
+msgstr "ჰორიზონტალური წანაცვლება"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:257
+msgid "Vertical Offset"
+msgstr "ვერტიკალური წანაცვლება"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:259
+msgid "Horizontal Justification"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:262
+msgid "Vertical Justification"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:319
+msgid "By Offset"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:319
+msgid "Tile"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:319
+msgid "Scale"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:322
+msgid "Mark"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:323
+msgid "Opacity"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:324
+msgid "Method"
+msgstr "მეთოდი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:368
+msgid "Auto"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:36
+msgid "Easily batch process images and edit metadata"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:37
+msgid "Photo Batch Processor"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "True"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "False"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "true"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "false"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:64
+msgid "Unsaved Action List"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:66
+msgid "Action Lists"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:67
+msgid "All Files"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:68
+msgid "Describe here the action list."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:69
+msgid "There should be a 'Save' action at the end."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:82
+msgid "with"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:83
+#, python-format
+msgid "%s Recent"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:86
+#, python-format
+msgid "Associate Images with Action List in %s..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:88
+#, python-format
+msgid "Associate Images with Recent Action Lists in %s..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:90
+#, python-format
+msgid "Associate Images with Image Inspector in %s..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:91
+#, python-format
+msgid "Remove Association from %s..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:93
+msgid "&Action List Droplet..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:94
+msgid "&Recent Droplet..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:95
+msgid "&Image Inspector Droplet..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:130
+msgid "Batch process with recent action lists"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:131
+msgid "Inspect EXIF &amp; IPTC tags"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:58
+#, python-format
+msgid "See \"%s\" for more details."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:64
+#, python-format
+msgid "Sorry, the action list seems incompatible with %(name)s %(version)s."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:66
+msgid "This action list is unsafe:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:68
+msgid "Disable Safe Mode in the Tools menu if you trust this action list."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:70
+msgid "Never run action lists from untrusted sources."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:71
+msgid "Please check if this action list doesn't contain harmful code."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:87
+#, python-format
+msgid "\"%s\" is not a valid path."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:184
+msgid "Action"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:189
+msgid "Geek actions are not allowed in safe mode."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:368
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:382
+msgid "Nothing to do."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:369
+msgid "The action list is empty."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:383
+msgid "There is no action enabled."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:410
+msgid "Checking images"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:427
+#, python-format
+msgid "Phatch can not handle %d image(s):"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:428
+msgid "Invalid images"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:434
+msgid "Sorry, no valid files found"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:444
+msgid "C&ontinue"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:473
+msgid "No files or folder selected."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:503
+msgid "Unable to open file"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:589
+#, python-format
+msgid "Can not apply action %(a)s:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:628
+#, python-format
+msgid "Can not apply action %(a)s on image '%(i)s' in folder:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:723
+msgid "Executing action list"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:749
+#, python-format
+msgid "One image done in %s"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:751
+#, python-format
+msgid "%(amount)d images done in %(duration)s"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:755
+msgid "One issue was logged"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:757
+#, python-format
+msgid "%d issues were logged"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:43
+msgid "Select"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:45
+#, python-format
+msgid ""
+"The tag \"%s\" is not valid.\n"
+"It should follow the syntax: Exif_* or Iptc_*"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:202
+msgid "Unable to change label."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:232
+#, python-format
+msgid "Unable to delete tag <%s>"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:277
+#, python-format
+msgid "Unable to rename tag <%s>"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:316
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:325
+#, python-format
+msgid "Unable to save tag <%s>"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:446
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:162
+msgid "day"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:447
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:159
+msgid "desktop"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:448
+msgid "foldername"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:449
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:157
+msgid "filename"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:450
+msgid "filesize"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:451
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:158
+msgid "folder"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:452
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:164
+msgid "hour"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:453
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:164
+msgid "minute"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:454
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:162
+msgid "month"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:455
+msgid "monthname"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:456
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:209
+msgid "path"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:457
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:168
+msgid "root"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:458
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:164
+msgid "second"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:459
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:170
+msgid "subfolder"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:460
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:172
+msgid "type"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:461
+msgid "weekday"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:462
+msgid "weekdayname"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:463
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:162
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:204
+msgid "year"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:631
+msgid "aspect"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:632
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:173
+msgid "compression"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:633
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:161
+msgid "dpi"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:634
+msgid "gamma"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:635
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:169
+msgid "height"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:636
+msgid "interlace"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:637
+msgid "mode"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:638
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:169
+msgid "width"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:639
+msgid "format"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:640
+msgid "formatdescription"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:641
+msgid "size"
+msgstr "ზომა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:642
+msgid "transparency"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:703
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:1140
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:1365
+msgid "orientation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:48
+msgid "Use the Image Inspector to list all the variables."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:49
+msgid "You can only use files with the following extensions"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:52
+msgid "left"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:52
+msgid "center"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:52
+msgid "right"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:53
+msgid "top"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:53
+msgid "middle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:53
+msgid "bottom"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:69
+msgid "Monochrome (1-bit pixels, black and white)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:70
+msgid "Grayscale (8-bit pixels)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:71
+msgid "LA (8-bit pixels, grayscale with transparency mask)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:72
+msgid "RGB (3x8-bit pixels, true color)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:73
+msgid "RGBA (4x8-bit pixels, RGB with transparency mask)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:74
+msgid "CMYK (4x8-bit pixels, color separation)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:75
+msgid "P (8-bit pixels, mapped using a color palette)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:76
+msgid "YCbCr (3x8-bit pixels, color video format)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:77
+msgid "blur"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:77
+msgid "contour"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:77
+msgid "detail"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:78
+msgid "edge enhance"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:78
+msgid "edge enhance more"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:79
+msgid "emboss"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:79
+msgid "find edges"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:79
+msgid "smooth"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:80
+msgid "smooth more"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:80
+msgid "sharpen"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:81
+msgid "nearest"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:81
+msgid "bilinear"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:82
+msgid "antialias"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:83
+msgid "Rotate 90"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:83
+msgid "Rotate 180"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:83
+msgid "Rotate 270"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:84
+msgid "Flip Left Right"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:84
+msgid "Flip Top Bottom"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:86
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:920
+msgid "Normal"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:88
+msgid "none"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:498
+msgid "can not be empty"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:547
+#, python-format
+msgid "invalid syntax \"%s\" for integer"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:552
+msgid "string"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:571
+msgid "integer"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:576
+#, python-format
+msgid "invalid literal \"%s\" for integer"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:587
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:635
+msgid "positive integer"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:594
+#, python-format
+msgid "the integer value \"%s\" is negative, but should be positive"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:601
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:649
+msgid "positive, non-zero integer"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:608
+#, python-format
+msgid "the integer value \"%s\" is zero, but should be non-zero"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:618
+msgid "resolution"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:622
+msgid "float"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:630
+#, python-format
+msgid "invalid literal \"%s\" for float"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:642
+#, python-format
+msgid "the float value \"%s\" is negative, but should be positive"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:656
+#, python-format
+msgid "the float value \"%s\" is zero, but should be non-zero"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:662
+msgid "boolean"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:674
+#, python-format
+msgid "invalid literal \"%s\" for boolean"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:679
+msgid "choice"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:708
+#, python-format
+msgid "the file extension \"%s\" is invalid"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:715
+msgid "a filename with a valid extension was expected"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:736
+#, python-format
+msgid "the filename \"%s\" does not exist"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:823
+#, python-format
+msgid "\"%s\" can not be found."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:827
+#, python-format
+msgid "Parameter \"%s.*\" is missing"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:831
+#, python-format
+msgid "Maximum one parameter \"%s\" is allowed"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:896
+msgid "automatic"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:910
+msgid "None"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:1014
+msgid "Tag should start with \"Exif_\" or \"Iptc_\""
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/fonts.py:53
+#, python-format
+msgid "Please install \"%s\" first."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:162
+#, python-format
+msgid "Could not open image with %s."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:164
+msgid "Command"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:164
+msgid "Output"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:164
+msgid "Error"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/safe.py:145
+msgid "The following name(s) are invalid: "
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageFileBrowser.py:109
+msgid "&Select"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:42
+msgid "Warning: python-wxversion is not installed.\n"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:49
+#, python-format
+msgid ""
+"Error: wxPython %(recommended)s (or at least %(minimal)s) can not be found, "
+"but is required."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:53
+msgid "Please (re)install it."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:58
+#, python-format
+msgid ""
+"This application needs 'python-wxversion' and 'python-wxgtk%(recommended)s' "
+"(or at least 'python-wxgtk%(minimal)s')."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:71
+#, python-format
+msgid ""
+"This application is known to be compatible with\n"
+"wxPython version(s) %(recommended)s (or at least %(minimal)s),\n"
+"but you have %(version)s installed."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:76
+msgid "Please upgrade your wxPython."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:77
+msgid "wxPython Version Error"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:55
+msgid "Program Version"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:58
+msgid "C&redits"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:59
+msgid "&License"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:60
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:126
+msgid "&Close"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:72
+msgid "About"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:136
+msgid "Credits"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:161
+msgid "Documentation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:162
+msgid "Translation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:163
+msgid "Artwork"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:164
+msgid "Libraries"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:165
+msgid "Sponsors"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:230
+msgid "License"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:16
+msgid "Tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:17
+msgid "Exif_Photo_UserComment"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:18
+msgid "Value"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:20
+msgid "warning"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:34
+msgid "Add Tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/folderFileBrowser.py:143
+msgid "all"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:59
+#, python-format
+msgid "Are you sure you want to delete this tag from \"%s\"?"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:61
+msgid "Are you sure you want to delete this tag from all images?"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:118
+msgid "Tag should start with Exif_* or Iptc_*"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:120
+msgid "Tag exists already"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:243
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:327
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:519
+msgid "Images"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:244
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:415
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:443
+msgid "All files"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:445
+msgid "&Copy Value"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:448
+msgid "&Add Tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:451
+msgid "&Delete Tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:477
+msgid "Open &Url..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:484
+msgid "&Remove Image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:520
+msgid "&Copy Tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:524
+msgid "&Add Tag to All Images..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:528
+msgid "&Delete Tag from All Images..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:531
+msgid "&Rename Tag for All Images..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:534
+msgid "&Modify Value for All Images..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:547
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:558
+#, python-format
+msgid "Unable to add tag <%s>"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:584
+msgid "Unable to remove image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:590
+msgid "Rename tag for all images to:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:600
+msgid "Change value for all images to:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:606
+#, python-format
+msgid "Unable to change tag <%s>"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:741
+#, python-format
+msgid "Sorry, %s."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:756
+msgid "Sorry, unable to open these images:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:799
+msgid "Choose an image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:808
+msgid "Enter an image url"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:859
+msgid "drag & drop any images here"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:862
+msgid "please install pyexiv2"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:865
+#, python-format
+msgid "no %s tags found"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/vlistTag.py:77
+msgid "&Add"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/inspectorTag.py:59
+msgid "decimal"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:55
+msgid "loading"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:285
+msgid "no"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:285
+msgid "yes"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:442
+msgid "Selection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:500
+msgid "Fonts"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:151
+msgid "Shadow"
+msgstr "ჩრდილი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:158
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:66
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/offset.py:47
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/watermark.py:58
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:134
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:104
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:139
+msgid "filter"
+msgstr "ფილტრი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:159
+msgid "Drops a blurred shadow under a photo"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:166
+msgid "Border"
+msgstr "ჩარჩო"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:168
+msgid "Shadow Blur"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:169
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:275
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:88
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:153
+msgid "Background Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:170
+msgid "Shadow Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:171
+msgid "Force Background Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:63
+msgid "Fit Image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:64
+msgid "Letterbox"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:65
+msgid "Scale Image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:66
+msgid "Scale Model"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:116
+msgid "Wrap Both"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:116
+msgid "Separate"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:118
+msgid "Cover Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:119
+msgid "Page Mapping"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:121
+msgid "Left Page"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:147
+msgid "Box Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:148
+msgid "Box Depth"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:163
+msgid "Lid Rotation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:200
+msgid "Camera"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:201
+msgid "Camera Horizontal Rotation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:203
+msgid "Camera Vertical Rotation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:204
+msgid "Camera Roll"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:205
+msgid "Camera Lens Angle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:207
+msgid "Camera Distance"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:249
+msgid "Show Floor Options"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:250
+msgid "Use Floor"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:251
+msgid "Floor Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:252
+msgid "Floor Reflection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:253
+msgid "Floor Opacity"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:271
+msgid "Transparent Background"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:272
+msgid "Show Background Options"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:273
+msgid "Background"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:274
+msgid "Gradient"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:274
+msgid "Transparent"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:276
+msgid "Gradient Top"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:277
+msgid "Gradient Bottom"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:278
+msgid "Auto Crop"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:279
+msgid "Stars"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:280
+msgid "Stars Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:281
+msgid "Mist"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:323
+msgid "Blender"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:327
+msgid "plugin"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:328
+msgid "3D Objects"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:342
+msgid "Sorry, you have the wrong version of Blender installed."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:343
+#, python-format
+msgid "Blender %s is required."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:346
+msgid "Render Width"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:347
+msgid "Render Height"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:348
+msgid "Object"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:349
+msgid "Image Size"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:387
+#, python-format
+msgid "Select Rotation for %s"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:60
+msgid "Effect"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:68
+msgid "Blur, Sharpen, Emboss, Smooth, ..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:71
+msgid "Filter"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:73
+msgid "Repeat"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:74
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:57
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:59
+msgid "Amount"
+msgstr "რაოდენობა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/offset.py:47
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:77
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:48
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:53
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:104
+msgid "transform"
+msgstr "გარდაქმნა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/offset.py:48
+msgid "Offset by distance and wrap around"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:70
+msgid "Canvas"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:78
+msgid "Crop or expand the canvas without scaling"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:81
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:52
+msgid "Canvas Width"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:83
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:54
+msgid "Canvas Height"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:86
+msgid "Align Horizontal"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:87
+msgid "Align Vertical"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:136
+msgid "Color to Alpha"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:143
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:53
+msgid "color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:144
+msgid "Make selected color transparent"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:164
+msgid "Select Color By"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:166
+msgid "Color Value"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/watermark.py:52
+msgid "Watermark"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/watermark.py:59
+msgid "Apply with tiling, scaling and opacity"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:47
+msgid "Desaturate"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:54
+msgid "Fade all colors to gray"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:49
+msgid "Make the image smaller or bigger"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:57
+msgid "Constrain Proportions"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:58
+msgid "Resample Image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:59
+msgid "Scale Down Only"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:47
+msgid "Transpose"
+msgstr "ტრანსპოზიცია"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:54
+msgid "Flip or rotate 90 degrees"
+msgstr "ჩემობრუნება 90 გრადუსით"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:127
+msgid "Grid"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:136
+msgid "Make n x m matrix of image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:139
+msgid "Columns"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:140
+msgid "Rows"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:141
+msgid "Scale to Keep Size"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:142
+msgid "Column Line Width"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:144
+msgid "Row Line Width"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:146
+msgid "Line Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:147
+msgid "Line Opacity"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:37
+msgid "Both"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:39
+msgid "Vertical"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:98
+msgid "Mirror"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:105
+msgid "Symmetrical tile texture"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:108
+msgid "Direction"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename.py:34
+msgid "Rename"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename.py:38
+msgid "file"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename.py:39
+msgid "Rename the original image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:42
+msgid "Cross"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:43
+msgid "Rounded"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:44
+msgid "Square"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:132
+msgid "Round"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:140
+msgid "Rounded or crossed corners"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:143
+msgid "Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:145
+msgid "Same Method for All Corners"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:147
+msgid "Top Left Corner"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:148
+msgid "Top Right Corner"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:149
+msgid "Bottom Left Corner"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:151
+msgid "Bottom Right Corner"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:79
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:90
+msgid "Highlight"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:87
+msgid "Apply a transparency highlight"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:91
+msgid "Resample Highlight"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/background.py:72
+msgid "Put color under transparent image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/background.py:75
+msgid "Fill"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/convert_mode.py:31
+msgid "Convert Mode"
+msgstr "კონვერტაციის რეჟიმი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/convert_mode.py:37
+msgid "Convert the color mode of an image"
+msgstr "სურათის ფერთა რეჟიმის კონვერტაცია"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/fit.py:44
+msgid "Fit"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/fit.py:52
+msgid "Downsize and crop image with fixed ratio"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/fit.py:62
+msgid "Bleed"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/autocontrast.py:59
+msgid "Auto Contrast"
+msgstr "ავტოკონტრასტი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/autocontrast.py:63
+msgid "Maximize image contrast"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/autocontrast.py:66
+msgid "Cutoff"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:47
+msgid "Save"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:53
+msgid "Save and convert to other types"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:64
+msgid "Show Type Options"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:65
+msgid "PNG Optimize"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:66
+msgid "JPEG Quality"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:67
+msgid "JPEG Size Maximum"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:69
+msgid "JPEG Size Tolerance"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:71
+msgid "TIFF Compression"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:73
+msgid "Metadata"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/median.py:49
+msgid "Median"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/median.py:56
+msgid "Copies the median pixel value"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:31
+msgid "Exif time"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:31
+msgid "File time"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:31
+msgid "Exif and file"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:50
+msgid "Time Shift"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:55
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:35
+msgid "metadata"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:56
+msgid "Shift time values of tags"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:61
+msgid "Change"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:62
+msgid "Use exif datetime"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:63
+msgid "Seconds"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:64
+msgid "Minutes"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:65
+msgid "Hours"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:66
+msgid "Days"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:67
+msgid "Months"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:68
+msgid "Years"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:86
+msgid "Sorry, time shift can only handle dates before 2038-1-19"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:68
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:79
+msgid "Mask"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:76
+msgid "Apply a transparency mask"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:80
+msgid "Resample Mask"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:69
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:79
+msgid "Text"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:76
+msgid "Write text at a given position"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:81
+msgid "Font"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:82
+msgid "Size"
+msgstr "ზომა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:55
+msgid "Colorize"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:62
+msgid "Colorize grayscale image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:65
+msgid "Black"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:66
+msgid "White"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/copy.py:35
+msgid "Copy"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/copy.py:40
+msgid "Copy the original image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/posterize.py:54
+msgid "Posterize"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/posterize.py:61
+msgid "Reduce the number of bits of color channel"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/posterize.py:64
+msgid "Bits"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:31
+msgid "Write Tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:36
+msgid "Write new value to a tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:39
+msgid "Tag (Exif, Iptc)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:36
+msgid "Equal for all sides"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:36
+msgid "Different for each side"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:101
+msgid "Draw border inside or outside"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:105
+msgid "Border Width"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rank.py:53
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rank.py:64
+msgid "Rank"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rank.py:60
+msgid "Copies the rank'th pixel value"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/solarize.py:52
+msgid "Solarize"
+msgstr "სოლარიზაცია"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/solarize.py:59
+msgid "Invert all pixel values above threshold"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/solarize.py:62
+msgid "Treshold"
+msgstr "ზღვარი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/equalize.py:52
+msgid "Equalize"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/equalize.py:59
+msgid "Equalize the image histogram"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:35
+msgid "Automatic (use exif orientation)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:37
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/crop.py:56
+msgid "Crop"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:38
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:53
+msgid "Rotate"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:39
+msgid "Flip"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:40
+msgid "Grayscale"
+msgstr "მუქის გრადაცია"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:41
+msgid "Regenerate thumbnail"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:43
+msgid "Transverse"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:50
+#, python-format
+msgid "Lossless JPEG transformation does not work on a %s image:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:77
+msgid "Transformation"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:79
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:63
+msgid "Angle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:83
+msgid "Preserve Timestamp"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:84
+msgid "Show Advanced Options"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:85
+msgid "Update JPEG"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:86
+msgid "Update Exif Thumbnail"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:87
+msgid "Update Orientation Tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:147
+msgid "Comments"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:154
+msgid "Transformation "
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:158
+msgid "Angle "
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:160
+msgid "Direction "
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:234
+msgid "Utility"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:287
+msgid "Lossless JPEG"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:292
+msgid "Rotate, flip, grayscale and crop"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/crop.py:63
+msgid "Crop the image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:51
+msgid "Tamogen"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:58
+msgid "Tone altering mosaic generator"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:61
+msgid "Fill Type"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:63
+msgid "Fill Image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:64
+msgid "Fill Folder"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:60
+msgid "Rotate with random angle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:65
+msgid "Expand"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:68
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:135
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:125
+msgid "Background Opacity"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/invert.py:48
+msgid "Invert"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/invert.py:55
+msgid "Invert the colors of an image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:36
+msgid "Geotag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:42
+msgid "Add gps data"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:46
+msgid "GPS Data (gpx)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:47
+msgid "GPS Report (csv)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:48
+msgid "Time Shift (seconds)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:115
+msgid "Reflection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:123
+msgid "Drops a reflection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:126
+msgid "Depth"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:128
+msgid "Gap"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:131
+msgid "Blur Reflection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:132
+msgid "Scale Reflection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:133
+msgid "Scale Method"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/common.py:49
+msgid "Common"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/common.py:56
+msgid "Copies the most common pixel value"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/minimum.py:51
+msgid "Minimum"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/minimum.py:58
+msgid "Copies the minimum pixel value"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:89
+msgid "Contour"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:96
+msgid "Draw a contour around image edges"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:101
+msgid "Contour Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:102
+msgid "Fill Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:104
+msgid "Include image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:51
+msgid "Top Stretched"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:53
+msgid "Bottom Stretched"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:55
+msgid "Left Stretched"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:57
+msgid "Right Stretched"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:58
+msgid "Corner Top Left"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:59
+msgid "Corner Top Right"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:60
+msgid "Corner Bottom Left"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:61
+msgid "Corner Bottom Right"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:67
+msgid "User"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:104
+msgid "Perspective"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:111
+msgid "Shear 2d or 3d"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:114
+msgid "Projection"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:116
+msgid "Left Shear Angle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:117
+msgid "Top Shear Angle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:118
+msgid "Bottom Shear Factor"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:119
+msgid "Right Shear Factor"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contrast.py:65
+msgid "Contrast"
+msgstr "კონტრასტი"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contrast.py:72
+msgid "Adjust from grey to black & white"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save_metadata.py:34
+msgid "Save Tags"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save_metadata.py:39
+msgid "Save only metadata (lossless)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:83
+msgid "Warm Up"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:90
+msgid "Colorize midtones of an image"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:93
+msgid "Midtone"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:94
+msgid "Brighten"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/delete_tags.py:30
+msgid "One"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/delete_tags.py:34
+msgid "Delete Tags"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/delete_tags.py:39
+msgid "Delete Exif or Iptc tags"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/maximum.py:49
+msgid "Maximum"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/maximum.py:56
+msgid "Copies the maximum pixel value"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/saturation.py:63
+msgid "Saturation"
+msgstr "ფერთა ინტენსივობა"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/saturation.py:70
+msgid "Adjust saturation from grayscale to high"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:32
+msgid "Rename Tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:37
+msgid "Rename a tag"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:40
+msgid "From (Exif, Iptc)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:42
+msgid "To (Exif, Iptc)"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/brightness.py:67
+msgid "Brightness"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/brightness.py:74
+msgid "Adjust brightness from black to white"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:28
+msgid "3D Edge"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:36
+msgid "Blur"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:40
+msgid "Bullet"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:48
+msgid "Charcoal"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:51
+msgid "Motion Blur"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:55
+msgid "Pencil Sketch"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:59
+msgid "Paint"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:62
+msgid "Polaroid"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:74
+msgid "Sharpen"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:78
+msgid "Sigmoidal Contrast"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:83
+msgid "Unsharp"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:87
+msgid "Wave"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:99
+msgid "Imagemagick"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:105
+msgid "Blur, Polaroid, Shadow, Unsharp..."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:118
+msgid "Border Color"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:120
+msgid "Caption"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:121
+msgid "Charcoal Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:122
+msgid "Contrast Factor"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:123
+msgid "Contrast Treshold"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:124
+msgid "Blur Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:125
+msgid "Blur Sigma"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:126
+msgid "Blur Angle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:127
+msgid "Paint Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:128
+msgid "Sharpen Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:129
+msgid "Sharpen Sigma"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:130
+msgid "Sketch Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:131
+msgid "Sketch Sigma"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:132
+msgid "Sketch Angle"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:133
+msgid "Unsharp Radius"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:134
+msgid "Unsharp Sigma"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:135
+msgid "Wave Height"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:136
+msgid "Wave Length"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/sketch.py:56
+msgid "Sketch"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/sketch.py:64
+msgid "Transform to a grayscale pencil drawing"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/sketch.py:67
+msgid "Details Degree"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:44
+msgid "Geek"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:49
+msgid "Execute external command"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:71
+msgid "Verify Program"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:72
+msgid "Verify Input"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:73
+msgid "Verify Output"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:74
+msgid "Allow as last action"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:30
+msgid ""
+"These extensions have been succesfully installed:\n"
+"\n"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:32
+msgid "Phatch did not succeed to install the requested feature."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:34
+msgid "Phatch tried to uninstall itself from the Windows Explorer."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:52
+msgid "You need to install the Python Win32 Extensions for this feature."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:148
+msgid "Action list"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:152
+msgid "No action list provided."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:157
+msgid "Image paths"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:166
+msgid "Do you want to continue?"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:178
+msgid "What do you want to do now?"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:52
+#, python-format
+msgid "If you restart %s, the action will appear in the context menu."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:56
+#, python-format
+msgid "Phatch could not install the action in %s:"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:157
+msgid "This requires also that the python-nautilus package is installed."
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:158
+msgid "Batch process images with Phatch"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:170
+#, python-format
+msgid "Phatch with %s"
+msgstr ""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:182
+msgid "Process with recent Phatch action list"
+msgstr ""
+
+#~ msgid "Save metadata (requires exif & iptc plugin)"
+#~ msgstr "მეტაინფორმაციის შენახვა (საჭიროა exif და iptc მოდულები)"
+
+#~ msgid "Colour"
+#~ msgstr "ფერი"
+
+#~ msgid "Filename"
+#~ msgstr "ფაილის სახელი"
+
+#~ msgid "colours"
+#~ msgstr "ფერები"
+
+#~ msgid "Height"
+#~ msgstr "სიმაღლე"
+
+#~ msgid "Width"
+#~ msgstr "სიგანე"
+
+#~ msgid "Shadow Colour"
+#~ msgstr "ჩრდილის ფერი"
+
+#~ msgid "Background Colour"
+#~ msgstr "ფონის ფერი"

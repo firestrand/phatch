@@ -1,0 +1,3856 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: phatch\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-09 04:12+0100\n"
+"PO-Revision-Date: 2010-03-09 14:04+0000\n"
+"Last-Translator: stani <spe.stani.be@gmail.com>\n"
+"Language-Team: Stani <spe.stani.be@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-03-10 10:36+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Language: Dutch\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: /home/stani/sync/python/phatch/trunk\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: _t\n"
+
+#: /home/stani/sync/python/phatch/repo/trunk/linux/nautilus/phatch_image_inspector.py:60
+msgid "Inspect with Phatch"
+msgstr "Inspecteer met Phatch"
+
+#: /home/stani/sync/python/phatch/repo/trunk/linux/nautilus/phatch_image_inspector.py:61
+msgid "Inspect EXIF & IPTC tags"
+msgstr "Inspecteer EXIF & IPTC tags"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:64
+msgid "Examples"
+msgstr "Voorbeelden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:70
+#, python-format
+msgid "Run %s as console program without a gui"
+msgstr "%s als een terminalprogramma zonder grafische schil starten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:74
+#, python-format
+msgid "Run %s as a gui droplet"
+msgstr "%s als een Grafische schil vangnet starten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:78
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:288
+msgid "Always save on desktop"
+msgstr "Altijd op bureaublad bewaren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:82
+msgid "Ignore errors"
+msgstr "Fouten negeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:86
+msgid "Initialize fonts (only for installation scripts)"
+msgstr "Lettertypes instellen (alleen voor installatiescripts)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:90
+msgid "Interactive"
+msgstr "Interactief"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:94
+msgid "Keep existing images (don't overwrite)"
+msgstr "Bestaande afbeeldingen behouden (niet overschrijven)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:99
+msgid "Specify locale language (for example en or en_GB)"
+msgstr "Lokale taal opgeven (bijvoorbeeld nl of nl_NL)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:103
+msgid "Inspect metadata (requires exif & iptc plugin)"
+msgstr "Inspecteer metadata (exif & iptc plugin vereist)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:107
+msgid "No save action required at the end"
+msgstr "Geen bewaaractie op het einde nodig"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:111
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:286
+msgid "Include all subfolders"
+msgstr "Inclusief alle onderliggende mappen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:115
+msgid "Do not check images first"
+msgstr "Afbeeldingen niet vooraf controleren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:119
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:97
+msgid "Allow Geek action and unsafe expressions"
+msgstr "Geek actie en onveilige formules toestaan"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/app.py:123
+msgid "Verbose"
+msgstr "Verbaal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:84
+msgid "You can paste it as text into the properties of a new launcher."
+msgstr ""
+"U kan het als tekst in de eigenschappen van een nieuwe starter plakken."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:86
+#, python-format
+msgid "Sorry, you need to install the %s action for this action list."
+msgstr "Sorry, U moet de %s actie installeren voor deze actielijst."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:88
+#, python-format
+msgid ""
+"Sorry, the values of these options will be lost in %(name)s %(version)s:"
+msgstr ""
+"Sorr, de waarden van deze opties zullen verloren gaan in %(name)s "
+"%(version)s:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:90
+msgid "The droplet command for this action list was copied to the clipboard."
+msgstr ""
+"De vangnetopdracht voor deze actielijst was gekopiëerd naar het klembord."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:92
+msgid ""
+"The droplet command for recent action lists was copied to the clipboard."
+msgstr ""
+"De vangnetopdracht voor recente actielijsten is gekopiëerd naar het klembord."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:94
+msgid ""
+"The droplet command for the image inspector was copied to the clipboard."
+msgstr ""
+"De vangnetopdracht voor de beeldinspecteur is naar het klembord gekopieerd."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:96
+msgid "In Phatch you need to open or create an action list first."
+msgstr "In Phatch moet U eerst een actielijst openen of maken."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:97
+msgid "As an example try out the polaroid action list from the library."
+msgstr "Probeer bijvoorbeeld de polaroid actielijst van de bibliotheek."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:99
+msgid ""
+"Afterwards you can drag&drop images on the Phatch window to batch them."
+msgstr ""
+"Daarna kan U gewoon afbeeldingen op het Phatch venster verslepen om ze te "
+"bewerken."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:101
+msgid "For more information see the tutorials (Help>Documentation)"
+msgstr "Voor meer informatie zie de handleiding (Help>Documentatie)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:203
+msgid "No images have been processed to report."
+msgstr "Er zijn geen beelden om te rapporteren."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:211
+msgid "Hooray, no issues!"
+msgstr "Hoera, geen fouten!"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:213
+msgid "Nothing has been logged yet."
+msgstr "Er is nog niets vastgelegd."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:215
+msgid "Log"
+msgstr "Logboek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:232
+msgid "abort"
+msgstr "afbreken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:235
+msgid "skip"
+msgstr "overslaan"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:237
+msgid "ignore"
+msgstr "negeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:280
+#, python-format
+msgid "This action list was made by a different %(name)s version."
+msgstr "Deze actielijst was gemaakt met een verschillende %(name)s versie."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:322
+msgid "click '+' to add actions"
+msgstr "druk op '+' om acties toe te voegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:375
+msgid "Open &Recent"
+msgstr "Open &Recent"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:463
+msgid "Open"
+msgstr "Openen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:464
+msgid "Open an action list"
+msgstr "Een actielijst openen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:466
+msgid "Execute"
+msgstr "Uitvoeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:467
+msgid "Execute the action"
+msgstr "De actie uitvoeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:470
+msgid "Add"
+msgstr "Toevoegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:471
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:66
+msgid "Add an action"
+msgstr "Een actie toevoegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:473
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:474
+msgid "Remove the selected action"
+msgstr "De geselecteerde actie verwijderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:475
+msgid "Up"
+msgstr "Omhoog"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:476
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:76
+msgid "Move the selected action up"
+msgstr "Geselecteerde actie omhoog verplaatsen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:477
+msgid "Down"
+msgstr "Omlaag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:478
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:78
+msgid "Move the selected action down"
+msgstr "Geselecteerde actie omlaag verplaatsen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:481
+msgid "Image Inspector"
+msgstr "Beeldinspecteur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:482
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:100
+msgid "Look up exif and iptc tags"
+msgstr "Exif en iptc tags raadplegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:485
+msgid "Description"
+msgstr "Omschrijving"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:486
+msgid "Show description of the action list"
+msgstr "De actielijstomschrijving weergeven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:542
+msgid "Library Action Lists"
+msgstr "Actielijst Bibliotheek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:561
+msgid "Choose an Action List File..."
+msgstr "Kies een actielijstbestand..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:593
+msgid "Save Action List As..."
+msgstr "Actielijst opslaan als..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:605
+msgid "This file exists already."
+msgstr "Dit bestand bestaat al."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:606
+msgid "Do you want to overwrite it?"
+msgstr "Wilt u dit bestand overschrijven?"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:651
+#, python-format
+msgid "%(name)s actions"
+msgstr "%(name)s acties"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:734
+#, python-format
+msgid "%(name)s Shell"
+msgstr "%(name)s Console"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:737
+msgid "application"
+msgstr "toepassing"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:738
+msgid "frame"
+msgstr "venster"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:739
+msgid "actions"
+msgstr "acties"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:769
+msgid "A html tutorial will open in your internet browser."
+msgstr "Een html handleiding zal in Uw internet toepassing openen."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:771
+msgid "You only need to know PIL to write a plugin for Phatch."
+msgstr "U moet enkel PIL kennen om een plugin voor Phatch te schrijven."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:772
+msgid "Phatch will generate the user interface automatically."
+msgstr "Phatch zal de gebruikersinterface automatisch genereren."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:773
+msgid "Study the action plugins in:"
+msgstr "Bestudeer de actie-plugins in:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:775
+msgid "If you want to contribute a plugin for Phatch,"
+msgstr "Als u een plugin voor Phatch wil bijdragen,"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:776
+msgid "please email: "
+msgstr "email aub: "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:786
+msgid "PHoto bATCH Processor"
+msgstr "Massale fotobewerker"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:802
+#, python-format
+msgid "Sorry, \"%s\" is not a valid path."
+msgstr "Sorry, \"%s\" is geen geldig pad."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:869
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:192
+msgid "Drag & Drop"
+msgstr "Slepen-en-neerzetten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:881
+msgid ""
+"Drop any files and/or folders on this Phatch droplet\n"
+"to batch process them.\n"
+"Right-click or double-click to switch to normal view."
+msgstr ""
+"Sleep bestanden en/of mappen naar dit Phatch vangnet\n"
+"om ze in serie te bewerken.\n"
+"Klik met de rechter muistoets of dubbelklik om terug te keren naar de "
+"normale weergave."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:899
+msgid "Phatch will add one for you, please check its settings."
+msgstr "Phatch zal er voor u een toevoegen. Controleer diens instellingen."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:902
+msgid "The action list only processes metadata."
+msgstr "De actielijst verwerkt enkel metadata."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:903
+msgid "Phatch chooses the lossless \"Save Tags\" action."
+msgstr "Phatch kiest de \"Bewaar Tags\" actie (zonder kwaliteitsverlies)."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:949
+msgid "Save last changes to"
+msgstr "De laatste wijzigingen opslaan in"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:999
+msgid ""
+"Safe mode protects you from the execution of possibly harmful scripts.\n"
+"Are you sure you want to disable it?"
+msgstr ""
+"De Veilige Modus beschermt U tegen de de uitvoering van mogelijk gevaarlijke "
+"code.\n"
+"Bent U zeker dat U deze wilt uitschakelen?"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1011
+msgid "Choose the folder for the droplet"
+msgstr "Kies de map voor het vangnet"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1022
+msgid "Phatch successfully created the droplet."
+msgstr "Phatch heeft succesvol het vangnet aangemaakt."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1025
+msgid "Phatch could not create the droplet: "
+msgstr "Phatch kan het vangnet niet creëren: "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1081
+msgid "Impossible to load data from action list."
+msgstr "Onmogelijk om de actielijst te laden."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1129
+msgid "Select action list"
+msgstr "Kies een actielijst"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1152
+msgid "Sorry, your settings seem corrupt."
+msgstr "Sorry, uw instellingen lijken beschadigd."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1153
+#, python-format
+msgid "Please delete \"%s\"."
+msgstr "Verwijder aub \"%s\"."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/gui.py:1154
+msgid "Also check if your hard disk not full.\n"
+msgstr "Controleer ook of Uw harde schijf niet vol is.\n"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:76
+msgid "Choose a folder"
+msgstr "Kies een map"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:143
+msgid "Choose File(s)"
+msgstr "Kies Bestand(en)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:156
+msgid "Choose an image folder"
+msgstr "Kies een afbeeldingenmap"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:238
+msgid "All selected types"
+msgstr "Alle geselecteerde types"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:240
+msgid "All readable and writable types"
+msgstr "Alle lees -en schrijfbare types"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:242
+msgid "All readable types"
+msgstr "Alle leesbare types"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:245
+msgid "images"
+msgstr "afbeeldingen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:258
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:265
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:291
+msgid "&All Types"
+msgstr "&Alle Types"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:263
+msgid "&No Types"
+msgstr "&Geen Types"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:269
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "Clipboard"
+msgstr "Klembord"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:271
+msgid "Browse"
+msgstr "Bladeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:276
+#, python-format
+msgid "Browse %s"
+msgstr "Kies %s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:285
+msgid "File"
+msgstr "Bestand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:286
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "Folder"
+msgstr "Map"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:345
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:477
+msgid "default"
+msgstr "standaard"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:415
+msgid "View Source"
+msgstr "Broncode Bekijken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:454
+msgid "broaden your search"
+msgstr "verbreed uw zoekopdracht"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:503
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:116
+msgid "Path"
+msgstr "Pad"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:650
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:671
+msgid "&Open..."
+msgstr "&Openen..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:652
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:673
+msgid "&Inspect..."
+msgstr "&Inspecteren..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/dialogs.py:707
+msgid "&Insert Tag in Action List..."
+msgstr "Tag in Actielijst &invoeren..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:43
+msgid "&New\tCtrl-N"
+msgstr "&Nieuw\tCtrl-N"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:43
+msgid "Start a new action list"
+msgstr "Begin een nieuwe actielijst"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:45
+msgid "&Open...\tCtrl-O"
+msgstr "&Openen...\tCtrl-O"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:45
+msgid "Opens an actions list"
+msgstr "Opent een actielijst"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:47
+msgid "Open &Library...\tCtrl-Shift-O"
+msgstr "Open &Bibliotheek...\tCtrl-Shift-O"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:47
+msgid "Opens a ready-made actionlist from the library"
+msgstr "Een reeds klaargemaakte actielijst openen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:49
+msgid "&Save\tCtrl-S"
+msgstr "Op&slaan\tCtrl-S"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:49
+msgid "Saves an action list"
+msgstr "Slaat een actielijst op"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:51
+msgid "Save &As...\tCtrl-Shift-S"
+msgstr "Opslaan &als...\tCtrl-Shift-S"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:51
+msgid "Saves an action list as"
+msgstr "Slaat een actielijst op als"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:55
+msgid "Copy Actionlist as &Command to Clipboard"
+msgstr "Kopieer A&ctielijst als Opdracht naar Klembord"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:55
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:57
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:59
+msgid "Paste this command in a launcher"
+msgstr "Plak deze opdracht in een starter"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:57
+msgid "Copy R&ecent as Command to Clipboard"
+msgstr "Kopieer R&ecent als Opdracht naar Klembord"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:59
+msgid "Copy Image I&nspector as Command to Clipboard"
+msgstr "Kopieer Beeldi&nspecteur als Opdracht naar Klembord"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:61
+msgid "&Export"
+msgstr "&Exporteren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:62
+msgid "&Quit\tCtrl-Q"
+msgstr "A&fsluiten\tCtrl-Q"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:62
+msgid "Quit the application."
+msgstr "Sluit de toepassing af."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:64
+msgid "&Action List"
+msgstr "&Actielijst"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:66
+msgid "&Add...\tCtrl-+"
+msgstr "&Toevoegen...\tCtrl-+"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:68
+msgid "&Remove\tCtrl--"
+msgstr "&Verwijderen\tCtrl--"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:68
+msgid "Remove the selected action."
+msgstr "Verwijder de geselecteerde actie."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:71
+msgid "&Enable\tCtrl-1"
+msgstr "&Activeren\tCtrl-1"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:71
+msgid "Enable action"
+msgstr "Actie activeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:73
+msgid "&Disable\tCtrl-0"
+msgstr "&Deactiveren\tCtrl-0"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:73
+msgid "Disable action"
+msgstr "Actie deactiveren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:76
+msgid "&Up\tCtrl-Up"
+msgstr "Om&hoog\tCtrl-Up"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:78
+msgid "&Down\tCtrl-Down"
+msgstr "Om&laag\tCtrl-Down"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:80
+msgid "&Edit"
+msgstr "B&ewerken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:82
+msgid "&Droplet\tCtrl-D"
+msgstr "&Vangnet\tCtrl-D"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:82
+msgid "View as a droplet to drag and drop files"
+msgstr "Weergeven als vangnet om er bestanden naartoe te slepen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:84
+msgid "&Show Description\tCtrl-H"
+msgstr "&Omschrijving weergeven\tCtrl-H"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:84
+msgid "Tools to handle the current action list"
+msgstr "Hulpmiddelen om de huidige actielijst te bewerken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:87
+msgid "&Expand All\tCtrl-E"
+msgstr "Alles &uitvouwen\tCtrl-E"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:87
+msgid "Show all the parameters of the actions."
+msgstr "Alle parameters van de acties weergeven."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:89
+msgid "&Collapse All\tCtrl-Shift-E"
+msgstr "Alles &invouwen\tCtrl-Shift-E"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:89
+msgid "Show only the labels of the actions."
+msgstr "Alleen de labels van de acties weergeven."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:91
+msgid "&Collapse Automatically"
+msgstr "&Automatisch invouwen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:91
+msgid "Expanding one action collapses the others."
+msgstr "Het uitvouwen van een actie doet de andere invouwen."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:93
+msgid "&View"
+msgstr "Weerga&ve"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:95
+msgid "&Execute...\tCtrl-Return"
+msgstr "&Uitvoeren...\tCtrl-Return"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:95
+msgid "Execute the action list"
+msgstr "De actielijst uitvoeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:97
+msgid "&Safe Mode (recommended)"
+msgstr "&Veilige modus (aanbevolen)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:100
+msgid "&Image Inspector (exif)\tCtrl-I"
+msgstr "Beeld&inspecteur (exif)\tCtrl-I"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:103
+msgid "&User"
+msgstr "&Gebruiker"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:103
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:105
+msgid "Browse action lists, masks, highlights and fonts"
+msgstr "Actielijsten, maskers, oplichtbeelden en lettertypes verkennen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:105
+msgid "&Phatch"
+msgstr "&Phatch"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:107
+msgid "&Browse Library"
+msgstr "&Bibliotheek Doorzoeken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:109
+msgid "Show &Report...\tCtrl+R"
+msgstr "&Rapport tonen...\tCtrl+R"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:109
+msgid "Show report of processed images"
+msgstr "Rapport van bewerkte beelden tonen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:111
+msgid "Show &Log...\tCtrl-L"
+msgstr "&Logboek weergeven...\tCtrl-L"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:111
+msgid "Show log file"
+msgstr "Logbestand tonen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:115
+msgid "&Fonts"
+msgstr "&Lettertypen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:115
+msgid "Scan for new fonts on your system"
+msgstr "Voor nieuwe lettertypen op Uw computer zoeken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:117
+msgid "&Update"
+msgstr "&Bijwerken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:118
+msgid "&Tools"
+msgstr "Hulp&middelen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:120
+msgid "&Website...\tCtrl-W"
+msgstr "&Webpagina...\tCtrl-W"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:120
+msgid "Go to the Phatch homepage."
+msgstr "Ga naar de Phatch homepage."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:122
+msgid "&Documentation...\tCtrl-M"
+msgstr "&Documentatie...\tCtrl-M"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:122
+msgid "Go to the Phatch documentation."
+msgstr "Ga naar de Phatch documentatie."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:124
+msgid "&Forum...\tCtrl-F"
+msgstr "&Forum...\tCtrl-F"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:124
+msgid "Go to the Phatch forum"
+msgstr "Ga naar het Phatch forum"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:127
+msgid "&Translate Phatch...\tCtrl-T"
+msgstr "&Vertaal Phatch...\tCtrl-T"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:127
+msgid "Translate Phatch in your native language."
+msgstr "Vertaal Phatch naar uw moedertaal."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:129
+msgid "&Report a Bug...\tCtrl-B"
+msgstr "&Meld een fout...\tCtrl-B"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:129
+msgid "Report a bug on launchpad."
+msgstr "Meld een fout op launchpad."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:131
+msgid "De&veloper Documentation...\tCtrl-P"
+msgstr "Ont&wikkelaarsdocumentatie...\tCtrl-P"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:131
+msgid "Learn to develop Phatch with Python and PIL."
+msgstr "Leer Phatch te ontwikkelen met Python en PIL"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:134
+msgid "&About Phatch...\tCtrl-Shift-A"
+msgstr "&Over Phatch...\tCtrl-Shift-A"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:134
+msgid "Displays information about this application."
+msgstr "Geeft informatie over deze toepassing weer."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/frame.py:136
+msgid "&Help"
+msgstr "&Help"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:15
+msgid "Done"
+msgstr "Klaar"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:16
+msgid "Show Log"
+msgstr "Toon Logboek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:17
+msgid "Show &Report"
+msgstr "&Rapport tonen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:29
+msgid "Ready!"
+msgstr "Klaar!"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:72
+msgid "Double click to open or right click for more options."
+msgstr "Dubbel klik om te openen of rechtermuisklik voor meer opties."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:82
+msgid "Explorer"
+msgstr "Verkenner"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:114
+msgid "You only need to know PIL to write a plugin for Phatch,"
+msgstr "U hoeft alleen PIL te kennen om een plugin voor Phatch te schrijven,"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:115
+msgid "&Show template for action plugin"
+msgstr "&Sjabloon voor actieplugin weergeven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:117
+msgid "Code"
+msgstr "Code"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:118
+msgid "&Ask for Help"
+msgstr "&Vraag om Hulp"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:119
+msgid "&OK"
+msgstr "&OK"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:130
+msgid "Write Action Plugin"
+msgstr "Schrijf een actieplugin"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:174
+msgid "Apply for future errors        "
+msgstr "Pas toe voor toekomstige fouten        "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:175
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:240
+msgid "&Abort"
+msgstr "&Afbreken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:176
+msgid "&Skip to Next Action"
+msgstr "Naar de volgende actie ver&springen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:177
+msgid "Skip To Next &Image"
+msgstr "Naar de volgende &afbeelding verspringen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:238
+msgid "Message"
+msgstr "Melding"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:241
+msgid "&Continue Anyway"
+msgstr "&Ga toch verder"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:277
+msgid "Options"
+msgstr "Opties"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:278
+msgid "Types"
+msgstr "Typen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:279
+msgid "Browse Folder"
+msgstr "Map bladeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "Source"
+msgstr "Bron"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:282
+msgid "File(s)"
+msgstr "Bestand(en)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:283
+msgid "Stop for errors"
+msgstr "Stop bij fouten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:284
+msgid "Check images first"
+msgstr "Controleer eerst afbeeldingen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:285
+msgid "Overwrite existing images"
+msgstr "Bestaande afbeeldingen overschrijven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:287
+msgid "Always show status dialog when done"
+msgstr "Altijd status dialoogvenster tonen op het einde"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:289
+msgid "Repeat images"
+msgstr "Herhaal afbeeldingen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:292
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/pyWx/wxGlade/dialogs.py:293
+msgid "&Batch"
+msgstr "&Batch"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:27
+msgid "Image"
+msgstr "Afbeelding"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:45
+msgid "Label"
+msgstr "Label"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:50
+msgid "tag"
+msgstr "tag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:54
+msgid "Boolean"
+msgstr "Booleaans"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:55
+msgid "String"
+msgstr "Tekenreeks"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:56
+msgid "Choice"
+msgstr "Keuze"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:57
+msgid "Color"
+msgstr "Kleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:58
+msgid "Resolution"
+msgstr "Resolutie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:60
+msgid "File Name"
+msgstr "Bestandsnaam"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:61
+msgid "In"
+msgstr "In"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:62
+msgid "Float"
+msgstr "Kommagetal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:63
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:64
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:65
+msgid "As"
+msgstr "Als"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:66
+msgid "Mode"
+msgstr "Modus"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:67
+msgid "Resample"
+msgstr "Methode"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:67
+msgid "bicubic"
+msgstr "bicubisch"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:68
+msgid "Integer"
+msgstr "Geheel getal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:69
+msgid "Integer+"
+msgstr "Positief geheel getal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:70
+msgid "Integer+0"
+msgstr "Positief geheel getal niet gelijk aan 0"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:71
+msgid "Horizontal"
+msgstr "Horizontaal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/templates/action.py:72
+msgid "Slider"
+msgstr "Schuifbalk"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:71
+msgid "pyexiv2 needs to be installed"
+msgstr "pyexiv2 moet geinstalleerd worden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:74
+#, python-format
+msgid "%(mode)s has been converted to %(mode_copy)s to save as %(format)s."
+msgstr ""
+"%(mode)s is omgezet naar %(mode_copy)s om op te slaan als %(format)s."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "January"
+msgstr "januari"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "February"
+msgstr "februari"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "March"
+msgstr "maart"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:79
+msgid "April"
+msgstr "april"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "May"
+msgstr "mei"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "June"
+msgstr "juni"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "July"
+msgstr "juli"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "August"
+msgstr "augustus"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:80
+msgid "September"
+msgstr "september"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:81
+msgid "October"
+msgstr "oktober"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:81
+msgid "November"
+msgstr "november"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:81
+msgid "December"
+msgstr "december"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Monday"
+msgstr "maandag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Tuesday"
+msgstr "dinsdag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Wednesday"
+msgstr "woensdag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:82
+msgid "Thursday"
+msgstr "donderdag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:83
+msgid "Friday"
+msgstr "vrijdag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:83
+msgid "Saturday"
+msgstr "zaterdag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:83
+msgid "Sunday"
+msgstr "zondag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:91
+msgid "Only palette images have transparency."
+msgstr ""
+"Alleen afbeeldingen met kleurenpalet hebben een transparantie masker."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:212
+msgid "Unable extract variables from file"
+msgstr "Niet in staat om variabelen te onttrekken aan bestand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:352
+#, python-format
+msgid "Tag \"%s\" is read only."
+msgstr "Tag \"%s\" is alleen leesbaar."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:360
+#, python-format
+msgid "Impossible to write tag \"%s\""
+msgstr "Onmogelijk om tag \"%s\" weg te schrijven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:420
+#, python-format
+msgid "Tag \"%s\" is not writable."
+msgstr "Tag \"%s\" is niet schrijfbaar."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:425
+#, python-format
+msgid "Format %(format)s does not support overwriting \"%(tag)s\"."
+msgstr ""
+"Formaat %(format)s ondersteunt niet het overschrijven van \"%(tag)s\"."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:463
+msgid "background"
+msgstr "achtergrond"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:611
+msgid "source"
+msgstr "bron"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/pil.py:719
+#, python-format
+msgid ""
+"Command did not produce an output image:\n"
+"%s"
+msgstr ""
+"Opdracht heeft geen beeld geproduceerd:\n"
+"%s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/settings.py:47
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:368
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:376
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:42
+msgid "All"
+msgstr "Alles"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:191
+msgid "Select Projection"
+msgstr "Projectie Kiezen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:219
+msgid "Select Object"
+msgstr "Object Selecteren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:223
+msgid "Select Rotation"
+msgstr "Kies draaiing"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:236
+msgid "Center"
+msgstr "Midden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:237
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:368
+msgid "Custom"
+msgstr "Aangepast"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:238
+msgid "Middle"
+msgstr "Midden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:239
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:378
+msgid "Left"
+msgstr "Links"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:240
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:380
+msgid "Right"
+msgstr "Rechts"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:241
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:382
+msgid "Top"
+msgstr "Boven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:242
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:384
+msgid "Bottom"
+msgstr "Beneden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:243
+msgid "Bottom Left"
+msgstr "Linksonder"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:243
+msgid "Bottom Right"
+msgstr "Rechtsonder"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:244
+msgid "Top Left"
+msgstr "Linksboven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:244
+msgid "Top Right"
+msgstr "Rechtsboven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:249
+msgid "Orientation"
+msgstr "Oriëntatie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:251
+msgid "Position"
+msgstr "Positie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:253
+msgid "Offset"
+msgstr "Afstand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:255
+msgid "Horizontal Offset"
+msgstr "Horizontale Insprong"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:257
+msgid "Vertical Offset"
+msgstr "Verticale Insprong"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:259
+msgid "Horizontal Justification"
+msgstr "Horizontale Uitlijning"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:262
+msgid "Vertical Justification"
+msgstr "Verticale Uitlijning"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:319
+msgid "By Offset"
+msgstr "Door Afstand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:319
+msgid "Tile"
+msgstr "Naast elkaar"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:319
+msgid "Scale"
+msgstr "Schalen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:322
+msgid "Mark"
+msgstr "Merkteken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:323
+msgid "Opacity"
+msgstr "Ondoorzichtheid"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:324
+msgid "Method"
+msgstr "Methode"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/models.py:368
+msgid "Auto"
+msgstr "Automatisch"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:36
+msgid "Easily batch process images and edit metadata"
+msgstr "Gemakkelijk fotos massaal bewerken inclusief metadata"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:37
+msgid "Photo Batch Processor"
+msgstr "Foto Batch Processor"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "True"
+msgstr "Ja"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "False"
+msgstr "Nee"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "true"
+msgstr "ja"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:63
+msgid "false"
+msgstr "nee"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:64
+msgid "Unsaved Action List"
+msgstr "Niet-opgeslagen actielijst"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:66
+msgid "Action Lists"
+msgstr "Actielijsten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:67
+msgid "All Files"
+msgstr "Alle bestanden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:68
+msgid "Describe here the action list."
+msgstr "Omschrijf hier de actielijst."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:69
+msgid "There should be a 'Save' action at the end."
+msgstr "Er hoort zich een 'Opslaan'-actie aan het einde te bevinden."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:82
+msgid "with"
+msgstr "met"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:83
+#, python-format
+msgid "%s Recent"
+msgstr "%s Recent"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:86
+#, python-format
+msgid "Associate Images with Action List in %s..."
+msgstr "Beelden met Actielijst Associëren in %s..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:88
+#, python-format
+msgid "Associate Images with Recent Action Lists in %s..."
+msgstr "Beelden met Recente Actie Lijsten Associëren in %s..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:90
+#, python-format
+msgid "Associate Images with Image Inspector in %s..."
+msgstr "Beelden met Beeldinspecteur Associëren in %s..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:91
+#, python-format
+msgid "Remove Association from %s..."
+msgstr "Verwijder Associaties van %s..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:93
+msgid "&Action List Droplet..."
+msgstr "&Actielijst Vangnet..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:94
+msgid "&Recent Droplet..."
+msgstr "&Recent Vangnet..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:95
+msgid "&Image Inspector Droplet..."
+msgstr "&Beeldinspecteur Vangnet..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:130
+msgid "Batch process with recent action lists"
+msgstr "Met recente actie lijsten verwerken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/ct.py:131
+msgid "Inspect EXIF &amp; IPTC tags"
+msgstr "Inspecteer EXIF &amp; IPTC tags"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:58
+#, python-format
+msgid "See \"%s\" for more details."
+msgstr "Zie \"%s\" voor meer details"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:64
+#, python-format
+msgid "Sorry, the action list seems incompatible with %(name)s %(version)s."
+msgstr ""
+"Sorry, deze actielijst lijkt niet geschikt voor %(name)s %(version)s."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:66
+msgid "This action list is unsafe:"
+msgstr "Deze actielijst is onveilig:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:68
+msgid "Disable Safe Mode in the Tools menu if you trust this action list."
+msgstr ""
+"Schakel de Veilige Modus uit in het Hulpmiddelen menu als U deze actielijst "
+"vertrouwt."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:70
+msgid "Never run action lists from untrusted sources."
+msgstr "Voer nooit actielijsten uit van onbetrouwbare oorsprong."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:71
+msgid "Please check if this action list doesn't contain harmful code."
+msgstr "Controleer aub of deze actielijst geen gevaarlijke code bevat."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:87
+#, python-format
+msgid "\"%s\" is not a valid path."
+msgstr "\"%s\" is geen geldig pad."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:184
+msgid "Action"
+msgstr "Actie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:189
+msgid "Geek actions are not allowed in safe mode."
+msgstr "Geek acties zijn niet toegelaten in de veilige modus."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:368
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:382
+msgid "Nothing to do."
+msgstr "Er valt niets te doen."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:369
+msgid "The action list is empty."
+msgstr "De actielijst is leeg."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:383
+msgid "There is no action enabled."
+msgstr "Er is geen actie geactiveerd."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:410
+msgid "Checking images"
+msgstr "Afbeeldingen controleren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:427
+#, python-format
+msgid "Phatch can not handle %d image(s):"
+msgstr "Phatch kan %d afbeelding(en) niet verwerken:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:428
+msgid "Invalid images"
+msgstr "Ongeldige afbeeldingen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:434
+msgid "Sorry, no valid files found"
+msgstr "Sorry, geen geldige bestanden gevonden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:444
+msgid "C&ontinue"
+msgstr "&Doorgaan"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:473
+msgid "No files or folder selected."
+msgstr "Geen bestand of map geselecteerd."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:503
+msgid "Unable to open file"
+msgstr "Kan bestand niet openen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:589
+#, python-format
+msgid "Can not apply action %(a)s:"
+msgstr "Kan niet actie %(a)s toepassen:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:628
+#, python-format
+msgid "Can not apply action %(a)s on image '%(i)s' in folder:"
+msgstr "Kan niet actie %(a)s toepassen op beeld '%(i)s' in map:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:723
+msgid "Executing action list"
+msgstr "Uitvoeren van actielijst"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:749
+#, python-format
+msgid "One image done in %s"
+msgstr "Een beeld gedaan in %s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:751
+#, python-format
+msgid "%(amount)d images done in %(duration)s"
+msgstr "%(amount)d beelden gedaan in %(duration)s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:755
+msgid "One issue was logged"
+msgstr "Eén probleem was gelogd"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/core/api.py:757
+#, python-format
+msgid "%d issues were logged"
+msgstr "%d problemen waren gelogd"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:43
+msgid "Select"
+msgstr "Selecteer"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:45
+#, python-format
+msgid ""
+"The tag \"%s\" is not valid.\n"
+"It should follow the syntax: Exif_* or Iptc_*"
+msgstr ""
+"De tag \"%s\" is niet geldig.\n"
+"Het moet deze syntax volgen.: Exif_* of Iptc_*"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:202
+msgid "Unable to change label."
+msgstr "Kan het label niet veranderen."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:232
+#, python-format
+msgid "Unable to delete tag <%s>"
+msgstr "Onmogelijk om tag <%s> te verwijderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:277
+#, python-format
+msgid "Unable to rename tag <%s>"
+msgstr "Kan de tag <%s> niet hernoemen."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:316
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/imageTable.py:325
+#, python-format
+msgid "Unable to save tag <%s>"
+msgstr "Onmogelijk om tag <%s> op te slaan"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:446
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:162
+msgid "day"
+msgstr "dag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:447
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:159
+msgid "desktop"
+msgstr "bureaublad"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:448
+msgid "foldername"
+msgstr "mapnaam"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:449
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:157
+msgid "filename"
+msgstr "bestandsnaam"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:450
+msgid "filesize"
+msgstr "bestandsgrootte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:451
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:158
+msgid "folder"
+msgstr "map"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:452
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:164
+msgid "hour"
+msgstr "uur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:453
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:164
+msgid "minute"
+msgstr "minuut"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:454
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:162
+msgid "month"
+msgstr "maand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:455
+msgid "monthname"
+msgstr "maandnaam"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:456
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:209
+msgid "path"
+msgstr "pad"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:457
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:168
+msgid "root"
+msgstr "hoofdmap"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:458
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:164
+msgid "second"
+msgstr "seconde"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:459
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:170
+msgid "subfolder"
+msgstr "submap"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:460
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:172
+msgid "type"
+msgstr "type"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:461
+msgid "weekday"
+msgstr "weekdag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:462
+msgid "weekdayname"
+msgstr "weekdagnaam"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:463
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:162
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:204
+msgid "year"
+msgstr "jaar"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:631
+msgid "aspect"
+msgstr "aspect"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:632
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:173
+msgid "compression"
+msgstr "compressie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:633
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:161
+msgid "dpi"
+msgstr "dpi"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:634
+msgid "gamma"
+msgstr "gamma"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:635
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:169
+msgid "height"
+msgstr "hoogte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:636
+msgid "interlace"
+msgstr "interlace"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:637
+msgid "mode"
+msgstr "modus"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:638
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:169
+msgid "width"
+msgstr "breedte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:639
+msgid "format"
+msgstr "formaat"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:640
+msgid "formatdescription"
+msgstr "formaatbeschrijving"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:641
+msgid "size"
+msgstr "grootte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:642
+msgid "transparency"
+msgstr "doorzichtigheid"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:703
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:1140
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/metadata.py:1365
+msgid "orientation"
+msgstr "oriëntatie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:48
+msgid "Use the Image Inspector to list all the variables."
+msgstr "Gebruik de Beeldinspecteur om alle variabelen op te sommen."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:49
+msgid "You can only use files with the following extensions"
+msgstr "U kan enkel de bestanden gebruiken met de volgende extensies"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:52
+msgid "left"
+msgstr "links"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:52
+msgid "center"
+msgstr "midden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:52
+msgid "right"
+msgstr "rechts"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:53
+msgid "top"
+msgstr "boven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:53
+msgid "middle"
+msgstr "midden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:53
+msgid "bottom"
+msgstr "beneden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:69
+msgid "Monochrome (1-bit pixels, black and white)"
+msgstr "Monochroom (1-bit pixels, zwart/wit)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:70
+msgid "Grayscale (8-bit pixels)"
+msgstr "Grijswaarden (8-bit pixels)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:71
+msgid "LA (8-bit pixels, grayscale with transparency mask)"
+msgstr "LA (8-bit pixels, grijswaarden met doorzichtigheidheidsmasker)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:72
+msgid "RGB (3x8-bit pixels, true color)"
+msgstr "RGB (3x8-bit pixels, ware kleuren)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:73
+msgid "RGBA (4x8-bit pixels, RGB with transparency mask)"
+msgstr "RGBA (4x8-bit pixels, RGB met doorzichtigheidheidsmasker)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:74
+msgid "CMYK (4x8-bit pixels, color separation)"
+msgstr "CMYK (4x8-bit pixels, kleurscheiding)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:75
+msgid "P (8-bit pixels, mapped using a color palette)"
+msgstr "P (8-bit pixels, geïndexeerd met kleurpalet)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:76
+msgid "YCbCr (3x8-bit pixels, color video format)"
+msgstr "YCbCr (3x8-bit pixels, kleurenvideo-indeling)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:77
+msgid "blur"
+msgstr "vervagen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:77
+msgid "contour"
+msgstr "omtrek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:77
+msgid "detail"
+msgstr "detail"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:78
+msgid "edge enhance"
+msgstr "randen verscherpen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:78
+msgid "edge enhance more"
+msgstr "randen meer verscherpen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:79
+msgid "emboss"
+msgstr "reliëf"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:79
+msgid "find edges"
+msgstr "randen vinden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:79
+msgid "smooth"
+msgstr "verzachten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:80
+msgid "smooth more"
+msgstr "meer verzachten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:80
+msgid "sharpen"
+msgstr "verscherpen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:81
+msgid "nearest"
+msgstr "meest dichtbij"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:81
+msgid "bilinear"
+msgstr "bilineair"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:82
+msgid "antialias"
+msgstr "antialias"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:83
+msgid "Rotate 90"
+msgstr "Draai 90 graden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:83
+msgid "Rotate 180"
+msgstr "Draai 180 graden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:83
+msgid "Rotate 270"
+msgstr "Draai 270 graden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:84
+msgid "Flip Left Right"
+msgstr "Spiegel horizontaal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:84
+msgid "Flip Top Bottom"
+msgstr "Spiegel Verticaal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:86
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:920
+msgid "Normal"
+msgstr "Normaal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:88
+msgid "none"
+msgstr "geen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:498
+msgid "can not be empty"
+msgstr "kan niet leeg zijn"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:547
+#, python-format
+msgid "invalid syntax \"%s\" for integer"
+msgstr "ongeldige syntax \"%s\" voor geheel getal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:552
+msgid "string"
+msgstr "tekenreeks"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:571
+msgid "integer"
+msgstr "geheel getal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:576
+#, python-format
+msgid "invalid literal \"%s\" for integer"
+msgstr "ongeldige invoer \"%s\" voor geheel getal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:587
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:635
+msgid "positive integer"
+msgstr "positief geheel getal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:594
+#, python-format
+msgid "the integer value \"%s\" is negative, but should be positive"
+msgstr "het gehele getal \"%s\" is negatief, maar moet positief zijn"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:601
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:649
+msgid "positive, non-zero integer"
+msgstr "positief, niet-nul geheel getal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:608
+#, python-format
+msgid "the integer value \"%s\" is zero, but should be non-zero"
+msgstr "het geheel getal \"%s\" is nul, maar mag niet nul zijn"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:618
+msgid "resolution"
+msgstr "resolutie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:622
+msgid "float"
+msgstr "reëel getal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:630
+#, python-format
+msgid "invalid literal \"%s\" for float"
+msgstr "ongeldige invoer \"%s\" voor reeel getal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:642
+#, python-format
+msgid "the float value \"%s\" is negative, but should be positive"
+msgstr "de reeele waarde \"%s\" is negatief, maar moet positief zijn"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:656
+#, python-format
+msgid "the float value \"%s\" is zero, but should be non-zero"
+msgstr "de reeele waarde \"%s\" is nul, maar mag niet nul zijn"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:662
+msgid "boolean"
+msgstr "booleaans"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:674
+#, python-format
+msgid "invalid literal \"%s\" for boolean"
+msgstr "ongeldige invoer \"%s\" voor boolean"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:679
+msgid "choice"
+msgstr "keuze"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:708
+#, python-format
+msgid "the file extension \"%s\" is invalid"
+msgstr "de bestandsextensie \"%s\" is ongeldig"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:715
+msgid "a filename with a valid extension was expected"
+msgstr "een bestandsnaam met een geldige extensie was verwacht"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:736
+#, python-format
+msgid "the filename \"%s\" does not exist"
+msgstr "de bestandsnaam \"%s\" bestaat niet"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:823
+#, python-format
+msgid "\"%s\" can not be found."
+msgstr "\"%s\" kan niet gevonden worden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:827
+#, python-format
+msgid "Parameter \"%s.*\" is missing"
+msgstr "Parameter \"%s.*\" is nodig"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:831
+#, python-format
+msgid "Maximum one parameter \"%s\" is allowed"
+msgstr "Maximum één parameter \"%s\" is toegelaten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:896
+msgid "automatic"
+msgstr "automatisch"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:910
+msgid "None"
+msgstr "Geen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/formField.py:1014
+msgid "Tag should start with \"Exif_\" or \"Iptc_\""
+msgstr "Tag moet starten met \"Exif_\" of \"Iptc_\""
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/fonts.py:53
+#, python-format
+msgid "Please install \"%s\" first."
+msgstr "Gelieve \"%s\" eerst te installeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:162
+#, python-format
+msgid "Could not open image with %s."
+msgstr "Kon afbeelding niet openen met %s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:164
+msgid "Command"
+msgstr "Opdracht"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:164
+msgid "Output"
+msgstr "Uitvoer"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/openImage.py:164
+msgid "Error"
+msgstr "Fout"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/safe.py:145
+msgid "The following name(s) are invalid: "
+msgstr "De volgende namen zijn ongeldig: "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageFileBrowser.py:109
+msgid "&Select"
+msgstr "&Selecteren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:42
+msgid "Warning: python-wxversion is not installed.\n"
+msgstr "Waarschuwing: python-wxversion is niet geïnstalleerd.\n"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:49
+#, python-format
+msgid ""
+"Error: wxPython %(recommended)s (or at least %(minimal)s) can not be found, "
+"but is required."
+msgstr ""
+"Fout: wxPython %(recommended)s (of minstens %(minimal)s) kan niet gevonden "
+"worden, maar is vereist."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:53
+msgid "Please (re)install it."
+msgstr "Gelieve dit te (her)installeren."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:58
+#, python-format
+msgid ""
+"This application needs 'python-wxversion' and 'python-wxgtk%(recommended)s' "
+"(or at least 'python-wxgtk%(minimal)s')."
+msgstr ""
+"Dit programma vereist 'python-wxversion' en 'python-wxgtk%(recommended)s' "
+"(of op zijn minst 'python-wxgtk%(minimal)s')."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:71
+#, python-format
+msgid ""
+"This application is known to be compatible with\n"
+"wxPython version(s) %(recommended)s (or at least %(minimal)s),\n"
+"but you have %(version)s installed."
+msgstr ""
+"Dit programma is compatibel met\n"
+"wxPython versie(s) %(recommended)s (of minstens %(minimal)s),\n"
+"maar U heeft %(version)s."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:76
+msgid "Please upgrade your wxPython."
+msgstr "Upgrade uw wxPython."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/wxcheck.py:77
+msgid "wxPython Version Error"
+msgstr "wxPython versiefout"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:55
+msgid "Program Version"
+msgstr "Programmaversie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:58
+msgid "C&redits"
+msgstr "Medewe&rkers"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:59
+msgid "&License"
+msgstr "&Licentie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:60
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:126
+msgid "&Close"
+msgstr "&Sluiten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:72
+msgid "About"
+msgstr "Over"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:136
+msgid "Credits"
+msgstr "Medewerkers"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:161
+msgid "Documentation"
+msgstr "Documentatie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:162
+msgid "Translation"
+msgstr "Vertaling"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:163
+msgid "Artwork"
+msgstr "Illustraties"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:164
+msgid "Libraries"
+msgstr "Bibliotheken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:165
+msgid "Sponsors"
+msgstr "Sponsers"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/about.py:230
+msgid "License"
+msgstr "Licentie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:16
+msgid "Tag"
+msgstr "Tag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:17
+msgid "Exif_Photo_UserComment"
+msgstr "Exif_Photo_UserComment"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:18
+msgid "Value"
+msgstr "Waarde"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:20
+msgid "warning"
+msgstr "waarschuwing"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/dialogsInspector.py:34
+msgid "Add Tag"
+msgstr "Tag Toevoegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/folderFileBrowser.py:143
+msgid "all"
+msgstr "alle"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:59
+#, python-format
+msgid "Are you sure you want to delete this tag from \"%s\"?"
+msgstr "Bent u zeker dat u deze tag wil verwijderen van \"%s\"?"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:61
+msgid "Are you sure you want to delete this tag from all images?"
+msgstr "Bent u zeker dat u deze tag van alle afbeeldingen wilt verwijderen?"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:118
+msgid "Tag should start with Exif_* or Iptc_*"
+msgstr "Tag moet starten met Exif_* of Iptc_*"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:120
+msgid "Tag exists already"
+msgstr "Tag bestaat al"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:243
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:327
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:519
+msgid "Images"
+msgstr "Afbeeldingen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:244
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:415
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:443
+msgid "All files"
+msgstr "Alle bestanden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:445
+msgid "&Copy Value"
+msgstr "Waarde &Kopiëren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:448
+msgid "&Add Tag"
+msgstr "&Tag Toevoegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:451
+msgid "&Delete Tag"
+msgstr "Tag verwij&deren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:477
+msgid "Open &Url..."
+msgstr "&Url Openen..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:484
+msgid "&Remove Image"
+msgstr "Afbeelding &Verwijderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:520
+msgid "&Copy Tag"
+msgstr "Tag &Kopiëren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:524
+msgid "&Add Tag to All Images..."
+msgstr "T&ag Toevoegen aan Alle Afbeeldingen..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:528
+msgid "&Delete Tag from All Images..."
+msgstr "Tag Verwij&deren van Alle Afbeeldingen..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:531
+msgid "&Rename Tag for All Images..."
+msgstr "Tag He&rnoemen voor Alle Afbeeldingen..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:534
+msgid "&Modify Value for All Images..."
+msgstr "&Waarden Veranderen voor Alle Afbeeldingen..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:547
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:558
+#, python-format
+msgid "Unable to add tag <%s>"
+msgstr "Kan tag <%s> niet toevoegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:584
+msgid "Unable to remove image"
+msgstr "Kan afbeelding niet verwijderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:590
+msgid "Rename tag for all images to:"
+msgstr "Hernoem tag voor alle afbeeldingen naar:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:600
+msgid "Change value for all images to:"
+msgstr "Verander waarde voor alle afbeeldingen naar:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:606
+#, python-format
+msgid "Unable to change tag <%s>"
+msgstr "Kan tag <%s> niet wijzigen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:741
+#, python-format
+msgid "Sorry, %s."
+msgstr "Sorry, %s."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:756
+msgid "Sorry, unable to open these images:"
+msgstr "Sorry, onmogelijk om deze beelden te openen:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:799
+msgid "Choose an image"
+msgstr "Kies een beeld"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:808
+msgid "Enter an image url"
+msgstr "Geef een url van een afbeelding op"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:859
+msgid "drag & drop any images here"
+msgstr "afbeeldingen naar hier verslepen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:862
+msgid "please install pyexiv2"
+msgstr "gelieve pyexiv2 te installeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/imageInspector.py:865
+#, python-format
+msgid "no %s tags found"
+msgstr "geen %s tags gevonden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/vlistTag.py:77
+msgid "&Add"
+msgstr "&Toevoegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/inspectorTag.py:59
+msgid "decimal"
+msgstr "decimaal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:55
+msgid "loading"
+msgstr "aan het laden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:285
+msgid "no"
+msgstr "nee"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:285
+msgid "yes"
+msgstr "ja"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:442
+msgid "Selection"
+msgstr "Selectie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/lib/pyWx/popup.py:500
+msgid "Fonts"
+msgstr "Lettertypes"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:151
+msgid "Shadow"
+msgstr "Schaduw"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:158
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:66
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/offset.py:47
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/watermark.py:58
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:134
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:104
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:139
+msgid "filter"
+msgstr "filter"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:159
+msgid "Drops a blurred shadow under a photo"
+msgstr "Een schaduw onder een foto werpen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:166
+msgid "Border"
+msgstr "Rand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:168
+msgid "Shadow Blur"
+msgstr "Schaduwwazigheid"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:169
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:275
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:88
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:153
+msgid "Background Color"
+msgstr "Achtergrondkleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:170
+msgid "Shadow Color"
+msgstr "Schaduwkleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/shadow.py:171
+msgid "Force Background Color"
+msgstr "Achtergrondkleur Afdwingen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:63
+msgid "Fit Image"
+msgstr "Beeld Passend Maken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:64
+msgid "Letterbox"
+msgstr "Zijranden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:65
+msgid "Scale Image"
+msgstr "Afbeelding schalen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:66
+msgid "Scale Model"
+msgstr "Vorm Schalen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:116
+msgid "Wrap Both"
+msgstr "Over beide spreiden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:116
+msgid "Separate"
+msgstr "Afzonderlijk"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:118
+msgid "Cover Color"
+msgstr "Omslagkleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:119
+msgid "Page Mapping"
+msgstr "Pagina's"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:121
+msgid "Left Page"
+msgstr "Linkerpagina"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:147
+msgid "Box Color"
+msgstr "Dooskleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:148
+msgid "Box Depth"
+msgstr "Doosdikte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:163
+msgid "Lid Rotation"
+msgstr "Draaiing van Klep"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:200
+msgid "Camera"
+msgstr "Camera"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:201
+msgid "Camera Horizontal Rotation"
+msgstr "Horizontale cameradraaiing"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:203
+msgid "Camera Vertical Rotation"
+msgstr "Verticale cameradraaiing"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:204
+msgid "Camera Roll"
+msgstr "Camera tollen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:205
+msgid "Camera Lens Angle"
+msgstr "Cameralenshoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:207
+msgid "Camera Distance"
+msgstr "Cameraafstand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:249
+msgid "Show Floor Options"
+msgstr "Vloeropties Tonen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:250
+msgid "Use Floor"
+msgstr "Vloer Gebruiken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:251
+msgid "Floor Color"
+msgstr "Bodemkleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:252
+msgid "Floor Reflection"
+msgstr "Bodemweerspiegeling"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:253
+msgid "Floor Opacity"
+msgstr "Vloer Ondoorzichtigheid"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:271
+msgid "Transparent Background"
+msgstr "Doorzichtige Achtergrond"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:272
+msgid "Show Background Options"
+msgstr "Achtergrondopties Tonen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:273
+msgid "Background"
+msgstr "Achtergrond"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:274
+msgid "Gradient"
+msgstr "Gradiënt"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:274
+msgid "Transparent"
+msgstr "Transparant"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:276
+msgid "Gradient Top"
+msgstr "Gradiënt Boven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:277
+msgid "Gradient Bottom"
+msgstr "Gradiënt Onder"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:278
+msgid "Auto Crop"
+msgstr "Automatisch Uitsnijden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:279
+msgid "Stars"
+msgstr "Sterren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:280
+msgid "Stars Color"
+msgstr "Sterrenkleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:281
+msgid "Mist"
+msgstr "Mist"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:323
+msgid "Blender"
+msgstr "Blender"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:327
+msgid "plugin"
+msgstr "plugin"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:328
+msgid "3D Objects"
+msgstr "3D Objecten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:342
+msgid "Sorry, you have the wrong version of Blender installed."
+msgstr "Sorry, U heeft de verkeerde versie van Blender geïnstalleerd."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:343
+#, python-format
+msgid "Blender %s is required."
+msgstr "Blender %s is vereist."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:346
+msgid "Render Width"
+msgstr "Renderbreedte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:347
+msgid "Render Height"
+msgstr "Renderhoogte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:348
+msgid "Object"
+msgstr "Object"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:349
+msgid "Image Size"
+msgstr "Afbeeldingsgrootte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/blender.py:387
+#, python-format
+msgid "Select Rotation for %s"
+msgstr "Draaiing kiezen voor %s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:60
+msgid "Effect"
+msgstr "Effect"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:68
+msgid "Blur, Sharpen, Emboss, Smooth, ..."
+msgstr "Vervagen, Verscherpen, Reliëf, Verzachten,..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:71
+msgid "Filter"
+msgstr "Filter"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:73
+msgid "Repeat"
+msgstr "Herhaal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/effect.py:74
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:57
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:59
+msgid "Amount"
+msgstr "Hoeveelheid"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/offset.py:47
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:77
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:48
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:53
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:104
+msgid "transform"
+msgstr "transformatie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/offset.py:48
+msgid "Offset by distance and wrap around"
+msgstr "Door afstand verplaatsen en omvouwen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:70
+msgid "Canvas"
+msgstr "Canvas"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:78
+msgid "Crop or expand the canvas without scaling"
+msgstr "Het canvas uitsnijden of uitbreiden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:81
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:52
+msgid "Canvas Width"
+msgstr "Breedte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:83
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:54
+msgid "Canvas Height"
+msgstr "Hoogte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:86
+msgid "Align Horizontal"
+msgstr "Horizontaal Uitlijnen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/canvas.py:87
+msgid "Align Vertical"
+msgstr "Verticaal Uitlijnen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:136
+msgid "Color to Alpha"
+msgstr "Kleur naar Alfa"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:143
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:53
+msgid "color"
+msgstr "kleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:144
+msgid "Make selected color transparent"
+msgstr "Maak geselecteerde kleur transparant"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:164
+msgid "Select Color By"
+msgstr "Kleur Kiezen Van"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/color_to_alpha.py:166
+msgid "Color Value"
+msgstr "Kleurwaarde"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/watermark.py:52
+msgid "Watermark"
+msgstr "Watermerk"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/watermark.py:59
+msgid "Apply with tiling, scaling and opacity"
+msgstr "Plaats een doorschijnend watermerk"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:47
+msgid "Desaturate"
+msgstr "Verzadigen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/desaturate.py:54
+msgid "Fade all colors to gray"
+msgstr "Alle kleuren in grijswaarden omzetten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:49
+msgid "Make the image smaller or bigger"
+msgstr "Maak de afbeelding kleiner of groter"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:57
+msgid "Constrain Proportions"
+msgstr "Proporties Behouden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:58
+msgid "Resample Image"
+msgstr "Methode"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/scale.py:59
+msgid "Scale Down Only"
+msgstr "Alleen kleiner schalen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:47
+msgid "Transpose"
+msgstr "Transponeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/transpose.py:54
+msgid "Flip or rotate 90 degrees"
+msgstr "Spiegelen of 90 graden draaien"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:127
+msgid "Grid"
+msgstr "Raster"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:136
+msgid "Make n x m matrix of image"
+msgstr "Een n x m matrix maken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:139
+msgid "Columns"
+msgstr "Kolommen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:140
+msgid "Rows"
+msgstr "Rijen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:141
+msgid "Scale to Keep Size"
+msgstr "Schalen om Afmetingen te Behouden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:142
+msgid "Column Line Width"
+msgstr "Kolomlijnbreedte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:144
+msgid "Row Line Width"
+msgstr "Rijlijnbreedte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:146
+msgid "Line Color"
+msgstr "Lijnkleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/grid.py:147
+msgid "Line Opacity"
+msgstr "Lijnondoorzichtheid"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:37
+msgid "Both"
+msgstr "Beide"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:39
+msgid "Vertical"
+msgstr "Verticaal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:98
+msgid "Mirror"
+msgstr "Spiegelen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:105
+msgid "Symmetrical tile texture"
+msgstr "Symmetrische tegeltextuur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mirror.py:108
+msgid "Direction"
+msgstr "Richting"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename.py:34
+msgid "Rename"
+msgstr "Hernoemen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename.py:38
+msgid "file"
+msgstr "bestand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename.py:39
+msgid "Rename the original image"
+msgstr "Origineel bestand hernoemen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:42
+msgid "Cross"
+msgstr "Kruis"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:43
+msgid "Rounded"
+msgstr "Afgerond"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:44
+msgid "Square"
+msgstr "Hoekig"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:132
+msgid "Round"
+msgstr "Afronden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:140
+msgid "Rounded or crossed corners"
+msgstr "Afgeronde of kruishoeken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:143
+msgid "Radius"
+msgstr "Radius"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:145
+msgid "Same Method for All Corners"
+msgstr "Dezelfde Methode voor Alle Hoeken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:147
+msgid "Top Left Corner"
+msgstr "Linkerbovenhoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:148
+msgid "Top Right Corner"
+msgstr "Rechterbovenhoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:149
+msgid "Bottom Left Corner"
+msgstr "Linkerbenedenhoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/round.py:151
+msgid "Bottom Right Corner"
+msgstr "Rechterbenedenhoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:79
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:90
+msgid "Highlight"
+msgstr "Oplichten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:87
+msgid "Apply a transparency highlight"
+msgstr "Een transparante oplichting toevoegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/highlight.py:91
+msgid "Resample Highlight"
+msgstr "Methode"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/background.py:72
+msgid "Put color under transparent image"
+msgstr "Plaats kleur onder transparant beeld"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/background.py:75
+msgid "Fill"
+msgstr "Vullen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/convert_mode.py:31
+msgid "Convert Mode"
+msgstr "Kleurmodus"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/convert_mode.py:37
+msgid "Convert the color mode of an image"
+msgstr "Kleurmodus veranderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/fit.py:44
+msgid "Fit"
+msgstr "Passend maken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/fit.py:52
+msgid "Downsize and crop image with fixed ratio"
+msgstr "Beeld met vaste ratio verkleinen en uitsnijden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/fit.py:62
+msgid "Bleed"
+msgstr "Afsnijden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/autocontrast.py:59
+msgid "Auto Contrast"
+msgstr "Autocontrast"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/autocontrast.py:63
+msgid "Maximize image contrast"
+msgstr "Beeldcontrast maximaliseren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/autocontrast.py:66
+msgid "Cutoff"
+msgstr "Marge"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:47
+msgid "Save"
+msgstr "Opslaan"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:53
+msgid "Save and convert to other types"
+msgstr "Bewaren en andere types converteren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:64
+msgid "Show Type Options"
+msgstr "Typeopties Tonen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:65
+msgid "PNG Optimize"
+msgstr "PNG Optimaliseren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:66
+msgid "JPEG Quality"
+msgstr "JPEG Kwaliteit"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:67
+msgid "JPEG Size Maximum"
+msgstr "JPEG Maximum Grootte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:69
+msgid "JPEG Size Tolerance"
+msgstr "JPEG Tolerantiegrootte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:71
+msgid "TIFF Compression"
+msgstr "TIFF Compressie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save.py:73
+msgid "Metadata"
+msgstr "Metadata"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/median.py:49
+msgid "Median"
+msgstr "Mediaan"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/median.py:56
+msgid "Copies the median pixel value"
+msgstr "De mediaan pixelwaarde kopiëren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:31
+msgid "Exif time"
+msgstr "Exiftijd"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:31
+msgid "File time"
+msgstr "Bestandstijd"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:31
+msgid "Exif and file"
+msgstr "Exif en bestand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:50
+msgid "Time Shift"
+msgstr "Tijdsverschuiving"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:55
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:35
+msgid "metadata"
+msgstr "metadata"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:56
+msgid "Shift time values of tags"
+msgstr "Tijd verschuiven in metadata"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:61
+msgid "Change"
+msgstr "Veranderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:62
+msgid "Use exif datetime"
+msgstr "Gebruik exif tijd en datum"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:63
+msgid "Seconds"
+msgstr "Seconden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:64
+msgid "Minutes"
+msgstr "Minuten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:65
+msgid "Hours"
+msgstr "Uren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:66
+msgid "Days"
+msgstr "Dagen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:67
+msgid "Months"
+msgstr "Maanden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:68
+msgid "Years"
+msgstr "Jaren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/time_shift.py:86
+msgid "Sorry, time shift can only handle dates before 2038-1-19"
+msgstr "Sorry, time shift kan enkel data verwerken van voor 19/1/2038."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:68
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:79
+msgid "Mask"
+msgstr "Masker"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:76
+msgid "Apply a transparency mask"
+msgstr "Pas een transparantie masker toe"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/mask.py:80
+msgid "Resample Mask"
+msgstr "Methode"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:69
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:79
+msgid "Text"
+msgstr "Tekst"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:76
+msgid "Write text at a given position"
+msgstr "Plaats een tekst op een bepaalde positie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:81
+msgid "Font"
+msgstr "Lettertype"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/text.py:82
+msgid "Size"
+msgstr "Grootte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:55
+msgid "Colorize"
+msgstr "Verkleuren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:62
+msgid "Colorize grayscale image"
+msgstr "Grijswaarden verkleuren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:65
+msgid "Black"
+msgstr "Zwart"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/colorize.py:66
+msgid "White"
+msgstr "Wit"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/copy.py:35
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/copy.py:40
+msgid "Copy the original image"
+msgstr "Origineel bestand kopiëren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/posterize.py:54
+msgid "Posterize"
+msgstr "Waarden beperken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/posterize.py:61
+msgid "Reduce the number of bits of color channel"
+msgstr "Het aantal kleurbits verminderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/posterize.py:64
+msgid "Bits"
+msgstr "Bits"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:31
+msgid "Write Tag"
+msgstr "Tag Schrijven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:36
+msgid "Write new value to a tag"
+msgstr "Schrijf een nieuwe waarde naar een tag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/write_tag.py:39
+msgid "Tag (Exif, Iptc)"
+msgstr "Tag (Exif, Iptc)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:36
+msgid "Equal for all sides"
+msgstr "Gelijk voor alle randen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:36
+msgid "Different for each side"
+msgstr "Verschillend voor elke rand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:101
+msgid "Draw border inside or outside"
+msgstr "Een rand binnen of buiten tekenen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/border.py:105
+msgid "Border Width"
+msgstr "Randdikte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rank.py:53
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rank.py:64
+msgid "Rank"
+msgstr "Rangschikking"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rank.py:60
+msgid "Copies the rank'th pixel value"
+msgstr "De gerankschikte pixelwaarde kopiëren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/solarize.py:52
+msgid "Solarize"
+msgstr "Solarisatie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/solarize.py:59
+msgid "Invert all pixel values above threshold"
+msgstr "Alle pixelwaarden boven drempel inverteren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/solarize.py:62
+msgid "Treshold"
+msgstr "Drempel"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/equalize.py:52
+msgid "Equalize"
+msgstr "Egaliseren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/equalize.py:59
+msgid "Equalize the image histogram"
+msgstr "Het beeldhistogram egaliseren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:35
+msgid "Automatic (use exif orientation)"
+msgstr "Automatisch (exif oriëntatie)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:37
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/crop.py:56
+msgid "Crop"
+msgstr "Uitsnijden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:38
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:53
+msgid "Rotate"
+msgstr "Draaien"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:39
+msgid "Flip"
+msgstr "Spiegelen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:40
+msgid "Grayscale"
+msgstr "Grijswaarden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:41
+msgid "Regenerate thumbnail"
+msgstr "Miniatuur hergenereren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:43
+msgid "Transverse"
+msgstr "Transverseren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:50
+#, python-format
+msgid "Lossless JPEG transformation does not work on a %s image:"
+msgstr "Verliesloze JPEG bewerking werkt niet met een %s beeld:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:77
+msgid "Transformation"
+msgstr "Transformatie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:79
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:63
+msgid "Angle"
+msgstr "Hoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:83
+msgid "Preserve Timestamp"
+msgstr "Tijdstempel Behouden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:84
+msgid "Show Advanced Options"
+msgstr "Geavanceerde opties tonen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:85
+msgid "Update JPEG"
+msgstr "JPEG Bijwerken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:86
+msgid "Update Exif Thumbnail"
+msgstr "Exif Miniatuur Bijwerken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:87
+msgid "Update Orientation Tag"
+msgstr "Oriëntatietag Bijwerken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:147
+msgid "Comments"
+msgstr "Opmerkingen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:154
+msgid "Transformation "
+msgstr "Bewerking "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:158
+msgid "Angle "
+msgstr "Hoek "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:160
+msgid "Direction "
+msgstr "Richting "
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:234
+msgid "Utility"
+msgstr "Hulpmiddel"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:287
+msgid "Lossless JPEG"
+msgstr "Verliesloos JPEG"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/lossless_jpeg.py:292
+msgid "Rotate, flip, grayscale and crop"
+msgstr "Draaien, spiegelen, vergrijzen en uitsnijden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/crop.py:63
+msgid "Crop the image"
+msgstr "Afbeelding uitsnijden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:51
+msgid "Tamogen"
+msgstr "Tamogen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:58
+msgid "Tone altering mosaic generator"
+msgstr "Mosaic door kleurtoonvariatie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:61
+msgid "Fill Type"
+msgstr "Soort Vulling"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:63
+msgid "Fill Image"
+msgstr "Afbeelding"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/tamogen.py:64
+msgid "Fill Folder"
+msgstr "Map"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:60
+msgid "Rotate with random angle"
+msgstr "Draai met een willekeurige hoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:65
+msgid "Expand"
+msgstr "Uitbreiden"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rotate.py:68
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:135
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:125
+msgid "Background Opacity"
+msgstr "Ondoorzichtigheid van Achtergrond"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/invert.py:48
+msgid "Invert"
+msgstr "Inverteren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/invert.py:55
+msgid "Invert the colors of an image"
+msgstr "Inverteert de kleuren van een afbeelding"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:36
+msgid "Geotag"
+msgstr "Geotag"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:42
+msgid "Add gps data"
+msgstr "Gps gegevens toevoegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:46
+msgid "GPS Data (gpx)"
+msgstr "GPS Data (gpx)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:47
+msgid "GPS Report (csv)"
+msgstr "GPS Rapport (csv)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geotag.py:48
+msgid "Time Shift (seconds)"
+msgstr "Tijdsverschuiving"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:115
+msgid "Reflection"
+msgstr "Weerspiegeling"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:123
+msgid "Drops a reflection"
+msgstr "Een weerspiegeling werpen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:126
+msgid "Depth"
+msgstr "Diepte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:128
+msgid "Gap"
+msgstr "Tussenruimte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:131
+msgid "Blur Reflection"
+msgstr "Weerspiegeling Vervagen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:132
+msgid "Scale Reflection"
+msgstr "Weerspiegeling Verschalen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/reflection.py:133
+msgid "Scale Method"
+msgstr "Verschaalmethode"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/common.py:49
+msgid "Common"
+msgstr "Meest voorkomend"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/common.py:56
+msgid "Copies the most common pixel value"
+msgstr "De meest voorkomende pixelwaarde kopiëren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/minimum.py:51
+msgid "Minimum"
+msgstr "Minimum"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/minimum.py:58
+msgid "Copies the minimum pixel value"
+msgstr "De minimum pixelwaarde kopiëren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:89
+msgid "Contour"
+msgstr "Omtrek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:96
+msgid "Draw a contour around image edges"
+msgstr "Omtrek tekenen rond beeldrand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:101
+msgid "Contour Color"
+msgstr "Omtrekkleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:102
+msgid "Fill Color"
+msgstr "Vulkleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contour.py:104
+msgid "Include image"
+msgstr "Afbeelding toevoegen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:51
+msgid "Top Stretched"
+msgstr "Boven Uitgerekt"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:53
+msgid "Bottom Stretched"
+msgstr "Beneden Uitgerekt"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:55
+msgid "Left Stretched"
+msgstr "Links Uitgerekt"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:57
+msgid "Right Stretched"
+msgstr "Rechts Uitgerekt"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:58
+msgid "Corner Top Left"
+msgstr "Linkerbovenhoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:59
+msgid "Corner Top Right"
+msgstr "Rechterbovenhoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:60
+msgid "Corner Bottom Left"
+msgstr "Linkerbenedenhoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:61
+msgid "Corner Bottom Right"
+msgstr "Rechterbenedenhoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:67
+msgid "User"
+msgstr "Gebruiker"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:104
+msgid "Perspective"
+msgstr "Perspectief"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:111
+msgid "Shear 2d or 3d"
+msgstr "Schuin in 2d of 3d"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:114
+msgid "Projection"
+msgstr "Projectie"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:116
+msgid "Left Shear Angle"
+msgstr "Schuine Hoek Links"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:117
+msgid "Top Shear Angle"
+msgstr "Shuine Hoek Boven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:118
+msgid "Bottom Shear Factor"
+msgstr "Schuine Factor Onder"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/perspective.py:119
+msgid "Right Shear Factor"
+msgstr "Schuine Factor Rechts"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contrast.py:65
+msgid "Contrast"
+msgstr "Contrast"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/contrast.py:72
+msgid "Adjust from grey to black & white"
+msgstr "Van grijs naar zwart & wit laten verlopen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save_metadata.py:34
+msgid "Save Tags"
+msgstr "Tags Opslaan"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/save_metadata.py:39
+msgid "Save only metadata (lossless)"
+msgstr "Alleen metadata opslaan"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:83
+msgid "Warm Up"
+msgstr "Opwarmen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:90
+msgid "Colorize midtones of an image"
+msgstr "Middentonen verkleuren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:93
+msgid "Midtone"
+msgstr "Middentoon"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/warm_up.py:94
+msgid "Brighten"
+msgstr "Lichter Maken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/delete_tags.py:30
+msgid "One"
+msgstr "Eén"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/delete_tags.py:34
+msgid "Delete Tags"
+msgstr "Tags Verwijderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/delete_tags.py:39
+msgid "Delete Exif or Iptc tags"
+msgstr "Exif of Iptc tags verwijderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/maximum.py:49
+msgid "Maximum"
+msgstr "Maximum"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/maximum.py:56
+msgid "Copies the maximum pixel value"
+msgstr "De maximum pixelwaarde kopiëren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/saturation.py:63
+msgid "Saturation"
+msgstr "Verzadiging"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/saturation.py:70
+msgid "Adjust saturation from grayscale to high"
+msgstr "Laat verzadiging verlopen van grijs naar hoog"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:32
+msgid "Rename Tag"
+msgstr "Tag Hernoemen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:37
+msgid "Rename a tag"
+msgstr "Een tag hernoemen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:40
+msgid "From (Exif, Iptc)"
+msgstr "Van (Exif, Iptc)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/rename_tag.py:42
+msgid "To (Exif, Iptc)"
+msgstr "Naar (Exif, Iptc)"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/brightness.py:67
+msgid "Brightness"
+msgstr "Helderheid"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/brightness.py:74
+msgid "Adjust brightness from black to white"
+msgstr "Pas helderheid aan van zwart naar wit"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:28
+msgid "3D Edge"
+msgstr "3D Rand"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:36
+msgid "Blur"
+msgstr "Vervagen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:40
+msgid "Bullet"
+msgstr "Embleem"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:48
+msgid "Charcoal"
+msgstr "Houtskool"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:51
+msgid "Motion Blur"
+msgstr "Bewegingsvervaging"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:55
+msgid "Pencil Sketch"
+msgstr "Potloodschets"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:59
+msgid "Paint"
+msgstr "Schilderen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:62
+msgid "Polaroid"
+msgstr "Polaroid"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:74
+msgid "Sharpen"
+msgstr "Verscherpen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:78
+msgid "Sigmoidal Contrast"
+msgstr "Sigmoïdaal Contrast"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:83
+msgid "Unsharp"
+msgstr "Ontscherpen"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:87
+msgid "Wave"
+msgstr "Golven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:99
+msgid "Imagemagick"
+msgstr "Imagemagick"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:105
+msgid "Blur, Polaroid, Shadow, Unsharp..."
+msgstr "Vervagen, Polaroid, Schaduw, Ontscherpen..."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:118
+msgid "Border Color"
+msgstr "Randkleur"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:120
+msgid "Caption"
+msgstr "Bijschrift"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:121
+msgid "Charcoal Radius"
+msgstr "Houtskoolstraal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:122
+msgid "Contrast Factor"
+msgstr "Contrastfactor"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:123
+msgid "Contrast Treshold"
+msgstr "Contrastdrempel"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:124
+msgid "Blur Radius"
+msgstr "Vervaagstraal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:125
+msgid "Blur Sigma"
+msgstr "Vervaagsigma"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:126
+msgid "Blur Angle"
+msgstr "Hoekvervaging"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:127
+msgid "Paint Radius"
+msgstr "Schilderstraal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:128
+msgid "Sharpen Radius"
+msgstr "Verscherpstraal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:129
+msgid "Sharpen Sigma"
+msgstr "Sigma"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:130
+msgid "Sketch Radius"
+msgstr "Straal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:131
+msgid "Sketch Sigma"
+msgstr "Sigma"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:132
+msgid "Sketch Angle"
+msgstr "Hoek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:133
+msgid "Unsharp Radius"
+msgstr "Straal"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:134
+msgid "Unsharp Sigma"
+msgstr "Sigma"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:135
+msgid "Wave Height"
+msgstr "Golfhoogte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/imagemagick.py:136
+msgid "Wave Length"
+msgstr "Golflengte"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/sketch.py:56
+msgid "Sketch"
+msgstr "Schets"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/sketch.py:64
+msgid "Transform to a grayscale pencil drawing"
+msgstr "Naar een zwart wit tekening omzetten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/sketch.py:67
+msgid "Details Degree"
+msgstr "Detailshoeveelheid"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:44
+msgid "Geek"
+msgstr "Geek"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:49
+msgid "Execute external command"
+msgstr "Externe opdracht uitvoeren"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:71
+msgid "Verify Program"
+msgstr "Programma nakijken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:72
+msgid "Verify Input"
+msgstr "Invoer nakijken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:73
+msgid "Verify Output"
+msgstr "Uitvoer nakijken"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/actions/geek.py:74
+msgid "Allow as last action"
+msgstr "Als laatste actie toelaten"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:30
+msgid ""
+"These extensions have been succesfully installed:\n"
+"\n"
+msgstr ""
+"Deze extensies zijn succesvol geïnstalleerd:\n"
+"\n"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:32
+msgid "Phatch did not succeed to install the requested feature."
+msgstr "Phatch is er niet in geslaagd dit te installeren."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:34
+msgid "Phatch tried to uninstall itself from the Windows Explorer."
+msgstr ""
+"Phatch heeft geprobeerd zichzelf te verwijderen van de Windows Verkenner."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/windows/droplet.py:52
+msgid "You need to install the Python Win32 Extensions for this feature."
+msgstr "Sorry, U moet hiervoor eerst de Python Win32 Extensies installeren."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:148
+msgid "Action list"
+msgstr "Actielijst"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:152
+msgid "No action list provided."
+msgstr "Geen actielijst gegeven"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:157
+msgid "Image paths"
+msgstr "Beeldlocaties"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:166
+msgid "Do you want to continue?"
+msgstr "Wilt U verdergaan?"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/console/console.py:178
+msgid "What do you want to do now?"
+msgstr "Wat wilt U nu doen?"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:52
+#, python-format
+msgid "If you restart %s, the action will appear in the context menu."
+msgstr "Als U %s herstart, zal de actie verschijnen in het context menu."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:56
+#, python-format
+msgid "Phatch could not install the action in %s:"
+msgstr "Phatch kon de actie niet installeren in %s:"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:157
+msgid "This requires also that the python-nautilus package is installed."
+msgstr "Dit vereist ook dat het pakket python-nautilus is geïnstalleerd."
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:158
+msgid "Batch process images with Phatch"
+msgstr "Verwerk massaal foto's met Phatch"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:170
+#, python-format
+msgid "Phatch with %s"
+msgstr "Phatch met %s"
+
+#: /home/stani/sync/python/phatch/repo/trunk/phatch/linux/droplet.py:182
+msgid "Process with recent Phatch action list"
+msgstr "Met recente Phatch actie lijst verwerken"
+
+#~ msgid "new"
+#~ msgstr "nieuw"
+
+#~ msgid "doesn't exist"
+#~ msgstr "bestaat niet"
+
+#~ msgid "for integer"
+#~ msgstr "voor geheel getal"
+
+#~ msgid "for float"
+#~ msgstr "voor reëel getal"
+
+#~ msgid "Create missing folders"
+#~ msgstr "Maak ontbrekende mappen aan"
+
+#~ msgid "&File"
+#~ msgstr "&Bestand"
+
+#~ msgid "Filename"
+#~ msgstr "Bestandsnaam"
+
+#~ msgid "Width"
+#~ msgstr "Breedte"
+
+#~ msgid "Height"
+#~ msgstr "Hoogte"
+
+#~ msgid "By offset"
+#~ msgstr "Door afstand"
+
+#~ msgid "I (32-bit integer pixels)"
+#~ msgstr "I (32-bit integer pixels)"
+
+#~ msgid "F (32-bit floating point pixels)"
+#~ msgstr "F (32-bit zwevende komma pixels)"
+
+#~ msgid "is zero, but should be non-zero."
+#~ msgstr "is nul, maar hoort niet-nul te zijn."
+
+#~ msgid "is negative, but should be positive"
+#~ msgstr "is negatief, maar hoort positief te zijn"
+
+#~ msgid "All selected image types"
+#~ msgstr "Alle geselecteerde afbeeldingstypen"
+
+#~ msgid "All default image types"
+#~ msgstr "Alle standaard afbeeldingstypen"
+
+#~ msgid "as Phatch will generate the user interface automatically."
+#~ msgstr "omdat Phatch automatisch de gebruikersomgeving zal genereren."
+
+#~ msgid "please email"
+#~ msgstr "email ons"
+
+#~ msgid "Open a python shell for introspection"
+#~ msgstr "Open een python shell voor introspectie"
+
+#~ msgid "&Python Shell...\tCtrl-P"
+#~ msgstr "&Python shell...\tCtrl-P"
+
+#~ msgid "&Write Action Plugin...\tCtrl-W"
+#~ msgstr "&Schrijf een actieplugin...\tCtrl-W"
+
+#~ msgid "Write a new action plugin for Phatch with PIL."
+#~ msgstr "Schrijf een nieuwe actieplugin voor Phatch met PIL."
+
+#~ msgid "&Skip To Next Image"
+#~ msgstr "&Naar volgende afbeelding"
+
+#~ msgid "&Ignore Error"
+#~ msgstr "&Fout negeren"
+
+#~ msgid "&Default Types"
+#~ msgstr "&Standaardtypen"
+
+#~ msgid "Phatch Version"
+#~ msgstr "Phatch-versie"
+
+#~ msgid "Save an image"
+#~ msgstr "Een afbeelding opslaan"
+
+#~ msgid "Grayscale (8-bit pixels, black and white)"
+#~ msgstr "Grijswaarden (8-bit pixels,zwart/wit)"
+
+#~ msgid "for boolean"
+#~ msgstr "voor booleaanse"
+
+#~ msgid "is invalid."
+#~ msgstr "is ongeldig."
+
+#~ msgid "does not exist."
+#~ msgstr "bestaat niet."
+
+#~ msgid "Web&site...\tCtrl-I"
+#~ msgstr "Web&site...\tCtrl-I"
+
+#~ msgid "border"
+#~ msgstr "rand"
+
+#~ msgid "Crop or add border to all sides"
+#~ msgstr "Rand aan alle zijden afsnijden of toevoegen"
+
+#~ msgid "Copy the image file"
+#~ msgstr "Het beeldbestand kopiëren"
+
+#~ msgid "Rename the image file"
+#~ msgstr "Het beeldbestand hernoemen"
+
+#~ msgid "Resample Shadow"
+#~ msgstr "Methode"
+
+#~ msgid "watermark"
+#~ msgstr "watermerk"
+
+#~ msgid "january"
+#~ msgstr "januari"
+
+#~ msgid "february"
+#~ msgstr "februari"
+
+#~ msgid "march"
+#~ msgstr "maart"
+
+#~ msgid "april"
+#~ msgstr "april"
+
+#~ msgid "may"
+#~ msgstr "mei"
+
+#~ msgid "june"
+#~ msgstr "juni"
+
+#~ msgid "july"
+#~ msgstr "juli"
+
+#~ msgid "august"
+#~ msgstr "augustus"
+
+#~ msgid "september"
+#~ msgstr "september"
+
+#~ msgid "october"
+#~ msgstr "oktober"
+
+#~ msgid "november"
+#~ msgstr "november"
+
+#~ msgid "december"
+#~ msgstr "december"
+
+#~ msgid "monday"
+#~ msgstr "maandag"
+
+#~ msgid "tuesday"
+#~ msgstr "dinsdag"
+
+#~ msgid "wednesday"
+#~ msgstr "woensdag"
+
+#~ msgid "thursday"
+#~ msgstr "donderdag"
+
+#~ msgid "friday"
+#~ msgstr "vrijdag"
+
+#~ msgid "saturday"
+#~ msgstr "zaterdag"
+
+#~ msgid "sunday"
+#~ msgstr "zondag"
+
+#~ msgid "the variable"
+#~ msgstr "de variabele"
+
+#~ msgid "invalid syntax"
+#~ msgstr "ongeldige syntax"
+
+#~ msgid "invalid literal"
+#~ msgstr "ongeldige waarde"
+
+#~ msgid "the integer value"
+#~ msgstr "de waarde van het gehele getal"
+
+#~ msgid "the float value"
+#~ msgstr "de waarde van het reële getal"
+
+#~ msgid "the file extension"
+#~ msgstr "de bestandsextensie"
+
+#~ msgid "a filename with a valid extension was expected."
+#~ msgstr "een bestandsnaam met een geldige extensie was verwacht."
+
+#~ msgid "the filename"
+#~ msgstr "de bestandsnaam"
+
+#~ msgid "Save metadata"
+#~ msgstr "Metadata opslaan"
+
+#, python-format
+#~ msgid ""
+#~ "This action list was made by an older %(name)s version.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Deze actielijst is door een oudere %(name)s versie gemaakt.\n"
+#~ "\n"
+
+#~ msgid "drag & drop any image here"
+#~ msgstr "versleep een beeld naar hier"
+
+#~ msgid "&Preview"
+#~ msgstr "&Voorvertoning"
+
+#~ msgid "Open image file"
+#~ msgstr "Een beeldbestand openen"
+
+#~ msgid "Open image url"
+#~ msgstr "Een url van een afbeelding openen"
+
+#~ msgid "Copy cell text"
+#~ msgstr "Celtekst kopiëren"
+
+#~ msgid "Save metadata (requires exif & iptc plugin)"
+#~ msgstr "Bewaar metadata (exif & iptc plugin vereist)"
+
+#~ msgid "Do not create missing folders"
+#~ msgstr "Maak ontbrekende mappen niet aan"
+
+#~ msgid "&Recent"
+#~ msgstr "&Recent"
+
+#~ msgid "&Export..."
+#~ msgstr "&Exporteren..."
+
+#~ msgid "Scale down only"
+#~ msgstr "Alleen verkleinen"
+
+#~ msgid "See Tools>Show Log for more details."
+#~ msgstr "Zie Hulpmiddelen>Logboek Weergeven voor meer details."
+
+#~ msgid "The droplet command for this actionlist was copied to the clipboard."
+#~ msgstr ""
+#~ "De vangnetopdracht voor deze actielijst is naar het klembord gekopieerd."
+
+#~ msgid "PHoto bATCH Processor & Renamer"
+#~ msgstr "Foto Batch Bewerker & Hernoemer"
+
+#~ msgid "Phatch could not create the droplet:"
+#~ msgstr "Phatch kon het vangnet niet aanmaken:"
+
+#~ msgid "Only an image file is allowed."
+#~ msgstr "Alleen een beeldbestand is toegestaan."
+
+#~ msgid "&Image Inspector (exif)\tCtrl-Space"
+#~ msgstr "Beeld&inspecteur (exif)\tCtrl-Space"
+
+#~ msgid "JPG Quality"
+#~ msgstr "JPG Kwaliteit"
+
+#~ msgid "colors"
+#~ msgstr "kleuren"
+
+#~ msgid "Auto crop"
+#~ msgstr "Automatisch uitsnijden"
+
+#~ msgid "Crop Border"
+#~ msgstr "Uitsnijrand"
+
+#~ msgid "Contour color"
+#~ msgstr "Omtrekkleur"
+
+#~ msgid "JPG Size Maximum"
+#~ msgstr "JPG Maximumgrootte"
+
+#~ msgid "PNG Size Tolerance"
+#~ msgstr "PNG Tolerantiegrootte"
+
+#, python-format
+#~ msgid ""
+#~ "Sorry, the action list seems incompatible with\n"
+#~ "the current version (%(version)s) of %(name)s."
+#~ msgstr ""
+#~ "Sorry, de actielijst lijkt niet compatibel met\n"
+#~ "de huidige versie (%(version)s) van %(name)s."
+
+#, python-format
+#~ msgid ""
+#~ "Sorry, the values of these options will be lost in\n"
+#~ "the current version (%(version)s) of %(name)s."
+#~ msgstr ""
+#~ "Sorry, de waarden van deze opties zullen verloren geraken in\n"
+#~ "de huidige versie (%(version)s) van %(name)s."
+
+#, python-format
+#~ msgid ""
+#~ "Phatch needs 'python-wxversion' and 'python-wxgtk%(recommended)s' (or at "
+#~ "least 'python-wxgtk%(minimal)s')."
+#~ msgstr ""
+#~ "Phatch heeft 'python-wxversion' en 'python-wxgtk%(recommended)s' nodig (of "
+#~ "minstens 'python-wxgtk%(minimal)s')."
+
+#~ msgid "Sorry"
+#~ msgstr "Sorry"
+
+#~ msgid "is not a valid path"
+#~ msgstr "is geen geldig pad"
+
+#~ msgid "the current version (%(version)s) of %(name)s."
+#~ msgstr "de huidige versie (%(version)s) van %(name)s."
+
+#~ msgid "Shell"
+#~ msgstr "Shell"
+
+#~ msgid "or at least"
+#~ msgstr "of minstens"
+
+#~ msgid "can not be found, but is required"
+#~ msgstr "kan niet worden gevonden, maar is vereist"
+
+#~ msgid "and"
+#~ msgstr "en"
+
+#~ msgid "but you have"
+#~ msgstr "maar u heeft"
+
+#~ msgid "installed"
+#~ msgstr "geïnstalleerd"
+
+#~ msgid "Outline"
+#~ msgstr "Omtrek"
+
+#~ msgid "Starting..."
+#~ msgstr "Bezig met starten..."

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   version="1.0"
+   sodipodi:docname="20_round.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-630.71428"
+     inkscape:cy="177.14286"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1385"
+     inkscape:window-height="827"
+     inkscape:window-x="0"
+     inkscape:window-y="25" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Nadia Alramli</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://www.gnu.org/copyleft/gpl.html" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.04597341999999993;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2419"
+       width="510.95404"
+       height="510.95404"
+       x="0.52298671"
+       y="0.5230003" />
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path2397"
+       sodipodi:sides="20"
+       sodipodi:cx="134.28571"
+       sodipodi:cy="86.285713"
+       sodipodi:r1="398.87598"
+       sodipodi:r2="373.48536"
+       sodipodi:arg1="1.5707963"
+       sodipodi:arg2="1.7278759"
+       inkscape:flatsided="false"
+       inkscape:rounded="0.3641764"
+       inkscape:randomized="0"
+       d="M 134.28572,485.16169 C 110.36921,485.16169 99.481793,458.91421 75.859734,455.17284 C 52.237675,451.43148 33.772214,473.02992 11.02626,465.63931 C -11.719693,458.24871 -13.963319,429.92147 -35.273087,419.0636 C -56.582854,408.20573 -80.818838,423.04093 -100.1677,408.98316 C -119.51657,394.92539 -112.89678,367.29127 -129.80831,350.37975 C -146.71984,333.46822 -174.35396,340.088 -188.41173,320.73914 C -202.4695,301.39028 -187.63431,277.15429 -198.49217,255.84452 C -209.35004,234.53476 -237.67728,232.29113 -245.06789,209.54518 C -252.4585,186.79923 -230.86005,168.33376 -234.60142,144.7117 C -238.34279,121.08965 -264.59027,110.20223 -264.59027,86.285724 C -264.59027,62.369213 -238.34279,51.481801 -234.60142,27.859742 C -230.86006,4.2376829 -252.4585,-14.227778 -245.06789,-36.973732 C -237.67729,-59.719686 -209.35005,-61.963312 -198.49218,-83.273079 C -187.63432,-104.58285 -202.46952,-128.81883 -188.41174,-148.16769 C -174.35397,-167.51656 -146.71985,-160.89678 -129.80833,-177.8083 C -112.8968,-194.71983 -119.51658,-222.35395 -100.16772,-236.41172 C -80.818856,-250.4695 -56.582872,-235.6343 -35.273105,-246.49217 C -13.963338,-257.35004 -11.719713,-285.67727 11.02624,-293.06788 C 33.772193,-300.45849 52.237656,-278.86005 75.859715,-282.60141 C 99.481773,-286.34278 110.36918,-312.59026 134.28569,-312.59026 C 158.20221,-312.59026 169.08962,-286.34278 192.71168,-282.60142 C 216.33374,-278.86005 234.7992,-300.45849 257.54515,-293.06789 C 280.2911,-285.67728 282.53473,-257.35004 303.8445,-246.49218 C 325.15427,-235.63431 349.39025,-250.46951 368.73911,-236.41174 C 388.08798,-222.35396 381.4682,-194.71985 398.37972,-177.80832 C 415.29125,-160.89679 442.92537,-167.51658 456.98314,-148.16771 C 471.04092,-128.81885 456.20572,-104.58286 467.06359,-83.273097 C 477.92146,-61.96333 506.24869,-59.719706 513.6393,-36.973752 C 521.02991,-14.227799 499.43146,4.2376634 503.17283,27.859722 C 506.9142,51.481781 533.16168,62.369192 533.16168,86.285703 C 533.16168,110.20221 506.9142,121.08963 503.17283,144.71168 C 499.43147,168.33374 521.02991,186.7992 513.63931,209.54516 C 506.2487,232.29111 477.92146,234.53474 467.0636,255.84451 C 456.20573,277.15427 471.04093,301.39026 456.98316,320.73912 C 442.92538,340.08799 415.29126,333.4682 398.37974,350.37973 C 381.46821,367.29126 388.08799,394.92538 368.73913,408.98315 C 349.39027,423.04092 325.15428,408.20572 303.84452,419.06359 C 282.53475,429.92146 280.29112,458.2487 257.54517,465.63931 C 234.79922,473.02992 216.33376,451.43147 192.7117,455.17284 C 169.08964,458.91421 158.20223,485.16169 134.28572,485.16169 z"
+       transform="matrix(-0.6418035,0,0,-0.6418035,342.18503,311.37848)" />
+  </g>
+</svg>

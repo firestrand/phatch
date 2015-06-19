@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>listData &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="metadata" href="lib.metadata.html" />
+    <link rel="prev" title="nautilusExtension" href="lib.linux.nautilusExtension.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.metadata.html" title="metadata"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.linux.nautilusExtension.html" title="nautilusExtension"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.listData">
+<h1>listData<a class="headerlink" href="#module-lib.listData" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lib.listData.DataDict">
+<em class="property">
+class </em><tt class="descclassname">lib.listData.</tt><tt class="descname">DataDict</tt><big>(</big><em>data=None</em>, <em>headers=None</em>, <em>id='id'</em><big>)</big><a class="headerlink" href="#lib.listData.DataDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.listData.DataTuple" class="reference" href="#lib.listData.DataTuple"><tt class="xref docutils literal"><span class="pre">lib.listData.DataTuple</span></tt></a></p>
+<dl class="method">
+<dt id="lib.listData.DataDict.get">
+<tt class="descname">get</tt><big>(</big><em>row</em>, <em>col</em>, <em>default=''</em><big>)</big><a class="headerlink" href="#lib.listData.DataDict.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the cell value specified by the row and column index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>row</em> (int) &#8211; index of row</li>
+<li><em>col</em> (int) &#8211; index of column</li>
+<li><em>default</em> &#8211; value to return if column header does not exist</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">cell value</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">DataDict</span><span class="p">([{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="mf">0</span><span class="p">,</span> <span class="s">&#39;hello&#39;</span><span class="p">:</span><span class="s">&#39;world&#39;</span><span class="p">},</span>
+<span class="gp">... </span><span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="mf">1</span><span class="p">,</span> <span class="s">&#39;foo&#39;</span><span class="p">:</span><span class="s">&#39;bar&#39;</span><span class="p">}])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get_headers</span><span class="p">()</span>
+<span class="go">[&#39;foo&#39;, &#39;hello&#39;, &#39;id&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">)</span>
+<span class="go">&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">)</span>
+<span class="go">&#39;world&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">0</span><span class="p">)</span>
+<span class="go">&#39;bar&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">)</span>
+<span class="go">&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.listData.DataDict.get_by_header">
+<tt class="descname">get_by_header</tt><big>(</big><em>row</em>, <em>header</em>, <em>default=''</em><big>)</big><a class="headerlink" href="#lib.listData.DataDict.get_by_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the cell value specified by the row and column header.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>row</em> (int) &#8211; index of row</li>
+<li><em>col</em> (string) &#8211; column header</li>
+<li><em>default</em> &#8211; value to return if column header does not exist</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">cell value</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">DataDict</span><span class="p">([{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="mf">0</span><span class="p">,</span> <span class="s">&#39;hello&#39;</span><span class="p">:</span><span class="s">&#39;world&#39;</span><span class="p">},</span>
+<span class="gp">... </span><span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="mf">1</span><span class="p">,</span> <span class="s">&#39;foo&#39;</span><span class="p">:</span><span class="s">&#39;bar&#39;</span><span class="p">}],</span> <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span><span class="s">&#39;hello&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get_by_header</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="s">&#39;foo&#39;</span><span class="p">)</span>
+<span class="go">&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get_by_header</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="s">&#39;hello&#39;</span><span class="p">)</span>
+<span class="go">&#39;world&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get_by_header</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="s">&#39;foo&#39;</span><span class="p">)</span>
+<span class="go">&#39;bar&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.listData.DataDict.get_headers">
+<tt class="descname">get_headers</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.listData.DataDict.get_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the headers of the columns.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">headers of the columns</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">DataDict</span><span class="p">([{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="mf">0</span><span class="p">,</span> <span class="s">&#39;hello&#39;</span><span class="p">:</span><span class="s">&#39;world&#39;</span><span class="p">},</span>
+<span class="gp">... </span><span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="mf">1</span><span class="p">,</span> <span class="s">&#39;foo&#39;</span><span class="p">:</span><span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="s">&#39;hello&#39;</span><span class="p">:</span><span class="s">&#39;planet&#39;</span><span class="p">}])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get_headers</span><span class="p">()</span>
+<span class="go">[&#39;foo&#39;, &#39;hello&#39;, &#39;id&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.listData.DataDict.sort">
+<tt class="descname">sort</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#lib.listData.DataDict.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts the data in place.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">DataDict</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s">&#39;path&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">([{</span><span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;id1&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;f1&#39;</span><span class="p">},</span>
+<span class="gp">... </span><span class="p">{</span><span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;id0&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;f2&#39;</span><span class="p">}])</span>
+<span class="go">[{&#39;path&#39;: &#39;id0&#39;, &#39;name&#39;: &#39;f2&#39;}, {&#39;path&#39;: &#39;id1&#39;, &#39;name&#39;: &#39;f1&#39;}]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.listData.DataDict.update_headers">
+<tt class="descname">update_headers</tt><big>(</big><em>headers=None</em>, <em>all=False</em><big>)</big><a class="headerlink" href="#lib.listData.DataDict.update_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change sequence and find all headers (dict keys) in the data.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">DataDict</span><span class="p">([{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="mf">0</span><span class="p">,</span> <span class="s">&#39;hello&#39;</span><span class="p">:</span><span class="s">&#39;world&#39;</span><span class="p">},</span>
+<span class="gp">... </span><span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="mf">1</span><span class="p">,</span> <span class="s">&#39;foo&#39;</span><span class="p">:</span><span class="s">&#39;bar&#39;</span><span class="p">}])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get_headers</span><span class="p">()</span>
+<span class="go">[&#39;foo&#39;, &#39;hello&#39;, &#39;id&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">update_headers</span><span class="p">([</span><span class="s">&#39;hello&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get_headers</span><span class="p">()</span>
+<span class="go">[&#39;hello&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">update_headers</span><span class="p">([</span><span class="s">&#39;hello&#39;</span><span class="p">],</span> <span class="n">all</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">_headers</span>
+<span class="go">[&#39;hello&#39;, &#39;foo&#39;, &#39;id&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.listData.DataTuple">
+<em class="property">
+class </em><tt class="descclassname">lib.listData.</tt><tt class="descname">DataTuple</tt><big>(</big><em>data=None</em><big>)</big><a class="headerlink" href="#lib.listData.DataTuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="lib.listData.DataTuple.get">
+<tt class="descname">get</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#lib.listData.DataTuple.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the cell value specified by the row and col.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>row</em> (int) &#8211; index of row</li>
+<li><em>col</em> (int) &#8211; index of column</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">cell value</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">DataTuple</span><span class="p">([(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">6</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">)</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.listData.DataTuple.get_headers">
+<tt class="descname">get_headers</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.listData.DataTuple.get_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the headers of the columns.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">headers of the columns</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">DataTuple</span><span class="p">([(</span><span class="s">&#39;id1&#39;</span><span class="p">,</span><span class="s">&#39;f1&#39;</span><span class="p">),(</span><span class="s">&#39;id0&#39;</span><span class="p">,</span><span class="s">&#39;f2&#39;</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get_headers</span><span class="p">()</span>
+<span class="go">[&#39;0&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.listData.DataTuple.set_data">
+<tt class="descname">set_data</tt><big>(</big><em>data</em>, <em>amount=None</em>, <em>sort=True</em><big>)</big><a class="headerlink" href="#lib.listData.DataTuple.set_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>The data is organised as tuple/list of tuples. Amount is how much
+is visible and not necessarily the length of the data tuple!</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>data</em> (tuple/list) &#8211; data organized in rows</li>
+<li><em>amount</em> (int) &#8211; amount of rows visible</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">whether the underlying data has really changed</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">DataTuple</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">set_data</span><span class="p">([(</span><span class="mf">6</span><span class="p">,</span> <span class="p">),(</span><span class="mf">5</span><span class="p">,</span> <span class="p">)],</span> <span class="n">amount</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">set_data</span><span class="p">([(</span><span class="mf">6</span><span class="p">,</span> <span class="p">),(</span><span class="mf">5</span><span class="p">,</span> <span class="p">)],</span> <span class="n">amount</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="n">data</span><span class="o">.</span><span class="n">amount</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.listData.DataTuple.set_filter">
+<tt class="descname">set_filter</tt><big>(</big><em>filter</em><big>)</big><a class="headerlink" href="#lib.listData.DataTuple.set_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters the data which is visible. It puts the visible data
+rows to the front and limits the amount. The visible data is
+automatically sorted.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filter</em> (string) &#8211; substring which should appear in the data rows</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">whether the filter has really changed</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">DataTuple</span><span class="p">([(</span><span class="mf">6</span><span class="p">,</span> <span class="p">),(</span><span class="mf">5</span><span class="p">,</span> <span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">set_filter</span><span class="p">(</span><span class="s">&#39;6&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">set_filter</span><span class="p">(</span><span class="s">&#39;6&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">amount</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.listData.DataTuple.sort">
+<tt class="descname">sort</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#lib.listData.DataTuple.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts the data in place.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">DataTuple</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">([(</span><span class="s">&#39;id1&#39;</span><span class="p">,</span><span class="s">&#39;f1&#39;</span><span class="p">),(</span><span class="s">&#39;id0&#39;</span><span class="p">,</span><span class="s">&#39;f2&#39;</span><span class="p">)])</span>
+<span class="go">[(&#39;id0&#39;, &#39;f2&#39;), (&#39;id1&#39;, &#39;f1&#39;)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.listData.files_data_dict">
+<tt class="descclassname">lib.listData.</tt><tt class="descname">files_data_dict</tt><big>(</big><em>files</em><big>)</big><a class="headerlink" href="#lib.listData.files_data_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turns a flat file list into a hierarchical one , of which the data
+values can be fed to the DataDict Class (not the whole hierarchy).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>files</em> (list) &#8211; rows which consists of tuples, each tuples contains
+the full filename as the first element before other data</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">folder hierarchy</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">files</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;f0/i00&#39;</span><span class="p">,</span> <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="s">&#39;5kb&#39;</span><span class="p">},</span>
+<span class="gp">... </span><span class="p">{</span><span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;f0/i01&#39;</span><span class="p">,</span> <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="s">&#39;1kb&#39;</span><span class="p">},</span>
+<span class="gp">... </span><span class="p">{</span><span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;f1/i10&#39;</span><span class="p">,</span> <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="s">&#39;2kb&#39;</span><span class="p">},</span>
+<span class="gp">... </span><span class="p">{</span><span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;f1/f2/i120&#39;</span><span class="p">,</span> <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="s">&#39;3kb&#39;</span><span class="p">}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">files_data_dict</span><span class="p">(</span><span class="n">files</span><span class="p">),</span><span class="n">width</span><span class="o">=</span><span class="mf">60</span><span class="p">)</span>
+<span class="go">{&#39;f0/&#39;: {&#39;children&#39;: {},</span>
+<span class="go">         &#39;data&#39;: [{&#39;path&#39;: &#39;f0/i00&#39;, &#39;size&#39;: &#39;5kb&#39;},</span>
+<span class="go">                  {&#39;path&#39;: &#39;f0/i01&#39;, &#39;size&#39;: &#39;1kb&#39;}]},</span>
+<span class="go"> &#39;f1/&#39;: {&#39;children&#39;: {},</span>
+<span class="go">         &#39;data&#39;: [{&#39;path&#39;: &#39;f1/i10&#39;, &#39;size&#39;: &#39;2kb&#39;}]},</span>
+<span class="go"> &#39;f1/f2/&#39;: {&#39;children&#39;: {},</span>
+<span class="go">            &#39;data&#39;: [{&#39;path&#39;: &#39;f1/f2/i120&#39;,</span>
+<span class="go">                      &#39;size&#39;: &#39;3kb&#39;}]}}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.listData.files_data_tuple">
+<tt class="descclassname">lib.listData.</tt><tt class="descname">files_data_tuple</tt><big>(</big><em>files</em><big>)</big><a class="headerlink" href="#lib.listData.files_data_tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turns a flat file list into a hierarchical one, of which the data
+values can be fed to the DataTuple Class (not the whole hierarchy).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>files</em> (list) &#8211; rows which consists of tuples, each tuples contains
+the full filename as the first element before other data</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">folder hierarchy</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">files</span> <span class="o">=</span> <span class="p">[(</span><span class="s">&#39;f0/i00&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;f0/i01&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">(</span><span class="s">&#39;f1/i10&#39;</span><span class="p">,</span> <span class="mf">2</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;f1/f2/i120&#39;</span><span class="p">,</span> <span class="mf">3</span><span class="p">),]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">files_data_tuple</span><span class="p">(</span><span class="n">files</span><span class="p">),</span><span class="n">width</span><span class="o">=</span><span class="mf">60</span><span class="p">)</span>
+<span class="go">{&#39;f0/&#39;: {&#39;children&#39;: {},</span>
+<span class="go">         &#39;data&#39;: [(&#39;f0/i00&#39;, 0), (&#39;f0/i01&#39;, 1)]},</span>
+<span class="go"> &#39;f1/&#39;: {&#39;children&#39;: {}, &#39;data&#39;: [(&#39;f1/i10&#39;, 2)]},</span>
+<span class="go"> &#39;f1/f2/&#39;: {&#39;children&#39;: {}, &#39;data&#39;: [(&#39;f1/f2/i120&#39;, 3)]}}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.linux.nautilusExtension.html"
+                                  title="previous chapter">nautilusExtension</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.metadata.html"
+                                  title="next chapter">metadata</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.metadata.html" title="metadata"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.linux.nautilusExtension.html" title="nautilusExtension"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

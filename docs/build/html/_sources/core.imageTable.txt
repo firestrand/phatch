@@ -1,0 +1,7 @@
+imageTable
+**********
+
+.. automodule:: core.imageTable
+   :members:
+   :undoc-members:
+   :show-inheritance:

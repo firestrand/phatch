@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="next" title="Release Manager" href="release.html" />
+    <link rel="prev" title="License and Copyright" href="license.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="release.html" title="Release Manager"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="license.html" title="License and Copyright"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<p>Phatch uses two strategies for testing:</p>
+<ul class="simple">
+<li>acceptance testing for all possible image processing pipelines</li>
+<li>unit tests by doctests</li>
+</ul>
+<div class="section" id="acceptance-testing">
+<h2>Acceptance testing<a class="headerlink" href="#acceptance-testing" title="Permalink to this headline">¶</a></h2>
+<p>The acceptance testing uses the images inside the <tt class="docutils literal"><span class="pre">tests/input</span></tt> folder. To get all options for image acceptance testing, run this command from the <tt class="docutils literal"><span class="pre">tests</span></tt> folder:</p>
+<div class="highlight-python"><pre>python acceptance_test.py --help</pre>
+</div>
+<p>Here are some examples, choose one of the two listed commands ...</p>
+<ul>
+<li><p class="first">To run all tests use:</p>
+<div class="highlight-python"><pre>python acceptance_test.py --all
+python acceptance_test.py -a</pre>
+</div>
+</li>
+<li><p class="first">To run only the library tests use:</p>
+<div class="highlight-python"><pre>python acceptance_test.py --tag=library
+python acceptance_test.py -t library</pre>
+</div>
+</li>
+<li><p class="first">To run only tests with a certain tag use:</p>
+<div class="highlight-python"><pre>python acceptance_test.py --tag=tag_name
+python acceptance_test.py -t tag_name</pre>
+</div>
+</li>
+<li><p class="first">To test only one action:</p>
+<div class="highlight-python"><pre>python acceptance_test.py --select=action_name
+python acceptance_test.py -s action_name</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="doctests">
+<h2>Doctests<a class="headerlink" href="#doctests" title="Permalink to this headline">¶</a></h2>
+<p>We chose for doctests as it saves time by being both unit tests and documentation. Please add doctests to the code you contribute.</p>
+<p>Run the doctests inside the <tt class="docutils literal"><span class="pre">tests</span></tt> folder:</p>
+<div class="highlight-python"><pre>python doc_test.py</pre>
+</div>
+<p>This will automatically also be run by the bzr precommit hook.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference" href="">Testing</a><ul>
+<li><a class="reference" href="#acceptance-testing">Acceptance testing</a></li>
+<li><a class="reference" href="#doctests">Doctests</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="license.html"
+                                  title="previous chapter">License and Copyright</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="release.html"
+                                  title="next chapter">Release Manager</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="release.html" title="Release Manager"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="license.html" title="License and Copyright"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

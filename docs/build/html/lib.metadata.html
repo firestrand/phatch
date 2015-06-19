@@ -1,0 +1,1492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>metadata &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="metadataTest" href="lib.metadataTest.html" />
+    <link rel="prev" title="listData" href="lib.listData.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.metadataTest.html" title="metadataTest"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.listData.html" title="listData"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.metadata">
+<h1>metadata<a class="headerlink" href="#module-lib.metadata" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lib.metadata.DumpInfo">
+<em class="property">
+class </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">DumpInfo</tt><big>(</big><em>d=None</em><big>)</big><a class="headerlink" href="#lib.metadata.DumpInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">dict</span></tt></p>
+<p>Dictionary like object which tracks changes.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">DumpInfo</span><span class="p">({</span><span class="s">&#39;hello&#39;</span><span class="p">:</span> <span class="s">&#39;world&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;bar&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">changed</span>
+<span class="go">[&#39;foo&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lib.metadata.Info">
+<tt class="descclassname">lib.metadata.</tt><tt class="descname">Info</tt><a class="headerlink" href="#lib.metadata.Info" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="lib.metadata.InfoZexif" class="reference" href="#lib.metadata.InfoZexif"><tt class="xref docutils literal"><span class="pre">InfoZexif</span></tt></a></dd></dl>
+
+<dl class="class">
+<dt id="lib.metadata.InfoEXIF">
+<em class="property">
+class </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">InfoEXIF</tt><big>(</big><em>source=None</em>, <em>vars=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoEXIF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.metadata._InfoCache</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;../tests/input/exĩf ïptç.jpg&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoEXIF</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;EXIF_Thumbnail_Compression&#39;</span><span class="p">]</span>
+<span class="go">(0x0103) Short=JPEG (old-style) @ 3402</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;EXIF_Thumbnail_Compression&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyexiv2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">other</span> <span class="kn">import</span> <span class="n">EXIF</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exif</span> <span class="o">=</span> <span class="n">EXIF</span><span class="o">.</span><span class="n">process_file</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoEXIF</span><span class="p">(</span><span class="n">exif</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;orientation&#39;</span><span class="p">]</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s">&#39;EXIF_Image_Orientation&#39;</span><span class="p">])</span>
+<span class="go">&#39;Rotated 90 CCW&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;EXIF_Thumbnail_Compression&#39;</span><span class="p">]</span>
+<span class="go">(0x0103) Short=JPEG (old-style) @ 3402</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;EXIF_Image_Orientation&#39;, &#39;EXIF_Thumbnail_Compression&#39;, &#39;orientation&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">extract_all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;EXIF_ApertureValue&#39;,</span>
+<span class="go"> &#39;EXIF_ColorSpace&#39;,</span>
+<span class="go"> &#39;EXIF_ComponentsConfiguration&#39;,</span>
+<span class="go"> &#39;EXIF_CompressedBitsPerPixel&#39;,</span>
+<span class="go"> &#39;EXIF_CustomRendered&#39;,</span>
+<span class="go"> &#39;EXIF_DateTimeDigitized&#39;,</span>
+<span class="go"> &#39;EXIF_DateTimeOriginal&#39;,</span>
+<span class="go"> &#39;EXIF_DigitalZoomRatio&#39;,</span>
+<span class="go"> &#39;EXIF_ExifImageLength&#39;,</span>
+<span class="go"> &#39;EXIF_ExifImageWidth&#39;,</span>
+<span class="go"> &#39;EXIF_ExifVersion&#39;,</span>
+<span class="go"> &#39;EXIF_ExposureBiasValue&#39;,</span>
+<span class="go"> &#39;EXIF_ExposureMode&#39;,</span>
+<span class="go"> &#39;EXIF_ExposureTime&#39;,</span>
+<span class="go"> &#39;EXIF_FNumber&#39;,</span>
+<span class="go"> &#39;EXIF_FileSource&#39;,</span>
+<span class="go"> &#39;EXIF_Flash&#39;,</span>
+<span class="go"> &#39;EXIF_FlashPixVersion&#39;,</span>
+<span class="go"> &#39;EXIF_FocalLength&#39;,</span>
+<span class="go"> &#39;EXIF_FocalPlaneResolutionUnit&#39;,</span>
+<span class="go"> &#39;EXIF_FocalPlaneXResolution&#39;,</span>
+<span class="go"> &#39;EXIF_FocalPlaneYResolution&#39;,</span>
+<span class="go"> &#39;EXIF_Image_DateTime&#39;,</span>
+<span class="go"> &#39;EXIF_Image_ExifOffset&#39;,</span>
+<span class="go"> &#39;EXIF_Image_Make&#39;,</span>
+<span class="go"> &#39;EXIF_Image_Model&#39;,</span>
+<span class="go"> &#39;EXIF_Image_Orientation&#39;,</span>
+<span class="go"> &#39;EXIF_Image_ResolutionUnit&#39;,</span>
+<span class="go"> &#39;EXIF_Image_XResolution&#39;,</span>
+<span class="go"> &#39;EXIF_Image_YCbCrPositioning&#39;,</span>
+<span class="go"> &#39;EXIF_Image_YResolution&#39;,</span>
+<span class="go"> &#39;EXIF_InteroperabilityOffset&#39;,</span>
+<span class="go"> &#39;EXIF_JPEGThumbnail&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_AFPointSelected&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_AFPointUsed&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_ContinuousDriveMode&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Contrast&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_DigitalZoom&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_EasyShootingMode&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_ExposureMode&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_FirmwareVersion&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_FlashActivity&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_FlashBias&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_FlashDetails&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_FlashMode&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_FocalUnitsPerMM&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_FocusMode&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_FocusType&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_ISO&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_ImageNumber&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_ImageSize&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_ImageType&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_LongFocalLengthOfLensInFocalUnits&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Macromode&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_MeteringMode&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_OwnerName&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Quality&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Saturation&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_SelfTimer&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_SequenceNumber&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Sharpness&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_ShortFocalLengthOfLensInFocalUnits&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_SubjectDistance&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0000&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0001&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0002&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0003&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0004&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x000D&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0010&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0013&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0018&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0019&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x001C&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x001D&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x001E&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x001F&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0022&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0023&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0024&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0025&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0026&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0027&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Tag_0x0028&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_Unknown&#39;,</span>
+<span class="go"> &#39;EXIF_MakerNote_WhiteBalance&#39;,</span>
+<span class="go"> &#39;EXIF_MaxApertureValue&#39;,</span>
+<span class="go"> &#39;EXIF_MeteringMode&#39;,</span>
+<span class="go"> &#39;EXIF_SceneCaptureType&#39;,</span>
+<span class="go"> &#39;EXIF_SensingMethod&#39;,</span>
+<span class="go"> &#39;EXIF_ShutterSpeedValue&#39;,</span>
+<span class="go"> &#39;EXIF_Thumbnail_Compression&#39;,</span>
+<span class="go"> &#39;EXIF_Thumbnail_JPEGInterchangeFormat&#39;,</span>
+<span class="go"> &#39;EXIF_Thumbnail_JPEGInterchangeFormatLength&#39;,</span>
+<span class="go"> &#39;EXIF_Thumbnail_ResolutionUnit&#39;,</span>
+<span class="go"> &#39;EXIF_Thumbnail_XResolution&#39;,</span>
+<span class="go"> &#39;EXIF_Thumbnail_YResolution&#39;,</span>
+<span class="go"> &#39;EXIF_UserComment&#39;,</span>
+<span class="go"> &#39;EXIF_WhiteBalance&#39;,</span>
+<span class="go"> &#39;orientation&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.metadata.InfoExif">
+<em class="property">
+class </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">InfoExif</tt><big>(</big><em>source=None</em>, <em>vars=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.metadata._InfoPyexiv2</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;../tests/input/exĩf ïptç.jpg&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoExif</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Exif_Image_DateTime&#39;</span><span class="p">]</span>
+<span class="go">DateTime(&#39;2010:03:03 11:03:08&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyexiv2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exif</span> <span class="o">=</span> <span class="n">pyexiv2</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exif</span><span class="o">.</span><span class="n">readMetadata</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoExif</span><span class="p">(</span><span class="n">exif</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Exif_Image_DateTime&#39;</span><span class="p">]</span>
+<span class="go">DateTime(&#39;2010:03:03 11:03:08&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">info</span><span class="p">[</span><span class="s">&#39;Exif_Image_DateTime&#39;</span><span class="p">]</span>
+<span class="go">2010:03:03 11:03:08</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Exif_Image_Orientation&#39;</span><span class="p">]</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Exif_Photo_MaxApertureValue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">__class__</span> <span class="o">==</span> <span class="n">pyexiv2</span><span class="o">.</span><span class="n">Rational</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">info</span><span class="p">[</span><span class="s">&#39;Exif_Photo_MaxApertureValue&#39;</span><span class="p">]</span>
+<span class="go">128/32</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">extract_all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;Exif_CanonCs_0x0000&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0006&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0008&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0009&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0015&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x001e&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x001f&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0026&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0027&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0029&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x002b&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x002c&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x002d&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_AESetting&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_AFPoint&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ColorTone&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Contrast&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_DigitalZoom&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_DisplayAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_DriveMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_EasyMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ExposureProgram&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FlashActivity&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FlashDetails&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FlashMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FocusContinuous&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FocusMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FocusType&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ISOSpeed&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ImageSize&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ImageStabilization&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Lens&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_LensType&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Macro&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_MaxAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_MeteringMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_MinAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_PhotoEffect&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Quality&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Saturation&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Selftimer&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Sharpness&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ZoomSourceWidth&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ZoomTargetWidth&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0000&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0001&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0003&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0006&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0008&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000a&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000b&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000c&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000d&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0010&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0011&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0012&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0014&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0017&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0018&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0019&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001a&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001b&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001c&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001d&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001e&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001f&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0020&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0021&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_AFPointUsed&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_ApertureValue&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_FlashBias&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_ISOSpeed&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_Sequence&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_ShutterSpeedValue&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_SubjectDistance&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_TargetAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_TargetShutterSpeed&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_WhiteBalance&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0000&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0003&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x000d&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0013&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0018&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0019&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001c&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001d&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001e&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001f&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0022&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0023&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0024&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0025&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0026&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0027&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0028&#39;,</span>
+<span class="go"> &#39;Exif_Canon_FirmwareVersion&#39;,</span>
+<span class="go"> &#39;Exif_Canon_FocalLength&#39;,</span>
+<span class="go"> &#39;Exif_Canon_ImageNumber&#39;,</span>
+<span class="go"> &#39;Exif_Canon_ImageType&#39;,</span>
+<span class="go"> &#39;Exif_Canon_ModelID&#39;,</span>
+<span class="go"> &#39;Exif_Canon_OwnerName&#39;,</span>
+<span class="go"> &#39;Exif_Image_DateTime&#39;,</span>
+<span class="go"> &#39;Exif_Image_ExifTag&#39;,</span>
+<span class="go"> &#39;Exif_Image_Make&#39;,</span>
+<span class="go"> &#39;Exif_Image_Model&#39;,</span>
+<span class="go"> &#39;Exif_Image_Orientation&#39;,</span>
+<span class="go"> &#39;Exif_Image_ResolutionUnit&#39;,</span>
+<span class="go"> &#39;Exif_Image_XResolution&#39;,</span>
+<span class="go"> &#39;Exif_Image_YCbCrPositioning&#39;,</span>
+<span class="go"> &#39;Exif_Image_YResolution&#39;,</span>
+<span class="go"> &#39;Exif_Iop_InteroperabilityIndex&#39;,</span>
+<span class="go"> &#39;Exif_Iop_InteroperabilityVersion&#39;,</span>
+<span class="go"> &#39;Exif_Iop_RelatedImageLength&#39;,</span>
+<span class="go"> &#39;Exif_Iop_RelatedImageWidth&#39;,</span>
+<span class="go"> &#39;Exif_MakerNote_ByteOrder&#39;,</span>
+<span class="go"> &#39;Exif_MakerNote_Offset&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ApertureValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ColorSpace&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ComponentsConfiguration&#39;,</span>
+<span class="go"> &#39;Exif_Photo_CompressedBitsPerPixel&#39;,</span>
+<span class="go"> &#39;Exif_Photo_CustomRendered&#39;,</span>
+<span class="go"> &#39;Exif_Photo_DateTimeDigitized&#39;,</span>
+<span class="go"> &#39;Exif_Photo_DateTimeOriginal&#39;,</span>
+<span class="go"> &#39;Exif_Photo_DigitalZoomRatio&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExifVersion&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExposureBiasValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExposureMode&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExposureTime&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FNumber&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FileSource&#39;,</span>
+<span class="go"> &#39;Exif_Photo_Flash&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FlashpixVersion&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalLength&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalPlaneResolutionUnit&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalPlaneXResolution&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalPlaneYResolution&#39;,</span>
+<span class="go"> &#39;Exif_Photo_InteroperabilityTag&#39;,</span>
+<span class="go"> &#39;Exif_Photo_MakerNote&#39;,</span>
+<span class="go"> &#39;Exif_Photo_MaxApertureValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_MeteringMode&#39;,</span>
+<span class="go"> &#39;Exif_Photo_PixelXDimension&#39;,</span>
+<span class="go"> &#39;Exif_Photo_PixelYDimension&#39;,</span>
+<span class="go"> &#39;Exif_Photo_SceneCaptureType&#39;,</span>
+<span class="go"> &#39;Exif_Photo_SensingMethod&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ShutterSpeedValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_UserComment&#39;,</span>
+<span class="go"> &#39;Exif_Photo_WhiteBalance&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_Compression&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_JPEGInterchangeFormat&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_JPEGInterchangeFormatLength&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_ResolutionUnit&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_XResolution&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_YResolution&#39;,</span>
+<span class="go"> &#39;orientation&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.metadata.InfoExtract">
+<em class="property">
+class </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">InfoExtract</tt><big>(</big><em>filename=None</em>, <em>vars=None</em>, <em>sources=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an info like dictionary which uses a collection of several
+info instances and can evaluate Python expressions.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">InfoExtract</span><span class="o">.</span><span class="n">get_vars_by_info</span><span class="p">([</span><span class="s">&#39;mode&#39;</span><span class="p">])[</span><span class="mf">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="go">[[&#39;mode&#39;, &#39;orientation&#39;]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">InfoExtract</span><span class="o">.</span><span class="n">get_vars_by_info</span><span class="p">([</span><span class="s">&#39;width&#39;</span><span class="p">])[</span><span class="mf">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="go">[[&#39;width&#39;, &#39;orientation&#39;]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">vars</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;format&#39;</span><span class="p">,</span> <span class="s">&#39;width&#39;</span><span class="p">,</span> <span class="s">&#39;subfolder&#39;</span><span class="p">,</span> <span class="s">&#39;orientation&#39;</span><span class="p">,</span> <span class="s">&#39;crazy&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;../tests/input/exĩf ïptç.jpg&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoExtract</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">vars</span> <span class="o">+</span> <span class="p">[</span><span class="s">&#39;Pexif_DateTimeOriginal&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">types</span><span class="p">()</span>
+<span class="go">[&#39;File&#39;, &#39;Exif&#39;, &#39;Pil&#39;, &#39;Pexif&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">vars_unknown</span>
+<span class="go">[&#39;crazy&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;format&#39;</span><span class="p">]</span>
+<span class="go">&#39;JPEG&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+<span class="go">[(&#39;Pexif_DateTimeOriginal&#39;, DateTime(&#39;2010:03:03 11:03:08&#39;)),</span>
+<span class="go"> (&#39;format&#39;, &#39;JPEG&#39;),</span>
+<span class="go"> (&#39;height&#39;, 640),</span>
+<span class="go"> (&#39;orientation&#39;, 8),</span>
+<span class="go"> (&#39;size&#39;, (480, 640)),</span>
+<span class="go"> (&#39;subfolder&#39;, u&#39;&#39;),</span>
+<span class="go"> (&#39;width&#39;, 480)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;size&#39;</span><span class="p">]</span>  <span class="c"># uses orientation</span>
+<span class="go">(480, 640)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">size</span>  <span class="c"># ignores orientation</span>
+<span class="go">(640, 480)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Pexif_DateTimeOriginal&#39;</span><span class="p">]</span>
+<span class="go">DateTime(&#39;2010:03:03 11:03:08&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+<span class="go">[(&#39;Pexif_DateTimeOriginal&#39;, DateTime(&#39;2010:03:03 11:03:08&#39;)),</span>
+<span class="go"> (&#39;Pexif_DateTimeOriginal.day&#39;, 3),</span>
+<span class="go"> (&#39;Pexif_DateTimeOriginal.hour&#39;, 11),</span>
+<span class="go"> (&#39;Pexif_DateTimeOriginal.microsecond&#39;, 0),</span>
+<span class="go"> (&#39;Pexif_DateTimeOriginal.minute&#39;, 3),</span>
+<span class="go"> (&#39;Pexif_DateTimeOriginal.month&#39;, 3),</span>
+<span class="go"> (&#39;Pexif_DateTimeOriginal.monthname&#39;, &#39;March&#39;),</span>
+<span class="go"> (&#39;Pexif_DateTimeOriginal.second&#39;, 8),</span>
+<span class="go"> (&#39;Pexif_DateTimeOriginal.weekday&#39;, 2),</span>
+<span class="go"> (&#39;Pexif_DateTimeOriginal.weekdayname&#39;, &#39;Wednesday&#39;),</span>
+<span class="go"> (&#39;Pexif_DateTimeOriginal.year&#39;, 2010),</span>
+<span class="go"> (&#39;format&#39;, &#39;JPEG&#39;),</span>
+<span class="go"> (&#39;height&#39;, 640),</span>
+<span class="go"> (&#39;orientation&#39;, 8),</span>
+<span class="go"> (&#39;size&#39;, (480, 640)),</span>
+<span class="go"> (&#39;size[0]&#39;, 480),</span>
+<span class="go"> (&#39;size[1]&#39;, 640),</span>
+<span class="go"> (&#39;subfolder&#39;, u&#39;&#39;),</span>
+<span class="go"> (&#39;width&#39;, 480)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">extract_all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;Exif_CanonCs_0x0000&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0006&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0008&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0009&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0015&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x001e&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x001f&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0026&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0027&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0029&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x002b&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x002c&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x002d&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_AESetting&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_AFPoint&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ColorTone&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Contrast&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_DigitalZoom&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_DisplayAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_DriveMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_EasyMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ExposureProgram&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FlashActivity&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FlashDetails&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FlashMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FocusContinuous&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FocusMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FocusType&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ISOSpeed&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ImageSize&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ImageStabilization&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Lens&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_LensType&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Macro&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_MaxAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_MeteringMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_MinAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_PhotoEffect&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Quality&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Saturation&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Selftimer&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Sharpness&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ZoomSourceWidth&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ZoomTargetWidth&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0000&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0001&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0003&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0006&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0008&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000a&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000b&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000c&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000d&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0010&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0011&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0012&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0014&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0017&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0018&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0019&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001a&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001b&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001c&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001d&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001e&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001f&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0020&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0021&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_AFPointUsed&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_ApertureValue&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_FlashBias&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_ISOSpeed&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_Sequence&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_ShutterSpeedValue&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_SubjectDistance&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_TargetAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_TargetShutterSpeed&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_WhiteBalance&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0000&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0003&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x000d&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0013&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0018&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0019&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001c&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001d&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001e&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001f&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0022&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0023&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0024&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0025&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0026&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0027&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0028&#39;,</span>
+<span class="go"> &#39;Exif_Canon_FirmwareVersion&#39;,</span>
+<span class="go"> &#39;Exif_Canon_FocalLength&#39;,</span>
+<span class="go"> &#39;Exif_Canon_ImageNumber&#39;,</span>
+<span class="go"> &#39;Exif_Canon_ImageType&#39;,</span>
+<span class="go"> &#39;Exif_Canon_ModelID&#39;,</span>
+<span class="go"> &#39;Exif_Canon_OwnerName&#39;,</span>
+<span class="go"> &#39;Exif_Image_DateTime&#39;,</span>
+<span class="go"> &#39;Exif_Image_ExifTag&#39;,</span>
+<span class="go"> &#39;Exif_Image_Make&#39;,</span>
+<span class="go"> &#39;Exif_Image_Model&#39;,</span>
+<span class="go"> &#39;Exif_Image_Orientation&#39;,</span>
+<span class="go"> &#39;Exif_Image_ResolutionUnit&#39;,</span>
+<span class="go"> &#39;Exif_Image_XResolution&#39;,</span>
+<span class="go"> &#39;Exif_Image_YCbCrPositioning&#39;,</span>
+<span class="go"> &#39;Exif_Image_YResolution&#39;,</span>
+<span class="go"> &#39;Exif_Iop_InteroperabilityIndex&#39;,</span>
+<span class="go"> &#39;Exif_Iop_InteroperabilityVersion&#39;,</span>
+<span class="go"> &#39;Exif_Iop_RelatedImageLength&#39;,</span>
+<span class="go"> &#39;Exif_Iop_RelatedImageWidth&#39;,</span>
+<span class="go"> &#39;Exif_MakerNote_ByteOrder&#39;,</span>
+<span class="go"> &#39;Exif_MakerNote_Offset&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ApertureValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ColorSpace&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ComponentsConfiguration&#39;,</span>
+<span class="go"> &#39;Exif_Photo_CompressedBitsPerPixel&#39;,</span>
+<span class="go"> &#39;Exif_Photo_CustomRendered&#39;,</span>
+<span class="go"> &#39;Exif_Photo_DateTimeDigitized&#39;,</span>
+<span class="go"> &#39;Exif_Photo_DateTimeOriginal&#39;,</span>
+<span class="go"> &#39;Exif_Photo_DigitalZoomRatio&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExifVersion&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExposureBiasValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExposureMode&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExposureTime&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FNumber&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FileSource&#39;,</span>
+<span class="go"> &#39;Exif_Photo_Flash&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FlashpixVersion&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalLength&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalPlaneResolutionUnit&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalPlaneXResolution&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalPlaneYResolution&#39;,</span>
+<span class="go"> &#39;Exif_Photo_InteroperabilityTag&#39;,</span>
+<span class="go"> &#39;Exif_Photo_MakerNote&#39;,</span>
+<span class="go"> &#39;Exif_Photo_MaxApertureValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_MeteringMode&#39;,</span>
+<span class="go"> &#39;Exif_Photo_PixelXDimension&#39;,</span>
+<span class="go"> &#39;Exif_Photo_PixelYDimension&#39;,</span>
+<span class="go"> &#39;Exif_Photo_SceneCaptureType&#39;,</span>
+<span class="go"> &#39;Exif_Photo_SensingMethod&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ShutterSpeedValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_UserComment&#39;,</span>
+<span class="go"> &#39;Exif_Photo_WhiteBalance&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_Compression&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_JPEGInterchangeFormat&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_JPEGInterchangeFormatLength&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_ResolutionUnit&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_XResolution&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_YResolution&#39;,</span>
+<span class="go"> &#39;Pexif_ApertureValue&#39;,</span>
+<span class="go"> &#39;Pexif_ColorSpace&#39;,</span>
+<span class="go"> &#39;Pexif_ComponentsConfiguration&#39;,</span>
+<span class="go"> &#39;Pexif_CompressedBitsPerPixel&#39;,</span>
+<span class="go"> &#39;Pexif_DateTime&#39;,</span>
+<span class="go"> &#39;Pexif_DateTimeDigitized&#39;,</span>
+<span class="go"> &#39;Pexif_DateTimeOriginal&#39;,</span>
+<span class="go"> &#39;Pexif_ExifImageHeight&#39;,</span>
+<span class="go"> &#39;Pexif_ExifImageWidth&#39;,</span>
+<span class="go"> &#39;Pexif_ExifInteroperabilityOffset&#39;,</span>
+<span class="go"> &#39;Pexif_ExifOffset&#39;,</span>
+<span class="go"> &#39;Pexif_ExifVersion&#39;,</span>
+<span class="go"> &#39;Pexif_ExposureTime&#39;,</span>
+<span class="go"> &#39;Pexif_FNumber&#39;,</span>
+<span class="go"> &#39;Pexif_FileSource&#39;,</span>
+<span class="go"> &#39;Pexif_Flash&#39;,</span>
+<span class="go"> &#39;Pexif_FlashPixVersion&#39;,</span>
+<span class="go"> &#39;Pexif_FocalLength&#39;,</span>
+<span class="go"> &#39;Pexif_FocalPlaneResolutionUnit&#39;,</span>
+<span class="go"> &#39;Pexif_FocalPlaneXResolution&#39;,</span>
+<span class="go"> &#39;Pexif_FocalPlaneYResolution&#39;,</span>
+<span class="go"> &#39;Pexif_Make&#39;,</span>
+<span class="go"> &#39;Pexif_MakerNote&#39;,</span>
+<span class="go"> &#39;Pexif_MaxApertureValue&#39;,</span>
+<span class="go"> &#39;Pexif_MeteringMode&#39;,</span>
+<span class="go"> &#39;Pexif_Model&#39;,</span>
+<span class="go"> &#39;Pexif_Orientation&#39;,</span>
+<span class="go"> &#39;Pexif_ResolutionUnit&#39;,</span>
+<span class="go"> &#39;Pexif_SensingMethod&#39;,</span>
+<span class="go"> &#39;Pexif_UserComment&#39;,</span>
+<span class="go"> &#39;Pexif_XResolution&#39;,</span>
+<span class="go"> &#39;Pexif_YCbCrPositioning&#39;,</span>
+<span class="go"> &#39;Pexif_YResolution&#39;,</span>
+<span class="go"> &#39;aspect&#39;,</span>
+<span class="go"> &#39;compression&#39;,</span>
+<span class="go"> &#39;day&#39;,</span>
+<span class="go"> &#39;desktop&#39;,</span>
+<span class="go"> &#39;dpi&#39;,</span>
+<span class="go"> &#39;filename&#39;,</span>
+<span class="go"> &#39;filesize&#39;,</span>
+<span class="go"> &#39;folder&#39;,</span>
+<span class="go"> &#39;foldername&#39;,</span>
+<span class="go"> &#39;format&#39;,</span>
+<span class="go"> &#39;formatdescription&#39;,</span>
+<span class="go"> &#39;gamma&#39;,</span>
+<span class="go"> &#39;height&#39;,</span>
+<span class="go"> &#39;hour&#39;,</span>
+<span class="go"> &#39;interlace&#39;,</span>
+<span class="go"> &#39;minute&#39;,</span>
+<span class="go"> &#39;mode&#39;,</span>
+<span class="go"> &#39;month&#39;,</span>
+<span class="go"> &#39;monthname&#39;,</span>
+<span class="go"> &#39;orientation&#39;,</span>
+<span class="go"> &#39;path&#39;,</span>
+<span class="go"> &#39;root&#39;,</span>
+<span class="go"> &#39;second&#39;,</span>
+<span class="go"> &#39;size&#39;,</span>
+<span class="go"> &#39;subfolder&#39;,</span>
+<span class="go"> &#39;transparency&#39;,</span>
+<span class="go"> &#39;type&#39;,</span>
+<span class="go"> &#39;weekday&#39;,</span>
+<span class="go"> &#39;weekdayname&#39;,</span>
+<span class="go"> &#39;width&#39;,</span>
+<span class="go"> &#39;year&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s">&#39;../tests/input/exĩf ïptç.jpg&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="nb">vars</span><span class="o">=</span><span class="nb">vars</span><span class="p">)</span> <span class="c">#exclude Pexif.* vars</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+<span class="go">[(&#39;format&#39;, &#39;JPEG&#39;),</span>
+<span class="go"> (&#39;height&#39;, 640),</span>
+<span class="go"> (&#39;orientation&#39;, 8),</span>
+<span class="go"> (&#39;size&#39;, (480, 640)),</span>
+<span class="go"> (&#39;subfolder&#39;, u&#39;&#39;),</span>
+<span class="go"> (&#39;width&#39;, 480)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;root&#39;</span><span class="p">]</span>
+<span class="go">u&#39;../tests&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+<span class="go">[(&#39;foldername&#39;, u&#39;input&#39;),</span>
+<span class="go"> (&#39;format&#39;, &#39;JPEG&#39;),</span>
+<span class="go"> (&#39;height&#39;, 640),</span>
+<span class="go"> (&#39;orientation&#39;, 8),</span>
+<span class="go"> (&#39;root&#39;, u&#39;../tests&#39;),</span>
+<span class="go"> (&#39;size&#39;, (480, 640)),</span>
+<span class="go"> (&#39;subfolder&#39;, u&#39;&#39;),</span>
+<span class="go"> (&#39;width&#39;, 480)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="nb">vars</span><span class="o">=</span><span class="nb">vars</span> <span class="o">+</span> <span class="p">[</span><span class="s">&#39;Iptc_Application2_Copyright&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">extract_all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;Exif_CanonCs_0x0000&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0006&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0008&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0009&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0015&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x001e&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x001f&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0026&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0027&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x0029&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x002b&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x002c&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_0x002d&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_AESetting&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_AFPoint&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ColorTone&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Contrast&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_DigitalZoom&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_DisplayAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_DriveMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_EasyMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ExposureProgram&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FlashActivity&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FlashDetails&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FlashMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FocusContinuous&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FocusMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_FocusType&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ISOSpeed&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ImageSize&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ImageStabilization&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Lens&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_LensType&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Macro&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_MaxAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_MeteringMode&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_MinAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_PhotoEffect&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Quality&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Saturation&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Selftimer&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_Sharpness&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ZoomSourceWidth&#39;,</span>
+<span class="go"> &#39;Exif_CanonCs_ZoomTargetWidth&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0000&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0001&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0003&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0006&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0008&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000a&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000b&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000c&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x000d&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0010&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0011&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0012&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0014&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0017&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0018&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0019&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001a&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001b&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001c&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001d&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001e&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x001f&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0020&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_0x0021&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_AFPointUsed&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_ApertureValue&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_FlashBias&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_ISOSpeed&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_Sequence&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_ShutterSpeedValue&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_SubjectDistance&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_TargetAperture&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_TargetShutterSpeed&#39;,</span>
+<span class="go"> &#39;Exif_CanonSi_WhiteBalance&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0000&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0003&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x000d&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0013&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0018&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0019&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001c&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001d&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001e&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x001f&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0022&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0023&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0024&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0025&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0026&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0027&#39;,</span>
+<span class="go"> &#39;Exif_Canon_0x0028&#39;,</span>
+<span class="go"> &#39;Exif_Canon_FirmwareVersion&#39;,</span>
+<span class="go"> &#39;Exif_Canon_FocalLength&#39;,</span>
+<span class="go"> &#39;Exif_Canon_ImageNumber&#39;,</span>
+<span class="go"> &#39;Exif_Canon_ImageType&#39;,</span>
+<span class="go"> &#39;Exif_Canon_ModelID&#39;,</span>
+<span class="go"> &#39;Exif_Canon_OwnerName&#39;,</span>
+<span class="go"> &#39;Exif_Image_DateTime&#39;,</span>
+<span class="go"> &#39;Exif_Image_ExifTag&#39;,</span>
+<span class="go"> &#39;Exif_Image_Make&#39;,</span>
+<span class="go"> &#39;Exif_Image_Model&#39;,</span>
+<span class="go"> &#39;Exif_Image_Orientation&#39;,</span>
+<span class="go"> &#39;Exif_Image_ResolutionUnit&#39;,</span>
+<span class="go"> &#39;Exif_Image_XResolution&#39;,</span>
+<span class="go"> &#39;Exif_Image_YCbCrPositioning&#39;,</span>
+<span class="go"> &#39;Exif_Image_YResolution&#39;,</span>
+<span class="go"> &#39;Exif_Iop_InteroperabilityIndex&#39;,</span>
+<span class="go"> &#39;Exif_Iop_InteroperabilityVersion&#39;,</span>
+<span class="go"> &#39;Exif_Iop_RelatedImageLength&#39;,</span>
+<span class="go"> &#39;Exif_Iop_RelatedImageWidth&#39;,</span>
+<span class="go"> &#39;Exif_MakerNote_ByteOrder&#39;,</span>
+<span class="go"> &#39;Exif_MakerNote_Offset&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ApertureValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ColorSpace&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ComponentsConfiguration&#39;,</span>
+<span class="go"> &#39;Exif_Photo_CompressedBitsPerPixel&#39;,</span>
+<span class="go"> &#39;Exif_Photo_CustomRendered&#39;,</span>
+<span class="go"> &#39;Exif_Photo_DateTimeDigitized&#39;,</span>
+<span class="go"> &#39;Exif_Photo_DateTimeOriginal&#39;,</span>
+<span class="go"> &#39;Exif_Photo_DigitalZoomRatio&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExifVersion&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExposureBiasValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExposureMode&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ExposureTime&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FNumber&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FileSource&#39;,</span>
+<span class="go"> &#39;Exif_Photo_Flash&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FlashpixVersion&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalLength&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalPlaneResolutionUnit&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalPlaneXResolution&#39;,</span>
+<span class="go"> &#39;Exif_Photo_FocalPlaneYResolution&#39;,</span>
+<span class="go"> &#39;Exif_Photo_InteroperabilityTag&#39;,</span>
+<span class="go"> &#39;Exif_Photo_MakerNote&#39;,</span>
+<span class="go"> &#39;Exif_Photo_MaxApertureValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_MeteringMode&#39;,</span>
+<span class="go"> &#39;Exif_Photo_PixelXDimension&#39;,</span>
+<span class="go"> &#39;Exif_Photo_PixelYDimension&#39;,</span>
+<span class="go"> &#39;Exif_Photo_SceneCaptureType&#39;,</span>
+<span class="go"> &#39;Exif_Photo_SensingMethod&#39;,</span>
+<span class="go"> &#39;Exif_Photo_ShutterSpeedValue&#39;,</span>
+<span class="go"> &#39;Exif_Photo_UserComment&#39;,</span>
+<span class="go"> &#39;Exif_Photo_WhiteBalance&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_Compression&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_JPEGInterchangeFormat&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_JPEGInterchangeFormatLength&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_ResolutionUnit&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_XResolution&#39;,</span>
+<span class="go"> &#39;Exif_Thumbnail_YResolution&#39;,</span>
+<span class="go"> &#39;Iptc_Application2_Byline&#39;,</span>
+<span class="go"> &#39;Iptc_Application2_Caption&#39;,</span>
+<span class="go"> &#39;Iptc_Application2_Copyright&#39;,</span>
+<span class="go"> &#39;Iptc_Application2_ObjectName&#39;,</span>
+<span class="go"> &#39;Iptc_Application2_RecordVersion&#39;,</span>
+<span class="go"> &#39;aspect&#39;,</span>
+<span class="go"> &#39;compression&#39;,</span>
+<span class="go"> &#39;day&#39;,</span>
+<span class="go"> &#39;desktop&#39;,</span>
+<span class="go"> &#39;dpi&#39;,</span>
+<span class="go"> &#39;filename&#39;,</span>
+<span class="go"> &#39;filesize&#39;,</span>
+<span class="go"> &#39;folder&#39;,</span>
+<span class="go"> &#39;foldername&#39;,</span>
+<span class="go"> &#39;format&#39;,</span>
+<span class="go"> &#39;formatdescription&#39;,</span>
+<span class="go"> &#39;gamma&#39;,</span>
+<span class="go"> &#39;height&#39;,</span>
+<span class="go"> &#39;hour&#39;,</span>
+<span class="go"> &#39;interlace&#39;,</span>
+<span class="go"> &#39;minute&#39;,</span>
+<span class="go"> &#39;mode&#39;,</span>
+<span class="go"> &#39;month&#39;,</span>
+<span class="go"> &#39;monthname&#39;,</span>
+<span class="go"> &#39;orientation&#39;,</span>
+<span class="go"> &#39;path&#39;,</span>
+<span class="go"> &#39;root&#39;,</span>
+<span class="go"> &#39;second&#39;,</span>
+<span class="go"> &#39;size&#39;,</span>
+<span class="go"> &#39;subfolder&#39;,</span>
+<span class="go"> &#39;transparency&#39;,</span>
+<span class="go"> &#39;type&#39;,</span>
+<span class="go"> &#39;weekday&#39;,</span>
+<span class="go"> &#39;weekdayname&#39;,</span>
+<span class="go"> &#39;width&#39;,</span>
+<span class="go"> &#39;year&#39;]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.clear" title="Permalink to this definition">¶</a></dt>
+<dd>Clear alfl info types.</dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.clear_cache">
+<tt class="descname">clear_cache</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.clear_cache" title="Permalink to this definition">¶</a></dt>
+<dd>Clears the look up cache.</dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.dump">
+<tt class="descname">dump</tt><big>(</big><em>filename=None</em>, <em>expand=False</em>, <em>free=False</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump as a dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>vars</em> (list) &#8211; list of variables as arguments</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="lib.metadata.InfoExtract.expand">
+<em class="property">
+classmethod </em><tt class="descname">expand</tt><big>(</big><em>d</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.expand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="lib.metadata.InfoExtract.expand_var">
+<em class="property">
+classmethod </em><tt class="descname">expand_var</tt><big>(</big><em>d</em>, <em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.expand_var" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.extract_all">
+<tt class="descname">extract_all</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.extract_all" title="Permalink to this definition">¶</a></dt>
+<dd>Extract all variables provided by the info types.</dd></dl>
+
+<dl class="classmethod">
+<dt id="lib.metadata.InfoExtract.get_vars_by_info">
+<em class="property">
+classmethod </em><tt class="descname">get_vars_by_info</tt><big>(</big><em>vars</em>, <em>old_vars=None</em>, <em>filename='test.png'</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.get_vars_by_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Organizes vars in a dictionary by Info class (e.g.
+<a title="lib.metadata.InfoPil" class="reference" href="#lib.metadata.InfoPil"><tt class="xref docutils literal"><span class="pre">InfoPil</span></tt></a>, <a title="lib.metadata.InfoExif" class="reference" href="#lib.metadata.InfoExif"><tt class="xref docutils literal"><span class="pre">InfoExif</span></tt></a>, ...).</p>
+<p>As this is a class method, <tt class="docutils literal"><span class="pre">old_vars</span></tt> has to be passed explicitly
+instead of being obtained from the instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>vars</em> (list of strings) &#8211; variables</li>
+<li><em>old_vars</em> (list of strings) &#8211; previous variables</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.open">
+<tt class="descname">open</tt><big>(</big><em>filename</em>, <em>sources=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feeds a new file as source for all info types.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> (string) &#8211; filename of the source file</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This will clear the cache.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.provides">
+<tt class="descname">provides</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.provides" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this info provides this variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>var</em> (string) &#8211; name of the variable</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">if <tt class="docutils literal"><span class="pre">var</span></tt> is provided</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="lib.metadata.InfoExtract.scan_infos">
+<em class="property">
+classmethod </em><tt class="descname">scan_infos</tt><big>(</big><em>vars</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.scan_infos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scan which info types the variables <tt class="docutils literal"><span class="pre">vars</span></tt> require.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>vars</em> (list) &#8211; variables which have to be provided</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">variables by required info types</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">dict of lists</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.set">
+<tt class="descname">set</tt><big>(</big><em>filename=None</em>, <em>vars=None</em>, <em>sources=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set new parameters for the info.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>filename</em> (string) &#8211; filename of the source file</li>
+<li><em>vars</em> (list) &#8211; variables that have to be extracted (e.g. orientation)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.set_orientation">
+<tt class="descname">set_orientation</tt><big>(</big><em>orientation=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.set_orientation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.set_source">
+<tt class="descname">set_source</tt><big>(</big><em>d</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.set_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set source of an info from the collection. Raises an
+<tt class="docutils literal"><span class="pre">UnknownTypeError</span></tt> in case an unknown type is given.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>d</em> (dict/str) &#8211; dictionary {type: source} or type</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.set_vars">
+<tt class="descname">set_vars</tt><big>(</big><em>vars</em>, <em>filename='test.png'</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.set_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limit the range of the possible variables which might
+be looked up.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>vars</em> (list) &#8211; variables that have to be extracted (e.g. orientation)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoExtract.types">
+<tt class="descname">types</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.metadata.InfoExtract.types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which info types are used by this instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">info types</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.metadata.InfoFile">
+<em class="property">
+class </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">InfoFile</tt><big>(</big><em>source=None</em>, <em>vars=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.metadata._InfoCache</span></tt></p>
+<p>Wraps a lazy file path access around an image filename.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoFile</span><span class="p">(</span><span class="s">&#39;/home/phatch/test.png&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;foldername&#39;</span><span class="p">]</span>
+<span class="go">u&#39;phatch&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;foldername&#39;, &#39;root&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span>
+<span class="go">u&#39;png&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;filename&#39;, &#39;foldername&#39;, &#39;root&#39;, &#39;type&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="s">&#39;/home/gimp/world.jpg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span>
+<span class="go">u&#39;jpg&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;filename&#39;, &#39;type&#39;]</span>
+</pre></div>
+</div>
+<dl class="classmethod">
+<dt id="lib.metadata.InfoFile.split_vars">
+<em class="property">
+classmethod </em><tt class="descname">split_vars</tt><big>(</big><em>vars</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoFile.split_vars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.metadata.InfoIptc">
+<em class="property">
+class </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">InfoIptc</tt><big>(</big><em>source=None</em>, <em>vars=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoIptc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.metadata._InfoPyexiv2</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;../tests/input/exĩf ïptç.jpg&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoIptc</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Iptc_Application2_RecordVersion&#39;</span><span class="p">]</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyexiv2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exif</span> <span class="o">=</span> <span class="n">pyexiv2</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">exif</span><span class="o">.</span><span class="n">readMetadata</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoIptc</span><span class="p">(</span><span class="n">exif</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Iptc_Application2_RecordVersion&#39;</span><span class="p">]</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Iptc_Application2_Copyright&#39;</span><span class="p">]</span>
+<span class="go">&#39;Copyright 2010, www.stani.be&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;Iptc_Application2_Copyright&#39;, &#39;Iptc_Application2_RecordVersion&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">extract_all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;Iptc_Application2_Byline&#39;,</span>
+<span class="go"> &#39;Iptc_Application2_Caption&#39;,</span>
+<span class="go"> &#39;Iptc_Application2_Copyright&#39;,</span>
+<span class="go"> &#39;Iptc_Application2_ObjectName&#39;,</span>
+<span class="go"> &#39;Iptc_Application2_RecordVersion&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.metadata.InfoPexif">
+<em class="property">
+class </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">InfoPexif</tt><big>(</big><em>source=None</em>, <em>vars=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoPexif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.metadata._InfoPilMetadata</span></tt></p>
+<p>Wraps a lazy PIL exif var access to an image.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;../tests/input/exĩf ïptç.jpg&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoPexif</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;orientation&#39;</span><span class="p">]</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Pexif_DateTimeOriginal&#39;</span><span class="p">]</span>
+<span class="go">DateTime(&#39;2010:03:03 11:03:08&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;Pexif_DateTimeOriginal&#39;, &#39;orientation&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoPexif</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Pexif_DateTimeOriginal&#39;</span><span class="p">]</span>
+<span class="go">DateTime(&#39;2010:03:03 11:03:08&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;Pexif_DateTimeOriginal&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">extract_all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Pexif_DateTimeOriginal&#39;</span><span class="p">]</span>
+<span class="go">DateTime(&#39;2010:03:03 11:03:08&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;orientation&#39;,</span>
+<span class="go"> &#39;Pexif_Make&#39;,</span>
+<span class="go"> &#39;Pexif_Flash&#39;,</span>
+<span class="go"> &#39;Pexif_YResolution&#39;,</span>
+<span class="go"> &#39;Pexif_DateTimeDigitized&#39;,</span>
+<span class="go"> &#39;Pexif_ExifImageWidth&#39;,</span>
+<span class="go"> &#39;Pexif_FocalPlaneYResolution&#39;,</span>
+<span class="go"> &#39;Pexif_MaxApertureValue&#39;,</span>
+<span class="go"> &#39;Pexif_MeteringMode&#39;,</span>
+<span class="go"> &#39;Pexif_ExifVersion&#39;,</span>
+<span class="go"> &#39;Pexif_MakerNote&#39;,</span>
+<span class="go"> &#39;Pexif_FNumber&#39;,</span>
+<span class="go"> &#39;Pexif_FocalPlaneResolutionUnit&#39;,</span>
+<span class="go"> &#39;Pexif_SensingMethod&#39;,</span>
+<span class="go"> &#39;Pexif_Orientation&#39;,</span>
+<span class="go"> &#39;Pexif_FocalLength&#39;,</span>
+<span class="go"> &#39;Pexif_XResolution&#39;,</span>
+<span class="go"> &#39;Pexif_ExifOffset&#39;,</span>
+<span class="go"> &#39;Pexif_FileSource&#39;,</span>
+<span class="go"> &#39;Pexif_CompressedBitsPerPixel&#39;,</span>
+<span class="go"> &#39;Pexif_ExifImageHeight&#39;,</span>
+<span class="go"> &#39;Pexif_ResolutionUnit&#39;,</span>
+<span class="go"> &#39;Pexif_ExifInteroperabilityOffset&#39;,</span>
+<span class="go"> &#39;Pexif_ApertureValue&#39;,</span>
+<span class="go"> &#39;Pexif_ExposureTime&#39;,</span>
+<span class="go"> &#39;Pexif_ColorSpace&#39;,</span>
+<span class="go"> &#39;Pexif_YCbCrPositioning&#39;,</span>
+<span class="go"> &#39;Pexif_Model&#39;,</span>
+<span class="go"> &#39;Pexif_DateTime&#39;,</span>
+<span class="go"> &#39;Pexif_ComponentsConfiguration&#39;,</span>
+<span class="go"> &#39;Pexif_FlashPixVersion&#39;,</span>
+<span class="go"> &#39;Pexif_FocalPlaneXResolution&#39;,</span>
+<span class="go"> &#39;Pexif_DateTimeOriginal&#39;,</span>
+<span class="go"> &#39;Pexif_UserComment&#39;]</span>
+</pre></div>
+</div>
+<dl class="classmethod">
+<dt id="lib.metadata.InfoPexif.provides">
+<em class="property">
+classmethod </em><tt class="descname">provides</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoPexif.provides" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.metadata.InfoPil">
+<em class="property">
+class </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">InfoPil</tt><big>(</big><em>source=None</em>, <em>vars=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoPil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.metadata._InfoPil</span></tt></p>
+<p>Wraps a lazy PIL var access to an image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> (Pil.Image/function) &#8211; Pil.Image or callable to retrieve it</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;L&#39;</span><span class="p">,(</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoPil</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;format&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">provides</span><span class="p">(</span><span class="s">&#39;formatdescription&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">possible_vars</span><span class="p">)</span>
+<span class="go">[&#39;aspect&#39;,</span>
+<span class="go"> &#39;compression&#39;,</span>
+<span class="go"> &#39;dpi&#39;,</span>
+<span class="go"> &#39;format&#39;,</span>
+<span class="go"> &#39;formatdescription&#39;,</span>
+<span class="go"> &#39;gamma&#39;,</span>
+<span class="go"> &#39;height&#39;,</span>
+<span class="go"> &#39;interlace&#39;,</span>
+<span class="go"> &#39;mode&#39;,</span>
+<span class="go"> &#39;size&#39;,</span>
+<span class="go"> &#39;transparency&#39;,</span>
+<span class="go"> &#39;width&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;format&#39;, &#39;orientation&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;mode&#39;</span><span class="p">]</span>
+<span class="go">&#39;L&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;height&#39;</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;format&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;dpi&#39;</span><span class="p">]</span>
+<span class="go">72</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;dpi&#39;, &#39;format&#39;, &#39;height&#39;, &#39;mode&#39;, &#39;orientation&#39;, &#39;size&#39;, &#39;width&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">reset_geometry</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;dpi&#39;, &#39;format&#39;, &#39;mode&#39;, &#39;orientation&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">extract_all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;aspect&#39;,</span>
+<span class="go"> &#39;compression&#39;,</span>
+<span class="go"> &#39;dpi&#39;,</span>
+<span class="go"> &#39;format&#39;,</span>
+<span class="go"> &#39;formatdescription&#39;,</span>
+<span class="go"> &#39;gamma&#39;,</span>
+<span class="go"> &#39;height&#39;,</span>
+<span class="go"> &#39;interlace&#39;,</span>
+<span class="go"> &#39;mode&#39;,</span>
+<span class="go"> &#39;orientation&#39;,</span>
+<span class="go"> &#39;size&#39;,</span>
+<span class="go"> &#39;transparency&#39;,</span>
+<span class="go"> &#39;width&#39;]</span>
+</pre></div>
+</div>
+<dl class="classmethod">
+<dt id="lib.metadata.InfoPil.needs_orientation">
+<em class="property">
+classmethod </em><tt class="descname">needs_orientation</tt><big>(</big><em>vars</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoPil.needs_orientation" title="Permalink to this definition">¶</a></dt>
+<dd><p>InfoPil always needs to know the orientation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">True</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoPil.reset_geometry">
+<tt class="descname">reset_geometry</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.metadata.InfoPil.reset_geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.metadata.InfoPil.set_orientation">
+<tt class="descname">set_orientation</tt><big>(</big><em>orientation</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoPil.set_orientation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="lib.metadata.InfoProvideError">
+<em class="property">
+exception </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">InfoProvideError</tt><a class="headerlink" href="#lib.metadata.InfoProvideError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+<p>When the variable can&#8217;t be provided by the current info
+instances.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.metadata.InfoTest">
+<em class="property">
+class </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">InfoTest</tt><a class="headerlink" href="#lib.metadata.InfoTest" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="classmethod">
+<dt id="lib.metadata.InfoTest.provides">
+<em class="property">
+classmethod </em><tt class="descname">provides</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoTest.provides" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.metadata.InfoZexif">
+<em class="property">
+class </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">InfoZexif</tt><big>(</big><em>source=None</em>, <em>vars=None</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoZexif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">lib.metadata._InfoPilMetadata</span></tt></p>
+<p>Wraps a lazy PIL exif var access to an image.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;../tests/input/exĩf ïptç.jpg&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoZexif</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Zexif_0x9202&#39;</span><span class="p">]</span>
+<span class="go">(128, 32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">Image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">InfoZexif</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s">&#39;Zexif_0x9202&#39;</span><span class="p">]</span>
+<span class="go">(128, 32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;Zexif_0x9202&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="o">.</span><span class="n">extract_all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;Zexif_0x9202&#39;,</span>
+<span class="go"> &#39;Zexif_0x0128&#39;,</span>
+<span class="go"> &#39;orientation&#39;,</span>
+<span class="go"> &#39;Zexif_0x9205&#39;,</span>
+<span class="go"> &#39;Zexif_0x9101&#39;,</span>
+<span class="go"> &#39;Zexif_0xa001&#39;,</span>
+<span class="go"> &#39;Zexif_0xa002&#39;,</span>
+<span class="go"> &#39;Zexif_0x9209&#39;,</span>
+<span class="go"> &#39;Zexif_0xa20f&#39;,</span>
+<span class="go"> &#39;Zexif_0xa005&#39;,</span>
+<span class="go"> &#39;Zexif_0xa20e&#39;,</span>
+<span class="go"> &#39;Zexif_0x9000&#39;,</span>
+<span class="go"> &#39;Zexif_0xa217&#39;,</span>
+<span class="go"> &#39;Zexif_0x9003&#39;,</span>
+<span class="go"> &#39;Zexif_0x9004&#39;,</span>
+<span class="go"> &#39;Zexif_0xa210&#39;,</span>
+<span class="go"> &#39;Zexif_0x011b&#39;,</span>
+<span class="go"> &#39;Zexif_0x9286&#39;,</span>
+<span class="go"> &#39;Zexif_0x9207&#39;,</span>
+<span class="go"> &#39;Zexif_0x829d&#39;,</span>
+<span class="go"> &#39;Zexif_0x829a&#39;,</span>
+<span class="go"> &#39;Zexif_0xa404&#39;,</span>
+<span class="go"> &#39;Zexif_0xa406&#39;,</span>
+<span class="go"> &#39;Zexif_0xa401&#39;,</span>
+<span class="go"> &#39;Zexif_0xa402&#39;,</span>
+<span class="go"> &#39;Zexif_0xa403&#39;,</span>
+<span class="go"> &#39;Zexif_0xa000&#39;,</span>
+<span class="go"> &#39;Zexif_0x9102&#39;,</span>
+<span class="go"> &#39;Zexif_0x0110&#39;,</span>
+<span class="go"> &#39;Zexif_0x0112&#39;,</span>
+<span class="go"> &#39;Zexif_0x0132&#39;,</span>
+<span class="go"> &#39;Zexif_0x920a&#39;,</span>
+<span class="go"> &#39;Zexif_0x8769&#39;,</span>
+<span class="go"> &#39;Zexif_0x010f&#39;,</span>
+<span class="go"> &#39;Zexif_0x927c&#39;,</span>
+<span class="go"> &#39;Zexif_0xa300&#39;,</span>
+<span class="go"> &#39;Zexif_0x0213&#39;,</span>
+<span class="go"> &#39;Zexif_0x011a&#39;,</span>
+<span class="go"> &#39;Zexif_0xa003&#39;]</span>
+</pre></div>
+</div>
+<dl class="classmethod">
+<dt id="lib.metadata.InfoZexif.provides">
+<em class="property">
+classmethod </em><tt class="descname">provides</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#lib.metadata.InfoZexif.provides" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="lib.metadata.UnknownTypeError">
+<em class="property">
+exception </em><tt class="descclassname">lib.metadata.</tt><tt class="descname">UnknownTypeError</tt><a class="headerlink" href="#lib.metadata.UnknownTypeError" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">exceptions.Exception</span></tt></dd></dl>
+
+<dl class="function">
+<dt id="lib.metadata.convert_from_string">
+<tt class="descclassname">lib.metadata.</tt><tt class="descname">convert_from_string</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#lib.metadata.convert_from_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>If value is recongized as a datetime string, convert value
+into <tt class="xref docutils literal"><span class="pre">DateTime</span></tt> instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>value</em> (string) &#8211; any value</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">same value or converted in date</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">string/<tt class="xref docutils literal"><span class="pre">DateTime</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.metadata.get_vars_by_info">
+<tt class="descclassname">lib.metadata.</tt><tt class="descname">get_vars_by_info</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.metadata.get_vars_by_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="lib.metadata.info">
+<tt class="descclassname">lib.metadata.</tt><tt class="descname">info</tt><a class="headerlink" href="#lib.metadata.info" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="lib.metadata.InfoZexif" class="reference" href="#lib.metadata.InfoZexif"><tt class="xref docutils literal"><span class="pre">InfoZexif</span></tt></a></dd></dl>
+
+<dl class="function">
+<dt id="lib.metadata.is_editable_tag">
+<tt class="descclassname">lib.metadata.</tt><tt class="descname">is_editable_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#lib.metadata.is_editable_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.metadata.is_writable_tag">
+<tt class="descclassname">lib.metadata.</tt><tt class="descname">is_writable_tag</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#lib.metadata.is_writable_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.metadata.is_writeable_not_exif_tag">
+<tt class="descclassname">lib.metadata.</tt><tt class="descname">is_writeable_not_exif_tag</tt><big>(</big><em>tag</em>, <em>mode</em><big>)</big><a class="headerlink" href="#lib.metadata.is_writeable_not_exif_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.listData.html"
+                                  title="previous chapter">listData</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.metadataTest.html"
+                                  title="next chapter">metadataTest</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.metadataTest.html" title="metadataTest"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.listData.html" title="listData"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

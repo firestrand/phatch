@@ -1,0 +1,1028 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>imtools &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="linux" href="lib.linux.html" />
+    <link rel="prev" title="imageTable" href="lib.imageTable.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.linux.html" title="linux"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.imageTable.html" title="imageTable"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.imtools">
+<h1>imtools<a class="headerlink" href="#module-lib.imtools" title="Permalink to this headline">¶</a></h1>
+<dl class="exception">
+<dt id="lib.imtools.InvalidWriteFormatError">
+<em class="property">
+exception </em><tt class="descclassname">lib.imtools.</tt><tt class="descname">InvalidWriteFormatError</tt><a class="headerlink" href="#lib.imtools.InvalidWriteFormatError" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">exceptions.Exception</span></tt></dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.add_checkboard">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">add_checkboard</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.add_checkboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8220;If the image has a transparent mask, a RGB checkerboard will be
+drawn in the background.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In case of a thumbnail, the resulting image can not be used for
+the cache, as it replaces the transparency layer with a non
+transparent checkboard.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> (pil.Image) &#8211; image</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">image, with checkboard if transparant</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">pil.Image</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.auto_crop">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">auto_crop</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.auto_crop" title="Permalink to this definition">¶</a></dt>
+<dd>Crops all transparent or black background from the image
+:param image: input image
+:type image: PIL image object
+:returns: the cropped image
+:rtype: PIL image object</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.blend">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">blend</tt><big>(</big><em>im1</em>, <em>im2</em>, <em>amount</em>, <em>color=None</em><big>)</big><a class="headerlink" href="#lib.imtools.blend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blend two images with each other. If the images differ in size
+the color will be used for undefined pixels.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>im1</em> (pil.Image) &#8211; first image</li>
+<li><em>im2</em> (pil.Image) &#8211; second image</li>
+<li><em>amount</em> (int) &#8211; amount of blending</li>
+<li><em>color</em> (tuple) &#8211; color of undefined pixels</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">blended image</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pil.Image</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.calculate_location">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">calculate_location</tt><big>(</big><em>horizontal_offset</em>, <em>vertical_offset</em>, <em>horizontal_justification</em>, <em>vertical_justification</em>, <em>canvas_size</em>, <em>image_size</em><big>)</big><a class="headerlink" href="#lib.imtools.calculate_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate location based on offset and justification. Offsets
+can be positive and negative.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>horizontal_offset</em> (int) &#8211; horizontal offset</li>
+<li><em>vertical_offset</em> (int) &#8211; vertical offset</li>
+<li><em>horizontal_justification</em> (string) &#8211; <tt class="docutils literal"><span class="pre">'Left'</span></tt>, <tt class="docutils literal"><span class="pre">'Middle'</span></tt>, <tt class="docutils literal"><span class="pre">'Right'</span></tt></li>
+<li><em>vertical_justification</em> (string) &#8211; <tt class="docutils literal"><span class="pre">'Top'</span></tt>, <tt class="docutils literal"><span class="pre">'Middle'</span></tt>, <tt class="docutils literal"><span class="pre">'Bottom'</span></tt></li>
+<li><em>canvas_size</em> (tuple of int) &#8211; size of the total canvas</li>
+<li><em>image_size</em> (tuple of int) &#8211; size of the image/text which needs to be placed</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">location</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of int</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">calculate_location</span><span class="p">(</span><span class="mf">50</span><span class="p">,</span> <span class="mf">50</span><span class="p">,</span> <span class="s">&#39;Left&#39;</span><span class="p">,</span> <span class="s">&#39;Middle&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">100</span><span class="p">,</span><span class="mf">100</span><span class="p">),</span> <span class="p">(</span><span class="mf">10</span><span class="p">,</span><span class="mf">10</span><span class="p">))</span>
+<span class="go">(50, 45)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.checkboard">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">checkboard</tt><big>(</big><em>size</em>, <em>delta=8</em>, <em>fg=(128</em>, <em>128</em>, <em>128)</em>, <em>bg=(204</em>, <em>204</em>, <em>204)</em><big>)</big><a class="headerlink" href="#lib.imtools.checkboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw an n x n checkboard, which is often used as background
+for transparent images. The checkboards are stored in the
+<tt class="docutils literal"><span class="pre">CHECKBOARD</span></tt> cache.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>delta</em> (int) &#8211; dimension of one square</li>
+<li><em>fg</em> (tuple of int) &#8211; foreground color</li>
+<li><em>bg</em> (tuple of int) &#8211; background color</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">checkboard image</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pil.Image</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.convert">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">convert</tt><big>(</big><em>image</em>, <em>mode</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.imtools.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a converted copy of an image</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> (PIL image object) &#8211; input image</li>
+<li><em>mode</em> (string) &#8211; the new mode</li>
+<li><em>args</em> (tuple of values) &#8211; extra options</li>
+<li><em>keyw</em> (dictionary of options) &#8211; extra keyword options</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the converted image</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">PIL image object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.convert_safe_mode">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">convert_safe_mode</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.convert_safe_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts image into a processing-safe mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> (PIL image object) &#8211; input image</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the converted image</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">PIL image object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.convert_save_mode_by_format">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">convert_save_mode_by_format</tt><big>(</big><em>image</em>, <em>format</em><big>)</big><a class="headerlink" href="#lib.imtools.convert_save_mode_by_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts image into a saving-safe mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> (PIL image object) &#8211; input image</li>
+<li><em>format</em> (string) &#8211; target format</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the converted image</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">PIL image object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.fill_background_color">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">fill_background_color</tt><big>(</big><em>image</em>, <em>color</em><big>)</big><a class="headerlink" href="#lib.imtools.fill_background_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fills given image with background color.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> (pil.Image) &#8211; source image</li>
+<li><em>color</em> (tuple of int) &#8211; background color</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">filled image</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pil.Image</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.fit_color_in_palette">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">fit_color_in_palette</tt><big>(</big><em>image</em>, <em>color</em><big>)</big><a class="headerlink" href="#lib.imtools.fit_color_in_palette" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit a color into a palette. If the color exists already in the palette
+return its current index, otherwise add the color to the palette if
+possible. Returns -1 for color index if all colors are used already.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> (pil.Image) &#8211; image with a palette</li>
+<li><em>color</em> ((r, g, b) tuple) &#8211; color to fit</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">color index, (new) palette</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(r, g, b) tuple, sequence of (r, g, b) tuples</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.flatten">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">flatten</tt><big>(</big><em>l</em><big>)</big><a class="headerlink" href="#lib.imtools.flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flatten a list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>l</em> (list) &#8211; list to be flattened</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">flattened list</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">flatten</span><span class="p">([[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">],</span> <span class="p">[</span><span class="mf">3</span><span class="p">]])</span>
+<span class="go">[1, 2, 3]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.generate_layer">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">generate_layer</tt><big>(</big><em>image_size</em>, <em>mark</em>, <em>method</em>, <em>horizontal_offset</em>, <em>vertical_offset</em>, <em>horizontal_justification</em>, <em>vertical_justification</em>, <em>orientation</em>, <em>opacity</em><big>)</big><a class="headerlink" href="#lib.imtools.generate_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate new layer for backgrounds or watermarks on which a given
+image <tt class="docutils literal"><span class="pre">mark</span></tt> can be positioned, scaled or repeated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image_size</em> (tuple of int) &#8211; size of the reference image</li>
+<li><em>mark</em> (pil.Image) &#8211; image mark</li>
+<li><em>method</em> (string) &#8211; <tt class="docutils literal"><span class="pre">'Tile'</span></tt>, <tt class="docutils literal"><span class="pre">'Scale'</span></tt>, <tt class="docutils literal"><span class="pre">'By</span> <span class="pre">Offset'</span></tt></li>
+<li><em>horizontal_offset</em> (int) &#8211; horizontal offset</li>
+<li><em>vertical_offset</em> (int) &#8211; vertical offset</li>
+<li><em>horizontal_justification</em> (string) &#8211; <tt class="docutils literal"><span class="pre">'Left'</span></tt>, <tt class="docutils literal"><span class="pre">'Middle'</span></tt>, <tt class="docutils literal"><span class="pre">'Right'</span></tt></li>
+<li><em>vertical_justification</em> (string) &#8211; <tt class="docutils literal"><span class="pre">'Top'</span></tt>, <tt class="docutils literal"><span class="pre">'Middle'</span></tt>, <tt class="docutils literal"><span class="pre">'Bottom'</span></tt></li>
+<li><em>orientation</em> (string) &#8211; mark orientation (e.g. <tt class="docutils literal"><span class="pre">'ROTATE_270'</span></tt>)</li>
+<li><em>opacity</em> (float) &#8211; opacity within <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">1]</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">generated layer</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pil.Image</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_alpha">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_alpha</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.get_alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the image alpha band. Can handles P mode images with transpareny.
+Returns a band with all values set to 255 if no alpha band exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> (PIL image object) &#8211; input image</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">alpha as a band</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">single band image object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_exif_orientation">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_exif_orientation</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.get_exif_orientation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the exif orientation of an image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> (pil.Image) &#8211; image</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">orientation</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_exif_transposition">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_exif_transposition</tt><big>(</big><em>orientation</em><big>)</big><a class="headerlink" href="#lib.imtools.get_exif_transposition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the transposition methods necessary to aling the image to
+its exif orientation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>orientation</em> (int) &#8211; exif orientation</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">(transposition methods, reverse transpostion methods)</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_format">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_format</tt><big>(</big><em>ext</em><big>)</big><a class="headerlink" href="#lib.imtools.get_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Guess the image format by the file extension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>ext</em> (string) &#8211; file extension</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">image format</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is only meant to check before saving files. For existing files
+open the image with PIL and check its format attribute.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">get_format</span><span class="p">(</span><span class="s">&#39;jpg&#39;</span><span class="p">)</span>
+<span class="go">&#39;JPEG&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_format_data">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_format_data</tt><big>(</big><em>image</em>, <em>format</em><big>)</big><a class="headerlink" href="#lib.imtools.get_format_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the image in the file bytes of the image. By consequence
+this byte data is different for the chosen format (<tt class="docutils literal"><span class="pre">JPEG</span></tt>,
+<tt class="docutils literal"><span class="pre">TIFF</span></tt>, ...).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> &#8211; source image</li>
+<li><em>format</em> (string) &#8211; image file type format</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">byte data of the image</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_format_filename">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_format_filename</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.imtools.get_format_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Guess the image format by the filename.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> (string) &#8211; filename</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">image format</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is only meant to check before saving files. For existing files
+open the image with PIL and check its format attribute.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">get_format_filename</span><span class="p">(</span><span class="s">&#39;test.tif&#39;</span><span class="p">)</span>
+<span class="go">&#39;TIFF&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_palette">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_palette</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.get_palette" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the palette of an image as a sequence of (r, g, b) tuples.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> &#8211; image with a palette</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">palette colors</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">a sequence of (r, g, b) tuples</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_quality">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_quality</tt><big>(</big><em>im</em>, <em>size</em>, <em>format</em>, <em>down=0</em>, <em>up=100</em>, <em>delta=1000</em>, <em>options=None</em><big>)</big><a class="headerlink" href="#lib.imtools.get_quality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Figure out recursively the quality save parameter to obtain a
+certain image size. This mostly used for <tt class="docutils literal"><span class="pre">JPEG</span></tt> images.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>im</em> (pil.Image) &#8211; image</li>
+<li><em>format</em> (string) &#8211; image file format (e.g. <tt class="docutils literal"><span class="pre">'JPEG'</span></tt>)</li>
+<li><em>down</em> (int) &#8211; minimum file size in bytes</li>
+<li><em>up</em> (int) &#8211; maximum file size in bytes</li>
+<li><em>delta</em> (int) &#8211; fault tolerance in bytes</li>
+<li><em>options</em> (dict) &#8211; image save options</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">save quality</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;/home/stani/sync/Desktop/IMGA3345.JPG&#39;</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">get_quality</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="mf">300000</span><span class="p">,</span> <span class="s">&quot;JPEG&quot;</span><span class="p">)</span>
+<span class="n">im</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s">&#39;_sized.jpg&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_reverse_transposition">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_reverse_transposition</tt><big>(</big><em>transposition</em><big>)</big><a class="headerlink" href="#lib.imtools.get_reverse_transposition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the reverse transposition method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>transposition</em> &#8211; transpostion, e.g. <tt class="docutils literal"><span class="pre">Image.ROTATE_90</span></tt></td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">inverse transpostion, e.g. <tt class="docutils literal"><span class="pre">Image.ROTATE_270</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_size">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_size</tt><big>(</big><em>im</em>, <em>format</em>, <em>**options</em><big>)</big><a class="headerlink" href="#lib.imtools.get_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the size in bytes if the image would be written to a file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>format</em> (string) &#8211; image file format (e.g. <tt class="docutils literal"><span class="pre">'JPEG'</span></tt>)</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the file size in bytes</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_unused_palette_indices">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_unused_palette_indices</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.get_unused_palette_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get unused color indices in an image palette.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> &#8211; image with a palette</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">unused color indices of the palette</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">set of 0-255</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_used_palette_colors">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_used_palette_colors</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.get_used_palette_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get used colors in an image palette as a sequence of (r, g, b) tuples.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> &#8211; image with a palette</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">used colors of the palette</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">sequence of (r, g, b) tuples</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.get_used_palette_indices">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">get_used_palette_indices</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.get_used_palette_indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get used color indices in an image palette.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> &#8211; image with a palette</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">used colors of the palette</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">set of integers (0-255)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.has_alpha">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">has_alpha</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.has_alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the image has an alpha band.
+i.e. the image mode is either RGBA or LA.
+The transparency in the P mode doesn&#8217;t count as an alpha band</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> (PIL image object) &#8211; the image to check</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">True or False</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.has_transparency">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">has_transparency</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.has_transparency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the image has transparency.
+The image has an alpha band or a P mode with transparency.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> (PIL image object) &#8211; the image to check</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">True or False</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.identity_color">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">identity_color</tt><big>(</big><em>image</em>, <em>value=0</em><big>)</big><a class="headerlink" href="#lib.imtools.identity_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a color with same color component values.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">identity_color</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+<span class="go">(2, 2, 2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">identity_color</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="mf">7</span><span class="p">)</span>
+<span class="go">7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.open_image">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">open_image</tt><big>(</big><em>uri</em><big>)</big><a class="headerlink" href="#lib.imtools.open_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open local files or remote files over http.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>uri</em> (string) &#8211; image location</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">image</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">pil.Image</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.open_image_data">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">open_image_data</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#lib.imtools.open_image_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open image from format data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>data</em> (string) &#8211; image format data</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">image</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">pil.Image</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.open_image_exif">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">open_image_exif</tt><big>(</big><em>uri</em><big>)</big><a class="headerlink" href="#lib.imtools.open_image_exif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open local files or remote files over http and transpose the
+image to its exif orientation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>uri</em> (string) &#8211; image location</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">image</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">pil.Image</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.paste">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">paste</tt><big>(</big><em>destination</em>, <em>source</em>, <em>box=(0</em>, <em>0)</em>, <em>mask=None</em>, <em>force=False</em><big>)</big><a class="headerlink" href="#lib.imtools.paste" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8220;Pastes the source image into the destination image while using an
+alpha channel if available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>destination</em> (PIL image object) &#8211; destination image</li>
+<li><em>source</em> (PIL image object) &#8211; source image</li>
+<li><em>box</em> (tuple) &#8211; The box argument is either a 2-tuple giving the upper left corner,
+a 4-tuple defining the left, upper, right, and lower pixel coordinate,
+or None (same as (0, 0)). If a 4-tuple is given, the size of the
+pasted image must match the size of the region.</li>
+<li><em>mask</em> (bool or PIL image object) &#8211; mask or None</li>
+<li><em>force</em> (bool) &#8211; <p>With mask: Force the invert alpha paste or not.</p>
+<p>Without mask:</p>
+<ul>
+<li>If <tt class="xref docutils literal"><span class="pre">True</span></tt> it will overwrite the alpha channel of the destination
+with the alpha channel of the source image. So in that case the
+pixels of the destination layer will be abandonned and replaced
+by exactly the same pictures of the destination image. This is mostly
+what you need if you paste on a transparant canvas.</li>
+<li>If <tt class="xref docutils literal"><span class="pre">False</span></tt> this will use a mask when the image has an alpha
+channel. In this case pixels of the destination image will appear
+through where the source image is transparent.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.put_alpha">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">put_alpha</tt><big>(</big><em>image</em>, <em>alpha</em><big>)</big><a class="headerlink" href="#lib.imtools.put_alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies the given band to the alpha layer of the given image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>image</em> (PIL image object) &#8211; input image</li>
+<li><em>alpha</em> (single band image object) &#8211; the alpha band to copy</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.put_palette">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">put_palette</tt><big>(</big><em>image_to</em>, <em>image_from</em>, <em>palette=None</em><big>)</big><a class="headerlink" href="#lib.imtools.put_palette" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies the palette and transparency of one image to another.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>image_to</em> (pil.Image) &#8211; image with a palette</li>
+<li><em>image_from</em> (pil.Image) &#8211; image with a palette</li>
+<li><em>palette</em> (sequence of (r, g, b) tuples or None) &#8211; image palette</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.reduce_opacity">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">reduce_opacity</tt><big>(</big><em>im</em>, <em>opacity</em><big>)</big><a class="headerlink" href="#lib.imtools.reduce_opacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an image with reduced opacity if opacity is
+within <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">1]</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>im</em> (pil.Image) &#8211; source image</li>
+<li><em>opacity</em> (float) &#8211; opacity within <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">1]</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns im:</th><td class="field-body"><p class="first">image</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pil.Image</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGBA&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">1</span><span class="p">),</span> <span class="p">(</span><span class="mf">255</span><span class="p">,</span> <span class="mf">255</span><span class="p">,</span> <span class="mf">255</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">reduce_opacity</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span><span class="o">.</span><span class="n">getpixel</span><span class="p">((</span><span class="mf">0</span><span class="p">,</span><span class="mf">0</span><span class="p">))</span>
+<span class="go">(255, 255, 255, 127)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.remove_alpha">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">remove_alpha</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.remove_alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the image after removing the alpha band or
+transparency</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> (PIL image object) &#8211; input image</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the input image after removing the alpha band or transparency</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">PIL image object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.save">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">save</tt><big>(</big><em>image</em>, <em>filename</em>, <em>**options</em><big>)</big><a class="headerlink" href="#lib.imtools.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves an image with a filename and raise the specific
+<tt class="docutils literal"><span class="pre">InvalidWriteFormatError</span></tt> in case of an error instead of a
+<tt class="docutils literal"><span class="pre">KeyError</span></tt>. Also can hack around UnicodeEncodeError (eg for IM format)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>image</em> (pil.Image) &#8211; image</li>
+<li><em>filename</em> (string) &#8211; image filename</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.save_check_mode">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">save_check_mode</tt><big>(</big><em>image</em>, <em>filename</em>, <em>**options</em><big>)</big><a class="headerlink" href="#lib.imtools.save_check_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.save_safely">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">save_safely</tt><big>(</big><em>image</em>, <em>filename</em><big>)</big><a class="headerlink" href="#lib.imtools.save_safely" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves an image with a filename and raise the specific
+<tt class="docutils literal"><span class="pre">InvalidWriteFormatError</span></tt> in case of an error instead of a
+<tt class="docutils literal"><span class="pre">KeyError</span></tt>. It can also save IM files with unicode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>image</em> (pil.Image) &#8211; image</li>
+<li><em>filename</em> (string) &#8211; image filename</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.split">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">split</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#lib.imtools.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Work around for bug in Pil 1.1.7</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>image</em> (PIL image object) &#8211; input image</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the different color bands of the image (eg R, G, B)</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.transpose">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">transpose</tt><big>(</big><em>image</em>, <em>methods</em><big>)</big><a class="headerlink" href="#lib.imtools.transpose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transpose with a sequence of transformations, mainly useful
+for exif.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> (pil.Image) &#8211; image</li>
+<li><em>methods</em> (list) &#8211; transposition methods</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">transposed image</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pil.Image</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.imtools.transpose_exif">
+<tt class="descclassname">lib.imtools.</tt><tt class="descname">transpose_exif</tt><big>(</big><em>image</em>, <em>reverse=False</em><big>)</big><a class="headerlink" href="#lib.imtools.transpose_exif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transpose an image to its exif orientation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> (pil.Image) &#8211; image</li>
+<li><em>reverse</em> (bool) &#8211; False when opening, True when saving</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">transposed image</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pil.Image</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.imageTable.html"
+                                  title="previous chapter">imageTable</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.linux.html"
+                                  title="next chapter">linux</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.linux.html" title="linux"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.imageTable.html" title="imageTable"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

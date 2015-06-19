@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>autoCompleteCtrls &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="lib.pyWx.html" />
+    <link rel="next" title="clipboard" href="lib.pyWx.clipboard.html" />
+    <link rel="prev" title="about" href="lib.pyWx.about.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.clipboard.html" title="clipboard"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.about.html" title="about"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.pyWx.autoCompleteCtrls">
+<h1>autoCompleteCtrls<a class="headerlink" href="#module-lib.pyWx.autoCompleteCtrls" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteIconCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.autoCompleteCtrls.</tt><tt class="descname">AutoCompleteIconCtrl</tt><big>(</big><em>parent</em>, <em>id</em>, <em>value</em>, <em>style</em>, <em>choices</em>, <em>colNames=None</em>, <em>multiChoices=None</em>, <em>showHead=True</em>, <em>dropDownClick=True</em>, <em>colFetch=-1</em>, <em>colSearch=0</em>, <em>hideOnNoMatch=True</em>, <em>selectCallback=None</em>, <em>entryCallback=None</em>, <em>matchFunction=None</em>, <em>**therest</em><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteIconCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl" class="reference" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl"><tt class="xref docutils literal"><span class="pre">lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl</span></tt></a></p>
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteIconCtrl.SetChoices">
+<tt class="descname">SetChoices</tt><big>(</big><em>choices</em><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteIconCtrl.SetChoices" title="Permalink to this definition">¶</a></dt>
+<dd>Sets the choices available in the popup wx.ListBox.
+The items will be sorted case insensitively.</dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteIconCtrl.match">
+<tt class="descname">match</tt><big>(</big><em>text</em>, <em>choice</em><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteIconCtrl.match" title="Permalink to this definition">¶</a></dt>
+<dd>Demonstrate &#8220;smart&#8221; matching feature,
+by ignoring <a class="reference" href="http://">http://</a> and www. when doing matches.</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.autoCompleteCtrls.</tt><tt class="descname">AutoCompleteTextCtrl</tt><big>(</big><em>parent</em>, <em>id</em>, <em>value</em>, <em>style</em>, <em>choices</em><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete" class="reference" href="other.pyWx.TextCtrlAutoComplete.html#other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete"><tt class="xref docutils literal"><span class="pre">other.pyWx.TextCtrlAutoComplete.TextCtrlAutoComplete</span></tt></a></p>
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.StartEvents">
+<tt class="descname">StartEvents</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.StartEvents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.StopEvents">
+<tt class="descname">StopEvents</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.StopEvents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.initialize">
+<tt class="descname">initialize</tt><big>(</big><em>value</em>, <em>choices</em><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.match">
+<tt class="descname">match</tt><big>(</big><em>text</em>, <em>choice</em><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.match" title="Permalink to this definition">¶</a></dt>
+<dd>Demonstrate &#8220;smart&#8221; matching feature,
+by ignoring <a class="reference" href="http://">http://</a> and www. when doing matches.</dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.onActivate">
+<tt class="descname">onActivate</tt><big>(</big><em>evt</em><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.onActivate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.onClickToggleDown">
+<tt class="descname">onClickToggleDown</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.onClickToggleDown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.onControlChanged">
+<tt class="descname">onControlChanged</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.onControlChanged" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.onListClick">
+<tt class="descname">onListClick</tt><big>(</big><em>evt</em><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.onListClick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.setDynamicChoices">
+<tt class="descname">setDynamicChoices</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.autoCompleteCtrls.AutoCompleteTextCtrl.setDynamicChoices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.pyWx.about.html"
+                                  title="previous chapter">about</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.pyWx.clipboard.html"
+                                  title="next chapter">clipboard</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.clipboard.html" title="clipboard"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.about.html" title="about"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>inspectorTag &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="pyWx" href="lib.pyWx.html" />
+    <link rel="next" title="paint" href="lib.pyWx.paint.html" />
+    <link rel="prev" title="inspector" href="lib.pyWx.inspector.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.paint.html" title="paint"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.inspector.html" title="inspector"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" accesskey="U">pyWx</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.pyWx.inspectorTag">
+<h1>inspectorTag<a class="headerlink" href="#module-lib.pyWx.inspectorTag" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lib.pyWx.inspectorTag.Frame">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.inspectorTag.</tt><tt class="descname">Frame</tt><big>(</big><em>parent</em>, <em>data</em>, <em>tags</em>, <em>icon=None</em>, <em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.Frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">wx._windows.Frame</span></tt></p>
+<dl class="attribute">
+<dt id="lib.pyWx.inspectorTag.Frame.Browser">
+<tt class="descname">Browser</tt><a class="headerlink" href="#lib.pyWx.inspectorTag.Frame.Browser" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="lib.pyWx.inspectorTag.TestBrowser" class="reference" href="#lib.pyWx.inspectorTag.TestBrowser"><tt class="xref docutils literal"><span class="pre">TestBrowser</span></tt></a></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspectorTag.Frame.CreateBitmapButton">
+<tt class="descname">CreateBitmapButton</tt><big>(</big><em>id</em>, <em>tooltip</em>, <em>size=(24</em>, <em>24)</em>, <em>style=2097152</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.Frame.CreateBitmapButton" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspectorTag.Frame.GetGrid">
+<tt class="descname">GetGrid</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.Frame.GetGrid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspectorTag.Frame.OnClose">
+<tt class="descname">OnClose</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.Frame.OnClose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.inspectorTag.Grid">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.inspectorTag.</tt><tt class="descname">Grid</tt><big>(</big><em>parent</em>, <em>data</em>, <em>*arg</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.Grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.tag.ContentMixin" class="reference" href="lib.pyWx.tag.html#lib.pyWx.tag.ContentMixin"><tt class="xref docutils literal"><span class="pre">lib.pyWx.tag.ContentMixin</span></tt></a>, <a title="lib.pyWx.inspector.Grid" class="reference" href="lib.pyWx.inspector.html#lib.pyWx.inspector.Grid"><tt class="xref docutils literal"><span class="pre">lib.pyWx.inspector.Grid</span></tt></a></p>
+<dl class="method">
+<dt id="lib.pyWx.inspectorTag.Grid.IsEmpty">
+<tt class="descname">IsEmpty</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.Grid.IsEmpty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspectorTag.Grid.SetData">
+<tt class="descname">SetData</tt><big>(</big><em>data</em>, <em>tag</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.Grid.SetData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.inspectorTag.TestBrowser">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.inspectorTag.</tt><tt class="descname">TestBrowser</tt><big>(</big><em>parent</em>, <em>tags</em>, <em>content_ctrl_keyw</em>, <em>*args</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.TestBrowser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.tag.Browser" class="reference" href="lib.pyWx.tag.html#lib.pyWx.tag.Browser"><tt class="xref docutils literal"><span class="pre">lib.pyWx.tag.Browser</span></tt></a></p>
+<dl class="attribute">
+<dt id="lib.pyWx.inspectorTag.TestBrowser.ContentCtrl">
+<tt class="descname">ContentCtrl</tt><a class="headerlink" href="#lib.pyWx.inspectorTag.TestBrowser.ContentCtrl" title="Permalink to this definition">¶</a></dt>
+<dd>alias of <a title="lib.pyWx.inspectorTag.TestContentGrid" class="reference" href="#lib.pyWx.inspectorTag.TestContentGrid"><tt class="xref docutils literal"><span class="pre">TestContentGrid</span></tt></a></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.inspectorTag.TestContentGrid">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.inspectorTag.</tt><tt class="descname">TestContentGrid</tt><big>(</big><em>parent</em>, <em>data</em>, <em>*arg</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.TestContentGrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.pyWx.inspectorTag.Grid" class="reference" href="#lib.pyWx.inspectorTag.Grid"><tt class="xref docutils literal"><span class="pre">lib.pyWx.inspectorTag.Grid</span></tt></a></p>
+<dl class="method">
+<dt id="lib.pyWx.inspectorTag.TestContentGrid.SetData">
+<tt class="descname">SetData</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.TestContentGrid.SetData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspectorTag.TestContentGrid.SetFilter">
+<tt class="descname">SetFilter</tt><big>(</big><em>filter=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.TestContentGrid.SetFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lib.pyWx.inspectorTag.TestContentGrid.SetTag">
+<tt class="descname">SetTag</tt><big>(</big><em>tag</em>, <em>filter=None</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.TestContentGrid.SetTag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.pyWx.inspectorTag.TestFrame">
+<em class="property">
+class </em><tt class="descclassname">lib.pyWx.inspectorTag.</tt><tt class="descname">TestFrame</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#lib.pyWx.inspectorTag.TestFrame" title="Permalink to this definition">¶</a></dt>
+<dd>Bases: <tt class="xref docutils literal"><span class="pre">wx._windows.Frame</span></tt></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.pyWx.inspector.html"
+                                  title="previous chapter">inspector</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.pyWx.paint.html"
+                                  title="next chapter">paint</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.paint.html" title="paint"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.pyWx.inspector.html" title="inspector"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li>
+          <li><a href="lib.pyWx.html" >pyWx</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

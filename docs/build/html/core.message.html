@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>message &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="core" href="core.html" />
+    <link rel="next" title="models" href="core.models.html" />
+    <link rel="prev" title="ct" href="core.ct.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="core.models.html" title="models"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="core.ct.html" title="ct"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="core.html" accesskey="U">core</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-core.message">
+<h1>message<a class="headerlink" href="#module-core.message" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="core.message.FrameReceiver">
+<em class="property">
+class </em><tt class="descclassname">core.message.</tt><tt class="descname">FrameReceiver</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#core.message.FrameReceiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.events.Receiver" class="reference" href="lib.events.html#lib.events.Receiver"><tt class="xref docutils literal"><span class="pre">lib.events.Receiver</span></tt></a></p>
+<dl class="method">
+<dt id="core.message.FrameReceiver.append_save_action">
+<tt class="descname">append_save_action</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#core.message.FrameReceiver.append_save_action" title="Permalink to this definition">¶</a></dt>
+<dd>To be overwritten.</dd></dl>
+
+<dl class="method">
+<dt id="core.message.FrameReceiver.show_error">
+<tt class="descname">show_error</tt><big>(</big><em>message</em><big>)</big><a class="headerlink" href="#core.message.FrameReceiver.show_error" title="Permalink to this definition">¶</a></dt>
+<dd>To be overwritten.</dd></dl>
+
+<dl class="method">
+<dt id="core.message.FrameReceiver.show_execute_dialog">
+<tt class="descname">show_execute_dialog</tt><big>(</big><em>result</em>, <em>settings</em>, <em>files=None</em><big>)</big><a class="headerlink" href="#core.message.FrameReceiver.show_execute_dialog" title="Permalink to this definition">¶</a></dt>
+<dd>To be overwritten.</dd></dl>
+
+<dl class="method">
+<dt id="core.message.FrameReceiver.show_files_message">
+<tt class="descname">show_files_message</tt><big>(</big><em>result</em>, <em>message</em>, <em>title</em>, <em>files</em><big>)</big><a class="headerlink" href="#core.message.FrameReceiver.show_files_message" title="Permalink to this definition">¶</a></dt>
+<dd>To be overwritten.</dd></dl>
+
+<dl class="method">
+<dt id="core.message.FrameReceiver.show_progress">
+<tt class="descname">show_progress</tt><big>(</big><em>title</em>, <em>parent_max</em>, <em>child_max</em>, <em>message=''</em><big>)</big><a class="headerlink" href="#core.message.FrameReceiver.show_progress" title="Permalink to this definition">¶</a></dt>
+<dd>To be overwritten.
+parent_max -&gt; parent loop, eg images
+child_max  -&gt; child loop, eg actions &amp; open</dd></dl>
+
+<dl class="method">
+<dt id="core.message.FrameReceiver.show_progress_error">
+<tt class="descname">show_progress_error</tt><big>(</big><em>result</em>, <em>message</em>, <em>ignore=True</em><big>)</big><a class="headerlink" href="#core.message.FrameReceiver.show_progress_error" title="Permalink to this definition">¶</a></dt>
+<dd>To be overwritten.</dd></dl>
+
+<dl class="method">
+<dt id="core.message.FrameReceiver.show_scrolled_message">
+<tt class="descname">show_scrolled_message</tt><big>(</big><em>message</em>, <em>title</em>, <em>**keyw</em><big>)</big><a class="headerlink" href="#core.message.FrameReceiver.show_scrolled_message" title="Permalink to this definition">¶</a></dt>
+<dd>To be overwritten.</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="core.message.ProgressReceiver">
+<em class="property">
+class </em><tt class="descclassname">core.message.</tt><tt class="descname">ProgressReceiver</tt><big>(</big><em>parent_max</em>, <em>child_max</em><big>)</big><a class="headerlink" href="#core.message.ProgressReceiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a title="lib.events.Receiver" class="reference" href="lib.events.html#lib.events.Receiver"><tt class="xref docutils literal"><span class="pre">lib.events.Receiver</span></tt></a></p>
+<dl class="method">
+<dt id="core.message.ProgressReceiver.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#core.message.ProgressReceiver.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.message.ProgressReceiver.set_max">
+<tt class="descname">set_max</tt><big>(</big><em>parent_max</em>, <em>child_max</em><big>)</big><a class="headerlink" href="#core.message.ProgressReceiver.set_max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.message.ProgressReceiver.sleep">
+<tt class="descname">sleep</tt><big>(</big><big>)</big><a class="headerlink" href="#core.message.ProgressReceiver.sleep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.message.ProgressReceiver.update">
+<tt class="descname">update</tt><big>(</big><em>result</em>, <em>value</em>, <em>newmsg=''</em><big>)</big><a class="headerlink" href="#core.message.ProgressReceiver.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.message.ProgressReceiver.update_filename">
+<tt class="descname">update_filename</tt><big>(</big><em>result</em>, <em>parent_index</em>, <em>filename</em><big>)</big><a class="headerlink" href="#core.message.ProgressReceiver.update_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="core.message.ProgressReceiver.update_index">
+<tt class="descname">update_index</tt><big>(</big><em>result</em>, <em>parent_index</em>, <em>child_index</em><big>)</big><a class="headerlink" href="#core.message.ProgressReceiver.update_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="core.ct.html"
+                                  title="previous chapter">ct</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="core.models.html"
+                                  title="next chapter">models</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="core.models.html" title="models"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="core.ct.html" title="ct"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="core.html" >core</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>thumbnail &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="unicoding" href="lib.unicoding.html" />
+    <link rel="prev" title="system" href="lib.system.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.unicoding.html" title="unicoding"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.system.html" title="system"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.thumbnail">
+<h1>thumbnail<a class="headerlink" href="#module-lib.thumbnail" title="Permalink to this headline">¶</a></h1>
+<p>The most important functions of this module are
+<tt class="docutils literal"><span class="pre">open</span></tt> and <tt class="docutils literal"><span class="pre">save_to_cache</span></tt>.</p>
+<p>For the freedesktop specifications, it follows:
+<a class="reference" href="http://jens.triq.net/thumbnail-spec/index.html">http://jens.triq.net/thumbnail-spec/index.html</a></p>
+<dl class="function">
+<dt id="lib.thumbnail.delete">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">delete</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.thumbnail.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.ensure_path">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">ensure_path</tt><big>(</big><em>*paths</em><big>)</big><a class="headerlink" href="#lib.thumbnail.ensure_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.get_filesize">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">get_filesize</tt><big>(</big><em>filename</em>, <em>file_stat=None</em><big>)</big><a class="headerlink" href="#lib.thumbnail.get_filesize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.get_format_data">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">get_format_data</tt><big>(</big><em>image</em>, <em>format</em>, <em>size=(128</em>, <em>128)</em>, <em>checkboard=False</em><big>)</big><a class="headerlink" href="#lib.thumbnail.get_format_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the image in the file bytes of the image at a certain
+size. By consequence this byte data is different for the chosen
+format (<tt class="docutils literal"><span class="pre">JPEG</span></tt>, <tt class="docutils literal"><span class="pre">TIFF</span></tt>, ...).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> &#8211; source image</li>
+<li><em>format</em> (string) &#8211; image file type format</li>
+<li><em>size</em> (tuple of int) &#8211; target thumbnail size</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">byte data of the thumbnail</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.get_freedesktop_filename">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">get_freedesktop_filename</tt><big>(</big><em>filename</em>, <em>size_label='normal'</em><big>)</big><a class="headerlink" href="#lib.thumbnail.get_freedesktop_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get filename of freedekstop thumbnail.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>filename</em> (string) &#8211; image filename</li>
+<li><em>size_label</em> (string) &#8211; <tt class="docutils literal"><span class="pre">'normal'</span></tt> or <tt class="docutils literal"><span class="pre">'large'</span></tt></li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">thumbnail filename</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.get_freedesktop_pnginfo">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">get_freedesktop_pnginfo</tt><big>(</big><em>filename</em>, <em>image=None</em>, <em>thumb_info=None</em><big>)</big><a class="headerlink" href="#lib.thumbnail.get_freedesktop_pnginfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets png metadata for the thumbnail.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> (string) &#8211; image filename</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">png info</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">PngImagePlugin.PngInfo</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.get_freedesktop_size_label">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">get_freedesktop_size_label</tt><big>(</big><em>size</em><big>)</big><a class="headerlink" href="#lib.thumbnail.get_freedesktop_size_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the freedesktop size label.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>size</em> (tuple of int) &#8211; requested size of the thumbnail</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">size label</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">get_freedesktop_size_label</span><span class="p">((</span><span class="mf">128</span><span class="p">,</span> <span class="mf">128</span><span class="p">))</span>
+<span class="go">&#39;normal&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_freedesktop_size_label</span><span class="p">((</span><span class="mf">128</span><span class="p">,</span> <span class="mf">129</span><span class="p">))</span>
+<span class="go">&#39;large&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.get_hash">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">get_hash</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.thumbnail.get_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get md5 hash of uri of filename.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> (string) &#8211; filename</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">hash</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">get_hash</span><span class="p">(</span><span class="s">&#39;file:///home/user/test.png&#39;</span><span class="p">)</span>
+<span class="go">&#39;03223f4f10458a8b5d14327f3ae23136&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.get_mtime">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">get_mtime</tt><big>(</big><em>filename</em>, <em>file_stat=None</em><big>)</big><a class="headerlink" href="#lib.thumbnail.get_mtime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.get_uri">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">get_uri</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#lib.thumbnail.get_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get uri of filename.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>filename</em> (string) &#8211; filename</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">uri</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">get_uri</span><span class="p">(</span><span class="s">&#39;/home/user/test.png&#39;</span><span class="p">)</span>
+<span class="go">&#39;file:///home/user/test.png&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.is_needed">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">is_needed</tt><big>(</big><em>image</em>, <em>format='JPEG'</em><big>)</big><a class="headerlink" href="#lib.thumbnail.is_needed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Small images don&#8217;t need thumbnails</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> (pil.Image) &#8211; image</li>
+<li><em>format</em> (string) &#8211; image format</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><tt class="xref docutils literal"><span class="pre">True</span></tt> if large enough, <tt class="xref docutils literal"><span class="pre">False</span></tt> otherwise</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">128</span><span class="p">,</span> <span class="mf">128</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_needed</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">1024</span><span class="p">,</span> <span class="mf">1024</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_needed</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.needs_update">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">needs_update</tt><big>(</big><em>filename</em>, <em>size_label='normal'</em>, <em>thumb_filename=None</em><big>)</big><a class="headerlink" href="#lib.thumbnail.needs_update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.open">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">open</tt><big>(</big><em>filename</em>, <em>image=None</em>, <em>open_image=&lt;function open_image_exif at 0x2706398&gt;</em>, <em>size=(128</em>, <em>128)</em>, <em>save_cache=True</em><big>)</big><a class="headerlink" href="#lib.thumbnail.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a thumbnail from a file. It will only use the cache
+if <tt class="docutils literal"><span class="pre">size</span></tt> is smaller than the cache thumbnail sizes.</p>
+<p>On Linux it will try to load it from the freedesktop thumbnail
+cache, which makes it much faster. Otherwise it will generate the
+thumbnail.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>filename</em> (string) &#8211; filename of the image</li>
+<li><em>image</em> (pil.Image) &#8211; generate thumb from pil image directly (optional)</li>
+<li><em>open_image</em> (function) &#8211; alternative for Image.open</li>
+<li><em>size</em> (tuple of int) &#8211; size of the thumbnail</li>
+<li><em>save_cache</em> (bool) &#8211; save thumbnail in cache (linux only)</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">thumbnail</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pil.Image</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.save_to_cache">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">save_to_cache</tt><big>(</big><em>filename</em>, <em>image=None</em>, <em>open_image=&lt;function open_image_exif at 0x2706398&gt;</em>, <em>thumb_info=None</em>, <em>**options</em><big>)</big><a class="headerlink" href="#lib.thumbnail.save_to_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the thumb of image as a thumbnail for specified file.</p>
+<p>This is called by the _open function, which requires that it
+returns the thumb.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>filename</em> (string) &#8211; filename of the image</li>
+<li><em>image</em> (pil.Image) &#8211; generate thumb from pil image directly (optional)</li>
+<li><em>open_image</em> (function) &#8211; alternative for Image.open</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.thumbnail.thumbnail">
+<tt class="descclassname">lib.thumbnail.</tt><tt class="descname">thumbnail</tt><big>(</big><em>image</em>, <em>size=(128</em>, <em>128)</em>, <em>checkboard=False</em>, <em>copy=True</em><big>)</big><a class="headerlink" href="#lib.thumbnail.thumbnail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a not in place thumbnail</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>image</em> (pil.Image) &#8211; image</li>
+<li><em>size</em> (tuple of int) &#8211; thumbnail size</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">thumbnail</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Image</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;L&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">1024</span><span class="p">,</span> <span class="mf">1024</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">thumbnail</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="p">(</span><span class="mf">128</span><span class="p">,</span> <span class="mf">128</span><span class="p">))</span><span class="o">.</span><span class="n">size</span>
+<span class="go">(128, 128)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.system.html"
+                                  title="previous chapter">system</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.unicoding.html"
+                                  title="next chapter">unicoding</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.unicoding.html" title="unicoding"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.system.html" title="system"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

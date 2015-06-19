@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>metadataTest &mdash; Phatch v0.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Phatch v0.2 documentation" href="index.html" />
+    <link rel="up" title="lib" href="lib.html" />
+    <link rel="next" title="notify" href="lib.notify.html" />
+    <link rel="prev" title="metadata" href="lib.metadata.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="lib.notify.html" title="notify"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lib.metadata.html" title="metadata"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" accesskey="U">lib</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lib.metadataTest">
+<h1>metadataTest<a class="headerlink" href="#module-lib.metadataTest" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lib.metadataTest.DateTime">
+<em class="property">
+class </em><tt class="descclassname">lib.metadataTest.</tt><tt class="descname">DateTime</tt><big>(</big><em>source</em><big>)</big><a class="headerlink" href="#lib.metadataTest.DateTime" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="lib.metadataTest.DateTime.from_exif_string">
+<tt class="descname">from_exif_string</tt><big>(</big><em>exif_string</em><big>)</big><a class="headerlink" href="#lib.metadataTest.DateTime.from_exif_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the DateTime from an exif string (as returned by
+PIL exif).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>exif_string</em> (string) &#8211; datetime string with format <tt class="docutils literal"><span class="pre">%Y:%m:%d</span> <span class="pre">%H:%M:%S</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lib.metadataTest.Rational">
+<em class="property">
+class </em><tt class="descclassname">lib.metadataTest.</tt><tt class="descname">Rational</tt><a class="headerlink" href="#lib.metadataTest.Rational" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.metadataTest.is_string">
+<tt class="descclassname">lib.metadataTest.</tt><tt class="descname">is_string</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#lib.metadataTest.is_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether <tt class="docutils literal"><span class="pre">x</span></tt> is a string not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>x</em> &#8211; variable</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">True if string, False otherwise</td>
+</tr>
+<tr class="field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lib.metadataTest.main">
+<tt class="descclassname">lib.metadataTest.</tt><tt class="descname">main</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#lib.metadataTest.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lib.metadataTest.now">
+<tt class="descclassname">lib.metadataTest.</tt><tt class="descname">now</tt><big>(</big><big>)</big><a class="headerlink" href="#lib.metadataTest.now" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="lib.metadata.html"
+                                  title="previous chapter">metadata</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="lib.notify.html"
+                                  title="next chapter">notify</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lib.notify.html" title="notify"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lib.metadata.html" title="metadata"
+             >previous</a> |</li>
+        <li><a href="index.html">Phatch v0.2 documentation</a> &raquo;</li>
+          <li><a href="lib.html" >lib</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, www.stani.be.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>
