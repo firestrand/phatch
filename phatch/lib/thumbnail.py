@@ -59,7 +59,7 @@ def get_filesize(filename, file_stat=None):
 
 if FREEDESKTOP:
 
-    import PngImagePlugin
+    from PIL import PngImagePlugin
 
     FREEDESKTOP_SIZE = {
         'normal': (128, 128),
