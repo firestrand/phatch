@@ -26,17 +26,19 @@ import subprocess
 import shutil
 import sys
 
-from lib import desktop
-from lib import system
-from lib.unicoding import ensure_unicode
+from phatch.lib import desktop
+from phatch.lib import system
+from phatch.lib.unicoding import ensure_unicode
 
-#-- nosetests
+
+# -- nosetests
 
 
 class Paths:
 
     def __getitem__(self, key):
         return 'path'
+
 
 USER_PATH = desktop.USER_FOLDER
 PATHS = Paths()
@@ -75,10 +77,10 @@ def verify_app_user_paths():
     """
     # fixme: better use setting, path retrieval should be cleaned
     for path in [USER_DATA_PATH, USER_CONFIG_PATH,
-            USER_CACHE_PATH, USER_ACTIONLISTS_PATH,
-            USER_ACTIONS_PATH, USER_BIN_PATH, USER_BIN_PATH,
-            USER_FONTS_PATH, USER_MASKS_PATH,
-            USER_HIGHLIGHTS_PATH, USER_WATERMARKS_PATH]:
+                 USER_CACHE_PATH, USER_ACTIONLISTS_PATH,
+                 USER_ACTIONS_PATH, USER_BIN_PATH, USER_BIN_PATH,
+                 USER_FONTS_PATH, USER_MASKS_PATH,
+                 USER_HIGHLIGHTS_PATH, USER_WATERMARKS_PATH]:
         if 0:  # and path == USER_ACTIONLISTS_PATH:
             # DISABLED
             # copy action lists from the phatch root to user
@@ -92,12 +94,12 @@ def verify_app_user_paths():
             else:
                 shutil.copytree(PHATCH_ACTIONLISTS_PATH, path)
         else:
-            #create when they don't exist
+            # create when they don't exist
             system.ensure_path(path)
     geek = 'geek.txt'
     if not os.path.isfile(USER_GEEK_PATH):
         shutil.copyfile(os.path.join(PHATCH_DATA_PATH, geek),
-            USER_GEEK_PATH)
+                        USER_GEEK_PATH)
 
 
 def check_config_paths(config_paths):
@@ -119,11 +121,11 @@ def check_config_paths(config_paths):
     PHATCH_SHARE_PATH = os.path.join(ROOT_SHARE_PATH, "phatch")
     PHATCH_DATA_PATH = os.path.join(PHATCH_SHARE_PATH, "data")
     PHATCH_ACTIONLISTS_PATH = os.path.join(PHATCH_DATA_PATH,
-                                    'actionlists')
+                                           'actionlists')
     PHATCH_BLENDER_PATH = os.path.join(PHATCH_DATA_PATH, "blender")
     PHATCH_FONTS_PATH = os.path.join(PHATCH_DATA_PATH, "fonts")
     PHATCH_FONTS_CACHE_PATH = os.path.join(PHATCH_SHARE_PATH,
-                            "cache", "fonts")
+                                           "cache", "fonts")
 
     if sys.platform.startswith('win'):
         sys.stderr.write(
@@ -133,24 +135,24 @@ def check_config_paths(config_paths):
     else:
         return {
             'PHATCH_IMAGE_PATH': os.path.join(PHATCH_SHARE_PATH,
-                                    'images'),
+                                              'images'),
             'PHATCH_LOCALE_PATH': os.path.join(ROOT_SHARE_PATH,
-                                    'locale'),
+                                               'locale'),
             'PHATCH_DOCS_PATH': os.path.join(ROOT_SHARE_PATH,
-                                    'doc', 'phatch', 'html'),
-            #cache
+                                             'doc', 'phatch', 'html'),
+            # cache
             'PHATCH_FONTS_CACHE_PATH': PHATCH_FONTS_CACHE_PATH,
-            #data
+            # data
             'PHATCH_DATA_PATH': PHATCH_DATA_PATH,
             'PHATCH_ACTIONLISTS_PATH': PHATCH_ACTIONLISTS_PATH,
             'PHATCH_BLENDER_PATH': PHATCH_BLENDER_PATH,
             'PHATCH_FONTS_PATH': PHATCH_FONTS_PATH,
             'PHATCH_HIGHLIGHTS_PATH': os.path.join(PHATCH_DATA_PATH,
-                                    'highlights'),
+                                                   'highlights'),
             'PHATCH_MASKS_PATH': os.path.join(PHATCH_DATA_PATH,
-                                    'masks'),
+                                              'masks'),
             'PHATCH_PERSPECTIVE_PATH': os.path.join(PHATCH_DATA_PATH,
-                                    'perspective'),
+                                                    'perspective'),
         }
 
 
@@ -176,30 +178,30 @@ def fix_python_path(phatch_python_path=None):
     if not phatch_python_path:
         phatch_python_path = os.path.dirname(
             os.path.dirname(os.path.abspath(__file__)))
-    if not(phatch_python_path in [ensure_unicode(x) for x in sys.path]):
+    if not (phatch_python_path in [ensure_unicode(x) for x in sys.path]):
         sys.path.insert(0, phatch_python_path)
     return phatch_python_path
 
 
 def load_locale(app, path, canonical='default', unicode=True):
     locale.setlocale(locale.LC_ALL, '')
-    #get default canonical if necessary
+    # get default canonical if necessary
     if canonical == 'default':
         canonical = locale.getdefaultlocale(envvars=('LC_ALL', 'LANG'))[0]
         if canonical is None:
-            #for mac
+            # for mac
             canonical = 'en'
-    #canonical = 'zh' #to test unicode languages
-    #expand with similar translations
+    # canonical = 'zh' #to test unicode languages
+    # expand with similar translations
     base = canonical.split('_')[0]  # eg pt_BR -> pt
     base_path = os.path.join(path, base)
     languages = [base_path] + \
-        [os.path.basename(x) for x in glob.glob(base_path + '_*')]
-    #ensure canonical is the first element (base the second)
+                [os.path.basename(x) for x in glob.glob(base_path + '_*')]
+    # ensure canonical is the first element (base the second)
     if canonical in languages:
         languages.remove(canonical)
     languages.insert(0, canonical)
-    #install
+    # install
     i18n = gettext.translation(app, path, languages=languages, fallback=1)
     i18n.install(unicode=unicode)
 
@@ -207,28 +209,28 @@ def load_locale(app, path, canonical='default', unicode=True):
 def init_config_paths(config_paths=None):
     if config_paths is None:
         config_paths = {}
-    #check paths
+    # check paths
     config_paths = check_config_paths(config_paths)
     add_user_paths(config_paths)
-    #configure sys.path
+    # configure sys.path
     phatch_path = fix_python_path(config_paths.get('PHATCH_PYTHON_PATH', None))
-    #patches for pil <= 1.1.6 (ImportError=skip during build process)
+    # patches for pil <= 1.1.6 (ImportError=skip during build process)
     try:
         from PIL import Image
         if Image.VERSION < '1.1.7':
             fix_python_path(os.path.join(phatch_path, 'other', 'pil_1_1_6'))
     except ImportError:
         pass
-    #user actions
+    # user actions
     fix_python_path(USER_ACTIONS_PATH)
-    #set font cache
-    from lib.fonts import set_font_cache
+    # set font cache
+    from phatch.lib.fonts import set_font_cache
     set_font_cache(USER_FONTS_PATH, PHATCH_FONTS_PATH,
-        USER_FONTS_CACHE_PATH, PHATCH_FONTS_CACHE_PATH)
-    #register paths
+                   USER_FONTS_CACHE_PATH, PHATCH_FONTS_CACHE_PATH)
+    # register paths
     global PATHS
     PATHS = config_paths
-    #return values
+    # return values
     return config_paths
 
 
@@ -240,8 +242,7 @@ def load_locale_only(config_paths=None):
 
 
 def check_fonts(force=False):
-    from core.config import USER_FONTS_CACHE_PATH, PHATCH_FONTS_CACHE_PATH
-    if force or not(os.path.exists(USER_FONTS_CACHE_PATH) or \
-            os.path.exists(PHATCH_FONTS_CACHE_PATH)):
+    if force or not (os.path.exists(USER_FONTS_CACHE_PATH) or
+                     os.path.exists(PHATCH_FONTS_CACHE_PATH)):
         subprocess.Popen([sys.executable,
-            os.path.abspath(sys.argv[0]), '--fonts'])
+                          os.path.abspath(sys.argv[0]), '--fonts'])

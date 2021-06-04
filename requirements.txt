@@ -1,0 +1,3 @@
+wxPython>=4.1.1
+Pillow~=8.2.0
+pyexiv2~=2.5.0

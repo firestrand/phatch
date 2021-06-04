@@ -22,9 +22,6 @@
 
 import sys
 
-if sys.version_info[0] != 2:
-    sys.exit('Sorry, Phatch is only compatible with Python 2.x!\n')
-
 from os.path import abspath, dirname, join
 from core import config
 
@@ -32,8 +29,8 @@ from core import config
 def create_paths(relative=''):
     root = dirname(abspath(__file__))
 
-    def expand(path):
-        return abspath(join(root, relative, path))
+    def expand(path_value):
+        return abspath(join(root, relative, path_value))
 
     phatch_data_path = 'data'
     paths = {
@@ -41,7 +38,7 @@ def create_paths(relative=''):
         'PHATCH_FONTS_CACHE_PATH': 'cache/fonts',
         'PHATCH_IMAGE_PATH': 'images',
         'PHATCH_LOCALE_PATH': 'locale',
-        #data
+        # data
         'PHATCH_DATA_PATH': phatch_data_path,
         'PHATCH_ACTIONLISTS_PATH': join(phatch_data_path, 'actionlists'),
         'PHATCH_BLENDER_PATH': join(phatch_data_path, 'blender'),
@@ -66,10 +63,11 @@ def init_config_paths():
 
 
 def main():
-    #override paths with local paths
-    #start application
+    # override paths with local paths
+    # start application
     import app
     app.main(init_config_paths(), app_file=__file__)
+
 
 if __name__ == '__main__':
     main()

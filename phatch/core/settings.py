@@ -44,7 +44,7 @@ def create_settings(config_paths=None, options=None):
         'verbose': True,
         #gui
         'browse_source': 0,
-        'tag_actions': _('All'),
+        'tag_actions': ct._('All'),
         'description': True,
         'collapse_automatic': False,
         'droplet': False,

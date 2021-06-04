@@ -28,8 +28,8 @@ import os
 from PIL import Image
 import api
 from config import USER_PREVIEW_PATH
-from lib import openImage
-from lib.system import ensure_path
+from phatch.lib import openImage
+from phatch.lib.system import ensure_path
 
 
 def generate(source, size=(48, 48), path=USER_PREVIEW_PATH, force=True):

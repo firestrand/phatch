@@ -18,8 +18,7 @@
 
 import os
 import sys
+from core.config import init_config_paths
 
 sys.path.insert(0, os.path.dirname(__file__))
-
-from core.config import init_config_paths
 init_config_paths()

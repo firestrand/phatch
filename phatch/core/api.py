@@ -38,13 +38,13 @@ from cStringIO import StringIO
 from datetime import timedelta
 
 #gui-independent
-from data.version import VERSION
-from lib import formField
-from lib import metadata
-from lib import openImage
-from lib import safe
-from lib.odict import ReadOnlyDict
-from lib.unicoding import ensure_unicode, exception_to_unicode, ENCODING
+from phatch.data.version import VERSION
+from phatch.lib import formField
+from phatch.lib import metadata
+from phatch.lib import openImage
+from phatch.lib import safe
+from phatch.lib.odict import ReadOnlyDict
+from phatch.lib.unicoding import ensure_unicode, exception_to_unicode, ENCODING
 
 import ct
 import pil
@@ -52,20 +52,20 @@ from message import send
 
 #---constants
 PROGRESS_MESSAGE = 'In: %s%s\nFile' % (' ' * 100, '.')
-SEE_LOG = _('See "%s" for more details.') % _('Show Log')
+SEE_LOG = str('See "%s" for more details.') % str('Show Log')
 TREE_HEADERS = ['filename', 'type', 'folder', 'subfolder', 'root',
     'foldername']
 TREE_VARS = set(TREE_HEADERS).union(pil.BASE_VARS)
 TREE_HEADERS += ['index', 'folderindex']
 ERROR_INCOMPATIBLE_ACTIONLIST = \
-_('Sorry, the action list seems incompatible with %(name)s %(version)s.')
+str('Sorry, the action list seems incompatible with %(name)s %(version)s.')
 
 ERROR_UNSAFE_ACTIONLIST_INTRO = _('This action list is unsafe:')
 ERROR_UNSAFE_ACTIONLIST_DISABLE_SAFE = \
-_('Disable Safe Mode in the Tools menu if you trust this action list.')
+str('Disable Safe Mode in the Tools menu if you trust this action list.')
 ERROR_UNSAFE_ACTIONLIST_ACCEPT = \
-_("Never run action lists from untrusted sources.") + ' ' +\
-_("Please check if this action list doesn't contain harmful code.")
+str("Never run action lists from untrusted sources.") + ' ' +\
+str("Please check if this action list doesn't contain harmful code.")
 
 #---classes
 
@@ -81,7 +81,7 @@ class PathError(Exception):
         self.filename = filename
 
     def __str__(self):
-        return _('"%s" is not a valid path.') % self.filename
+        return str('"%s" is not a valid path.') % self.filename
 
 #---init/exit
 
@@ -114,6 +114,8 @@ def log_error(message, filename, action=None, label='Error'):
     :type message: string
     :param filename: image filename
     :type filename: string
+    :param action: action
+    :type action:
     :param label: ``'Error'`` or ``'Warning'``
     :type label: string
     :returns: error log details
@@ -135,7 +137,7 @@ def log_error(message, filename, action=None, label='Error'):
         stringio = StringIO()
         traceback.print_exc(file=stringio)
         traceb = stringio.read()
-        ERROR_LOG_FILE.write(unicode(traceb, ENCODING, 'replace'))
+        ERROR_LOG_FILE.write(str(traceb, ENCODING, 'replace'))
     ERROR_LOG_FILE.write('*' + os.linesep)
     ERROR_LOG_FILE.flush()
     ERROR_LOG_COUNTER += 1
@@ -150,12 +152,12 @@ def get_vars(actions):
     :param actions: list of actions
     :type actions: list of dict
     """
-    vars = []
+    vars_list = []
     for action in actions:
-        vars.extend(action.metadata)
+        vars_list.extend(action.metadata)
         for field in action._get_fields().values():
-            safe.extend_vars(vars, field.get_as_string())
-    return vars
+            safe.extend_vars(vars_list, field.get_as_string())
+    return vars_list
 
 
 def assert_safe(actions):

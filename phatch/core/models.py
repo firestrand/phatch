@@ -32,13 +32,13 @@ import os
 
 from PIL import Image
 
-from lib.formField import files_dictionary, Form, Field, \
+from phatch.lib.formField import files_dictionary, Form, Field, \
     ImageDictionaryReadFileField, \
     ImageDictionaryField, rotation_title_parser
-from lib.reverse_translation import _t
+from phatch.lib.reverse_translation import _t
 from config import PATHS
-from lib import openImage
-from lib.desktop import DESKTOP_FOLDER, USER_FOLDER
+from phatch.lib import openImage
+from phatch.lib.desktop import DESKTOP_FOLDER, USER_FOLDER
 if DESKTOP_FOLDER == USER_FOLDER:
     DESKTOP_FOLDER = os.path.expanduser('~/phatch')
 

@@ -33,15 +33,15 @@ import types
 from PIL import Image
 
 #todo make this lazy
-from lib import formField
-from lib import imtools
-from lib import metadata
-from lib import openImage
-from lib import system
-from lib import thumbnail
-from lib import unicoding
-from lib.reverse_translation import _t
-from lib.formField import RE_FILE_IN, RE_FILE_OUT
+from phatch.lib import formField
+from phatch.lib import imtools
+from phatch.lib import metadata
+from phatch.lib import openImage
+from phatch.lib import system
+from phatch.lib import thumbnail
+from phatch.lib import unicoding
+from phatch.lib.reverse_translation import _t
+from phatch.lib.formField import RE_FILE_IN, RE_FILE_OUT
 
 from ct import TITLE
 from config import USER_BIN_PATH
@@ -52,7 +52,7 @@ system.set_bin_paths([USER_BIN_PATH])
 
 try:
     import pyexiv2
-    from lib import _pyexiv2 as exif
+    from phatch.lib import _pyexiv2 as exif
 except:
     pyexiv2 = None
     exif = False

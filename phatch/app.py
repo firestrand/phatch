@@ -21,7 +21,8 @@
 import os
 import optparse
 import sys
-import urllib
+import urllib.parse
+from gettext import gettext
 
 from data.info import INFO
 from core import config
@@ -30,9 +31,9 @@ VERSION = "%(name)s %(version)s" % INFO
 
 
 def fix_path(path):
-    #TODO: move me to lib/system.py
+    # TODO: move me to lib/system.py
     if path.startswith('file://'):
-        return urllib.unquote(path[7:])
+        return urllib.parse.unquote(path[7:])
     return path
 
 
@@ -48,7 +49,6 @@ def parse_locale(config_paths):
 
 
 def parse_options():
-
     parser = optparse.OptionParser(
         usage="""
   %(name)s [actionlist]
@@ -60,66 +60,66 @@ def parse_options():
   phatch action_list.phatch
   phatch --verbose --recursive action_list.phatch image_file.png image_folder
   phatch --inspect image_file.jpg
-  phatch --droplet recent""" % _('Examples'),
+  phatch --droplet recent""" % gettext('Examples'),
         version=VERSION,
     )
     parser.add_option("-c", "--console", action="store_true",
-        dest="console",
-        default=False,
-        help=_("Run %s as console program without a gui") % INFO['name'])
+                      dest="console",
+                      default=False,
+                      help=gettext("Run %s as console program without a gui") % INFO['name'])
     parser.add_option("-d", "--droplet", action="store_true",
-        dest="droplet",
-        default=False,
-        help=_("Run %s as a gui droplet") % INFO['name'])
+                      dest="droplet",
+                      default=False,
+                      help=gettext("Run %s as a gui droplet") % INFO['name'])
     parser.add_option("--desktop", action="store_true",
-        dest="desktop",
-        default=False,
-        help=_("Always save on desktop"))
+                      dest="desktop",
+                      default=False,
+                      help=gettext("Always save on desktop"))
     parser.add_option("-f", "--force", action="store_false",
-        dest="stop_for_errors",
-        default=True,
-        help=_("Ignore errors"))
+                      dest="stop_for_errors",
+                      default=True,
+                      help=gettext("Ignore errors"))
     parser.add_option("--fonts", action="store_true",
-        dest="init_fonts",
-        default=False,
-        help=_("Initialize fonts (only for installation scripts)"))
+                      dest="init_fonts",
+                      default=False,
+                      help=gettext("Initialize fonts (only for installation scripts)"))
     parser.add_option("-i", "--interactive", action="store_true",
-        dest="interactive",
-        default=False,
-        help=_("Interactive"))
+                      dest="interactive",
+                      default=False,
+                      help=gettext("Interactive"))
     parser.add_option("-k", "--keep", action="store_false",
-        dest="overwrite_existing_images",
-        default=True,
-        help=_("Keep existing images (don't overwrite)"))
+                      dest="overwrite_existing_images",
+                      default=True,
+                      help=gettext("Keep existing images (don't overwrite)"))
     parser.add_option("-l", action="store",
-        dest="locale",
-        default='default',
-        type="string",
-        help=_("Specify locale language (for example en or en_GB)"))
+                      dest="locale",
+                      default='default',
+                      type="string",
+                      help=gettext("Specify locale language (for example en or en_GB)"))
     parser.add_option("-n", "--inspect", action="store_true",
-        dest="image_inspector",
-        default=False,
-        help=_("Inspect metadata (requires exif & iptc plugin)"))
+                      dest="image_inspector",
+                      default=False,
+                      help=gettext("Inspect metadata (requires exif & iptc plugin)"))
     parser.add_option("--no-save", action="store_true",
-        dest="no_save",
-        default=False,
-        help=_("No save action required at the end"))
+                      dest="no_save",
+                      default=False,
+                      help=gettext("No save action required at the end"))
     parser.add_option("-r", "--recursive", action="store_true",
-        dest="recursive",
-        default=False,
-        help=_("Include all subfolders"))
+                      dest="recursive",
+                      default=False,
+                      help=gettext("Include all subfolders"))
     parser.add_option("-t", "--trust", action="store_false",
-        dest="check_images_first",
-        default=True,
-        help=_("Do not check images first"))
+                      dest="check_images_first",
+                      default=True,
+                      help=gettext("Do not check images first"))
     parser.add_option("--unsafe", action="store_false",
-        dest="safe",
-        default=True,
-        help=_("Allow Geek action and unsafe expressions"))
+                      dest="safe",
+                      default=True,
+                      help=gettext("Allow Geek action and unsafe expressions"))
     parser.add_option("-v", "--verbose", action="store_true",
-        dest="verbose",
-        default=False,
-        help=_("Verbose"))
+                      dest="verbose",
+                      default=False,
+                      help=gettext("Verbose"))
     options, paths = parser.parse_args()
     paths = [fix_path(path) for path in paths if path and path[0] != '%']
     return options, paths
@@ -128,8 +128,8 @@ def parse_options():
 def reexec_with_pythonw(f=None):
     """'pythonw' needs to be called for any wxPython app
     to run from the command line on Mac Os X."""
-    if sys.version.split(' ')[0] < '2.5' and sys.platform == 'darwin' and\
-           not (sys.executable.endswith('/Python') or hasattr(sys, 'frozen')):
+    if sys.version.split(' ')[0] < '2.5' and sys.platform == 'darwin' and \
+            not (sys.executable.endswith('/Python') or hasattr(sys, 'frozen')):
         sys.stderr.write('re-executing using pythonw')
         if not f:
             f = __file__
@@ -137,7 +137,7 @@ def reexec_with_pythonw(f=None):
 
 
 def console(config_paths):
-    main(config_paths, app_file=None, gui=True)
+    main(config_paths, app_file=None)
 
 
 PYWX_ERROR = """\
@@ -217,8 +217,7 @@ def main(config_paths, app_file):
         return
     else:
         config.check_fonts()
-    if paths and not (paths[0] == 'recent' or \
-            has_ext(paths[0], INFO['extension'])):
+    if paths and not (paths[0] == 'recent' or has_ext(paths[0], INFO['extension'])):
         settings['droplet'] = True
         paths.insert(0, 'recent')
     if settings['droplet']:
@@ -229,6 +228,3 @@ def main(config_paths, app_file):
         _console(paths, settings)
     else:
         _gui(app_file, paths, settings)
-
-if __name__ == '__main__':
-    main()

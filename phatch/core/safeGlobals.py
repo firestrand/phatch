@@ -23,7 +23,7 @@
 import math
 import random
 
-from lib.metadata import now
+from phatch.lib.metadata import now
 
 
 def allow(key):

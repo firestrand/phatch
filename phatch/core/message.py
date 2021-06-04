@@ -22,8 +22,8 @@
 
 #gui-independent
 import os
-from lib.events import send, Receiver  # send is used when message is imported
-from lib.unicoding import ensure_unicode
+from phatch.lib.events import send, Receiver  # send is used when message is imported
+from phatch.lib.unicoding import ensure_unicode
 
 #---classes
 
