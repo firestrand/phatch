@@ -20,9 +20,9 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
-from lib.formField import IMAGE_EFFECTS
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.formField import IMAGE_EFFECTS
 
 #---PIL
 
@@ -31,7 +31,7 @@ def init():
     global Image, ImageFilter, imtools
     from PIL import Image
     from PIL import ImageFilter
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def effect(image, filter, amount=100, repeat=1):
@@ -74,7 +74,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(100, 1, 100)
 
     icon = \
-'x\xda\x01|\x07\x83\xf8\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01|\x07\x83\xf8\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x073IDATh\x81\xc5\x98{\x8c\\U\x1d\xc7?\xbfs\xef\xcc\
 \xd2\xa5\xefN\xb7mJ\x84\xb6(\x04\x83\x98\xa84\x06+\x8d\x16\x89XJB\xd3J\x8cQ \

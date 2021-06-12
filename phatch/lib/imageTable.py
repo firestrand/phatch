@@ -19,6 +19,7 @@
 # Phatch recommends SPE (http://pythonide.stani.be) for python editing.
 
 # Follows PEP8
+from phatch.lib import metadata, openImage, unicoding
 
 if __name__ == '__main__':
     import gettext
@@ -28,10 +29,6 @@ import glob
 import os
 import re
 
-import metadata
-import openImage
-import unicoding
-
 try:
     import pyexiv2
 except ImportError:
@@ -39,14 +36,14 @@ except ImportError:
 
 SEPARATOR = '_'
 
-ALL = _('All')
-SELECT = _('Select')
-RE_TAG_LAST = re.compile('[.](Canon|Sony|Nikon|Leica|Panasonic)')
-RE_TAG_ERROR = _('''\
+ALL = str('All')
+SELECT = str('Select')
+RE_TAG_LAST = re.compile(r'[.](Canon|Sony|Nikon|Leica|Panasonic)')
+RE_TAG_ERROR = str('''\
 The tag "%s" is not valid.
 It should follow the syntax: Exif_* or Iptc_*\
 ''')
-RE_TAG_SELECT_NOT = re.compile('[%s]|exif|iptc|#' % SEPARATOR)
+RE_TAG_SELECT_NOT = re.compile(r'[%s]|exif|iptc|#' % SEPARATOR)
 
 MARKUP = '**%s**'
 NONE = ''
@@ -64,13 +61,13 @@ class TableImage:
         :param thumb_size: size of the thumbnail
         :type thumb_size: tuple of int
         """
+        self.label = os.path.basename(self.filename)
         self.filename = filename
         self.thumb_size = thumb_size
         self.update()
 
     def update(self):
         """Update the table from the image source file."""
-        self.label = os.path.basename(self.filename)
         self.thumb = openImage.open_thumb(self.filename, size=THUMB_SIZE)
         info = metadata.InfoExtract(self.filename)
         info.extract_all()
@@ -199,7 +196,7 @@ class Table(object):
         return self.images[index].filename
 
     def set_image_label(self, index, value):
-        raise Exception(_('Unable to change label.'))
+        raise Exception(str('Unable to change label.'))
 
     #---key
     def _add_key(self, key):
@@ -229,14 +226,14 @@ class Table(object):
                 changes.append((image, image_changes))
         return self._write(
             changes=changes,
-            error_message=_('Unable to delete tag <%s>'))
+            error_message=str('Unable to delete tag <%s>'))
 
     def _delete_key(self, key):
         to_keep = []
         to_delete = []
         key_ = key + '.'  # derivate keys eg hour, day
         for index, k in enumerate(self.keys[:]):
-            if (k == key or k.startswith(key_)):
+            if k == key or k.startswith(key_):
                 if index < self.key_amount:
                     self.key_amount -= 1
             else:
@@ -274,7 +271,7 @@ class Table(object):
         log = self._write(
             changes=[(image, {value:image.info[key], key:None})
                 for image in self.images if key in image.info],
-            error_message=_('Unable to rename tag <%s>'))
+            error_message=str('Unable to rename tag <%s>'))
         if not log:
             self.keys[index] = value
         return log
@@ -310,10 +307,10 @@ class Table(object):
 
     def set_image_key_value(self, image, key, value):
         if not(value is None):
-            value = unicode(value)
+            value = str(value)
         return self._write(
             changes=((image, {key: value}), ),
-            error_message=_('Unable to save tag <%s>'))
+            error_message=str('Unable to save tag <%s>'))
 
     def set_key_value(self, key, value):
         changes = []
@@ -322,7 +319,7 @@ class Table(object):
                 changes.append((image, {key: value}))
         return self._write(
             changes=changes,
-            error_message=_('Unable to save tag <%s>'))
+            error_message=str('Unable to save tag <%s>'))
 
     #row, col specific
     def _get_key_image(self, row, col):
@@ -365,9 +362,9 @@ class Table(object):
                     else:
                         del exiv2_image[exiv2_key]
                 exiv2_image.writeMetadata()
-            except Exception, error:
+            except Exception as error:
                 log.append('%s:\n%s'\
-                    % (error_message % key, unicode(error)))
+                    % (error_message % key, str(error)))
                 continue
             # successfully saved to image file (wait until now)
             image.update_time()

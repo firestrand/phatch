@@ -16,8 +16,8 @@
 # Follows PEP8
 
 import zlib
-from cStringIO import StringIO
-from urllib import urlopen
+from io import StringIO, BytesIO
+from urllib.request import urlopen
 
 import wx
 
@@ -31,16 +31,21 @@ except ImportError:
 
 def bitmap(icon, size=(48, 48), client=wx.ART_OTHER):
     if icon[:4] == 'ART_':
-        return wx.ArtProvider_GetBitmap(getattr(wx, icon), client, size)
+        return wx.ArtProvider.GetBitmap(getattr(wx, icon), client, size)
     else:
-        return wx.BitmapFromImage(image(icon))
+        return wx.Bitmap(image(icon))
 
 
 def image(icon, size=(48, 48)):
+    if type(icon) != bytes:
+        icon = bytes(icon)
+        print('Ouch')
     if icon[:4] == 'ART_':
         return wx.ImageFromBitmap(bitmap(icon, size))
     else:
-        return wx.ImageFromStream(StringIO(zlib.decompress(icon)))
+        icon_b = zlib.decompress(icon)
+        icon_b_io = BytesIO(icon_b)
+        return wx.Image(icon_b_io)
 
 CACHE = {}
 

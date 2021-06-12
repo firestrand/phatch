@@ -18,8 +18,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #--- PIL function
 
@@ -29,7 +29,7 @@ def init():
     global Image, ImageChops, imtools
     from PIL import Image
     from PIL import ImageChops
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def invert(image, amount=100):
@@ -58,7 +58,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(100, 1, 100)
 
     icon = \
-'x\xda\x01\x91\nn\xf5\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\x91\nn\xf5\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\nHIDATh\x81\xd5Y]l\x13W\x16\xfe\xee\\\x8f\xed\xb1\x9d\
 \x14\xe2\x84>\xc4)46P\xdc\x14\tE\xd9(\x82\xc6\xa8\x08D\xa9\xaa\xaaJa\xa9T\

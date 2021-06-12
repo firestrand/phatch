@@ -25,6 +25,9 @@ import os
 import subprocess
 import shutil
 import sys
+from os.path import dirname, abspath
+
+from PIL import Image
 
 from phatch.lib import desktop
 from phatch.lib import system
@@ -43,7 +46,9 @@ class Paths:
 USER_PATH = desktop.USER_FOLDER
 PATHS = Paths()
 PHATCH_ACTIONLISTS_PATH = '.'
-
+PHATCH_DATA_PATH = os.path.join('.', 'data')
+PHATCH_FONTS_PATH = os.path.join(PHATCH_DATA_PATH, 'fonts')
+PHATCH_FONTS_CACHE_PATH = ''
 
 def _wrap(path):
     return os.path.join(path, 'phatch')
@@ -55,7 +60,7 @@ USER_LOG_PATH = os.path.join(USER_CACHE_PATH, 'log')
 USER_PREVIEW_PATH = os.path.join(USER_CACHE_PATH, 'preview')
 
 USER_CONFIG_PATH = _wrap(desktop.USER_CONFIG_FOLDER)
-USER_SETTINGS_PATH = os.path.join(USER_CONFIG_PATH, 'settings.py')
+USER_SETTINGS_PATH = os.path.join(USER_CONFIG_PATH, 'settings.json')
 
 USER_DATA_PATH = _wrap(desktop.USER_DATA_FOLDER)
 USER_ACTIONS_PATH = os.path.join(USER_DATA_PATH, 'actions')
@@ -117,6 +122,7 @@ def check_config_paths(config_paths):
         PHATCH_ACTIONLISTS_PATH = config_paths['PHATCH_ACTIONLISTS_PATH']
         return config_paths
     SYSTEM_INSTALL = True
+
     ROOT_SHARE_PATH = os.path.join(sys.prefix, "share")  # for win?
     PHATCH_SHARE_PATH = os.path.join(ROOT_SHARE_PATH, "phatch")
     PHATCH_DATA_PATH = os.path.join(PHATCH_SHARE_PATH, "data")
@@ -127,7 +133,7 @@ def check_config_paths(config_paths):
     PHATCH_FONTS_CACHE_PATH = os.path.join(PHATCH_SHARE_PATH,
                                            "cache", "fonts")
 
-    if sys.platform.startswith('win'):
+    if sys.platform.startswith('win') and False:
         sys.stderr.write(
             'Sorry your platform is not yet supported.\n' \
             + 'The instructions for Windows are on the Phatch website.')
@@ -212,15 +218,6 @@ def init_config_paths(config_paths=None):
     # check paths
     config_paths = check_config_paths(config_paths)
     add_user_paths(config_paths)
-    # configure sys.path
-    phatch_path = fix_python_path(config_paths.get('PHATCH_PYTHON_PATH', None))
-    # patches for pil <= 1.1.6 (ImportError=skip during build process)
-    try:
-        from PIL import Image
-        if Image.VERSION < '1.1.7':
-            fix_python_path(os.path.join(phatch_path, 'other', 'pil_1_1_6'))
-    except ImportError:
-        pass
     # user actions
     fix_python_path(USER_ACTIONS_PATH)
     # set font cache

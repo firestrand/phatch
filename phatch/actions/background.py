@@ -20,9 +20,9 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
-from lib.imtools import fill_background_color, generate_layer, \
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.imtools import fill_background_color, generate_layer, \
     remove_alpha, has_transparency, get_alpha, paste
 
 #---Pil
@@ -31,7 +31,7 @@ from lib.imtools import fill_background_color, generate_layer, \
 def init():
     global Image, HTMLColorToRGBA
     from PIL import Image
-    from lib.colors import HTMLColorToRGBA
+    from phatch.lib.colors import HTMLColorToRGBA
 
 
 FILL_CHOICES = (_t('Color'), _t('Image'))
@@ -102,7 +102,7 @@ class Action(models.StampMixin, models.Action):
         return relevant
 
     icon = \
-'x\xda\x01a\r\x9e\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01a\r\x9e\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\r\x18IDATh\x81\xed\x99}l\x14\xe7\x9d\xc7?\xcf\xbc\xac\
 w\xbd^{\xfd\xc2\x9bM1\x01b \x89\xe3\x12SP\x14]\xe2^\xeez\xd7H\xa5\xc9\xb5\

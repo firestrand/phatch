@@ -23,8 +23,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 OPTIONS = [
     _t('Value'),
@@ -41,9 +41,9 @@ def init():
     from PIL import Image
     from PIL import ImageOps
     from PIL import ImageMath
-    from lib import imtools
+    from phatch.lib import imtools
     global HTMLColorToRGBA
-    from lib.colors import HTMLColorToRGBA
+    from phatch.lib.colors import HTMLColorToRGBA
 
 
 def difference1(source, color):
@@ -119,7 +119,7 @@ def color_to_alpha(image, color_value=None, select_color_by=None):
             image=img_bands[i],
             color=color[i],
             alpha=alpha)
-        for i in xrange(3)]
+        for i in range(3)]
 
     # Add the new alpha band
     new_bands.append(ImageMath.eval(
@@ -166,7 +166,7 @@ class Action(models.Action):
         fields[_t('Color Value')] = self.ColorField('#FFFFFF')
 
     icon = \
-'x\xda\x01o\x0c\x90\xf3\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01o\x0c\x90\xf3\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0c&IDATh\x81\xd5\x9a\x7fp\x94u~\xc7_\xcf\xcf\xec>\
 \xfb#\xc9&\x1b\xb21\x81B\xa0\xf2\xcb\xca\x8f\xa6B-\xa7\x1et\xe4r\x1e\xf2\xa3\

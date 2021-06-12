@@ -23,7 +23,8 @@
 import sys
 
 from os.path import abspath, dirname, join
-from core import config
+
+from phatch.core import config
 
 
 def create_paths(relative=''):

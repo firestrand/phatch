@@ -23,26 +23,21 @@ Store internally as a string.
 Provide validation routines.
 """
 
-try:
-    _
-except NameError:
-    _ = unicode
-
 import os
 
 from PIL import Image
 
+from phatch.core.config import PATHS
+from phatch.core.safeGlobals import safe_globals
 from phatch.lib.formField import files_dictionary, Form, Field, \
     ImageDictionaryReadFileField, \
     ImageDictionaryField, rotation_title_parser
 from phatch.lib.reverse_translation import _t
-from config import PATHS
 from phatch.lib import openImage
 from phatch.lib.desktop import DESKTOP_FOLDER, USER_FOLDER
 if DESKTOP_FOLDER == USER_FOLDER:
     DESKTOP_FOLDER = os.path.expanduser('~/phatch')
 
-from safeGlobals import safe_globals
 Field.set_globals(safe_globals())
 
 
@@ -143,7 +138,7 @@ class Action(Form):
         if not desktop:
             try:
                 self.ensure_path(folder)
-            except OSError, message:
+            except OSError as message:
                 desktop = error = True
         if desktop:
             base = os.path.basename(filename)

@@ -20,8 +20,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 
 def init():
@@ -30,7 +30,7 @@ def init():
     from PIL import ImageDraw
     from PIL import ImageFont
     global calculate_location, convert_safe_mode
-    from lib.imtools import calculate_location, convert_safe_mode
+    from phatch.lib.imtools import calculate_location, convert_safe_mode
 
 
 def draw_text(image, text, horizontal_offset, vertical_offset,
@@ -96,7 +96,7 @@ class Action(models.OffsetMixin, models.Action):
             pixel_fields=pixel_fields)
 
     icon = \
-'x\xda\x01\xcc\x043\xfb\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\xcc\x043\xfb\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x04\x83IDATh\x81\xed\x97]h\x1cU\x14\xc7\x7f\xe7n>6\
 \xa8\xa9X)\x08m\xc14Tm\xd463ij\x1b\xdb\x8e\xf5\xc9"\xf8b\x90J)\xd8\xfa\xd5\

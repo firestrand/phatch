@@ -18,8 +18,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #--- PIL function
 
@@ -29,7 +29,7 @@ def init():
     global Image, ImageOps, imtools
     from PIL import Image
     from PIL import ImageOps
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def grayscale(image, amount=100):
@@ -57,7 +57,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(100, 1, 100)
 
     icon = \
-'x\xda\x01\xfa\x0c\x05\xf3\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\
+b'x\xda\x01\xfa\x0c\x05\xf3\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\
 \x00\x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\
 \x08\x08|\x08d\x88\x00\x00\x0c\xb1IDATh\x81\xd5\x99k\x8c]\xd5u\xc7\x7f{\x9f\
 \xd7\xbdw\x9e\x1e\xb0\x1d\xd7\x10\xe4\x07\x81:<\x8c\x1a\x0c\xa4\x06\x99\xa4\

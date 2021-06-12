@@ -29,7 +29,7 @@ def pil_wxImage(image):
         wx_image.SetAlphaData(
             image.convert("RGBA").split()[-1].tobytes())
     else:
-        wx_image = wx.EmptyImage(*image.size)
+        wx_image = wx.Image(*image.size)
         new_image = image.convert('RGB')
         data = new_image.tobytes()
         wx_image.SetData(data)
@@ -40,18 +40,29 @@ def pil_wxBitmap(image):
     return wx.BitmapFromImage(pil_wxImage(image))
 
 
-def wxImage_pil(wx_image):
+def wxImage_pil_(wx_image):
     size = wx_image.GetSize()
+    if type(wx_image) == wx.Image:
+        size = (size.width, size.height)
     image = Image.new('RGB', size)
-    image.frombytes(wx_image.GetData())
+    image.frombytes(bytes(wx_image.GetData()))
     if wx_image.HasAlpha():
         alpha = Image.new('L', size)
         wx_alpha = wx_image.GetAlphaData()
-        alpha.frombytes(wx_alpha)
+        alpha.frombytes(bytes(wx_alpha))
         image = image.convert('RGBA')
         image.putalpha(alpha)
     return image
 
+def wxImage_pil(wx_image):
+    w = wx_image.GetWidth()
+    h = wx_image.GetHeight()
+    data = wx_image.GetData()
+
+    red_image = Image.frombuffer('L', (w, h), data[0::3])
+    green_image = Image.frombuffer('L', (w, h), data[1::3])
+    blue_image = Image.frombuffer('L', (w, h), data[2::3])
+    return Image.merge('RGB', (red_image, green_image, blue_image))
 
 def wxBitmap_pil(wx_bitmap):
     return wxImage_pil(wx.ImageFromBitmap(wx_bitmap))

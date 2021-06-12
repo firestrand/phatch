@@ -20,9 +20,8 @@ import os
 import re
 import subprocess
 import sys
-import system
 
-from lib import safe
+from phatch.lib import safe, system
 
 USER_FONTS_CACHE_PATH = None
 ROOT_FONTS_CACHE_PATH = None
@@ -31,8 +30,8 @@ WRITABLE_FONTS_CACHE_PATH = None
 _FONT_DICTIONARY = None
 _FONT_NAMES = None
 
-re_WORD = re.compile('([A-Z0-9]+[^A-Z0-9]*)', re.UNICODE)
-re_SPACE = re.compile('_|\W+', re.UNICODE)
+re_WORD = re.compile(r'([A-Z0-9]+[^A-Z0-9]*)', re.UNICODE)
+re_SPACE = re.compile(r'_|\W+', re.UNICODE)
 LOCATE = [
     ['locate', '-i', '.ttf', '.otf'],
     ['find', '/', '-iname', '*.ttf', '-o', '-name', '*.otf'],
@@ -41,7 +40,7 @@ LOCATE = [
 #collect_fonts (system dependent)
 if sys.platform.startswith('win'):
     #3thrd party module in other
-    from other.findsystem import findFonts
+    from phatch.other.findsystem import findFonts
 
     def collect_fonts():
         """Collect a list of all font filenames."""
@@ -50,7 +49,7 @@ else:
     #better unix alternative for collect_fonts/findFonts
     #presume findutils are present
     if not system.find_exe('locate'):
-        sys.exit(_('Please install "%s" first.') % 'locate')
+        sys.exit(str('Please install "%s" first.') % 'locate')
 
     def locate_files(command):
         return subprocess.Popen(command,
@@ -69,7 +68,7 @@ else:
                         return files
             except:
                 pass
-        from other.findsystem import findFonts
+        from phatch.other.findsystem import findFonts
         return findFonts()
 
 
@@ -179,11 +178,10 @@ def _font_dictionary(font_files=None):
         t[name(basename(font_file))] = font_file
     #step 2: fix font names derived from context
     #normally a base come first, than italic, bold
-    font_names = t.keys()
-    font_names.sort()
+    font_names = list(t.keys())
     d = {}
     base = 'xxx'  # non existing font name as base
-    for font_name in font_names:
+    for font_name in sorted(font_names):
         new_font_name, base = _font_name(font_name, base)
         if new_font_name[0].upper() == new_font_name[0]:
             d[new_font_name] = t[font_name]
@@ -202,15 +200,14 @@ def font_dictionary(filename=None, force=False):
             else:
                 filename = ROOT_FONTS_CACHE_PATH
         if filename and os.path.exists(filename) and not force:
-            _FONT_DICTIONARY = safe.eval_safe(file(filename, 'rb').read())
+            _FONT_DICTIONARY = safe.eval_safe(open(filename, 'rt').read())
         else:
             _FONT_DICTIONARY = {}
         if not _FONT_DICTIONARY:
             _FONT_DICTIONARY = _font_dictionary()
-            if not (WRITABLE_FONTS_CACHE_PATH is None):
-                f = file(WRITABLE_FONTS_CACHE_PATH, 'wb')
-                f.write(unicode(_FONT_DICTIONARY))
-                f.close()
+            if WRITABLE_FONTS_CACHE_PATH is not None:
+                with open(WRITABLE_FONTS_CACHE_PATH, 'wt') as f:
+                    f.write(str(_FONT_DICTIONARY))
     if not _FONT_DICTIONARY:
         # 'empty' dict for ui
         _FONT_DICTIONARY = {'': ''}
@@ -221,7 +218,7 @@ def font_dictionary(filename=None, force=False):
 def font_names(filename=None):
     global _FONT_NAMES
     if _FONT_NAMES is None:
-        _FONT_NAMES = font_dictionary(filename).keys()
+        _FONT_NAMES = list(font_dictionary(filename).keys())
         _FONT_NAMES.sort()
     return _FONT_NAMES
 
@@ -253,9 +250,9 @@ def set_font_cache(user_fonts_path, root_fonts_path,
 
 
 def example():
-    names = font_dictionary().keys()
+    names = list(font_dictionary().keys())
     names.sort()
-    sys.stdout.write(unicode(names) + '\n')
+    sys.stdout.write(str(names) + '\n')
 
 
 if __name__ == '__main__':

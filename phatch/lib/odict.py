@@ -25,7 +25,7 @@ class odict(dict):
     def __init__(self, d=None):
         if d is None:
             d = {}
-        self._keys = d.keys()
+        self._keys = list(d.keys())
         dict.__init__(self, d)
 
     def __delitem__(self, key):
@@ -56,7 +56,7 @@ class odict(dict):
         if len(self._keys) == 0:
             raise KeyError('dictionary is empty')
         else:
-            key = self._keys[-1]
+            key = self._keys.pop()
             val = self[key]
             del self[key]
             return key, val

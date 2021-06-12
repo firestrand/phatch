@@ -20,9 +20,9 @@
 
 # Embedded icon is taken from www.openclipart.org (public domain)
 
-from core import models
-from lib.reverse_translation import _t
-from lib.imtools import auto_crop
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.imtools import auto_crop
 
 #---PIL
 
@@ -63,7 +63,7 @@ class Action(models.CropMixin, models.Action):
     __doc__ = _t('Crop the image')
 
     icon = \
-'x\xda\x01\x0f\t\xf0\xf6\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\x0f\t\xf0\xf6\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x08\xc6IDATh\x81\xed\x99ml[\xd5\x19\xc7\xff\xe7\x9c{\
 \xaf}\xed&\xae\xed\xd4I\x1cRX\x1a\x9a\x86\xb5\xa1*[\xd3\x97\xa1\x82B\xb5}\

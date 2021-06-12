@@ -5,6 +5,7 @@
 
 import wx
 
+
 # begin wxGlade: extracode
 # end wxGlade
 
@@ -13,11 +14,12 @@ class AddTagDialog(wx.Dialog):
         # begin wxGlade: AddTagDialog.__init__
         kwds["style"] = wx.DEFAULT_DIALOG_STYLE
         wx.Dialog.__init__(self, *args, **kwds)
-        self.tag_label = wx.StaticText(self, -1, _("Tag"))
-        self.tag = wx.ComboBox(self, -1, choices=[_("Exif_Photo_UserComment")], style=wx.CB_DROPDOWN | wx.CB_DROPDOWN | wx.CB_SORT)
-        self.value_label = wx.StaticText(self, -1, _("Value"))
+        self.tag_label = wx.StaticText(self, -1, str("Tag"))
+        self.tag = wx.ComboBox(self, -1, choices=[str("Exif_Photo_UserComment")],
+                               style=wx.CB_DROPDOWN | wx.CB_DROPDOWN | wx.CB_SORT)
+        self.value_label = wx.StaticText(self, -1, str("Value"))
         self.value = wx.TextCtrl(self, -1, "")
-        self.warning = wx.StaticText(self, -1, _("warning"))
+        self.warning = wx.StaticText(self, -1, str("warning"))
         self.panel_2 = wx.Panel(self, -1)
         self.cancel = wx.Button(self, wx.ID_CANCEL, "")
         self.add = wx.Button(self, wx.ID_ADD, "")
@@ -31,10 +33,10 @@ class AddTagDialog(wx.Dialog):
 
     def __set_properties(self):
         # begin wxGlade: AddTagDialog.__set_properties
-        self.SetTitle(_("Add Tag"))
-        self.tag.SetMinSize((300,-1))
+        self.SetTitle(str("Add Tag"))
+        self.tag.SetMinSize((300, -1))
         self.tag.SetSelection(0)
-        self.value.SetMinSize((100,-1))
+        self.value.SetMinSize((100, -1))
         self.warning.Enable(False)
         self.add.SetDefault()
         # end wxGlade
@@ -45,35 +47,37 @@ class AddTagDialog(wx.Dialog):
         sizer_16 = wx.BoxSizer(wx.HORIZONTAL)
         grid_sizer_1 = wx.FlexGridSizer(2, 2, 4, 4)
         grid_sizer_1.Add(self.tag_label, 0, wx.ALIGN_CENTER_VERTICAL, 0)
-        grid_sizer_1.Add(self.tag, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 0)
+        grid_sizer_1.Add(self.tag, 1, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 0)
         grid_sizer_1.Add(self.value_label, 0, wx.ALIGN_CENTER_VERTICAL, 0)
-        grid_sizer_1.Add(self.value, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 0)
+        grid_sizer_1.Add(self.value, 1, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL, 0)
         grid_sizer_1.AddGrowableCol(1)
-        sizer_14.Add(grid_sizer_1, 1, wx.ALL|wx.EXPAND, 8)
-        sizer_14.Add(self.warning, 0, wx.LEFT|wx.RIGHT, 8)
+        sizer_14.Add(grid_sizer_1, 1, wx.ALL | wx.EXPAND, 8)
+        sizer_14.Add(self.warning, 0, wx.LEFT | wx.RIGHT, 8)
         sizer_16.Add(self.panel_2, 1, wx.EXPAND, 0)
-        sizer_16.Add(self.cancel, 0, wx.TOP|wx.BOTTOM|wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL, 8)
-        sizer_16.Add(self.add, 0, wx.ALL|wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL, 8)
-        sizer_14.Add(sizer_16, 0, wx.EXPAND|wx.ALIGN_RIGHT, 0)
+        sizer_16.Add(self.cancel, 0, wx.TOP | wx.BOTTOM | wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL, 8)
+        sizer_16.Add(self.add, 0, wx.ALL | wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL, 8)
+        sizer_14.Add(sizer_16, 0, wx.EXPAND | wx.ALIGN_RIGHT, 0)
         self.SetSizer(sizer_14)
         sizer_14.Fit(self)
         self.Layout()
         # end wxGlade
 
-    def OnTagText(self, event): # wxGlade: AddTagDialog.<event_handler>
-        print "Event handler `OnTagText' not implemented!"
+    def OnTagText(self, event):  # wxGlade: AddTagDialog.<event_handler>
+        print("Event handler `OnTagText' not implemented!")
         event.Skip()
 
-    def OnAdd(self, event): # wxGlade: AddTagDialog.<event_handler>
-        print "Event handler `OnAdd' not implemented"
+    def OnAdd(self, event):  # wxGlade: AddTagDialog.<event_handler>
+        print("Event handler `OnAdd' not implemented")
         event.Skip()
+
 
 # end of class AddTagDialog
 
 
 if __name__ == "__main__":
     import gettext
-    gettext.install("app") # replace with the appropriate catalog name
+
+    gettext.install("app")  # replace with the appropriate catalog name
 
     app = wx.PySimpleApp(0)
     wx.InitAllImageHandlers()

@@ -20,8 +20,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -30,7 +30,7 @@ def init():
     global Image, ImageFilter, imtools
     from PIL import Image
     from PIL import ImageFilter
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def median(image, radius, amount=100):
@@ -60,7 +60,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(100, 1, 100)
 
     icon = \
-'x\xda\x01 \x07\xdf\xf8\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01 \x07\xdf\xf8\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x00+\x08\x06\x00\x00\x00>\x13\x0b\xdf\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x06\xd7IDATh\x81\xcd\x99mL\x1c\xc7\x19\xc7\xff\xcf\
 \xee\xde-\xc7qp\x1c\xe2\x8c!p$\x98\x82\xf0Q\x1b\xda\x80l\xe8\xcbEu,\x1bL%\

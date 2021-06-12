@@ -21,15 +21,15 @@ import sys
 import wx
 
 if __name__ == '__main__':
-    _ = unicode
+    _ = str
     sys.path.insert(0, '..')
     sys.path.insert(0, '../..')
 
-from lib.openImage import open_thumb
-from lib.formField import IMAGE_READ_EXTENSIONS
+from phatch.lib.openImage import open_thumb
+from phatch.lib.formField import IMAGE_READ_EXTENSIONS
 
-import popup
-from wxPil import pil_wxBitmap
+from . import popup
+from .wxPil import pil_wxBitmap
 
 ICON_SIZE = (64, 64)
 
@@ -49,14 +49,14 @@ class ListCtrl(wx.ListCtrl):
         #create image list
         self.image_list = wx.ImageList(*icon_size)
         self.icons = {}
-        for file in files.values():
+        for file in list(files.values()):
             self.icons[file] = self.image_list.Add(
                 pil_wxBitmap(open_thumb(file, size=icon_size)))
         self.SetImageList(self.image_list, wx.IMAGE_LIST_NORMAL)
         #populate
         n = 10
         if type(files) is dict:
-            labels_files = files.items()
+            labels_files = list(files.items())
             #labels_files = [(truncate(label,n),file)
              #   for label, file in files.items()]
         labels_files.sort()
@@ -183,9 +183,9 @@ def example():
             self.SetTopWindow(frame)
             dialog = Dialog(frame, images, title='Select Image')
             if dialog.ShowModal() == wx.ID_OK:
-                print(dialog.image_path.GetValue())
+                print((dialog.image_path.GetValue()))
             if dialog.ShowModal() == wx.ID_OK:
-                print(dialog.image_path.GetValue())
+                print((dialog.image_path.GetValue()))
             dialog.Destroy()
             return True
 

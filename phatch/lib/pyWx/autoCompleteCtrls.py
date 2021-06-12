@@ -18,8 +18,8 @@
 import locale
 import sys
 import wx
-import graphics
-from other.pyWx.TextCtrlAutoComplete import TextCtrlAutoComplete
+from . import graphics
+from phatch.other.pyWx.TextCtrlAutoComplete import TextCtrlAutoComplete
 
 if hasattr(wx, "PopupWindow"):
 
@@ -227,11 +227,7 @@ if hasattr(wx, "PopupWindow"):
             if not isinstance(choices, list):
                 self._choices = [x for x in choices]
 
-            #prevent errors on "old" systems
-            if sys.version.startswith("2.3"):
-                self._choices.sort(lambda x, y: cmp(x.lower(), y.lower()))
-            else:
-                self._choices.sort(key=lambda x: locale.strxfrm(x).lower())
+            self._choices.sort(key=lambda x: locale.strxfrm(x).lower())
 
             self._updateDataList(self._choices)
 
@@ -239,7 +235,7 @@ if hasattr(wx, "PopupWindow"):
 
             for num, colVal in enumerate(self._choices):
                 index = self.dropdownlistbox.InsertImageStringItem(
-                    sys.maxint, colVal, self.sm_dn)
+                    sys.maxsize, colVal, self.sm_dn)
 
                 self.dropdownlistbox.SetStringItem(index, 0, colVal)
                 self.dropdownlistbox.SetItemData(index, num)

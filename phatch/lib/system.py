@@ -24,20 +24,20 @@ import types
 import tempfile
 import textwrap
 
-import safe
+from phatch.lib import safe
+from phatch.lib.windows import locate
 
 VERBOSE = False
 BIN = []  # executable
-ARG_STR = '".+?"|\'.+\'|\S+'
+ARG_STR = r'".+?"|\'.+\'|\S+'
 RE_ARG = re.compile(ARG_STR)
-RE_COMMAND = re.compile('^(%s)' % ARG_STR)
-RE_NEED_QUOTES = re.compile('^[^\'"].+?\s.+?[^\'"]$')
-
+RE_COMMAND = re.compile(f'^({ARG_STR})')
+RE_NEED_QUOTES = re.compile(r'^[^\'"].+?\s.+?[^\'"]$')
 
 if sys.platform.startswith('win'):
     _EXE = '.exe'
-    import windows.locate
     WINDOWS = True
+
 
     def rename(src, dest):
         try:
@@ -48,15 +48,13 @@ if sys.platform.startswith('win'):
 else:
     _EXE = ''
     WINDOWS = False
-
     rename = os.rename
 
 EXE_PATHS = {}
 
 
 def wrap(text, fill=70):
-    return '\n'.join([textwrap.fill(line, 70)
-        for line in text.split('\n')])
+    return '\n'.join([textwrap.fill(line, fill) for line in text.split('\n')])
 
 
 def title(text):
@@ -71,7 +69,9 @@ def title(text):
     'Hello World'
     """
     return text.replace('_', ' ').replace('-', ' ').title()
-#---os
+
+
+# ---os
 
 
 def is_www_file(url):
@@ -207,7 +207,7 @@ def find_in(filename, paths):
 
 
 def find_exe(executable, quote=True, use_which=True,
-        raise_exception=False):
+             raise_exception=False):
     """Finds an executable binary. Returns None if the binary can
     not be found.
 
@@ -233,7 +233,7 @@ def find_exe(executable, quote=True, use_which=True,
         return EXE_PATHS[executable]
     except KeyError:
         pass
-    #executable with extension e.g. exe on windows
+    # executable with extension e.g. exe on windows
     executable_exe = executable
     if not executable_exe.endswith(_EXE):
         executable_exe += _EXE
@@ -248,13 +248,13 @@ def find_exe(executable, quote=True, use_which=True,
             executable_path = path
     if executable_path is None:
         executable_path = find_in(executable_exe,
-            os.environ['PATH'].split(os.pathsep))
+                                  os.environ['PATH'].split(os.pathsep))
         if (executable_path is None) and WINDOWS:
-            executable_path = windows.locate.find_exe(executable)
-    #quote if necessary
+            executable_path = locate.find_exe(executable)
+    # quote if necessary
     if not (executable_path is None) and quote:
         executable_path = fix_quotes(executable_path)
-    #cache and return the result
+    # cache and return the result
     EXE_PATHS[executable] = executable_path
     if executable_path is None and raise_exception:
         raise IOError('No such program: %s' % executable)
@@ -404,15 +404,14 @@ def shell_cache(args, cache='', key=None, validate=None, **options):
                 result = x
     if result is None:
         # Add to cache
-        result = {'validate': validate}
-        result['stdout'], result['stderr'] = shell(args, **options)
-        if not key in cache_dict:
+        result = {'validate': validate, 'stdout': (shell(args, **options))[0], 'stderr': (shell(args, **options))[1]}
+        if key not in cache_dict:
             cache_dict[key] = {}
         cache_dict[key][sys.platform] = result
         # Save to cache
         ensure_path(os.path.dirname(cache))
         f = open(cache, 'wb')
-        f.write(unicode(cache_dict))
+        f.write(cache_dict)
         f.close()
     return result['stdout'], result['stderr']
 
@@ -451,8 +450,8 @@ def call(args, **keyw):
     also with ``shell=False`` on Unix.
     """
     if 'shell' in keyw:
-        if not WINDOWS and type(args) in types.StringTypes and \
-            not keyw['shell']:
+        if not WINDOWS and type(args) in (str, bytes) and \
+                not keyw['shell']:
             args = split_command(args.replace('\\\n', ' '))
     else:
         keyw['shell'] = not WINDOWS
@@ -473,14 +472,14 @@ def start(path):
     :type path: string
     """
     if hasattr(os, 'startfile'):
-        #windows
+        # windows
         os.startfile(path)
     else:
         if sys.platform.startswith('darwin'):
-            #mac
+            # mac
             command = 'open'
         else:
-            #linux
+            # linux
             command = 'xdg-open'
         subprocess.call('%s "%s"' % (command, path), shell=True)
 
@@ -526,7 +525,7 @@ class MethodRegister:
         if method is None:
             return
         for extension in extensions:
-            if not(extension in self._methods):
+            if not (extension in self._methods):
                 self._methods[extension] = []
             self._methods[extension].append(method)
         if not (method in self._extensions):

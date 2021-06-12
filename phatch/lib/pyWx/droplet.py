@@ -110,7 +110,7 @@ class Frame(Mixin, wx.Frame):
 
     def SetWindowShape(self, *evt):
         # Use the bitmap's mask to determine the region
-        r = wx.RegionFromBitmap(self.bmp)
+        r = wx.Region(self.bmp)
         self.hasShape = self.SetShape(r)
 
     def OnDoubleClick(self, evt):
@@ -119,7 +119,7 @@ class Frame(Mixin, wx.Frame):
     def OnPaint(self, evt):
         dc = wx.PaintDC(self)
         dc.DrawBitmap(self.bmp, 0, 0, True)
-        font = wx.Font(7, wx.NORMAL, wx.NORMAL, wx.NORMAL)
+        font = wx.Font(7, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
         dc.SetFont(font)
         dc.SetTextForeground(self.label_color)
         dc.DrawRotatedText(self.label, self.label_x, self.label_y,

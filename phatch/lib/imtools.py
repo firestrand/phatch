@@ -16,16 +16,16 @@
 # Follows PEP8
 
 import os
-from cStringIO import StringIO
+from io import StringIO  # for handling unicode strings
 from itertools import cycle
-from urllib import urlopen
+from urllib.request import urlopen
 
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageEnhance
 from PIL import ImageOps
 
-import system
+from phatch.lib import system
 
 ALL_PALETTE_INDICES = set(range(256))
 CHECKBOARD = {}
@@ -139,6 +139,7 @@ class _ByteCounter:
     >>> bc.bytes
     5
     """
+
     def __init__(self):
         self.bytes = 0
 
@@ -217,8 +218,8 @@ def fill_background_color(image, color):
     """
     if image.mode == 'LA':
         image = image.convert('RGBA')
-    elif image.mode != 'RGBA' and\
-        not (image.mode == 'P' and 'transparency' in image.info):
+    elif image.mode != 'RGBA' and \
+            not (image.mode == 'P' and 'transparency' in image.info):
         return image
     if len(color) == 4 and color[-1] != 255:
         mode = 'RGBA'
@@ -242,9 +243,9 @@ def fill_background_color(image, color):
 
 
 def generate_layer(image_size, mark, method,
-        horizontal_offset, vertical_offset,
-        horizontal_justification, vertical_justification,
-        orientation, opacity):
+                   horizontal_offset, vertical_offset,
+                   horizontal_justification, vertical_justification,
+                   orientation, opacity):
     """Generate new layer for backgrounds or watermarks on which a given
     image ``mark`` can be positioned, scaled or repeated.
 
@@ -282,12 +283,12 @@ def generate_layer(image_size, mark, method,
     elif method == 'Scale':
         # scale, but preserve the aspect ratio
         ratio = min(float(image_size[0]) / mark.size[0],
-            float(image_size[1]) / mark.size[1])
+                    float(image_size[1]) / mark.size[1])
         w = int(mark.size[0] * ratio)
         h = int(mark.size[1] * ratio)
         mark = mark.resize((w, h))
         paste(layer, mark, ((image_size[0] - w) / 2,
-            (image_size[1] - h) / 2))
+                            (image_size[1] - h) / 2))
     elif method == 'By Offset':
         location = calculate_location(
             horizontal_offset, vertical_offset,
@@ -347,7 +348,7 @@ def blend(im1, im2, amount, color=None):
         we, he = expanded.size
         wi, hi = im1.size
         paste(expanded, im1, ((we - wi) / 2, (he - hi) / 2),
-            im1.convert('RGBA'))
+              im1.convert('RGBA'))
         im1 = expanded
     return Image.blend(im1, im2, amount)
 
@@ -377,8 +378,8 @@ def reduce_opacity(im, opacity):
 
 
 def calculate_location(horizontal_offset, vertical_offset,
-        horizontal_justification, vertical_justification,
-        canvas_size, image_size):
+                       horizontal_justification, vertical_justification,
+                       canvas_size, image_size):
     """Calculate location based on offset and justification. Offsets
     can be positive and negative.
 
@@ -427,7 +428,7 @@ def calculate_location(horizontal_offset, vertical_offset,
         vertical_delta = -image_height
 
     return horizontal_offset + horizontal_delta, \
-        vertical_offset + vertical_delta
+           vertical_offset + vertical_delta
 
 
 ####################################
@@ -471,33 +472,19 @@ def has_transparency(image):
     :returns: True or False
     :rtype: boolean
     """
-    return (image.mode == 'P' and 'transparency' in image.info) or\
-            has_alpha(image)
+    return (image.mode == 'P' and 'transparency' in image.info) or \
+           has_alpha(image)
 
 
-if Image.VERSION == '1.1.7':
+def split(image):
+    """Work around for bug in Pil 1.1.7
 
-    def split(image):
-        """Work around for bug in Pil 1.1.7
-
-        :param image: input image
-        :type image: PIL image object
-        :returns: the different color bands of the image (eg R, G, B)
-        :rtype: tuple
-        """
-        image.load()
-        return image.split()
-else:
-
-    def split(image):
-        """Work around for bug in Pil 1.1.7
-
-        :param image: input image
-        :type image: PIL image object
-        :returns: the different color bands of the image (eg R, G, B)
-        :rtype: tuple
-        """
-        return image.split()
+    :param image: input image
+    :type image: PIL image object
+    :returns: the different color bands of the image (eg R, G, B)
+    :rtype: tuple
+    """
+    return image.split()
 
 
 def get_alpha(image):
@@ -569,7 +556,7 @@ def get_used_palette_colors(image):
     """
     used_indices = get_used_palette_indices(image)
     if 'transparency' in image.info:
-        used_indices -= set([image.info['transparency']])
+        used_indices -= {image.info['transparency']}
     n = len(used_indices)
     palette = image.resize((n, 1))
     palette.putdata(used_indices)
@@ -719,7 +706,7 @@ def paste(destination, source, box=(0, 0), mask=None, force=False):
         if has_alpha(source):
             # invert_alpha = the transparant pixels of the destination
             if has_alpha(destination) and (destination.size == source.size
-                    or force):
+                                           or force):
                 invert_alpha = ImageOps.invert(get_alpha(destination))
                 if invert_alpha.size != source.size:
                     # if sizes are not the same be careful!
@@ -793,7 +780,7 @@ def convert(image, mode, *args, **keyw):
             output = image.convert('RGB').convert(
                 mode, colors=255, *args, **keyw)
             paste(output,
-                255, alpha.point(COLOR_MAP))
+                  255, alpha.point(COLOR_MAP))
             output.info['transparency'] = 255
             return output
         return image.convert('RGB').convert(mode, *args, **keyw)
@@ -805,7 +792,7 @@ def convert(image, mode, *args, **keyw):
         if image.mode == 'P':
             image = image.convert('RGBA')
             del image.info['transparency']
-        #image = fill_background_color(image, (255, 255, 255, 255))
+        # image = fill_background_color(image, (255, 255, 255, 255))
         image = image.convert(mode, *args, **keyw)
         return image
     return image.convert(mode, *args, **keyw)
@@ -840,7 +827,7 @@ def convert_save_mode_by_format(image, format):
     :returns: the converted image
     :rtype: PIL image object
     """
-    #TODO: Extend this helper function to support other formats as well
+    # TODO: Extend this helper function to support other formats as well
     if image.mode == 'P':
         # Make sure P is handled correctly
         if not format in ['GIF', 'PNG', 'TIFF', 'IM', 'PCX']:
@@ -900,7 +887,7 @@ def convert_save_mode_by_format(image, format):
     elif format == 'PNG':
         if image.mode in ['CMYK', 'YCbCr']:
             return image.convert('RGB')
-    #for consistency return a copy! (thumbnail.py depends on it)
+    # for consistency return a copy! (thumbnail.py depends on it)
     return image.copy()
 
 
@@ -916,8 +903,8 @@ def save(image, filename, **options):
     """
     try:
         image.save(filename, **options)
-    except KeyError, format:
-        raise InvalidWriteFormatError(format)
+    except KeyError as format_error:
+        raise InvalidWriteFormatError(format_error)
     except UnicodeEncodeError:
         temp = system.TempFile(suffix=os.path.splitext(filename)[-1])
         image.save(temp.path, **options)
@@ -925,9 +912,9 @@ def save(image, filename, **options):
 
 
 def save_check_mode(image, filename, **options):
-    #save image with pil
+    # save image with pil
     save(image, filename, **options)
-    #verify saved file
+    # verify saved file
     try:
         image_file = Image.open(filename)
         image_file.verify()
@@ -977,7 +964,7 @@ def get_exif_transposition(orientation):
     :returns: (transposition methods, reverse transpostion methods)
     :rtype: tuple
     """
-    #see EXIF.py
+    # see EXIF.py
     if orientation == 1:
         transposition = transposition_reverse = ()
     elif orientation == 2:
@@ -991,17 +978,17 @@ def get_exif_transposition(orientation):
         transposition_reverse = Image.FLIP_TOP_BOTTOM,
     elif orientation == 5:
         transposition = Image.FLIP_LEFT_RIGHT, \
-                                        Image.ROTATE_90
+                        Image.ROTATE_90
         transposition_reverse = Image.ROTATE_270, \
-                                        Image.FLIP_LEFT_RIGHT
+                                Image.FLIP_LEFT_RIGHT
     elif orientation == 6:
         transposition = Image.ROTATE_270,
         transposition_reverse = Image.ROTATE_90,
     elif orientation == 7:
         transposition = Image.FLIP_LEFT_RIGHT, \
-                                        Image.ROTATE_270
+                        Image.ROTATE_270
         transposition_reverse = Image.ROTATE_90, \
-                                        Image.FLIP_LEFT_RIGHT
+                                Image.FLIP_LEFT_RIGHT
     elif orientation == 8:
         transposition = Image.ROTATE_90,
         transposition_reverse = Image.ROTATE_270,
@@ -1091,8 +1078,8 @@ def checkboard(size, delta=8, fg=(128, 128, 128), bg=(204, 204, 204)):
         image = Image.new("RGB", size, bg)
         draw_square = ImageDraw.Draw(image).rectangle
         squares = (square(i, j)
-           for i_start, j in zip(cycle((0, 1)), range(n))
-           for i in range(i_start, n, 2))
+                   for i_start, j in zip(cycle((0, 1)), range(n))
+                   for i in range(i_start, n, 2))
         for sq in squares:
             draw_square(sq, fill=fg)
         CHECKBOARD[size] = image
@@ -1114,9 +1101,9 @@ def add_checkboard(image):
     :returns: image, with checkboard if transparant
     :rtype: pil.Image
     """
-    if (image.mode == 'P' and 'transparency' in image.info) or\
+    if (image.mode == 'P' and 'transparency' in image.info) or \
             image.mode.endswith('A'):
-        #transparant image
+        # transparant image
         image = image.convert('RGBA')
         image_bg = checkboard(image.size)
         paste(image_bg, image, (0, 0), image)

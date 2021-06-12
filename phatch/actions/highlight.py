@@ -21,10 +21,10 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
-from lib.openImage import open as open_image
-from lib.imtools import has_transparency, paste
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.openImage import open as open_image
+from phatch.lib.imtools import has_transparency, paste
 
 #---Pil
 
@@ -33,7 +33,7 @@ def init():
     global Image, ImageMath, imtools
     from PIL import Image
     from PIL import ImageMath
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def put_highlight(image, highlight, resample_highlight, opacity, cache=None):
@@ -92,7 +92,7 @@ class Action(models.Action):
         fields[_t('Opacity')] = self.SliderField(100, 0, 100)
 
     icon = \
-'x\xda\x01\xd9\r&\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\xd9\r&\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\r\x90IDATh\x81\xed\x99{pT\xd7}\xc7?\xe7\xde\xbb\xbbZi\
 \xd1\x0b\xb1zXO\x04B\xc2\x0f\x10\x86\xe2\x9a\xd8\x10364u\xd3\xc4.\xb6k;\xc43\

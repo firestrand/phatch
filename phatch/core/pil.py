@@ -20,7 +20,7 @@
 
 """All PIL related issues."""
 
-#FIXME:
+# FIXME:
 # - info should be defined on layer level
 #   -> move call afterwards also to layer level
 #   -> adapt image inspector
@@ -28,11 +28,10 @@
 import datetime
 import os
 import re
-import types
 
 from PIL import Image
 
-#todo make this lazy
+# todo make this lazy
 from phatch.lib import formField
 from phatch.lib import imtools
 from phatch.lib import metadata
@@ -40,13 +39,12 @@ from phatch.lib import openImage
 from phatch.lib import system
 from phatch.lib import thumbnail
 from phatch.lib import unicoding
-from phatch.lib.reverse_translation import _t
 from phatch.lib.formField import RE_FILE_IN, RE_FILE_OUT
+from phatch.lib.reverse_translation import _t
+from .config import USER_BIN_PATH
+from .ct import TITLE
 
-from ct import TITLE
-from config import USER_BIN_PATH
-
-#from other import EXIF
+# from other import EXIF
 
 system.set_bin_paths([USER_BIN_PATH])
 
@@ -57,38 +55,38 @@ except:
     pyexiv2 = None
     exif = False
 WWW_PYEXIV2 = 'http://tilloy.net/dev/pyexiv2/'
-NEEDS_PYEXIV2 = _('pyexiv2 needs to be installed') + ' (%s)' % WWW_PYEXIV2
+NEEDS_PYEXIV2 = str('pyexiv2 needs to be installed') + ' (%s)' % WWW_PYEXIV2
 
 CONVERTED_MODE = \
-_('%(mode)s has been converted to %(mode_copy)s to save as %(format)s.')
+    str('%(mode)s has been converted to %(mode_copy)s to save as %(format)s.')
 
-DYNAMIC_VARS = set(('width', 'height', 'size', 'mode', 'transparency'))
+DYNAMIC_VARS = {'width', 'height', 'size', 'mode', 'transparency'}
 IMAGE_DEFAULT_DPI = 72
 SEPARATOR = '_'  # should be same as in core.translations
 MONTHS = (_t('January'), _t('February'), _t('March'), _t('April'),
-    _t('May'), _t('June'), _t('July'), _t('August'), _t('September'),
-    _t('October'), _t('November'), _t('December'))
+          _t('May'), _t('June'), _t('July'), _t('August'), _t('September'),
+          _t('October'), _t('November'), _t('December'))
 WEEKDAYS = (_t('Monday'), _t('Tuesday'), _t('Wednesday'), _t('Thursday'),
-    _t('Friday'), _t('Saturday'), _t('Sunday'))
+            _t('Friday'), _t('Saturday'), _t('Sunday'))
 DATETIME_KEYS = ['year', 'month', 'day', 'hour', 'minute', 'second']
 re_DATETIME = re.compile(
-                '(?P<year>\d{4})[-:](?P<month>\d{2})[-:](?P<day>\d{2}) '
-                '(?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})')
+    '(?P<year>\d{4})[-:](?P<month>\d{2})[-:](?P<day>\d{2}) '
+    '(?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})')
 
 re_TAG = re.compile('(Pil|Exif|Iptc|Pexif|Zexif)([.]\w+)+')
 re_KEY = re.compile('(#*)((\w|[.])*$|[$])')
-TRANSPARENCY_ERROR = _('Only palette images have transparency.')
+TRANSPARENCY_ERROR = str('Only palette images have transparency.')
 
-IMAGE_READ_EXTENSIONS = set(formField.IMAGE_READ_EXTENSIONS)\
+IMAGE_READ_EXTENSIONS = set(formField.IMAGE_READ_EXTENSIONS) \
     .union(openImage.WITHOUT_PIL.extensions)
 IMAGE_READ_EXTENSIONS = list(IMAGE_READ_EXTENSIONS)
 IMAGE_READ_EXTENSIONS.sort()
 
 IMAGE_EXTENSIONS = [ext for ext in IMAGE_READ_EXTENSIONS
-    if ext in formField.IMAGE_WRITE_EXTENSIONS]
+                    if ext in formField.IMAGE_WRITE_EXTENSIONS]
 
 BASE_VARS = ['dpi', 'compression', 'filename', 'format',
-    'orientation', 'path', 'transparency', 'type']
+             'orientation', 'path', 'transparency', 'type']
 
 
 def split_data(d):
@@ -99,18 +97,18 @@ def split_data(d):
 
     >>> d = {'date': '2008-11-27 13:54:33', 'tuple': (1, 2)}
     """
-    value = d.values()[0]
-    #tuples or list
-    if type(value) in (types.ListType, types.TupleType):
+    value = list(d.values())[0]
+    # tuples or list
+    if type(value) in (list, tuple):
         if len(value) > 1:
-            for k, v in d.items():
+            for k, v in list(d.items()):
                 for i, x in enumerate(v):
                     d['%s.%d' % (k, i)] = v[i]
         return
-    #datetime strings
+    # datetime strings
     done = False
-    for k, v in d.items():
-        if type(v) in types.StringTypes:
+    for k, v in list(d.items()):
+        if type(v) in (str,):
             dt = re_DATETIME.match(v)
             if dt:
                 for key in DATETIME_KEYS:
@@ -118,9 +116,9 @@ def split_data(d):
                     done = True
     if done:
         return
-    #date time values
+    # date time values
     if type(value) == datetime.datetime:
-        for k, v in d.items():
+        for k, v in list(d.items()):
             for key in DATETIME_KEYS:
                 d['%s.%s' % (k, key)] = getattr(v, key)
 
@@ -168,17 +166,17 @@ class InfoPhoto(dict):
         :param get_pil: method to retrieve the pil image
         :type get_pil: callable
         """
-        #parameters
+        # parameters
         self.get_pil = get_pil
         path = info['path']
-        #sources
+        # sources
         if image == None:
             image = get_pil()
         sources = {
             metadata.InfoPil: image,
             metadata.InfoPexif: image,
             metadata.InfoZexif: image}
-        #check format -> readable/writable metadata with pyexiv2
+        # check format -> readable/writable metadata with pyexiv2
         if exif and exif.is_readable_format(image.format):
             self.pyexiv2 = pyexiv2.Image(path)
             self.pyexiv2.readMetadata()
@@ -187,23 +185,23 @@ class InfoPhoto(dict):
             self.writable = self.writable_exif or self.writable_iptc
             if self.writable_exif:
                 self.pyexiv2['Exif.Image.Software'] = TITLE
-            sources[metadata.InfoExif] = sources[metadata.InfoIptc] =\
+            sources[metadata.InfoExif] = sources[metadata.InfoIptc] = \
                 self.pyexiv2
         else:
             self.pyexiv2 = None
             self.writable = self.writable_exif = self.writable_iptc = False
-        #retrieve dump info
+        # retrieve dump info
         try:
             info_dumped = info_to_dump.open(path, sources).dump(free=True)
-        except Exception, details:
+        except Exception as details:
             reason = unicoding.exception_to_unicode(details)
-            #log error details
-            message = u'%s:%s:\n%s' % (_('Unable extract variables from file'),
-                path, reason)
+            # log error details
+            message = '%s:%s:\n%s' % (str('Unable extract variables from file'),
+                                      path, reason)
             raise Exception(message)
         self.update(info, explicit=False)
         self.update(info_dumped, explicit=False)
-        #private vars
+        # private vars
         self._original_size = image.size  # to compare if changed later
         self._dirty = False
         self._log = ''
@@ -237,7 +235,7 @@ class InfoPhoto(dict):
     def update(self, d, explicit=True):
         """Do this explicitly so __setitem__ gets called."""
         if explicit:
-            for key, value in d.items():
+            for key, value in list(d.items()):
                 self[key] = value
         else:
             super(InfoPhoto, self).update(d)
@@ -264,7 +262,7 @@ class InfoPhoto(dict):
         :returns: value
         """
         if tag in DYNAMIC_VARS:
-            #this can maybe be optimized if necessary
+            # this can maybe be optimized if necessary
             if tag == 'size':
                 return self.get_pil().size
             elif tag in ('width', 'Exif_Photo_PixelXDimension'):
@@ -279,9 +277,9 @@ class InfoPhoto(dict):
             else:
                 raise KeyError('Fatal Error: tag "%s" is not dynamic?!' % tag)
         elif tag in metadata.ORIENTATION_TAGS:
-            #give priority to writable tag
+            # give priority to writable tag
             if 'Exif_Image_Orientation' in self:
-                return super(InfoPhoto, self).\
+                return super(InfoPhoto, self). \
                     __getitem__('Exif_Image_Orientation')
             else:
                 return super(InfoPhoto, self).__getitem__(tag)
@@ -329,24 +327,24 @@ class InfoPhoto(dict):
         self.assert_writable(tag)
         if tag in metadata.ORIENTATION_TAGS:
             if self.pyexiv2 is None and value == 1:
-                #allow to ignore this (e.g. transpose method)
+                # allow to ignore this (e.g. transpose method)
                 return
-            #redirect to writable tag
+            # redirect to writable tag
             tag = 'Exif_Image_Orientation'
         if tag in DYNAMIC_VARS:
             if tag == 'transparency':
                 self.assert_transparency()
                 self.get_pil().info['transparency'] = value
             else:
-                raise KeyError(_('Tag "%s" is read only.') % tag)
+                raise KeyError(str('Tag "%s" is read only.') % tag)
         else:
             super(InfoPhoto, self).__setitem__(tag, value)
         if metadata.RE_PYEXIV2_TAG_EDITABLE.match(tag):
             try:
                 self.pyexiv2[self._fix(tag)] = value
-            except Exception, message:
+            except Exception as message:
                 raise KeyError('%s:\n%s'
-                    % (_('Impossible to write tag "%s"') % tag, message))
+                               % (str('Impossible to write tag "%s"') % tag, message))
         self._dirty = True
         self._flushed = False
 
@@ -406,12 +404,12 @@ class InfoPhoto(dict):
         :rtype: bool
         """
         if not metadata.is_writable_tag(tag):
-            raise NotWritableTagError(_('Tag "%s" is not writable.') % tag)
+            raise NotWritableTagError(str('Tag "%s" is not writable.') % tag)
         if not ((self.writable_exif and tag.startswith('Exif'))
-            or (self.writable_iptc and tag.startswith('Iptc'))
-            or metadata.is_writeable_not_exif_tag(tag, self['mode'])):
+                or (self.writable_iptc and tag.startswith('Iptc'))
+                or metadata.is_writeable_not_exif_tag(tag, self['mode'])):
             raise NotWritableTagError(
-                _('Format %(format)s does not support overwriting "%(tag)s".')\
+                str('Format %(format)s does not support overwriting "%(tag)s".') \
                 % {'format': self['format'], 'tag': tag})
 
     def save(self, target, target_format=None, thumbdata=None):
@@ -426,8 +424,8 @@ class InfoPhoto(dict):
         if not exif:
             raise ImportError(NEEDS_PYEXIV2)
         if not pyexiv2:
-            #FIXME: when starting with a not exif image png
-            #but save as exif jpg
+            # FIXME: when starting with a not exif image png
+            # but save as exif jpg
             return
         if target == self['path']:
             if self.is_dirty() and not self._flushed:  # includes update_size
@@ -436,7 +434,7 @@ class InfoPhoto(dict):
         else:
             self.update_size()
             warnings = exif.write_metadata(self.pyexiv2, target,
-                self['format'], target_format, thumbdata)
+                                           self['format'], target_format, thumbdata)
         return warnings
 
 
@@ -447,14 +445,14 @@ class Photo:
         self.modify_date = None  # for time shift action
         self.report_files = []  # for reports
         self._exif_transposition_reverse = None
-        #layer
+        # layer
         path = info['path']
         name = self.current_layer_name = _t('background')
         layer = Layer(path, load=True)
         self.layers = {name: layer}
-        #info
+        # info
         self.info = InfoPhoto(info, info_to_dump, self.get_flattened_image,
-            layer.image)
+                              layer.image)
         self.rotate_exif()
 
     def close(self):
@@ -472,10 +470,10 @@ class Photo:
         return self.info.get_log()
 
     def get_filename(self, folder, filename, typ):
-        return os.path.join(folder, '%s.%s' % (filename, typ))\
-            .replace('<', '%(').replace('>', ')s') % self.__dict__
+        return os.path.join(folder, '%s.%s' % (filename, typ)) \
+                   .replace('<', '%(').replace('>', ')s') % self.__dict__
 
-    #---layers
+    # ---layers
     def get_flattened_image(self):
         return self.get_layer().image.copy()
 
@@ -486,17 +484,17 @@ class Photo:
 
     def get_thumb(self, size=thumbnail.SIZE):
         return thumbnail.thumbnail(self.get_flattened_image(),
-            size=size, checkboard=True)
+                                   size=size, checkboard=True)
 
     def set_layer(self, layer, name=None):
         if name is None:
             name = self.current_layer_name
         self.layers[name] = layer
 
-    #---image operations affecting all layers
+    # ---image operations affecting all layers
     def save(self, filename, format=None, save_metadata=True, **options):
         """Saves a flattened image"""
-        #todo: flatten layers
+        # todo: flatten layers
         if format is None:
             format = imtools.get_format_filename(filename)
         image = self.get_flattened_image()
@@ -506,24 +504,24 @@ class Photo:
 
         if image_copy.mode != image.mode:
             self.log(CONVERTED_MODE % {'mode': image.mode,
-                'mode_copy': image_copy.mode, 'format': format} + '\n')
+                                       'mode_copy': image_copy.mode, 'format': format} + '\n')
 
-        #reverse exif previously applied exif orientation
-        #exif thumbnails are usually within 160x160
-        #desktop thumbnails size is defined by thumbnail.py and is
-        #probably 128x128
+        # reverse exif previously applied exif orientation
+        # exif thumbnails are usually within 160x160
+        # desktop thumbnails size is defined by thumbnail.py and is
+        # probably 128x128
         save_metadata = save_metadata and exif \
-            and exif.is_writable_format(format)
+                        and exif.is_writable_format(format)
         if save_metadata:
             # Exif thumbnails are stored in their own format (eg JPG)
             thumb = thumbnail.thumbnail(image_copy, (160, 160))
             thumbdata = imtools.get_format_data(thumb, format)
             image_copy = imtools.transpose(image_copy,
-                self._exif_transposition_reverse)
-            #thumb = thumbnail.thumbnail(thumb, copy=False)
+                                           self._exif_transposition_reverse)
+            # thumb = thumbnail.thumbnail(thumb, copy=False)
         else:
             thumbdata = None
-            #postpone thumbnail production to see later if it is needed
+            # postpone thumbnail production to see later if it is needed
             thumb = None
 
         if 'compression.tif' in options:
@@ -534,35 +532,35 @@ class Photo:
 
         try:
             if compression.lower() in ['raw', 'none']:
-                #save image with pil
+                # save image with pil
                 file_mode = imtools.save_check_mode(image_copy, filename,
-                    **options)
-                #did PIL silently change the image mode?
+                                                    **options)
+                # did PIL silently change the image mode?
                 if file_mode:
-                    #PIL did change the image mode without throwing
+                    # PIL did change the image mode without throwing
                     # an exception.
-                    #Do not save thumbnails in this case
+                    # Do not save thumbnails in this case
                     # as they won't be reliable.
                     if image_copy.mode.endswith('A') and \
                             not file_mode.endswith('A'):
-                        #force RGBA when transparency gets lost
-                        #eg saving TIFF format with LA mode
+                        # force RGBA when transparency gets lost
+                        # eg saving TIFF format with LA mode
                         mode = image_copy.mode
                         image_copy = image_copy.convert('RGBA')
                         file_mode = imtools.save_check_mode(image_copy,
-                            filename, **options)
+                                                            filename, **options)
                         if file_mode:
                             # RGBA failed
                             self.log(CONVERTED_MODE % {'mode': mode,
-                                'mode_copy': file_mode, 'format': format} \
-                                + '\n')
+                                                       'mode_copy': file_mode, 'format': format} \
+                                     + '\n')
                         else:
                             # RGBA succeeded
                             self.log(CONVERTED_MODE % {'mode': mode,
-                                'mode_copy': 'RGBA', 'format': format} + '\n')
+                                                       'mode_copy': 'RGBA', 'format': format} + '\n')
                     else:
                         self.log(CONVERTED_MODE % {'mode': image_copy.mode,
-                            'mode_copy': file_mode, 'format': format} + '\n')
+                                                   'mode_copy': file_mode, 'format': format} + '\n')
                 elif thumbnail.is_needed(image_copy, format):
                     # save thumbnail in system cache if needed
                     if thumb is None:
@@ -571,7 +569,7 @@ class Photo:
                         'width': image.size[0],
                         'height': image.size[1]}
                     thumbnail.save_to_cache(filename, thumb,
-                        thumb_info=thumb_info, **options)
+                                            thumb_info=thumb_info, **options)
                 # copy metadata if needed (problematic for tiff)
                 # FIXME: if metdata corrupts the image, there should be
                 # no thumbnail
@@ -581,17 +579,17 @@ class Photo:
                 # save with pil>libtiff
                 openImage.check_libtiff(compression)
                 self.log(openImage.save_libtiff(image_copy, filename,
-                    compression=compression, **options))
+                                                compression=compression, **options))
             if self.modify_date:
                 # Update file access and modification date
                 os.utime(filename, (self.modify_date, self.modify_date))
             self.append_to_report(filename, image_copy)
-        except IOError, message:
+        except IOError as message:
             # clean up corrupted drawing
             if os.path.exists(filename):
                 os.remove(filename)
             raise IOError(message)
-        #update info
+        # update info
         if hasattr(options, 'dpi'):
             self.info['dpi'] = options['dpi'][0]
 
@@ -602,7 +600,7 @@ class Photo:
 
     def convert(self, mode, *args, **keyw):
         """Converts all layers to a different mode."""
-        for layer in self.layers.values():
+        for layer in list(self.layers.values()):
             if layer.image.mode == mode:
                 continue
             if mode == 'P' and imtools.has_alpha(layer.image):
@@ -622,11 +620,11 @@ class Photo:
     def resize(self, size, method):
         """Resizes all layers to a different size"""
         size = (max(1, size[0]), max(1, size[1]))
-        for layer in self.layers.values():
+        for layer in list(self.layers.values()):
             layer.image = layer.image.resize(size, method)
 
     def rotate_exif(self, reverse=False):
-        layers = self.layers.values()
+        layers = list(self.layers.values())
         if reverse:
             transposition = self._exif_transposition_reverse
             self._exif_transposition_reverse = ()
@@ -637,17 +635,17 @@ class Photo:
             for layer in layers:
                 layer.image = imtools.transpose(layer.image, transposition)
 
-    #---pil
+    # ---pil
     def apply_pil(self, function, *arg, **keyw):
-        for layer in self.layers.values():
+        for layer in list(self.layers.values()):
             layer.apply_pil(function, *arg, **keyw)
 
-    #---external
+    # ---external
     def call(self, command, check_exe=True, shell=None, size=None,
-            unlock=False, output_filename=None, mode=None):
+             unlock=False, output_filename=None, mode=None):
         if shell is None:
             shell = not system.WINDOWS
-        #get command line
+        # get command line
         info = self.info
         layer = self.get_layer()
         image = layer.image
@@ -656,18 +654,18 @@ class Photo:
         if size != None and size[0] < image.size[0]:
             image = image.copy()
             image.thumbnail(size, Image.ANTIALIAS)
-        #loop over input -> save to temp files
+        # loop over input -> save to temp files
         temp_files = []
         done = []
         error = None
         for match in RE_FILE_IN.finditer(command):
             source = match.group()
-            if not(source in done):
+            if not (source in done):
                 ext = match.group(1)
                 target = system.TempFile(ext)
                 try:
                     imtools.save_safely(image, target.path)
-                except Exception, error:
+                except Exception as error:
                     pass
                 temp_files.append((source, target))
                 done.append(source)
@@ -705,7 +703,7 @@ class Photo:
             target.close()  # os.remove(target)
         if error:
             raise Exception(
-                _('Command did not produce an output image:\n%s')\
+                str('Command did not produce an output image:\n%s') \
                 % command)
         if output:
             layer.open(output.path)

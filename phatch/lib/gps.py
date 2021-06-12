@@ -22,7 +22,7 @@ import os
 import datetime
 import xml.dom.minidom
 
-from other import surd
+from phatch.other import surd
 
 try:
     import pyexiv2

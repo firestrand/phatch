@@ -20,8 +20,8 @@
 
 # Follows PEP8
 
-from core import ct, models
-from lib.reverse_translation import _t
+from phatch.core import ct, models
+from phatch.lib.reverse_translation import _t
 
 #no need to lazily import these as they are always imported
 import os
@@ -69,7 +69,7 @@ class Action(models.Action):
             (self.get_field_string('File Name') == self.FILENAME)
 
     icon = \
-'x\xda\x01\x9c\x04c\xfb\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\x9c\x04c\xfb\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x04SIDATh\x81\xed\x98]\x88[E\x14\xc7\xffg\x92\xbd\xa6\
 \xba\xban\xebWA\x10\xbb+T\xd6\xc4$c6\xc4me\x1f\xb4\x94\n\x16\x8a[\n\x8dE|\

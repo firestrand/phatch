@@ -25,7 +25,8 @@ from lib.reverse_translation import _t
 from lib.imtools import has_transparency, has_alpha, get_alpha, \
     convert_safe_mode, paste
 
-#---PIL
+
+# ---PIL
 
 
 def init():
@@ -33,27 +34,28 @@ def init():
     from PIL import Image
     from PIL import ImageDraw
 
+
 OPTIONS = [_t('Equal for all sides'), _t('Different for each side')]
 
 
 def border(image, method, border_width=0, left=0, right=0, top=0, bottom=0,
-        color=0, opacity=100):
+           color=0, opacity=100):
     """
 
     """
-    #set up sizes, and make the target img
+    # set up sizes, and make the target img
     if method == OPTIONS[0]:
-        left, right, top, bottom = (border_width, ) * 4
+        left, right, top, bottom = (border_width,) * 4
     else:
-        left, right, top, bottom = [x for x in left, right, top, bottom]
+        left, right, top, bottom = [x for x in (left, right, top, bottom)]
 
-    #new image size attributes could get really messed up by negatives...
-    new_width = sum([x for x in image.size[0], left, right if x >= 0])
-    new_height = sum([x for x in image.size[1], top, bottom if x >= 0])
+    # new image size attributes could get really messed up by negatives...
+    new_width = sum([x for x in (image.size[0], left, right) if x >= 0])
+    new_height = sum([x for x in (image.size[1], top, bottom) if x >= 0])
 
     # only need to do conversions when preserving transparency, or when
     # dealing with transparent overlays
-    negative = [x for x in left, right, top, bottom if x < 0]
+    negative = [x for x in (left, right, top, bottom) if x < 0]
     if (negative and (opacity < 100)) or has_transparency(image):
         new_image = Image.new('RGBA', (new_width, new_height), color)
     else:
@@ -66,14 +68,14 @@ def border(image, method, border_width=0, left=0, right=0, top=0, bottom=0,
     # this with one simple draw operation, no need to add and subtract and
     # otherwise introduce geometry errors
     if negative:
-        #draw transparent overlays
+        # draw transparent overlays
         mask = Image.new('L', image.size, 255)
         drawcolor = int(255 - (opacity / 100.0 * 255))
         for val in left, top, right, bottom:
             if val < 0:
                 mask_draw = ImageDraw.Draw(mask)
                 mask_draw.rectangle((0, 0, abs(val), max(mask.size)),
-                    drawcolor)
+                                    drawcolor)
                 del mask_draw
             mask = mask.rotate(90)
     else:
@@ -86,7 +88,8 @@ def border(image, method, border_width=0, left=0, right=0, top=0, bottom=0,
 
     return new_image
 
-#---Phatch
+
+# ---Phatch
 CHOICES = ['-25', '-10', '-5', '-1', '0', '1', '5', '10', '25']
 
 
@@ -111,7 +114,7 @@ class Action(models.Action):
         fields[_t('Opacity')] = self.SliderField(100, 1, 100)
 
     def values(self, info):
-        #pixel fields
+        # pixel fields
         width, height = info['size']
         # pass absolute reference for relative pixel values such as %
         return super(Action, self).values(info, pixel_fields={
@@ -139,7 +142,7 @@ class Action(models.Action):
         return relevant
 
     icon = \
-'x\xda\x01x\x0b\x87\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+        b'x\xda\x01x\x0b\x87\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0b/IDATh\x81\xd5Z{P\\\xd5\x1d\xfe\xce9\xf7\xb1\xcb\
 \x1bj\x08\x8f4\x04\xa3`\x001I\x8d\x9aJ\xb5Uk\xd5\x8c3\xa6\x13m,31jm\x93\xb1\

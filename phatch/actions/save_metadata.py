@@ -20,8 +20,8 @@
 
 # Follows PEP8
 
-from core import ct, models, pil
-from lib.reverse_translation import _t
+from phatch.core import ct, models, pil
+from phatch.lib.reverse_translation import _t
 
 #no need to lazily import these as they are always imported
 import shutil
@@ -51,7 +51,7 @@ class Action(models.LosslessSaveMixin, models.Action):
         return photo
 
     icon = \
-'x\xda\x01\xc7\x108\xef\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\xc7\x108\xef\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x10~IDATh\x81\xd5\x9a{pT\xd7}\xc7?\xe7\xbe\xf6\xa5\
 \xd5cWZIHH \x81$\x90\x01\x81\xb10\xe6Yc\x9c\x80\xf1\xd83\xb1\xf3p\x92\xdaq\

@@ -141,7 +141,7 @@ class DataTuple(object):
         include = []
         exclude = []
         for row in self.data:
-            if filter in unicode(row).lower():
+            if filter in str(row).lower():
                 include.append(row)
             else:
                 exclude.append(row)

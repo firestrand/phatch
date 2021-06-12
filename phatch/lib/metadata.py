@@ -23,14 +23,16 @@
 
 # import rpdb2; rpdb2.start_embedded_debugger('x')
 
-#TODO: PROVIDE THESE AS EXTRACT METHOD, exif rotation
-#synchronize between exif automatically? pil manual
-#sphinx doc everything
+# TODO: PROVIDE THESE AS EXTRACT METHOD, exif rotation
+# synchronize between exif automatically? pil manual
+# sphinx doc everything
 
 import datetime
 import os
 import re
 import time
+
+from phatch.lib import unicoding, imtools, odict
 
 try:
     import pyexiv2
@@ -39,22 +41,18 @@ except ImportError:
     pyexiv2 = None
     _pyexiv2 = None
 
-import imtools
-import odict
-import unicoding
-from desktop import DESKTOP_FOLDER
-from metadataTest import DateTime, INFO_TEST, is_string, MONTHS, now, WEEKDAYS
-from reverse_translation import _t
+from phatch.lib.desktop import DESKTOP_FOLDER
+from phatch.lib.metadataTest import DateTime, INFO_TEST, is_string, MONTHS, now, WEEKDAYS
+from phatch.lib.reverse_translation import _t
 
-RE_VAR = re.compile('<.+?>')
-
+RE_VAR = re.compile(r'<.+?>')
 
 DATETIME_KEYS = ['year', 'month', 'day', 'hour', 'minute', 'second']
-RE_DATETIME_KEYS = re.compile('(%s)$' % ('|'.join(['[.]' + key
-    for key in DATETIME_KEYS])))
+RE_DATETIME_KEYS = re.compile(r'(%s)$' % ('|'.join(['[.]' + key
+                                                    for key in DATETIME_KEYS])))
 
-RE_PYEXIV2_TAG = re.compile('^(Exif|Iptc)_.+')
-RE_PYEXIV2_TAG_EDITABLE = re.compile('^(Exif|Iptc)_\w+$')
+RE_PYEXIV2_TAG = re.compile(r'^(Exif|Iptc)_.+')
+RE_PYEXIV2_TAG_EDITABLE = re.compile(r'^(Exif|Iptc)_\w+$')
 
 ORIENTATION_TAGS = ['orientation', 'Pexif_Orientation', 'Zexif_Orientation']
 WRITABLE_TAGS = ['dpi', 'transparency'] + ORIENTATION_TAGS
@@ -63,26 +61,26 @@ WRITABLE_TAGS = ['dpi', 'transparency'] + ORIENTATION_TAGS
 def is_editable_tag(tag):
     if RE_PYEXIV2_TAG_EDITABLE.match(tag):
         value = INFO_TEST.get(tag, 1)
-        return type(value) in (str, unicode, int, float) \
-            or isinstance(value, DateTime)
+        return type(value) in (str, int, float) \
+               or isinstance(value, DateTime)
     return False
 
 
 def is_writable_tag(tag):
     return tag in WRITABLE_TAGS or \
-        (RE_PYEXIV2_TAG_EDITABLE.match(tag) and not(tag in (
-            'Exif_Photo_PixelXDimension',
-            'Exif_Photo_PixelYDimension',
-            'Exif_Image_Software')))
+           (RE_PYEXIV2_TAG_EDITABLE.match(tag) and not (tag in (
+               'Exif_Photo_PixelXDimension',
+               'Exif_Photo_PixelYDimension',
+               'Exif_Image_Software')))
 
 
 def is_writeable_not_exif_tag(tag, mode):
     return tag in ('dpi', 'orientation') \
-        or (mode == 'P' and tag == 'transparency')
+           or (mode == 'P' and tag == 'transparency')
 
 
 RE_DATETIME_COLON = \
-re.compile('[0-9]{4,4}:[0-9]{2,2}:[0-9]{2,2} [0-9]{2,2}:[0-9]{2,2}:[0-9]{2,2}')
+    re.compile(r'[0-9]{4}:[0-9]{2}:[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}')
 
 
 class InfoProvideError(Exception):
@@ -131,7 +129,7 @@ class _InfoCache(object):
         :param source: retrieve source from which to extract data
         :type source: object or callable
         """
-        if not (source is None):
+        if source is not None:
             if is_string(source):
                 source = self.get_source_from_file(source)
             self.set_source(source)
@@ -168,7 +166,7 @@ class _InfoCache(object):
         .. see also: :method:`_set_source`
         """
         if is_string(source):
-            #source is a filename
+            # source is a filename
             source = self.get_source_from_file(source)
         if callable(source):
             self._get_source_dynamic = source
@@ -289,7 +287,7 @@ class _InfoCache(object):
     def extract_all(self):
         """Extract all values, which is usefull for inspector."""
         for var, extract in self._extract_methods.items():
-            if not(var in self.dict):
+            if not (var in self.dict):
                 extract(self)
         self._extract_others()
 
@@ -415,10 +413,10 @@ class InfoFile(_InfoCache):
             st_mtime = time.localtime(file_stat.st_mtime)[:7]
         except:
             self.dict['filesize'] = 0
-            st_mtime = (0, ) * 7
+            st_mtime = (0,) * 7
         self.dict['year'], self.dict['month'], self.dict['day'], \
-            self.dict['hour'], self.dict['minute'], self.dict['second'], \
-            self.dict['weekday'] = st_mtime
+        self.dict['hour'], self.dict['minute'], self.dict['second'], \
+        self.dict['weekday'] = st_mtime
         self.dict['weekdayname'] = WEEKDAYS[self.dict['weekday']]
         self.dict['monthname'] = MONTHS[self.dict['month'] - 1]
 
@@ -435,9 +433,9 @@ class InfoFile(_InfoCache):
     @classmethod
     def split_vars(cls, vars):
         vars = set(vars)
-        #known, unknown
+        # known, unknown
         return (vars.intersection(cls.possible_vars),
-            vars.difference(cls.possible_vars))
+                vars.difference(cls.possible_vars))
 
     type = 'File'
     _extract_methods = {
@@ -459,7 +457,7 @@ class InfoFile(_InfoCache):
         _t('weekday'): _extract_stat,
         _t('weekdayname'): _extract_stat,
         _t('year'): _extract_stat,
-        }
+    }
 
     prefix = type + '_'
     _prefix_n = len(prefix)
@@ -554,7 +552,7 @@ class InfoPil(_InfoPil):
 
     def _extract_dpi(self):
         self.dict['dpi'] = \
-            self._source.info.get('dpi', (72, ))[0]
+            self._source.info.get('dpi', (72,))[0]
 
     def _extract_format(self):
         self.dict['format'] = self._source.format
@@ -575,7 +573,7 @@ class InfoPil(_InfoPil):
 
     def _extract_size(self):
         """Extract size of image with PIL"""
-        #we don't translate dotted attributes
+        # we don't translate dotted attributes
         size = self._source.size
         if self.dict['orientation'] > 4:
             size = (size[1], size[0])
@@ -601,7 +599,7 @@ class InfoPil(_InfoPil):
     def _extract_others(self):
         """Extract all other possible vars"""
         for key, value in self._source.info.items():
-            if not(key in self.vars_skip):
+            if not (key in self.vars_skip):
                 self.dict[self.prefix + key] = value
 
     def reset_geometry(self):
@@ -644,17 +642,19 @@ class InfoPil(_InfoPil):
     possible_vars = sorted(_extract_methods.keys())
     vars_skip = possible_vars + ['exif']  # skip for writing png metadata
 
-#Initialize PIL metadata
-#This can't be lazily loaded as it is needed by the provide method.
+
+# Initialize PIL metadata
+# This can't be lazily loaded as it is needed by the provide method.
 try:
-    from ExifTags import TAGS, GPSTAGS
+    from PIL.ExifTags import TAGS, GPSTAGS
+
     EXIFTAGS = {}
     EXIFTAGS.update(TAGS)
     EXIFTAGS.update(GPSTAGS)
     del TAGS
     del GPSTAGS
 except:
-    #older versions of PIL
+    # older versions of PIL
     EXIFTAGS = {'Orientation': 'Orientation'}
 EXIFTAGS_REVERSE = {}
 for key, item in EXIFTAGS.items():
@@ -765,8 +765,8 @@ class InfoPexif(_InfoPilMetadata):
     @classmethod
     def provides(cls, var):
         return var == 'orientation' or \
-            (var[:cls._prefix_n] == cls.prefix and
-            var[cls._prefix_n:] in EXIFTAGS_REVERSE)
+               (var[:cls._prefix_n] == cls.prefix and
+                var[cls._prefix_n:] in EXIFTAGS_REVERSE)
 
     def _get_other(self, var):
         """Get only one variable which is not defined in
@@ -856,8 +856,8 @@ class InfoZexif(_InfoPilMetadata):
     @classmethod
     def provides(cls, var):
         return var == 'orientation' or \
-            (var[:cls._prefix_n] == cls.prefix and
-            cls.regex.match(var[cls._prefix_n:]))
+               (var[:cls._prefix_n] == cls.prefix and
+                cls.regex.match(var[cls._prefix_n:]))
 
     def _get_other(self, var):
         """Get only one variable which is not defined in
@@ -899,13 +899,13 @@ class _InfoPyexiv2(_InfoCache):
         :type var: string
         """
         return self.convert(self._source['%s.%s' \
-            % (self.type, var.replace('_', '.'))])
+                                         % (self.type, var.replace('_', '.'))])
 
     def _extract_others_from_keys(self, exif_keys):
         """Extract all other vars"""
         for var in exif_keys:
             _var = var.replace('.', '_')
-            if not(_var in self.dict):
+            if not (_var in self.dict):
                 try:
                     value = self._source[var]
                 except:
@@ -1123,7 +1123,7 @@ class InfoExif(_InfoPyexiv2):
     def _extract_orientation(self):
         """Extract orientation from source image as integer."""
         try:
-            #be careful to use dots here instead of _
+            # be careful to use dots here instead of _
             self.dict['orientation'] = self._source['Exif.Image.Orientation']
         except KeyError:
             self.dict['orientation'] = 1
@@ -1173,7 +1173,7 @@ class InfoIptc(_InfoPyexiv2):
         self._extract_others_from_keys(self._source.iptcKeys())
 
     type = 'Iptc'
-    regex = re.compile('^Iptc_')
+    regex = re.compile(r'^Iptc_')
 
     prefix = type + '_'
     _prefix_n = len(prefix)
@@ -1191,7 +1191,7 @@ class InfoEXIF(_InfoCache):
     >>> pprint.pprint(sorted(info.dict.keys()))
     ['EXIF_Thumbnail_Compression']
     >>> import pyexiv2
-    >>> from other import EXIF
+    >>> from phatch.other import EXIF
     >>> exif = EXIF.process_file(open(filename, 'rb'))
     >>> info = InfoEXIF(exif)
     >>> info['orientation']
@@ -1346,7 +1346,7 @@ class InfoEXIF(_InfoCache):
     @classmethod
     def _load_module(cls):
         """Code to load the EXIF module."""
-        from other import EXIF
+        from phatch.other import EXIF
         cls.EXIF = EXIF
 
     @classmethod
@@ -1380,12 +1380,12 @@ INFOS = [InfoFile]
 if pyexiv2:
     INFOS.extend([InfoExif, InfoIptc])
 INFOS.extend([InfoPil, InfoPexif, InfoZexif])
-#, InfoEXIF] #EXIF disabled for now as it crashes
+# , InfoEXIF] #EXIF disabled for now as it crashes
 INFOS_WITH_ORIENTATION = [Info for Info in INFOS
-    if 'orientation' in Info.possible_vars]
+                          if 'orientation' in Info.possible_vars]
 VARS_BY_INFO_EXIF = {}
 for info in INFOS:
-    #set to None so it defaults to all variables
+    # set to None so it defaults to all variables
     VARS_BY_INFO_EXIF[info] = None
 VARS_BY_INFO = {InfoFile: None, InfoPil: None}
 
@@ -1945,10 +1945,10 @@ class InfoExtract:
         :param vars: variables that have to be extracted (e.g. orientation)
         :type vars: list
         """
-        if not(vars is None):
+        if not (vars is None):
             self.set_vars(vars)
             self.open(filename)
-        elif not(filename is None):
+        elif not (filename is None):
             self.open(filename, sources)
 
     def open(self, filename, sources=None):
@@ -2002,10 +2002,10 @@ class InfoExtract:
         set_vars_by_info = set(vars_by_info)
         if not set_vars_by_info.intersection(INFOS_WITH_ORIENTATION):
             needs_orientation = [Info
-                for Info in set_vars_by_info.difference(INFOS_WITH_ORIENTATION)
-                if Info.needs_orientation(vars_by_info[Info])]
+                                 for Info in set_vars_by_info.difference(INFOS_WITH_ORIENTATION)
+                                 if Info.needs_orientation(vars_by_info[Info])]
             if needs_orientation:
-                if not(vars_by_info[InfoPil] is None):
+                if not (vars_by_info[InfoPil] is None):
                     # orientation is included in None already
                     vars_by_info[InfoPil] += ['orientation']
         return vars_by_info, vars_unknown
@@ -2046,7 +2046,7 @@ class InfoExtract:
         :returns: variables by required info types
         :rtype: dict of lists
         """
-        Infos = odict.odict()
+        Infos = {}  # TODO: why? odict.odict()
         todo = vars[:]  # we don't want to change the orignal vars
         todo_temp = vars[:]
         # loop first over Infos so that the info order is kept
@@ -2101,7 +2101,7 @@ class InfoExtract:
         if filename:
             self.open(filename)
         if self._vars:
-            #load vars
+            # load vars
             for info in self.list:
                 info.enable_cache()
             for var in self._vars:

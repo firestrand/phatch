@@ -18,9 +18,9 @@
 """Wraps vlist in a tag browser jacket."""
 
 import wx
-from vlist import Box
-from tag import Browser, ContentMixin, extract_tags  # imported by dialogs.py
 
+from phatch.lib.pyWx.tag import Browser, ContentMixin, extract_tags  # imported by dialogs.py
+from phatch.lib.pyWx.vlist import Box
 
 #---Test case
 class TestContentBox(ContentMixin, Box):
@@ -73,8 +73,8 @@ class Dialog(wx.Dialog):
         self.browser = self.ContentBrowser(self, tags, {},
             style=wx.SUNKEN_BORDER)
         self.status = wx.StaticText(self, -1, "")
-        self.cancel = wx.Button(self, wx.ID_CANCEL, _("&Cancel"))
-        self.ok = wx.Button(self, wx.ID_OK, _("&Add"))
+        self.cancel = wx.Button(self, wx.ID_CANCEL, str("&Cancel"))
+        self.ok = wx.Button(self, wx.ID_OK, str("&Add"))
         self.ok.SetDefault()
 
     def _layout(self):

@@ -16,11 +16,8 @@
 # Follows PEP8
 
 """The aim of this library is to abstract pubsub."""
-#check this for the console version (wx should dissappear)
-try:
-    from other.pubsub import ALL_TOPICS, Publisher
-except ImportError:
-    from wx.lib.pubsub import ALL_TOPICS, Publisher
+from pubsub.pub import ALL_TOPICS
+from pubsub.core import Publisher
 
 
 #---Send

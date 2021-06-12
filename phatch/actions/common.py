@@ -20,8 +20,8 @@
 
 # Embedded icon is taken from www.openclipart.org (public domain)
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -30,7 +30,7 @@ def init():
     global Image, ImageFilter, imtools
     from PIL import Image
     from PIL import ImageFilter
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def common(image, radius, amount=100):
@@ -60,7 +60,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(100, 1, 100)
 
     icon = \
-'x\xda\x01\x14\r\xeb\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\x14\r\xeb\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0c\xcbIDATh\x81\xc5Y}\x8c]\xc5u\xff\x9d\x99\xb9\xf7\
 \xbe\xb7o\xbf\xbc\x1f^w\xbd`\xbc\xfeX\xbc\xfe\x88\xf1\xc7\x9a\xb8\x18[4\t\

@@ -20,8 +20,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -30,7 +30,7 @@ def init():
     global Image, ImageColor, imtools
     from PIL import Image
     from PIL import ImageColor
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def brightness(image, amount=50):
@@ -77,7 +77,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(50, -100, 100)
 
     icon = \
-'x\xda\x01p\x0b\x8f\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01p\x0b\x8f\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0b\'IDATh\x81\xd5\x99}\x8c\x9c\xc7]\xc7?3\xf3\xbc\
 \xec\xcb\xbd\xda\xb7\xf7\xeas\xac\xe4\xe2:i\xac\x928mP\x9a\x94\xaa/$\xc4i*\

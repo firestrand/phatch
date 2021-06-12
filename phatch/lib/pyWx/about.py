@@ -21,18 +21,18 @@
 
 import sys
 import wx
-import wx.lib.hyperlink as hl
+import wx.lib.agw.hyperlink as hl
 
 if sys.platform.startswith('win'):
     class TransparentBitmap(wx.Panel):
-        def __init__(self,parent,id,bitmap=wx.NullBitmap,*args,**keyw):
-            super(TransparentBitmap,self).__init__(parent,id,*args,**keyw)
+        def __init__(self, parent, id, bitmap=wx.NullBitmap, *args, **keyw):
+            super(TransparentBitmap, self).__init__(parent, id, *args, **keyw)
             self.SetBitmap(bitmap)
             self.Bind(wx.EVT_PAINT, self.OnPaint)
 
-        def SetBitmap(self,bitmap):
-            self._bitmap    = bitmap
-            size            = self._bitmap.GetSize()
+        def SetBitmap(self, bitmap):
+            self._bitmap = bitmap
+            size = self._bitmap.GetSize()
             self.SetSize(size)
             self.SetMinSize(size)
             self.GetParent().Layout()
@@ -42,9 +42,10 @@ if sys.platform.startswith('win'):
             dc.SetBackground(wx.Brush(
                 self.GetParent().GetBackgroundColour()))
             dc.Clear()
-            dc.DrawBitmap(self._bitmap, 0,0, True)
+            dc.DrawBitmap(self._bitmap, 0, 0, True)
 else:
-    TransparentBitmap   = wx.StaticBitmap
+    TransparentBitmap = wx.StaticBitmap
+
 
 class wxgAboutDialog(wx.Dialog):
     def __init__(self, *args, **kwds):
@@ -52,12 +53,12 @@ class wxgAboutDialog(wx.Dialog):
         kwds["style"] = wx.DEFAULT_DIALOG_STYLE
         wx.Dialog.__init__(self, *args, **kwds)
         self.logo = TransparentBitmap(self, -1, wx.NullBitmap)
-        self.title = wx.StaticText(self, -1, _("Program Version"), style=wx.ALIGN_CENTRE)
-        self.description = wx.StaticText(self, -1, _("Description"))
-        self.website = hl.HyperLinkCtrl(self, -1, label = 'http://www.stani.be', URL = 'http://www.stani.be')
-        self.credits = wx.Button(self, -1, _("C&redits"))
-        self.license = wx.Button(self, -1, _("&License"))
-        self.close = wx.Button(self, wx.ID_CLOSE, _("&Close"))
+        self.title = wx.StaticText(self, -1, str("Program Version"), style=wx.ALIGN_CENTRE)
+        self.description = wx.StaticText(self, -1, str("Description"))
+        self.website = hl.HyperLinkCtrl(self, -1, label='http://www.stani.be', URL='http://www.stani.be')
+        self.credits = wx.Button(self, -1, str("C&redits"))
+        self.license = wx.Button(self, -1, str("&License"))
+        self.close = wx.Button(self, wx.ID_CLOSE, str("&Close"))
 
         self.__set_properties()
         self.__do_layout()
@@ -69,7 +70,7 @@ class wxgAboutDialog(wx.Dialog):
 
     def __set_properties(self):
         # begin wxGlade: wxgAboutDialog.__set_properties
-        self.SetTitle(_("About"))
+        self.SetTitle(str("About"))
         self.license.SetDefault()
         # end wxGlade
 
@@ -78,29 +79,30 @@ class wxgAboutDialog(wx.Dialog):
         sizer_7 = wx.BoxSizer(wx.VERTICAL)
         sizer_9 = wx.BoxSizer(wx.HORIZONTAL)
         sizer_7.Add(self.logo, 1, wx.ALIGN_CENTER_HORIZONTAL, 0)
-        sizer_7.Add(self.title, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 4)
-        sizer_7.Add(self.description, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 4)
-        sizer_7.Add(self.website, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 4)
-        sizer_9.Add(self.credits, 0, wx.ALL|wx.EXPAND, 4)
-        sizer_9.Add(self.license, 0, wx.ALL|wx.EXPAND, 3)
-        sizer_9.Add(self.close, 0, wx.ALL|wx.EXPAND, 4)
-        sizer_7.Add(sizer_9, 0, wx.TOP|wx.ALIGN_CENTER_HORIZONTAL, 10)
+        sizer_7.Add(self.title, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, 4)
+        sizer_7.Add(self.description, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, 4)
+        sizer_7.Add(self.website, 0, wx.ALL | wx.ALIGN_CENTER_HORIZONTAL, 4)
+        sizer_9.Add(self.credits, 0, wx.ALL | wx.EXPAND, 4)
+        sizer_9.Add(self.license, 0, wx.ALL | wx.EXPAND, 3)
+        sizer_9.Add(self.close, 0, wx.ALL | wx.EXPAND, 4)
+        sizer_7.Add(sizer_9, 0, wx.TOP | wx.ALIGN_CENTER_HORIZONTAL, 10)
         self.SetSizer(sizer_7)
         sizer_7.Fit(self)
         self.Layout()
         # end wxGlade
 
-    def OnCredits(self, event): # wxGlade: wxgAboutDialog.<event_handler>
-        print "Event handler `OnCredits' not implemented!"
+    def OnCredits(self, event):  # wxGlade: wxgAboutDialog.<event_handler>
+        print("Event handler `OnCredits' not implemented!")
         event.Skip()
 
-    def OnLicense(self, event): # wxGlade: wxgAboutDialog.<event_handler>
-        print "Event handler `OnLicense' not implemented!"
+    def OnLicense(self, event):  # wxGlade: wxgAboutDialog.<event_handler>
+        print("Event handler `OnLicense' not implemented!")
         event.Skip()
 
-    def OnClose(self, event): # wxGlade: wxgAboutDialog.<event_handler>
-        print "Event handler `OnClose' not implemented!"
+    def OnClose(self, event):  # wxGlade: wxgAboutDialog.<event_handler>
+        print("Event handler `OnClose' not implemented!")
         event.Skip()
+
 
 # end of class wxgAboutDialog
 
@@ -117,13 +119,19 @@ class wxgCreditsDialog(wx.Dialog):
         self.notebook_1_pane_3 = wx.Panel(self.notebook, -1)
         self.notebook_1_pane_2 = wx.Panel(self.notebook, -1)
         self.notebook_1_pane_1 = wx.Panel(self.notebook, -1)
-        self.credits_code = wx.TextCtrl(self.notebook_1_pane_1, -1, "", style=wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
-        self.credits_documentation = wx.TextCtrl(self.notebook_1_pane_2, -1, "", style=wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
-        self.credits_translation = wx.TextCtrl(self.notebook_1_pane_3, -1, "", style=wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
-        self.credits_graphics = wx.TextCtrl(self.notebook_1_pane_4, -1, "", style=wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
-        self.credits_libraries = wx.TextCtrl(self.notebook_1_pane_5, -1, "", style=wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
-        self.credits_sponsors = wx.TextCtrl(self.notebook_pane_6, -1, "", style=wx.TE_MULTILINE|wx.TE_READONLY|wx.HSCROLL)
-        self.close = wx.Button(self, wx.ID_CLOSE, _("&Close"))
+        self.credits_code = wx.TextCtrl(self.notebook_1_pane_1, -1, "",
+                                        style=wx.TE_MULTILINE | wx.TE_READONLY | wx.HSCROLL)
+        self.credits_documentation = wx.TextCtrl(self.notebook_1_pane_2, -1, "",
+                                                 style=wx.TE_MULTILINE | wx.TE_READONLY | wx.HSCROLL)
+        self.credits_translation = wx.TextCtrl(self.notebook_1_pane_3, -1, "",
+                                               style=wx.TE_MULTILINE | wx.TE_READONLY | wx.HSCROLL)
+        self.credits_graphics = wx.TextCtrl(self.notebook_1_pane_4, -1, "",
+                                            style=wx.TE_MULTILINE | wx.TE_READONLY | wx.HSCROLL)
+        self.credits_libraries = wx.TextCtrl(self.notebook_1_pane_5, -1, "",
+                                             style=wx.TE_MULTILINE | wx.TE_READONLY | wx.HSCROLL)
+        self.credits_sponsors = wx.TextCtrl(self.notebook_pane_6, -1, "",
+                                            style=wx.TE_MULTILINE | wx.TE_READONLY | wx.HSCROLL)
+        self.close = wx.Button(self, wx.ID_CLOSE, str("&Close"))
 
         self.__set_properties()
         self.__do_layout()
@@ -133,7 +141,7 @@ class wxgCreditsDialog(wx.Dialog):
 
     def __set_properties(self):
         # begin wxGlade: wxgCreditsDialog.__set_properties
-        self.SetTitle(_("Credits"))
+        self.SetTitle(str("Credits"))
         # end wxGlade
 
     def __do_layout(self):
@@ -157,105 +165,108 @@ class wxgCreditsDialog(wx.Dialog):
         self.notebook_1_pane_5.SetSizer(sizer_11_copy_3)
         sizer_1.Add(self.credits_sponsors, 1, wx.EXPAND, 0)
         self.notebook_pane_6.SetSizer(sizer_1)
-        self.notebook.AddPage(self.notebook_1_pane_1, _("Code"))
-        self.notebook.AddPage(self.notebook_1_pane_2, _("Documentation"))
-        self.notebook.AddPage(self.notebook_1_pane_3, _("Translation"))
-        self.notebook.AddPage(self.notebook_1_pane_4, _("Artwork"))
-        self.notebook.AddPage(self.notebook_1_pane_5, _("Libraries"))
-        self.notebook.AddPage(self.notebook_pane_6, _("Sponsors"))
+        self.notebook.AddPage(self.notebook_1_pane_1, str("Code"))
+        self.notebook.AddPage(self.notebook_1_pane_2, str("Documentation"))
+        self.notebook.AddPage(self.notebook_1_pane_3, str("Translation"))
+        self.notebook.AddPage(self.notebook_1_pane_4, str("Artwork"))
+        self.notebook.AddPage(self.notebook_1_pane_5, str("Libraries"))
+        self.notebook.AddPage(self.notebook_pane_6, str("Sponsors"))
         sizer_100.Add(self.notebook, 1, wx.EXPAND, 0)
-        sizer_100.Add(self.close, 0, wx.ALL|wx.ALIGN_RIGHT, 4)
+        sizer_100.Add(self.close, 0, wx.ALL | wx.ALIGN_RIGHT, 4)
         self.SetSizer(sizer_100)
         sizer_100.Fit(self)
         self.Layout()
         # end wxGlade
 
-    def OnClose(self, event): # wxGlade: wxgCreditsDialog.<event_handler>
-        print "Event handler `OnClose' not implemented!"
+    def OnClose(self, event):  # wxGlade: wxgCreditsDialog.<event_handler>
+        print("Event handler `OnClose' not implemented!")
         event.Skip()
+
 
 # end of class wxgCreditsDialog
 
 class CreditsDialog(wxgCreditsDialog):
     """Credit dialog."""
 
-    def __init__(self,parent,credits):
+    def __init__(self, parent, credits):
         """Shows a dialog with the credits of a project.
         :param parent: parent control of dialog (mostly app frame)
         :type parent: wx.Window
         :param credits: people by category
         :type credits: dictionary
         """
-        super(CreditsDialog,self).__init__(parent,-1)
+        super(CreditsDialog, self).__init__(parent, -1)
         for attr, all in credits.items():
-            ctrl    = getattr(self,'credits_%s'%attr)
+            ctrl = getattr(self, 'credits_%s' % attr)
             ctrl.SetValue('\n'.join([' - '.join(x.values()) for x in all]))
-        w, h    = parent.GetSize()
-        self.SetSize((int(2*w),int(h/1.5)))
+        w, h = parent.GetSize()
+        self.SetSize((int(2 * w), int(h / 1.5)))
 
-    def OnClose(self,event):
+    def OnClose(self, event):
         self.EndModal(wx.ID_CLOSE)
 
+
 class Dialog(wxgAboutDialog):
-    def __init__(self,parent,title,logo,description,website, credits, license):
-        super(Dialog,self).__init__(parent,-1)
+    def __init__(self, parent, title, logo, description, website, credits, license):
+        super(Dialog, self).__init__(parent, -1)
         self.SetBackgroundColour(self.GetBackgroundColour())
-        #title
+        # title
         self.title.SetLabel(title)
-        title_font  = self.title.GetFont()
-        title_font.SetPointSize(title_font.GetPointSize()*3)
+        title_font = self.title.GetFont()
+        title_font.SetPointSize(title_font.GetPointSize() * 3)
         self.title.SetFont(title_font)
-        #logo
+        # logo
         self.logo.SetBitmap(logo)
-        #description
-        self.description.SetLabel(description.replace('&','&&'))
-        #website
+        # description
+        self.description.SetLabel(description.replace('&', '&&'))
+        # website
         self.website.SetLabel(website)
         self.website.SetURL(website)
-        #save other parameters
-        self.credits    = credits
-        self.license    = license
-        #layout
+        # save other parameters
+        self.credits = credits
+        self.license = license
+        # layout
         self.GetSizer().Fit(self)
         self.Layout()
 
-    def OnCredits(self,event):
-        dlg = CreditsDialog(self,self.credits)
+    def OnCredits(self, event):
+        dlg = CreditsDialog(self, self.credits)
         dlg.ShowModal()
         dlg.Destroy()
 
-    def OnLicense(self,event):
+    def OnLicense(self, event):
         import wx.lib.dialogs
         dlg = wx.lib.dialogs.ScrolledMessageDialog(self, self.license,
-                _('License'))
+                                                   str('License'))
         dlg.ShowModal()
 
-
-    def OnClose(self,event):
+    def OnClose(self, event):
         self.Destroy()
+
 
 def example():
     import gettext, random
-    gettext.install("test") # replace with the appropriate catalog name
+    gettext.install("test")  # replace with the appropriate catalog name
 
     def create_credits(*args):
-        result  = {}
+        result = {}
         for arg in args:
             result[arg] = [{
-                            'name':'%s %d' % (arg, x),
-                            'email':'info@%s%d.com' % (arg, x)}
-                            for x in range(random.randint(1, 9))]
+                'name': '%s %d' % (arg, x),
+                'email': 'info@%s%d.com' % (arg, x)}
+                for x in range(random.randint(1, 9))]
         return result
 
-    app         = wx.PySimpleApp(0)
-    logo        = wx.ArtProvider_GetBitmap(wx.ART_GO_HOME,wx.ART_OTHER,(128,128))
-    credits     = create_credits('code','documentation','translation',
-                    'libraries','graphics')
+    app = wx.PySimpleApp(0)
+    logo = wx.ArtProvider.GetBitmap(wx.ART_GO_HOME, wx.ART_OTHER, (128, 128))
+    credits = create_credits('code', 'documentation', 'translation',
+                             'libraries', 'graphics')
     aboutDialog = Dialog(None, 'title', logo, 'description', 'website',
-                    credits, 'license (latest GPL)')
+                         credits, 'license (latest GPL)')
     app.SetTopWindow(aboutDialog)
     aboutDialog.Show()
     app.MainLoop()
+
 
 if __name__ == "__main__":
     example()

@@ -35,24 +35,17 @@ import sys
 import wx
 import wx.lib.colourselect
 
-from lib.colors import RGBToHTMLColor, HTMLColorToRGB
-from lib.fonts import font_dictionary
-from lib.reverse_translation import _t
+from phatch.lib.colors import RGBToHTMLColor, HTMLColorToRGB
+from phatch.lib.fonts import font_dictionary
+from phatch.lib.reverse_translation import _t
 
-from autoCompleteCtrls import AutoCompleteTextCtrl, AutoCompleteIconCtrl
-from wildcard import wildcard_list
+from .autoCompleteCtrls import AutoCompleteTextCtrl, AutoCompleteIconCtrl
+from .wildcard import wildcard_list
 
 ####Plain Controls (no i18N)
-try:
-    _
-    if not callable(_):
-        raise NameError
-except NameError:
-    _ = unicode
-
 
 ICON_SIZE = (64, 64)
-LOADING = _('loading') + ' ...'
+LOADING = str('loading') + ' ...'
 FONT_PATHS = ['/usr/share/fonts/truetype']
 if sys.platform.startswith('linux'):
     TEXTCTRL_BORDER = 2
@@ -149,12 +142,12 @@ class _CtrlRelevantMixin:
         if event:
             event.Skip()
         if hasattr(self, 'on_change'):
-            self.on_change(unicode(self.Get()))
+            self.on_change(str(self.Get()))
         #other option in case troubles pop up (see also Close method)
         #wx.CallAfter(self.OnAfterChange)
 
     def OnAfterChange(self):
-        self.on_change(unicode(self.Get()))
+        self.on_change(str(self.Get()))
 
 
 class TextCtrl(_CtrlRelevantMixin, _CtrlChoices, wx.ComboBox):
@@ -331,13 +324,13 @@ class ImageDictionaryFileCtrl(_CtrlRelevantMixin, _Ctrl, wx.Button):
             dialog, show_path=True, on_change=None, icon_size=(64, 64)):
         #avoid circular FIXME
         global imageFileBrowser
-        import imageFileBrowser
+        from . import imageFileBrowser
         super(ImageDictionaryFileCtrl, self).__init__(parent, -1,
             LOADING, size=size)
         self.value = value
         self.extensions = extensions
         self.dictionary = dictionary
-        self.title = _(dialog)
+        self.title = str(dialog)
         self.show_path = show_path
         self.icon_size = icon_size
         self.Disable()
@@ -377,7 +370,7 @@ class ImageDictionaryFileCtrl(_CtrlRelevantMixin, _Ctrl, wx.Button):
 
     def SetValue(self, value):
         self.value = value
-        self.SetLabel(_(value))
+        self.SetLabel(str(value))
 
     def GetValue(self):
         return self.value
@@ -387,7 +380,7 @@ class ColorCtrl(_Ctrl, wx.lib.colourselect.ColourSelect):
 
     def __init__(self, parent, value, size):
         label = value
-        if isinstance(value, (str, unicode)):
+        if isinstance(value, str):
             value = HTMLColorToRGB(value)
         super(ColorCtrl, self).__init__(parent, -1, '', value, size=size)
         self.Bind(wx.lib.colourselect.EVT_COLOURSELECT, self.OnSelectColor)
@@ -401,7 +394,7 @@ class ColorCtrl(_Ctrl, wx.lib.colourselect.ColourSelect):
     def GetColorAsString(self, color=None):
         if color == None:
             color = self.GetColour()
-        if isinstance(color, (str, unicode)):
+        if isinstance(color, str):
             return color
         return RGBToHTMLColor((color.Red(), color.Green(), color.Blue()))
 
@@ -472,7 +465,7 @@ class DictionaryFileCtrl(LabelFileCtrl):
 
     def __init__(self, parent, value, size, dictionary, **extra):
         self.dictionary = dictionary
-        choices = dictionary.keys()
+        choices = list(dictionary.keys())
         choices.sort()
         super(DictionaryFileCtrl, self).__init__(parent, value, size,
             choices=choices, **extra)
@@ -596,7 +589,7 @@ class SliderCtrl(_ComposedCtrl):
 
     #---control methods (obligatory)
     def GetValue(self):
-        return unicode(self.slider.GetValue())
+        return str(self.slider.GetValue())
 
     def SetBackgroundColour(self, color):
         super(SliderCtrl, self).SetBackgroundColour(color)
@@ -738,7 +731,7 @@ class EditPanel(wx.Panel):
         if self:
             if hasattr(self.edit, "Close"):
                 getattr(self.edit, "Close")()
-            result = unicode(self.edit.Get())
+            result = str(self.edit.Get())
             self.Destroy()
             return result
 
@@ -752,7 +745,7 @@ class EditPanel(wx.Panel):
 def example():
     width, height = 300, 28
     obj = globals()
-    ctrls = [(name[:-4], obj[name]) for name in globals().keys()
+    ctrls = [(name[:-4], obj[name]) for name in list(globals().keys())
         if name.endswith('Ctrl') and \
             not name.startswith('_') and \
             not name in ('AutoCompleteTextCtrl', 'AutoCompleteIconCtrl',
@@ -767,7 +760,7 @@ def example():
             sizer = wx.BoxSizer(wx.VERTICAL)
 
             def on_change(*args):
-                print('on_change %s' % str(args))
+                print(('on_change %s' % str(args)))
 
             for typ, ctrl in ctrls:
                 if issubclass(ctrl, SliderCtrl):

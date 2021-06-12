@@ -57,7 +57,7 @@ def win32FontDirectory( ):
 
 def win32InstalledFonts( fontDirectory = None ):
 	"""Get list of explicitly *installed* font names"""
-	import _winreg
+	import winreg
 	if fontDirectory is None:
 		fontDirectory = win32FontDirectory()
 	k = None
@@ -67,19 +67,19 @@ def win32InstalledFonts( fontDirectory = None ):
 		r"SOFTWARE\Microsoft\Windows\CurrentVersion\Fonts",
 	):
 		try:
-			k = _winreg.OpenKey(
-				_winreg.HKEY_LOCAL_MACHINE,
+			k = winreg.OpenKey(
+				winreg.HKEY_LOCAL_MACHINE,
 				keyName
 			)
-		except OSError, err:
+		except OSError as err:
 			pass
 	if not k:
 		# couldn't open either WinNT or Win98 key???
 		return glob.glob( os.path.join(fontDirectory, '*.ttf'))
 	try:
 		# should check that k is valid? How?
-		for index in range( _winreg.QueryInfoKey(k)[1]):
-			key,value,_ = _winreg.EnumValue( k, index )
+		for index in range( winreg.QueryInfoKey(k)[1]):
+			key,value,_ = winreg.EnumValue( k, index )
 			if not os.path.dirname( value ):
 				value = os.path.join( fontDirectory, value )
 			value = os.path.abspath( value ).lower()
@@ -87,7 +87,7 @@ def win32InstalledFonts( fontDirectory = None ):
 				items[ value ] = 1
 		return items.keys()
 	finally:
-		_winreg.CloseKey( k )
+		winreg.CloseKey( k )
 	
 
 def linuxFontDirectories( ):
@@ -161,7 +161,7 @@ def findFonts(paths = None):
 				files[f] = 1
 		else:
 			paths = linuxFontDirectories()
-	elif isinstance( paths, (str, unicode)):
+	elif isinstance( paths, (str, )):
 		paths = [paths]
 	for path in paths:
 		for file in glob.glob( os.path.join(path, '*.ttf')):
@@ -169,6 +169,6 @@ def findFonts(paths = None):
 	return files.keys()
 
 if __name__ == "__main__":
-	print 'linux font directories', linuxFontDirectories()
-	print 'font names', findFonts()
+	print('linux font directories', linuxFontDirectories())
+	print('font names', findFonts())
 

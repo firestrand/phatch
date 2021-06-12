@@ -18,13 +18,13 @@
 
 # Follows PEP8
 
-import gettextFix  # otherwise doctests will fail unfortunately
+from phatch.lib import gettextFix  # otherwise doctests will fail unfortunately
 
 REVERSE = {}
 
 
 def _t(phrase):
-    REVERSE[_(phrase)] = phrase
+    REVERSE[str(phrase)] = phrase
     return phrase
 
 

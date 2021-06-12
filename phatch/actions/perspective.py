@@ -20,8 +20,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -35,10 +35,10 @@ def init():
     r = math.radians
 
     global imtools
-    from lib import imtools
+    from phatch.lib import imtools
 
     global HTMLColorToRGBA
-    from lib.colors import HTMLColorToRGBA
+    from phatch.lib.colors import HTMLColorToRGBA
 
 TOP = [100, 30, 0, 0, 120, '0%', '5%']
 BOTTOM_STRETCHED = [35, -30, 0, 0, -120, '30%', '5%']
@@ -161,7 +161,7 @@ class Action(models.Action):
         return relevant + FIELDS
 
     icon = \
-'x\xda\x01V\x06\xa9\xf9\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01V\x06\xa9\xf9\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x06\rIDATh\x81\xe5\x9amh\x9dg\x19\xc7\x7f\xd7s?\xe7m[\
 zNb\xda\xd2\x8d\xacY\xe6\xf4\x83\xf3C\x87kVVq\xa3\x18\xc5|\xd2m\x8d\xb2%D$\

@@ -20,9 +20,9 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
-from lib.colors import HTMLColorToRGBA
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.colors import HTMLColorToRGBA
 
 #---PIL
 
@@ -30,7 +30,7 @@ from lib.colors import HTMLColorToRGBA
 def init():
     global Image, imtools
     from PIL import Image
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def rotate(image, angle, resample_image, expand=0, amount=100,
@@ -68,7 +68,7 @@ class Action(models.Action):
         fields[_t('Background Opacity')] = self.SliderField(0, 0, 100)
 
     icon = \
-'x\xda\x01@\x0b\xbf\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01@\x0b\xbf\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\n\xf7IDATh\x81\xed\x99m\x8c\x1d\xd5y\xc7\x7f\xcf\x99\
 \xb9w\xef\xeezw\xbd\xce\xda\xb0^c\xc7l\x08\xb6\xc161n\x1b\xa3*\xae\xab\x00J\

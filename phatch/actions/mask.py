@@ -20,10 +20,10 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
-from lib.openImage import open as open_image
-from lib.imtools import has_transparency
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.openImage import open as open_image
+from phatch.lib.imtools import has_transparency
 
 MASK = 'http://photobatch.wikidot.com/local--files/action-mask/mask_torn.png'
 MASKS = [MASK]
@@ -34,7 +34,7 @@ def init():
     global Image, ImageMath, imtools
     from PIL import Image
     from PIL import ImageMath
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def put_mask(image, mask, resample_mask, cache=None):
@@ -80,7 +80,7 @@ class Action(models.Action):
         fields[_t('Resample Mask')] = self.ImageResampleField('antialias')
 
     icon = \
-'x\xda\x01\xfa\x07\x05\xf8\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\
+b'x\xda\x01\xfa\x07\x05\xf8\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\
 \x00\x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\
 \x08\x08|\x08d\x88\x00\x00\x07\xb1IDATh\x81\xd5\x99\x7fL[\xd7\x15\xc7\xbf\
 \xf7\xbe\xe7g?\xdb\xd8\x06\x1b\x9eqL\xc0\x9d\x94&\r\r\x9a6-\x83\xb6S\x97?\

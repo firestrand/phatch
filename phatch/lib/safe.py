@@ -15,21 +15,21 @@
 
 # Follows PEP8
 
-#import rpdb2;rpdb2.start_embedded_debugger('x')
+# import rpdb2;rpdb2.start_embedded_debugger('x')
 
 import operator
 import re
+from functools import reduce
 
 SAFE = {
     'int': ['abs', 'int', 'min', 'max', 'pow', 'sum'],
     'str': ['chr', 'lower', 'str', 'title', 'upper'],
     'bool': ['True', 'False'],
     'datetime': ['day', 'hour', 'microsecond', 'minute', 'month',
-        'monthname', 'second', 'weekday', 'weekdayname', 'year'],
+                 'monthname', 'second', 'weekday', 'weekdayname', 'year'],
     'rational': ['denominator', 'numerator'],
 }
 SAFE['all'] = reduce(operator.add, SAFE.values())
-
 
 """Todo: alleen format ### moet vervangen worden, daarna gewoon
 eval met locals (incl indices) en globals.
@@ -38,8 +38,8 @@ eval met locals (incl indices) en globals.
 
 RE_EXPR = re.compile('<([^<>]+?)>', re.UNICODE)
 RE_FORMAT = re.compile('#+')
-RE_VAR = re.compile('(?P<var>[A-Za-z]\w*)(?P<attr>([.]\w(\w|[.])+)?)',
-    re.UNICODE)
+RE_VAR = re.compile(r'(?P<var>[A-Za-z]\w*)(?P<attr>([.]\w(\w|[.])+)?)',
+                    re.UNICODE)
 
 
 class UnsafeError(Exception):
@@ -82,7 +82,7 @@ def format_expr(s):
 
 
 def compile_expr(meta_expr, _globals=None, _locals=None, validate=None,
-        preprocess=lambda x: x, safe=True):
+                 preprocess=lambda x: x, safe=True):
     """If safe is a list, a restricted evaluation will be executed.
     Otherwise if safe is None, a unrestriced eval will be executed.
 
@@ -111,20 +111,20 @@ def compile_expr(meta_expr, _globals=None, _locals=None, validate=None,
     if safe:
 
         def compile_sub_expr(expr):
-            return unicode(eval_safe(preprocess(expr.group(1)),
-                _globals, _locals, validate))
+            return str(eval_safe(preprocess(expr.group(1)),
+                                 _globals, _locals, validate))
 
     else:
 
         def compile_sub_expr(expr):
-            return unicode(eval(preprocess(expr.group(1)),
-                _globals, _locals))
+            return str(eval(preprocess(expr.group(1)),
+                            _globals, _locals))
 
     return RE_EXPR.sub(compile_sub_expr, meta_expr)
 
 
 def assert_safe_expr(meta_expr, _globals=None, _locals=None, validate=None,
-        preprocess=lambda x: x):
+                     preprocess=lambda x: x):
     for expr in RE_EXPR.finditer(meta_expr):
         assert_safe(preprocess(expr.group(1)), _globals, _locals, validate)
 
@@ -142,8 +142,8 @@ def assert_safe(expr, _globals=None, _locals=None, validate=None):
             not_allowed = code.co_names
         if not_allowed:
             raise UnsafeError(
-                _('The following name(s) are invalid: ') + \
-                ', '.join([_(x) for x in not_allowed]))
+                str('The following name(s) are invalid: ') + \
+                ', '.join([str(x) for x in not_allowed]))
     return code, _globals, _locals
 
 
@@ -159,7 +159,7 @@ def eval_safe(expr, _globals=None, _locals=None, validate=None):
     2
     >>> try:
     ...     eval_safe('"lowercase".upper()')
-    ... except UnsafeError, error:
+    ... except UnsafeError as error:
     ...     print(error)
     The following name(s) are invalid: upper
     """
@@ -182,7 +182,7 @@ def eval_restricted(s, _globals=None, _locals=None, allowed=SAFE['all'][:]):
     3
     >>> try:
     ...     eval_restricted('a+b+c', _globals={'a':0, 'b':2}, _locals={'a':1})
-    ... except UnsafeError, error:
+    ... except UnsafeError as error:
     ...     print(error)
     The following name(s) are invalid: c
     """
@@ -212,8 +212,8 @@ def extend_vars(vars, s):
     ['a1', 'foo', 'world', 'index']
     """
     for expr in RE_EXPR.findall(s):
-        #locate <expr>
+        # locate <expr>
         for match in RE_VAR.finditer(expr):
             var = match.group('var')
-            if not var in vars:
+            if var not in vars:
                 vars.append(var)

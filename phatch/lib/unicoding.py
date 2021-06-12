@@ -17,7 +17,9 @@
 
 import codecs
 import locale
-import system
+from builtins import str as text
+
+from phatch.lib import system
 
 ENCODING = locale.getdefaultlocale()[1]
 
@@ -32,12 +34,12 @@ except:
 
 
 def ensure_unicode(x, encoding=ENCODING, errors='replace'):
-    if type(x) is unicode:
+    if type(x) is text:
         return x
     try:
-        return unicode(x)
+        return text(x)
     except UnicodeDecodeError:
-        return unicode(x, encoding, errors)
+        return text(x, encoding, errors)
 
 
 def exception_to_unicode(x, encoding=ENCODING, errors='replace'):
@@ -57,7 +59,7 @@ def exception_to_unicode(x, encoding=ENCODING, errors='replace'):
 def fix_filename(f, encoding=None):
     if system.is_file(f):
         return f
-    if type(f) is unicode:
+    if type(f) is text:
         encodings = ['latin1', 'utf-8', ENCODING]
         if encoding:
             encodings = [encoding] + encodings

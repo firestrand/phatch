@@ -21,7 +21,7 @@ import sys
 from phatch.data import license
 from phatch.data.info import INFO
 from phatch.lib.reverse_translation import _t
-from config import USER_PATH, USER_DATA_PATH, USER_CONFIG_PATH,\
+from phatch.core.config import USER_PATH, USER_DATA_PATH, USER_CONFIG_PATH,\
     USER_CACHE_PATH, USER_ACTIONLISTS_PATH, USER_ACTIONS_PATH,\
     USER_BIN_PATH, USER_FONTS_PATH, USER_HIGHLIGHTS_PATH, \
     USER_LOG_PATH, USER_MASKS_PATH, USER_SETTINGS_PATH, \

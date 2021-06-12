@@ -21,13 +21,13 @@
 #
 # Follows PEP8
 
-from core import ct, models
-from lib.reverse_translation import _t
+from phatch.core import ct, models
+from phatch.lib.reverse_translation import _t
 
 
 def init():
     global gps
-    from lib import gps
+    from phatch.lib import gps
 
 
 class Action(models.Action):
@@ -77,7 +77,7 @@ class Action(models.Action):
         return photo
 
     icon = \
-'x\xda\x01\xaa\x0eU\xf1\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\xaa\x0eU\xf1\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0eaIDATh\x81\xbd\x99{\x8c\x1d\xd5}\xc7?\xe71sg\xef\
 \xeez\xfd\x02\xef\xdak\x0b\xb0\xc1\xd8\x80K0\xc2\xd8\x98\x87,L\xe2"\x08DM\

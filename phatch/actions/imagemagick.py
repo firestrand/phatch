@@ -20,8 +20,8 @@
 
 # Follows PEP8
 
-from core import ct, models
-from lib.reverse_translation import _t
+from phatch.core import ct, models
+from phatch.lib.reverse_translation import _t
 
 COMMANDS = {
 
@@ -89,8 +89,7 @@ _t('Wave'): \
     file_out.png""",
 }
 
-ACTIONS = COMMANDS.keys()
-ACTIONS.sort()
+ACTIONS = sorted(COMMANDS.keys())
 
 
 class Action(models.Action):
@@ -215,12 +214,12 @@ class Action(models.Action):
             values['contrast_factor'] /= 10.0
 
         command = COMMANDS[action] % values
-        #print(command)  #use "python phatch.py -v" for verbose mode
+        #print(command)  #use "python phatch_main.py -v" for verbose mode
         photo.call(command)
         return photo
 
     icon = \
-'x\xda\x01\x03\x0e\xfc\xf1\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\
+b'x\xda\x01\x03\x0e\xfc\xf1\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\
 \x00\x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\
 \x08\x08|\x08d\x88\x00\x00\r\xbaIDATh\x81\xd5\x9a{\x90T\xd5\x9d\xc7?\xe7\xde\
 \xdb\xaf\xa1a\xde\xcc\x003 \x0fet$\xf2R\x03\x0b\x1b5\xe0\x82\xb2\xac\xa2"\

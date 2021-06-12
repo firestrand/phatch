@@ -18,8 +18,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -28,9 +28,9 @@ def init():
     global Image
     from PIL import Image
     global imtools
-    from lib import imtools
+    from phatch.lib import imtools
     global HTMLColorToRGBA
-    from lib.colors import HTMLColorToRGBA
+    from phatch.lib.colors import HTMLColorToRGBA
 
 
 def canvas_size(image, new_size, centering, background_color, opacity,
@@ -111,7 +111,7 @@ class Action(models.Action):
         }
 
     icon = \
-'x\xda\x01\xde\x0c!\xf3\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\xde\x0c!\xf3\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0c\x95IDATh\x81\xd5\x98{l\x15\xd7\x9d\xc7\xbf\xe71\
 \xcf{\xaf_8\x18\x12\x1e1\x84\x90\xa6\xa0nK\x9bGE\x9b*m\xa1EU[5\x9b\x92\x18\

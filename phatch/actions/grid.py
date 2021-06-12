@@ -26,9 +26,9 @@
 # TODO: Add spacing between images for which the line color will need
 # to be used.
 
-from core import models
-from core.translation import _t
-from lib import imtools
+from phatch.core import models
+from phatch.core.translation import _t
+from phatch.lib import imtools
 from math import sqrt
 
 
@@ -41,8 +41,8 @@ def init():
     global Image, ImageColor, HTMLColorToRGBA, imtools
     from PIL import Image
     from PIL import ImageColor
-    from lib import imtools
-    from lib.colors import HTMLColorToRGBA
+    from phatch.lib import imtools
+    from phatch.lib.colors import HTMLColorToRGBA
 
 
 def make_grid(image, grid, col_line_width=0, row_line_width=0,
@@ -180,7 +180,7 @@ class Action(models.Action):
         return relevant
 
     icon = \
-'x\xda\x01\xcd\x0c2\xf3\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\xcd\x0c2\xf3\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0c\x84IDATh\x81\xcd\x9a{\x90\x15\xd5\x9d\xc7?\xa7\
 \xfbt\xf7\xed\xfb\x9cAT\x98\xe1%\xc6\'\x08\xc6\xac\x89FVB\xf0\x811\xd1d\xa8e\

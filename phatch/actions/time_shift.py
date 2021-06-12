@@ -24,16 +24,16 @@
 import time
 from datetime import datetime
 
-from core import ct, models
-from lib.metadata import DateTime
-from lib.reverse_translation import _t
+from phatch.core import ct, models
+from phatch.lib.metadata import DateTime
+from phatch.lib.reverse_translation import _t
 
 OPTIONS = [_t('Exif time'), _t('File time'), _t('Exif and file')]
 
 
 def init():
     global relativedelta
-    from other.relativedelta import relativedelta
+    from phatch.other.relativedelta import relativedelta
 
 
 def get_date(info):
@@ -114,7 +114,7 @@ class Action(models.Action):
             hours=hour_delta, minutes=minute_delta, seconds=second_delta)
 
     icon = \
-'x\xda\x01^\x0b\xa1\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01^\x0b\xa1\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0b\x15IDATh\x81\xed\x9a{lS\xd7\x1d\xc7\xbf\xf7\xdc\
 \x87_q\xeck;\xb1\xd3<\xec\xbc\x80\x8e\x04\x92\n\xe8\\\xa0*[!\xb4T\n\xd3\xd6\

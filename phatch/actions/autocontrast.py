@@ -20,8 +20,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -30,7 +30,7 @@ def init():
     global Image, ImageOps, imtools
     from PIL import Image
     from PIL import ImageOps
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def autocontrast(image, amount=100.0, cutoff=0):
@@ -67,7 +67,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(100, 1, 100)
 
     icon = \
-'x\xda\x01\xc5\x0b:\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\xc5\x0b:\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0b|IDATh\x81\xed\x9ayl\x14\xd7\x1d\xc7\xbfof\xf6\xde\
 Y{\x17_\xeb\x03\x13c\x83\x89Ip(\x8dH\x89\xd3\x9a\xa4\x85(\x15\xa5i0Q\x84\xda\

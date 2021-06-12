@@ -18,8 +18,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #--- PIL function
 
@@ -29,7 +29,7 @@ def init():
     global Image, ImageOps, imtools
     from PIL import Image
     from PIL import ImageOps
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def equalize(image, amount=100):
@@ -62,7 +62,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(100, 1, 100)
 
     icon = \
-'x\xda\x01/\x08\xd0\xf7\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01/\x08\xd0\xf7\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x07\xe6IDATh\x81\xed\x99{p\\e\x19\xc6\x7f\xefwv\xb3\
 \x97\x93\xec&\x92@!0Z\xa5-c\xbd!\x8e\nV\x1c\xd0z\xa1#\xbd`K\x0b8:\xc3\x80cg\

@@ -20,13 +20,12 @@
 
 """Important: Run this file everytime info is changed."""
 
-
 import codecs
 import sys
 import time
+from phatch.data.version import VERSION, DATE
 
-
-#constants
+# constants
 NAME = 'Phatch'
 AUTHOR = 'Stani'
 AUTHOR_EMAIL = 'spe.stani.be@gmail.com'
@@ -44,32 +43,29 @@ NADIA = {
 
 SUPPORTED_LANGUAGES = ['Dutch', 'English']
 
-
-from version import VERSION, DATE
-
-#credits
+# credits
 CREDITS = {
     'code': [
         STANI,
         NADIA,
         {'name': u'Erich Heine',
-            'email':'sophacles@gmail.com'},
+         'email': 'sophacles@gmail.com'},
         {'name': u'Juho Vepsäläinen',
-            'email':'bebraw@gmail.com'},
+         'email': 'bebraw@gmail.com'},
         {'name': u'Robin Mills',
-            'email': 'robin@clanmills.com'},
+         'email': 'robin@clanmills.com'},
         {'name': 'Bas van Oostveen',
-            'email': 'v.oostveen@gmail.com'},
+         'email': 'v.oostveen@gmail.com'},
         {'name': 'Pawel T. Jochym',
-            'email': 'jochym@gmail.com'},
-                    ],
+         'email': 'jochym@gmail.com'},
+    ],
     'documentation': [
         STANI,
         {'name': u'Frédéric Mantegazza',
-        'email': 'frederic.mantegazza@gbiloba.org',
-        'url': 'http://www.gbiloba.org'},
+         'email': 'frederic.mantegazza@gbiloba.org',
+         'url': 'http://www.gbiloba.org'},
         {'name': 'Dwarrel Egel',
-        'email': 'dwarrel.egel@gmail.com'},
+         'email': 'dwarrel.egel@gmail.com'},
     ],
     'translation': [
         STANI,
@@ -270,100 +266,100 @@ CREDITS = {
     ],
     'graphics': [
         {'name': u'Igor Kekeljevic',
-            'email': 'admiror@nscable.net',
-            'url': 'http://www.admiror-ns.co.yu',
-        },
+         'email': 'admiror@nscable.net',
+         'url': 'http://www.admiror-ns.co.yu',
+         },
         NADIA,
         {'name': 'NuoveXt 1.6',
-            'url': 'http://nuovext.pwsp.net',
-            'author': 'Alexandre Moore',
-        },
+         'url': 'http://nuovext.pwsp.net',
+         'author': 'Alexandre Moore',
+         },
         {'name': 'Everaldo Coelho',
-            'url': 'http://www.iconlet.com/info/9657_colorscm_128x128',
-            'email': 'http://www.everaldo.com',
-        },
+         'url': 'http://www.iconlet.com/info/9657_colorscm_128x128',
+         'email': 'http://www.everaldo.com',
+         },
         {'name': 'Open Clip Art Library',
-            'url': 'http://www.openclipart.org',
-        },
+         'url': 'http://www.openclipart.org',
+         },
         {'name': 'Geotag Icon',
-            'url': 'http://www.geotagicons.com',
-        },
+         'url': 'http://www.geotagicons.com',
+         },
         STANI,
     ],
     'libraries': [
         {'name': 'Python %s' % sys.version.split(' ')[0],
-            'url': 'http://www.python.org',
-            'author': 'Guido Van Rossum',
-            'license': 'Python license',
-        },
+         'url': 'http://www.python.org',
+         'author': 'Guido Van Rossum',
+         'license': 'Python license',
+         },
         {'name': 'wxGlade',
-            'url': 'http://wxglade.sourceforge.net/',
-            'author': 'Alberto Griggio',
-        },
+         'url': 'http://wxglade.sourceforge.net/',
+         'author': 'Alberto Griggio',
+         },
         {'name': 'pubsub.py',
-            'author': 'Oliver Schoenborn',
-            'license': 'wxWidgets license',
-        },
+         'author': 'Oliver Schoenborn',
+         'license': 'wxWidgets license',
+         },
         {'name': 'TextCtrlAutoComplete.py',
-            'author':\
-            'Edward Flick (CDF Inc, http://www.cdf-imaging.com)',
-            'license': 'wxWidgets license',
-            'url': 'http://wiki.wxpython.org/TextCtrlAutoComplete',
-        },
+         'author': \
+             'Edward Flick (CDF Inc, http://www.cdf-imaging.com)',
+         'license': 'wxWidgets license',
+         'url': 'http://wiki.wxpython.org/TextCtrlAutoComplete',
+         },
         {'name': 'PyExiv2',
-            'url': 'http://tilloy.net/dev/pyexiv2/',
-            'author': 'Olivier Somon',
-            'license': 'GPL license',
-        },
+         'url': 'http://tilloy.net/dev/pyexiv2/',
+         'author': 'Olivier Somon',
+         'license': 'GPL license',
+         },
         {'name': 'python-nautilus',
-            'url': 'http://www.gnome.org/projects/nautilus/',
-            'license': 'GPL license',
-        },
+         'url': 'http://www.gnome.org/projects/nautilus/',
+         'license': 'GPL license',
+         },
         {'name': 'tamogen.py',
-            'url': 'http://sintixerr.wordpress.com/tone-altering-' \
+         'url': 'http://sintixerr.wordpress.com/tone-altering-' \
                 + 'mosaic-generator-tamogen-in-python/',
-            'author': 'Jack Whitsitt, Juho Vepsäläinen',
-            'license': 'GPL license',
-        },
+         'author': 'Jack Whitsitt, Juho Vepsäläinen',
+         'license': 'GPL license',
+         },
         {'name': 'python-dateutil: relativedelta.py',
-            'url': 'http://labix.org/python-dateutil',
-            'author': 'Gustavo Niemeyer',
-            'license': 'Python license',
-        },
+         'url': 'http://labix.org/python-dateutil',
+         'author': 'Gustavo Niemeyer',
+         'license': 'Python license',
+         },
         {'name': 'Tiff Tools',
-            'url': 'http://www.remotesensing.org/libtiff/',
-            'author': 'Sam Leffler',
-            'license': 'FreeBSD license',
-        },
-        #{'name': 'EXIF.py',
+         'url': 'http://www.remotesensing.org/libtiff/',
+         'author': 'Sam Leffler',
+         'license': 'FreeBSD license',
+         },
+        # {'name': 'EXIF.py',
         #    'url': 'http://www.gnome.org/projects/nautilus/',
         #    'author': 'Gene Cash, Ianaré Sévi',
         #    'license': 'FreeBSD license',
-        #},
+        # },
         {'name': 'ToasterBox',
-            'url': 'http://xoomer.virgilio.it/infinity77/main/' \
+         'url': 'http://xoomer.virgilio.it/infinity77/main/' \
                 + 'ToasterBox.html',
-            'author': 'Andrea Gavana',
-            'license': 'wxWidgets license',
-        },
+         'author': 'Andrea Gavana',
+         'license': 'wxWidgets license',
+         },
     ],
     'sponsors': [
         {'name': 'Free Software web hosting',
-            'url': 'http://bearstech.com',
-            'email': 'John Lejeune <jlejeune@bearstech.com> & ' \
-                + 'Cyberj <jcharpentier@bearstech.com>',
-        },
+         'url': 'http://bearstech.com',
+         'email': 'John Lejeune <jlejeune@bearstech.com> & ' \
+                  + 'Cyberj <jcharpentier@bearstech.com>',
+         },
     ]
 }
 
-#year: automatically fetch copyright years
+# year: automatically fetch copyright years
 YEAR = time.localtime()[0]
 if YEAR > 2007:
     CO_YEAR = '2007-%s' % YEAR
 else:
     CO_YEAR = '2007'
 
-#setup.py information
+# setup.py information
 SETUP = {
     'name': NAME,
     'version': VERSION,
@@ -374,37 +370,37 @@ SETUP = {
     'url': 'http://phatch.org',
     'description': 'PHoto bATCH Processor',
     'long_description': 'Phatch enables you to resize, rotate, mirror, '
-        'apply watermarks, shadows, rounded courners, '
-        'perspective, ... to any photo collection easily '
-        'with a single mouse click. You can arrange your own'
-        ' action lists and write plugins with PIL. \n\n'
-        'Phatch can rename or copy images based on any EXIF '
-        'or IPTC tag. In combination with pyexiv2 Phatch can'
-        ' also save EXIF and IPTC metadata. \n\n'
-        'Phatch has a wxPython GUI, but can also run as a '
-        'console application on servers.',
+                        'apply watermarks, shadows, rounded courners, '
+                        'perspective, ... to any photo collection easily '
+                        'with a single mouse click. You can arrange your own'
+                        ' action lists and write plugins with PIL. \n\n'
+                        'Phatch can rename or copy images based on any EXIF '
+                        'or IPTC tag. In combination with pyexiv2 Phatch can'
+                        ' also save EXIF and IPTC metadata. \n\n'
+                        'Phatch has a wxPython GUI, but can also run as a '
+                        'console application on servers.',
     'classifiers': [
-        'Development Status:: 4 - Beta',
-        'Environment:: Console',
-        'Environment:: MacOS X',
-        'Environment:: Win32 (MS Windows)',
-        'Environment:: X11 Applications',
-        'Environment:: X11 Applications:: Gnome',
-        'Environment:: X11 Applications:: GTK',
-        'Intended Audience:: Developers',
-        'Intended Audience:: End Users/Desktop',
-        'License:: OSI Approved:: GNU General Public License (GPL)',
-        'Operating System:: MacOS:: MacOS X',
-        'Operating System:: Microsoft:: Windows',
-        'Operating System:: OS Independent',
-        'Operating System:: POSIX',
-        'Operating System:: POSIX:: Linux',
-        'Programming Language:: Python',
-        'Topic:: Artistic Software',
-        'Topic:: Multimedia:: Graphics',
-        'Topic:: Multimedia:: Graphics:: Graphics Conversion',
-        ] + ['Natural Language:: ' + \
-            language for language in SUPPORTED_LANGUAGES],
+                       'Development Status:: 4 - Beta',
+                       'Environment:: Console',
+                       'Environment:: MacOS X',
+                       'Environment:: Win32 (MS Windows)',
+                       'Environment:: X11 Applications',
+                       'Environment:: X11 Applications:: Gnome',
+                       'Environment:: X11 Applications:: GTK',
+                       'Intended Audience:: Developers',
+                       'Intended Audience:: End Users/Desktop',
+                       'License:: OSI Approved:: GNU General Public License (GPL)',
+                       'Operating System:: MacOS:: MacOS X',
+                       'Operating System:: Microsoft:: Windows',
+                       'Operating System:: OS Independent',
+                       'Operating System:: POSIX',
+                       'Operating System:: POSIX:: Linux',
+                       'Programming Language:: Python',
+                       'Topic:: Artistic Software',
+                       'Topic:: Multimedia:: Graphics',
+                       'Topic:: Multimedia:: Graphics:: Graphics Conversion',
+                   ] + ['Natural Language:: ' + \
+                        language for language in SUPPORTED_LANGUAGES],
 }
 
 INFO = {
@@ -417,13 +413,13 @@ INFO = {
     'license': 'GPL v.' + GPL_VERSION,
     'maintainer': 'Stani M',
     'fsf_adress': '51 Franklin Street, Fifth Floor, '
-        'Boston, MA 02110-1301, USA',
+                  'Boston, MA 02110-1301, USA',
 }
 
 INFO.update(SETUP)
 
 README = \
-"""%(name)s = PHoto bATCH Processor
+    """%(name)s = PHoto bATCH Processor
 
 %(url)s
 
@@ -473,13 +469,13 @@ HEADER = "Phatch is the result of work by (in no particular order):"
 
 
 def all_credits():
-    #PIL - Python Image Library
+    # PIL - Python Image Library
     from PIL import Image
     pil_credits = PIL_CREDITS
-    pil_credits['name'] += ' %s' % Image.VERSION
+    pil_credits['name'] += ' %s' % Image.__version__
     if not (pil_credits in CREDITS['libraries']):
         CREDITS['libraries'].append(pil_credits)
-    #wxPython
+    # wxPython
     import wx
     wxPython_credits = WXPYTHON_CREDITS
     wxPython_credits['name'] += ' %s' % wx.VERSION_STRING
@@ -499,17 +495,17 @@ def write_credits():
     authors = codecs.open('../../AUTHORS', 'wb', 'utf-8')
     authors.write(HEADER)
     tasks = CREDITS.keys()
-    tasks.sort()
-    for task in tasks:
+    for task in sorted(tasks):
         authors.write('\n\n\n%s:\n\n' % task.title())
         authors.write(u'\n'.join([' - '.join(person.values())
-            for person in CREDITS[task]]))
+                                  for person in CREDITS[task]]))
     authors.close()
 
 
 def write_readme_credits():
     write_readme()
     write_credits()
+
 
 if __name__ == '__main__':
     write_readme_credits()

@@ -21,16 +21,11 @@
 
 # Follows PEP8
 
-try:
-    _
-except NameError:
-    _ = unicode
-
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #no need to lazily import these as they are always imported
-from lib import system
+from phatch.lib import system
 
 AUTOMATIC = _t('Automatic (use exif orientation)')
 COPY = _t('Copy')
@@ -47,7 +42,7 @@ HORIZONTAL = _t('Horizontal')
 VERTICAL = _t('Vertical')
 FLIP_DIRECTIONS = (HORIZONTAL, VERTICAL)
 LOSSLESS_JPEG_FORMAT_ERROR = \
-    _('Lossless JPEG transformation does not work on a %s image:')
+    str('Lossless JPEG transformation does not work on a %s image:')
 
 
 class Arguments(list):
@@ -67,11 +62,9 @@ class Arguments(list):
 class Exiftran(object):
     name = 'Exiftran (with exif support)'
     command = system.find_exe('exiftran')
-    angles = {'90 degrees': '9', '180 degrees': '1',
-                        '270 degrees': '2', }
+    angles = {'90 degrees': '9', '180 degrees': '1', '270 degrees': '2', }
     directions = {HORIZONTAL: 'F', VERTICAL: 'f'}
-    transformations = (AUTOMATIC, ROTATE, FLIP, THUMB, TRANSPOSE,
-                        TRANSVERSE)
+    transformations = (AUTOMATIC, ROTATE, FLIP, THUMB, TRANSPOSE, TRANSVERSE)
 
     def interface(self, action, fields):
         fields[_t('Transformation')] = action.ChoiceField(
@@ -224,13 +217,16 @@ def utilities_dict(*utilities):
     return d
 
 
-class UtilityMixin(object):
-    file_in = 'file_in.tif'
-    file_out = 'file_out.png'
+class UtilityMixin(models.Action):
+    def __init__(self, **options):
+        super().__init__(**options)
+        self.utilities = {}
+        self.file_in = 'file_in.tif'
+        self.file_out = 'file_out.png'
 
     def interface(self, fields):
-        super(UtilityMixin, self).interface(fields)
-        names = self.utilities.keys()
+        #super(UtilityMixin, self).interface(fields)
+        names = sorted(self.utilities.keys())
         fields[_t('Utility')] = self.ChoiceField(names[0],
             choices=names)
         for utility in self.utilities.values():
@@ -298,7 +294,7 @@ class Action(LossLessSaveUtilityMixin, models.Action):
         self.find_exe('jpegtran')
 
     icon = \
-'x\xda\x01\x17\r\xe8\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\x17\r\xe8\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0c\xceIDATh\x81\xedZil\\\xd7u\xfe\xee\xbdo\x997\xf3f\
 \xe56\x1c\xaeCR2IQKJ\x15\xb6\x1b&u\x92\x06F\x9dn^\xe5\xd8N+\x07\x08R$E\xba\

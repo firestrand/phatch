@@ -18,8 +18,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -29,7 +29,7 @@ def init():
     from PIL import Image
     from PIL import ImageOps
     global HTMLColorToRGBA
-    from lib.colors import HTMLColorToRGBA
+    from phatch.lib.colors import HTMLColorToRGBA
 
 
 def fit(image, size, method, bleed, centering):
@@ -90,7 +90,7 @@ class Action(models.Action):
         }
 
     icon = \
-'x\xda\x01(\x0e\xd7\xf1\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01(\x0e\xd7\xf1\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\r\xdfIDATh\x81\xed\x9ayT\x94\xe7\xbd\xc7?\xcf\xbb\xcc\
 \xc0\xb0\xce\x0c\xc8\x8e"\xc1\xa0\x104A\\\n\x86\xc4#j\xcdUc\xe25&\xa6\x92\

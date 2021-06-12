@@ -26,12 +26,13 @@ import hashlib
 import os
 import stat
 import tempfile
-import urllib
+from typing import Tuple, Dict, Callable, Any, AnyStr
+from urllib.request import pathname2url
 
+import PIL
 from PIL import Image
 
-import imtools
-import system
+from phatch.lib import system, imtools
 
 
 def ensure_path(*paths):
@@ -40,277 +41,256 @@ def ensure_path(*paths):
         os.mkdir(path)
     return path
 
+
 CHECKBOARD = {}
-FREEDESKTOP = True  # os.path.exists(FREEDESKTOP_PATH)
 THUMB_INFO = {'software': 'Phatch'}
 
 
-def get_mtime(filename, file_stat=None):
+def get_mtime(filename: str, file_stat: os.stat_result = None):
     if file_stat is None:
         file_stat = os.stat(filename)
     return file_stat[stat.ST_MTIME]
 
 
-def get_filesize(filename, file_stat=None):
+def get_filesize(filename: str, file_stat: os.stat_result = None):
     if file_stat is None:
         file_stat = os.stat(filename)
     return file_stat[stat.ST_SIZE]
 
 
-if FREEDESKTOP:
+from PIL import PngImagePlugin
 
-    from PIL import PngImagePlugin
+FREEDESKTOP_SIZE = {
+    'normal': (128, 128),
+    'large': (256, 256)}
 
-    FREEDESKTOP_SIZE = {
-        'normal': (128, 128),
-        'large': (256, 256)}
-    SIZE = FREEDESKTOP_SIZE['normal']
+SIZE: Tuple[int, int] = FREEDESKTOP_SIZE['normal']
 
-    FREEDESKTOP_PATH = {
-        'normal': os.path.expanduser('~/.thumbnails/normal'),
-        'large': os.path.expanduser('~/.thumbnails/large')}
-    if os.path.exists(FREEDESKTOP_PATH['normal']):
-        ensure_path(FREEDESKTOP_PATH['large'])
-    else:
-        #simulate freedesktop with a temp dir
-        thumb_path = ensure_path(tempfile.gettempdir(), 'thumbnails')
-        FREEDESKTOP_PATH = {
-            'normal': ensure_path(thumb_path, 'normal'),
-            'large': ensure_path(thumb_path, 'large')}
+FREEDESKTOP_PATH: Dict[str,str] = {
+    'normal': os.path.expanduser('~/.thumbnails/normal'),
+    'large': os.path.expanduser('~/.thumbnails/large')}
 
-    def get_uri(filename):
-        """Get uri of filename.
+if os.path.exists(FREEDESKTOP_PATH['normal']):
+    ensure_path(FREEDESKTOP_PATH['large'])
+else:
+    # simulate freedesktop with a temp dir
+    thumb_path = ensure_path(tempfile.gettempdir(), 'thumbnails')
+    FREEDESKTOP_PATH: Dict[str,str] = {
+        'normal': ensure_path(thumb_path, 'normal'),
+        'large': ensure_path(thumb_path, 'large')}
 
-        :param filename: filename
-        :type filename: string
-        :returns: uri
-        :rtype: string
 
-        >>> get_uri('/home/user/test.png')
-        'file:///home/user/test.png'
-        """
-        if filename.startswith('file://'):
-            return filename
-        abspath = os.path.abspath(filename)
-        try:
-            return 'file://%s' % urllib.pathname2url(abspath.encode('utf-8'))
-        except:
-            # fallback if fails on unicode
-            return 'file://%s' % abspath
+def get_uri(filename: str):
+    """Get uri of filename.
 
-    def get_hash(filename):
-        """Get md5 hash of uri of filename.
+    :param filename: filename
+    :type filename: string
+    :returns: uri
+    :rtype: string
 
-        :param filename: filename
-        :type filename: string
-        :returns: hash
-        :rtype: string
-
-        >>> get_hash('file:///home/user/test.png')
-        '03223f4f10458a8b5d14327f3ae23136'
-        """
-        return hashlib.md5(get_uri(filename)).hexdigest()
-
-    def get_freedesktop_size_label(size):
-        """Returns the freedesktop size label.
-
-        :param size: requested size of the thumbnail
-        :type size: tuple of int
-        :returns: size label
-        :rtype: string
-
-        >>> get_freedesktop_size_label((128, 128))
-        'normal'
-        >>> get_freedesktop_size_label((128, 129))
-        'large'
-        """
-        thumb_width, thumb_height = size
-        if thumb_width < 129 and thumb_height < 129:
-            return 'normal'
-        elif thumb_width < 257 and thumb_height < 257:
-            return 'large'
-        return ''
-
-    def get_freedesktop_filename(filename, size_label='normal'):
-        """Get filename of freedekstop thumbnail.
-
-        :param filename: image filename
-        :type filename: string
-        :param size_label: ``'normal'`` or ``'large'``
-        :type size_label: string
-        :returns: thumbnail filename
-        :rtype: string
-        """
-        filename = os.path.join(FREEDESKTOP_PATH[size_label],
-            get_hash(filename) + ".png")
+    >>> get_uri('/home/user/test.png')
+    'file:///home/user/test.png'
+    """
+    if filename.startswith('file://'):
         return filename
 
-    def get_freedesktop_pnginfo(filename, image=None, thumb_info=None):
-        """Gets png metadata for the thumbnail.
+    abspath = os.path.abspath(filename)
+    return 'file://%s' % pathname2url(abspath)
 
-        :param filename: image filename
-        :type filename: string
-        :returns: png info
-        :rtype: PngImagePlugin.PngInfo
-        """
-        full_info = THUMB_INFO.copy()
-        if thumb_info:
-            full_info.update(thumb_info)
-        file_stat = os.stat(filename)
-        info = PngImagePlugin.PngInfo()
-        info.add_text('Thumb::URI', get_uri(filename))
-        info.add_text('Thumb::MTime', str(get_mtime(filename, file_stat)))
-        info.add_text('Thumb::Size', str(get_filesize(filename, file_stat)))
-        if 'software' in full_info:
-            info.add_text('Thumb::Software', full_info['software'])
-        if 'height' in full_info:
-            info.add_text('Thumb::Image::Height', str(full_info['height']))
-        elif image:
-            info.add_text('Thumb::Image::Height', str(image.size[1]))
-        if 'width' in full_info:
-            info.add_text('Thumb::Image::Width', str(full_info['width']))
-        elif image:
-            info.add_text('Thumb::Image::Width', str(image.size[0]))
-        return info
 
-    def _open(filename, image=None, open_image=Image.open,
-            size=SIZE, save_cache=True, **keyw):
-        """Open image for thumbnail of the image specified by filename.
+def get_hash(filename: str):
+    """Get md5 hash of uri of filename.
 
-        .. note::
+    :param filename: filename
+    :type filename: string
+    :returns: hash
+    :rtype: string
 
-            This does not return an image yet with the size. This
-            needs to be combined with the :func:`open`.
+    >>> get_hash('file:///home/user/test.png')
+    '03223f4f10458a8b5d14327f3ae23136'
+    """
+    return hashlib.md5(get_uri(filename)).hexdigest()
 
-        :param filename: image filename
-        :type filename: string
-        :param image: optionally pass the already opened image
-        :type image: Image
-        :param open_image: alternative open method
-        :type open_image: function
-        :param size: size ``(width, height)`` of the thumbnail
-        :type size: tuple
-        :param save_cache: save opened thumbnail to cache cache
-        :type save_cache: bool
-        """
-        # is the thumbnail small enough for the cache?
+
+def get_freedesktop_size_label(size: Tuple[int, int]):
+    """Returns the freedesktop size label.
+
+    :param size: requested size of the thumbnail
+    :type size: tuple of int
+    :returns: size label
+    :rtype: string
+
+    >>> get_freedesktop_size_label((128, 128))
+    'normal'
+    >>> get_freedesktop_size_label((128, 129))
+    'large'
+    """
+    thumb_width, thumb_height = size
+    if thumb_width < 129 and thumb_height < 129:
+        return 'normal'
+    elif thumb_width < 257 and thumb_height < 257:
+        return 'large'
+    return ''
+
+
+def get_freedesktop_filename(filename: str, size_label: str = 'normal'):
+    """Get filename of freedekstop thumbnail.
+
+    :param filename: image filename
+    :type filename: string
+    :param size_label: ``'normal'`` or ``'large'``
+    :type size_label: string
+    :returns: thumbnail filename
+    :rtype: string
+    """
+    filename = os.path.join(FREEDESKTOP_PATH[size_label],
+                            get_hash(filename) + ".png")
+    return filename
+
+
+def get_freedesktop_pnginfo(filename: str, image: PIL.Image = None, thumb_info: Dict[str,str] = None):
+    """Gets png metadata for the thumbnail.
+
+    :param filename: image filename
+    :type filename:
+    :param image: image
+    :param thumb_info: ??
+    :returns: png info
+    :rtype: PngImagePlugin.PngInfo
+    """
+    full_info = THUMB_INFO.copy()
+    if thumb_info:
+        full_info.update(thumb_info)
+    file_stat = os.stat(filename)
+    info = PngImagePlugin.PngInfo()
+    info.add_text('Thumb::URI', get_uri(filename))
+    info.add_text('Thumb::MTime', str(get_mtime(filename, file_stat)))
+    info.add_text('Thumb::Size', str(get_filesize(filename, file_stat)))
+    if 'software' in full_info:
+        info.add_text('Thumb::Software', full_info['software'])
+    if 'height' in full_info:
+        info.add_text('Thumb::Image::Height', str(full_info['height']))
+    elif image:
+        info.add_text('Thumb::Image::Height', str(image.size[1]))
+    if 'width' in full_info:
+        info.add_text('Thumb::Image::Width', str(full_info['width']))
+    elif image:
+        info.add_text('Thumb::Image::Width', str(image.size[0]))
+    return info
+
+
+def _open(filename: str, image: PIL.Image = None, open_image: Callable[[str], PIL.Image.Image] = Image.open,
+          size: Tuple[int, int] = SIZE, save_cache: bool = True, **keyw):
+    """Open image for thumbnail of the image specified by filename.
+
+    .. note::
+
+        This does not return an image yet with the size. This
+        needs to be combined with the :func:`open`.
+
+    :param filename: image filename
+    :type filename: string
+    :param image: optionally pass the already opened image
+    :type image: Image
+    :param open_image: alternative open method
+    :type open_image: function
+    :param size: size ``(width, height)`` of the thumbnail
+    :type size: tuple
+    :param save_cache: save opened thumbnail to cache cache
+    :type save_cache: bool
+    """
+    # is the thumbnail small enough for the cache?
+    size_label = get_freedesktop_size_label(size)
+    if size_label:
+        # retrieve the filename of the cached thumbnail if desirable
+        thumb_filename = get_freedesktop_filename(filename, size_label)
+        if os.path.isfile(thumb_filename) and \
+                not needs_update(filename, thumb_filename=thumb_filename):
+            # png -> open with pil immediately, no need for open_image
+            return Image.open(thumb_filename)
+    if image is None:
+        image = open_image(filename)
+    if size_label and save_cache:
+        return _save_to_cache(filename, image, size, size_label)
+    return image
+
+
+def _save_to_cache(filename: str, image: PIL.Image, size: Tuple[int, int] = SIZE,
+                   size_label: str = None, thumb_info: Dict[str,str] = None, **options):
+    """Save thumb as thumbnail for image filename. The size of the
+    thumbnails should be a cache thumbnail size.
+
+    :param filename: image filename
+    :type filename: string
+    :param thumb: thumb image
+    :type thumb: Image
+    :param thumb_filename: thumb filename
+    :type thumb_filename: string
+    :param size: size ``(width, height)`` of the thumbnail
+    :type size: tuple
+    :param size_label: ``'normal'``, ``'large'`` or ``None``
+    :type size_label: string
+    :returns: image or thumb
+    :rtype: Image
+    """
+    thumb = imtools.convert_save_mode_by_format(image, 'PNG')
+    if size_label is None:
         size_label = get_freedesktop_size_label(size)
-        if size_label:
-            # retrieve the filename of the cached thumbnail if desirable
-            thumb_filename = get_freedesktop_filename(filename, size_label)
-            if os.path.isfile(thumb_filename) and \
-                    not needs_update(filename, thumb_filename=thumb_filename):
-                # png -> open with pil immediately, no need for open_image
-                return Image.open(thumb_filename)
-        if image is None:
-            image = open_image(filename)
-        if size_label and save_cache:
-            return _save_to_cache(filename, image, size, size_label)
-        return image
+    pnginfo = get_freedesktop_pnginfo(filename, thumb_info=thumb_info)
+    if not size_label:
+        # too large -> make thumbnail
+        thumb.thumbnail(size, Image.ANTIALIAS)
+    thumb_cache = thumb.copy()
+    # save large thumbnail
+    if size_label == 'large':
+        thumb, thumb_cache = _save_to_cache_size('large', filename,
+                                                 size_label, thumb, thumb_cache, size, pnginfo,
+                                                 **options)
+    # save normal thumbnail
+    thumb, thumb_cache = _save_to_cache_size('normal', filename,
+                                             size_label, thumb, thumb_cache, size, pnginfo,
+                                             **options)
+    return thumb
 
-    def _save_to_cache(filename, image, size=SIZE,
-            size_label=None, thumb_info=None, **options):
-        """Save thumb as thumbnail for image filename. The size of the
-        thumbnails should be a cache thumbnail size.
 
-        :param filename: image filename
-        :type filename: string
-        :param thumb: thumb image
-        :type thumb: Image
-        :param thumb_filename: thumb filename
-        :type thumb_filename: string
-        :param size: size ``(width, height)`` of the thumbnail
-        :type size: tuple
-        :param size_label: ``'normal'``, ``'large'`` or ``None``
-        :type size_label: string
-        :returns: image or thumb
-        :rtype: Image
-        """
-        thumb = imtools.convert_save_mode_by_format(image, 'PNG')
-        if size_label is None:
-            size_label = get_freedesktop_size_label(size)
-        pnginfo = get_freedesktop_pnginfo(filename, thumb_info=thumb_info)
-        if not size_label:
-            # too large -> make thumbnail
-            thumb.thumbnail(size, Image.ANTIALIAS)
-        thumb_cache = thumb.copy()
-        # save large thumbnail
-        if size_label == 'large':
-            thumb, thumb_cache = _save_to_cache_size('large', filename,
-                size_label, thumb, thumb_cache, size, pnginfo,
-                **options)
-        # save normal thumbnail
-        thumb, thumb_cache = _save_to_cache_size('normal', filename,
-            size_label, thumb, thumb_cache, size, pnginfo,
-            **options)
-        return thumb
+def _save_to_cache_size(cache_size_label, filename, size_label,
+                        thumb, thumb_cache, size, pnginfo, **options):
+    thumb_cache.thumbnail(FREEDESKTOP_SIZE[cache_size_label],
+                          Image.ANTIALIAS)
+    temp = system.TempFile('.png')
+    imtools.save(thumb_cache, temp.path, pnginfo=pnginfo, **options)
+    thumb_filename = get_freedesktop_filename(filename, cache_size_label)
+    temp.close(dest=thumb_filename)
+    os.chmod(thumb_filename, 0o600)
+    if cache_size_label == size_label:
+        # make thumbnail as it is smaller than this thumb cache size
+        thumb = thumbnail(thumb_cache, size)
+    return thumb, thumb_cache
 
-    def _save_to_cache_size(cache_size_label, filename, size_label,
-            thumb, thumb_cache, size, pnginfo, **options):
-        thumb_cache.thumbnail(FREEDESKTOP_SIZE[cache_size_label],
-            Image.ANTIALIAS)
-        temp = system.TempFile('.png')
-        imtools.save(thumb_cache, temp.path, pnginfo=pnginfo, **options)
-        thumb_filename = get_freedesktop_filename(filename, cache_size_label)
-        temp.close(dest=thumb_filename)
-        os.chmod(thumb_filename, 0600)
-        if cache_size_label == size_label:
-            # make thumbnail as it is smaller than this thumb cache size
-            thumb = thumbnail(thumb_cache, size)
-        return thumb, thumb_cache
 
-    def delete(filename):
-        for size_label in FREEDESKTOP_SIZE:
-            try:
-                os.remove(get_freedesktop_filename(filename, size_label))
-            except:
-                pass
-
-    def needs_update(filename, size_label='normal', thumb_filename=None):
-        if thumb_filename is None:
-            thumb_filename = get_freedesktop_filename(filename, size_label)
-        if not os.path.exists(thumb_filename):
-            return True
+def delete(filename):
+    for size_label in FREEDESKTOP_SIZE:
         try:
-            thumb = Image.open(thumb_filename)
+            os.remove(get_freedesktop_filename(filename, size_label))
         except:
-            return True
-        try:
-            thumb_mtime = thumb.info['Thumb::MTime']
-        except KeyError:
-            return True
-        file_mtime = str(get_mtime(filename))
-        return file_mtime != thumb_mtime
+            pass
 
 
-else:
-
-    _save_to_cache = None
-
-    def _open(filename, image=None, open_image=Image.open, **keyw):
-        """Open image for thumbnail of the image specified by filename.
-
-        .. note::
-
-            This does not return an image yet with the size. This
-            needs to be combined with the :func:`after_open` as in the
-            :func:`open`.
-
-        :param filename: image filename
-        :type filename: string
-        :param image: optionally pass the already opened image
-        :type image: Image
-        :param open_image: alternative open method
-        :type open_image: function
-        :returns: image
-        :rtype: Image
-        """
-        if image is None:
-            return open_image(filename)
-        return image
-
-    def delete(filename):
-        pass
+def needs_update(filename, size_label='normal', thumb_filename=None):
+    if thumb_filename is None:
+        thumb_filename = get_freedesktop_filename(filename, size_label)
+    if not os.path.exists(thumb_filename):
+        return True
+    try:
+        thumb = Image.open(thumb_filename)
+    except:
+        return True
+    try:
+        thumb_mtime = thumb.info['Thumb::MTime']
+    except KeyError:
+        return True
+    file_mtime = str(get_mtime(filename))
+    return file_mtime != thumb_mtime
 
 
 def is_needed(image, format='JPEG'):
@@ -331,19 +311,21 @@ def is_needed(image, format='JPEG'):
     True
     """
     if format == 'JPEG':
-        #be more strict for jpeg (because of lossless compression)
+        # be more strict for jpeg (because of lossless compression)
         return image.size[0] > 512 or image.size[1] > 512
     else:
         return image.size[0] > SIZE[0] or image.size[1] > SIZE[1]
 
 
-def thumbnail(image, size=SIZE, checkboard=False, copy=True):
+def thumbnail(image: PIL.Image, size: Tuple[int, int] = SIZE, checkboard: bool = False, copy: bool = True):
     """Makes a not in place thumbnail
 
     :param image: image
     :type image: pil.Image
     :param size: thumbnail size
     :type size: tuple of int
+    :param checkboard: ??
+    :param copy: ??
     :returns: thumbnail
     :rtype: Image
 
@@ -353,7 +335,10 @@ def thumbnail(image, size=SIZE, checkboard=False, copy=True):
     """
     if copy:
         thumb = image.copy()
-    #skip if thumb is smaller than requested size
+    else:
+        thumb = image
+
+    # skip if thumb is smaller than requested size
     if thumb.size[0] > size[0] or thumb.size[1] > size[1]:
         thumb.thumbnail(size, Image.ANTIALIAS)
     if checkboard:
@@ -361,7 +346,7 @@ def thumbnail(image, size=SIZE, checkboard=False, copy=True):
     return thumb
 
 
-def get_format_data(image, format, size=SIZE, checkboard=False):
+def get_format_data(image: PIL.Image, format: str, size: Tuple[int, int] = SIZE, checkboard: bool = False):
     """Convert the image in the file bytes of the image at a certain
     size. By consequence this byte data is different for the chosen
     format (``JPEG``, ``TIFF``, ...).
@@ -369,7 +354,7 @@ def get_format_data(image, format, size=SIZE, checkboard=False):
     .. see also:: :func:`get_format_data`
 
     :param image: source image
-    :type impage: pil.Image
+    :type image: pil.Image
     :param format: image file type format
     :type format: string
     :param size: target thumbnail size
@@ -380,8 +365,8 @@ def get_format_data(image, format, size=SIZE, checkboard=False):
     return imtools.get_format_data(thumb, format)
 
 
-def save_to_cache(filename, image=None, open_image=imtools.open_image_exif,
-        thumb_info=None, **options):
+def save_to_cache(filename, image: PIL.Image = None, open_image: Callable[[str], Any] = imtools.open_image_exif,
+                  thumb_info: Dict[str,str] = None, **options):
     """Save the thumb of image as a thumbnail for specified file.
 
     This is called by the _open function, which requires that it
@@ -394,16 +379,16 @@ def save_to_cache(filename, image=None, open_image=imtools.open_image_exif,
     :param open_image: alternative for Image.open
     :type open_image: function
     """
-    #is save_to_cache implemented for the current platform?
+    # is save_to_cache implemented for the current platform?
     if _save_to_cache:
-        #is image opened already?
+        # is image opened already?
         if image is None:
             image = open_image(filename)
         _save_to_cache(filename, image, thumb_info=thumb_info, **options)
 
 
-def open(filename, image=None, open_image=imtools.open_image_exif,
-    size=SIZE, save_cache=True):
+def open(filename, image: PIL.Image = None, open_image=imtools.open_image_exif,
+         size: Tuple[int, int] = SIZE, save_cache: bool = True):
     """Retrieves a thumbnail from a file. It will only use the cache
     if ``size`` is smaller than the cache thumbnail sizes.
 
@@ -425,9 +410,9 @@ def open(filename, image=None, open_image=imtools.open_image_exif,
     :rtype: pil.Image
     """
     thumb = _open(filename=filename, image=image, open_image=open_image,
-        size=size, save_cache=save_cache)
+                  size=size, save_cache=save_cache)
     if thumb.size[0] > size[0] or thumb.size[1] > size[1]:
-        #we need a smaller thumb
+        # we need a smaller thumb
         return thumbnail(thumb, size, checkboard=True)
-    #add checkerboard for transparant images
+    # add checkerboard for transparant images
     return imtools.add_checkboard(thumb)

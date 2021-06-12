@@ -20,8 +20,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -30,7 +30,7 @@ def init():
     global Image, ImageOps, imtools
     from PIL import Image
     from PIL import ImageOps
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def colorize(image, black, white, amount=100):
@@ -67,7 +67,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(100, 1, 100)
 
     icon = \
-'x\xda\x01\x1f\x08\xe0\xf7\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00*\
+b'x\xda\x01\x1f\x08\xe0\xf7\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00*\
 \x00\x00\x00*\x08\x06\x00\x00\x00\xc5\xc3\xc9[\x00\x00\x00\x04sBIT\x08\x08\
 \x08\x08|\x08d\x88\x00\x00\x07\xd6IDATX\x85\xcd\x98[lT\xc7\x19\xc7\x7fs\xce\
 \xd9\xb3g\xed\xdd\xb5\xbd`\x16\xb0\r,\xc1\x84D\x16\xc4B\xa9L\x13\xa9\xed\x03\

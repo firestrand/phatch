@@ -20,9 +20,9 @@
 
 # Embedded icon is taken from www.openclipart.org (public domain)
 
-from core import models
-from lib.reverse_translation import _t
-from lib.imtools import has_transparency, paste
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.imtools import has_transparency, paste
 
 #---PIL
 
@@ -31,9 +31,9 @@ def init():
     global Image, ImageOps, imtools
     from PIL import Image
     from PIL import ImageOps
-    from lib import imtools
+    from phatch.lib import imtools
     global HTMLColorToRGBA
-    from lib.colors import HTMLColorToRGBA
+    from phatch.lib.colors import HTMLColorToRGBA
 
 
 def put_border(image, size, offset, contour_color, fill_color, opacity,
@@ -112,7 +112,7 @@ class Action(models.Action):
             'Offset': dim})
 
     icon = \
-'x\xda\x01\x19\n\xe6\xf5\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\x19\n\xe6\xf5\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\t\xd0IDATh\x81\xcd\xda{pT\xd5\x1d\x07\xf0\xef9\xe7n\
 \xd8\x90\r\t\x01\x02bSh*\xa0R\x0cjx$\x18\x1e!<\xb2Q\xe4)\xad"\xbeZ[E\xb0N\

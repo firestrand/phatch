@@ -24,8 +24,9 @@ import sys
 import urllib.parse
 from gettext import gettext
 
-from data.info import INFO
-from core import config
+from phatch.core import config
+from phatch.data.info import INFO
+from phatch.lib import system, formField
 
 VERSION = "%(name)s %(version)s" % INFO
 
@@ -203,10 +204,8 @@ def main(config_paths, app_file):
     from core.settings import create_settings
     settings = create_settings(config_paths, options)
     if settings['verbose']:
-        from lib import system
         system.VERBOSE = True
     if 'safe' in settings:
-        from lib import formField
         formField.set_safe(settings['safe'])
         del settings['safe']
     if settings['image_inspector']:

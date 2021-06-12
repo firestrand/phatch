@@ -18,7 +18,8 @@
 
 import os
 import sys
-from core.config import init_config_paths
+
+from phatch.core.config import init_config_paths
 
 sys.path.insert(0, os.path.dirname(__file__))
 init_config_paths()

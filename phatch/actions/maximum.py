@@ -20,8 +20,8 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -30,7 +30,7 @@ def init():
     global Image, ImageFilter, imtools
     from PIL import Image
     from PIL import ImageFilter
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def maximum(image, radius, amount=100):
@@ -60,7 +60,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(100, 1, 100)
 
     icon = \
-'x\xda\x01\xba\x08E\xf7\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\xba\x08E\xf7\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x08qIDATh\x81\xd5\x99{\x8c\\U\x1d\xc7?\xe7\xdey\xcf\
 \xcev\xf6\xbd[\xfa\xb0\x84%Bk\xe5Q\x82\x956\xa1\x98\xc66\xf5\x01!\xd4*Z\x81\

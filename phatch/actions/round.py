@@ -23,8 +23,8 @@
 # Follows PEP8
 
 # Always import this:
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -34,7 +34,7 @@ def init():
     from PIL import Image
     from PIL import ImageChops
     from PIL import ImageDraw
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 # Declare constants here
@@ -201,7 +201,7 @@ class Action(models.Action):
             'back_color': self.get_field('Background Color', info)}
 
     icon = \
-'x\xda\x01\x00\x0e\xff\xf1\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\
+b'x\xda\x01\x00\x0e\xff\xf1\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\
 \x00\x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\
 \x08\x08|\x08d\x88\x00\x00\r\xb7IDATh\x81\xd5\x9a{p[\xd5\x9d\xc7?\xf7\xe8q\
 \xadk\xc9\x8ec\xcb\x96\x9f\xb2e\x1b\xdb\xd8q\xb2\xc4\x93\x17\x03yB \xd0\xce\

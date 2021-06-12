@@ -20,9 +20,9 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
-from lib.imtools import has_alpha, has_transparency, paste
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.imtools import has_alpha, has_transparency, paste
 
 #---Pil
 
@@ -33,7 +33,7 @@ def init():
     from PIL import ImageColor
     from PIL import ImageFilter
     global HTMLColorToRGBA
-    from lib.colors import HTMLColorToRGBA
+    from phatch.lib.colors import HTMLColorToRGBA
 
 REFLECT_ID = 'reflect_w%s_h%s_o%s'
 
@@ -160,7 +160,7 @@ class Action(models.Action):
             pixel_fields={'Depth': y, 'Gap': y})
 
     icon = \
-'x\xda\x01y\n\x86\xf5\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01y\n\x86\xf5\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\n0IDATh\x81\xd5\x9aYl\\\xd5\x19\xc7\xff\xdf9\xe7\xde;\
 \xf6,^\xc6\x1e\xc7qX\x9c\x18\x02\t1\x01+1\x9b l\x0f\xa5P\nR%\xaa*}\xeb&\xaa\

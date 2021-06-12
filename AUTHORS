@@ -3,116 +3,248 @@ Phatch is the result of work by (in no particular order):
 
 Code:
 
-Stani - spe.stani.be@gmail.com
-Nadia Alramli - blog@nadiana.com
+Stani - spe.stani.be@gmail.com - www.stani.be
+Nadia Alramli - mail@nadiana.com - http://nadiana.com
+Erich Heine - sophacles@gmail.com
+Juho Vepsäläinen - bebraw@gmail.com
+Robin Mills - robin@clanmills.com
+Bas van Oostveen - v.oostveen@gmail.com
+Pawel T. Jochym - jochym@gmail.com
 
 
 Documentation:
 
-Stani - spe.stani.be@gmail.com
-http://www.gbiloba.org - Frédéric Mantegazza - frederic.mantegazza@gbiloba.org
+Stani - spe.stani.be@gmail.com - www.stani.be
+Frédéric Mantegazza - frederic.mantegazza@gbiloba.org - http://www.gbiloba.org
+Dwarrel Egel - dwarrel.egel@gmail.com
 
 
 Graphics:
 
-http://www.admiror-ns.co.yu - Igor Kekeljevic - admiror@nscable.net
-http://nuovext.pwsp.net - NuoveXt 1.6 - Alexandre Moore
-http://www.openclipart.org - Open Clip Art Library
-Stani - spe.stani.be@gmail.com
+Igor Kekeljevic - admiror@nscable.net - http://www.admiror-ns.co.yu
+Nadia Alramli - mail@nadiana.com - http://nadiana.com
+NuoveXt 1.6 - http://nuovext.pwsp.net - Alexandre Moore
+Everaldo Coelho - http://www.iconlet.com/info/9657_colorscm_128x128 - http://www.everaldo.com
+Open Clip Art Library - http://www.openclipart.org
+Geotag Icon - http://www.geotagicons.com
+Stani - spe.stani.be@gmail.com - www.stani.be
 
 
 Libraries:
 
-http://www.python.org - Python 2.5.2 - Python license - Guido Van Rossum
-http://wxglade.sourceforge.net/ - wxGlade - Alberto Griggio
-pubsub.py - wxWidgets license - Oliver Schoenborn
-http://wiki.wxpython.org/TextCtrlAutoComplete - TextCtrlAutoComplete.py - wxWidgets license - Edward Flick (CDF Inc, http://www.cdf-imaging.com)
-http://tilloy.net/dev/pyexiv2/ - PyExiv2 - GPL license - Olivier Somon
-http://www.gnome.org/projects/nautilus/ - python-nautilus - GPL license
-http://www.pythonware.com/products/pil/ - Python Image Library 1.1.6 - PIL license - Fredrik Lundh
-http://www.wxpython.org - wxPython 2.8.7.1 - wxWidgets license - Robin Dunn
+Python 3.8.6 - http://www.python.org - Guido Van Rossum - Python license
+wxGlade - http://wxglade.sourceforge.net/ - Alberto Griggio
+pubsub.py - Oliver Schoenborn - wxWidgets license
+TextCtrlAutoComplete.py - Edward Flick (CDF Inc, http://www.cdf-imaging.com) - wxWidgets license - http://wiki.wxpython.org/TextCtrlAutoComplete
+PyExiv2 - http://tilloy.net/dev/pyexiv2/ - Olivier Somon - GPL license
+python-nautilus - http://www.gnome.org/projects/nautilus/ - GPL license
+tamogen.py - http://sintixerr.wordpress.com/tone-altering-mosaic-generator-tamogen-in-python/ - Jack Whitsitt, Juho Vepsäläinen - GPL license
+python-dateutil: relativedelta.py - http://labix.org/python-dateutil - Gustavo Niemeyer - Python license
+Tiff Tools - http://www.remotesensing.org/libtiff/ - Sam Leffler - FreeBSD license
+ToasterBox - http://xoomer.virgilio.it/infinity77/main/ToasterBox.html - Andrea Gavana - wxWidgets license
+Python Image Library 8.2.0 - http://www.pythonware.com/products/pil/ - Fredrik Lundh - PIL license
+wxPython 4.1.1 - http://www.wxpython.org - Robin Dunn - wxWidgets license
 
 
 Sponsors:
 
-http://www.zindep.com - Webhost (python, zope, plone) - gbourge@zindep.com
+Free Software web hosting - http://bearstech.com - John Lejeune <jlejeune@bearstech.com> & Cyberj <jcharpentier@bearstech.com>
 
 
 Translation:
 
-Stani - spe.stani.be@gmail.com
-John Lejeune
+Stani - spe.stani.be@gmail.com - www.stani.be
+ad Madi
+abdessmed mohamed amine
+abuyop
+adaminikisi
+adura
 aeglos
+agatzebluz
+Ahmed Noor Kader Mustajir Md Eusoff
 Aktiwers
-Alexander Taubenkorb
-Alexandre Prokoudine
+Alan Teixeira
+Albert Cervin
+Alberto T.
 alex
+Alex Debian
+Alexandre Prokoudine
+Ali Sattari
+Anders
 Andras Bibok
-Andrea (pikkio)
 André Gondim
+Andrea (pikkio)
 Andrey Skuryatin
+Andrzej MoST (Marcin Ostajewski)
 Archie
+Ardaking
 Arielle B Cruz
 Aristotelis Grammatikakis
-Arnau Llovet Vidal
-Aktiwers
+arnau
+Arnaud Bonatti
+Aron Xu
+Artin
+Artur Chmarzyński
+Åskar
+Balaam's Miracle
+Bjørn Sivertsen
+bt4wang
 Cedric Graebin
+César Flores
 Clovis Gauzy
+cumulus007
+Daniël H.
 Daniel Nylander
 Daniel Voicu
+Daniele de Virgilio
+Darek
+David A Páez
+David Machakhelidze
+deukek
+Diablo
+DiegoJ
+Dirk Tas
 Diska
+Dobrosław Żybort
 DPini
-drag0nl0rd
+Dr. Gráf
 Dread Knight
+Edgardo Fredz
+Emil Pavlov
 emil.s
-Halgeir
+Emilio Pozuelo Monfort
+Emre Ayca
+EN
+Endresz_Z
+ercole
+Ervin Triana
+Ervin Triana
+Fabien Basmaison
+Federico Antón
 Felipe
-frinux
+Gabriel Čenkei
+Gabriel Rota
 Galvin
 Gérard Duteil
-Jad
-Johannes Majobe
+Giacomo Mirabassi
+Gianfranco Marino
+Guo Xi
+Guybrush88
+Halgeir
+Ionuț Jula
+Ivan Lucas
+Jan Tojnar
+Jaroslav Lichtblau
+Javier García Díaz
+jean-luc menut
+jgraeme
+Johannes
+John Lejeune
+jollyr0ger
+Juho Vepsäläinen
+Juss1962
 kasade
+kekeljevic
+kenan3008
+Koptev Oleg
 Kulcsár, Kázmér
+Lauri Potka
+liticovjesac
+Lomz
 Luca Livraghi
+luojie-dune
 madcore
+mahirgul
 Marcos
+Marielle Winarto
 Mario Ferraro
 Martin Lettner
-matrixik
+Matteo Ferrabone
+Matthew Gadd
+Mattias Ohlsson
 Maudy Pedrao
-medeshago
+MaXeR
 Michael Christoph Jan Godawski
 Michael Katz
+Michał Trzebiatowski
+Michal Zbořil
+Miguel Diago
 Mijia
+milboy
 Miroslav Koucký
+Miroslav Matejaš
+momou
 Mortimer
 Motin
-http://www.goermezer.de - Mustafa Görmezer - mustafa@goermezer.de
+nEJC
+Newbuntu
+nicke
 Nicola Piovesan
 Nicolae Istratii
+Nicolas CHOUALI
+nipunreddevil
+Nizar Kerkeni
+Nkolay Parukhin
+orange
+Paco Molinero
 pasirt
 Pavel Korotvička
+pawel
 Petr Pulc
+petre
 Pierre Slamich
 Piotr Ożarowski
+Pontus Schönberg
 pveith
+pygmee
 qiuty
 quina
 rainofchaos
 Rodrigo Garcia Gonzalez
+rokkralj
 Roman Shiryaev
+royto
+Rune C. Akselsen
+rylleman
 Salandro
+Saša Pavić
+Sasha
 SebX86
 Sergiy Babakin
+Serhey Kusyumoff (Сергій Кусюмов)
+Shrikant Sharat
 skarevoluti
+Skully
+smo
+SnivleM
+stani
 Stephan Klein
-Swarms
+studiomohawk
+Svetoslav Stefanov
+Tao Wei
+tarih mehmet
+theli
 therapiekind
 Todor Eemreorov
+Tommy Brunn
 Tosszyx
+TuniX12
+ubby
+Vadim Peretokin
+VerWolF
+Vyacheslav S.
+w00binda
+Wander Nauta
+wang
+WangWenhui
 wcoqui
 Wiesiek
 Will Scott
+X_FISH
+Xandi
+xinzhi
+yoni
 zelezni
+zero
 Zirro
+Zoran Olujic

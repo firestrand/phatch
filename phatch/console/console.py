@@ -27,7 +27,7 @@ import sys
 
 if __name__ == '__main__':
     sys.path.insert(0, '../..')
-    from phatch.phatch import init_config_paths
+    from phatch.phatch_main import init_config_paths
     init_config_paths()
 
 #gui-independent

@@ -21,8 +21,8 @@
 
 # Follows PEP8
 
-from core import ct, models
-from lib.reverse_translation import _t
+from phatch.core import ct, models
+from phatch.lib.reverse_translation import _t
 
 #no need to lazily import these as they are always imported
 import os
@@ -55,7 +55,7 @@ class Action(models.Action):
 
     #FIXME: replace this icon with another one (Nadia?)
     icon = \
-'x\xda\x01j\x0c\x95\xf3\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01j\x0c\x95\xf3\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0c!IDATh\x81\xd5\x9a}p\x1c\xe5}\xc7?\xcf\xbe\xdc\x9b\
 \xacW\x9f,\xdb\x92lY\x92-\xf9M\x06\xcb\x06\xdb\x10L\xe2\x84\xd6\t\x89&\xa45\

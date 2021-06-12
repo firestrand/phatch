@@ -21,11 +21,11 @@
 # Follows PEP8
 
 import os
-from core import ct
-from core import models
-from core import pil
-from lib import imtools
-from lib.reverse_translation import _t
+from phatch.core import ct
+from phatch.core import models
+from phatch.core import pil
+from phatch.lib import imtools
+from phatch.lib.reverse_translation import _t
 
 #no need to lazily import these as they are always imported
 import os
@@ -35,7 +35,7 @@ def init():
     global Image
     from PIL import Image
     global get_quality, get_size, InvalidWriteFormatError
-    from lib.imtools import get_quality, get_size, InvalidWriteFormatError
+    from phatch.lib.imtools import get_quality, get_size, InvalidWriteFormatError
 
 SIZES = ['0', '10', '20', '50', '100', '200', '500', '1000', '2000', '5000']
 TOLERANCES = ['0', '1', '2', '5', '10', '20', '50']
@@ -177,7 +177,7 @@ class Action(models.Action):
             (self.get_field_string('As') == self.TYPE)
 
     icon = \
-'x\xda\x01\xaa\x0bU\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\xaa\x0bU\xf4\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0baIDATh\x81\xd5\x99{l[U\x9e\xc7?\xf7^\xdb\xb1c;\xb1\
 \xe3\xb8v\\\xb5I\xd3$0@h\x11\x85\x02E4B\xd0\xaaM\xba\xedj\xe8\xd0e\x1e\x1a1\

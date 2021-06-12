@@ -27,10 +27,10 @@ import re
 import shutil
 import tempfile
 
-from core import models
-from core.config import PATHS
-from lib import system
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.core.config import PATHS
+from phatch.lib import system
+from phatch.lib.reverse_translation import _t
 
 BLENDER_VERSIONS = ['2.45', '2.46', '2.47', '2.48', '2.49']
 RE_BLENDER_VERSION = re.compile('|'.join([x.replace('.', '[.]')
@@ -334,13 +334,13 @@ class Action(models.Action):
 
     def init(self):
         global imtools
-        from lib import imtools
+        from phatch.lib import imtools
         self.find_exe('blender')
         out, err = system.shell((self.exe, '-v'))
         if not RE_BLENDER_VERSION.search(out):
             raise Exception(
-                _('Sorry, you have the wrong version of Blender installed.') +
-                ' ' + _('Blender %s is required.') % BLENDER_VERSIONS)
+                str('Sorry, you have the wrong version of Blender installed.') +
+                ' ' + str('Blender %s is required.') % BLENDER_VERSIONS)
 
     def interface(self, fields):
         fields[_t('Render Width')] = self.PixelField('800px')
@@ -384,7 +384,7 @@ class Action(models.Action):
         camera.selected_object = self.get_field_string('Object')
         # important the dialog title should change for every object
         # otherwise same dialog is used
-        camera.dialog = _('Select Rotation for %s') % _(
+        camera.dialog = str('Select Rotation for %s') % str(
             camera.selected_object)
         camera.init_dictionary()
 
@@ -452,7 +452,7 @@ class Action(models.Action):
         return selected_object.get_command(values)
 
     icon = \
-'x\xda\x01s\x15\x8c\xea\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01s\x15\x8c\xea\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x15*IDATh\x81\xcd\x99i\x94U\xd5\xb5\xef\x7fk\xed\xeet\
 u\xaa\xa3\x8a\xaa\xa2\xef\x8aN\x04\x81\x00*Q\x11PA\xa37*$\x1a\xf5\x8a\r*b\

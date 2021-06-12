@@ -22,10 +22,10 @@
 
 import os
 
-from core import config
-from core import ct, models
-from lib.reverse_translation import _t
-from lib import system
+from phatch.core import config
+from phatch.core import ct, models
+from phatch.lib.reverse_translation import _t
+from phatch.lib import system
 
 COMMANDS = [
     'convert file_in.tif -bordercolor snow -background black '\
@@ -83,7 +83,7 @@ class Action(models.Action):
         return False
 
     icon = \
-'x\xda\x01\'\t\xd8\xf6\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\'\t\xd8\xf6\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x08\xdeIDATh\x81\xedY[l\x14\xd7\x19\xfe\xfes\xce\xcc\
 \xac\xbd6\xeb\x1b\x06\x1b\xb0+\x01\x0e\xc2\xa0\x12c\xb0\xebT\xa2\x8a\x9a\x88\

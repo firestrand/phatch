@@ -22,23 +22,11 @@ import sys
 
 # user folder
 USER_FOLDER = os.path.expanduser('~')
-try:
-    USER_FOLDER = USER_FOLDER.decode(sys.getfilesystemencoding())
-except:
-    pass
-
 
 # desktop folder
 if sys.platform.startswith('win'):
     # Windows
-    try:
-        from win32com.shell import shell, shellcon
-        DESKTOP_FOLDER = shell.SHGetFolderPath(0,
-            shellcon.CSIDL_DESKTOP, None, 0)
-    except ImportError:
-        #FIXME (Windows 7)
-        DESKTOP_FOLDER = os.path.join(USER_FOLDER, 'Desktop')
-        #DESKTOP_FOLDER = "C:\\"
+    DESKTOP_FOLDER = os.path.join(os.environ['USERPROFILE'], 'Desktop')
 elif sys.platform.startswith('darwin'):
     # Mac: verify this!
     DESKTOP_FOLDER = os.path.expanduser('~/Desktop')
@@ -47,7 +35,7 @@ else:
     DESKTOP_FOLDER = os.path.expanduser('~/Desktop')
     user_dirs = os.path.expanduser('~/.config/user-dirs.dirs')
     if os.path.exists(user_dirs):
-        match = re.search('XDG_DESKTOP_DIR="(.*?)"',
+        match = re.search(r'XDG_DESKTOP_DIR="(.*?)"',
                     open(user_dirs).read())
         if match:
             DESKTOP_FOLDER = os.path.expanduser(
@@ -70,6 +58,10 @@ if sys.platform.startswith('linux'):
                             USER_FOLDER, '.local', 'share')
     USER_CONFIG_FOLDER = _env('XDG_CONFIG_HOME', '.config')
     USER_CACHE_FOLDER = _env('XDG_CACHE_HOME', '.cache')
+elif sys.platform.startswith('win'):
+    USER_DATA_FOLDER = USER_FOLDER
+    USER_CONFIG_FOLDER = os.path.join(USER_FOLDER, '.config')
+    USER_CACHE_FOLDER = os.path.join(USER_FOLDER, '.cache')
 else:
     #TODO: what would be the best user path for these platforms?
     USER_DATA_FOLDER = USER_CONFIG_FOLDER = USER_CACHE_FOLDER =\

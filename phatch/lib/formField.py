@@ -20,34 +20,35 @@ Store internally as a string.
 Provide validation routines.
 """
 
-#TODO: move all Phatch references to models
+# TODO: move all Phatch references to models
 
-#---import modules
+# ---import modules
 
-#standard library
+# standard library
 import glob
 import os
 import re
-import safe
-import system
+from typing import Any
+
+from . import safe
+from . import system
 import textwrap
 import types
-
 
 if '_' not in dir():
     _ = str
 
-#gui independent (lib)
-import system
-import unicoding
-from odict import odict as Fields
+# gui independent (lib)
+from . import system
+from . import unicoding
+from .odict import odict as Fields
 
 NO_FIELDS = Fields()
-_t = unicode
+_t = str
 USE_INSPECTOR = _('Use the Image Inspector to list all the variables.')
 USE_EXTENSIONS = _('You can only use files with the following extensions')
 
-#---image
+# ---image
 ALIGN_HORIZONTAL = [_t('left'), _t('center'), _t('right')]
 ALIGN_VERTICAL = [_t('top'), _t('middle'), _t('bottom')]
 
@@ -57,35 +58,35 @@ GEO_EXTENSIONS = ['gpx']
 ICON_SIZE = (64, 64)
 
 IMAGE_EXTENSIONS = ['bmp', 'gif', 'jpe', 'jpeg', 'jpg', 'im',
-    'pcx', 'png', 'pbm', 'pgm', 'ppm', 'tif', 'tiff', 'xbm']
+                    'pcx', 'png', 'pbm', 'pgm', 'ppm', 'tif', 'tiff', 'xbm']
 IMAGE_READ_EXTENSIONS = IMAGE_EXTENSIONS + ['cur', 'dcx', 'fli', 'flc', 'fpx',
-    'gbr', 'gd', 'ico', 'imt', 'mic', 'mcidas', 'pcd',
-    'psd', 'bw', 'rgb', 'cmyk', 'sun', 'tga', 'xpm']
+                                            'gbr', 'gd', 'ico', 'imt', 'mic', 'mcidas', 'pcd',
+                                            'psd', 'bw', 'rgb', 'cmyk', 'sun', 'tga', 'xpm']
 IMAGE_READ_EXTENSIONS.sort()
 IMAGE_READ_MIMETYPES = ['image/' + ext for ext in IMAGE_READ_EXTENSIONS]
 IMAGE_WRITE_EXTENSIONS = IMAGE_EXTENSIONS + ['eps', 'ps', 'pdf']
 IMAGE_WRITE_EXTENSIONS.sort()
 IMAGE_MODES = [_t('Monochrome (1-bit pixels, black and white)'),
-    _t('Grayscale (8-bit pixels)'),
-    _t('LA (8-bit pixels, grayscale with transparency mask)'),
-    _t('RGB (3x8-bit pixels, true color)'),
-    _t('RGBA (4x8-bit pixels, RGB with transparency mask)'),
-    _t('CMYK (4x8-bit pixels, color separation)'),
-    _t('P (8-bit pixels, mapped using a color palette)'),
-    _t('YCbCr (3x8-bit pixels, color video format)')]
+               _t('Grayscale (8-bit pixels)'),
+               _t('LA (8-bit pixels, grayscale with transparency mask)'),
+               _t('RGB (3x8-bit pixels, true color)'),
+               _t('RGBA (4x8-bit pixels, RGB with transparency mask)'),
+               _t('CMYK (4x8-bit pixels, color separation)'),
+               _t('P (8-bit pixels, mapped using a color palette)'),
+               _t('YCbCr (3x8-bit pixels, color video format)')]
 IMAGE_EFFECTS = [_t('blur'), _t('contour'), _t('detail'),
-    _t('edge enhance'), _t('edge enhance more'),
-    _t('emboss'), _t('find edges'), _t('smooth'),
-    _t('smooth more'), _t('sharpen')]
+                 _t('edge enhance'), _t('edge enhance more'),
+                 _t('emboss'), _t('find edges'), _t('smooth'),
+                 _t('smooth more'), _t('sharpen')]
 IMAGE_FILTERS = [_t('nearest'), _t('bilinear'), _t('bicubic')]
 IMAGE_RESAMPLE_FILTERS = IMAGE_FILTERS + [_t('antialias')]
 IMAGE_TRANSPOSE = [_t('Rotate 90'), _t('Rotate 180'), _t('Rotate 270'),
-    _t('Flip Left Right'), _t('Flip Top Bottom')]
+                   _t('Flip Left Right'), _t('Flip Top Bottom')]
 
 ORIENTATION = [_t('Normal')] + IMAGE_TRANSPOSE
 
 TIFF_COMPRESSIONS = ['<compression>', _t('none'), 'g3', 'g4', 'jpeg',
-    'lzw', 'packbits', 'zip']
+                     'lzw', 'packbits', 'zip']
 
 IMAGE_WRITE_EXTENSIONS = ['<type>'] + IMAGE_WRITE_EXTENSIONS
 
@@ -123,6 +124,7 @@ def files_dictionary(paths, extensions, title_parser=None):
         d[title_parser(filename)] = filename
     return d
 
+
 # TODO: move this to some nicer place!
 
 
@@ -131,7 +133,8 @@ def rotation_title_parser(field, filename):
 
     return filename.replace('_', ' ').title()
 
-#---form
+
+# ---form
 
 
 class Form(object):
@@ -145,25 +148,25 @@ class Form(object):
 
         This is independent of any GUI toolkit.
     """
-    #todo: move this as instance attributes
+    # todo: move this as instance attributes
     label = 'label'
     icon = 'ART_TIP'
     tags = []
     exe = {}
     __doc__ = ''
 
-    #default values <value>
+    # default values <value>
     FILENAME = '<%s>' % _t('filename')
     FOLDER = '<%s>' % _t('folder')
     DESKTOP = '<%s>' % _t('desktop')
     FOLDER_PHATCH = '%s/phatch' % DESKTOP
     DPI = '<%s>' % _t('dpi')
     DATE = '<%s>-<##%s>-<##%s>' % (_t('year'), _t('month'), _t('day'))
-    DATETIME = DATE + '_<##%s>-<##%s>-<##%s>'\
-        % (_t('hour'), _t('minute'), _t('second'))
+    DATETIME = DATE + '_<##%s>-<##%s>-<##%s>' \
+               % (_t('hour'), _t('minute'), _t('second'))
     EXIF_DATE = '<Exif_Photo_DateTimeOriginal.year>-' + \
-        '<##Exif_Photo_DateTimeOriginal.month>-' + \
-        '<##Exif_Photo_DateTimeOriginal.day>'
+                '<##Exif_Photo_DateTimeOriginal.month>-' + \
+                '<##Exif_Photo_DateTimeOriginal.day>'
     ROOT = '<%s>' % _t('root')
     BYSIZE = '<%s>x<%s>' % (_t('width'), _t('height'))
     SUBFOLDER = '<%s>' % _t('subfolder')
@@ -175,12 +178,12 @@ class Form(object):
     DPIS = [DPI, '<dpi/2>', '72', '144', '300']
     PIXELS = ['10', '25', '50', '100', '200']
     PIXELS_X = ['16', '32', '64', '128', '256', '640', '800', '1024',
-        '1280', '1280', '1440', '1600', '1680', '1920', '1920']
+                '1280', '1280', '1440', '1600', '1680', '1920', '1920']
     PIXELS_Y = ['16', '32', '64', '128', '256', '480', '600', '768',
-        '960', '1024', '900', '1200', '1050', '1080', '1200']
+                '960', '1024', '900', '1200', '1050', '1080', '1200']
     SMALL_PIXELS = ['1', '2', '5', '10']
     OFFSET_PIXELS = ['-75', '-50', '-25', '-10', '-5',
-                        '0', '5', '10', '25', '50', '75', '100']
+                     '0', '5', '10', '25', '50', '75', '100']
     FILENAMES = [
         FILENAME,
         '%s_phatch' % FILENAME,
@@ -208,16 +211,16 @@ class Form(object):
         '<%s>' % _t('path'),
     ]
     EXIF_IPTC = ['Exif_Image_Artist', 'Exif_Image_Copyright',
-        'Exif_Image_ImageDescription', 'Exif_Image_DateTime',
-        'Exif_Image_Make', 'Exif_Image_Model', 'Exif_Image_Orientation',
-        'Exif_Photo_UserComment', 'Exif_Photo_WhiteBalance',
-        'Iptc_Application2_Byline', 'Iptc_Application2_BylineTitle',
-        'Iptc_Application2_Caption', 'Iptc_Application2_CaptionWriter',
-        'Iptc_Application2_Category', 'Iptc_Application2_City',
-        'Iptc_Application2_Copyright', 'Iptc_Application2_CountryName',
-        'Iptc_Application2_DateCreated', 'Iptc_Application2_Keywords',
-        'Iptc_Application2_ObjectName',
-        'Iptc_Application2_ProvinceState', 'Iptc_Application2_Writer']
+                 'Exif_Image_ImageDescription', 'Exif_Image_DateTime',
+                 'Exif_Image_Make', 'Exif_Image_Model', 'Exif_Image_Orientation',
+                 'Exif_Photo_UserComment', 'Exif_Photo_WhiteBalance',
+                 'Iptc_Application2_Byline', 'Iptc_Application2_BylineTitle',
+                 'Iptc_Application2_Caption', 'Iptc_Application2_CaptionWriter',
+                 'Iptc_Application2_Category', 'Iptc_Application2_City',
+                 'Iptc_Application2_Copyright', 'Iptc_Application2_CountryName',
+                 'Iptc_Application2_DateCreated', 'Iptc_Application2_Keywords',
+                 'Iptc_Application2_ObjectName',
+                 'Iptc_Application2_ProvinceState', 'Iptc_Application2_Writer']
 
     def __init__(self, **options):
         """For the possible options see the source code."""
@@ -254,7 +257,7 @@ class Form(object):
         return self._fields
 
     def get_field_labels(self):
-        return self._get_fields().keys()
+        return list(self._get_fields().keys())
 
     def _get_field(self, label):
         return self._fields[label]
@@ -273,20 +276,20 @@ class Form(object):
         for label in self.get_field_labels():
             if label[:2] != '__' and not (label in exclude):
                 param = None
-                #skip hidden fields such as __enabled__
+                # skip hidden fields such as __enabled__
                 if label in pixel_fields:
-                    #pixel size -> base, dpi needed
+                    # pixel size -> base, dpi needed
                     param = pixel_fields[label]
-                    if type(param) != types.TupleType:
+                    if type(param) != tuple:
                         param = (param, info['dpi'])
                 elif self._get_field(label).__class__ == PixelField:
                     param = (1, 1)
                 if param:
                     value = self.get_field_size(label, info, *param)
                 else:
-                    #retrieve normal value
+                    # retrieve normal value
                     value = self.get_field(label, info)
-                #convert field labels to function parameters
+                # convert field labels to function parameters
                 if convert:
                     label = label.lower().replace(' ', '_')
                 result[label] = value
@@ -312,7 +315,7 @@ class Form(object):
         return self
 
     def set_fields(self, **options):
-        for label, value in options.items():
+        for label, value in list(options.items()):
             self.set_field(label, value)
 
     def set_field_as_string(self, label, value_as_string):
@@ -326,7 +329,7 @@ class Form(object):
     def load(self, fields):
         """Load dumped, raw strings."""
         invalid_labels = []
-        for label, value in fields.items():
+        for label, value in list(fields.items()):
             if label in self._fields:
                 self.set_field_as_string(label, value)
             else:
@@ -340,7 +343,7 @@ class Form(object):
             fields_as_strings[label] = self.get_field_string(label)
         return {'label': self.label, 'fields': fields_as_strings}
 
-    #tools
+    # tools
     def ensure_path(self, path):
         return system.ensure_path(path)
 
@@ -352,7 +355,8 @@ class Form(object):
             raise Exception('You need to install "%s" first.' % name)
         self.exe[program] = path
 
-#---errors
+
+# ---errors
 
 
 class ValidationError(Exception):
@@ -376,7 +380,8 @@ class ValidationError(Exception):
         else:
             return self._message
 
-#---field mixins
+
+# ---field mixins
 
 
 class PilConstantMixin:
@@ -401,9 +406,10 @@ class TestFieldMixin:
         if value_as_string is None:
             value_as_string = self.value_as_string
         return self.to_python(self.interpolate(value_as_string, info, label),
-                label, test)
+                              label, test)
 
-#---fields
+
+# ---fields
 
 
 def set_safe(state):
@@ -455,10 +461,10 @@ class Field(object):
     safe = True
     _globals = {}
 
-    def __init__(self, value, visible=True):
+    def __init__(self, value: Any, visible=True):
         self.visible = visible
         self.dirty = False
-        if isinstance(value, (str, unicode)):
+        if isinstance(value, str):
             self.set_as_string(value)
         else:
             self.set(value)
@@ -466,38 +472,38 @@ class Field(object):
     def validate(self, names, _globals, _locals):
         """Helper method for :func:`safe.compile_expr`."""
         not_allowed = [name for name in names
-            if not (name in _globals or name in _locals
-                or name in safe.SAFE['all'])]
+                       if not (name in _globals or name in _locals
+                               or name in safe.SAFE['all'])]
         return not_allowed
 
     def assert_safe(self, label, info):
         safe.assert_safe_expr(self.value_as_string,
-            _globals=self._globals, _locals=info,
-            validate=self.validate, preprocess=safe.format_expr)
+                              _globals=self._globals, _locals=info,
+                              validate=self.validate, preprocess=safe.format_expr)
 
     def interpolate(self, x, info, label):
-        if info == None:
+        if info is None:
             return self.value_as_string
         else:
             try:
                 return safe.compile_expr(x, _globals=self._globals,
-                    _locals=info, validate=self.validate,
-                    preprocess=safe.format_expr, safe=self.safe)
-            except Exception, error:
+                                         _locals=info, validate=self.validate,
+                                         preprocess=safe.format_expr, safe=self.safe)
+            except Exception as error:
                 reason = unicoding.exception_to_unicode(error)
                 raise ValidationError(self.description,
-                    "%s: %s\n" % (_(label), reason), USE_INSPECTOR)
+                                      "%s: %s\n" % (_(label), reason), USE_INSPECTOR)
 
     def to_python(self, x, label):
         if x.strip() or self.allow_empty:
             return x
         raise ValidationError(self.description,
-        '%s: %s.' % (
-            _(label),
-            _('can not be empty')))
+                              '%s: %s.' % (
+                                  _(label),
+                                  _('can not be empty')))
 
     def to_string(self, x):
-        return unicode(x)
+        return str(x)
 
     def fix_string(self, x):
         """For the ui (see 'write tag' action)"""
@@ -524,7 +530,7 @@ class Field(object):
         if value_as_string is None:
             value_as_string = self.value_as_string
         return self.to_python(self.interpolate(value_as_string, info, label),
-                label)
+                              label)
 
     def set(self, x):
         """For code: Interpolated, but not translated"""
@@ -542,8 +548,8 @@ class Field(object):
         except NameError:
             pass
         raise ValidationError(self.description,
-            '%s: %s.' % (_(label),
-                _('invalid syntax "%s" for integer') % x))
+                              '%s: %s.' % (_(label),
+                                           _('invalid syntax "%s" for integer') % x))
 
 
 class CharField(Field):
@@ -571,8 +577,8 @@ class IntegerField(NotEmptyCharField):
 
     def to_python(self, x, label):
         error = ValidationError(self.description,
-            '%s: %s.' % (_(label),
-                _('invalid literal "%s" for integer') % x))
+                                '%s: %s.' % (_(label),
+                                             _('invalid literal "%s" for integer') % x))
         try:
             return int(round(self.eval(x, label)))
         except ValueError:
@@ -589,9 +595,9 @@ class PositiveIntegerField(IntegerField):
         value = super(PositiveIntegerField, self).to_python(x, label)
         if value < 0:
             raise ValidationError(self.description,
-            '%s: %s.' % (_(label),
-            _('the integer value "%s" is negative, but should be positive') \
-            % x))
+                                  '%s: %s.' % (_(label),
+                                               _('the integer value "%s" is negative, but should be positive') \
+                                               % x))
         return value
 
 
@@ -603,9 +609,9 @@ class PositiveNonZeroIntegerField(PositiveIntegerField):
         value = super(PositiveNonZeroIntegerField, self).to_python(x, label)
         if value == 0:
             raise ValidationError(self.description,
-                '%s: %s.' % (_(label),
-                _('the integer value "%s" is zero, but should be non-zero') \
-                % x))
+                                  '%s: %s.' % (_(label),
+                                               _('the integer value "%s" is zero, but should be non-zero') \
+                                               % x))
         return value
 
 
@@ -623,10 +629,10 @@ class FloatField(Field):
     def to_python(self, x, label):
         try:
             return float(self.eval(x, label))
-        except ValueError, message:
+        except ValueError as message:
             raise ValidationError(self.description,
-            '%s: %s.' % (_(label),
-                _('invalid literal "%s" for float') % x))
+                                  '%s: %s.' % (_(label),
+                                               _('invalid literal "%s" for float') % x))
 
 
 class PositiveFloatField(FloatField):
@@ -637,8 +643,8 @@ class PositiveFloatField(FloatField):
         value = super(PositiveFloatField, self).to_python(x, label)
         if value < 0:
             raise ValidationError(self.description,
-            '%s: %s.' % (_(label),
-            _('the float value "%s" is negative, but should be positive') % x))
+                                  '%s: %s.' % (_(label),
+                                               _('the float value "%s" is negative, but should be positive') % x))
         return value
 
 
@@ -651,9 +657,9 @@ class PositiveNonZeroFloatField(PositiveFloatField):
         value = super(PositiveNonZeroFloatField, self).to_python(x, label)
         if value == 0:
             raise ValidationError(self.description,
-                '%s: %s.' % (_(label),
-                _('the float value "%s" is zero, but should be non-zero') \
-                % x))
+                                  '%s: %s.' % (_(label),
+                                               _('the float value "%s" is zero, but should be non-zero') \
+                                               % x))
         return value
 
 
@@ -669,9 +675,9 @@ class BooleanField(Field):
         if x.lower() in ['0', 'false', 'no']:
             return False
         raise ValidationError(self.description,
-            '%s: %s (%s, %s).' % (_(label),
-                _('invalid literal "%s" for boolean') % x,
-                _('true'), _('false')))
+                              '%s: %s (%s, %s).' % (_(label),
+                                                    _('invalid literal "%s" for boolean') % x,
+                                                    _('true'), _('false')))
 
 
 class ChoiceField(NotEmptyCharField):
@@ -703,17 +709,17 @@ class FileField(NotEmptyCharField):
                 and not (ext.lower() in self.extensions):
             if ext:
                 raise ValidationError(self.description,
-                '%s: %s.\n\n%s:\n%s.' % (_(label),
-                    _('the file extension "%s" is invalid') % ext,
-                    USE_EXTENSIONS,
-                    ', '.join(self.extensions)))
+                                      '%s: %s.\n\n%s:\n%s.' % (_(label),
+                                                               _('the file extension "%s" is invalid') % ext,
+                                                               USE_EXTENSIONS,
+                                                               ', '.join(self.extensions)))
             else:
                 raise ValidationError(self.description,
-                '%s: %s.\n%s:\n%s.' % (
-                    _(label),
-                    _('a filename with a valid extension was expected'),
-                    USE_EXTENSIONS,
-                    textwrap.fill(', '.join(self.extensions), 70)))
+                                      '%s: %s.\n%s:\n%s.' % (
+                                          _(label),
+                                          _('a filename with a valid extension was expected'),
+                                          USE_EXTENSIONS,
+                                          textwrap.fill(', '.join(self.extensions), 70)))
         return value
 
 
@@ -731,8 +737,8 @@ class ReadFileField(TestFieldMixin, FileField):
             return ''
         if (x == value or not test) and (not system.is_file(value)):
             raise ValidationError(self.description,
-            '%s: %s.' % (_(label),
-                _('the filename "%s" does not exist') % value))
+                                  '%s: %s.' % (_(label),
+                                               _('the filename "%s" does not exist') % value))
         return value
 
 
@@ -757,7 +763,7 @@ class FontFileField(DictionaryReadFileField):
     allow_empty = True
 
     def init_dictionary(self):
-        from fonts import font_dictionary
+        from .fonts import font_dictionary
         self.dictionary = font_dictionary()
 
 
@@ -798,17 +804,17 @@ class CommandLineField(NotEmptyCharField):
 
     def to_python(self, x, label):
         command = super(CommandLineField, self).to_python(x, label)
-        #check if exists
+        # check if exists
         if self.needs_exe:
             exe = name = command.split()[0]
             if not os.path.isfile(exe):
                 exe = system.find_exe(exe)
             if exe is None:
                 raise self.raise_error_not_found(label, name)
-        #check for in file
+        # check for in file
         if self.needs_in and not RE_FILE_IN.search(command):
             self.raise_error_file(label, 'file_in')
-        #check for out file
+        # check for out file
         if self.needs_out:
             file_out = RE_FILE_OUT.findall(command)
             if not file_out:
@@ -819,16 +825,16 @@ class CommandLineField(NotEmptyCharField):
 
     def raise_error_not_found(self, label, what):
         raise ValidationError(self.description, '%s: %s' % (_(label),
-            _('"%s" can not be found.') % what))
+                                                            _('"%s" can not be found.') % what))
 
     def raise_error_file(self, label, what):
         raise ValidationError(self.description, '%s: %s' % (_(label),
-            _('Parameter "%s.*" is missing') % what))
+                                                            _('Parameter "%s.*" is missing') % what))
 
     def raise_error_out_max(self, label):
         raise ValidationError(self.description, '%s: %s' % (_(label),
-            _('Maximum one parameter "%s" is allowed')\
-                % 'file_out.*'))
+                                                            _('Maximum one parameter "%s" is allowed') \
+                                                            % 'file_out.*'))
 
 
 class ImageTypeField(ChoiceField):
@@ -837,7 +843,7 @@ class ImageTypeField(ChoiceField):
         super(ImageTypeField, self).__init__(value, IMAGE_EXTENSIONS, **keyw)
 
     def fix_string(self, x):
-        #ignore translation
+        # ignore translation
         if x and x[0] == '.':
             x = x[1:]
         return super(ImageTypeField, self).fix_string(x)
@@ -846,14 +852,14 @@ class ImageTypeField(ChoiceField):
 class ImageReadTypeField(ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(ImageReadTypeField, self).__init__(\
+        super(ImageReadTypeField, self).__init__( \
             value, IMAGE_READ_EXTENSIONS, **keyw)
 
 
 class ImageWriteTypeField(ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(ImageWriteTypeField, self).__init__(\
+        super(ImageWriteTypeField, self).__init__( \
             value, IMAGE_WRITE_EXTENSIONS, **keyw)
 
 
@@ -863,56 +869,56 @@ class ImageModeField(ChoiceField):
         super(ImageModeField, self).__init__(value, IMAGE_MODES, **keyw)
 
     def to_python(self, x, label):
-        return x.split(' ')[0].replace('Grayscale', 'L')\
+        return x.split(' ')[0].replace('Grayscale', 'L') \
             .replace('Monochrome', '1')
 
 
 class ImageEffectField(PilConstantMixin, ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(ImageEffectField, self).__init__(\
+        super(ImageEffectField, self).__init__( \
             value, IMAGE_EFFECTS, **keyw)
 
 
 class ImageFilterField(PilConstantMixin, ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(ImageFilterField, self).__init__(\
+        super(ImageFilterField, self).__init__( \
             value, IMAGE_FILTERS, **keyw)
 
 
 class ImageResampleField(PilConstantMixin, ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(ImageResampleField, self).__init__(\
+        super(ImageResampleField, self).__init__( \
             value, IMAGE_RESAMPLE_FILTERS, **keyw)
 
 
 class ImageResampleAutoField(PilConstantMixin, ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(ImageResampleAutoField, self).__init__(\
+        super(ImageResampleAutoField, self).__init__( \
             value, IMAGE_RESAMPLE_FILTERS + [_t('automatic')], **keyw)
 
 
 class ImageTransposeField(PilConstantMixin, ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(ImageTransposeField, self).__init__(\
+        super(ImageTransposeField, self).__init__( \
             value, IMAGE_TRANSPOSE + [_t('Orientation')], **keyw)
 
 
 class OptionalTransposeField(PilConstantMixin, ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(OptionalTransposeField, self).__init__(\
+        super(OptionalTransposeField, self).__init__( \
             value, [_t('None')] + IMAGE_TRANSPOSE, **keyw)
 
 
 class OrientationField(PilConstantMixin, ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(OrientationField, self).__init__(\
+        super(OrientationField, self).__init__( \
             value, ORIENTATION, **keyw)
 
     def to_python(self, x, label):
@@ -924,21 +930,21 @@ class OrientationField(PilConstantMixin, ChoiceField):
 class AlignHorizontalField(ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(AlignHorizontalField, self).__init__(\
+        super(AlignHorizontalField, self).__init__( \
             value, ALIGN_HORIZONTAL, **keyw)
 
 
 class AlignVerticalField(ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(AlignVerticalField, self).__init__(\
+        super(AlignVerticalField, self).__init__( \
             value, ALIGN_VERTICAL, **keyw)
 
 
 class RankSizeField(IntegerField, ChoiceField):
 
     def __init__(self, value, **keyw):
-        super(RankSizeField, self).__init__(\
+        super(RankSizeField, self).__init__( \
             value, RANK_SIZES, **keyw)
 
 
@@ -948,7 +954,7 @@ class PixelField(IntegerField):
     def get_size(self, info, base, dpi, label, value_as_string=None):
         if value_as_string is None:
             value_as_string = self.value_as_string
-        for unit, value in self._units(base, dpi).items():
+        for unit, value in list(self._units(base, dpi).items()):
             value_as_string = value_as_string.replace(unit, value)
         return super(PixelField, self).get(info, label, value_as_string)
 
@@ -974,7 +980,7 @@ class FileSizeField(IntegerField):
     _units = {'kb': '*1024', 'gb': '*1073741824', 'mb': '*1048576', 'bt': ''}
 
     def to_python(self, x, label):
-        for unit, value in self._units.items():
+        for unit, value in list(self._units.items()):
             x = x.replace(unit, value)
         return super(FileSizeField, self).to_python(x, label)
 
@@ -996,30 +1002,30 @@ class TiffCompressionField(ChoiceField):
 
     def __init__(self, value, **keyw):
         super(TiffCompressionField, self).__init__(value,
-            TIFF_COMPRESSIONS, **keyw)
+                                                   TIFF_COMPRESSIONS, **keyw)
 
 
 class ExifItpcField(NotEmptyCharField):
 
     def fix_string(self, x):
-        #ignore translation
+        # ignore translation
         if x and x[0] == '<' and x[-1] == '>':
             x = x[1:-1]
         return super(ExifItpcField, self).fix_string(x)
 
     def to_python(self, x, label):
-        if not(x[:5] in ('Exif_', 'Iptc_')):
+        if not (x[:5] in ('Exif_', 'Iptc_')):
             raise ValidationError(self.description,
-                _('Tag should start with "Exif_" or "Iptc_"'),
-                USE_INSPECTOR)
+                                  _('Tag should start with "Exif_" or "Iptc_"'),
+                                  USE_INSPECTOR)
         return super(ExifItpcField, self).to_python(str(x), label)
 
 
 class ColorField(Field):
-
     pass
 
-#todo
+
+# todo
 ##class CommaSeparatedIntegerField(CharField):
 ##    """Not implemented yet."""
 ##    pass
@@ -1040,12 +1046,12 @@ class ColorField(Field):
 ##    """Not implemented yet."""
 ##    pass
 
-#Give Form all the tools
-FIELDS = [(name, cls) for name, cls in locals().items()
-    if name[0] != '_' and \
-    ((type(cls) == types.TypeType and issubclass(cls, Field)) or\
-    type(cls) in [types.StringType, types.UnicodeType, types.ListType,
-    types.TupleType])]
+# Give Form all the tools
+FIELDS = [(name, cls) for name, cls in list(locals().items())
+          if name[0] != '_' and \
+          ((type(cls) == type and issubclass(cls, Field)) or \
+           type(cls) in [bytes, str, list,
+                         tuple])]
 
 for _name, _Field in FIELDS:
     setattr(Form, _name, _Field)

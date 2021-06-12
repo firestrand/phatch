@@ -18,9 +18,9 @@
 
 # Follows PEP8
 
-from lib.safe import RE_EXPR, RE_VAR
-from lib.reverse_translation import _t, _r
-from lib.unicoding import ensure_unicode
+from phatch.lib.safe import RE_EXPR, RE_VAR
+from phatch.lib.reverse_translation import _t, _r
+from phatch.lib.unicoding import ensure_unicode
 
 REVERSE = {}
 
@@ -42,7 +42,7 @@ def _var_to_english(match):
 
 
 def to_local(x):
-    _x = _(x)
+    _x = str(x)
     if x != _x:
         return _x
     return RE_EXPR.sub(_expr_to_local, x)
@@ -53,4 +53,4 @@ def _expr_to_local(match):
 
 
 def _var_to_local(match):
-    return _(match.group('var')) + match.group('attr')
+    return str(match.group('var')) + match.group('attr')

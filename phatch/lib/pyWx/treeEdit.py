@@ -18,23 +18,28 @@
 # ---import modules
 
 # gui-indepedent
+from PIL import Image
+
+from phatch.lib.pyWx.wxPil import pil_wxImage, wxImage_pil
+
 if __name__ == '__main__':
     import sys
+
     sys.path.insert(0, '..')
 
-from lib import formField
-from lib import metadata
+from phatch.lib import formField
+from phatch.lib import metadata
 
 # gui-dependent
 import wx
-import graphics
-import popup
-import treeDragDrop
+from phatch.lib.pyWx import graphics
+from phatch.lib.pyWx import popup
+from phatch.lib.pyWx import treeDragDrop
 
 if __name__ == '__main__':
     sys.path.insert(0, '../..')
 
-from lib.unicoding import exception_to_unicode
+from phatch.lib.unicoding import exception_to_unicode
 
 FIELD_DELIMITER = ': '
 WX_ENCODING = wx.GetDefaultPyEncoding()
@@ -46,8 +51,8 @@ IMAGE_TEST_INFO = metadata.InfoTest()
 ITEM_HEIGHT = 28
 ICON_SIZE = (ITEM_HEIGHT, ITEM_HEIGHT)
 TR_DEFAULT_STYLE = wx.TR_HAS_BUTTONS | wx.TR_NO_LINES | \
-            wx.TR_FULL_ROW_HIGHLIGHT | wx.TR_HIDE_ROOT | \
-            wx.TR_DEFAULT_STYLE | wx.SUNKEN_BORDER
+                   wx.TR_FULL_ROW_HIGHLIGHT | wx.TR_HIDE_ROOT | \
+                   wx.TR_DEFAULT_STYLE | wx.SUNKEN_BORDER
 
 
 def _do_nothing(*args, **keyw):
@@ -68,20 +73,21 @@ def get_index(li, index, n=3):
     try:
         return li[index]
     except IndexError:
-        return (None, ) * n
+        return (None,) * n
 
 
 class TreeMixin(treeDragDrop.Mixin):
     """
     - form is like an action
     """
+
     def __init__(self, form_factory={}, CtrlMixin=[],
-        icon_size=(28, 28), show_error=_do_nothing, set_dirty=_do_nothing):
+                 icon_size=(28, 28), show_error=_do_nothing, set_dirty=_do_nothing):
         if wx.Platform == "__WXGTK__":
             # indentation
             self.SetIndent(int(self.GetIndent() * 1.5))
-# #        elif wx.Platform == "__WXMSW__":  # doesn't work
-# #            self.SetIndent(int(self.GetIndent() / 2))
+        # #        elif wx.Platform == "__WXMSW__":  # doesn't work
+        # #            self.SetIndent(int(self.GetIndent() / 2))
         # form factory
         self.form_factory = form_factory
         self.CtrlMixin = CtrlMixin
@@ -113,13 +119,13 @@ class TreeMixin(treeDragDrop.Mixin):
 
     def _AddFormToImageList(self, form, icon_size, icon_disabled):
         wx_image = graphics.image(form.icon, icon_size)
-        form.icon_bitmap = wx.BitmapFromImage(wx_image)
+        form.icon_bitmap = wx.Bitmap(wx_image)
         # rescale(image, icon_size[0], icon_size[1])
-        from PIL import Image
-        from wxPil import pil_wxImage, wxImage_pil
-        wx_image = pil_wxImage(wxImage_pil(wx_image).resize(icon_size,\
-                                                        Image.ANTIALIAS))
-        form.icon_tree = wx.BitmapFromImage(wx_image)
+        pil_img = wxImage_pil(wx_image)
+        if not pil_img:
+            print("Image None")
+        wx_image = pil_wxImage(wxImage_pil(wx_image).resize(icon_size, Image.ANTIALIAS))
+        form.icon_tree = wx.Bitmap(wx_image)
         form.icon_tree_disabled = icon_disabled
         form.icon_tree_id = (
             self.image_list.Add(form.icon_tree_disabled),
@@ -130,7 +136,7 @@ class TreeMixin(treeDragDrop.Mixin):
 
     def tree_label(self, name, value):
         return ''.join([_(name), FIELD_DELIMITER,
-            self.CtrlMixin._to_local(value)])
+                        self.CtrlMixin._to_local(value)])
 
     def delete_all_forms(self):
         self.DeleteAllItems()
@@ -139,7 +145,7 @@ class TreeMixin(treeDragDrop.Mixin):
     # ---forms
     def append_form(self, form, item=-1):
         root = self.GetRootItem()
-        if item is -1:
+        if item == -1:
             item = self.AppendItem(root, _(form.label))
         else:
             item = self.InsertItem(root, item, _(form.label))
@@ -213,13 +219,13 @@ class TreeMixin(treeDragDrop.Mixin):
         value_as_string = field.get_as_string()
         if method is None:
             new_item = self.AppendItem(parent,
-                            self.tree_label(label, value_as_string))
+                                       self.tree_label(label, value_as_string))
         else:
             # print method, parent, item, self.tree_label(label,\
             #                                       value_as_string)
             # print
             new_item = method(parent, item,
-                            self.tree_label(label, value_as_string))
+                              self.tree_label(label, value_as_string))
         self.SetPyData(new_item, (label, value_as_string))
         return new_item
 
@@ -249,7 +255,7 @@ class TreeMixin(treeDragDrop.Mixin):
                 # overrule if dirty
                 value_as_string = field.get_as_string()
                 self.SetItemText(ui_field,
-                    self.tree_label(label, value_as_string))
+                                 self.tree_label(label, value_as_string))
                 self.SetPyData(ui_field, (label, value_as_string))
                 field.dirty = False
             fields.append((ui_field, label, value_as_string))
@@ -268,7 +274,7 @@ class TreeMixin(treeDragDrop.Mixin):
                 image = self.GetItemImage(item, wx.TreeItemIcon_Normal)
                 if image != -1:
                     self.enable_form_item(item,
-                        not self.is_form_enabled(item))
+                                          not self.is_form_enabled(item))
                     self.set_dirty(True)
 
     def set_form_field_value(self, item, value_as_string):
@@ -281,13 +287,13 @@ class TreeMixin(treeDragDrop.Mixin):
             try:
                 if isinstance(field, formField.PixelField):
                     field.get_size(IMAGE_TEST_INFO, 100, 100, label,
-                        value_as_string)
+                                   value_as_string)
                     # 100 is just some dummy value for base, dpi
                 else:
                     field.get(IMAGE_TEST_INFO, label=label,
-                        value_as_string=value_as_string, test=True)
+                              value_as_string=value_as_string, test=True)
                 self.set_dirty(True)
-            except formField.ValidationError, details:
+            except formField.ValidationError as details:
                 reason = exception_to_unicode(details, WX_ENCODING)
                 self.show_error(reason)
                 if formField.Field.safe:
@@ -306,9 +312,9 @@ class TreeMixin(treeDragDrop.Mixin):
         if item and self.GetPyData(item):
             field = self.get_form_field(item)
             if not (isinstance(field, formField.ChoiceField) \
-                or  isinstance(field, formField.BooleanField) \
-                or  isinstance(field, formField.ColorField) \
-                or  isinstance(field, formField.SliderField)):
+                    or isinstance(field, formField.BooleanField) \
+                    or isinstance(field, formField.ColorField) \
+                    or isinstance(field, formField.SliderField)):
                 self.set_form_field_value(item, value)
 
     # ---selected form
@@ -362,11 +368,11 @@ class TreeMixin(treeDragDrop.Mixin):
                     # insert after previous ui field
                     # print 'prev value', self.GetPyData(ui_field_prev)
                     ui_field_prev = self.append_field(item, label, field,
-                        self.InsertItem, ui_field_prev)
+                                                      self.InsertItem, ui_field_prev)
                 elif self.ItemHasChildren(item):
                     # insert before first ui field
                     ui_field_prev = self.append_field(item, label, field,
-                        self.InsertItemBefore, self.GetFirstChild(item))
+                                                      self.InsertItemBefore, self.GetFirstChild(item))
                 else:
                     # append as first element
                     ui_field_prev = self.append_field(item, label, field)
@@ -390,7 +396,7 @@ class TreeMixin(treeDragDrop.Mixin):
 
     def remove_selected_form(self):
         form = self.get_form_selected()
-        if form is -1:
+        if form == -1:
             return False
         else:
             self.Delete(form)
@@ -415,6 +421,7 @@ class TreeMixin(treeDragDrop.Mixin):
         def on_change(value_as_string):
             field.set_as_string(value_as_string)
             self.update_form_relevance(item)
+
         if isinstance(field, formField.SliderField):
             extra = {'minValue': field.min, 'maxValue': field.max}
         elif isinstance(field, formField.ChoiceField):
@@ -424,7 +431,7 @@ class TreeMixin(treeDragDrop.Mixin):
             if field.dictionary is None:
                 field.init_dictionary()
             extra = {'extensions': field.extensions,
-                        'dictionary': field.dictionary}
+                     'dictionary': field.dictionary}
             if isinstance(field, formField.ImageDictionaryField):
                 extra['show_path'] = False
                 extra['on_change'] = on_change
@@ -445,14 +452,14 @@ class TreeMixin(treeDragDrop.Mixin):
             extra = {}
         self.popup_item = item
         self.popup = popup.EditPanel(self, pos=pos, offset=offset,
-                                size=size, label=_(label) + FIELD_DELIMITER,
-                                value=value, extra=extra, typ=typ,
-                                border=1, CtrlMixin=self.CtrlMixin)
+                                     size=size, label=_(label) + FIELD_DELIMITER,
+                                     value=value, extra=extra, typ=typ,
+                                     border=1, CtrlMixin=self.CtrlMixin)
         self.popup.Show()
         self.resize_popup()
         if not isinstance(field, formField.FontFileField):
             wx.GetTopLevelParent(self).Bind(wx.EVT_LEAVE_WINDOW,
-                self.close_popup)
+                                            self.close_popup)
             self.evt_leave_window = True
 
     def create_popup_selected(self):
@@ -472,17 +479,17 @@ class TreeMixin(treeDragDrop.Mixin):
             # self.update_form_relevance(self.popup_item)
         self.popup = self.popup_item = None
 
-# #    This would be logical but only works in wxPython2.6
-# #    def get_popup_pos_offset_size(self, item):
-# #        text_only_rect = self.GetBoundingRect(item, textOnly=True)
-# #        rect = self.GetBoundingRect(item, textOnly=False)
-# #        pos = rect.GetPosition()
-# #        size = rect.GetSize()
-# #        offset = text_only_rect.GetPosition()[0] - pos[0]
-# #        print self.GetClientSize(), self.GetSize(), self.GetRect(),\
-# #                                                text_only_rect, rect
-# #        return pos, offset, size
-# #
+    # #    This would be logical but only works in wxPython2.6
+    # #    def get_popup_pos_offset_size(self, item):
+    # #        text_only_rect = self.GetBoundingRect(item, textOnly=True)
+    # #        rect = self.GetBoundingRect(item, textOnly=False)
+    # #        pos = rect.GetPosition()
+    # #        size = rect.GetSize()
+    # #        offset = text_only_rect.GetPosition()[0] - pos[0]
+    # #        print self.GetClientSize(), self.GetSize(), self.GetRect(),\
+    # #                                                text_only_rect, rect
+    # #        return pos, offset, size
+    # #
 
     # A bit unlogical but works both in wxPython2.6 and 2.8
     def get_popup_pos_offset_size(self, item):
@@ -494,7 +501,7 @@ class TreeMixin(treeDragDrop.Mixin):
         return pos, offset, size
 
     def resize_popup(self):
-        if not(self.popup is None):
+        if not (self.popup is None):
             item = self.GetSelection()
             pos, offset, size = self.get_popup_pos_offset_size(item)
             popup = self.popup
@@ -562,7 +569,7 @@ class TreeMixin(treeDragDrop.Mixin):
     # ---checks
     def is_field(self, item):
         return self.GetItemParent(item) != self.GetRootItem() and \
-                item != self.GetRootItem()
+               item != self.GetRootItem()
 
     def is_field_selected(self):
         return self._field_selected
@@ -572,8 +579,8 @@ class TreeMixin(treeDragDrop.Mixin):
 
     def is_form_enabled(self, item):
         form = self.GetPyData(item)
-        return self.GetItemImage(item, wx.TreeItemIcon_Normal) ==\
-                                            form.icon_tree_id[True]
+        return self.GetItemImage(item, wx.TreeItemIcon_Normal) == \
+               form.icon_tree_id[True]
 
     def is_form_selected(self):
         return not self._field_selected
@@ -589,21 +596,21 @@ def example():
 
         def __init__(self):
             formField.Form.__init__(self,
-                foo1=formField.ChoiceField(value='a', choices=('a', 'b')))
+                                    foo1=formField.ChoiceField(value='a', choices=('a', 'b')))
 
     class Form2(formField.Form):
         label = 'form2'
 
         def __init__(self):
             formField.Form.__init__(self,
-                foo2=formField.PixelField(value='100'))
+                                    foo2=formField.PixelField(value='100'))
 
     class Form3(formField.Form):
         label = 'form3'
 
         def __init__(self):
             formField.Form.__init__(self,
-                foo2=formField.FileSizeField(value='100'))
+                                    foo2=formField.FileSizeField(value='100'))
 
     form_factory = {
         'form1': Form1,
@@ -611,13 +618,12 @@ def example():
         'form3': Form3,
     }
     form4 = formField.Form(foo3=formField.SliderField(value='100',
-                    minValue=0, maxValue=100))
+                                                      minValue=0, maxValue=100))
     forms = [x() for x in form_factory.values()]  # + [form4]
 
     class Tree(wx.TreeCtrl, TreeMixin):
 
         def __init__(self, parent, form_factory, *args, **keyw):
-
             class I18n_CtrlMixin:
                 """Fake example of a Mixin"""
                 _to_local = str
@@ -625,14 +631,14 @@ def example():
                 _to_local = staticmethod(_to_local)
                 _to_english = staticmethod(_to_english)
 
-            wx.TreeCtrl.__init__(self, parent, style=TR_DEFAULT_STYLE, *args,\
-                                                                        **keyw)
+            wx.TreeCtrl.__init__(self, parent, style=TR_DEFAULT_STYLE, *args, \
+                                 **keyw)
             TreeMixin.__init__(self,
-                form_factory=form_factory,
-                CtrlMixin=I18n_CtrlMixin,
-                icon_size=(28, 28),
-                show_error=parent.show_error,
-                set_dirty=parent.set_dirty,)
+                               form_factory=form_factory,
+                               CtrlMixin=I18n_CtrlMixin,
+                               icon_size=(28, 28),
+                               show_error=parent.show_error,
+                               set_dirty=parent.set_dirty, )
 
     class Frame(wx.Frame):
         def show_error(self, message):
@@ -662,9 +668,10 @@ def example():
     app = App(0)
     app.MainLoop()
 
+
 # ---disabled
 ICON_DISABLED = \
-'x\xda\x01I\x03\xb6\xfc\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x1c\
+    b'x\xda\x01I\x03\xb6\xfc\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x1c\
 \x00\x00\x00\x1c\x08\x06\x00\x00\x00r\r\xdf\x94\x00\x00\x00\x04sBIT\x08\x08\
 \x08\x08|\x08d\x88\x00\x00\x03\x00IDATH\x89\xed\x94\xcfk\\U\x18\x86\x9f\xef\
 \xdc\x99If\x98\xdc\xab\xf7\xb6\xbak\xa9\x01\xb9\xc5(\xed\xa2T\x14QAt\xad\xab\

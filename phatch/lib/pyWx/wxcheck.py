@@ -18,18 +18,19 @@
 import os
 import sys
 from subprocess import call
-from lib.unicoding import ENCODING
+
+from phatch.lib.unicoding import ENCODING
 
 
 def _t(x):
-    return _(x).encode(ENCODING, 'replace')
+    return str(x).encode(ENCODING, 'replace')
 
 
 def ensure(recommended, minimal):
     """Ensures the minimal version of wxPython is installed.
     - minimal: as string (eg. '2.6')"""
 
-    #wxversion
+    # wxversion
     try:
         import wxversion
         if wxversion.checkInstalled(recommended):
@@ -41,44 +42,44 @@ def ensure(recommended, minimal):
     except ImportError:
         sys.stdout.write(_t('Warning: python-wxversion is not installed.\n'))
 
-    #wxversion failed, import wx anyway
+    # wxversion failed, import wx anyway
     params = {'recommended': recommended, 'minimal': minimal}
     try:
         import wx
     except ImportError:
         message = _t('Error: wxPython %(recommended)s' \
-                                ' (or at least %(minimal)s) can not' \
-                                ' be found, but is required.'
-                            ) % params +\
-            '\n\n' + _t('Please (re)install it.')
+                     ' (or at least %(minimal)s) can not' \
+                     ' be found, but is required.'
+                     ) % params + \
+                  '\n\n' + _t('Please (re)install it.')
         sys.stderr.write(message)
         if sys.platform.startswith('linux') and \
                 os.path.exists('/usr/bin/zenity'):
             call('''zenity --error --text="%s"\n\n''' % message + \
-                _t("This application needs 'python-wxversion' " \
+                 _t("This application needs 'python-wxversion' " \
                     "and 'python-wxgtk%(recommended)s' " \
                     "(or at least 'python-wxgtk%(minimal)s')."
                     ) % params, shell=True)
         sys.exit()
 
-    #wxversion failed but wx is available, check version again
+    # wxversion failed but wx is available, check version again
     params['version'] = wx.VERSION_STRING
     if wx.VERSION_STRING < minimal:
-
         class MyApp(wx.App):
             def OnInit(self):
                 result = wx.MessageBox(
                     _t("This application is known to be compatible" \
-                        " with\nwxPython version(s) %(recommended)s" \
-                        " (or at least %(minimal)s),\nbut you have " \
-                        "%(version)s installed."
-                        ) % params + "\n\n" +\
+                       " with\nwxPython version(s) %(recommended)s" \
+                       " (or at least %(minimal)s),\nbut you have " \
+                       "%(version)s installed."
+                       ) % params + _t("\n\n") + \
                     _t("Please upgrade your wxPython."),
                     _t("wxPython Version Error"),
                     style=wx.ICON_ERROR)
                 return False
+
         app = MyApp()
         app.MainLoop()
         sys.exit()
-    #wxversion failed, but wx is the right version anyway
+    # wxversion failed, but wx is the right version anyway
     return wx

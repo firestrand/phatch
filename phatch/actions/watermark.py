@@ -20,9 +20,9 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
-from lib.imtools import convert_safe_mode
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.imtools import convert_safe_mode
 
 
 def init():
@@ -30,7 +30,7 @@ def init():
     global Image
     from PIL import Image
     global generate_layer
-    from lib.imtools import generate_layer
+    from phatch.lib.imtools import generate_layer
 
 
 def watermark(image, mark, horizontal_offset=None, vertical_offset=None,
@@ -59,7 +59,7 @@ class Action(models.StampMixin, models.Action):
     __doc__ = _t('Apply with tiling, scaling and opacity')
 
     icon = \
-'x\xda\x01\x95\nj\xf5\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\x95\nj\xf5\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\nLIDATh\x81\xd5\x98[L\\\xc7\x19\xc7\x7fsv\xcf\xee\xd9\
 \xb3\xbb`p\x80\xf8\x02\xacq\x02\xb5\xe36\xb1\xad\xa4)(VmZ)i\xdaD\xceC\x926\

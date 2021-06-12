@@ -17,12 +17,6 @@
 # Phatch recommends SPE (http://pythonide.stani.be) for editing python files.
 
 # Follows PEP8
-
-try:
-    _
-except NameError:
-    __builtins__['_'] = unicode
-
 #---import modules
 
 #standard library
@@ -34,7 +28,10 @@ import pprint
 import string
 import time
 import traceback
-from cStringIO import StringIO
+from builtins import str as text
+# Python 2 and 3:
+from io import BytesIO     # for handling byte strings
+from io import StringIO    # for handling unicode strings
 from datetime import timedelta
 
 #gui-independent
@@ -46,9 +43,9 @@ from phatch.lib import safe
 from phatch.lib.odict import ReadOnlyDict
 from phatch.lib.unicoding import ensure_unicode, exception_to_unicode, ENCODING
 
-import ct
-import pil
-from message import send
+from . import ct
+from . import pil
+from .message import send
 
 #---constants
 PROGRESS_MESSAGE = 'In: %s%s\nFile' % (' ' * 100, '.')
@@ -60,19 +57,21 @@ TREE_HEADERS += ['index', 'folderindex']
 ERROR_INCOMPATIBLE_ACTIONLIST = \
 str('Sorry, the action list seems incompatible with %(name)s %(version)s.')
 
-ERROR_UNSAFE_ACTIONLIST_INTRO = _('This action list is unsafe:')
+ERROR_UNSAFE_ACTIONLIST_INTRO = str('This action list is unsafe:')
 ERROR_UNSAFE_ACTIONLIST_DISABLE_SAFE = \
 str('Disable Safe Mode in the Tools menu if you trust this action list.')
 ERROR_UNSAFE_ACTIONLIST_ACCEPT = \
 str("Never run action lists from untrusted sources.") + ' ' +\
 str("Please check if this action list doesn't contain harmful code.")
 
+#---globals
+ACTIONS, ACTION_LABELS, ACTION_FIELDS = {}, [], {}
 #---classes
 
 
 class PathError(Exception):
 
-    def __init__(self, filename):
+    def __init_str(self, filename):
         """PathError for invalid path.
 
         :param filename: filename of the invalid path
@@ -89,7 +88,7 @@ class PathError(Exception):
 def init():
     """Verify user paths and import all actions. This function should
     be called at the start."""
-    from config import verify_app_user_paths
+    from .config import verify_app_user_paths
     verify_app_user_paths()
     import_actions()
 
@@ -127,7 +126,7 @@ def log_error(message, filename, action=None, label='Error'):
         details += os.linesep + 'Action:' + \
                     pprint.pformat(action.dump())
     ERROR_LOG_FILE.write(os.linesep.join([
-        u'%s %d:%s' % (label, ERROR_LOG_COUNTER, message),
+        '%s %d:%s' % (label, ERROR_LOG_COUNTER, message),
         details,
         os.linesep,
     ]))
@@ -155,7 +154,7 @@ def get_vars(actions):
     vars_list = []
     for action in actions:
         vars_list.extend(action.metadata)
-        for field in action._get_fields().values():
+        for field in list(action._get_fields().values()):
             safe.extend_vars(vars_list, field.get_as_string())
     return vars_list
 
@@ -168,7 +167,7 @@ def assert_safe(actions):
         warning_action = ''
         if action.label == 'Geek':
             geek = True
-        for label, field in action._get_fields().items():
+        for label, field in list(action._get_fields().items()):
             if label.startswith('_') \
                     or isinstance(field, formField.BooleanField)\
                     or isinstance(field, formField.ChoiceField)\
@@ -176,16 +175,16 @@ def assert_safe(actions):
                 continue
             try:
                 field.assert_safe(label, test_info)
-            except Exception, details:
+            except Exception as details:
                 warning_action += '  %s: %s\n'\
                     % (label, exception_to_unicode(details))
         if warning_action:
-            warning += '%s %s:\n%s' % (_(action.label), _('Action'),
+            warning += '%s %s:\n%s' % (str(action.label), str('Action'),
                 warning_action)
     if warning:
         warning += '\n'
     if geek:
-        warning += '%s\n' % (_('Geek actions are not allowed in safe mode.'))
+        warning += '%s\n' % (str('Geek actions are not allowed in safe mode.'))
     return warning
 
 #---collect image files
@@ -318,7 +317,7 @@ def check_actionlist_file_only(actions):
     :returns: True if only file operations, False otherwise
     :rtype: bool
 
-    >>> from actions import canvas, rename
+    >>> from phatch.actions import canvas, rename
     >>> check_actionlist_file_only([canvas.Action()])
     False
     >>> check_actionlist_file_only([rename.Action()])
@@ -346,7 +345,7 @@ def check_actionlist(actions, settings):
     >>> settings = {'no_save':False}
     >>> check_actionlist([], settings) is None
     True
-    >>> from actions import canvas, save
+    >>> from phatch.actions import canvas, save
     >>> canvas_action = canvas.Action()
     >>> save_action = save.Action()
     >>> check_actionlist([canvas_action,save_action],
@@ -364,8 +363,8 @@ def check_actionlist(actions, settings):
     """
     #Check if there is something to do
     if actions == []:
-        send.frame_show_error('%s %s' % (_('Nothing to do.'),
-            _('The action list is empty.')))
+        send.frame_show_error('%s %s' % (str('Nothing to do.'),
+            str('The action list is empty.')))
         return None
     #Check if the actionlist is safe
     if formField.get_safe():
@@ -378,8 +377,8 @@ def check_actionlist(actions, settings):
     #Skip disabled actions
     actions = [action for action in actions if action.is_enabled()]
     if actions == []:
-        send.frame_show_error('%s %s' % (_('Nothing to do.'),
-            _('There is no action enabled.')))
+        send.frame_show_error('%s %s' % (str('Nothing to do.'),
+            str('There is no action enabled.')))
         return None
     #Check if there is a save statement
     last_action = actions[-1]
@@ -406,7 +405,7 @@ def verify_images(image_infos, repeat):
     :returns: None for error, valid image info dictionaries otherwise
     """
     #show dialog
-    send.frame_show_progress(title=_("Checking images"),
+    send.frame_show_progress(title=str("Checking images"),
         parent_max=len(image_infos),
         message=PROGRESS_MESSAGE)
     #verify files
@@ -423,14 +422,14 @@ def verify_images(image_infos, repeat):
     if invalid:
         result = {}
         send.frame_show_files_message(result,
-            message=_('Phatch can not handle %d image(s):') % len(invalid),
-            title=ct.FRAME_TITLE % ('', _('Invalid images')),
+            message=str('Phatch can not handle %d image(s):') % len(invalid),
+            title=ct.FRAME_TITLE % ('', str('Invalid images')),
             files=invalid)
         if result['cancel']:
             return
     #Display an error when no files are left
     if not valid:
-        send.frame_show_error(_("Sorry, no valid files found"))
+        send.frame_show_error(str("Sorry, no valid files found"))
         return
     #number valid items
     for index, image_info in enumerate(valid):
@@ -440,7 +439,7 @@ def verify_images(image_infos, repeat):
     send.frame_show_image_tree(result, valid,
         widths=(200, 40, 200, 200, 200, 200, 60),
         headers=TREE_HEADERS,
-        ok_label=_('C&ontinue'), buttons=True)
+        ok_label=str('C&ontinue'), buttons=True)
     if result['answer']:
         return valid
 
@@ -469,7 +468,7 @@ def get_paths_and_settings(paths, settings, drop=False):
             return
         paths = settings['paths']
         if not paths:
-            send.frame_show_error(_('No files or folder selected.'))
+            send.frame_show_error(str('No files or folder selected.'))
             return None
     return paths
 
@@ -496,10 +495,10 @@ def get_photo(info_file, info_not_file, result):
         result['skip'] = False
         result['abort'] = False
         return photo, result
-    except Exception, details:
+    except Exception as details:
         reason = exception_to_unicode(details)
         #log error details
-        message = u'%s: %s:\n%s' % (_('Unable to open file'),
+        message = '%s: %s:\n%s' % (str('Unable to open file'),
             info_file['path'], reason)
     ignore = False
     action = None
@@ -533,17 +532,17 @@ def process_error(photo, message, image_file, action, result, ignore):
         send.frame_show_progress_error(result, message, ignore=ignore)
         #if result:
         answer = result['answer']
-        if answer == _('abort'):
+        if answer == str('abort'):
             #send.progress_close()
             result['skip'] = False
             result['abort'] = True
             return photo, result
         result['last_answer'] = answer
-        if answer == _('skip'):
+        if answer == str('skip'):
             result['skip'] = True
             result['abort'] = False
             return photo, result
-    elif result['last_answer'] == _('skip'):
+    elif result['last_answer'] == str('skip'):
         result['skip'] = True
         result['abort'] = False
         return photo, result
@@ -582,11 +581,11 @@ def init_actions(actions):
     for action in actions:
         try:
             action.init()
-        except Exception, details:
+        except Exception as details:
             reason = exception_to_unicode(details)
-            message = u'%s\n\n%s' % (
-                _("Can not apply action %(a)s:") \
-                % {'a': _(action.label)}, reason)
+            message = '%s\n\n%s' % (
+                str("Can not apply action %(a)s:") \
+                % {'a': str(action.label)}, reason)
             send.frame_show_error(message)
             return False
     return True
@@ -619,13 +618,13 @@ def apply_action_to_photo(action, photo, read_only_settings, cache,
         #log non fatal errors/warnings
         flush_log(photo, image_file, action)
         return photo, result
-    except Exception, details:
+    except Exception as details:
         flush_log(photo, image_file, action)
         folder, image = os.path.split(ensure_unicode(image_file))
         reason = exception_to_unicode(details)
-        message = u'%s\n%s\n\n%s' % (
-            _("Can not apply action %(a)s on image '%(i)s' in folder:")\
-                % {'a': _(action.label), 'i': image},
+        message = '%s\n%s\n\n%s' % (
+            str("Can not apply action %(a)s on image '%(i)s' in folder:")\
+                % {'a': str(action.label), 'i': image},
             folder,
             reason,
         )
@@ -719,7 +718,7 @@ def apply_actions_to_photos(actions, settings, paths=None, drop=False,
 
     # Start progress dialog
     repeat = settings['repeat']
-    send.frame_show_progress(title=_("Executing action list"),
+    send.frame_show_progress(title=str("Executing action list"),
         parent_max=image_amount * repeat,
         child_max=actions_amount,
         message=PROGRESS_MESSAGE)
@@ -745,15 +744,15 @@ def apply_actions_to_photos(actions, settings, paths=None, drop=False,
     delta = time.time() - start
     duration = timedelta(seconds=int(delta))
     if image_amount == 1:
-        message = _('One image done in %s') % duration
+        message = str('One image done in %s') % duration
     else:
-        message = _('%(amount)d images done in %(duration)s')\
+        message = str('%(amount)d images done in %(duration)s')\
             % {'amount': image_amount, 'duration': duration}
     # add error status
     if ERROR_LOG_COUNTER == 1:
-        message += '\n' + _('One issue was logged')
+        message += '\n' + str('One issue was logged')
     elif ERROR_LOG_COUNTER:
-        message += '\n' + _('%d issues were logged')\
+        message += '\n' + str('%d issues were logged')\
             % ERROR_LOG_COUNTER
 
     # show notification
@@ -861,7 +860,7 @@ def import_actions():
         #register action
         ACTIONS[cl.label] = cl
     #ACTION_LABELS
-    ACTION_LABELS = ACTIONS.keys()
+    ACTION_LABELS = list(ACTIONS.keys())
     ACTION_LABELS.sort()
     #ACTION_FIELDS
     ACTION_FIELDS = {}

@@ -47,7 +47,7 @@ OUT_DIFF = utils.system_path('output/diff')
 # Phatch package path
 PHATCH_PATH = utils.system_path('../phatch/')
 # Phatch application path
-PHATCH_APP_PATH = utils.system_path(os.path.join(PHATCH_PATH, 'phatch.py'))
+PHATCH_APP_PATH = utils.system_path(os.path.join(PHATCH_PATH, 'phatch_main.py'))
 # Phatch actions path
 PHATCH_ACTIONS_PATH = utils.system_path(os.path.join(PHATCH_PATH, 'actions'))
 

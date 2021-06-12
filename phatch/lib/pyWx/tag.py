@@ -16,15 +16,15 @@
 # Follows PEP8
 
 import wx
-import paint
-from compatible import SearchCtrl
+from phatch.lib.pyWx import paint
+from phatch.lib.pyWx.compatible import SearchCtrl
 
 
 def extract_tags(items):
     tags = []
     for item in items:
         for tag in item.tags:
-            tag = _(tag)
+            tag = str(tag)
             if tag not in tags:
                 tags.append(tag)
     return tags

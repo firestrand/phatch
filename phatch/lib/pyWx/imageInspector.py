@@ -16,61 +16,61 @@
 # Follows PEP8
 
 if __name__ == '__main__':
-    #add phatch to sys.path
+    # add phatch to sys.path
     import sys
+
     sys.path.insert(0, '..')
     import gettext
+
     gettext.install('test')
 
-#---modules
-import cStringIO
+# ---modules
+import io
 import os
 import zlib
 
 import wx
 import wx.grid as gridlib
 
-import  wx.lib.newevent
+import wx.lib.newevent
+
 UpdateEvent, UPDATE_EVENT = wx.lib.newevent.NewEvent()
 
-from lib import imageTable
-from lib import formField
-from lib import metadata
-from lib import system
+from phatch.lib import imageTable, formField, metadata, system
 
-import clipboard
-import droplet
-import graphics
-import tag
-import wildcard
-import wxPil
-import dialogsInspector
+from . import clipboard
+from . import droplet
+from . import graphics
+from . import tag
+from . import wildcard
+from . import wxPil
+from . import dialogsInspector
 
 try:
     import pyexiv2
 except ImportError:
     pyexiv2 = None
 
-#---constants
-ALL = _('All')
+# ---constants
+ALL = str('All')
 ALTERNATE_COLORS = (wx.Colour(254, 255, 255), wx.Colour(250, 250, 250))
 COL_WIDTH = 140
 CONFIRM_DELETE_TAG = \
-    _('Are you sure you want to delete this tag from "%s"?')
+    str('Are you sure you want to delete this tag from "%s"?')
 CONFIRM_DELETE_TAG_ALL = \
-    _('Are you sure you want to delete this tag from all images?')
+    str('Are you sure you want to delete this tag from all images?')
 FILENAME = '/home/stani/sync/Afbeeldingen/ubuntu_dog_1600x1200_3d.png'
-#FILENAME = ''
+# FILENAME = ''
 GRAY = wx.Colour(112, 112, 112)
 RED = wx.Colour(255, 230, 230)
-SELECT = _('Select')
+SELECT = str('Select')
 SIZE = (450, 510)
 THUMB_SIZE = (128, 128)
 TAGS = [SELECT, ALL, 'Pil']
 if pyexiv2:
     TAGS.extend(['Exif', 'Iptc'])
 TAGS.extend(['Pexif', 'Zexif'])  # 'EXIF',
-TITLE = _('Image Inspector')
+TITLE = str('Image Inspector')
 
 WX_ENCODING = wx.GetDefaultPyEncoding()
 
@@ -115,9 +115,9 @@ class AddTagDialog(dialogsInspector.AddTagDialog):
         valid = bool(metadata.RE_PYEXIV2_TAG_EDITABLE.match(key))
         exists = key in self.keys
         if not valid:
-            self.warning.SetLabel(_('Tag should start with Exif_* or Iptc_*'))
+            self.warning.SetLabel(str('Tag should start with Exif_* or Iptc_*'))
         elif exists:
-            self.warning.SetLabel(_('Tag exists already'))
+            self.warning.SetLabel(str('Tag exists already'))
         else:
             self.warning.SetLabel('')
         self.add.Enable(valid and not exists)
@@ -183,21 +183,21 @@ class Table(gridlib.PyGridTableBase):
         The selected color is based on the system (gtk, windows or
         mac os x).
         """
-        #odd rows
+        # odd rows
         self.odd_attr = gridlib.GridCellAttr()
         self.odd_attr.SetBackgroundColour(colors[1])
-        #even rows
+        # even rows
         self.even_attr = gridlib.GridCellAttr()
         self.even_attr.SetBackgroundColour(colors[0])
-        #missing_rows
+        # missing_rows
         self.missing_attr = gridlib.GridCellAttr()
         self.missing_attr.SetBackgroundColour(RED)
-        #selected rows
+        # selected rows
         self.selected_attr = gridlib.GridCellAttr()
         self.selected_attr.SetBackgroundColour(
-            wx.SystemSettings_GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
         self.selected_attr.SetTextColour(
-            wx.SystemSettings_GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT))
+            wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT))
 
     # This is all it takes to make a custom data table to plug into a
     # wxGrid.  There are many more methods that can be overridden, but
@@ -240,13 +240,13 @@ class Table(gridlib.PyGridTableBase):
 class Grid(droplet.Mixin, gridlib.Grid):
     border = 4
     Table = Table
-    wildcard = '|'.join([wildcard.wildcard_list(_('Images'),
-        formField.IMAGE_READ_EXTENSIONS), _('All files'), '*'])
+    wildcard = '|'.join([wildcard.wildcard_list(str('Images'),
+                                                formField.IMAGE_READ_EXTENSIONS), str('All files'), '*'])
     corner_logo = _corner_logo = None
 
     def __init__(self, parent, thumb_size=THUMB_SIZE):
         super(Grid, self).__init__(parent)
-        #table
+        # table
         self.table = self.Table(thumb_size)
         self.image_table = self.table.table
         self.SetTable(self.table, True)
@@ -254,37 +254,37 @@ class Grid(droplet.Mixin, gridlib.Grid):
         self._rows_number = self.GetNumberRows()
         self._cols_number = self.GetNumberCols()
         self._cols_sized = []
-        #bitmap
+        # bitmap
         self.PENCIL_BITMAP = getPencilBitmap()
         self.PENCIL_BITMAP_SIZE = self.PENCIL_BITMAP.GetSize()
-        self.GRAY_BRUSH = wx.Brush("WHEAT", wx.TRANSPARENT)
+        self.GRAY_BRUSH = wx.Brush("WHEAT", wx.TRANSPARENT_BRUSH)
         self.GRAY_PEN = wx.Pen(GRAY)
-        #editor
+        # editor
         self.SetDefaultEditor(gridlib.GridCellTextEditor())
-        #drop
+        # drop
         self.SetAsFileDropTarget(self, self.OnDrop)
         self.SetAsFileDropTarget(self.GetEmpty(), self.OnDrop)
         self.SetAsFileDropTarget(self.GetTopLevelParent(), self.OnDrop)
-        #events
+        # events
         self.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
-        self.Bind(gridlib.EVT_GRID_CELL_CHANGE, self.OnGridCellChange)
+        self.Bind(gridlib.EVT_GRID_CELL_CHANGED, self.OnGridCellChange)
         self.Bind(gridlib.EVT_GRID_CELL_LEFT_CLICK,
-            self.OnGridCellLeftClick)
+                  self.OnGridCellLeftClick)
         self.Bind(gridlib.EVT_GRID_CELL_RIGHT_CLICK,
-            self.OnGridCellRightClicked)
+                  self.OnGridCellRightClicked)
         self.Bind(gridlib.EVT_GRID_CMD_LABEL_RIGHT_CLICK,
-            self.OnGridLabelRightClicked)
+                  self.OnGridLabelRightClicked)
         self.Bind(gridlib.EVT_GRID_LABEL_LEFT_DCLICK,
-            self.OnGridLabelLeftDclicked)
+                  self.OnGridLabelLeftDclicked)
         self.GetGridRowLabelWindow().Bind(wx.EVT_PAINT,
-            self.OnRowLabelPaint)
+                                          self.OnRowLabelPaint)
         self.GetGridColLabelWindow().Bind(wx.EVT_PAINT,
-            self.OnColLabelPaint)
-        #FIXME: logo might get corrupted
-        #self.GetGridCornerLabelWindow().Bind(wx.EVT_PAINT,
+                                          self.OnColLabelPaint)
+        # FIXME: logo might get corrupted
+        # self.GetGridCornerLabelWindow().Bind(wx.EVT_PAINT,
         #    self.OnCornerLabelPaint)
         self.Bind(gridlib.EVT_GRID_EDITOR_HIDDEN,
-            self.OnGridEditorHidden)
+                  self.OnGridEditorHidden)
 
     def OnGridEditorHidden(self, evt):
         wx.CallAfter(self.ShowLog)
@@ -295,7 +295,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
         if log:
             self.ShowError(log)
 
-    #---refresh
+    # ---refresh
     def UpdateIfNeeded(self):
         needs_update = False
         for image in self.image_table.images:
@@ -307,19 +307,19 @@ class Grid(droplet.Mixin, gridlib.Grid):
         """Only consider adding or removing rows."""
         for current, new, delmsg, addmsg in [
             (self._rows_number, self.table.GetNumberRows(),
-                gridlib.GRIDTABLE_NOTIFY_ROWS_DELETED,
-                gridlib.GRIDTABLE_NOTIFY_ROWS_APPENDED),
+             gridlib.GRIDTABLE_NOTIFY_ROWS_DELETED,
+             gridlib.GRIDTABLE_NOTIFY_ROWS_APPENDED),
             (self._cols_number, self.table.GetNumberCols(),
-                gridlib.GRIDTABLE_NOTIFY_COLS_DELETED,
-                gridlib.GRIDTABLE_NOTIFY_COLS_APPENDED),
+             gridlib.GRIDTABLE_NOTIFY_COLS_DELETED,
+             gridlib.GRIDTABLE_NOTIFY_COLS_APPENDED),
         ]:
             if new < current:
                 msg = gridlib.GridTableMessage(self.table, delmsg, new,
-                    current - new)
+                                               current - new)
                 self.ProcessTableMessage(msg)
             elif new > current:
                 msg = gridlib.GridTableMessage(self.table, addmsg,
-                    new - current)
+                                               new - current)
                 self.ProcessTableMessage(msg)
         self._rows_number = self.GetNumberRows()
         self._cols_number = self.GetNumberCols()
@@ -328,7 +328,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
         """Update all displayed values"""
         # This sends an event to the grid table to update all of the values
         msg = gridlib.GridTableMessage(self.table,
-            gridlib.GRIDTABLE_REQUEST_VIEW_GET_VALUES)
+                                       gridlib.GRIDTABLE_REQUEST_VIEW_GET_VALUES)
         self.ProcessTableMessage(msg)
 
     def UpdateThumbs(self, force_thumbs=False):
@@ -355,7 +355,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
                     self._cols_sized.append(col)
         self.ForceRefresh()
 
-    #---events
+    # ---events
     def OnGridCellLeftClick(self, evt):
         col = evt.GetCol()
         self.SetTitleFilename(self.image_table.images[col].filename)
@@ -372,7 +372,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
         pen = dc.GetPen()
         dc.SetPen(self.GRAY_PEN)
         dc.DrawLine(rect[0], rect[1] + rect[3] - 1,
-            rect[0] + rect[2], rect[1] + rect[3] - 1)
+                    rect[0] + rect[2], rect[1] + rect[3] - 1)
 
         def label_rect(position, col):
             col_width = self.GetColSize(col)
@@ -383,10 +383,10 @@ class Grid(droplet.Mixin, gridlib.Grid):
             return self.image_table.images[index].thumb_wx
 
         self._LabelPaint(dc, co=0, amount=self.GetNumberCols(),
-            label_rect=label_rect, get_size=self.GetColSize,
-            get_label=None,  # self.GetColLabelValue,
-            get_bitmap=get_bitmap, border=False, center_bitmap=True,
-            pen=pen)
+                         label_rect=label_rect, get_size=self.GetColSize,
+                         get_label=None,  # self.GetColLabelValue,
+                         get_bitmap=get_bitmap, border=False, center_bitmap=True,
+                         pen=pen)
 
     def OnCornerLabelPaint(self, evt):
         if not self.corner_logo:
@@ -399,7 +399,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
         pen = dc.GetPen()
         dc.SetPen(self.GRAY_PEN)
         dc.DrawLine(rect[0], rect[1] + rect[3] - 1,
-            rect[0] + rect[2], rect[1] + rect[3] - 1)
+                    rect[0] + rect[2], rect[1] + rect[3] - 1)
 
         def label_rect(position, col):
             return rect
@@ -408,14 +408,14 @@ class Grid(droplet.Mixin, gridlib.Grid):
             return self._corner_logo
 
         self._LabelPaint(dc, co=0, amount=1,
-            label_rect=label_rect, get_size=self.GetColSize,
-            get_label=None,  # self.GetColLabelValue,
-            get_bitmap=get_bitmap, border=False, center_bitmap=True,
-            pen=pen)
+                         label_rect=label_rect, get_size=self.GetColSize,
+                         get_label=None,  # self.GetColLabelValue,
+                         get_bitmap=get_bitmap, border=False, center_bitmap=True,
+                         pen=pen)
 
     def CopyCellValue(self, row, col):
         if self.table.GetNumberCols():
-            clipboard.copy_text(unicode(self.table.GetValue(row, col)))
+            clipboard.copy_text(str(self.table.GetValue(row, col)))
 
     def OnDrop(self, filenames, x, y):
         self.OpenImages(filenames)
@@ -429,7 +429,8 @@ class Grid(droplet.Mixin, gridlib.Grid):
         # Did we click on a row or a column?
         event.Skip()
         row, col = event.GetRow(), event.GetCol()
-        #bind menu events
+
+        # bind menu events
 
         def on_copy(event):
             self.CopyCellValue(row, col)
@@ -440,17 +441,17 @@ class Grid(droplet.Mixin, gridlib.Grid):
         def on_delete_cell(event):
             self.DeleteCell(row, col)
 
-        #build menu control
+        # build menu control
         menu = wx.Menu()
-        self._AppendMenuItem(menu, _('&Copy Value'), on_copy,
-            id=wx.ID_COPY)
+        self._AppendMenuItem(menu, str('&Copy Value'), on_copy,
+                             id=wx.ID_COPY)
         if pyexiv2:
-            self._AppendMenuItem(menu, _('&Add Tag'), on_add, 'Ctrl+N',
-                id=wx.ID_ADD)
+            self._AppendMenuItem(menu, str('&Add Tag'), on_add, 'Ctrl+N',
+                                 id=wx.ID_ADD)
         if self.image_table.is_cell_deletable(row, col):
-            self._AppendMenuItem(menu, _("&Delete Tag"), on_delete_cell,
-                'Del', id=wx.ID_DELETE)
-        #show menu
+            self._AppendMenuItem(menu, str("&Delete Tag"), on_delete_cell,
+                                 'Del', id=wx.ID_DELETE)
+        # show menu
         self.PopupMenu(menu)
         menu.Destroy()
 
@@ -470,19 +471,20 @@ class Grid(droplet.Mixin, gridlib.Grid):
 
     def OnGridColLabelRightClicked(self, col):
         menu = wx.Menu()
-        #open
-        self._AppendMenuItem(menu, _('&Open...'), self.OnOpen,
-            id=wx.ID_OPEN)
-        #open url
-        self._AppendMenuItem(menu, _('Open &Url...'), self.OnOpenUrl,
-            'Shift+Ctrl+O')
-        #remove image
+        # open
+        self._AppendMenuItem(menu, str('&Open...'), self.OnOpen,
+                             id=wx.ID_OPEN)
+        # open url
+        self._AppendMenuItem(menu, str('Open &Url...'), self.OnOpenUrl,
+                             'Shift+Ctrl+O')
+
+        # remove image
 
         def on_remove(event):
             self.DeleteCols(col)
 
-        self._AppendMenuItem(menu, _('&Remove Image'), on_remove)
-        #show menu
+        self._AppendMenuItem(menu, str('&Remove Image'), on_remove)
+        # show menu
         self.PopupMenu(menu)
         menu.Destroy()
 
@@ -493,15 +495,15 @@ class Grid(droplet.Mixin, gridlib.Grid):
         self.Bind(wx.EVT_MENU, method, id=id)
 
     def OnGridRowLabelRightClicked(self, row):
-        #build menu control
+        # build menu control
         menu = wx.Menu()
         self.CreateRowLabelMenu(menu, row)
-        #show menu
+        # show menu
         self.PopupMenu(menu)
         menu.Destroy()
 
     def CreateRowLabelMenu(self, menu, row):
-        #bind menu events
+        # bind menu events
         def on_add(event):
             self.AddRow()
 
@@ -517,22 +519,22 @@ class Grid(droplet.Mixin, gridlib.Grid):
         def on_set_row_values(event):
             self.ChangeRowValues(row)
 
-        self._AppendMenuItem(menu, _('&Copy Tag'), on_copy,
-            'Shift+Ctrl+C')
+        self._AppendMenuItem(menu, str('&Copy Tag'), on_copy,
+                             'Shift+Ctrl+C')
         if pyexiv2:
             self._AppendMenuItem(menu,
-                _('&Add Tag to All Images...'),
-                on_add, 'Shift+Ctrl+N')
+                                 str('&Add Tag to All Images...'),
+                                 on_add, 'Shift+Ctrl+N')
         if self.image_table.is_row_editable(row) and pyexiv2:
             self._AppendMenuItem(menu,
-                _("&Delete Tag from All Images..."),
-                on_delete_row, 'Shift+Del')
+                                 str("&Delete Tag from All Images..."),
+                                 on_delete_row, 'Shift+Del')
             self._AppendMenuItem(menu,
-                _("&Rename Tag for All Images..."),
-                on_set_row_label, 'Shift+Ctrl+R')
+                                 str("&Rename Tag for All Images..."),
+                                 on_set_row_label, 'Shift+Ctrl+R')
             self._AppendMenuItem(menu,
-                _("&Modify Value for All Images..."),
-                on_set_row_values, 'Shift+Ctrl+M')
+                                 str("&Modify Value for All Images..."),
+                                 on_set_row_values, 'Shift+Ctrl+M')
 
     def CopyRowLabel(self, row):
         clipboard.copy_text('<%s>' % self.table.GetRowLabelValue(row))
@@ -544,7 +546,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
             col = self.GetGridCursorCol()
             log = self.image_table.add_key(key, value)
             if log:
-                self.ShowError(log, _('Unable to add tag <%s>') % key)
+                self.ShowError(log, str('Unable to add tag <%s>') % key)
             self.RefreshAll()
             wx.CallAfter(self.MakeCellVisible, row, col)
 
@@ -555,7 +557,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
             image = self.image_table.images[col]
             log = self.image_table.add_image_key(image, key, value)
             if log:
-                self.ShowError(log, _('Unable to add tag <%s>') % key)
+                self.ShowError(log, str('Unable to add tag <%s>') % key)
             self.RefreshAll()
             wx.CallAfter(self.MakeCellVisible, row, col)
 
@@ -566,7 +568,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
                 == wx.ID_YES:
             log = self.image_table.delete_cell(row, col)
             if log:
-                self.ShowError(log, _('Unable to delete tag <%s>') % key)
+                self.ShowError(log, str('Unable to delete tag <%s>') % key)
             self.RefreshAll()
 
     def DeleteRows(self, pos=0, num=1):
@@ -575,41 +577,41 @@ class Grid(droplet.Mixin, gridlib.Grid):
                 == wx.ID_YES:
             log = self.table.DeleteRows(pos, num)
             if log:
-                self.ShowError(log, _('Unable to delete tag <%s>') % key)
+                self.ShowError(log, str('Unable to delete tag <%s>') % key)
             self.RefreshAll()
 
     def DeleteCols(self, pos=0, num=1):
         log = self.table.DeleteCols(pos, num)
         if log:
-            self.ShowError(log, _('Unable to remove image'))
+            self.ShowError(log, str('Unable to remove image'))
         if not self.CheckEmpty():
             self.RefreshAll()
 
     def RenameRowLabelValue(self, row):
         key_old = self.GetRowLabelValue(row)
-        key_new = self.AskText(_('Rename tag for all images to:'),
-            title=TITLE, value=key_old)
+        key_new = self.AskText(str('Rename tag for all images to:'),
+                               title=TITLE, value=key_old)
         if key_new:
             log = self.table.SetRowLabelValue(row, key_new)
             if log:
-                self.ShowError(log, _('Unable to rename tag <%s>')\
-                    % key_old)
+                self.ShowError(log, str('Unable to rename tag <%s>') \
+                               % key_old)
             self.RefreshAll()
 
     def ChangeRowValues(self, row):
-        value = self.AskText(_('Change value for all images to:'),
-            title=TITLE)
+        value = self.AskText(str('Change value for all images to:'),
+                             title=TITLE)
         if value:
             key = self.GetRowLabelValue(row)
             log = self.image_table.set_key_value(key, value)
             if log:
-                self.ShowError(log, _('Unable to change tag <%s>')\
-                    % key)
+                self.ShowError(log, str('Unable to change tag <%s>') \
+                               % key)
             self.RefreshAll()
 
     def OnKeyDown(self, event):
         key_code = event.GetKeyCode()
-        #print key_code
+        # print key_code
         row, col = self.GetCellRowCol()
         shift = event.ShiftDown()
         ctrl = event.ControlDown()
@@ -626,22 +628,22 @@ class Grid(droplet.Mixin, gridlib.Grid):
                 self.DeleteCell(row, col)
         elif ctrl:
             if key_code == 67:
-                #Ctrl+C
+                # Ctrl+C
                 if shift:
                     self.CopyRowLabel(row)
                 else:
                     self.CopyCellValue(row, col)
             elif key_code == 78:
-                #Ctrl+N
+                # Ctrl+N
                 if shift:
                     self.AddRow()
                 else:
                     self.AddColumnRow(col)
             elif key_code == 82 and shift:
-                #Ctrl+R
+                # Ctrl+R
                 self.RenameRowLabelValue(row)
             elif key_code == 77 and shift:
-                #Ctrl+M
+                # Ctrl+M
                 self.ChangeRowValues(row)
         else:
             return True
@@ -653,7 +655,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
         pen = dc.GetPen()
         dc.SetPen(self.GRAY_PEN)
         dc.DrawLine(rect[0] + rect[2] - 1, rect[1],
-            rect[0] + rect[2] - 1, rect[1] + rect[3])
+                    rect[0] + rect[2] - 1, rect[1] + rect[3])
 
         def label_rect(position, row):
             row_width = self.GetRowLabelSize()
@@ -665,16 +667,16 @@ class Grid(droplet.Mixin, gridlib.Grid):
                 return self.PENCIL_BITMAP
 
         self._LabelPaint(dc, co=1, amount=self.GetNumberRows(),
-            label_rect=label_rect, get_size=self.GetRowSize,
-            get_label=self.GetRowLabelValue,
-            get_bitmap=get_bitmap, border=True, center_bitmap=False,
-            pen=pen)
+                         label_rect=label_rect, get_size=self.GetRowSize,
+                         get_label=self.GetRowLabelValue,
+                         get_bitmap=get_bitmap, border=True, center_bitmap=False,
+                         pen=pen)
 
-    #---paint
+    # ---paint
     def _LabelPaint(self, dc, co, amount, label_rect, get_size,
-            get_label, get_bitmap, border, center_bitmap, pen):
-        position = -self.GetViewStart()[co]\
-            * self.GetScrollPixelsPerUnit()[co]
+                    get_label, get_bitmap, border, center_bitmap, pen):
+        position = -self.GetViewStart()[co] \
+                   * self.GetScrollPixelsPerUnit()[co]
         dc.SetBrush(self.GRAY_BRUSH)
         for index in range(amount):
             size = get_size(index)
@@ -684,32 +686,32 @@ class Grid(droplet.Mixin, gridlib.Grid):
                 continue
             if border:
                 dc.DrawLine(rect[0], rect[1] + rect[3] - 1,
-                    rect[0] + rect[2], rect[1] + rect[3] - 1)
+                            rect[0] + rect[2], rect[1] + rect[3] - 1)
             bitmap = get_bitmap(index)
             if bitmap:
                 bitmap_size = bitmap.GetSize()
                 if center_bitmap:
-                    #centered
+                    # centered
                     offset_x = (rect[2] - bitmap_size[0]) / 2
                 else:
-                    #right aligned
+                    # right aligned
                     offset_x = rect[2] - bitmap_size[0] - self.border
                 offset_y = (rect[3] - bitmap_size[1]) / 2
                 dc.DrawBitmap(bitmap,
-                    rect[0] + offset_x,
-                    rect[1] + offset_y,
-                    True)
+                              rect[0] + offset_x,
+                              rect[1] + offset_y,
+                              True)
             else:
                 offset_y = (rect[3] - self.PENCIL_BITMAP_SIZE[1]) / 2
             dc.SetPen(pen)
             if get_label:
                 dc.DrawText(get_label(index), rect[0] + self.border,
-                    rect[1] + offset_y)
+                            rect[1] + offset_y)
 
-    #---dialogs
+    # ---dialogs
     def Ask(self, message, title=''):
         return self.ShowMessage(message, title,
-            style=wx.YES_NO | wx.ICON_QUESTION)
+                                style=wx.YES_NO | wx.ICON_QUESTION)
 
     def AskText(self, question, value='', title=''):
         dlg = wx.TextEntryDialog(self, question, title, value)
@@ -721,12 +723,12 @@ class Grid(droplet.Mixin, gridlib.Grid):
         return answer
 
     def ShowMessage(self, message, title='',
-            style=wx.OK | wx.ICON_EXCLAMATION):
+                    style=wx.OK | wx.ICON_EXCLAMATION):
         dlg = wx.MessageDialog(self,
-                message,
-                title,
-                style,
-        )
+                               message,
+                               title,
+                               style,
+                               )
         answer = dlg.ShowModal()
         dlg.Destroy()
         return answer
@@ -737,9 +739,9 @@ class Grid(droplet.Mixin, gridlib.Grid):
     def OpenImage(self, filename):
         try:
             self.image_table.open_image(filename, encoding=WX_ENCODING)
-        except IOError, message:
-            self.show_error(_('Sorry, %s.') % str(message),
-                title=_('Image Inspector'))
+        except IOError as message:
+            self.show_error(str('Sorry, %s.') % str(message),
+                            title=str('Image Inspector'))
             return
         self.image_table.update()
         self.UpdateThumbs()
@@ -749,12 +751,12 @@ class Grid(droplet.Mixin, gridlib.Grid):
     def OpenImages(self, filenames):
         wx.BeginBusyCursor()
         invalid = self.image_table.open_images(filenames,
-            encoding=WX_ENCODING)
+                                               encoding=WX_ENCODING)
         if invalid:
             wx.CallAfter(wx.EndBusyCursor)
             self.show_error('%s:\n\n%s' % (
-                    _('Sorry, unable to open these images:'),
-                    '\n'.join(invalid)), title=TITLE)
+                str('Sorry, unable to open these images:'),
+                '\n'.join(invalid)), title=TITLE)
             wx.BeginBusyCursor()
         if len(invalid) != len(filenames):
             self.UpdateThumbs()
@@ -774,16 +776,16 @@ class Grid(droplet.Mixin, gridlib.Grid):
         return self.show_message(message, title, style=wx.OK | wx.ICON_ERROR)
 
     def show_message(self, message, title='',
-            style=wx.OK | wx.ICON_EXCLAMATION):
+                     style=wx.OK | wx.ICON_EXCLAMATION):
         if self.IsShown():
             parent = wx.GetTopLevelParent(self)
         else:
             parent = None
         dlg = wx.MessageDialog(parent,
-                message,
-                title,
-                style,
-        )
+                               message,
+                               title,
+                               style,
+                               )
         answer = dlg.ShowModal()
         dlg.Destroy()
         return answer
@@ -796,16 +798,16 @@ class OpenMixin(object):
         if hasattr(wx, 'FD_PREVIEW'):
             style |= wx.FD_PREVIEW
         path = os.path.dirname(self.image_table.images[-1].filename)
-        dlg = wx.FileDialog(self, _("Choose an image"),
-            defaultDir=path,
-            wildcard=self.wildcard,
-            style=style)
+        dlg = wx.FileDialog(self, str("Choose an image"),
+                            defaultDir=path,
+                            wildcard=self.wildcard,
+                            style=style)
         if dlg.ShowModal() == wx.ID_OK:
             self.OpenImage(dlg.GetPath())
         dlg.Destroy()
 
     def OnOpenUrl(self, event):
-        dlg = wx.TextEntryDialog(self, _("Enter an image url"))
+        dlg = wx.TextEntryDialog(self, str("Enter an image url"))
         if dlg.ShowModal() == wx.ID_OK:
             self.OpenImage(dlg.GetValue())
         dlg.Destroy()
@@ -829,7 +831,7 @@ class GridTag(OpenMixin, tag.ContentMixin, Grid):
 
     def IsEmpty(self):
         return 0 in (self.image_table.get_image_amount(),
-            self.image_table.get_key_amount())
+                     self.image_table.get_key_amount())
 
     def SetTag(self, tag):
         """Filters from all_data to tag_data"""
@@ -856,36 +858,36 @@ class Browser(tag.Browser):
     def GetPaintMessage(self):
         content = self.GetContent()
         if not content.image_table.images:
-            return _('drag & drop any images here')
+            return str('drag & drop any images here')
         tag = self.tag.GetStringSelection().lower()
         if tag == 'Exif' and not pyexiv2:
-            return _('please install pyexiv2')
+            return str('please install pyexiv2')
         if content.image_table.key_amount_tag:
-            return _('broaden your search')
-        return _('no %s tags found') % tag
+            return str('broaden your search')
+        return str('no %s tags found') % tag
 
 
 class Frame(wx.Frame):
     Browser = Browser
 
     def __init__(self, parent, filename='', icon=None,
-            thumb_size=THUMB_SIZE, *args, **kwds):
-        #adapt style
-        if not('style' in kwds) and parent:
+                 thumb_size=THUMB_SIZE, *args, **kwds):
+        # adapt style
+        if not ('style' in kwds) and parent:
             kwds["style"] = wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER | \
-                wx.FRAME_FLOAT_ON_PARENT | wx.FRAME_NO_TASKBAR | \
-                wx.MAXIMIZE_BOX
+                            wx.FRAME_FLOAT_ON_PARENT | wx.FRAME_NO_TASKBAR | \
+                            wx.MAXIMIZE_BOX
         super(Frame, self).__init__(parent, *args, **kwds)
         if icon:
             self.SetIcon(icon)
         self._create_controls(TAGS, thumb_size)
         self._layout()
-        #open filenames
+        # open filenames
         if os.path.isfile(filename):
             self.GetGrid().OpenImage(filename)
         elif os.path.isdir(filename):
             self.GetGrid().OpenImages([filename])
-        #bind events
+        # bind events
         self.browser.EnableResize()
         self.Bind(wx.EVT_ACTIVATE, self.OnActivate)
         self.Bind(UPDATE_EVENT, self.UpdateIfNeeded)
@@ -901,20 +903,20 @@ class Frame(wx.Frame):
     def _create_controls(self, tags, thumb_size):
         self.panel = wx.Panel(self, -1)
         self.browser = self.Browser(self.panel, tags,
-            {'thumb_size': thumb_size})
+                                    {'thumb_size': thumb_size})
 
     def _layout(self):
-        #main_sizer
+        # main_sizer
         main_sizer = wx.BoxSizer(wx.VERTICAL)
-        #browser
+        # browser
         main_sizer.Add(self.browser, 1, wx.ALL | wx.EXPAND, 4)
-        #layout
+        # layout
         self.panel.SetSizer(main_sizer)
-        #panel_sizer
+        # panel_sizer
         panel_sizer = wx.BoxSizer(wx.VERTICAL)
         panel_sizer.Add(self.panel, 1, wx.ALL | wx.EXPAND, 0)
         self.SetSizer(panel_sizer)
-        #layout
+        # layout
         self.Layout()
 
     def GetGrid(self):
@@ -938,7 +940,7 @@ class Frame(wx.Frame):
 def getPencilData():
     # Embedded icon from the openclipart gallery
     return zlib.decompress(
-'x\xda\x01\x88\x01w\xfe\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x10\
+        b'x\xda\x01\x88\x01w\xfe\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x10\
 \x00\x00\x00\x10\x08\x06\x00\x00\x00\x1f\xf3\xffa\x00\x00\x00\x04sBIT\x08\
 \x08\x08\x08|\x08d\x88\x00\x00\x01?IDAT8\x8d\x8d\xd1\xbdj\x94A\x14\x06\xe0gc\
 4\x12\xe3\x8aM\xb0N\xa1M\xb0\xb3K\x04+\x03{\x0b\xa2!F\xc5\xe3\r\xe4\n\xbc\
@@ -961,7 +963,7 @@ def getPencilBitmap():
 
 
 def getPencilImage():
-    stream = cStringIO.StringIO(getPencilData())
+    stream = io.StringIO(getPencilData())
     return wx.ImageFromStream(stream)
 
 

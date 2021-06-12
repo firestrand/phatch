@@ -19,9 +19,10 @@
 # Embedded icon is taken from www.openclipart.org (public domain)
 
 # Follows PEP8
+from functools import reduce
 
-from core import models
-from lib.reverse_translation import _t
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
 
 #---PIL
 
@@ -30,7 +31,7 @@ def init():
     global Image, ImageColor, imtools
     from PIL import Image
     from PIL import ImageColor
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def contrast(image, amount=50):
@@ -75,7 +76,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(50, -100, 100)
 
     icon = \
-'x\xda\x01\x1d\t\xe2\xf6\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\x1d\t\xe2\xf6\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x08\xd4IDATh\x81\xed\x9a[l\x14\xd7\x19\xc7\xff\xe7\
 \xcc\xac\xf76k\xbc\xb0\xc4Y\xab\x96\xc1\x05*\x0b; \xa0\x02\xa9E\xa8M\x8b\x14\

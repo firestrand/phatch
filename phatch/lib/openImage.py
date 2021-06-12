@@ -18,55 +18,50 @@
 import os
 import re
 
+import pyexiv2
 from PIL import Image
 
-import imtools
-import system
-import thumbnail
-
-try:
-    import pyexiv2
-except:
-    pyexiv2 = None
-
+from phatch.lib import imtools, system, thumbnail
 
 def check_libtiff(compression):
-    if not(open_libtiff or compression.lower() in ['raw', 'none']):
-        raise Exception('Libtiff tools are needed for "%s" compression'\
-            % compression)
+    if not (open_libtiff or compression.lower() in ['raw', 'none']):
+        raise Exception('Libtiff tools are needed for "%s" compression' \
+                        % compression)
 
 
 def open(uri):
-    format = imtools.get_format_filename(uri)
+    file_format = imtools.get_format_filename(uri)
     local = not system.is_www_file(uri)
     # svg, pdf, ...
     if local:
         image = open_image_without_pil(uri, WITHOUT_PIL)
         if image:
             image.info['Format'] = image.format
-            image.format = format
+            image.format = file_format
             return image
     # pil
     try:
         image = open_image_with_pil(uri)
         ok = True
-    except IOError, message:
+    except IOError as message:
         ok = False
+        print(message)
     # interlaced png
-    if ok and not(Image.VERSION < '1.1.7' and
-            image.format == 'PNG' and 'interlace' in image.info):
+    if ok and not (Image.VERSION < '1.1.7' and
+                   image.format == 'PNG' and 'interlace' in image.info):
         return image
     # png, tiff (which pil can only handle partly)
     if local:
         image = open_image_without_pil(uri, ENHANCE_PIL)
         if image:
             image.info['Format'] = image.format
-            image.format = format
+            image.format = file_format
             return image
     else:
         image = None
+
     if image is None:
-        raise IOError(message)
+        raise IOError()
     return imtools.open_image(uri)
 
 
@@ -82,24 +77,25 @@ def open_image_exif_thumb(uri):
             thumb_data = pyexiv2_image.getThumbnailData()
             if thumb_data:
                 return imtools.open_image_data(thumb_data)
-        except Exception, details:
+        except Exception as details:
             pass
     return open_image_exif(uri)
 
 
 def open_thumb(filename, image=None, open_image=open_image_exif_thumb,
-        size=thumbnail.SIZE, save_cache=True):
+               size=thumbnail.SIZE, save_cache=True):
     return thumbnail.open(filename=filename, image=image,
-        open_image=open_image, size=size,
-        save_cache=save_cache)
+                          open_image=open_image, size=size,
+                          save_cache=save_cache)
 
 
 def open_image_with_pil(uri):
     image = imtools.open_image(uri)
-    #types which PIL can open, but not load
+    # types which PIL can open, but not load
     compression = image.info.get('compression', 'none')
     if hasattr(compression, 'startswith') and \
             compression.startswith('group'):
+        # TODO: Verify if PIL can support can load g4 tiffs
         # tiff image with group4 compression
         check_libtiff('g4')  # raise exception if openImage not present
         image = open_libtiff(uri)
@@ -118,7 +114,7 @@ def open_image_without_pil(filename, method_register):
 
 
 def open_image_with_command(filename, command, app, extension='png',
-        temp_ext=None):
+                            temp_ext=None):
     """Open with an external command (such as Inkscape, dcraw, imagemagick).
 
     :param filename: filename, from which a temporary filename will be derived
@@ -158,13 +154,13 @@ def open_image_with_command(filename, command, app, extension='png',
             temp.close(force_remove=False)
         elif temp_ext and os.path.exists(temp_file):
             os.remove(temp_file)
-    message = _('Could not open image with %s.') % app + \
-        '\n\n%s: %s\n\n%s: %s\n\n%s: %s' % \
-        (_('Command'), command, _('Output'), output, _('Error'), error)
+    message = str('Could not open image with %s.') % app + \
+              '\n\n%s: %s\n\n%s: %s\n\n%s: %s' % \
+              (str('Command'), command, str('Output'), output, str('Error'), error)
     raise IOError(message)
 
 
-#libtiff
+# libtiff
 
 TIFFINFO = system.find_exe("tiffinfo")
 TIFFCP = system.find_exe("tiffcp")
@@ -184,8 +180,9 @@ if TIFFINFO and TIFFCP:
         'None': 'none',
     }
 
-    TIFF_COMPRESSION_TYPES = TIFF_COMPRESSION.values()
+    TIFF_COMPRESSION_TYPES = list(TIFF_COMPRESSION.values())
     TIFF_COMPRESSION_TYPES.sort()
+
 
     def get_info_libtiff(filename):
         """Get tiff info of a file with ``tiffinfo``, which needs to be
@@ -218,6 +215,7 @@ if TIFFINFO and TIFFCP:
             TIFF_COMPRESSION[result['libtiff.compression.scheme']]
         return result
 
+
     def open_libtiff(filename):
         """Opens a tiff file with ``tiffcp``, which needs to be installed
         on your system.
@@ -243,6 +241,7 @@ if TIFFINFO and TIFFCP:
         finally:
             temp.close(force_remove=False)
         raise IOError('Could not extract tiff image with tiffcp.')
+
 
     def save_libtiff(image, filename, compression=None, **options):
         """Saves a tiff compressed file with tiffcp.
@@ -282,13 +281,12 @@ if TIFFINFO and TIFFCP:
         finally:
             temp.close()
         if out or err:
-            return 'Subprocess "tiffcp"\ninput:\n%s\noutput:\n%s%s\n'\
-                % (input, out, err)
+            return 'Subprocess "tiffcp"\ninput:\n%s\noutput:\n%s%s\n' \
+                   % (input, out, err)
         return ''
 
 else:
     open_libtiff = save_libtiff = get_info_libtiff = None
-
 
 # inkscape
 
@@ -315,13 +313,12 @@ if IMAGEMAGICK_CONVERT:
     def open_imagemagick(filename):
         """Open an image with Imagemagick."""
         command = [IMAGEMAGICK_CONVERT, filename, '-interlace', 'none',
-            '-background', 'none', '-flatten']
+                   '-background', 'none', '-flatten']
         return open_image_with_command(filename, command, 'imagemagick')
 
 else:
 
     open_imagemagick = None
-
 
 if IMAGEMAGICK_IDENTIFY:
 
@@ -336,7 +333,6 @@ if IMAGEMAGICK_IDENTIFY:
 else:
 
     verify_imagemagick = None
-
 
 # xcf tools (gimp)
 
@@ -367,7 +363,6 @@ else:
 
     verify_xcf = None
 
-
 # dcraw
 
 DCRAW = system.find_exe('dcraw')
@@ -378,7 +373,8 @@ if DCRAW:
         """Open a camera raw image file."""
         command = [DCRAW, '-w', filename]
         return open_image_with_command(filename, command, 'xcf2png',
-            temp_ext='ppm')
+                                       temp_ext='ppm')
+
 
     def verify_dcraw(filename):
         """Verify a camera raw image file."""
@@ -393,23 +389,22 @@ else:
     open_dcraw = None
     verify_dcraw = None
 
-
 # register methods
 
 # IMPORTANT: the order of registering is important, the method
 # which is first registered gets more priority
 
 RAW_EXTENSIONS = ['arw', 'cr2', 'crw', 'dcr', 'dng', 'erf', 'kdc', 'nef',
-    'orf', 'pef', 'raf', 'sr2', 'srf', 'x3f']
+                  'orf', 'pef', 'raf', 'sr2', 'srf', 'x3f']
 
 WITHOUT_PIL = system.MethodRegister()
 WITHOUT_PIL.register(['xcf'], open_xcf)
 WITHOUT_PIL.register(RAW_EXTENSIONS, open_dcraw)
 WITHOUT_PIL.register(['svg', 'svgz'], open_inkscape)
 WITHOUT_PIL.register(['ai', 'avi', 'cmyk', 'cmyka', 'dpx', 'eps', 'exr', 'mng',
-    'mov', 'mpeg', 'mpg', 'otf', 'pdf', 'pict', 'ps', 'psd', 'svg', 'svgz',
-    'ttf', 'wmf', 'xcf', 'xpm', 'ycbcr', 'ycbcra', 'yuv'],
-    open_imagemagick)
+                      'mov', 'mpeg', 'mpg', 'otf', 'pdf', 'pict', 'ps', 'psd', 'svg', 'svgz',
+                      'ttf', 'wmf', 'xcf', 'xpm', 'ycbcr', 'ycbcra', 'yuv'],
+                     open_imagemagick)
 
 # This is for file formats which PIL can read, but not all subformats
 # For example: compressed tiff files
@@ -422,11 +417,11 @@ VERIFY_WITHOUT_PIL = system.MethodRegister()
 VERIFY_WITHOUT_PIL.register(['xcf'], verify_xcf)
 VERIFY_WITHOUT_PIL.register(RAW_EXTENSIONS, verify_dcraw)
 VERIFY_WITHOUT_PIL.register(['eps', 'psd', 'pdf', 'svg', 'svgz', 'wmf', 'xcf'],
-    verify_imagemagick)
+                            verify_imagemagick)
 
 
 def verify_image(info_file, valid, invalid,
-        method_register=VERIFY_WITHOUT_PIL):
+                 method_register=VERIFY_WITHOUT_PIL):
     extension = system.file_extension(info_file['path'])
     if extension in method_register.extensions:
         verify_image_without_pil(info_file, method_register, valid, invalid)
@@ -437,13 +432,13 @@ def verify_image(info_file, valid, invalid,
 def verify_image_with_pil(info_file, valid, invalid):
     try:
         im = open(info_file['path'])
-        #if info has 'Convertor', the image is not opened by PIL
-        #and already loaded and verified
+        # if info has 'Convertor', the image is not opened by PIL
+        # and already loaded and verified
         if not ('Convertor' in im.info):
             im.verify()
         valid.append(info_file)
         return True
-    except Exception, error:
+    except Exception as error:
         invalid.append(info_file['path'])
         return False
 
@@ -461,8 +456,8 @@ def verify_image_without_pil(info_file, method_register, valid, invalid):
 
 
 if __name__ == '__main__':
-    print TIFF_COMPRESSION_TYPES
-    filename = '/home/stani/Downloads/0009.tif'
+    #print(TIFF_COMPRESSION_TYPES)
+    filename = 'tests/input/0009.tif'
     image = open(filename)
     print(image.info)
-    #save(image.rotate(10), filename + '.tif', compression='g4')
+    # save(image.rotate(10), filename + '.tif', compression='g4')

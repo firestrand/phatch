@@ -19,9 +19,9 @@
 
 # Follows PEP8
 
-from core import models
-from lib.reverse_translation import _t
-from lib.imtools import has_transparency
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.imtools import has_transparency
 
 OTHER_IMAGE = _t('Image')
 FOLDER = _t('Folder')
@@ -31,7 +31,7 @@ FILL_TYPES = (OTHER_IMAGE, FOLDER)
 def init():
     #lazily import
     global _tamogen
-    import other.tamogen as _tamogen
+    import phatch.other.tamogen as _tamogen
     _tamogen.OTHER_IMAGE = OTHER_IMAGE
     _tamogen.FOLDER = FOLDER
     _tamogen.FILL_TYPES = FILL_TYPES
@@ -94,7 +94,7 @@ class Action(models.Action):
         return relevant
 
     icon = \
-'x\xda\x01\x98\x15g\xea\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\x98\x15g\xea\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x02\x00\x00\x00\xd8`n\xd0\x00\x00\x00\x03sBIT\x08\x08\x08\xdb\
 \xe1O\xe0\x00\x00\x15PIDATX\x85e\x98Y\x90\\\xe7u\xdfo\x7f\xdfw\x97\xde\xa7\
 \xd7\xe9}V`0\x1b\x16\x82\x03\x80\x8bl\xd1,Q\xb4E\xd9\xa5\x92eS\xb6\xac*\xb9\

@@ -20,9 +20,9 @@
 
 # Embedded icon is taken from www.openclipart.org (public domain)
 
-from core import models
-from lib.reverse_translation import _t
-from lib.imtools import has_transparency, paste
+from phatch.core import models
+from phatch.lib.reverse_translation import _t
+from phatch.lib.imtools import has_transparency, paste
 
 #---PIL
 
@@ -33,7 +33,7 @@ def init():
     from PIL import Image
     from PIL import ImageChops
     from PIL import ImageFilter
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def drop_shadow(image, horizontal_offset=5, vertical_offset=5,
@@ -180,7 +180,7 @@ class Action(models.Action):
                 'Border': (x + y) / 2})
 
     icon = \
-'x\xda\x01\xb3\rL\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01\xb3\rL\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\rjIDATh\x81\xd5\x99y\x8c]\xd5}\xc7?\xbfs\xdf{\xf3\x96\
 \x99y\x9e}\xc6\xdb\x8c\xc7qm\x0701v\x026\xb6\xa9\x81@\x1a\x16\x11\xa1\x98\

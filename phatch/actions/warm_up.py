@@ -27,8 +27,8 @@
 
 # Follows PEP8
 
-from core import models
-from core.translation import _t
+from phatch.core import models
+from phatch.core.translation import _t
 
 
 #---PIL
@@ -37,7 +37,7 @@ def init():
     from PIL import Image
     from PIL import ImageMath
     from PIL import ImageColor
-    from lib import imtools
+    from phatch.lib import imtools
 
 
 def warmup(image, midtone, brighten, amount=100):
@@ -95,7 +95,7 @@ class Action(models.Action):
         fields[_t('Amount')] = self.SliderField(50, 1, 100)
 
     icon = \
-'x\xda\x01<\n\xc3\xf5\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+b'x\xda\x01<\n\xc3\xf5\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\t\xf3IDATh\x81\xd5\x99[\x8c\x1cW\x99\xc7\x7f\xe7\x9c\
 \xaa\xea\xee\xe9\x99\xe9\xb6\xe3\x9e\x19\xdb\xe3\xc4L\xb2\x8e\xe3\xc0\x06\
