@@ -19,8 +19,8 @@
 # Follows PEP8
 
 #from lib.formField import IMAGE_EXTENSIONS
-import ct
-from pil import IMAGE_READ_EXTENSIONS
+from phatch.core import ct
+from phatch.core.pil import IMAGE_READ_EXTENSIONS
 
 
 def create_settings(config_paths=None, options=None):
@@ -44,7 +44,7 @@ def create_settings(config_paths=None, options=None):
         'verbose': True,
         #gui
         'browse_source': 0,
-        'tag_actions': ct._('All'),
+        'tag_actions': 'All',
         'description': True,
         'collapse_automatic': False,
         'droplet': False,

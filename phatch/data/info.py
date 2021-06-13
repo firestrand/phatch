@@ -48,6 +48,8 @@ CREDITS = {
     'code': [
         STANI,
         NADIA,
+        {'name': 'Travis Silvers',
+         'email': 'firestrand@gmail.com'},
         {'name': u'Erich Heine',
          'email': 'sophacles@gmail.com'},
         {'name': u'Juho Vepsäläinen',

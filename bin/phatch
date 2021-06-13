@@ -2,12 +2,11 @@
 
 """Launch script from the bin folder."""
 
-import phatch
+import phatch.phatch_main
 
-from core import config
+from phatch.core import config
+from phatch.app import main
 
 config_paths = config.init_config_paths()
-
-from app import main
 
 main(config_paths, app_file=__file__)

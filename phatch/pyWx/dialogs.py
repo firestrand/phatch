@@ -20,40 +20,48 @@
 
 # Follows PEP8
 
-#---first test
+# ---first test
 import os
 import time
 
+from phatch.pyWx import images
+from phatch.pyWx.wxGlade import dialogs
+# ---first test
+import os
+import time
+
+from phatch.pyWx import images
+from phatch.pyWx.wxGlade import dialogs
+
 if __name__ == '__main__':
     import sys
+
     sys.path.extend(['lib', '../core', '../core/lib'])
     sys.path.insert(0, os.path.dirname(os.getcwd()))
-    #test environment
+    # test environment
     import gettext
+
     gettext.install("test")
 
-#---begin
+# ---begin
 import wx
 
-from core import ct
-from lib.reverse_translation import _r
-from core import pil
+from phatch.core import ct
+from phatch.lib.reverse_translation import _r
+from phatch.core import pil
 
-#core.lib
-from lib import system
-from core.message import send, ProgressReceiver
+# core.lib
+from phatch.lib import system
+from phatch.core.message import send, ProgressReceiver
 
-#gui-dependent
-from lib.pyWx import clipboard
-from lib.pyWx import graphics
-from lib.pyWx import vlistTag
-from lib.pyWx import paint
-from lib.pyWx import imageInspector
-from lib.pyWx.wildcard import wildcard_list, _wildcard_extension
-from lib.pyWx.tag import Browser, ContentMixin
-
-import images
-from wxGlade import dialogs
+# gui-dependent
+from phatch.lib.pyWx import clipboard
+from phatch.lib.pyWx import graphics
+from phatch.lib.pyWx import vlistTag
+from phatch.lib.pyWx import paint
+from phatch.lib.pyWx import imageInspector
+from phatch.lib.pyWx.wildcard import wildcard_list, _wildcard_extension
+from phatch.lib.pyWx.tag import Browser, ContentMixin
 
 VLIST_ICON_SIZE = (48, 48)
 _MAX_HEIGHT = None  # cache
@@ -70,11 +78,11 @@ def get_max_height(height=510):
 
 class BrowseMixin:
 
-    def show_dir_dialog(self, defaultPath, message=_('Choose a folder'),
-            style=wx.DEFAULT_DIALOG_STYLE):
+    def show_dir_dialog(self, defaultPath, message='Choose a folder',
+                        style=wx.DEFAULT_DIALOG_STYLE):
         dlg = wx.DirDialog(self, message,
-            defaultPath=defaultPath,
-            style=wx.DEFAULT_DIALOG_STYLE)
+                           defaultPath=defaultPath,
+                           style=wx.DEFAULT_DIALOG_STYLE)
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
         else:
@@ -84,7 +92,6 @@ class BrowseMixin:
 
 
 class IconMixin:
-
     if wx.Platform == '__WXGTK__':
         _icon_size = (32, 32)  # (48, 48)
     else:
@@ -92,12 +99,12 @@ class IconMixin:
 
     def _icon(self, name='information'):
         name = 'ART_%s' % name.upper()
-        #title icon
+        # title icon
         bitmap = graphics.bitmap(name, (16, 16))
         _ic = wx.EmptyIcon()
         _ic.CopyFromBitmap(bitmap)
         self.SetIcon(_ic)
-        #dialog icon
+        # dialog icon
         bitmap = graphics.bitmap(name, self._icon_size)
         self.icon.SetBitmap(bitmap)
         self.icon.Show(True)
@@ -115,7 +122,7 @@ class ErrorDialog(dialogs.ErrorDialog, IconMixin):
         self.GetSizer().Fit(self)
         self.Layout()
 
-    #---events
+    # ---events
     def on_skip(self, event):
         self.EndModal(wx.ID_FORWARD)
 
@@ -133,16 +140,16 @@ class ExecuteDialog(BrowseMixin, dialogs.ExecuteDialog):
         self.set_drop(drop)
 
     def browse_files(self):
-        style = wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR
+        style = wx.FD_OPEN | wx.FD_MULTIPLE | wx.FD_CHANGE_DIR
         if hasattr(wx, 'FD_PREVIEW'):
             style |= wx.FD_PREVIEW
         dlg = wx.FileDialog(
-            self, message=_("Choose File(s)"),
+            self, message="Choose File(s)",
             defaultDir=self.get_default_path(),
             defaultFile="",
             wildcard=self.wildcard(),
             style=style,
-            )
+        )
         if dlg.ShowModal() == wx.ID_OK:
             self.path.SetValue(ct.PATH_DELIMITER.join(dlg.GetPaths()))
         dlg.Destroy()
@@ -150,7 +157,7 @@ class ExecuteDialog(BrowseMixin, dialogs.ExecuteDialog):
     def browse_folder(self):
         path = self.show_dir_dialog(
             defaultPath=self.get_default_path(),
-            message=_("Choose an image folder"))
+            message="Choose an image folder")
         if path != None:
             self.path.SetValue(path)
 
@@ -161,8 +168,8 @@ class ExecuteDialog(BrowseMixin, dialogs.ExecuteDialog):
     def export_settings(self, settings):
         settings['paths'] = self.path.GetValue().split(ct.PATH_DELIMITER)
         settings['extensions'] = [self.extensions.GetString(i) \
-            for i in range(self.extensions.GetCount()) \
-            if self.extensions.IsChecked(i)]
+                                  for i in range(self.extensions.GetCount()) \
+                                  if self.extensions.IsChecked(i)]
         settings['recursive'] = self.recursive.GetValue()
         settings['stop_for_errors'] = self.stop_for_errors.GetValue()
         settings['overwrite_existing_images'] = \
@@ -185,66 +192,66 @@ class ExecuteDialog(BrowseMixin, dialogs.ExecuteDialog):
 
     def set_drop(self, drop):
         if drop:
-            #change title
-            self.SetTitle(_('Drag & Drop'))
-            #radio box
+            # change title
+            self.SetTitle('Drag & Drop')
+            # radio box
             self.source.Hide()
-            #hide browse & path
+            # hide browse & path
             self.browse.Hide()
             self.path.Hide()
-            #layout (only allow vertical fit)
+            # layout (only allow vertical fit)
             grid_sizer = self.GetSizer()
             size = (self.GetSize()[0], grid_sizer.GetMinSize()[1])
             self.SetMinSize(size)
             self.Fit()
 
     def import_settings(self, settings):
-        #path
+        # path
         self.path.SetValue(ct.PATH_DELIMITER.join(settings['paths']))
-        #browse source
+        # browse source
         self.source.SetSelection(settings['browse_source'])
         self.on_source(None)
-        #extensions
+        # extensions
         exts = pil.IMAGE_READ_EXTENSIONS
         self.extensions.Set(exts)
         for index, extension in enumerate(exts):
             if extension in settings['extensions']:
                 self.extensions.Check(index)
-        #overwrite existing images
+        # overwrite existing images
         self.overwrite_existing_images.SetValue(
-            settings['overwrite_existing_images'] or\
+            settings['overwrite_existing_images'] or \
             settings['overwrite_existing_images_forced'])
-        #overwrite existing files
+        # overwrite existing files
         self.check_images_first.SetValue(
             settings['check_images_first'])
-        #recursive
+        # recursive
         self.recursive.SetValue(settings['recursive'])
-        #errors
+        # errors
         self.stop_for_errors.SetValue(settings['stop_for_errors'])
-        #always_show_status_dialog
+        # always_show_status_dialog
         self.always_show_status_dialog.SetValue(
             settings['always_show_status_dialog'])
-        #always save on desktop
+        # always save on desktop
         self.desktop.SetValue(settings['desktop'])
-        #repeat images
+        # repeat images
         self.repeat.SetValue(settings['repeat'])
 
-    #---wildcard
+    # ---wildcard
     def wildcard(self):
         extensions = self.get_selected_extensions()
-        selected = wildcard_list(_('All selected types'),
-                        extensions)
-        default = wildcard_list(_('All readable and writable types'),
-                        pil.IMAGE_EXTENSIONS)
-        read = wildcard_list(_('All readable types'),
-                        pil.IMAGE_READ_EXTENSIONS)
+        selected = wildcard_list('All selected types',
+                                 extensions)
+        default = wildcard_list('All readable and writable types',
+                                pil.IMAGE_EXTENSIONS)
+        read = wildcard_list('All readable types',
+                             pil.IMAGE_READ_EXTENSIONS)
         result = [selected, default, read]
-        result.extend([('%s ' + _('images') + '|%s')\
-                    % (ext, _wildcard_extension(ext))
-                    for ext in extensions])
+        result.extend([('%s ' + 'images' + '|%s') \
+                       % (ext, _wildcard_extension(ext))
+                       for ext in extensions])
         return '|'.join(result)
 
-    #---events
+    # ---events
     def on_browse(self, event):
         if self.source.GetSelection() == 0:
             self.browse_folder()
@@ -252,25 +259,25 @@ class ExecuteDialog(BrowseMixin, dialogs.ExecuteDialog):
             self.browse_files()
 
     def on_default(self, event):
-        state = self.select.GetLabel() == _("&All Types")
+        state = self.select.GetLabel() == "&All Types"
         exts = pil.IMAGE_READ_EXTENSIONS
         for index, extension in enumerate(exts):
             self.extensions.Check(index, state)
         if state:
-            self.select.SetLabel(_("&No Types"))
+            self.select.SetLabel("&No Types")
         else:
-            self.select.SetLabel(_("&All Types"))
+            self.select.SetLabel("&All Types")
 
     def on_source(self, event):
         source = self.source.GetStringSelection()
-        if source == _('Clipboard'):
+        if source == 'Clipboard':
             self.browse.Disable()
-            self.browse.SetLabel(_('Browse'))
-            self.path.SetValue(clipboard.get_text()\
-                .replace('\n', ct.PATH_DELIMITER))
+            self.browse.SetLabel('Browse')
+            self.path.SetValue(clipboard.get_text() \
+                               .replace('\n', ct.PATH_DELIMITER))
         else:
             self.browse.Enable()
-            self.browse.SetLabel(_('Browse %s') % source)
+            self.browse.SetLabel('Browse %s' % source)
 
 
 class FilesDialog(dialogs.FilesDialog, IconMixin):
@@ -279,8 +286,8 @@ class FilesDialog(dialogs.FilesDialog, IconMixin):
         super(FilesDialog, self).__init__(parent, -1, **keyw)
         self.SetTitle(title)
         self.message.SetLabel(message)
-        self.list.InsertColumn(0, _("File"))
-        self.list.InsertColumn(1, _("Folder"))
+        self.list.InsertColumn(0, "File")
+        self.list.InsertColumn(1, "Folder")
         for index, f in enumerate(files):
             index = self.list.InsertStringItem(index, os.path.basename(f))
             self.list.SetStringItem(index, 1, os.path.dirname(f))
@@ -300,17 +307,17 @@ class ProgressDialog(wx.ProgressDialog, ProgressReceiver):
             message = '.' * 80
         ProgressReceiver.__init__(self, parent_max, child_max)
         wx.ProgressDialog.__init__(self,
-                title=title,
-                message=message,
-                maximum=self.max,
-                parent=parent,
-                style=wx.PD_CAN_ABORT
-                            | wx.PD_APP_MODAL
-                            | wx.PD_REMAINING_TIME
-                            | wx.PD_SMOOTH)
+                                   title=title,
+                                   message=message,
+                                   maximum=self.max,
+                                   parent=parent,
+                                   style=wx.PD_CAN_ABORT
+                                         | wx.PD_APP_MODAL
+                                         | wx.PD_REMAINING_TIME
+                                         | wx.PD_SMOOTH)
         self.Bind(wx.EVT_CLOSE, self.close, self)
 
-    #---pubsub event methods
+    # ---pubsub event methods
     def close(self, event=None):
         self.unsubscribe_all()
         self.Destroy()
@@ -333,24 +340,23 @@ class ProgressDialog(wx.ProgressDialog, ProgressReceiver):
 
 class ActionListBox(ContentMixin, vlistTag.Box):
 
-    #---vlist.Box obligatory overwritten
+    # ---vlist.Box obligatory overwritten
     def SetTag(self, tag=imageInspector.ALL):
         super(ActionListBox, self).SetTag(tag)
-        #process tag
+        # process tag
         self.tag = tag
         if tag == imageInspector.SELECT:
-            tag = _('default')
-        #choose tag actions
+            tag = 'default'
+        # choose tag actions
         if tag == imageInspector.ALL:
             self.tag_actions = self.all_actions
         else:
             tag_i18n = tag.lower()
             self.tag_actions = [a for a in self.all_actions
-                if tag_i18n in a.tags_i18n]
-        #sort
-        self.tag_actions.sort(cmp=lambda \
-            x, y: cmp(_(x.label_i18n), _(y.label_i18n)))
-        #take filter in account
+                                if tag_i18n in a.tags_i18n]
+        # sort
+        self.tag_actions.sort(key=lambda x: x.label_i18n)
+        # take filter in account
         self.SetFilter(self.GetFilter().GetValue())
 
     def SetFilter(self, filter):
@@ -359,7 +365,7 @@ class ActionListBox(ContentMixin, vlistTag.Box):
         if filter:
             actions = self._filter_actions(filter, actions)
             if not actions:
-                #nothing found for the tag, look everywhere
+                # nothing found for the tag, look everywhere
                 actions = self._filter_actions(filter, self.all_actions[:])
         self.actions = actions
         self.SetItemCount(len(self.actions))
@@ -376,11 +382,11 @@ class ActionListBox(ContentMixin, vlistTag.Box):
 
     def _filter_attr(self, filter, attr, actions):
         selected1 = [action for action in actions
-            if unicode(getattr(action, attr)).startswith(filter)]
+                     if str(getattr(action, attr)).startswith(filter)]
         for action in selected1:
             actions.remove(action)
         selected2 = [action for action in actions
-            if filter in unicode(getattr(action, attr))]
+                     if filter in str(getattr(action, attr))]
         for action in selected2:
             actions.remove(action)
         return selected1 + selected2
@@ -388,34 +394,33 @@ class ActionListBox(ContentMixin, vlistTag.Box):
     def _events(self):
         self.Bind(wx.EVT_CONTEXT_MENU, self.OnContextMenu)
 
-    #---actions
+    # ---actions
     def SetActions(self, actions):
         self.all_actions = actions.values()
         for action in self.all_actions:
             self.TranslateAction(action)
-        self.all_actions.sort(cmp=lambda x, y: \
-            cmp(_(x.label_i18n), _(y.label_i18n)))
+        self.all_actions.sort(cmp=lambda x: x.label_i18n)
 
     def TranslateAction(self, action):
-        action.label_i18n = _(action.label).lower()
-        action.doc__i18n = _(action.__doc__).lower()
-        action.tags_i18n = [_(tag).lower() for tag in action.tags]
-        action.tags_hidden_i18n = [_(tag).lower()
-            for tag in action.tags_hidden]
+        action.label_i18n = action.label.lower()
+        action.doc__i18n = action.__doc__.lower()
+        action.tags_i18n = [tag.lower() for tag in action.tags]
+        action.tags_hidden_i18n = [tag.lower()
+                                   for tag in action.tags_hidden]
 
     def OnContextMenu(self, event):
         # todo: does contextmenu always have to be recreated?
-        #create id
+        # create id
         self.id_view_source = wx.NewId()
-        #create menu
+        # create menu
         menu = wx.Menu()
-        item = wx.MenuItem(menu, self.id_view_source, _("View Source"))
+        item = wx.MenuItem(menu, self.id_view_source, "View Source")
         item.SetBitmap(graphics.bitmap('ART_FIND', (16, 16)))
         self.Bind(wx.EVT_MENU, self.OnViewSource, id=self.id_view_source)
         menu.AppendItem(item)
-        #show menu
+        # show menu
         self.PopupMenu(menu)
-        #destroy menu
+        # destroy menu
         menu.Destroy()
 
     def OnViewSource(self, event):
@@ -425,18 +430,18 @@ class ActionListBox(ContentMixin, vlistTag.Box):
         message = open(filename).read()
         dir, base = os.path.split(filename)
         send.frame_show_scrolled_message(message, '%s - %s' % (base, dir),
-            size=(600, 300))
+                                         size=(600, 300))
 
     def RefreshList(self):
-        self.actions.sort(cmp=lambda x, y: cmp(_(x.label), _(y.label)))
+        self.actions.sort(key=lambda x: x.label)
         self.Clear()
         self.SetItemCount(len(self.actions))
         self.RefreshAll()
 
     def GetItem(self, n):
         action = self.actions[n]
-        return (_(action.label), _(action.__doc__),
-            graphics.bitmap(action.icon, self.GetIconSize()))
+        return (action.label, action.__doc__,
+                graphics.bitmap(action.icon, self.GetIconSize()))
 
     def GetStringSelection(self):
         return self.actions[self.GetSelection()].label
@@ -447,30 +452,30 @@ class ActionListBox(ContentMixin, vlistTag.Box):
 
 class ActionBrowser(Browser):
     ContentCtrl = ActionListBox
-    paint_message = _("broaden your search")
+    paint_message = "broaden your search"
     paint_color = images.LOGO_COLOUR
-    #paint_logo = images.LOGO
+    # paint_logo = images.LOGO
 
 
 class ActionDialog(paint.Mixin, vlistTag.Dialog):
     ContentBrowser = ActionBrowser
 
     def __init__(self, parent, actions, tag='default', **keyw):
-        #extract tags
+        # extract tags
         tags = self.ExtractTags(actions.values())
-        #init dialog
+        # init dialog
         super(ActionDialog, self).__init__(parent, tags, -1, **keyw)
-        #configure listbox
+        # configure listbox
         list_box = self.GetListBox()
         list_box.SetActions(actions)
         list_box.SetIconSize(VLIST_ICON_SIZE)
-        list_box.SetTag(_(tag))
+        list_box.SetTag(tag)
         self.Bind(wx.EVT_ACTIVATE, self.OnActivate)
 
     def ExtractTags(self, actions):
         """Called by SetActions."""
         tags = vlistTag.extract_tags(actions)
-        tags.remove(_('default'))
+        tags.remove('default')
         tags.sort()
         tags = [imageInspector.SELECT, imageInspector.ALL] + tags
         return tags
@@ -496,7 +501,7 @@ class WritePluginDialog(dialogs.WritePluginDialog, IconMixin):
         path = os.path.join(ct.PATH, 'templates', 'action.py')
         self._icon('information')
         self.message.SetLabel(message)
-        self.path.SetLabel('%s: %s' % (_('Path'), path))
+        self.path.SetLabel('%s: %s' % ('Path', path))
         self._code(path)
         self.template_show(False)
 
@@ -504,9 +509,9 @@ class WritePluginDialog(dialogs.WritePluginDialog, IconMixin):
         self.code.SetValue(open(path).read())
         self.code.SetMinSize((660, 300))
         self.code.SetFont(wx.Font(10, wx.TELETYPE, wx.NORMAL, wx.NORMAL,
-            0, ""))
+                                  0, ""))
 
-    #---events
+    # ---events
     def on_help(self, event):
         import webbrowser
         url = "https://lists.launchpad.net/phatch-dev/"
@@ -525,7 +530,6 @@ class WritePluginDialog(dialogs.WritePluginDialog, IconMixin):
 
 
 def example():
-
     class App(wx.App):
 
         def OnInit(self):
@@ -537,10 +541,10 @@ def example():
             return 1
 
         def show_dialogs(self):
-##            self.show_error_dialog()
-##            self.show_execute_dialog()
-##            self.show_files_dialog()
-##            self.show_progress_dialog()
+            ##            self.show_error_dialog()
+            ##            self.show_execute_dialog()
+            ##            self.show_files_dialog()
+            ##            self.show_progress_dialog()
             self.show_action_dialog()
             self.GetTopWindow().Destroy()
 
@@ -556,15 +560,15 @@ def example():
 
         def show_files_dialog(self):
             dlg = FilesDialog(self.GetTopWindow(), 'message', 'title',
-                ['path/file'], 'warning')
+                              ['path/file'], 'warning')
             dlg.ShowModal()
             dlg.Destroy()
 
         def show_progress_dialog(self):
-            from lib.events import send
+            from phatch.lib.events import send
             import time
             n = 5
-            dlg = ProgressDialog(self.GetTopWindow(), 'title', 'messages', n)
+            dlg = ProgressDialog(self.GetTopWindow(), 'title', n, message='messages')
             result = {}
             for value in range(n):
                 send.progress_update(result, value)
@@ -574,10 +578,10 @@ def example():
             dlg.Destroy()
 
         def show_action_dialog(self):
-            from core import api
+            from phatch.core import api
             api.init()
             dlg = ActionDialog(self.GetTopWindow(), api.ACTIONS,
-                size=(400, 500))
+                               size=(400, 500))
             dlg.ShowModal()
             dlg.Destroy()
 
@@ -591,9 +595,9 @@ class ImageTreeDialog(dialogs.ImageTreeDialog):
         super(ImageTreeDialog, self).__init__(*args, **keyw)
         self.SetSize(keyw['size'])
         self.browser.tree.Bind(wx.EVT_TREE_ITEM_RIGHT_CLICK,
-            self.on_tree_item_right_click)
+                               self.on_tree_item_right_click)
         self.browser.list.Bind(wx.EVT_LIST_ITEM_RIGHT_CLICK,
-            self.on_list_item_right_click)
+                               self.on_list_item_right_click)
 
     def SetColumnWidths(self, *widths):
         self.browser.SetColumnWidths(*widths)
@@ -626,14 +630,15 @@ class ImageTreeDialog(dialogs.ImageTreeDialog):
 
     def inspect(self, path):
         frame = ImageInspectorFrame(None,
-            filename=path,
-            size=(470, get_max_height(510)),
-            icon=images.get_icon('inspector'))
+                                    filename=path,
+                                    size=(470, get_max_height(510)),
+                                    icon=images.get_icon('inspector'))
         frame.Show()
 
     def on_tree_item_right_click(self, event):
         item = event.GetItem()
-        #menu events handlers
+
+        # menu events handlers
 
         def on_open(event):
             self.browser.start_tree_item(item)
@@ -641,20 +646,21 @@ class ImageTreeDialog(dialogs.ImageTreeDialog):
         def on_inspect(event):
             self.inspect_tree_item(item)
 
-        #build menu control
+        # build menu control
         menu = wx.Menu()
-        self._AppendMenuItem(menu, _('&Open...'), on_open,
-            id=wx.ID_OPEN)
-        self._AppendMenuItem(menu, _('&Inspect...'), on_inspect,
-            id=wx.ID_FIND)
+        self._AppendMenuItem(menu, '&Open...', on_open,
+                             id=wx.ID_OPEN)
+        self._AppendMenuItem(menu, '&Inspect...', on_inspect,
+                             id=wx.ID_FIND)
 
-        #show menu
+        # show menu
         self.PopupMenu(menu)
         menu.Destroy()
 
     def on_list_item_right_click(self, event):
         index = event.GetIndex()
-        #menu events handlers
+
+        # menu events handlers
 
         def on_open(event):
             self.browser.start_list_item(index)
@@ -662,14 +668,14 @@ class ImageTreeDialog(dialogs.ImageTreeDialog):
         def on_inspect(event):
             self.inspect_list_item(index)
 
-        #build menu control
+        # build menu control
         menu = wx.Menu()
-        self._AppendMenuItem(menu, _('&Open...'), on_open,
-            id=wx.ID_OPEN)
-        self._AppendMenuItem(menu, _('&Inspect...'), on_inspect,
-            id=wx.ID_FIND)
+        self._AppendMenuItem(menu, '&Open...', on_open,
+                             id=wx.ID_OPEN)
+        self._AppendMenuItem(menu, '&Inspect...', on_inspect,
+                             id=wx.ID_FIND)
 
-        #show menu
+        # show menu
         self.PopupMenu(menu)
         menu.Destroy()
 
@@ -701,7 +707,7 @@ class ImageInspectorGrid(imageInspector.GridTag):
         if self.HasActionList():
             id_insert = wx.NewId()
             menu.Append(id_insert,
-                _('&Insert Tag in Action List...') + '\tCtrl+Shift+I')
+                        '&Insert Tag in Action List...') + '\tCtrl+Shift+I'
 
             def on_insert(event):
                 self.InsertTagInActionList(row)
@@ -712,7 +718,7 @@ class ImageInspectorGrid(imageInspector.GridTag):
         if ctrl and shift and key_code == 73:
             self.InsertTagInActionList(row)
         return super(ImageInspectorGrid, self).ProcessKey(key_code, row, col,
-            shift, ctrl, alt)
+                                                          shift, ctrl, alt)
 
     def InsertTagInActionList(self, row):
         key = '<%s>' % self.GetRowLabelValue(row)

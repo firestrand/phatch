@@ -178,10 +178,10 @@ def _font_dictionary(font_files=None):
         t[name(basename(font_file))] = font_file
     #step 2: fix font names derived from context
     #normally a base come first, than italic, bold
-    font_names = list(t.keys())
+    font_names = sorted(t.keys())
     d = {}
     base = 'xxx'  # non existing font name as base
-    for font_name in sorted(font_names):
+    for font_name in font_names:
         new_font_name, base = _font_name(font_name, base)
         if new_font_name[0].upper() == new_font_name[0]:
             d[new_font_name] = t[font_name]
@@ -195,7 +195,7 @@ def font_dictionary(filename=None, force=False):
     global _FONT_DICTIONARY
     if _FONT_DICTIONARY is None:
         if filename is None:
-            if os.path.exists(USER_FONTS_CACHE_PATH):
+            if USER_FONTS_CACHE_PATH and os.path.exists(USER_FONTS_CACHE_PATH):
                 filename = USER_FONTS_CACHE_PATH
             else:
                 filename = ROOT_FONTS_CACHE_PATH

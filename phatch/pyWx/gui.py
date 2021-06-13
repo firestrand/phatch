@@ -73,7 +73,7 @@ from phatch.pyWx import images
 from phatch.pyWx import dialogs
 from phatch.pyWx import plugin
 
-from wxGlade import frame
+from phatch.pyWx.wxGlade import frame
 
 WX_ENCODING = wx.GetDefaultPyEncoding()
 COMMAND_PASTE = \
@@ -107,7 +107,7 @@ def _theme():
 
 def set_theme(name='default'):
     if name == 'nuovext':
-        from nuovext import Provider
+        from phatch.pyWx.nuovext import Provider
         wx.ArtProvider.Push(Provider())
 
 
@@ -1248,10 +1248,10 @@ class App(DropletMixin, wx.App):
         super(App, self)._saveSettings()
 
 
-def main(settings:dict, filename:str):
+def launch_app(settings:dict, filename:str):
     app = App(settings, filename, 0)
     app.MainLoop()
 
 
 if __name__ == "__main__":
-    main(defaultdict(lambda: False), "")
+    launch_app(defaultdict(lambda: False), "")

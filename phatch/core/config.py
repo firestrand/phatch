@@ -25,12 +25,10 @@ import os
 import subprocess
 import shutil
 import sys
-from os.path import dirname, abspath
-
-from PIL import Image
 
 from phatch.lib import desktop
 from phatch.lib import system
+from phatch.lib.fonts import set_font_cache
 from phatch.lib.unicoding import ensure_unicode
 
 
@@ -49,6 +47,7 @@ PHATCH_ACTIONLISTS_PATH = '.'
 PHATCH_DATA_PATH = os.path.join('.', 'data')
 PHATCH_FONTS_PATH = os.path.join(PHATCH_DATA_PATH, 'fonts')
 PHATCH_FONTS_CACHE_PATH = ''
+
 
 def _wrap(path):
     return os.path.join(path, 'phatch')
@@ -189,7 +188,7 @@ def fix_python_path(phatch_python_path=None):
     return phatch_python_path
 
 
-def load_locale(app, path, canonical='default', unicode=True):
+def load_locale(app: str, path: str, canonical: str = 'default', unicode: bool = True):
     locale.setlocale(locale.LC_ALL, '')
     # get default canonical if necessary
     if canonical == 'default':
@@ -209,7 +208,7 @@ def load_locale(app, path, canonical='default', unicode=True):
     languages.insert(0, canonical)
     # install
     i18n = gettext.translation(app, path, languages=languages, fallback=1)
-    i18n.install(unicode=unicode)
+    i18n.install()
 
 
 def init_config_paths(config_paths=None):
@@ -221,7 +220,6 @@ def init_config_paths(config_paths=None):
     # user actions
     fix_python_path(USER_ACTIONS_PATH)
     # set font cache
-    from phatch.lib.fonts import set_font_cache
     set_font_cache(USER_FONTS_PATH, PHATCH_FONTS_PATH,
                    USER_FONTS_CACHE_PATH, PHATCH_FONTS_CACHE_PATH)
     # register paths

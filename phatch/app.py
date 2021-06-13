@@ -27,6 +27,8 @@ from gettext import gettext
 from phatch.core import config
 from phatch.data.info import INFO
 from phatch.lib import system, formField
+from phatch.lib.fonts import font_dictionary
+from phatch.pyWx.gui import launch_app
 
 VERSION = "%(name)s %(version)s" % INFO
 
@@ -148,6 +150,7 @@ Please install the graphical user interface package 'phatch' as well.
 
 
 def import_pyWx():
+    #TODO: Remove if not needed
     try:
         from pyWx import gui
     except ImportError:
@@ -157,17 +160,15 @@ def import_pyWx():
 
 def _gui(app_file, paths, settings):
     reexec_with_pythonw(app_file)  # ensure pythonw for mac
-    gui = import_pyWx()
     if paths:
         actionlist = paths[0]
     else:
         actionlist = ''
-    gui.main(settings, actionlist)
+    launch_app(settings, actionlist)
 
 
 def _init_fonts():
     config.verify_app_user_paths()
-    from lib.fonts import font_dictionary
     font_dictionary(force=True)
 
 
