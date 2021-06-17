@@ -14,38 +14,39 @@
 # along with this program.  If not, see http://www.gnu.org/licenses/
 
 # Follows PEP8
-
 import zlib
 from io import StringIO, BytesIO
 from urllib.request import urlopen
 
 import wx
 
-try:
-    from lib import system
-except ImportError:
+from phatch.lib import system
 
-    def is_www_file(x):
-        return True  # fix this
 
+def _is_art_provider_icon(icon: bytes) -> bool:
+    if icon[:4] == b'ART_':
+        return True
+    return False
 
 def bitmap(icon, size=(48, 48), client=wx.ART_OTHER):
-    if icon[:4] == 'ART_':
+    if _is_art_provider_icon(icon):
         return wx.ArtProvider.GetBitmap(getattr(wx, icon), client, size)
     else:
         return wx.Bitmap(image(icon))
 
 
 def image(icon, size=(48, 48)):
-    if type(icon) != bytes:
-        icon = bytes(icon)
-        print('Ouch')
-    if icon[:4] == 'ART_':
+    if _is_art_provider_icon(icon):
         return wx.ImageFromBitmap(bitmap(icon, size))
     else:
-        icon_b = zlib.decompress(icon)
+        if icon[0:1] == b'x':  # compare first byte expect x to be zlib
+            icon_b = zlib.decompress(icon)
+        else:
+            icon_b = icon
         icon_b_io = BytesIO(icon_b)
-        return wx.Image(icon_b_io)
+        wx_image = wx.Image(icon_b_io)
+        return wx_image
+
 
 CACHE = {}
 
@@ -60,6 +61,6 @@ def bitmap_open(x, height=64):
     else:
         im = wx.Image(x)
     im = CACHE[(x, height)] = im.Rescale(
-            float(height) * im.GetWidth() / im.GetHeight(),
-            height).ConvertToBitmap()
+        float(height) * im.GetWidth() / im.GetHeight(),
+        height).ConvertToBitmap()
     return im
