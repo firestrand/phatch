@@ -88,7 +88,7 @@ class Action(models.Action):
 
     def interface(self, fields):
         fields[_t('Highlight')] = self.HighlightFileField('Sphere Top')
-        fields[_t('Resample Highlight')] = self.ImageResampleField('antialias')
+        fields[_t('Resample Highlight')] = self.ImageResampleField('lanczos')
         fields[_t('Opacity')] = self.SliderField(100, 0, 100)
 
     icon = \

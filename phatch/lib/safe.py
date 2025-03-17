@@ -29,7 +29,7 @@ SAFE = {
                  'monthname', 'second', 'weekday', 'weekdayname', 'year'],
     'rational': ['denominator', 'numerator'],
 }
-SAFE['all'] = reduce(operator.add, SAFE.values())
+SAFE['all'] = reduce(operator.add, list(SAFE.values()))
 
 """Todo: alleen format ### moet vervangen worden, daarna gewoon
 eval met locals (incl indices) en globals.
@@ -190,7 +190,7 @@ def eval_restricted(s, _globals=None, _locals=None, allowed=SAFE['all'][:]):
         _locals = {}
     if _globals is None:
         _globals = {}
-    allowed += reduce(operator.add, [v.keys() for v in (_locals, _globals)])
+    allowed += reduce(operator.add, [list(v.keys()) for v in (_locals, _globals)])
 
     def validate(names, _globals, _locals):
         return set(names).difference(allowed)

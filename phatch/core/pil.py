@@ -653,7 +653,7 @@ class Photo:
             image = imtools.convert(image, mode)
         if size != None and size[0] < image.size[0]:
             image = image.copy()
-            image.thumbnail(size, Image.ANTIALIAS)
+            image.thumbnail(size, Image.LANCZOS)
         # loop over input -> save to temp files
         temp_files = []
         done = []

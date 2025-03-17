@@ -152,7 +152,7 @@ Please install the graphical user interface package 'phatch' as well.
 def import_pyWx():
     #TODO: Remove if not needed
     try:
-        from pyWx import gui
+        from .pyWx import gui
     except ImportError:
         sys.exit(PYWX_ERROR)
     return gui
@@ -189,9 +189,9 @@ def has_ext(path, ext):
 
 
 def _console(paths, settings):
-    from core.api import init
+    from .core.api import init
     init()
-    from console import console
+    from .console import console
     if paths and has_ext(paths[0], INFO['extension']):
         console.main(actionlist=paths[0], paths=paths[1:], settings=settings)
     else:
@@ -202,7 +202,7 @@ def main(config_paths, app_file):
     """init should be called first!"""
     parse_locale(config_paths)
     options, paths = parse_options()
-    from core.settings import create_settings
+    from .core.settings import create_settings
     settings = create_settings(config_paths, options)
     if settings['verbose']:
         system.VERBOSE = True

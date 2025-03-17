@@ -74,7 +74,7 @@ class Action(models.Action):
         method = self.get_field('Resample Image', info)
         if method == 'AUTOMATIC':
             if x1 < x0 and y1 < y0:
-                method = 'ANTIALIAS'
+                method = 'LANCZOS'
             else:
                 method = 'BICUBIC'
         method = getattr(Image, method)

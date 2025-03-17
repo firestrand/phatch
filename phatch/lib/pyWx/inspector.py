@@ -101,7 +101,7 @@ class Grid(gridlib.Grid):
 
     def OnRightDown(self, event):
         return
-        print self.GetSelectedRows()
+        print(self.GetSelectedRows())
 
     def RefreshAll(self):
         self.BeginBatch()

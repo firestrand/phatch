@@ -196,9 +196,9 @@ class CreditsDialog(wxgCreditsDialog):
         :type credits: dictionary
         """
         super(CreditsDialog, self).__init__(parent, -1)
-        for attr, all in credits.items():
+        for attr, all in list(credits.items()):
             ctrl = getattr(self, 'credits_%s' % attr)
-            ctrl.SetValue('\n'.join([' - '.join(x.values()) for x in all]))
+            ctrl.SetValue('\n'.join([' - '.join(list(x.values())) for x in all]))
         w, h = parent.GetSize()
         self.SetSize((int(2 * w), int(h / 1.5)))
 

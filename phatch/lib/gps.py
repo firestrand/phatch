@@ -21,8 +21,7 @@
 import os
 import datetime
 import xml.dom.minidom
-
-from phatch.other import surd
+from fractions import Fraction
 
 try:
     import pyexiv2
@@ -34,8 +33,8 @@ except ImportError:
 
 def r(f):
     """r(float) - get a Rational number for a float"""
-    s = surd.surd(float(f))
-    return pyexiv2.Rational(s.num, s.denom)
+    s = Fraction(float(f))
+    return pyexiv2.Rational(s.numerator, s.denominator)
 
 
 def d(angle):

@@ -17,8 +17,8 @@
 
 
 import wx
-import inspector
-from tag import Browser, ContentMixin, extract_tags
+from . import inspector
+from .tag import Browser, ContentMixin, extract_tags
 
 TEST_DATA = {
     'decimal':   [[str((row, col)) for col in range(inspector.NUMBER_COLS)]
@@ -48,7 +48,7 @@ class TestContentGrid(Grid):
             filter = self.GetFilter().GetValue()
         if filter.strip():
             self.data = [row for row in self.tag_data
-                            if filter in unicode(row)]
+                            if filter in str(row)]
         else:
             self.data = self.tag_data
         if not self.CheckEmpty():
@@ -72,7 +72,7 @@ class TestFrame(wx.Frame):
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, -1, "Test Tag Browser",
             size=(640, 480))
-        browser = TestBrowser(self, TEST_DATA.keys(), {'data': TEST_DATA})
+        browser = TestBrowser(self, list(TEST_DATA.keys()), {'data': TEST_DATA})
         browser.EnableResize()
 
 
@@ -147,6 +147,6 @@ if __name__ == '__main__':
     app = wx.PySimpleApp()
     frame = TestFrame(None)
     frame.Show(True)
-    dialog = Frame(frame, TEST_DATA, TEST_DATA.keys())
+    dialog = Frame(frame, TEST_DATA, list(TEST_DATA.keys()))
     dialog.Show(True)
     app.MainLoop()

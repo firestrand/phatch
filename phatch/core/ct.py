@@ -105,7 +105,7 @@ COMMAND_ARGUMENTS = {
                                 'RECENT': '-d recent',
                                 'INSPECTOR': '-n',
 }
-for key, value in COMMAND_ARGUMENTS.items():
+for key, value in list(COMMAND_ARGUMENTS.items()):
     new_value = COMMAND_ARGUMENTS_PREFIX + value
     if COMMAND_FILE:
         if '%' in new_value:
@@ -115,7 +115,7 @@ for key, value in COMMAND_ARGUMENTS.items():
     COMMAND_ARGUMENTS[key] = new_value
 
 COMMAND = {}
-for key, value in COMMAND_ARGUMENTS.items():
+for key, value in list(COMMAND_ARGUMENTS.items()):
     COMMAND[key] = COMMAND_PATH + ' ' + COMMAND_ARGUMENTS[key]
 
 ##COMMAND_DROP = 'phatch -d "%s" %%F'

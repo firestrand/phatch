@@ -97,7 +97,7 @@ def color(hex_color):
     # converts color str (#<three hex pairs>) to list of three floats
     # [0.0, 1.0] and returns it
     return [int(hex_color[1:][i:i + 2], 16) / 255.0 \
-        for i in xrange(0, len(hex_color) - 1, 2)]
+        for i in range(0, len(hex_color) - 1, 2)]
 
 script = BlenderScript()
 script.render()

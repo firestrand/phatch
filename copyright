@@ -192,13 +192,6 @@ licensed under its license:
    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
    OF THE POSSIBILITY OF SUCH DAMAGE.
 
-The file phatch/other/surd.py is copyrighted as:
-   Copyright (c) 1995 Nick Seidenman, nick@osg.saic.com
-
-   It is freely available from:
-   http://www.python.org/ftp/python/contrib-09-Dec-1999/DataStructures/
-
-
 The file phatch/other/relativedelta.py is a source file of dateutil and is
 licensed under its license:
 

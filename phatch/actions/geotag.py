@@ -71,7 +71,7 @@ class Action(models.Action):
             info['path'], cache['gps_report'])
 
         # do not use update as info does not support it
-        for key, value in gps_data.items():
+        for key, value in list(gps_data.items()):
             info[key.replace('.', '_')] = value  # writable
 
         return photo

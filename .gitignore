@@ -59,3 +59,4 @@ target/
 
 #pycharm files
 .idea/
+.DS_Store

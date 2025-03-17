@@ -35,4 +35,4 @@ def create_droplet(name, command, folder='~/Desktop',
     droplet = open(filename, 'w')
     droplet.write(DROPLET % data)
     droplet.close()
-    os.chmod(filename, 0755)
+    os.chmod(filename, 0o755)

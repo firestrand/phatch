@@ -113,7 +113,7 @@ class TreeMixin(treeDragDrop.Mixin):
     def CreateImageList(self, icon_size):
         self.image_list = wx.ImageList(*icon_size)
         icon_disabled = graphics.bitmap(ICON_DISABLED)
-        for form in self.form_factory.values():
+        for form in list(self.form_factory.values()):
             self._AddFormToImageList(form, icon_size, icon_disabled)
         self.SetImageList(self.image_list)
 
@@ -124,7 +124,7 @@ class TreeMixin(treeDragDrop.Mixin):
         pil_img = wxImage_pil(wx_image)
         if not pil_img:
             print("Image None")
-        wx_image = pil_wxImage(wxImage_pil(wx_image).resize(icon_size, Image.ANTIALIAS))
+        wx_image = pil_wxImage(wxImage_pil(wx_image).resize(icon_size, Image.LANCZOS))
         form.icon_tree = wx.Bitmap(wx_image)
         form.icon_tree_disabled = icon_disabled
         form.icon_tree_id = (
@@ -209,7 +209,7 @@ class TreeMixin(treeDragDrop.Mixin):
         self.DeleteChildren(item)
         fields = form._get_fields()
         if not self.update_form_relevance(item):
-            for label, field in fields.items():
+            for label, field in list(fields.items()):
                 if field.visible:
                     self.append_field(item, label, field)
         enabled_field = form._get_fields()['__enabled__']
@@ -271,11 +271,26 @@ class TreeMixin(treeDragDrop.Mixin):
         else:
             parent = self.GetItemParent(item)
             if parent == root:
+                # This is a form item (action)
+                # First, select the item
+                self.SelectItem(item)
+                
+                # Toggle the form's enabled state
                 image = self.GetItemImage(item, wx.TreeItemIcon_Normal)
                 if image != -1:
-                    self.enable_form_item(item,
-                                          not self.is_form_enabled(item))
+                    self.enable_form_item(item, not self.is_form_enabled(item))
                     self.set_dirty(True)
+                
+                # Toggle expansion state
+                if self.IsExpanded(item):
+                    self.Collapse(item)
+                else:
+                    self.Expand(item)
+                    # If collapse_automatic is enabled, collapse other items
+                    if self.collapse_automatic:
+                        for child in self.GetItemChildren(root):
+                            if child != item and self.IsExpanded(child):
+                                self.Collapse(child)
 
     def set_form_field_value(self, item, value_as_string):
         label, old = self.GetPyData(item)
@@ -350,7 +365,7 @@ class TreeMixin(treeDragDrop.Mixin):
         ui_field, ui_label, ui_value_as_string = get_index(ui, ui_index)
         ui_field_prev = None
         # print '_'*40
-        for label, field in all.items():
+        for label, field in list(all.items()):
             if not field.visible:
                 continue
             # print 'item=', item, ', label=', label, ', ui_field=', field, ',\
@@ -539,7 +554,17 @@ class TreeMixin(treeDragDrop.Mixin):
 
     def on_left_down(self, event):
         self.close_popup()
-        event.Skip()
+        
+        # Get the item that was clicked
+        item_id, flags = self.HitTest(event.GetPosition())
+        
+        # Check if an item was clicked and if it's a form item
+        if item_id.IsOk() and self.is_form(item_id):
+            # If it's a form item, toggle it
+            self.toggle_form_item(item_id, event)
+        else:
+            # Otherwise, let the default handler process the event
+            event.Skip()
 
     def on_item_activated(self, event):
         item = event.GetItem()
@@ -619,7 +644,7 @@ def example():
     }
     form4 = formField.Form(foo3=formField.SliderField(value='100',
                                                       minValue=0, maxValue=100))
-    forms = [x() for x in form_factory.values()]  # + [form4]
+    forms = [x() for x in list(form_factory.values())]  # + [form4]
 
     class Tree(wx.TreeCtrl, TreeMixin):
 

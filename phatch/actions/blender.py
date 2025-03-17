@@ -96,7 +96,7 @@ class BlenderObject(object):
             arg_str += delim_name + ':%(' + delim_name + ')s '
 
         # Add "'s as otherwise args get parsed as separate
-        for k, v in values.items():
+        for k, v in list(values.items()):
             if isinstance(v, str) and len(v.split()) > 1:
                 values[k] = system.fix_quotes(v)
 

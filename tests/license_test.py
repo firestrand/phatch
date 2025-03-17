@@ -61,14 +61,14 @@ def check():
         d = match.groupdict()
         d['error'] = get_error(d)
         if d['error'] and not('api.py' in d['filename']):
-            print('%(filename)s:\n'\
+            print(('%(filename)s:\n'\
                 '- %(error)s\n'\
                 '- license: %(license)s\n'\
-                '- copyright: %(copyright)s\n' % d)
+                '- copyright: %(copyright)s\n' % d))
             error += 1
         total += 1
-    print('Ran %d license tests in %.3fs'
-        % (total, time.time() - time_start))
+    print(('Ran %d license tests in %.3fs'
+        % (total, time.time() - time_start)))
     sys.exit(error)
 
 

@@ -61,7 +61,7 @@ def set_logger(log_path):
 if __name__ == '__main__':
     # Option parser
     parser = optparse.OptionParser()
-    tags = sorted(phatchtools.get_action_tags().keys() + ['library', 'save'])
+    tags = sorted(list(phatchtools.get_action_tags().keys()) + ['library', 'save'])
     parser.add_option(
         '-t', '--tag',
         default=None,
@@ -157,14 +157,14 @@ if __name__ == '__main__':
     actions_by_tag = phatchtools.get_action_tags()
     all_actions = [
         action
-        for name, action in phatchtools.get_actions().iteritems()
+        for name, action in phatchtools.get_actions().items()
         if name not in config.DISABLE_ACTIONS]
     processing_actions = [
         action
-        for name, action in phatchtools.get_actions().iteritems()
+        for name, action in phatchtools.get_actions().items()
         if name not in config.DISABLE_ACTIONS
         and name not in actions_by_tag['metadata']]
-    metadata_actions = actions_by_tag['metadata'].values()
+    metadata_actions = list(actions_by_tag['metadata'].values())
     if options.tag == 'library':
         phatchtools.generate_library_actionlists(options.output)
     elif options.tag == 'save':
@@ -175,14 +175,14 @@ if __name__ == '__main__':
     elif options.tag:
         if options.extended and options.tag != 'metadata':
             actionlists = phatchtools.minimal_actionlists(
-                actions_by_tag[options.tag].values(),
+                list(actions_by_tag[options.tag].values()),
                 save_action,
                 [convert_mode_action],
             )
             choices_function = phatchtools.extended_choices
         else:
             actionlists = phatchtools.minimal_actionlists(
-                actions_by_tag[options.tag].values(),
+                list(actions_by_tag[options.tag].values()),
                 save_action,
             )
         phatchtools.generate_actionlists(

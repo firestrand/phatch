@@ -53,7 +53,7 @@ def exception_to_unicode(x, encoding=ENCODING, errors='replace'):
         try:
             return ensure_unicode(str(x), encoding, errors)
         except:
-            return u'?'
+            return '?'
 
 
 def fix_filename(f, encoding=None):

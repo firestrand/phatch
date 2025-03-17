@@ -119,13 +119,13 @@ class Rational:
 
 def main(path):
     import glob
-    import metadata
+    from . import metadata
     import os
     import pprint
     result = {}
     filenames = glob.glob(os.path.join(path, '*'))
     for filename in filenames:
-        print('Scanning file "%s" ...\n'%filename)
+        print(('Scanning file "%s" ...\n'%filename))
         info = metadata.InfoExtract(filename)
         info.extract_all()
         result.update(info.dump(expand=False))
@@ -1172,11 +1172,11 @@ INFO_TEST = \
  'day': 1,
  'desktop': '/home/stani/Bureaublad',
  'dpi': 72,
- 'filename': u'IMGA3012',
+ 'filename': 'IMGA3012',
  'filesize': 1548851,
- 'folder': u'/home/stani/sync/Afbeeldingen/20070414 new orleans',
+ 'folder': '/home/stani/sync/Afbeeldingen/20070414 new orleans',
  'folderindex': 0,
- 'foldername': u'20070414 new orleans',
+ 'foldername': '20070414 new orleans',
  'format': 'JPEG',
  'formatdescription': 'JPEG (ISO 10918)',
  'gamma': None,
@@ -1189,13 +1189,13 @@ INFO_TEST = \
  'month': 5,
  'monthname': 'May',
  'orientation': 1,
- 'path': u'/home/stani/sync/Afbeeldingen/20070414 new orleans/IMGA3012.JPG',
- 'root': u'/home/stani/sync/Afbeeldingen',
+ 'path': '/home/stani/sync/Afbeeldingen/20070414 new orleans/IMGA3012.JPG',
+ 'root': '/home/stani/sync/Afbeeldingen',
  'second': 27,
  'size': (2288, 1728),
- 'subfolder': u'',
+ 'subfolder': '',
  'transparency': None,
- 'type': u'JPG',
+ 'type': 'JPG',
  'weekday': 3,
  'weekdayname': 'Thursday',
  'width': 2288,

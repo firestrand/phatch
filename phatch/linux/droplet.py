@@ -48,9 +48,8 @@ WX_ENCODING = wx.GetDefaultPyEncoding()
 def menu_action(self, program, comment, method, *args, **keyw):
     try:
         success = method(*args, **keyw)
-        self.show_info(_('If you restart %s, '
-            'the action will appear in the context menu.') % program + comment)
-    except Exception, details:
+        self.show_info(_('If you restart %s, the action will appear in the context menu.') % program + comment)
+     except Exception as details:
         reason = exception_to_unicode(details, WX_ENCODING)
         self.show_error(_('Phatch could not install the action in %s:')\
             % program + '\n\n' + reason)

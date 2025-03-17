@@ -96,40 +96,49 @@ class Box(wx.VListBox):
         dc.DrawLine(rect.GetLeft(), y, rect.GetRight(), y)
 
     def OnDrawBackground(self, dc, rect, n):
-        """ Gradient fill from color 1 to color 2 with top to bottom
-        or left to right. """
-        if n != self.GetSelection():
-            return
-
-        if rect.height < 1 or rect.width < 1:
-            return
-
-        size = (self._is_vertical and [rect.height] or [rect.width])[0]
-        start = (self._is_vertical and [rect.y] or [rect.x])[0]
-
-        # calculate gradient coefficients
-        col2 = self._color_from
-        col1 = self._color_to
-
-        rf, gf, bf = 0, 0, 0
-        rstep = float((col2.Red() - col1.Red())) / float(size)
-        gstep = float((col2.Green() - col1.Green())) / float(size)
-        bstep = float((col2.Blue() - col1.Blue())) / float(size)
-
-        for coord in xrange(start, start + size):
-
-            currCol = wx.Colour(col1.Red() + rf, col1.Green() + gf, \
-            col1.Blue() + bf)
-            dc.SetBrush(wx.Brush(currCol, wx.SOLID))
-            dc.SetPen(wx.Pen(currCol))
+        if self.GetSelection() == n:
+            if self._theme == 'light_blue':
+                dc.SetBrush(wx.Brush(wx.SystemSettings.GetColour(
+                    wx.SYS_COLOUR_HIGHLIGHT), wx.SOLID))
+                dc.SetPen(wx.Pen(wx.SystemSettings.GetColour(
+                    wx.SYS_COLOUR_HIGHLIGHT)))
+                dc.DrawRectangle(rect)
+                return
+            # gradient
+            col1 = self._color_from
+            col2 = wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT)
+            # calculate gradient coefficients
             if self._is_vertical:
-                dc.DrawLine(rect.x, coord, rect.x + rect.width, coord)
+                size = rect.height
+                start = rect.y
             else:
-                dc.DrawLine(coord, rect.y, coord, rect.y + rect.height)
+                size = rect.width
+                start = rect.x
 
-            rf += rstep
-            gf += gstep
-            bf += bstep
+            rf = 0
+            gf = 0
+            bf = 0
+
+            rstep = float((col2.Red() - col1.Red())) / float(size)
+            gstep = float((col2.Green() - col1.Green())) / float(size)
+            bstep = float((col2.Blue() - col1.Blue())) / float(size)
+
+            for coord in range(start, start + size):
+                # Convert float values to integers for Colour constructor
+                r = int(col1.Red() + rf)
+                g = int(col1.Green() + gf)
+                b = int(col1.Blue() + bf)
+                currCol = wx.Colour(r, g, b)
+                dc.SetBrush(wx.Brush(currCol, wx.SOLID))
+                dc.SetPen(wx.Pen(currCol))
+                if self._is_vertical:
+                    dc.DrawLine(rect.x, coord, rect.x + rect.width, coord)
+                else:
+                    dc.DrawLine(coord, rect.y, coord, rect.y + rect.height)
+
+                rf += rstep
+                gf += gstep
+                bf += bstep
 
     def OnMeasureItem(self, n):
         return self._row_height
@@ -139,8 +148,8 @@ class Box(wx.VListBox):
         # coordinates
         x0, y0 = rect.GetTopLeft()
         x1, y1 = rect.GetBottomRight()
-        # bitmap
-        dc.DrawBitmap(bmp, x0 + self.icon_x, y0 + self.icon_y, True)
+        # bitmap - convert float coordinates to integers
+        dc.DrawBitmap(bmp, int(x0 + self.icon_x), int(y0 + self.icon_y), True)
         # text
         if self.GetSelection() != n or self._theme == 'light_blue':
             c = self.GetForegroundColour()
@@ -150,9 +159,9 @@ class Box(wx.VListBox):
         bold.SetWeight(wx.FONTWEIGHT_BOLD)
         dc.SetFont(bold)
         dc.SetTextForeground(c)
-        dc.DrawText(label, x0 + self.text_x, y0 + self.text_y1)
+        dc.DrawText(label, int(x0 + self.text_x), int(y0 + self.text_y1))
         dc.SetFont(self.GetFont())
-        dc.DrawText(summary, x0 + self.text_x, y0 + self.text_y2)
+        dc.DrawText(summary, int(x0 + self.text_x), int(y0 + self.text_y2))
 
     def SetVerticalGradient(self, bool=True):
         self._is_vertical = bool

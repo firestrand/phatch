@@ -18,7 +18,7 @@
 
 import os
 import sys
-import _winreg
+import winreg
 
 PYTHONW = os.path.join(sys.prefix, 'pythonw.exe')
 PY = 'Python.File'
@@ -30,7 +30,7 @@ def fix_label(x):
 
 
 def getFiletype(extension):
-    return _winreg.QueryValue(_winreg.HKEY_CLASSES_ROOT, extension)
+    return winreg.QueryValue(winreg.HKEY_CLASSES_ROOT, extension)
 
 #---register
 
@@ -38,12 +38,12 @@ def getFiletype(extension):
 def register(label, action, filetype='Python.File', suffix='"%1"'):
     try:
         k = '%s\\shell\\%s' % (filetype, label)
-        key = _winreg.CreateKey(_winreg.HKEY_CLASSES_ROOT, k)
+        key = winreg.CreateKey(winreg.HKEY_CLASSES_ROOT, k)
     except:
         pass
     try:
         command = '%s %s' % (action, suffix)
-        _winreg.SetValue(key, "command", _winreg.REG_SZ, command)
+        winreg.SetValue(key, "command", winreg.REG_SZ, command)
         return key
     except:
         return False
@@ -96,13 +96,13 @@ def register_py(label, action, suffix='"%1"'):
 def deregister(label, filetype='Python.File'):
     try:
         key = '%s\\shell\\%s' % (filetype, label)
-        _winreg.DeleteKey(_winreg.HKEY_CLASSES_ROOT, key + '\\command')
-    except  Exception, message:
+        winreg.DeleteKey(winreg.HKEY_CLASSES_ROOT, key + '\\command')
+    except  Exception as message:
         pass
     try:
-        _winreg.DeleteKey(_winreg.HKEY_CLASSES_ROOT, key)
+        winreg.DeleteKey(winreg.HKEY_CLASSES_ROOT, key)
         return True
-    except  Exception, message:
+    except  Exception as message:
         return False
 
 

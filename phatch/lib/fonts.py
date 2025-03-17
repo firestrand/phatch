@@ -48,26 +48,44 @@ if sys.platform.startswith('win'):
 else:
     #better unix alternative for collect_fonts/findFonts
     #presume findutils are present
-    if not system.find_exe('locate'):
-        sys.exit(str('Please install "%s" first.') % 'locate')
-
-    def locate_files(command):
-        return subprocess.Popen(command,
-            stdout=subprocess.PIPE).stdout.read().splitlines()
-
     def collect_fonts():
         """Collect a list of all font filenames."""
-        #try first with locate otherwise with find
-        for command in LOCATE:
-            try:
-                if system.find_exe(command[0]):
-                    output = locate_files(command)
-                    files = [line for line in output
-                        if line[-4:].lower() in ['.ttf', '.otf']]
-                    if files:
-                        return files
-            except:
-                pass
+        # Define common font directories for macOS and Linux
+        font_dirs = []
+        
+        if sys.platform.startswith('darwin'):  # macOS
+            font_dirs = [
+                '/System/Library/Fonts',
+                '/Library/Fonts',
+                os.path.expanduser('~/Library/Fonts')
+            ]
+        else:  # Linux
+            font_dirs = [
+                '/usr/share/fonts',
+                '/usr/local/share/fonts',
+                os.path.expanduser('~/.fonts')
+            ]
+            
+        # Add any additional font directories from the system
+        if 'XDG_DATA_DIRS' in os.environ:
+            for data_dir in os.environ['XDG_DATA_DIRS'].split(':'):
+                font_dir = os.path.join(data_dir, 'fonts')
+                if os.path.exists(font_dir):
+                    font_dirs.append(font_dir)
+        
+        # Collect font files from the specified directories
+        font_files = []
+        for font_dir in font_dirs:
+            if os.path.exists(font_dir):
+                for root, dirs, files in os.walk(font_dir):
+                    for file in files:
+                        if file.lower().endswith(('.ttf', '.otf')):
+                            font_files.append(os.path.join(root, file))
+        
+        if font_files:
+            return font_files
+            
+        # Fallback to the original method if no fonts found
         from phatch.other.findsystem import findFonts
         return findFonts()
 

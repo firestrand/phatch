@@ -116,7 +116,7 @@ def info_diff(original_info, other_info):
     if original_info == other_info:
         return
     result = {'extra': [], 'missing': [], 'diff': []}
-    keys = sorted(list(set(original_info.keys() + other_info.keys())))
+    keys = sorted(list(set(list(original_info.keys()) + list(other_info.keys()))))
     for key in keys:
         original_value = original_info.get(key)
         other_value = other_info.get(key)
@@ -189,7 +189,7 @@ def product(*args, **kwds):
     # Copyed from python 2.6 docs
     # product('ABCD', 'xy') --> Ax Ay Bx By Cx Cy Dx Dy
     # product(range(2), repeat=3) --> 000 001 010 011 100 101 110 111
-    pools = map(tuple, args) * kwds.get('repeat', 1)
+    pools = list(map(tuple, args)) * kwds.get('repeat', 1)
     result = [[]]
     for pool in pools:
         result = [x + [y] for x in result for y in pool]

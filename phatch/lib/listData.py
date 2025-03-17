@@ -189,7 +189,7 @@ class DataDict(DataTuple):
                 self._fixed_headers = headers
             _headers = []
             for row in self.data:
-                for header in row.keys():
+                for header in list(row.keys()):
                     if header not in self._fixed_headers + _headers:
                         _headers.append(header)
             _headers.sort()

@@ -82,7 +82,7 @@ def save_bytes(name):
     if icon_b[0:4] == b'\x89PNG':
         filename += '.png'
     else:
-        print(str(icon[0:4]))
+        print((str(icon[0:4])))
 
     with open(filename, 'wb') as f:
         f.write(icon_b)

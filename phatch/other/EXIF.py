@@ -1420,8 +1420,8 @@ class EXIF_header:
                                                                values, field_offset,
                                                                count * typelen)
                 if self.debug:
-                    print(' debug:   %s: %s' % (tag_name,
-                                                repr(self.tags[ifd_name + ' ' + tag_name])))
+                    print((' debug:   %s: %s' % (tag_name,
+                                                repr(self.tags[ifd_name + ' ' + tag_name]))))
 
             if tag_name == stop_tag:
                 break
@@ -1591,7 +1591,7 @@ class EXIF_header:
         for i in range(1, len(value)):
             x = dict.get(i, ('Unknown',))
             if self.debug:
-                print(i, x)
+                print((i, x))
             name = x[0]
             if len(x) > 1:
                 val = x[1].get(value[i], 'Unknown')
@@ -1643,7 +1643,7 @@ def process_file(f, stop_tag='UNDEF', details=True, strict=False, debug=False):
 
     # deal with the EXIF info we found
     if debug:
-        print({'I': 'Intel', 'M': 'Motorola'}[endian], 'format')
+        print(({'I': 'Intel', 'M': 'Motorola'}[endian], 'format'))
     hdr = EXIF_header(f, endian, offset, fake_exif, strict, debug)
     ifd_list = hdr.list_IFDs()
     ctr = 0
@@ -1656,27 +1656,27 @@ def process_file(f, stop_tag='UNDEF', details=True, strict=False, debug=False):
         else:
             IFD_name = 'IFD %d' % ctr
         if debug:
-            print(' IFD %d (%s) at offset %d:' % (ctr, IFD_name, i))
+            print((' IFD %d (%s) at offset %d:' % (ctr, IFD_name, i)))
         hdr.dump_IFD(i, IFD_name, stop_tag=stop_tag)
         # EXIF IFD
         exif_off = hdr.tags.get(IFD_name + ' ExifOffset')
         if exif_off:
             if debug:
-                print(' EXIF SubIFD at offset %d:' % exif_off.values[0])
+                print((' EXIF SubIFD at offset %d:' % exif_off.values[0]))
             hdr.dump_IFD(exif_off.values[0], 'EXIF', stop_tag=stop_tag)
             # Interoperability IFD contained in EXIF IFD
             intr_off = hdr.tags.get('EXIF SubIFD InteroperabilityOffset')
             if intr_off:
                 if debug:
-                    print(' EXIF Interoperability SubSubIFD at offset %d:'
-                          % intr_off.values[0])
+                    print((' EXIF Interoperability SubSubIFD at offset %d:'
+                          % intr_off.values[0]))
                 hdr.dump_IFD(intr_off.values[0], 'EXIF Interoperability',
                              dict=INTR_TAGS, stop_tag=stop_tag)
         # GPS IFD
         gps_off = hdr.tags.get(IFD_name + ' GPSInfo')
         if gps_off:
             if debug:
-                print(' GPS SubIFD at offset %d:' % gps_off.values[0])
+                print((' GPS SubIFD at offset %d:' % gps_off.values[0]))
             hdr.dump_IFD(gps_off.values[0], 'GPS', dict=GPS_TAGS, stop_tag=stop_tag)
         ctr += 1
 
@@ -1755,9 +1755,9 @@ if __name__ == '__main__':
         try:
             file = open(filename, 'rb')
         except:
-            print("'%s' is unreadable\n" % filename)
+            print(("'%s' is unreadable\n" % filename))
             continue
-        print(filename + ':')
+        print((filename + ':'))
         # get the tags
         data = process_file(file, stop_tag=stop_tag, details=detailed, strict=strict, debug=debug)
         if not data:
@@ -1768,10 +1768,10 @@ if __name__ == '__main__':
             if i in ('JPEGThumbnail', 'TIFFThumbnail'):
                 continue
             try:
-                print('   %s (%s): %s' %
-                      (i, FIELD_TYPES[data[i].field_type][2], data[i].printable))
+                print(('   %s (%s): %s' %
+                      (i, FIELD_TYPES[data[i].field_type][2], data[i].printable)))
             except:
-                print('error', i, '"', data[i], '"')
+                print(('error', i, '"', data[i], '"'))
         if 'JPEGThumbnail' in data:
             print('File has JPEG thumbnail')
         print()

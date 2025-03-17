@@ -25,55 +25,55 @@ FAILED = '''
 Failed to save metadata to %s:\npyexiv2: %s
 Trying again by ignoring tags with following pattern:\n%s\n'''
 
-#info taken from http://dev.exiv2.org/wiki/exiv2/Supported_image_formats
+# info taken from http://dev.exiv2.org/wiki/exiv2/Supported_image_formats
 READ_EXIF = ['JPEG', 'EXV', 'CR2', 'CRW', 'MRW', 'TIFF', 'DNG', 'NEF', 'PEF',
-    'ARW', 'SR2', 'ORF', 'RW2', 'RAF', 'PSD', 'JP2']
+             'ARW', 'SR2', 'ORF', 'RW2', 'RAF', 'PSD', 'JP2']
 
 WRITE_EXIF = ['JPEG', 'EXV', 'CRW', 'DNG', 'NEF', 'PEF', 'PSD', 'JP2']
-#others needs more testing
-#for sure exclude TIFF for now:
-#-  eg try to convert Marino_Detail02 from jpeg to tiff
-#-> tiff gets corrupted
-#['JPEG', 'EXV', 'CRW', 'TIFF', 'DNG', 'NEF', 'PEF', 'PSD', 'JP2']
+# others needs more testing
+# for sure exclude TIFF for now:
+# -  eg try to convert Marino_Detail02 from jpeg to tiff
+# -> tiff gets corrupted
+# ['JPEG', 'EXV', 'CRW', 'TIFF', 'DNG', 'NEF', 'PEF', 'PSD', 'JP2']
 
 READ_IPTC = ['JPEG', 'EXV', 'CR2', 'MRW', 'TIFF', 'DNG', 'NEF', 'PEF',
-    'ARW', 'SR2', 'ORF', 'RW2', 'RAF', 'PSD', 'JP2']
+             'ARW', 'SR2', 'ORF', 'RW2', 'RAF', 'PSD', 'JP2']
 
 WRITE_IPTC = ['JPEG', 'EXV', 'CR2', 'MRW', 'DNG', 'NEF', 'PEF',
-    'ARW', 'SR2', 'ORF', 'RW2', 'RAF', 'PSD', 'JP2']
-#exclude for now: 'TIFF',
+              'ARW', 'SR2', 'ORF', 'RW2', 'RAF', 'PSD', 'JP2']
+# exclude for now: 'TIFF',
 
 READ_COMMENT = ['JPEG', 'EXV', 'CRW']
 
 WRITE_COMMENT = ['JPEG', 'EXV', 'CRW']
 
 
-def is_readable_format(format):
+def is_readable_format(img_format):
     """Returns True if pyexiv2 can read Exif or Iptc metadata from
     the image file ``format``."""
-    return not format or format in READ_EXIF + READ_IPTC + READ_COMMENT
+    return not img_format or img_format in READ_EXIF + READ_IPTC + READ_COMMENT
 
 
-def is_writable_format(format):
+def is_writable_format(img_format):
     """Returns True if pyexiv2 can write Exif or Iptc metadata to
     the image file ``format``."""
-    return not format or format in WRITE_EXIF + WRITE_IPTC + WRITE_COMMENT
+    return not img_format or img_format in WRITE_EXIF + WRITE_IPTC + WRITE_COMMENT
 
 
-def is_writable_format_exif(format):
+def is_writable_format_exif(img_format):
     """Returns True if pyexiv2 can write Exif metadata to
     the image file ``format``."""
-    return not format or format in WRITE_EXIF
+    return not img_format or img_format in WRITE_EXIF
 
 
-def is_writable_format_iptc(format):
+def is_writable_format_iptc(img_format):
     """Returns True if pyexiv2 can write Iptc metadata to
     the image file ``format``."""
-    return not format or format in WRITE_IPTC
+    return not img_format or img_format in WRITE_IPTC
 
 
 def write_metadata(source_pyexiv2_image, target, source_format=None,
-        target_format=None, thumbdata=None):
+                   target_format=None, thumbdata=None):
     """
     :param source_pyexiv2_image: file opened by pyexiv2
     :type source_pyexiv2_image: pyexiv2.Image
@@ -86,41 +86,41 @@ def write_metadata(source_pyexiv2_image, target, source_format=None,
     :param thumbdata: new thumbnail (e.g. with StringIO, see :mod:`imtools`)
     :type thumbdata: string
     """
-    #if there is nothing to read or write, return immediately
+    # if there is nothing to read or write, return immediately
     if not is_writable_format(target_format):
         return ''
-    #correct tags
+    # correct tags
     if not source_pyexiv2_image:
         return ''
 
-    #make two attempts to copy metadata:
-    #1. normal
-    #2. exclude tags which (might) break exiv2 (eg Canon tuples)
+    # make two attempts to copy metadata:
+    # 1. normal
+    # 2. exclude tags which (might) break exiv2 (eg Canon tuples)
 
     # This will probably be obsolete for python-pyexiv2 0.2
     # -> If that is True add a version check
 
-    #verify if there are tags which might break exiv2
+    # verify if there are tags which might break exiv2
     broken_tag = None
 
     for tag in list(source_pyexiv2_image.exifKeys()) + \
-        list(source_pyexiv2_image.iptcKeys()):
+               list(source_pyexiv2_image.iptcKeys()):
         if RE_BROKEN.match(tag):
             broken_tag = RE_BROKEN
             break
 
-    #copy the tags
+    # copy the tags
     log = ''
+    warnings = ''
 
-    #attempt to copy metadata
+    # attempt to copy metadata
     try:
-        warnings = _copy_metadata(source_pyexiv2_image, target,
-            source_format, target_format, broken_tag, thumbdata)
+        warnings = _copy_metadata(source_pyexiv2_image, target, source_format, target_format, broken_tag, thumbdata)
         copied = True
-    except Exception, message:
+    except Exception as message:
         copied = False
 
-    #if metadata copied succesfully, check for warnings
+    # if metadata copied succesfully, check for warnings
     if copied:
         if warnings:
             log += ISSUES % target + warnings
@@ -131,7 +131,7 @@ def write_metadata(source_pyexiv2_image, target, source_format=None,
 
 
 def _copy_metadata(source_pyexiv2_image, target, source_format=None,
-        target_format=None, broken_tag=None, thumbdata=None):
+                   target_format=None, broken_tag=None, thumbdata=None):
     """
     :param source_pyexiv2_image: file opened by pyexiv2
     :type source_pyexiv2_image: pyexiv2.Image
@@ -146,64 +146,63 @@ def _copy_metadata(source_pyexiv2_image, target, source_format=None,
     :param thumbdata: new thumbnail (e.g. with StringIO, see :mod:`imtools`)
     :type thumbdata: string
     """
-    #read target
+    # read target
     target = pyexiv2.Image(target)
     target.readMetadata()
     warnings = []
     written = False
-    #copy exif metadata
+    # copy exif metadata
     if (not source_format or source_format in READ_EXIF) and \
-        (not target_format or target_format in WRITE_EXIF):
+            (not target_format or target_format in WRITE_EXIF):
         for tag in source_pyexiv2_image.exifKeys():
-            if not(broken_tag and broken_tag.match(tag)):
+            if not (broken_tag and broken_tag.match(tag)):
                 try:
-                    #the following is more or less the same as
-                    #target[tag] = source_pyexiv2_image[tag]
-                    #but prevents conversions
-                    target._Image__setExifTag(tag,
-                        source_pyexiv2_image._Image__getExifTag(tag)[1])
+                    # the following is more or less the same as
+                    # target[tag] = source_pyexiv2_image[tag]
+                    # but prevents conversions
+                    target._Image__setExifTag(tag, source_pyexiv2_image._Image__getExifTag(tag)[1])
                     written = True
-                except Exception, message:
+                except Exception as message:
                     message = '%s: %s' % (tag, message)
                     warnings.append(message)
-    #copy iptc metadata
+    # copy iptc metadata
     if (not source_format or source_format in READ_IPTC) and \
-        (not target_format or target_format in WRITE_IPTC):
+            (not target_format or target_format in WRITE_IPTC):
         for tag in source_pyexiv2_image.iptcKeys():
             try:
                 target[tag] = source_pyexiv2_image[tag]
                 written = True
-            except Exception, message:
+            except Exception as message:
                 message = '%s: %s' % (tag, message)
                 warnings.append(message)
-    #copy comment
+    # copy comment
     if (not source_format or source_format in READ_COMMENT) and \
-        (not target_format or target_format in WRITE_COMMENT):
+            (not target_format or target_format in WRITE_COMMENT):
         try:
             target.setComment(source_pyexiv2_image.getComment())
             written = True
-        except Exception, message:
+        except Exception as message:
             warnings.append(message)
     warnings.append(write_thumbdata(target, thumbdata))
-    #save metadata (this might rise an exception)
+    # save metadata (this might rise an exception)
     if written:
         target.writeMetadata()
     return '\n'.join(warnings)
 
 
 def extension_to_image_format(ext):
-    format = ext[1:].upper()
-    if format in ['JPG', 'JPE']:
-        format = 'JPEG'
-    elif format == 'TIF':
-        format = 'TIFF'
-    return format
+    img_format = ext[1:].upper()
+    if img_format in ['JPG', 'JPE']:
+        img_format = 'JPEG'
+    elif img_format == 'TIF':
+        img_format = 'TIFF'
+    return img_format
 
 
 def read_thumbdata(image):
     try:
         return image.getThumbnailData()
-    except Exception, message:
+    except Exception as message:
         return None
 
 
@@ -213,11 +212,11 @@ def write_thumbdata(image, thumbdata=None):
     try:
         image.setThumbnailData(thumbdata)
         return ''
-    except Exception, message:
-        return unicode(message)
+    except Exception as message:
+        return str(message)
 
 
-#def write_comment(source, comment=None, source_format=None,
+# def write_comment(source, comment=None, source_format=None,
 #        target_format=None):
 #    #TODO: phatch for now ignores jpg comments
 #    #this function is not ready
@@ -227,7 +226,7 @@ def write_thumbdata(image, thumbdata=None):
 #        (not target_format or target_format in WRITE_COMMENT):
 #        try:
 #            target.setComment(comment)
-#        except Exception, message:
+#         except Exception as message:
 #            return unicode(message)
 #    return ''
 
@@ -235,6 +234,6 @@ def flush(image, thumbdata):
     warnings = [write_thumbdata(image, thumbdata)]
     try:
         image.writeMetadata()
-    except Exception, message:
-        warnings.append(unicode(message))
+    except Exception as message:
+        warnings.append(str(message))
     return '\n'.join(warnings)

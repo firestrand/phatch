@@ -49,7 +49,7 @@ def u(txt):
 def ask(message, answers):
     answer = None
     while not(answer in answers):
-        answer = raw_input(u(message)).strip().lower()
+        answer = input(u(message)).strip().lower()
     return answer
 
 
@@ -61,12 +61,12 @@ def ask_yes_no(message):
 
 class CliMixin:
     def show_error(self, message, exit=True):
-        self.show_message(u'\n%s: %s' % (_('Error'), message))
+        self.show_message('\n%s: %s' % (_('Error'), message))
         if exit:
             self.exit()
 
     def show_message(self, *messages):
-        self.write(u'\n'.join(messages) + '\n')
+        self.write('\n'.join(messages) + '\n')
 
     def show_notification(self, message, *args, **keyw):
         self.show_message(message)
@@ -89,7 +89,7 @@ class Progress(CliMixin, ProgressReceiver):
         self.verbose = verbose
         self.output = output
         self.previous = 0
-        self.write(u'\n%s ...\n' % title)
+        self.write('\n%s ...\n' % title)
 
     def close(self):
         self.erase()
@@ -144,7 +144,7 @@ class Frame(CliMixin, FrameReceiver):
         if self.settings['interactive']:
             while not(os.path.splitext(actionlist)[1].lower() == ct.EXTENSION
                     and os.path.isfile(actionlist)):
-                actionlist = raw_input(_('Action list') + '(*%s) : '\
+                actionlist = input(_('Action list') + '(*%s) : '\
                     % ct.EXTENSION).strip().lstrip('file://')
             return actionlist
         else:
@@ -153,7 +153,7 @@ class Frame(CliMixin, FrameReceiver):
     def show_execute_dialog(self, result, settings, files=None):
         """To be overwritten."""
         if not settings['paths'] and settings['interactive']:
-            settings['paths'] = raw_input(_('Image paths') + ': ').strip()
+            settings['paths'] = input(_('Image paths') + ': ').strip()
         if not settings['paths']:
             self.show_error('No image paths given.', exit=True)
         result['cancel'] = False

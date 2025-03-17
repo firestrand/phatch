@@ -48,7 +48,7 @@ def create_paths(relative=''):
         'PHATCH_MASKS_PATH': join(phatch_data_path, 'masks'),
         'PHATCH_PERSPECTIVE_PATH': join(phatch_data_path, 'perspective'),
     }
-    for key, path in paths.items():
+    for key, path in list(paths.items()):
         paths[key] = expand(path)
     paths['PHATCH_PYTHON_PATH'] = root
     return paths
@@ -66,7 +66,7 @@ def init_config_paths():
 def main():
     # override paths with local paths
     # start application
-    import app
+    from . import app
     app.main(init_config_paths(), app_file=__file__)
 
 

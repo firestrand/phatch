@@ -188,7 +188,7 @@ def fix_python_path(phatch_python_path=None):
     return phatch_python_path
 
 
-def load_locale(app: str, path: str, canonical: str = 'default', unicode: bool = True):
+def load_locale(app: str, path: str, canonical: str = 'default', str: bool = True):
     locale.setlocale(locale.LC_ALL, '')
     # get default canonical if necessary
     if canonical == 'default':

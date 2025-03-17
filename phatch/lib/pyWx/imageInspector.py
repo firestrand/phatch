@@ -257,7 +257,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
         # bitmap
         self.PENCIL_BITMAP = getPencilBitmap()
         self.PENCIL_BITMAP_SIZE = self.PENCIL_BITMAP.GetSize()
-        self.GRAY_BRUSH = wx.Brush("WHEAT", wx.TRANSPARENT_BRUSH)
+        self.GRAY_BRUSH = wx.Brush("WHEAT", wx.BRUSHSTYLE_TRANSPARENT)
         self.GRAY_PEN = wx.Pen(GRAY)
         # editor
         self.SetDefaultEditor(gridlib.GridCellTextEditor())
@@ -959,12 +959,12 @@ V\xfa\xe0\r,\xf7\xc3p\xa1\xd3\xe9T\xe8`\x0f\xb3\xedv\xfb\xb4\xd5j\xed\x16\
 
 
 def getPencilBitmap():
-    return wx.BitmapFromImage(getPencilImage())
+    return wx.Bitmap(getPencilImage())
 
 
 def getPencilImage():
-    stream = io.StringIO(getPencilData())
-    return wx.ImageFromStream(stream)
+    stream = io.BytesIO(getPencilData())
+    return wx.Image(stream)
 
 
 if __name__ == '__main__':

@@ -20,7 +20,7 @@ import sys
 
 def displayhook(value):
     if value is not None:
-        print(repr(value))
+        print((repr(value)))
 
 
 sys.displayhook = displayhook

@@ -358,7 +358,7 @@ class _TopicTreeNode:
         strVal = []
         for callable in self.getCallables():
             strVal.append(_getCallableName(callable))
-        for topic, node in self.__subtopics.items():
+        for topic, node in list(self.__subtopics.items()):
             strVal.append(' (%s: %s)' %(topic, node))
         return ''.join(strVal)
       
@@ -509,7 +509,7 @@ class _TopicTreeRoot(_TopicTreeNode):
             self.__callbackDictCleanup = 0
             oldDict = self.__callbackDict
             self.__callbackDict = {}
-            for weakCB, weakNodes in oldDict.items():
+            for weakCB, weakNodes in list(oldDict.items()):
                 if weakCB() is not None:
                     self.__callbackDict[weakCB] = weakNodes
         
@@ -538,7 +538,7 @@ class _TopicTreeRoot(_TopicTreeNode):
         
     def printCallbacks(self):
         strVal = ['Callbacks:\n']
-        for listener, weakTopicNodes in self.__callbackDict.items():
+        for listener, weakTopicNodes in list(self.__callbackDict.items()):
             topics = [topic() for topic in weakTopicNodes if topic() is not None]
             strVal.append('  %s: %s\n' % (_getCallableName(listener()), topics))
         return ''.join(strVal)
@@ -847,7 +847,7 @@ class Message:
 #
 def test():
     def done(funcName):
-        print('----------- Done %s -----------' % funcName)
+        print(('----------- Done %s -----------' % funcName))
         
     def testParam():
         def testFunc00(): pass
@@ -881,7 +881,7 @@ def test():
     _NodeCallback.notified = 0
     def testPreNotifyNode(self, dead):
         _NodeCallback.notified += 1
-        print('testPreNotifyNODE heard notification of', repr(dead))
+        print(('testPreNotifyNODE heard notification of', repr(dead)))
     _NodeCallback.preNotify = testPreNotifyNode
     
     def testTreeNode():
@@ -890,12 +890,12 @@ def test():
             def __init__(self, s):
                 self.s = s
             def __call__(self, msg):
-                print('WS#', self.s, ' received msg ', msg)
+                print(('WS#', self.s, ' received msg ', msg))
             def __str__(self):
                 return self.s
             
         def testPreNotifyRoot(dead):
-            print('testPreNotifyROOT heard notification of', repr(dead))
+            print(('testPreNotifyROOT heard notification of', repr(dead)))
     
         node = _TopicTreeNode((ALL_TOPICS,), WeakRef(testPreNotifyRoot))
         boo, baz, bid = WS('boo'), WS('baz'), WS('bid')
@@ -927,7 +927,7 @@ def test():
         node2.createSubtopic('st3', ('st1','st3'))
         node2.createSubtopic('st4', ('st1','st4'))
        
-        print(str(node))
+        print((str(node)))
         assert str(node) == ' (st1: st1_cb1 st1_cb2  (st4: ) (st3: )) (st2: st2_cb )'
     
         # verify send message, and that a dead listener does not get sent one
@@ -972,9 +972,9 @@ def test():
         def __init__(self, number):
             self.number = number
         def __call__(self, message = ''): 
-            print('Callable #%s got the message "%s"' %(self.number, message))
+            print(('Callable #%s got the message "%s"' %(self.number, message)))
         def notify(self, message):
-            print('%s.notify() got the message "%s"' %(self.number, message))
+            print(('%s.notify() got the message "%s"' %(self.number, message)))
         def __str__(self):
             return "SimpleListener_%s" % self.number
 
@@ -990,7 +990,7 @@ def test():
         lisnr1 = SimpleListener(1)
         lisnr2 = SimpleListener(2)
         def func(message, a=1): 
-            print('Func received message "%s"' % message)
+            print(('Func received message "%s"' % message))
         lisnr3 = func
         lisnr4 = lambda x: 'Lambda received message "%s"' % x
 
@@ -1013,7 +1013,7 @@ def test():
         assert publisher.getAssociatedTopics(lisnr1) == [(topic1,),topic2]
         publisher.subscribe(lisnr4)
         
-        print("Publisher tree: ", publisher)
+        print(("Publisher tree: ", publisher))
         assert publisher.isSubscribed(lisnr1)
         assert publisher.isSubscribed(lisnr1, topic1)
         assert publisher.isSubscribed(lisnr1, topic2)
@@ -1021,7 +1021,7 @@ def test():
         assert publisher.isSubscribed(lisnr3, topic5)
         assert publisher.isSubscribed(lisnr4, ALL_TOPICS)
         expectTopicTree = 'all: <lambda>  (politics: SimpleListener_1  (UN: SimpleListener_2.notify ) (NATO:  (US: func ))) (history:  (middle age: SimpleListener_1 ))'
-        print("Publisher tree: ", publisher)
+        print(("Publisher tree: ", publisher))
         assert str(publisher) == expectTopicTree
         
         publisher.unsubscribe(lisnr1, 'booboo') # should do nothing
@@ -1042,7 +1042,7 @@ def test():
         publisher.unsubscribe(lisnr4)
         
         expectTopicTree = 'all:  (politics:  (UN: ) (NATO:  (US: ))) (history:  (middle age: ))'
-        print("Publisher tree: ", publisher)
+        print(("Publisher tree: ", publisher))
         assert str(publisher) == expectTopicTree
         assert publisher.getDeliveryCount() == 0
         assert publisher.getMessageCount() == 0
@@ -1067,7 +1067,7 @@ def test():
         lisnr1 = SimpleListener(1)
         lisnr2 = SimpleListener(2)
         def func(message, a=1): 
-            print('Func received message "%s"' % message)
+            print(('Func received message "%s"' % message))
         lisnr3 = func
         lisnr4 = lambda x: 'Lambda received message "%s"' % x
 
@@ -1079,7 +1079,7 @@ def test():
         publisher.subscribe(lisnr4)
         
         expectTopicTree = 'all: <lambda>  (politics: SimpleListener_1  (UN: SimpleListener_2.notify ) (NATO:  (US: func ))) (history:  (middle age: SimpleListener_1 func ))'
-        print("Publisher tree: ", publisher)
+        print(("Publisher tree: ", publisher))
         assert str(publisher) == expectTopicTree
     
         publisher.unsubAll(topic1)
@@ -1216,7 +1216,7 @@ def test():
         node.addTopic(('',), SimpleListener(5))
         node.addTopic(('',), SimpleListener(6))
         node.addTopic(('',), SimpleListener(7))
-        print(node.numListeners())
+        print((node.numListeners()))
         assert node.numListeners() == (4, 3)
         node.addTopic(('',), SimpleListener(8))
         assert node.numListeners() == (4, 0)

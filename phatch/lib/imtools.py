@@ -38,7 +38,7 @@ EXT_BY_FORMATS = {
     'SVG': ['SVG', 'SVGZ'],
 }
 FORMATS_BY_EXT = {}
-for format, exts in EXT_BY_FORMATS.items():
+for format, exts in list(EXT_BY_FORMATS.items()):
     for ext in exts:
         FORMATS_BY_EXT[ext] = format
 
@@ -531,7 +531,7 @@ def get_palette(image):
     :rtype: a sequence of (r, g, b) tuples
     """
     palette = image.resize((256, 1))
-    palette.putdata(range(256))
+    palette.putdata(list(range(256)))
     return list(palette.convert("RGB").getdata())
 
 
@@ -1073,12 +1073,12 @@ def checkboard(size, delta=8, fg=(128, 128, 128), bg=(204, 204, 204)):
 
         def square(i, j):
             "Return the square corners"
-            return map(sq_start, [i, j, i + 1, j + 1])
+            return list(map(sq_start, [i, j, i + 1, j + 1]))
 
         image = Image.new("RGB", size, bg)
         draw_square = ImageDraw.Draw(image).rectangle
         squares = (square(i, j)
-                   for i_start, j in zip(cycle((0, 1)), range(n))
+                   for i_start, j in zip(cycle((0, 1)), list(range(n)))
                    for i in range(i_start, n, 2))
         for sq in squares:
             draw_square(sq, fill=fg)

@@ -29,7 +29,7 @@ reg = re.compile(r'(\s*tags\s*=\s*).+')
 
 def parse_tags(tag_file):
     data = open(tag_file).read().split('\n\n')
-    tag_lists = [map(str.strip, tags.split()) for tags in data]
+    tag_lists = [list(map(str.strip, tags.split())) for tags in data]
     tags = {}
     for tag_list in tag_lists:
         for action in tag_list[1:]:

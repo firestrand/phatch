@@ -78,7 +78,7 @@ def color_to_alpha(image, color_value=None, select_color_by=None):
         # The selected color is transparent
         return image
 
-    color = map(float, color)
+    color = list(map(float, color))
     img_bands = [band.convert("F") for band in imtools.split(image)]
 
     # Find the maximum difference rate between source and color.

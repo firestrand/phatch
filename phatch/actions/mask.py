@@ -77,7 +77,7 @@ class Action(models.Action):
 
     def interface(self, fields):
         fields[_t('Mask')] = self.MaskFileField('Daisy')
-        fields[_t('Resample Mask')] = self.ImageResampleField('antialias')
+        fields[_t('Resample Mask')] = self.ImageResampleField('lanczos')
 
     icon = \
 b'x\xda\x01\xfa\x07\x05\xf8\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\

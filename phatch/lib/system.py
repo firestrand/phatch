@@ -156,7 +156,9 @@ def _ensure_path(path):
 
 
 def fix_quotes(text):
-    """Fix quotes for a command line parameter. Only surround
+    """Fix quotes for command line parameters.
+
+    Command line parameters need to be surrounded
     by quotes if a space is present in the filename.
 
     :param text: command line parameter
@@ -169,6 +171,10 @@ def fix_quotes(text):
     >>> fix_quotes('/my programs/blender')
     '"/my programs/blender"'
     """
+    # Ensure text is a string (not bytes)
+    if isinstance(text, bytes):
+        text = text.decode('utf-8')
+    
     if not RE_NEED_QUOTES.match(text):
         return text
     if not ('"' in text):
@@ -579,7 +585,7 @@ class MethodRegister:
         :type values: dict
         """
         if key in d:
-            for value in values.keys():
+            for value in list(values.keys()):
                 values[value] = [x for x in values[value] if x != key]
                 if not values[value]:
                     del values[value]
@@ -589,4 +595,4 @@ class MethodRegister:
     def _update(self):
         """Updates the list of extension after each change. Helper
         function for :ref:`register` and :ref:`_unregister`."""
-        self.extensions = self._methods.keys()
+        self.extensions = list(self._methods.keys())

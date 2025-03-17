@@ -229,7 +229,7 @@ class UtilityMixin(models.Action):
         names = sorted(self.utilities.keys())
         fields[_t('Utility')] = self.ChoiceField(names[0],
             choices=names)
-        for utility in self.utilities.values():
+        for utility in list(self.utilities.values()):
             utility.interface(self, fields)
 
     def get_relevant_field_labels(self, relevant=None):

@@ -450,13 +450,11 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin, frame
 
     # ---toolBar
     def add_tool(self, bitmap, label, tooltip, method, item=wx.ITEM_NORMAL):
-        id = wx.ID_ANY
-        bitmap = graphics.bitmap(bitmap, self.tool_bitmap_size,
-                                 client=wx.ART_TOOLBAR)
-        args = (id, label, bitmap, wx.NullBitmap, item,
-                tooltip, "")
-        tool = self.frame_toolbar.AddTool(*args)
-        self.Bind(wx.EVT_TOOL, method, id=id)
+        tool_id = wx.NewId()
+        bitmap = graphics.bitmap(bitmap, self.tool_bitmap_size, client=wx.ART_TOOLBAR)
+        tool = self.frame_toolbar.AddTool(tool_id, label, bitmap, tooltip, item)
+        self.Bind(wx.EVT_TOOL, method, id=tool_id)
+        print(f"DEBUG: Added tool {label} with handler {method.__name__}")
         return tool
 
     def _toolBar(self):
@@ -560,13 +558,14 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin, frame
         return
 
     def on_menu_file_open(self, event):
+        print("DEBUG: on_menu_file_open called")
         if self.is_save_not_ok():
             return
         dlg = wx.FileDialog(self,
                             message=str('Choose an Action List File...'),
                             defaultDir=os.path.dirname(self.filename),
                             wildcard=ct.WILDCARD,
-                            style=wx.OPEN,
+                            style=wx.FD_OPEN,
                             )
         if dlg.ShowModal() == wx.ID_OK:
             filename = dlg.GetPath()
@@ -598,7 +597,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin, frame
                             message=str('Save Action List As...'),
                             defaultDir=default_dir,
                             wildcard=ct.WILDCARD,
-                            style=wx.SAVE | wx.OVERWRITE_PROMPT,
+                            style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT,
                             )
         if dlg.ShowModal() == wx.ID_OK:
             saved = True
@@ -648,6 +647,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin, frame
         self._open(filename)
 
     def on_menu_edit_add(self, event):
+        print("DEBUG: on_menu_edit_add called")
         settings = wx.GetApp().settings
         if not hasattr(self, 'dialog_actions'):
             self.dialog_actions = dialogs.ActionDialog(self,
@@ -662,6 +662,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin, frame
         self.dialog_actions.Hide()
 
     def on_menu_edit_remove(self, event):
+        print("DEBUG: on_menu_edit_remove called")
         if self.tree.remove_selected_form():
             if self.IsEmpty():
                 self.enable_actions(False)
@@ -670,10 +671,12 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin, frame
                 self.set_dirty(True)
 
     def on_menu_edit_up(self, event):
+        print("DEBUG: on_menu_edit_up called")
         self.set_dirty(True)
         self.tree.move_form_selected_up()
 
     def on_menu_edit_down(self, event):
+        print("DEBUG: on_menu_edit_down called")
         self.set_dirty(True)
         self.tree.move_form_selected_down()
 
@@ -691,6 +694,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin, frame
         return x  # [:18]
 
     def on_menu_view_description(self, event):
+        print("DEBUG: on_menu_view_description called")
         self.show_description(event.IsChecked())
 
     def on_menu_view_expand_all(self, event):
@@ -703,6 +707,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin, frame
         self.enable_collapse_automatic(event.IsChecked())
 
     def on_menu_tools_execute(self, event):
+        print("DEBUG: on_menu_tools_execute called")
         actionlist = self.tree.export_forms()
         self._execute(actionlist)
 
@@ -710,6 +715,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin, frame
         self.set_safe_mode(event.IsChecked())
 
     def on_menu_tools_image_inspector(self, event):
+        print("DEBUG: on_menu_tools_image_inspector called")
         frame = dialogs.ImageInspectorFrame(self,
                                             size=(470, dialogs.get_max_height(510)),
                                             icon=images.get_icon('inspector'))
@@ -1130,7 +1136,7 @@ class DropletMixin:
         d = {}
         for f in file_list:
             d[system.filename_to_title(f)] = f
-        actionlists = d.keys()
+        actionlists = list(d.keys())
         actionlists.sort()
         dlg = wx.SingleChoiceDialog(None, str('Select action list'), ct.TITLE,
                                     actionlists, wx.CHOICEDLG_STYLE)
@@ -1154,7 +1160,7 @@ class DropletMixin:
                     print(f'JSONDecodeError: {err}')
                     loaded_settings = {}
 
-            for key, value in loaded_settings.items():
+            for key, value in list(loaded_settings.items()):
                 # FIXME: paths should not be in settings
                 if 'PATH' not in key and value in ['True', 'False']:  #TODO: Original restricted to bool settings, correct?
                     self.settings[key] = value

@@ -165,7 +165,7 @@ class Table(object):
         #todo category, filter
         keys = set()
         for image in self.images:
-            keys = keys.union(image.info.keys())
+            keys = keys.union(list(image.info.keys()))
         self.keys = self._sort_keys(keys)
         self.key_amount = len(self.keys)
         self.set_tag(tag)
@@ -355,7 +355,7 @@ class Table(object):
             try:
                 exiv2_image = pyexiv2.Image(image.filename)
                 exiv2_image.readMetadata()
-                for key, value in image_changes.items():
+                for key, value in list(image_changes.items()):
                     exiv2_key = str(key.replace(SEPARATOR, '.'))
                     if value:
                         exiv2_image[exiv2_key] = value

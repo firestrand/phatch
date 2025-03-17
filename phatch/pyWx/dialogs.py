@@ -396,10 +396,10 @@ class ActionListBox(ContentMixin, vlistTag.Box):
 
     # ---actions
     def SetActions(self, actions):
-        self.all_actions = actions.values()
+        self.all_actions = list(actions.values())
         for action in self.all_actions:
             self.TranslateAction(action)
-        self.all_actions.sort(cmp=lambda x: x.label_i18n)
+        self.all_actions.sort(key=lambda x: x.label_i18n)
 
     def TranslateAction(self, action):
         action.label_i18n = action.label.lower()
@@ -462,7 +462,7 @@ class ActionDialog(paint.Mixin, vlistTag.Dialog):
 
     def __init__(self, parent, actions, tag='default', **keyw):
         # extract tags
-        tags = self.ExtractTags(actions.values())
+        tags = self.ExtractTags(list(actions.values()))
         # init dialog
         super(ActionDialog, self).__init__(parent, tags, -1, **keyw)
         # configure listbox

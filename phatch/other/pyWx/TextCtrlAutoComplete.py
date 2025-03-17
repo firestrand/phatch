@@ -580,7 +580,7 @@ class test:
         """ Simply function that receive the row values when the
             user select an item
         """
-        print("Select Callback called...:",  values)
+        print(("Select Callback called...:",  values))
 
 
 if __name__ == "__main__":

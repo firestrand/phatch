@@ -568,8 +568,8 @@ class BlenderInitializer:
         blender_object.initialize_images(args)
 
         if image_size not in self.modes:
-            print 'No suitable "Image Size" provided! Got ' + image_size + \
-                '! Using Scale Image instead.'
+            print('No suitable "Image Size" provided! Got ' + image_size + \
+                '! Using Scale Image instead.')
             image_size = 'Scale Image'
 
         self.selected_mode = self.modes[image_size]

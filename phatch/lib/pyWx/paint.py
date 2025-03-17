@@ -68,7 +68,8 @@ class Mixin:
             # Draw logo.
             lw, lh = self._paint_logo.GetSize()
             lx, ly = (ew - lw) / 2, (eh - lh + 2 * thd) / 2
-            dc.DrawBitmap(self._paint_logo, lx, ly, True)
+            # Convert coordinates to integers for DrawBitmap
+            dc.DrawBitmap(self._paint_logo, int(lx), int(ly), True)
         else:
             # Skip logo.
             lx, ly = ew / 2, eh / 2
@@ -80,6 +81,8 @@ class Mixin:
             rx, ry = (ew - twd) / 2, ly - 2 * thd
         else:
             rx, ry = (ew - twd) / 2, (eh - thd) / 2
+        # Convert all coordinates to integers for wx.Rect
+        rx, ry, twd, thd = int(rx), int(ry), int(twd), int(thd)
         rect = wx.Rect(rx, ry, twd, thd)
         if self.paint_border_color:
             penclr = self.paint_border_color
@@ -90,7 +93,7 @@ class Mixin:
         dc.DrawRoundedRectangle(rect, self.paint_radius)
         # Draw text.
         dc.SetTextForeground(paint_object.GetBackgroundColour())
-        dc.DrawText(paint_message, rx + td, ry + td)
+        dc.DrawText(paint_message, int(rx + td), int(ry + td))
 
     def EnableBackgroundPainting(self, object, state=True, color=wx.WHITE):
         if state:

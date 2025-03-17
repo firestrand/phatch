@@ -63,11 +63,11 @@ def put_contour(image, size=1, offset=0, contour_color=0, fill_color=0,
     w, h = image.size
     outer_mask = mask.resize(
         (w + 2 * (size + offset), h + 2 * (size + offset)),
-        Image.ANTIALIAS)
+        Image.LANCZOS)
 
     inner_mask = mask.resize(
         (w + 2 * offset, h + 2 * offset),
-        Image.ANTIALIAS)
+        Image.LANCZOS)
     inner_mask = ImageOps.expand(inner_mask, border=size, fill=0)
     paste(outer_mask, (255 * opacity) / 100, mask=inner_mask)
     if include_image:

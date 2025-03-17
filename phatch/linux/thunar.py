@@ -17,7 +17,7 @@
 
 if __name__ == '__main__':
     import sys
-    _ = unicode
+    _ = str
     sys.path.insert(0, '../..')
 
 

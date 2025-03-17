@@ -363,12 +363,12 @@ class ToasterBox(wx.Timer):
            return
 
        # move windows to fill in blank space
-       for i in xrange(node.GetPosition()[1], self._popupposition[1], 4):
+       for i in range(node.GetPosition()[1], self._popupposition[1], 4):
            if i > self._popupposition[1]:
                i = self._popupposition[1]
 
            # loop through all the windows
-           for j in xrange(0, len(winlist)):
+           for j in range(0, len(winlist)):
                ourNewHeight = i - (j*self._popupsize[1] - 8)
                tmpTb = winlist[j]
                # reset where the object THINKS its supposed to be
@@ -656,7 +656,7 @@ class ToasterBoxWindow(wx.Frame):
                  self._scrollType)
            raise ValueError(errMsg)
 
-       for i in xrange(start, stop, step):
+       for i in range(start, stop, step):
            if i < self._dialogtop[1]:
              i = self._dialogtop[1]
 
@@ -710,7 +710,7 @@ class ToasterBoxWindow(wx.Frame):
                  self._scrollType)
            raise ValueError(errMsg)
 
-       for i in xrange(start, stop, step):
+       for i in range(start, stop, step):
            if i > self._bottomright.y:
                i = self._bottomright.y
 

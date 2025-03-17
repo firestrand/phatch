@@ -36,7 +36,7 @@ from phatch.lib import unicoding, imtools, odict
 
 try:
     import pyexiv2
-    import _pyexiv2
+    from . import _pyexiv2
 except ImportError:
     pyexiv2 = None
     _pyexiv2 = None
@@ -286,7 +286,7 @@ class _InfoCache(object):
 
     def extract_all(self):
         """Extract all values, which is usefull for inspector."""
-        for var, extract in self._extract_methods.items():
+        for var, extract in list(self._extract_methods.items()):
             if not (var in self.dict):
                 extract(self)
         self._extract_others()
@@ -470,7 +470,7 @@ class _InfoPil(_InfoCache):
     def _load_module(cls):
         """Code to load the PIL Image module."""
         try:
-            import openImage
+            from . import openImage
             cls.Image = openImage
         except ImportError:
             from PIL import Image
@@ -598,7 +598,7 @@ class InfoPil(_InfoPil):
 
     def _extract_others(self):
         """Extract all other possible vars"""
-        for key, value in self._source.info.items():
+        for key, value in list(self._source.info.items()):
             if not (key in self.vars_skip):
                 self.dict[self.prefix + key] = value
 
@@ -657,7 +657,7 @@ except:
     # older versions of PIL
     EXIFTAGS = {'Orientation': 'Orientation'}
 EXIFTAGS_REVERSE = {}
-for key, item in EXIFTAGS.items():
+for key, item in list(EXIFTAGS.items()):
     EXIFTAGS_REVERSE[item] = key
 
 
@@ -784,7 +784,7 @@ class InfoPexif(_InfoPilMetadata):
 
     def _extract_others(self):
         """Extract all other possible vars"""
-        for key, value in self._source.items():
+        for key, value in list(self._source.items()):
             if key in EXIFTAGS:
                 self.dict['Pexif_' + EXIFTAGS[key]] = \
                     convert_from_string(value)
@@ -870,7 +870,7 @@ class InfoZexif(_InfoPilMetadata):
 
     def _extract_others(self):
         """Extract all other vars"""
-        for key, value in self._source.items():
+        for key, value in list(self._source.items()):
             self.dict['Zexif_0x%04x' % key] = convert_from_string(value)
 
     type = 'Zexif'
@@ -916,7 +916,7 @@ class _InfoPyexiv2(_InfoCache):
     def _load_module(cls):
         """Code to load the pyexiv2 module."""
         import pyexiv2
-        import _pyexiv2
+        from . import _pyexiv2
         cls.pyexiv2 = pyexiv2
         cls._pyexiv2 = _pyexiv2
 
@@ -1337,7 +1337,7 @@ class InfoEXIF(_InfoCache):
 
     def _extract_others(self):
         """Extract all other vars"""
-        for tag, value in self._source.items():
+        for tag, value in list(self._source.items()):
             tag = tag.replace(' ', '_')
             if not tag.startswith('EXIF'):
                 tag = 'EXIF_' + tag
@@ -1971,7 +1971,7 @@ class InfoExtract:
         # load files
         self.list = [
             Info(sources.get(Info, self.filename), self._vars_by_info[Info])
-            for Info in self._vars_by_info.keys()]  # use keys to respect order
+            for Info in list(self._vars_by_info.keys())]  # use keys to respect order
         self.set_orientation()
         return self
 
@@ -2121,7 +2121,7 @@ class InfoExtract:
 
     @classmethod
     def expand(cls, d):
-        for key, value in d.items():
+        for key, value in list(d.items()):
             cls.expand_var(d, key, value)
 
     @classmethod

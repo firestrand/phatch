@@ -1,5 +1,5 @@
 wxPython>=4.1.1
 Pillow~=8.2.0
-py3exiv2~=0.9.3
-tifftools~=1.2.2
+py3exiv2~=0.12.0
+tifftools~=1.5.2
 PyPubSub~=4.0.3

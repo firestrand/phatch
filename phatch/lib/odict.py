@@ -67,7 +67,7 @@ class odict(dict):
             self._keys.append(key)
 
     def update(self, d):
-        for key in d.keys():
+        for key in list(d.keys()):
             if key not in self:
                 self._keys.append(key)
         dict.update(self, d)
