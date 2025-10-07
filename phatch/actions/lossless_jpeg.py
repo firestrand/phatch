@@ -24,7 +24,7 @@
 try:
     _
 except NameError:
-    _ = unicode
+    _ = str
 
 from core import models
 from lib.reverse_translation import _t
@@ -230,10 +230,10 @@ class UtilityMixin(object):
 
     def interface(self, fields):
         super(UtilityMixin, self).interface(fields)
-        names = self.utilities.keys()
+        names = list(self.utilities.keys())
         fields[_t('Utility')] = self.ChoiceField(names[0],
             choices=names)
-        for utility in self.utilities.values():
+        for utility in list(self.utilities.values()):
             utility.interface(self, fields)
 
     def get_relevant_field_labels(self, relevant=None):

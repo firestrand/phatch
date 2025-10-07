@@ -47,11 +47,11 @@ class StatusDialog(wx.Dialog):
         # end wxGlade
 
     def on_button_report(self, event): # wxGlade: StatusDialog.<event_handler>
-        print "Event handler `on_button_report' not implemented!"
+        print("Event handler `on_button_report' not implemented!")
         event.Skip()
 
     def on_button_log(self, event): # wxGlade: StatusDialog.<event_handler>
-        print "Event handler `on_button_log' not implemented!"
+        print("Event handler `on_button_log' not implemented!")
         event.Skip()
 
 # end of class StatusDialog
@@ -154,11 +154,11 @@ class WritePluginDialog(wx.Dialog):
         # end wxGlade
 
     def on_help(self, event): # wxGlade: WritePluginDialog.<event_handler>
-        print "Event handler `on_help' not implemented!"
+        print("Event handler `on_help' not implemented!")
         event.Skip()
 
     def on_template(self, event): # wxGlade: WritePluginDialog.<event_handler>
-        print "Event handler `on_template' not implemented"
+        print("Event handler `on_template' not implemented")
         event.Skip()
 
 # end of class WritePluginDialog
@@ -211,19 +211,19 @@ class ErrorDialog(wx.Dialog):
         # end wxGlade
 
     def on_abort(self, event): # wxGlade: ErrorDialog.<event_handler>
-        print "Event handler `on_abort' not implemented!"
+        print("Event handler `on_abort' not implemented!")
         event.Skip()
 
     def on_skip(self, event): # wxGlade: ErrorDialog.<event_handler>
-        print "Event handler `on_skip' not implemented!"
+        print("Event handler `on_skip' not implemented!")
         event.Skip()
 
     def on_ignore(self, event): # wxGlade: ErrorDialog.<event_handler>
-        print "Event handler `on_ignore' not implemented!"
+        print("Event handler `on_ignore' not implemented!")
         event.Skip()
 
     def on_details(self, event): # wxGlade: ErrorDialog.<event_handler>
-        print "Event handler `on_details' not implemented"
+        print("Event handler `on_details' not implemented")
         event.Skip()
 
 # end of class ErrorDialog
@@ -350,15 +350,15 @@ class ExecuteDialog(wx.Dialog):
         self.options_sizer = sizer_11_copy_4
 
     def on_browse(self, event): # wxGlade: ExecuteDialog.<event_handler>
-        print "Event handler `on_browse' not implemented!"
+        print("Event handler `on_browse' not implemented!")
         event.Skip()
 
     def on_source(self, event): # wxGlade: ExecuteDialog.<event_handler>
-        print "Event handler `on_source' not implemented!"
+        print("Event handler `on_source' not implemented!")
         event.Skip()
 
     def on_default(self, event): # wxGlade: ExecuteDialog.<event_handler>
-        print "Event handler `on_default' not implemented!"
+        print("Event handler `on_default' not implemented!")
         event.Skip()
 
 # end of class ExecuteDialog

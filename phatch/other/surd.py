@@ -43,30 +43,30 @@ import math
 
 class surd:
 
-    def __init__ (self, num=0L, denom=1L):
+    def __init__ (self, num=0, denom=1):
 
 	# If the constructor arguments were floats, we need to
 	# convert them into a whole number divided by an exponent
 	# of 10.
 	if type (num) == type (0.0):  # Were we handed a float?
-	    np = long (math.pow (10, len (`num - long(num)`) - 2))
-	    nd = long (num * np)
+	    np = int (math.pow (10, len (repr(num - int(num))) - 2))
+	    nd = int (num * np)
 	    if type (denom) == type (0.0):  # Is the denominator a float too?
-		dp = long(math.pow (10, len (`denom - int(denom)`) - 2))
-		dd = long (denom * dp)
+		dp = int(math.pow (10, len (repr(denom - int(denom))) - 2))
+		dd = int (denom * dp)
 		num = nd * dp
 		denom = dd * np
 	    else:
 		num = nd
 		denom = denom * np
 	elif type (denom) == type (0.0): # Is the denom a float?
-	    dp = long (pow (10, len (`denom - int(denom)`) - 2))
-	    dd = long (denom * dp)
+	    dp = int (pow (10, len (repr(denom - int(denom))) - 2))
+	    dd = int (denom * dp)
 	    num = num * dp
 	    denom = dd
 	else:
-	    num = long (num)
-	    denom = long (denom)
+	    num = int (num)
+	    denom = int (denom)
 
 	# Zero divisor is not allowed - nip this in the bud.
 	if denom == 0:
@@ -87,7 +87,7 @@ class surd:
 
     def __add__ (self, arg):
 	if not hasattr (arg, 'denom'):
-	    spam = long (arg)
+	    spam = int (arg)
 	    arg = surd (spam)
 	denom = self.denom * arg.denom
 	num = self.denom * arg.num + arg.denom * self.num
@@ -98,7 +98,7 @@ class surd:
 
     def __sub__ (self, arg):
 	if not hasattr (arg, 'denom'):
-	    spam = long (arg)
+	    spam = int (arg)
 	    arg = surd (spam)
 	denom = self.denom * arg.denom
 	num = self.num * arg.denom - arg.num * self.denom
@@ -109,7 +109,7 @@ class surd:
 
     def __mul__ (self, arg):
 	if not hasattr (arg, 'denom'):
-	    spam = long (arg)
+	    spam = int (arg)
 	    arg = surd (spam)
 	s = surd (self.num * arg.num, self.denom * arg.denom)
 	d = gcd (abs(s.num), abs(s.denom))
@@ -121,7 +121,7 @@ class surd:
 
     def __div__ (self, arg):
 	if not hasattr (arg, 'denom'):
-	    spam = long (arg)
+	    spam = int (arg)
 	    arg = surd (spam)
 	s = surd (self.num * arg.denom, self.denom * arg.num)
 	d = gcd (abs(s.num), abs(s.denom))
@@ -142,24 +142,24 @@ class surd:
 	return int (self.num) / int (self.denom)
 
     def __long__ (self):
-	return long (self.num) / long (self.denom)
+	return int (self.num) / int (self.denom)
 
     def __float__ (self):
 	return float (self.num) / float (self.denom)
 
     def __repr__ (self):
-	return `self.num` + '/' + `self.denom`
+	return repr(self.num) + '/' + repr(self.denom)
 
     def __str__ (self):
 	if self.denom == 1:
-	    return `self.num`
+	    return repr(self.num)
 	else:
-	    spam = `self.num` + '/' + `self.denom`
+	    spam = repr(self.num) + '/' + repr(self.denom)
 	    return spam
 
     def __cmp__ (self, other):
 	if not hasattr (other, 'denom'):
-	    spam = long (other)
+	    spam = int (other)
 	    other = surd (spam)
 
 	# Make sure we are dealing with a common denominator.
@@ -174,7 +174,7 @@ class surd:
 	    return 0
 
     def __hash__ (self):
-	return hash (`self`)
+	return hash (repr(self))
 
     def __call__ (self, *args):
 	return 0
@@ -196,7 +196,7 @@ def test_error ():
 
 def test_driver ():
 
-    print 'testing surd ...'
+    print('testing surd ...')
 
     # Instantiation tests.
     a = surd () # Create without arguments
@@ -280,12 +280,12 @@ def test_driver ():
     # Math function tests. (Not by any means exhausive, but I believe
     # representative.
     m = surd (pow (13.2, 2.5))
-    if `float(m)` != `math.pow (13.2, 2.5)`: test_error ()
+    if repr(float(m)) != repr(math.pow (13.2, 2.5)): test_error ()
     m = surd (math.sin (30))
-    if `float(m)` != `math.sin (30)`: test_error ()
+    if repr(float(m)) != repr(math.sin (30)): test_error ()
 
     # If we made it here we passed every test.
-    print 'all surd tests passed.'
+    print('all surd tests passed.')
 
     # B E N C H M A R K S
 
@@ -294,14 +294,14 @@ def test_driver ():
     a = surd ()
     for i in range (0, 1000):
 	a = a + surd (4, 3)
-    print '1000 additions in ', time.time () - start_time, 'seconds'
+    print('1000 additions in ', time.time () - start_time, 'seconds')
 
     # Subtraction.
     start_time = time.time ()
     a = surd (10)
     for i in range (0, 1000):
 	a = a - surd (4, 3)
-    print '1000 subtractions in ', time.time () - start_time, 'seconds'
+    print('1000 subtractions in ', time.time () - start_time, 'seconds')
 
     # Multiplication.
     start_time = time.time ()
@@ -309,7 +309,7 @@ def test_driver ():
     b = surd (2.1)
     for i in range (0, 1000):
 	c = a * b
-    print '1000 multiplications in ', time.time () - start_time, 'seconds'
+    print('1000 multiplications in ', time.time () - start_time, 'seconds')
 
     # Division.
     start_time = time.time ()
@@ -317,7 +317,7 @@ def test_driver ():
     b = surd (2.1)
     for i in range (0, 1000):
 	c = a / b
-    print '1000 divisions in ', time.time () - start_time, 'seconds'
+    print('1000 divisions in ', time.time () - start_time, 'seconds')
 
 
 if __name__ == '__main__':

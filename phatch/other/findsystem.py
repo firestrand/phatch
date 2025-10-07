@@ -41,23 +41,23 @@ import sys, os, glob, re
 def win32FontDirectory( ):
 	"""Get User-specific font directory on Win32"""
 	try:
-		import _winreg
+		import winreg
 	except ImportError:
 		return os.path.join(os.environ['WINDIR'], 'Fonts')
 	else:
-		k = _winreg.OpenKey(
-			_winreg.HKEY_CURRENT_USER,
+		k = winreg.OpenKey(
+			winreg.HKEY_CURRENT_USER,
 			r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"
 		)
 		try:
 			# should check that k is valid? How?
-			return _winreg.QueryValueEx( k, "Fonts" )[0]
+			return winreg.QueryValueEx( k, "Fonts" )[0]
 		finally:
-			_winreg.CloseKey( k )
+			winreg.CloseKey( k )
 
 def win32InstalledFonts( fontDirectory = None ):
 	"""Get list of explicitly *installed* font names"""
-	import _winreg
+	import winreg
 	if fontDirectory is None:
 		fontDirectory = win32FontDirectory()
 	k = None
@@ -67,27 +67,27 @@ def win32InstalledFonts( fontDirectory = None ):
 		r"SOFTWARE\Microsoft\Windows\CurrentVersion\Fonts",
 	):
 		try:
-			k = _winreg.OpenKey(
-				_winreg.HKEY_LOCAL_MACHINE,
+			k = winreg.OpenKey(
+				winreg.HKEY_LOCAL_MACHINE,
 				keyName
 			)
-		except OSError, err:
+		except OSError as err:
 			pass
 	if not k:
 		# couldn't open either WinNT or Win98 key???
 		return glob.glob( os.path.join(fontDirectory, '*.ttf'))
 	try:
 		# should check that k is valid? How?
-		for index in range( _winreg.QueryInfoKey(k)[1]):
-			key,value,_ = _winreg.EnumValue( k, index )
+		for index in range( winreg.QueryInfoKey(k)[1]):
+			key,value,_ = winreg.EnumValue( k, index )
 			if not os.path.dirname( value ):
 				value = os.path.join( fontDirectory, value )
 			value = os.path.abspath( value ).lower()
 			if value[-4:] == '.ttf':
 				items[ value ] = 1
-		return items.keys()
+		return list(items.keys())
 	finally:
-		_winreg.CloseKey( k )
+		winreg.CloseKey( k )
 	
 
 def linuxFontDirectories( ):
@@ -161,14 +161,14 @@ def findFonts(paths = None):
 				files[f] = 1
 		else:
 			paths = linuxFontDirectories()
-	elif isinstance( paths, (str, unicode)):
+	elif isinstance( paths, str):
 		paths = [paths]
 	for path in paths:
 		for file in glob.glob( os.path.join(path, '*.ttf')):
 			files[os.path.abspath(file)] = 1
-	return files.keys()
+	return list(files.keys())
 
 if __name__ == "__main__":
-	print 'linux font directories', linuxFontDirectories()
-	print 'font names', findFonts()
+	print('linux font directories', linuxFontDirectories())
+	print('font names', findFonts())
 

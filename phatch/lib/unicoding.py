@@ -17,7 +17,7 @@
 
 import codecs
 import locale
-import system
+from . import system
 
 ENCODING = locale.getdefaultlocale()[1]
 
@@ -32,12 +32,12 @@ except:
 
 
 def ensure_unicode(x, encoding=ENCODING, errors='replace'):
-    if type(x) is unicode:
+    if type(x) is str:
         return x
     try:
-        return unicode(x)
+        return str(x)
     except UnicodeDecodeError:
-        return unicode(x, encoding, errors)
+        return str(x, encoding, errors)
 
 
 def exception_to_unicode(x, encoding=ENCODING, errors='replace'):
@@ -51,13 +51,13 @@ def exception_to_unicode(x, encoding=ENCODING, errors='replace'):
         try:
             return ensure_unicode(str(x), encoding, errors)
         except:
-            return u'?'
+            return '?'
 
 
 def fix_filename(f, encoding=None):
     if system.is_file(f):
         return f
-    if type(f) is unicode:
+    if type(f) is str:
         encodings = ['latin1', 'utf-8', ENCODING]
         if encoding:
             encodings = [encoding] + encodings

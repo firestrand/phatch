@@ -37,8 +37,9 @@ from lib import listData
 from lib.system import start
 from lib.openImage import open_thumb
 
-from compatible import SearchCtrl
-from wxPil import pil_wxBitmap
+from .compatible import SearchCtrl
+from .wxPil import pil_wxBitmap
+from functools import reduce
 
 # begin wxGlade: extracode
 # end wxGlade

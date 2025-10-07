@@ -28,9 +28,9 @@ import glob
 import os
 import re
 
-import metadata
-import openImage
-import unicoding
+from . import metadata
+from . import openImage
+from . import unicoding
 
 try:
     import pyexiv2
@@ -168,7 +168,7 @@ class Table(object):
         #todo category, filter
         keys = set()
         for image in self.images:
-            keys = keys.union(image.info.keys())
+            keys = keys.union(list(image.info.keys()))
         self.keys = self._sort_keys(keys)
         self.key_amount = len(self.keys)
         self.set_tag(tag)
@@ -310,7 +310,7 @@ class Table(object):
 
     def set_image_key_value(self, image, key, value):
         if not(value is None):
-            value = unicode(value)
+            value = str(value)
         return self._write(
             changes=((image, {key: value}), ),
             error_message=_('Unable to save tag <%s>'))
@@ -358,16 +358,16 @@ class Table(object):
             try:
                 exiv2_image = pyexiv2.Image(image.filename)
                 exiv2_image.readMetadata()
-                for key, value in image_changes.items():
+                for key, value in list(image_changes.items()):
                     exiv2_key = str(key.replace(SEPARATOR, '.'))
                     if value:
                         exiv2_image[exiv2_key] = value
                     else:
                         del exiv2_image[exiv2_key]
                 exiv2_image.writeMetadata()
-            except Exception, error:
+            except Exception as error:
                 log.append('%s:\n%s'\
-                    % (error_message % key, unicode(error)))
+                    % (error_message % key, str(error)))
                 continue
             # successfully saved to image file (wait until now)
             image.update_time()

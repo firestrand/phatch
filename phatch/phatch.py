@@ -21,12 +21,8 @@
 """Local launch script for all platforms"""
 
 import sys
-
-if sys.version_info[0] != 2:
-    sys.exit('Sorry, Phatch is only compatible with Python 2.x!\n')
-
 from os.path import abspath, dirname, join
-from core import config
+from .core import config
 
 
 def create_paths(relative=''):
@@ -50,7 +46,7 @@ def create_paths(relative=''):
         'PHATCH_MASKS_PATH': join(phatch_data_path, 'masks'),
         'PHATCH_PERSPECTIVE_PATH': join(phatch_data_path, 'perspective'),
     }
-    for key, path in paths.items():
+    for key, path in list(paths.items()):
         paths[key] = expand(path)
     paths['PHATCH_PYTHON_PATH'] = root
     return paths
@@ -68,7 +64,7 @@ def init_config_paths():
 def main():
     #override paths with local paths
     #start application
-    import app
+    from . import app
     app.main(init_config_paths(), app_file=__file__)
 
 if __name__ == '__main__':

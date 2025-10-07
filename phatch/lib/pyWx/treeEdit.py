@@ -27,9 +27,9 @@ from lib import metadata
 
 # gui-dependent
 import wx
-import graphics
-import popup
-import treeDragDrop
+from . import graphics
+from . import popup
+from . import treeDragDrop
 
 if __name__ == '__main__':
     sys.path.insert(0, '../..')
@@ -107,7 +107,7 @@ class TreeMixin(treeDragDrop.Mixin):
     def CreateImageList(self, icon_size):
         self.image_list = wx.ImageList(*icon_size)
         icon_disabled = graphics.bitmap(ICON_DISABLED)
-        for form in self.form_factory.values():
+        for form in list(self.form_factory.values()):
             self._AddFormToImageList(form, icon_size, icon_disabled)
         self.SetImageList(self.image_list)
 
@@ -116,7 +116,7 @@ class TreeMixin(treeDragDrop.Mixin):
         form.icon_bitmap = wx.BitmapFromImage(wx_image)
         # rescale(image, icon_size[0], icon_size[1])
         import Image
-        from wxPil import pil_wxImage, wxImage_pil
+        from .wxPil import pil_wxImage, wxImage_pil
         wx_image = pil_wxImage(wxImage_pil(wx_image).resize(icon_size,\
                                                         Image.ANTIALIAS))
         form.icon_tree = wx.BitmapFromImage(wx_image)
@@ -203,7 +203,7 @@ class TreeMixin(treeDragDrop.Mixin):
         self.DeleteChildren(item)
         fields = form._get_fields()
         if not self.update_form_relevance(item):
-            for label, field in fields.items():
+            for label, field in list(fields.items()):
                 if field.visible:
                     self.append_field(item, label, field)
         enabled_field = form._get_fields()['__enabled__']
@@ -287,7 +287,7 @@ class TreeMixin(treeDragDrop.Mixin):
                     field.get(IMAGE_TEST_INFO, label=label,
                         value_as_string=value_as_string, test=True)
                 self.set_dirty(True)
-            except formField.ValidationError, details:
+            except formField.ValidationError as details:
                 reason = exception_to_unicode(details, WX_ENCODING)
                 self.show_error(reason)
                 if formField.Field.safe:
@@ -344,7 +344,7 @@ class TreeMixin(treeDragDrop.Mixin):
         ui_field, ui_label, ui_value_as_string = get_index(ui, ui_index)
         ui_field_prev = None
         # print '_'*40
-        for label, field in all.items():
+        for label, field in list(all.items()):
             if not field.visible:
                 continue
             # print 'item=', item, ', label=', label, ', ui_field=', field, ',\
@@ -612,7 +612,7 @@ def example():
     }
     form4 = formField.Form(foo3=formField.SliderField(value='100',
                     minValue=0, maxValue=100))
-    forms = [x() for x in form_factory.values()]  # + [form4]
+    forms = [x() for x in list(form_factory.values())]  # + [form4]
 
     class Tree(wx.TreeCtrl, TreeMixin):
 

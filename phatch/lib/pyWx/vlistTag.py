@@ -18,8 +18,8 @@
 """Wraps vlist in a tag browser jacket."""
 
 import wx
-from vlist import Box
-from tag import Browser, ContentMixin, extract_tags  # imported by dialogs.py
+from .vlist import Box
+from .tag import Browser, ContentMixin, extract_tags  # imported by dialogs.py
 
 
 #---Test case

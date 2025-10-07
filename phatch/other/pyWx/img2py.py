@@ -63,8 +63,8 @@ Options:
 # o V2.5 compatability update 
 #
 
-import  cPickle
-import  cStringIO
+import  pickle
+import  io
 import  getopt
 import  glob
 import  os
@@ -74,7 +74,7 @@ import  zlib
 
 import  wx
 
-import  img2img
+from . import  img2img
 
 
 def crunch_data(data, compressed):
@@ -86,7 +86,7 @@ def crunch_data(data, compressed):
     data = repr(data)
 
     # This next bit is borrowed from PIL.  It is used to wrap the text intelligently.
-    fp = cStringIO.StringIO()
+    fp = io.StringIO()
     data = data + " "  # buffer for the +1 test
     c = i = 0
     word = ""
@@ -127,7 +127,7 @@ def crunch_data(data, compressed):
 
 def main(args):
     if not args or ("-h" in args):
-        print __doc__
+        print(__doc__)
         return
 
     # some bitmap related things need to have a wxApp initialized...
@@ -144,7 +144,7 @@ def main(args):
     try:
         opts, fileArgs = getopt.getopt(args, "auicn:m:")
     except getopt.GetoptError:
-        print __doc__
+        print(__doc__)
         return
 
     for opt, val in opts:
@@ -162,7 +162,7 @@ def main(args):
             catalog = 1
 
     if len(fileArgs) != 2:
-        print __doc__
+        print(__doc__)
         return
 
     image_file, python_file = fileArgs
@@ -171,7 +171,7 @@ def main(args):
     tfname = tempfile.mktemp()
     ok, msg = img2img.convert(image_file, maskClr, None, tfname, wx.BITMAP_TYPE_PNG, ".png")
     if not ok:
-        print msg
+        print(msg)
         return
 
     data = open(tfname, "rb").read()
@@ -189,7 +189,7 @@ def main(args):
 
         if not imgName:
             imgName = os.path.splitext(imgFile)[0]
-            print "\nWarning: -n not specified. Using filename (%s) for catalog entry." % imgName
+            print("\nWarning: -n not specified. Using filename (%s) for catalog entry." % imgName)
 
         old_index = []
         if append:
@@ -199,8 +199,8 @@ def main(args):
             sys.path = [pyPath] # make sure we don't import something else by accident
             mod = __import__(os.path.splitext(pyFile)[0])
             if 'index' not in dir(mod):
-                print "\nWarning: %s was originally created without catalog." % python_file
-                print "         Any images already in file will not be cataloged.\n"
+                print("\nWarning: %s was originally created without catalog." % python_file)
+                print("         Any images already in file will not be cataloged.\n")
                 out.write("\n# ***************** Catalog starts here *******************")
                 out.write("\n\ncatalog = {}\n")
                 out.write("index = []\n\n")
@@ -251,8 +251,8 @@ def main(args):
 
     if catalog:
         if imgName in old_index:
-            print "Warning: %s already in catalog." % imgName
-            print "         Only the last entry will be accessible.\n"
+            print("Warning: %s already in catalog." % imgName)
+            print("         Only the last entry will be accessible.\n")
         old_index.append(imgName)
         out.write("index.append('%s')\n" % imgName)
         out.write("catalog['%s'] = ImageClass()\n" % imgName)
@@ -271,7 +271,7 @@ def main(args):
         m_msg = " with mask %s" % maskClr
     else:
         m_msg = ""
-    print "Embedded %s%s into %s%s" % (image_file, n_msg, python_file, m_msg)
+    print("Embedded %s%s into %s%s" % (image_file, n_msg, python_file, m_msg))
 
 
 if __name__ == "__main__":

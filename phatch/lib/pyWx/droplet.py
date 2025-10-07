@@ -23,10 +23,10 @@ import wx
 
 
 def fix_paths(paths):
-    if isinstance(paths, (types.ListType, types.TupleType)) \
+    if isinstance(paths, (list, tuple)) \
         and len(paths) == 1:
         paths = paths[0]
-    if isinstance(paths, types.StringTypes):
+    if isinstance(paths, (str,)):
         paths = paths.strip().split('\n')
     for index, path in enumerate(paths):
         if path.startswith('file://'):

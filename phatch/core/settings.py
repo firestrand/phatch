@@ -19,8 +19,8 @@
 # Follows PEP8
 
 #from lib.formField import IMAGE_EXTENSIONS
-import ct
-from pil import IMAGE_READ_EXTENSIONS
+from . import ct
+from .pil import IMAGE_READ_EXTENSIONS
 
 
 def create_settings(config_paths=None, options=None):
@@ -61,7 +61,7 @@ def create_settings(config_paths=None, options=None):
                 settings[attr] = getattr(options, attr)
     if config_paths == None:
         #FIXME: when is this happening
-        from config import init_config_paths
+        from .config import init_config_paths
         config_paths = init_config_paths()
     settings.update(config_paths)
     return settings

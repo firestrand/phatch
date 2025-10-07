@@ -206,176 +206,176 @@ class Frame(wx.Frame):
         # end wxGlade
 
     def on_menu_file_new(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_new' not implemented!"
+        print("Event handler `on_menu_file_new' not implemented!")
         event.Skip()
 
     def on_menu_file_open(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_open' not implemented!"
+        print("Event handler `on_menu_file_open' not implemented!")
         event.Skip()
 
     def on_menu_file_save(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_save' not implemented!"
+        print("Event handler `on_menu_file_save' not implemented!")
         event.Skip()
 
     def on_menu_file_save_as(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_save_as' not implemented!"
+        print("Event handler `on_menu_file_save_as' not implemented!")
         event.Skip()
 
     def on_menu_file_export_droplet_actionlist_to_clipboard(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_export_droplet_actionlist_to_clipboard' not implemented"
+        print("Event handler `on_menu_file_export_droplet_actionlist_to_clipboard' not implemented")
         event.Skip()
 
     def on_menu_file_export_droplet_recent_to_clipboard(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_export_droplet_recent_to_clipboard' not implemented"
+        print("Event handler `on_menu_file_export_droplet_recent_to_clipboard' not implemented")
         event.Skip()
 
     def on_menu_file_export_droplet_inspector_to_clipboard(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_export_droplet_inspector_to_clipboard' not implemented"
+        print("Event handler `on_menu_file_export_droplet_inspector_to_clipboard' not implemented")
         event.Skip()
 
     def on_menu_file_quit(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_quit' not implemented!"
+        print("Event handler `on_menu_file_quit' not implemented!")
         event.Skip()
 
     def on_menu_edit_modify(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_edit_modify' not implemented!"
+        print("Event handler `on_menu_edit_modify' not implemented!")
         event.Skip()
 
     def on_menu_edit_up(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_edit_up' not implemented!"
+        print("Event handler `on_menu_edit_up' not implemented!")
         event.Skip()
 
     def on_menu_edit_down(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_edit_down' not implemented!"
+        print("Event handler `on_menu_edit_down' not implemented!")
         event.Skip()
 
     def on_menu_edit_enable(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_edit_enable' not implemented!"
+        print("Event handler `on_menu_edit_enable' not implemented!")
         event.Skip()
 
     def on_menu_edit_disable(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_edit_disable' not implemented!"
+        print("Event handler `on_menu_edit_disable' not implemented!")
         event.Skip()
 
     def on_menu_edit_add(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_edit_add' not implemented!"
+        print("Event handler `on_menu_edit_add' not implemented!")
         event.Skip()
 
     def on_menu_edit_remove(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_edit_remove' not implemented!"
+        print("Event handler `on_menu_edit_remove' not implemented!")
         event.Skip()
 
     def on_menu_view_droplet(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_view_droplet' not implemented!"
+        print("Event handler `on_menu_view_droplet' not implemented!")
         event.Skip()
 
     def on_menu_view_description(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_view_description' not implemented!"
+        print("Event handler `on_menu_view_description' not implemented!")
         event.Skip()
 
     def on_menu_tools_execute(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_execute' not implemented!"
+        print("Event handler `on_menu_tools_execute' not implemented!")
         event.Skip()
 
     def on_menu_tools_show_log(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_show_log' not implemented!"
+        print("Event handler `on_menu_tools_show_log' not implemented!")
         event.Skip()
 
     def on_menu_tools_python_shell(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_python_shell' not implemented!"
+        print("Event handler `on_menu_tools_python_shell' not implemented!")
         event.Skip()
 
     def on_menu_help_about(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_help_about' not implemented!"
+        print("Event handler `on_menu_help_about' not implemented!")
         event.Skip()
 
     def on_menu_help_translate(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_help_translate' not implemented"
+        print("Event handler `on_menu_help_translate' not implemented")
         event.Skip()
 
     def on_menu_help_plugin(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_help_plugin' not implemented"
+        print("Event handler `on_menu_help_plugin' not implemented")
         event.Skip()
 
     def on_menu_view_expand_all(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_view_expand_all' not implemented"
+        print("Event handler `on_menu_view_expand_all' not implemented")
         event.Skip()
 
     def on_menu_view_collapse_all(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_view_collapse_all' not implemented"
+        print("Event handler `on_menu_view_collapse_all' not implemented")
         event.Skip()
 
     def on_menu_help_website(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_help_website' not implemented"
+        print("Event handler `on_menu_help_website' not implemented")
         event.Skip()
 
     def on_menu_help_documentation(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_help_documentation' not implemented"
+        print("Event handler `on_menu_help_documentation' not implemented")
         event.Skip()
 
     def on_menu_help_forum(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_help_forum' not implemented"
+        print("Event handler `on_menu_help_forum' not implemented")
         event.Skip()
 
     def on_menu_help_bug(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_help_bug' not implemented"
+        print("Event handler `on_menu_help_bug' not implemented")
         event.Skip()
 
     def on_menu_tools_image_inspector(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_image_inspector' not implemented"
+        print("Event handler `on_menu_tools_image_inspector' not implemented")
         event.Skip()
 
 
     def on_menu_file_export_actionlist_to_clipboard(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_export_actionlist_to_clipboard' not implemented"
+        print("Event handler `on_menu_file_export_actionlist_to_clipboard' not implemented")
         event.Skip()
 
     def on_menu_file_export_recent_to_clipboard(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_export_recent_to_clipboard' not implemented"
+        print("Event handler `on_menu_file_export_recent_to_clipboard' not implemented")
         event.Skip()
 
     def on_menu_file_export_inspector_to_clipboard(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_export_inspector_to_clipboard' not implemented"
+        print("Event handler `on_menu_file_export_inspector_to_clipboard' not implemented")
         event.Skip()
 
     def on_menu_tools_browse_user_library(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_browse_user_library' not implemented"
+        print("Event handler `on_menu_tools_browse_user_library' not implemented")
         event.Skip()
 
     def on_menu_tools_browse_system_library(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_browse_system_library' not implemented"
+        print("Event handler `on_menu_tools_browse_system_library' not implemented")
         event.Skip()
 
     def on_menu_tools_browse_library_user(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_browse_library_user' not implemented"
+        print("Event handler `on_menu_tools_browse_library_user' not implemented")
         event.Skip()
 
     def on_menu_tools_browse_library_phatch(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_browse_library_phatch' not implemented"
+        print("Event handler `on_menu_tools_browse_library_phatch' not implemented")
         event.Skip()
 
     def on_menu_tools_show_report(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_show_report' not implemented"
+        print("Event handler `on_menu_tools_show_report' not implemented")
         event.Skip()
 
     def on_menu_tools_update_fonts(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_update_fonts' not implemented"
+        print("Event handler `on_menu_tools_update_fonts' not implemented")
         event.Skip()
 
     def on_menu_tools_safe(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_tools_safe' not implemented"
+        print("Event handler `on_menu_tools_safe' not implemented")
         event.Skip()
 
     def on_menu_file_open_library(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_file_open_library' not implemented"
+        print("Event handler `on_menu_file_open_library' not implemented")
         event.Skip()
 
     def on_menu_collapse_automatic(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_collapse_automatic' not implemented"
+        print("Event handler `on_menu_collapse_automatic' not implemented")
         event.Skip()
 
     def on_menu_view_collapse_automatic(self, event): # wxGlade: Frame.<event_handler>
-        print "Event handler `on_menu_view_collapse_automatic' not implemented"
+        print("Event handler `on_menu_view_collapse_automatic' not implemented")
         event.Skip()
 
 # end of class Frame

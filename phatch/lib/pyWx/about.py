@@ -91,15 +91,15 @@ class wxgAboutDialog(wx.Dialog):
         # end wxGlade
 
     def OnCredits(self, event): # wxGlade: wxgAboutDialog.<event_handler>
-        print "Event handler `OnCredits' not implemented!"
+        print("Event handler `OnCredits' not implemented!")
         event.Skip()
 
     def OnLicense(self, event): # wxGlade: wxgAboutDialog.<event_handler>
-        print "Event handler `OnLicense' not implemented!"
+        print("Event handler `OnLicense' not implemented!")
         event.Skip()
 
     def OnClose(self, event): # wxGlade: wxgAboutDialog.<event_handler>
-        print "Event handler `OnClose' not implemented!"
+        print("Event handler `OnClose' not implemented!")
         event.Skip()
 
 # end of class wxgAboutDialog
@@ -171,7 +171,7 @@ class wxgCreditsDialog(wx.Dialog):
         # end wxGlade
 
     def OnClose(self, event): # wxGlade: wxgCreditsDialog.<event_handler>
-        print "Event handler `OnClose' not implemented!"
+        print("Event handler `OnClose' not implemented!")
         event.Skip()
 
 # end of class wxgCreditsDialog
@@ -187,9 +187,9 @@ class CreditsDialog(wxgCreditsDialog):
         :type credits: dictionary
         """
         super(CreditsDialog,self).__init__(parent,-1)
-        for attr, all in credits.items():
+        for attr, all in list(credits.items()):
             ctrl    = getattr(self,'credits_%s'%attr)
-            ctrl.SetValue('\n'.join([' - '.join(x.values()) for x in all]))
+            ctrl.SetValue('\n'.join([' - '.join(list(x.values())) for x in all]))
         w, h    = parent.GetSize()
         self.SetSize((int(2*w),int(h/1.5)))
 

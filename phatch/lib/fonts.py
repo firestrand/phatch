@@ -20,7 +20,7 @@ import os
 import re
 import subprocess
 import sys
-import system
+from . import system
 
 from lib import safe
 
@@ -31,8 +31,8 @@ WRITABLE_FONTS_CACHE_PATH = None
 _FONT_DICTIONARY = None
 _FONT_NAMES = None
 
-re_WORD = re.compile('([A-Z0-9]+[^A-Z0-9]*)', re.UNICODE)
-re_SPACE = re.compile('_|\W+', re.UNICODE)
+re_WORD = re.compile(r'([A-Z0-9]+[^A-Z0-9]*)', re.UNICODE)
+re_SPACE = re.compile(r'_|\W+', re.UNICODE)
 LOCATE = [
     ['locate', '-i', '.ttf', '.otf'],
     ['find', '/', '-iname', '*.ttf', '-o', '-name', '*.otf'],
@@ -179,7 +179,7 @@ def _font_dictionary(font_files=None):
         t[name(basename(font_file))] = font_file
     #step 2: fix font names derived from context
     #normally a base come first, than italic, bold
-    font_names = t.keys()
+    font_names = list(t.keys())
     font_names.sort()
     d = {}
     base = 'xxx'  # non existing font name as base
@@ -209,7 +209,7 @@ def font_dictionary(filename=None, force=False):
             _FONT_DICTIONARY = _font_dictionary()
             if not (WRITABLE_FONTS_CACHE_PATH is None):
                 f = file(WRITABLE_FONTS_CACHE_PATH, 'wb')
-                f.write(unicode(_FONT_DICTIONARY))
+                f.write(str(_FONT_DICTIONARY))
                 f.close()
     if not _FONT_DICTIONARY:
         # 'empty' dict for ui
@@ -221,7 +221,7 @@ def font_dictionary(filename=None, force=False):
 def font_names(filename=None):
     global _FONT_NAMES
     if _FONT_NAMES is None:
-        _FONT_NAMES = font_dictionary(filename).keys()
+        _FONT_NAMES = list(font_dictionary(filename).keys())
         _FONT_NAMES.sort()
     return _FONT_NAMES
 
@@ -253,9 +253,9 @@ def set_font_cache(user_fonts_path, root_fonts_path,
 
 
 def example():
-    names = font_dictionary().keys()
+    names = list(font_dictionary().keys())
     names.sort()
-    sys.stdout.write(unicode(names) + '\n')
+    sys.stdout.write(str(names) + '\n')
 
 
 if __name__ == '__main__':

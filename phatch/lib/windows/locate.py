@@ -16,7 +16,7 @@
 # Follows PEP8
 
 try:
-    import _winreg
+    import winreg
 except ImportError:
     _winreg = None
 
@@ -34,7 +34,7 @@ class Blender(RegistryApplication):
     filename = 'blendfile'
 
     def get_path(self, reg):
-        return _winreg.QueryValue(reg, 'DefaultIcon').rsplit(',', 1)[0]
+        return winreg.QueryValue(reg, 'DefaultIcon').rsplit(',', 1)[0]
 
 
 class Inkscape(RegistryApplication):
@@ -42,7 +42,7 @@ class Inkscape(RegistryApplication):
     filename = 'svgfile\\shell\edit'
 
     def get_path(self, reg):
-        return _winreg.QueryValue(reg, 'command').rsplit(' ', 1)[0].strip('"')
+        return winreg.QueryValue(reg, 'command').rsplit(' ', 1)[0].strip('"')
 
 
 class Applications(dict):
@@ -62,9 +62,9 @@ def find_exe(app_name):
         app = apps[app_name]
 
         try:
-            reg = _winreg.OpenKey(_winreg.HKEY_CLASSES_ROOT, app.filename)
+            reg = winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, app.filename)
             value = app.get_path(reg)
-            _winreg.CloseKey(reg)
+            winreg.CloseKey(reg)
 
             return value
         except:

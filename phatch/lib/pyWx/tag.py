@@ -16,8 +16,8 @@
 # Follows PEP8
 
 import wx
-import paint
-from compatible import SearchCtrl
+from . import paint
+from .compatible import SearchCtrl
 
 
 def extract_tags(items):

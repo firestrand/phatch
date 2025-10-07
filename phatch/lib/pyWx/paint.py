@@ -18,8 +18,8 @@
 # Follow PEP8
 
 import wx
-from compatible import GCDC, FONT_SIZE
-import graphics
+from .compatible import GCDC, FONT_SIZE
+from . import graphics
 MARGIN = 2 * 10
 
 

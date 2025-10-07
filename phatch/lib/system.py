@@ -24,19 +24,19 @@ import types
 import tempfile
 import textwrap
 
-import safe
+from . import safe
 
 VERBOSE = False
 BIN = []  # executable
-ARG_STR = '".+?"|\'.+\'|\S+'
+ARG_STR = r'".+?"|\'.+\'|\S+'
 RE_ARG = re.compile(ARG_STR)
-RE_COMMAND = re.compile('^(%s)' % ARG_STR)
-RE_NEED_QUOTES = re.compile('^[^\'"].+?\s.+?[^\'"]$')
+RE_COMMAND = re.compile(r'^(%s)' % ARG_STR)
+RE_NEED_QUOTES = re.compile(r'^[^\'"].+?\s.+?[^\'"]$')
 
 
 if sys.platform.startswith('win'):
     _EXE = '.exe'
-    import windows.locate
+    from .windows import locate
     WINDOWS = True
 
     def rename(src, dest):
@@ -169,6 +169,9 @@ def fix_quotes(text):
     >>> fix_quotes('/my programs/blender')
     '"/my programs/blender"'
     """
+    # Handle bytes objects
+    if isinstance(text, bytes):
+        text = text.decode('utf-8', errors='replace')
     if not RE_NEED_QUOTES.match(text):
         return text
     if not ('"' in text):
@@ -412,7 +415,7 @@ def shell_cache(args, cache='', key=None, validate=None, **options):
         # Save to cache
         ensure_path(os.path.dirname(cache))
         f = open(cache, 'wb')
-        f.write(unicode(cache_dict))
+        f.write(str(cache_dict))
         f.close()
     return result['stdout'], result['stderr']
 
@@ -451,7 +454,7 @@ def call(args, **keyw):
     also with ``shell=False`` on Unix.
     """
     if 'shell' in keyw:
-        if not WINDOWS and type(args) in types.StringTypes and \
+        if not WINDOWS and type(args) in (str,) and \
             not keyw['shell']:
             args = split_command(args.replace('\\\n', ' '))
     else:
@@ -580,7 +583,7 @@ class MethodRegister:
         :type values: dict
         """
         if key in d:
-            for value in values.keys():
+            for value in list(values.keys()):
                 values[value] = [x for x in values[value] if x != key]
                 if not values[value]:
                     del values[value]
@@ -590,4 +593,4 @@ class MethodRegister:
     def _update(self):
         """Updates the list of extension after each change. Helper
         function for :ref:`register` and :ref:`_unregister`."""
-        self.extensions = self._methods.keys()
+        self.extensions = list(self._methods.keys())

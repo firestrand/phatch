@@ -102,11 +102,11 @@ def test(dirname='..'):
             total += 1
     cache.close()
     if summary:
-        print(ERROR_HEADER % '\n'.join(
+        print((ERROR_HEADER % '\n'.join(
             ['%s (%d)' % (filename, count) for filename, count in summary]
-        ))
-    print('Ran %d PEP8 tests in %.3fs'
-        % (total, time.time() - time_start))
+        )))
+    print(('Ran %d PEP8 tests in %.3fs'
+        % (total, time.time() - time_start)))
     return summary
 
 

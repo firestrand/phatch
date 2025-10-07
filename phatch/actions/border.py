@@ -45,15 +45,15 @@ def border(image, method, border_width=0, left=0, right=0, top=0, bottom=0,
     if method == OPTIONS[0]:
         left, right, top, bottom = (border_width, ) * 4
     else:
-        left, right, top, bottom = [x for x in left, right, top, bottom]
+        left, right, top, bottom = [x for x in (left, right, top, bottom)]
 
     #new image size attributes could get really messed up by negatives...
-    new_width = sum([x for x in image.size[0], left, right if x >= 0])
-    new_height = sum([x for x in image.size[1], top, bottom if x >= 0])
+    new_width = sum([x for x in (image.size[0], left, right) if x >= 0])
+    new_height = sum([x for x in (image.size[1], top, bottom) if x >= 0])
 
     # only need to do conversions when preserving transparency, or when
     # dealing with transparent overlays
-    negative = [x for x in left, right, top, bottom if x < 0]
+    negative = [x for x in (left, right, top, bottom) if x < 0]
     if (negative and (opacity < 100)) or has_transparency(image):
         new_image = Image.new('RGBA', (new_width, new_height), color)
     else:

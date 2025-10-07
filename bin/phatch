@@ -3,14 +3,14 @@
 """Launch script from the bin folder."""
 
 import sys
+import os
 
-if sys.version_info[0] != 2:
-    sys.exit('Sorry, Phatch is only compatible with Python 2.x!\n')
+# Add phatch directory to path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import phatch
+from phatch.core import config
+from phatch.app import main
 
-from core import config
 config_paths = config.init_config_paths()
-
-from app import main
-main(config_paths, app_file = __file__)
+main(config_paths, app_file=__file__)

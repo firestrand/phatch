@@ -98,7 +98,7 @@ class ProgressReceiver(Receiver):
         dirname, basename = os.path.split(filename)
         dirname = ensure_unicode(dirname)
         basename = ensure_unicode(basename)
-        message = u"%s: %s\n%s: %s\n" \
+        message = "%s: %s\n%s: %s\n" \
             % (_('In'), dirname, _('File'), basename)
         self.update(result, parent_index * self.child_max, newmsg=message)
         self.sleep()

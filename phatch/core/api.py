@@ -21,7 +21,7 @@
 try:
     _
 except NameError:
-    __builtins__['_'] = unicode
+    __builtins__['_'] = str
 
 #---import modules
 
@@ -34,7 +34,7 @@ import pprint
 import string
 import time
 import traceback
-from cStringIO import StringIO
+from io import StringIO
 from datetime import timedelta
 
 #gui-independent
@@ -46,9 +46,9 @@ from lib import safe
 from lib.odict import ReadOnlyDict
 from lib.unicoding import ensure_unicode, exception_to_unicode, ENCODING
 
-import ct
-import pil
-from message import send
+from . import ct
+from . import pil
+from .message import send
 
 #---constants
 PROGRESS_MESSAGE = 'In: %s%s\nFile' % (' ' * 100, '.')
@@ -89,7 +89,7 @@ class PathError(Exception):
 def init():
     """Verify user paths and import all actions. This function should
     be called at the start."""
-    from config import verify_app_user_paths
+    from .config import verify_app_user_paths
     verify_app_user_paths()
     import_actions()
 
@@ -125,7 +125,7 @@ def log_error(message, filename, action=None, label='Error'):
         details += os.linesep + 'Action:' + \
                     pprint.pformat(action.dump())
     ERROR_LOG_FILE.write(os.linesep.join([
-        u'%s %d:%s' % (label, ERROR_LOG_COUNTER, message),
+        '%s %d:%s' % (label, ERROR_LOG_COUNTER, message),
         details,
         os.linesep,
     ]))
@@ -135,7 +135,7 @@ def log_error(message, filename, action=None, label='Error'):
         stringio = StringIO()
         traceback.print_exc(file=stringio)
         traceb = stringio.read()
-        ERROR_LOG_FILE.write(unicode(traceb, ENCODING, 'replace'))
+        ERROR_LOG_FILE.write(str(traceb, ENCODING, 'replace'))
     ERROR_LOG_FILE.write('*' + os.linesep)
     ERROR_LOG_FILE.flush()
     ERROR_LOG_COUNTER += 1
@@ -153,7 +153,7 @@ def get_vars(actions):
     vars = []
     for action in actions:
         vars.extend(action.metadata)
-        for field in action._get_fields().values():
+        for field in list(action._get_fields().values()):
             safe.extend_vars(vars, field.get_as_string())
     return vars
 
@@ -166,7 +166,7 @@ def assert_safe(actions):
         warning_action = ''
         if action.label == 'Geek':
             geek = True
-        for label, field in action._get_fields().items():
+        for label, field in list(action._get_fields().items()):
             if label.startswith('_') \
                     or isinstance(field, formField.BooleanField)\
                     or isinstance(field, formField.ChoiceField)\
@@ -174,7 +174,7 @@ def assert_safe(actions):
                 continue
             try:
                 field.assert_safe(label, test_info)
-            except Exception, details:
+            except Exception as details:
                 warning_action += '  %s: %s\n'\
                     % (label, exception_to_unicode(details))
         if warning_action:
@@ -494,10 +494,10 @@ def get_photo(info_file, info_not_file, result):
         result['skip'] = False
         result['abort'] = False
         return photo, result
-    except Exception, details:
+    except Exception as details:
         reason = exception_to_unicode(details)
         #log error details
-        message = u'%s: %s:\n%s' % (_('Unable to open file'),
+        message = '%s: %s:\n%s' % (_('Unable to open file'),
             info_file['path'], reason)
     ignore = False
     action = None
@@ -580,9 +580,9 @@ def init_actions(actions):
     for action in actions:
         try:
             action.init()
-        except Exception, details:
+        except Exception as details:
             reason = exception_to_unicode(details)
-            message = u'%s\n\n%s' % (
+            message = '%s\n\n%s' % (
                 _("Can not apply action %(a)s:") \
                 % {'a': _(action.label)}, reason)
             send.frame_show_error(message)
@@ -617,11 +617,11 @@ def apply_action_to_photo(action, photo, read_only_settings, cache,
         #log non fatal errors/warnings
         flush_log(photo, image_file, action)
         return photo, result
-    except Exception, details:
+    except Exception as details:
         flush_log(photo, image_file, action)
         folder, image = os.path.split(ensure_unicode(image_file))
         reason = exception_to_unicode(details)
-        message = u'%s\n%s\n\n%s' % (
+        message = '%s\n%s\n\n%s' % (
             _("Can not apply action %(a)s on image '%(i)s' in folder:")\
                 % {'a': _(action.label), 'i': image},
             folder,
@@ -859,7 +859,7 @@ def import_actions():
         #register action
         ACTIONS[cl.label] = cl
     #ACTION_LABELS
-    ACTION_LABELS = ACTIONS.keys()
+    ACTION_LABELS = list(ACTIONS.keys())
     ACTION_LABELS.sort()
     #ACTION_FIELDS
     ACTION_FIELDS = {}

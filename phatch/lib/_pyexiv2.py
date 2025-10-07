@@ -117,7 +117,7 @@ def write_metadata(source_pyexiv2_image, target, source_format=None,
         warnings = _copy_metadata(source_pyexiv2_image, target,
             source_format, target_format, broken_tag, thumbdata)
         copied = True
-    except Exception, message:
+    except Exception as message:
         copied = False
 
     #if metadata copied succesfully, check for warnings
@@ -163,7 +163,7 @@ def _copy_metadata(source_pyexiv2_image, target, source_format=None,
                     target._Image__setExifTag(tag,
                         source_pyexiv2_image._Image__getExifTag(tag)[1])
                     written = True
-                except Exception, message:
+                except Exception as message:
                     message = '%s: %s' % (tag, message)
                     warnings.append(message)
     #copy iptc metadata
@@ -173,7 +173,7 @@ def _copy_metadata(source_pyexiv2_image, target, source_format=None,
             try:
                 target[tag] = source_pyexiv2_image[tag]
                 written = True
-            except Exception, message:
+            except Exception as message:
                 message = '%s: %s' % (tag, message)
                 warnings.append(message)
     #copy comment
@@ -182,7 +182,7 @@ def _copy_metadata(source_pyexiv2_image, target, source_format=None,
         try:
             target.setComment(source_pyexiv2_image.getComment())
             written = True
-        except Exception, message:
+        except Exception as message:
             warnings.append(message)
     warnings.append(write_thumbdata(target, thumbdata))
     #save metadata (this might rise an exception)
@@ -203,7 +203,7 @@ def extension_to_image_format(ext):
 def read_thumbdata(image):
     try:
         return image.getThumbnailData()
-    except Exception, message:
+    except Exception as message:
         return None
 
 
@@ -213,8 +213,8 @@ def write_thumbdata(image, thumbdata=None):
     try:
         image.setThumbnailData(thumbdata)
         return ''
-    except Exception, message:
-        return unicode(message)
+    except Exception as message:
+        return str(message)
 
 
 #def write_comment(source, comment=None, source_format=None,
@@ -235,6 +235,6 @@ def flush(image, thumbdata):
     warnings = [write_thumbdata(image, thumbdata)]
     try:
         image.writeMetadata()
-    except Exception, message:
-        warnings.append(unicode(message))
+    except Exception as message:
+        warnings.append(str(message))
     return '\n'.join(warnings)

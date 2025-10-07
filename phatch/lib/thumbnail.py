@@ -26,12 +26,12 @@ import hashlib
 import os
 import stat
 import tempfile
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
-import Image
+from PIL import Image
 
-import imtools
-import system
+from . import imtools
+from . import system
 
 
 def ensure_path(*paths):
@@ -93,7 +93,7 @@ if FREEDESKTOP:
             return filename
         abspath = os.path.abspath(filename)
         try:
-            return 'file://%s' % urllib.pathname2url(abspath.encode('utf-8'))
+            return 'file://%s' % urllib.request.pathname2url(abspath.encode('utf-8'))
         except:
             # fallback if fails on unicode
             return 'file://%s' % abspath
@@ -253,7 +253,7 @@ if FREEDESKTOP:
         imtools.save(thumb_cache, temp.path, pnginfo=pnginfo, **options)
         thumb_filename = get_freedesktop_filename(filename, cache_size_label)
         temp.close(dest=thumb_filename)
-        os.chmod(thumb_filename, 0600)
+        os.chmod(thumb_filename, 0o600)
         if cache_size_label == size_label:
             # make thumbnail as it is smaller than this thumb cache size
             thumb = thumbnail(thumb_cache, size)

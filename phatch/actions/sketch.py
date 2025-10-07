@@ -41,7 +41,7 @@ def sketch(image, details_degree=1):
     im2 = im1.copy()
 
     im2 = ImageOps.invert(im2)
-    for i in xrange(details_degree):
+    for i in range(details_degree):
         im2 = im2.filter(ImageFilter.BLUR)
     im1 = ImageMath.eval('convert(min(a * 255/ (256 - b), 255), "L")',
             a=im1,

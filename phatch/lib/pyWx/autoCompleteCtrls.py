@@ -18,7 +18,7 @@
 import locale
 import sys
 import wx
-import graphics
+from . import graphics
 from other.pyWx.TextCtrlAutoComplete import TextCtrlAutoComplete
 
 if hasattr(wx, "PopupWindow"):
@@ -239,7 +239,7 @@ if hasattr(wx, "PopupWindow"):
 
             for num, colVal in enumerate(self._choices):
                 index = self.dropdownlistbox.InsertImageStringItem(
-                    sys.maxint, colVal, self.sm_dn)
+                    sys.maxsize, colVal, self.sm_dn)
 
                 self.dropdownlistbox.SetStringItem(index, 0, colVal)
                 self.dropdownlistbox.SetItemData(index, num)

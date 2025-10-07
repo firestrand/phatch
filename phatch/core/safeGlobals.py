@@ -31,7 +31,7 @@ def allow(key):
 
 
 def add_dictionary(namespace, dictionary):
-    for key, value in dictionary.items():
+    for key, value in list(dictionary.items()):
         if allow(key):
             namespace[key] = value
 

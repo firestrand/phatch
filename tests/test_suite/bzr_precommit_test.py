@@ -35,7 +35,7 @@ WINDOWS = sys.platform.startswith('win')
 
 
 def master_to_path(master):
-    path = urllib.unquote(master.base.replace('file://', ''))
+    path = urllib.parse.unquote(master.base.replace('file://', ''))
     if WINDOWS:
         path = path.lstrip('/').replace('/', '\\')
     return path
@@ -50,7 +50,7 @@ def pre_commit_hook(local, master, old_revno, old_revid, future_revno,
     import os
     import subprocess
     import time
-    import urllib
+    import urllib.request, urllib.parse, urllib.error
 
     # initialize time
     time_start = time.time()
@@ -68,7 +68,7 @@ def pre_commit_hook(local, master, old_revno, old_revid, future_revno,
     # Ensure to undo the directory change
     def exit(error=None):
         os.chdir(current_dir)
-        print('\nRan precommit tests in %.3fs\n' % (time.time() - time_start))
+        print(('\nRan precommit tests in %.3fs\n' % (time.time() - time_start)))
         if error:
             raise errors.BzrError(
                 'Unable to commit, because %s test failed.' % error)
@@ -76,7 +76,7 @@ def pre_commit_hook(local, master, old_revno, old_revid, future_revno,
     os.chdir(test_dir)
 
     # Use subprocesses so exceptions can't mess with the state
-    print(' ' * 80)
+    print((' ' * 80))
 
     if LINUX and subprocess.call(['python', 'license_test.py']):
         exit('license')
@@ -84,7 +84,7 @@ def pre_commit_hook(local, master, old_revno, old_revid, future_revno,
     if not WINDOWS and subprocess.call(['python', 'doc_test.py']):
         exit('doctest')
 
-    print('-' * 70)
+    print(('-' * 70))
 
     if subprocess.call(['python', 'pep8_test.py']):
         exit('PEP8')

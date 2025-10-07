@@ -52,8 +52,8 @@ from lib.pyWx import imageInspector
 from lib.pyWx.wildcard import wildcard_list, _wildcard_extension
 from lib.pyWx.tag import Browser, ContentMixin
 
-import images
-from wxGlade import dialogs
+from . import images
+from .wxGlade import dialogs
 
 VLIST_ICON_SIZE = (48, 48)
 _MAX_HEIGHT = None  # cache
@@ -376,11 +376,11 @@ class ActionListBox(ContentMixin, vlistTag.Box):
 
     def _filter_attr(self, filter, attr, actions):
         selected1 = [action for action in actions
-            if unicode(getattr(action, attr)).startswith(filter)]
+            if str(getattr(action, attr)).startswith(filter)]
         for action in selected1:
             actions.remove(action)
         selected2 = [action for action in actions
-            if filter in unicode(getattr(action, attr))]
+            if filter in str(getattr(action, attr))]
         for action in selected2:
             actions.remove(action)
         return selected1 + selected2
@@ -390,7 +390,7 @@ class ActionListBox(ContentMixin, vlistTag.Box):
 
     #---actions
     def SetActions(self, actions):
-        self.all_actions = actions.values()
+        self.all_actions = list(actions.values())
         for action in self.all_actions:
             self.TranslateAction(action)
         self.all_actions.sort(cmp=lambda x, y: \
@@ -457,7 +457,7 @@ class ActionDialog(paint.Mixin, vlistTag.Dialog):
 
     def __init__(self, parent, actions, tag='default', **keyw):
         #extract tags
-        tags = self.ExtractTags(actions.values())
+        tags = self.ExtractTags(list(actions.values()))
         #init dialog
         super(ActionDialog, self).__init__(parent, tags, -1, **keyw)
         #configure listbox

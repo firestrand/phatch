@@ -27,7 +27,7 @@ from lib.unicoding import exception_to_unicode
 from lib.formField import IMAGE_READ_MIMETYPES
 
 try:
-    from thunar import thunar_exists, create_thunar_action
+    from .thunar import thunar_exists, create_thunar_action
 except ImportError:
 
     def thunar_exists():
@@ -50,7 +50,7 @@ def menu_action(self, program, comment, method, *args, **keyw):
         success = method(*args, **keyw)
         self.show_info(_('If you restart %s, '
             'the action will appear in the context menu.') % program + comment)
-    except Exception, details:
+    except Exception as details:
         reason = exception_to_unicode(details, WX_ENCODING)
         self.show_error(_('Phatch could not install the action in %s:')\
             % program + '\n\n' + reason)

@@ -22,6 +22,7 @@
 
 from core import models
 from lib.reverse_translation import _t
+from functools import reduce
 
 #---PIL
 

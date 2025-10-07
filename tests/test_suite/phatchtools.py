@@ -26,9 +26,9 @@ import logging
 import subprocess
 
 # Test suite modules
-import utils
-import config
-import defaults
+from . import utils
+from . import config
+from . import defaults
 import gettext
 gettext.install('_')
 
@@ -75,7 +75,7 @@ def get_actions():
                 fromlist=['actions']).Action())
         for name in action_names
         if name != '__init__')
-    for name, fields in default_values.iteritems():
+    for name, fields in default_values.items():
         set_action_fields(__ACTIONS[name], fields)
     return __ACTIONS
 
@@ -94,7 +94,7 @@ def get_file_actions():
         return __FILE_ACTIONS
     __FILE_ACTIONS = dict(
         (name, action)
-        for name, action in get_actions().iteritems()
+        for name, action in get_actions().items()
         if action.valid_last)
     return __FILE_ACTIONS
 
@@ -123,7 +123,7 @@ def get_action_tags():
     global __ACTIONS_BY_TAGS
     if __ACTIONS_BY_TAGS:
         return __ACTIONS_BY_TAGS
-    for name, action in get_actions().iteritems():
+    for name, action in get_actions().items():
         if name in config.DISABLE_ACTIONS:
             continue
         for tag in action.tags:
@@ -159,7 +159,7 @@ def generate_actionlists(output='', actionlists=None, file_action='save',
         choices_function = possible_choices
     if not actionlists:
         file_action = get_action(file_action)
-        actionlists = minimal_actionlists(get_actions().values(), file_action)
+        actionlists = minimal_actionlists(list(get_actions().values()), file_action)
     actionlists_info = {}
     for actionlist in actionlists:
         if include_file_action or len(actionlist) == 1:
@@ -187,7 +187,7 @@ def generate_library_actionlists(output=''):
     :type output: string"""
     logging.info('Generating library actionlists...')
     actionlists_info = {}
-    for name, actionlist in get_library_list().iteritems():
+    for name, actionlist in get_library_list().items():
         file_actions = [
             action
             for action in actionlist['actions']
@@ -244,7 +244,7 @@ def execute_actionlists(input, actionlists=None, options=''):
         sys.stdout.flush()
         if not execute_actionlist(input, actionlists[name], options):
             errors.append(name)
-    print
+    print()
     return errors
 
 
@@ -265,7 +265,7 @@ def minimal_actionlists(actions, file_action, extra=None):
 
 def set_action_fields(action, fields):
     """Set action fields"""
-    for field_name, field_value in fields.iteritems():
+    for field_name, field_value in fields.items():
         action.set_field(field_name, field_value)
 
 
@@ -289,7 +289,7 @@ def generate_name(actionlists, fields_list):
             field_name.strip().replace(' ', ''),
             ('%s' % field_value).strip().replace(' ', ''))
         for fields in fields_list
-        for field_name, field_value in fields.iteritems())
+        for field_name, field_value in fields.items())
     filename = '_'.join(
         '_'.join(map(str.lower, action.label.split()))
         for action in actionlists)
@@ -326,9 +326,9 @@ def possible_choices_helper(action, choices):
     if hasattr(action, 'get_relevant_field_labels'):
         relevant = action.get_relevant_field_labels()
     else:
-        relevant = action._fields.keys()
+        relevant = list(action._fields.keys())
     choice_fields = dict(
-        (name, field) for name, field in action._fields.iteritems()
+        (name, field) for name, field in action._fields.items()
         if isinstance(field, (action.BooleanField, action.ChoiceField))
         and not isinstance(field, (
             action.ImageFilterField,
@@ -338,11 +338,11 @@ def possible_choices_helper(action, choices):
         and name in relevant)
     choice = dict(
         (fname, field.get())
-        for fname, field in choice_fields.iteritems())
+        for fname, field in choice_fields.items())
     if choice in choices:
         return
     choices.append(choice)
-    for fname, field in choice_fields.iteritems():
+    for fname, field in choice_fields.items():
         default = field.get()
         if isinstance(field, action.BooleanField):
             options = [True, False]
@@ -368,9 +368,9 @@ def extended_choices_helper(action, choices):
     if hasattr(action, 'get_relevant_field_labels'):
         relevant = action.get_relevant_field_labels()
     else:
-        relevant = action._fields.keys()
+        relevant = list(action._fields.keys())
     choice_fields = dict(
-        (name, field) for name, field in action._fields.iteritems()
+        (name, field) for name, field in action._fields.items()
         if isinstance(
             field,
             (action.BooleanField, action.ChoiceField, action.SliderField))
@@ -382,11 +382,11 @@ def extended_choices_helper(action, choices):
         and name in relevant)
     choice = dict(
         (fname, field.get())
-        for fname, field in choice_fields.iteritems())
+        for fname, field in choice_fields.items())
     if choice in choices:
         return
     choices.append(choice)
-    for fname, field in choice_fields.iteritems():
+    for fname, field in choice_fields.items():
         default = field.get()
         if isinstance(field, action.BooleanField):
             options = [True, False]

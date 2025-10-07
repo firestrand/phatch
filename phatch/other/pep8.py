@@ -746,7 +746,7 @@ def find_checks(argument_name):
     starts with argument_name.
     """
     checks = []
-    for name, function in globals().items():
+    for name, function in list(globals().items()):
         if not inspect.isfunction(function):
             continue
         args = inspect.getargspec(function)[0]
@@ -869,10 +869,10 @@ class Checker(object):
         self.previous_indent_level = self.indent_level
         self.indent_level = expand_indent(indent)
         if options.verbose >= 2:
-            print(self.logical_line[:80].rstrip())
+            print((self.logical_line[:80].rstrip()))
         for name, check, argument_names in options.logical_checks:
             if options.verbose >= 3:
-                print('   ', name)
+                print(('   ', name))
             result = self.run_check(check, argument_names)
             if result is not None:
                 offset, text = result
@@ -1092,14 +1092,14 @@ def print_benchmark(elapsed):
     """
     Print benchmark numbers.
     """
-    print('%-7.2f %s' % (elapsed, 'seconds elapsed'))
+    print(('%-7.2f %s' % (elapsed, 'seconds elapsed')))
     keys = ['directories', 'files',
             'logical lines', 'physical lines']
     for key in keys:
         if key in options.counters:
-            print('%-7d %s per second (%d total)' % (
+            print(('%-7d %s per second (%d total)' % (
                 options.counters[key] / elapsed, key,
-                options.counters[key]))
+                options.counters[key])))
 
 
 def selftest():
@@ -1127,7 +1127,7 @@ def selftest():
             error = None
             if code == 'Okay':
                 if len(options.counters) > 1:
-                    codes = [key for key in options.counters.keys()
+                    codes = [key for key in list(options.counters.keys())
                              if key != 'logical lines']
                     error = "incorrectly found %s" % ', '.join(codes)
             elif options.counters.get(code, 0) == 0:
@@ -1137,14 +1137,14 @@ def selftest():
             else:
                 count_failed += 1
                 if len(checker.lines) == 1:
-                    print("pep8.py: %s: %s" %
-                          (error, checker.lines[0].rstrip()))
+                    print(("pep8.py: %s: %s" %
+                          (error, checker.lines[0].rstrip())))
                 else:
-                    print("pep8.py: %s:" % error)
+                    print(("pep8.py: %s:" % error))
                     for line in checker.lines:
-                        print(line.rstrip())
+                        print((line.rstrip()))
     if options.verbose:
-        print("%d passed and %d failed." % (count_passed, count_failed))
+        print(("%d passed and %d failed." % (count_passed, count_failed)))
         if count_failed:
             print("Test failed.")
         else:

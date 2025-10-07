@@ -30,7 +30,7 @@ import os
 import re
 import types
 
-import Image
+from PIL import Image
 
 #todo make this lazy
 from lib import formField
@@ -43,8 +43,8 @@ from lib import unicoding
 from lib.reverse_translation import _t
 from lib.formField import RE_FILE_IN, RE_FILE_OUT
 
-from ct import TITLE
-from config import USER_BIN_PATH
+from .ct import TITLE
+from .config import USER_BIN_PATH
 
 #from other import EXIF
 
@@ -99,18 +99,18 @@ def split_data(d):
 
     >>> d = {'date': '2008-11-27 13:54:33', 'tuple': (1, 2)}
     """
-    value = d.values()[0]
+    value = list(d.values())[0]
     #tuples or list
-    if type(value) in (types.ListType, types.TupleType):
+    if type(value) in (list, tuple):
         if len(value) > 1:
-            for k, v in d.items():
+            for k, v in list(d.items()):
                 for i, x in enumerate(v):
                     d['%s.%d' % (k, i)] = v[i]
         return
     #datetime strings
     done = False
-    for k, v in d.items():
-        if type(v) in types.StringTypes:
+    for k, v in list(d.items()):
+        if type(v) in (str,):
             dt = re_DATETIME.match(v)
             if dt:
                 for key in DATETIME_KEYS:
@@ -120,7 +120,7 @@ def split_data(d):
         return
     #date time values
     if type(value) == datetime.datetime:
-        for k, v in d.items():
+        for k, v in list(d.items()):
             for key in DATETIME_KEYS:
                 d['%s.%s' % (k, key)] = getattr(v, key)
 
@@ -195,10 +195,10 @@ class InfoPhoto(dict):
         #retrieve dump info
         try:
             info_dumped = info_to_dump.open(path, sources).dump(free=True)
-        except Exception, details:
+        except Exception as details:
             reason = unicoding.exception_to_unicode(details)
             #log error details
-            message = u'%s:%s:\n%s' % (_('Unable extract variables from file'),
+            message = '%s:%s:\n%s' % (_('Unable extract variables from file'),
                 path, reason)
             raise Exception(message)
         self.update(info, explicit=False)
@@ -237,7 +237,7 @@ class InfoPhoto(dict):
     def update(self, d, explicit=True):
         """Do this explicitly so __setitem__ gets called."""
         if explicit:
-            for key, value in d.items():
+            for key, value in list(d.items()):
                 self[key] = value
         else:
             super(InfoPhoto, self).update(d)
@@ -344,7 +344,7 @@ class InfoPhoto(dict):
         if metadata.RE_PYEXIV2_TAG_EDITABLE.match(tag):
             try:
                 self.pyexiv2[self._fix(tag)] = value
-            except Exception, message:
+            except Exception as message:
                 raise KeyError('%s:\n%s'
                     % (_('Impossible to write tag "%s"') % tag, message))
         self._dirty = True
@@ -586,7 +586,7 @@ class Photo:
                 # Update file access and modification date
                 os.utime(filename, (self.modify_date, self.modify_date))
             self.append_to_report(filename, image_copy)
-        except IOError, message:
+        except IOError as message:
             # clean up corrupted drawing
             if os.path.exists(filename):
                 os.remove(filename)
@@ -602,7 +602,7 @@ class Photo:
 
     def convert(self, mode, *args, **keyw):
         """Converts all layers to a different mode."""
-        for layer in self.layers.values():
+        for layer in list(self.layers.values()):
             if layer.image.mode == mode:
                 continue
             if mode == 'P' and imtools.has_alpha(layer.image):
@@ -622,11 +622,11 @@ class Photo:
     def resize(self, size, method):
         """Resizes all layers to a different size"""
         size = (max(1, size[0]), max(1, size[1]))
-        for layer in self.layers.values():
+        for layer in list(self.layers.values()):
             layer.image = layer.image.resize(size, method)
 
     def rotate_exif(self, reverse=False):
-        layers = self.layers.values()
+        layers = list(self.layers.values())
         if reverse:
             transposition = self._exif_transposition_reverse
             self._exif_transposition_reverse = ()
@@ -639,7 +639,7 @@ class Photo:
 
     #---pil
     def apply_pil(self, function, *arg, **keyw):
-        for layer in self.layers.values():
+        for layer in list(self.layers.values()):
             layer.apply_pil(function, *arg, **keyw)
 
     #---external
@@ -667,7 +667,7 @@ class Photo:
                 target = system.TempFile(ext)
                 try:
                     imtools.save_safely(image, target.path)
-                except Exception, error:
+                except Exception as error:
                     pass
                 temp_files.append((source, target))
                 done.append(source)

@@ -64,7 +64,7 @@ def make_grid(image, grid, col_line_width=0, row_line_width=0,
     if scale:
         # Keep the same number of pixels in the result
         s = sqrt(cols * rows)
-        old_size = tuple(map(lambda x: int(x / s), old_size))
+        old_size = tuple([int(x / s) for x in old_size])
         # To scale down we need to make the image processing safe.
         image = imtools.convert_safe_mode(image)\
             .resize(old_size, getattr(Image, 'ANTIALIAS'))

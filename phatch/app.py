@@ -21,10 +21,10 @@
 import os
 import optparse
 import sys
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
-from data.info import INFO
-from core import config
+from .data.info import INFO
+from .core import config
 
 VERSION = "%(name)s %(version)s" % INFO
 
@@ -32,7 +32,7 @@ VERSION = "%(name)s %(version)s" % INFO
 def fix_path(path):
     #TODO: move me to lib/system.py
     if path.startswith('file://'):
-        return urllib.unquote(path[7:])
+        return urllib.parse.unquote(path[7:])
     return path
 
 
@@ -148,7 +148,7 @@ Please install the graphical user interface package 'phatch' as well.
 
 def import_pyWx():
     try:
-        from pyWx import gui
+        from .pyWx import gui
     except ImportError:
         sys.exit(PYWX_ERROR)
     return gui
@@ -166,7 +166,7 @@ def _gui(app_file, paths, settings):
 
 def _init_fonts():
     config.verify_app_user_paths()
-    from lib.fonts import font_dictionary
+    from .lib.fonts import font_dictionary
     font_dictionary(force=True)
 
 
@@ -187,9 +187,9 @@ def has_ext(path, ext):
 
 
 def _console(paths, settings):
-    from core.api import init
+    from .core.api import init
     init()
-    from console import console
+    from .console import console
     if paths and has_ext(paths[0], INFO['extension']):
         console.main(actionlist=paths[0], paths=paths[1:], settings=settings)
     else:
@@ -200,13 +200,13 @@ def main(config_paths, app_file):
     """init should be called first!"""
     parse_locale(config_paths)
     options, paths = parse_options()
-    from core.settings import create_settings
+    from .core.settings import create_settings
     settings = create_settings(config_paths, options)
     if settings['verbose']:
-        from lib import system
+        from .lib import system
         system.VERBOSE = True
     if 'safe' in settings:
-        from lib import formField
+        from .lib import formField
         formField.set_safe(settings['safe'])
         del settings['safe']
     if settings['image_inspector']:

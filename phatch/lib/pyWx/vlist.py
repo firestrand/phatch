@@ -116,7 +116,7 @@ class Box(wx.VListBox):
         gstep = float((col2.Green() - col1.Green())) / float(size)
         bstep = float((col2.Blue() - col1.Blue())) / float(size)
 
-        for coord in xrange(start, start + size):
+        for coord in range(start, start + size):
 
             currCol = wx.Colour(col1.Red() + rf, col1.Green() + gf, \
             col1.Blue() + bf)

@@ -181,7 +181,7 @@ def fix_python_path(phatch_python_path=None):
     return phatch_python_path
 
 
-def load_locale(app, path, canonical='default', unicode=True):
+def load_locale(app, path, canonical='default', str=True):
     locale.setlocale(locale.LC_ALL, '')
     #get default canonical if necessary
     if canonical == 'default':
@@ -201,7 +201,8 @@ def load_locale(app, path, canonical='default', unicode=True):
     languages.insert(0, canonical)
     #install
     i18n = gettext.translation(app, path, languages=languages, fallback=1)
-    i18n.install(unicode=unicode)
+    # Python 3: install() no longer takes unicode parameter
+    i18n.install()
 
 
 def init_config_paths(config_paths=None):

@@ -26,23 +26,23 @@ Provide validation routines.
 try:
     _
 except NameError:
-    _ = unicode
+    _ = str
 
 import os
 
-import Image
+from PIL import Image
 
 from lib.formField import files_dictionary, Form, Field, \
     ImageDictionaryReadFileField, \
     ImageDictionaryField, rotation_title_parser
 from lib.reverse_translation import _t
-from config import PATHS
+from .config import PATHS
 from lib import openImage
 from lib.desktop import DESKTOP_FOLDER, USER_FOLDER
 if DESKTOP_FOLDER == USER_FOLDER:
     DESKTOP_FOLDER = os.path.expanduser('~/phatch')
 
-from safeGlobals import safe_globals
+from .safeGlobals import safe_globals
 Field.set_globals(safe_globals())
 
 
@@ -143,7 +143,7 @@ class Action(Form):
         if not desktop:
             try:
                 self.ensure_path(folder)
-            except OSError, message:
+            except OSError as message:
                 desktop = error = True
         if desktop:
             base = os.path.basename(filename)

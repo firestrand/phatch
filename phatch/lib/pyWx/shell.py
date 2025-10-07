@@ -18,7 +18,7 @@
 try:
     _
 except NameError:
-    _ = unicode
+    _ = str
 
 import time
 

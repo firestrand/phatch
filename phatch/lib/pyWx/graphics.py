@@ -16,8 +16,8 @@
 # Follows PEP8
 
 import zlib
-from cStringIO import StringIO
-from urllib import urlopen
+from io import StringIO
+from urllib.request import urlopen
 
 import wx
 

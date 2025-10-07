@@ -26,7 +26,7 @@
 # type by Juho Vepsäläinen.
 
 import glob, os, sys, Image, ImageChops
-from itertools import izip
+
 from ImageStat import Stat
 from lib import openImage
 
@@ -101,7 +101,7 @@ class FillImages(list):
             return self[0].image, self._getToneDiff(get_tone(cmp_img), self[0].tone)
 
         record_fill = self[0]
-        record_avg = sys.maxint
+        record_avg = sys.maxsize
 
         for fill in self:
             diff_image = ImageChops.difference(cmp_img, fill.image)
@@ -114,7 +114,7 @@ class FillImages(list):
         return record_fill.image, self._getToneDiff(get_tone(cmp_img), record_fill.tone)
 
     def _getToneDiff(self, a, b):
-        return map(lambda x, y: x / max(y, 0.001), a, b)
+        return list(map(lambda x, y: x / max(y, 0.001), a, b))
 
 class FillImage(object):
     def __init__(self, image, fill_section_size, mode):
@@ -129,15 +129,15 @@ class BoundingBoxContainer(dict):
         self[box_name] = BoundingBox(topleft, bottomright)
 
     def move_right(self):
-        for box in self.values():
+        for box in list(self.values()):
             box.move_right()
 
     def move_down(self):
-        for box in self.values():
+        for box in list(self.values()):
             box.move_down()
 
     def reset_y(self):
-        for box in self.values():
+        for box in list(self.values()):
             box.reset_y()
 
 class BoundingBox(list):
@@ -198,13 +198,13 @@ def get_tone(img):
 def get_section_size(im_size, num_squares):
     def calculateSection(coord1, coord2):
         return int(round(coord1 / float(coord2)))
-    return [calculateSection(x, y) for (x, y) in izip(im_size, num_squares)]
+    return [calculateSection(x, y) for (x, y) in zip(im_size, num_squares)]
 
 def set_new_tone(fill_img, tone_diff, cur_fill_box, final_img):
     temp_pix = []
 
     for pix_col in fill_img.getdata():
-        temp_pix.append(tuple([int(x * y) for (x, y) in izip(pix_col, tone_diff)]))
+        temp_pix.append(tuple([int(x * y) for (x, y) in zip(pix_col, tone_diff)]))
 
     fill_img.putdata(temp_pix)
 

@@ -19,14 +19,14 @@
 try:
     _
 except NameError:
-    _ = unicode
+    _ = str
 
 import os
 import sys
 from data import license
 from data.info import INFO
 from lib.reverse_translation import _t
-from config import USER_PATH, USER_DATA_PATH, USER_CONFIG_PATH,\
+from .config import USER_PATH, USER_DATA_PATH, USER_CONFIG_PATH,\
     USER_CACHE_PATH, USER_ACTIONLISTS_PATH, USER_ACTIONS_PATH,\
     USER_BIN_PATH, USER_FONTS_PATH, USER_HIGHLIGHTS_PATH, \
     USER_LOG_PATH, USER_MASKS_PATH, USER_SETTINGS_PATH, \
@@ -110,7 +110,7 @@ COMMAND_ARGUMENTS = {
                                 'RECENT': '-d recent',
                                 'INSPECTOR': '-n',
 }
-for key, value in COMMAND_ARGUMENTS.items():
+for key, value in list(COMMAND_ARGUMENTS.items()):
     new_value = COMMAND_ARGUMENTS_PREFIX + value
     if COMMAND_FILE:
         if '%' in new_value:
@@ -120,7 +120,7 @@ for key, value in COMMAND_ARGUMENTS.items():
     COMMAND_ARGUMENTS[key] = new_value
 
 COMMAND = {}
-for key, value in COMMAND_ARGUMENTS.items():
+for key, value in list(COMMAND_ARGUMENTS.items()):
     COMMAND[key] = COMMAND_PATH + ' ' + COMMAND_ARGUMENTS[key]
 
 ##COMMAND_DROP = 'phatch -d "%s" %%F'

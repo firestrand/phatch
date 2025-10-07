@@ -19,6 +19,7 @@
 
 import operator
 import re
+from functools import reduce
 
 SAFE = {
     'int': ['abs', 'int', 'min', 'max', 'pow', 'sum'],
@@ -28,7 +29,7 @@ SAFE = {
         'monthname', 'second', 'weekday', 'weekdayname', 'year'],
     'rational': ['denominator', 'numerator'],
 }
-SAFE['all'] = reduce(operator.add, SAFE.values())
+SAFE['all'] = reduce(operator.add, list(SAFE.values()))
 
 
 """Todo: alleen format ### moet vervangen worden, daarna gewoon
@@ -38,7 +39,7 @@ eval met locals (incl indices) en globals.
 
 RE_EXPR = re.compile('<([^<>]+?)>', re.UNICODE)
 RE_FORMAT = re.compile('#+')
-RE_VAR = re.compile('(?P<var>[A-Za-z]\w*)(?P<attr>([.]\w(\w|[.])+)?)',
+RE_VAR = re.compile(r'(?P<var>[A-Za-z]\w*)(?P<attr>([.]\w(\w|[.])+)?)',
     re.UNICODE)
 
 
@@ -111,13 +112,13 @@ def compile_expr(meta_expr, _globals=None, _locals=None, validate=None,
     if safe:
 
         def compile_sub_expr(expr):
-            return unicode(eval_safe(preprocess(expr.group(1)),
+            return str(eval_safe(preprocess(expr.group(1)),
                 _globals, _locals, validate))
 
     else:
 
         def compile_sub_expr(expr):
-            return unicode(eval(preprocess(expr.group(1)),
+            return str(eval(preprocess(expr.group(1)),
                 _globals, _locals))
 
     return RE_EXPR.sub(compile_sub_expr, meta_expr)
@@ -190,7 +191,7 @@ def eval_restricted(s, _globals=None, _locals=None, allowed=SAFE['all'][:]):
         _locals = {}
     if _globals is None:
         _globals = {}
-    allowed += reduce(operator.add, [v.keys() for v in (_locals, _globals)])
+    allowed += reduce(operator.add, [list(v.keys()) for v in (_locals, _globals)])
 
     def validate(names, _globals, _locals):
         return set(names).difference(allowed)

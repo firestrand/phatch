@@ -28,8 +28,8 @@ Provide validation routines.
 import glob
 import os
 import re
-import safe
-import system
+from . import safe
+from . import system
 import textwrap
 import types
 
@@ -38,12 +38,12 @@ if '_' not in dir():
     _ = str
 
 #gui independent (lib)
-import system
-import unicoding
-from odict import odict as Fields
+from . import system
+from . import unicoding
+from .odict import odict as Fields
 
 NO_FIELDS = Fields()
-_t = unicode
+_t = str
 USE_INSPECTOR = _('Use the Image Inspector to list all the variables.')
 USE_EXTENSIONS = _('You can only use files with the following extensions')
 
@@ -254,7 +254,7 @@ class Form(object):
         return self._fields
 
     def get_field_labels(self):
-        return self._get_fields().keys()
+        return list(self._get_fields().keys())
 
     def _get_field(self, label):
         return self._fields[label]
@@ -277,7 +277,7 @@ class Form(object):
                 if label in pixel_fields:
                     #pixel size -> base, dpi needed
                     param = pixel_fields[label]
-                    if type(param) != types.TupleType:
+                    if type(param) != tuple:
                         param = (param, info['dpi'])
                 elif self._get_field(label).__class__ == PixelField:
                     param = (1, 1)
@@ -312,7 +312,7 @@ class Form(object):
         return self
 
     def set_fields(self, **options):
-        for label, value in options.items():
+        for label, value in list(options.items()):
             self.set_field(label, value)
 
     def set_field_as_string(self, label, value_as_string):
@@ -326,7 +326,7 @@ class Form(object):
     def load(self, fields):
         """Load dumped, raw strings."""
         invalid_labels = []
-        for label, value in fields.items():
+        for label, value in list(fields.items()):
             if label in self._fields:
                 self.set_field_as_string(label, value)
             else:
@@ -458,7 +458,7 @@ class Field(object):
     def __init__(self, value, visible=True):
         self.visible = visible
         self.dirty = False
-        if isinstance(value, (str, unicode)):
+        if isinstance(value, str):
             self.set_as_string(value)
         else:
             self.set(value)
@@ -483,7 +483,7 @@ class Field(object):
                 return safe.compile_expr(x, _globals=self._globals,
                     _locals=info, validate=self.validate,
                     preprocess=safe.format_expr, safe=self.safe)
-            except Exception, error:
+            except Exception as error:
                 reason = unicoding.exception_to_unicode(error)
                 raise ValidationError(self.description,
                     "%s: %s\n" % (_(label), reason), USE_INSPECTOR)
@@ -497,7 +497,7 @@ class Field(object):
             _('can not be empty')))
 
     def to_string(self, x):
-        return unicode(x)
+        return str(x)
 
     def fix_string(self, x):
         """For the ui (see 'write tag' action)"""
@@ -623,7 +623,7 @@ class FloatField(Field):
     def to_python(self, x, label):
         try:
             return float(self.eval(x, label))
-        except ValueError, message:
+        except ValueError as message:
             raise ValidationError(self.description,
             '%s: %s.' % (_(label),
                 _('invalid literal "%s" for float') % x))
@@ -757,7 +757,7 @@ class FontFileField(DictionaryReadFileField):
     allow_empty = True
 
     def init_dictionary(self):
-        from fonts import font_dictionary
+        from .fonts import font_dictionary
         self.dictionary = font_dictionary()
 
 
@@ -948,7 +948,7 @@ class PixelField(IntegerField):
     def get_size(self, info, base, dpi, label, value_as_string=None):
         if value_as_string is None:
             value_as_string = self.value_as_string
-        for unit, value in self._units(base, dpi).items():
+        for unit, value in list(self._units(base, dpi).items()):
             value_as_string = value_as_string.replace(unit, value)
         return super(PixelField, self).get(info, label, value_as_string)
 
@@ -974,7 +974,7 @@ class FileSizeField(IntegerField):
     _units = {'kb': '*1024', 'gb': '*1073741824', 'mb': '*1048576', 'bt': ''}
 
     def to_python(self, x, label):
-        for unit, value in self._units.items():
+        for unit, value in list(self._units.items()):
             x = x.replace(unit, value)
         return super(FileSizeField, self).to_python(x, label)
 
@@ -1041,11 +1041,11 @@ class ColorField(Field):
 ##    pass
 
 #Give Form all the tools
-FIELDS = [(name, cls) for name, cls in locals().items()
+FIELDS = [(name, cls) for name, cls in list(locals().items())
     if name[0] != '_' and \
-    ((type(cls) == types.TypeType and issubclass(cls, Field)) or\
-    type(cls) in [types.StringType, types.UnicodeType, types.ListType,
-    types.TupleType])]
+    ((type(cls) == type and issubclass(cls, Field)) or\
+    type(cls) in [bytes, str, list,
+    tuple])]
 
 for _name, _Field in FIELDS:
     setattr(Form, _name, _Field)

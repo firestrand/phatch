@@ -22,7 +22,7 @@
 
 import os
 import sys
-import utils
+from . import utils
 
 ######################################################
 # WARNING: Paths are relative to the parent directory#

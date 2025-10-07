@@ -73,10 +73,10 @@ from lib.pyWx import imageInspector
 from lib.pyWx import paint
 from lib.pyWx.clipboard import copy_text
 
-import images
-import dialogs
-import plugin
-from wxGlade import frame
+from . import images
+from . import dialogs
+from . import plugin
+from .wxGlade import frame
 
 WX_ENCODING = wx.GetDefaultPyEncoding()
 COMMAND_PASTE = \
@@ -108,7 +108,7 @@ def _theme():
 
 def set_theme(name='default'):
     if name == 'nuovext':
-        from nuovext import Provider
+        from .nuovext import Provider
         wx.ArtProvider.Push(Provider())
 
 #---Functions
@@ -267,7 +267,7 @@ class DialogsMixin:
             return
         try:
             data, warnings = api.open_actionlist(filename)
-        except KeyError, details:
+        except KeyError as details:
             self.show_error(ERROR_INSTALL_ACTION\
                 % exception_to_unicode(details, WX_ENCODING))
             return
@@ -1024,7 +1024,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         try:
             method(folder=folder, *args)
             self.show_info(_('Phatch successfully created the droplet.'))
-        except Exception, details:
+        except Exception as details:
             reason = exception_to_unicode(details, WX_ENCODING)
             self.show_error(_('Phatch could not create the droplet: ')\
                 + '\n\n' + reason)
@@ -1122,7 +1122,7 @@ class DropletMixin:
         d = {}
         for f in file_list:
             d[system.filename_to_title(f)] = f
-        actionlists = d.keys()
+        actionlists = list(d.keys())
         actionlists.sort()
         dlg = wx.SingleChoiceDialog(None, _('Select action list'), ct.TITLE,
             actionlists, wx.CHOICEDLG_STYLE)
@@ -1142,8 +1142,8 @@ class DropletMixin:
             f = open(ct.USER_SETTINGS_PATH, 'rb')
             #exclude paths as they should not be overwritten
             try:
-                items = safe.eval_restricted(f.read(),
-                    allowed=['True', 'False']).items()
+                items = list(safe.eval_restricted(f.read(),
+                    allowed=['True', 'False']).items())
             except:
                 sys.stdout.write(' '.join([
                     _('Sorry, your settings seem corrupt.'),

@@ -89,7 +89,7 @@ _t('Wave'): \
     file_out.png""",
 }
 
-ACTIONS = COMMANDS.keys()
+ACTIONS = list(COMMANDS.keys())
 ACTIONS.sort()
 
 

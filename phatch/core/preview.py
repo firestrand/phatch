@@ -25,9 +25,9 @@ if __name__ == '__main__':
     init_config_paths()
 
 import os
-import Image
-import api
-from config import USER_PREVIEW_PATH
+from PIL import Image
+from . import api
+from .config import USER_PREVIEW_PATH
 from lib import openImage
 from lib.system import ensure_path
 
@@ -39,7 +39,7 @@ def generate(source, size=(48, 48), path=USER_PREVIEW_PATH, force=True):
         min(source_image.size[0], size[0] * 1)),
         Image.ANTIALIAS)
     ensure_path(path)
-    for Action in api.ACTIONS.values():
+    for Action in list(api.ACTIONS.values()):
         action = Action()
         filename = os.path.join(path, action.label + '.png')
         if os.path.exists(filename) and not force:

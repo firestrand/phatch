@@ -61,11 +61,11 @@ class AddTagDialog(wx.Dialog):
         # end wxGlade
 
     def OnTagText(self, event): # wxGlade: AddTagDialog.<event_handler>
-        print "Event handler `OnTagText' not implemented!"
+        print("Event handler `OnTagText' not implemented!")
         event.Skip()
 
     def OnAdd(self, event): # wxGlade: AddTagDialog.<event_handler>
-        print "Event handler `OnAdd' not implemented"
+        print("Event handler `OnAdd' not implemented")
         event.Skip()
 
 # end of class AddTagDialog

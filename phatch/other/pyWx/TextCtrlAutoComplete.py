@@ -16,7 +16,7 @@ This was slightly adapted by Stani for Phatch:
 - change styles of the popup and listctrl
 '''
 
-import locale, wx, sys, cStringIO
+import locale, wx, sys, io
 
 import  wx.lib.mixins.listctrl  as  listmix
 
@@ -35,7 +35,7 @@ def getSmallUpArrowBitmap():
     return BitmapFromImage(getSmallUpArrowImage())
 
 def getSmallUpArrowImage():
-    stream = cStringIO.StringIO(getSmallUpArrowData())
+    stream = io.StringIO(getSmallUpArrowData())
     return ImageFromStream(stream)
 
 
@@ -52,7 +52,7 @@ def getSmallDnArrowBitmap():
     return BitmapFromImage(getSmallDnArrowImage())
 
 def getSmallDnArrowImage():
-    stream = cStringIO.StringIO(getSmallDnArrowData())
+    stream = io.StringIO(getSmallDnArrowData())
     return ImageFromStream(stream)
 #----------------------------------------------------------------------
 
@@ -75,7 +75,7 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
         by calling setChoices.
         '''
 
-        if therest.has_key('style'):
+        if 'style' in therest:
             therest['style']=wx.TE_PROCESS_ENTER | therest['style']
         else:
             therest['style']=wx.TE_PROCESS_ENTER
@@ -101,7 +101,7 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
 
         #Load and sort data
         if not (self._multiChoices or self._choices):
-            raise ValueError, "Pass me at least one of multiChoices OR choices"
+            raise ValueError("Pass me at least one of multiChoices OR choices")
 
         #widgets
 
@@ -205,7 +205,7 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
             #load the sorted data into the listbox
             dd = self.dropdownlistbox
             choices = [dd.GetItem(x, self._colSearch).GetText()
-                for x in xrange(dd.GetItemCount())]
+                for x in range(dd.GetItemCount())]
         else:
             choices = self._choices
 
@@ -315,7 +315,7 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
 
         lChoices = len(choices)
         if lChoices < 2:
-            raise ValueError, "You have to pass me a multi-dimension list"
+            raise ValueError("You have to pass me a multi-dimension list")
 
         for numCol, rowValues in enumerate(choices[0]):
 
@@ -328,7 +328,7 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
 
             for numCol, colVal in enumerate(valRow):
                 if numCol == 0:
-                    index = self.dropdownlistbox.InsertImageStringItem(sys.maxint, colVal, -1)
+                    index = self.dropdownlistbox.InsertImageStringItem(sys.maxsize, colVal, -1)
                 self.dropdownlistbox.SetStringItem(index, numCol, colVal)
                 self.dropdownlistbox.SetItemData(index, numRow)
 
@@ -360,7 +360,7 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
         self.dropdownlistbox.InsertColumn(0, "")
 
         for num, colVal in enumerate(self._choices):
-            index = self.dropdownlistbox.InsertImageStringItem(sys.maxint, colVal, -1)
+            index = self.dropdownlistbox.InsertImageStringItem(sys.maxsize, colVal, -1)
 
             self.dropdownlistbox.SetStringItem(index, 0, colVal)
             self.dropdownlistbox.SetItemData(index, num)
@@ -402,7 +402,7 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
             if self._selectCallback:
                 dd = self.dropdownlistbox
                 values = [dd.GetItem(sel, x).GetText()
-                    for x in xrange(dd.GetColumnCount())]
+                    for x in range(dd.GetColumnCount())]
                 self._selectCallback( values )
 
             self.SetValue (itemtext)
@@ -588,7 +588,7 @@ class test:
         """ Simply function that receive the row values when the
             user select an item
         """
-        print "Select Callback called...:",  values
+        print("Select Callback called...:",  values)
 
 
 if __name__ == "__main__":

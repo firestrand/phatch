@@ -141,7 +141,7 @@ class DataTuple(object):
         include = []
         exclude = []
         for row in self.data:
-            if filter in unicode(row).lower():
+            if filter in str(row).lower():
                 include.append(row)
             else:
                 exclude.append(row)
@@ -189,7 +189,7 @@ class DataDict(DataTuple):
                 self._fixed_headers = headers
             _headers = []
             for row in self.data:
-                for header in row.keys():
+                for header in list(row.keys()):
                     if header not in self._fixed_headers + _headers:
                         _headers.append(header)
             _headers.sort()

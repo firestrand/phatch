@@ -18,11 +18,11 @@
 import os
 import re
 
-import Image
+from PIL import Image
 
-import imtools
-import system
-import thumbnail
+from . import imtools
+from . import system
+from . import thumbnail
 
 try:
     import pyexiv2
@@ -50,7 +50,7 @@ def open(uri):
     try:
         image = open_image_with_pil(uri)
         ok = True
-    except IOError, message:
+    except IOError as message:
         ok = False
     # interlaced png
     if ok and not(Image.VERSION < '1.1.7' and
@@ -82,7 +82,7 @@ def open_image_exif_thumb(uri):
             thumb_data = pyexiv2_image.getThumbnailData()
             if thumb_data:
                 return imtools.open_image_data(thumb_data)
-        except Exception, details:
+        except Exception as details:
             pass
     return open_image_exif(uri)
 
@@ -184,7 +184,7 @@ if TIFFINFO and TIFFCP:
         'None': 'none',
     }
 
-    TIFF_COMPRESSION_TYPES = TIFF_COMPRESSION.values()
+    TIFF_COMPRESSION_TYPES = list(TIFF_COMPRESSION.values())
     TIFF_COMPRESSION_TYPES.sort()
 
     def get_info_libtiff(filename):
@@ -443,7 +443,7 @@ def verify_image_with_pil(info_file, valid, invalid):
             im.verify()
         valid.append(info_file)
         return True
-    except Exception, error:
+    except Exception as error:
         invalid.append(info_file['path'])
         return False
 
@@ -461,8 +461,8 @@ def verify_image_without_pil(info_file, method_register, valid, invalid):
 
 
 if __name__ == '__main__':
-    print TIFF_COMPRESSION_TYPES
+    print(TIFF_COMPRESSION_TYPES)
     filename = '/home/stani/Downloads/0009.tif'
     image = open(filename)
-    print(image.info)
+    print((image.info))
     #save(image.rotate(10), filename + '.tif', compression='g4')

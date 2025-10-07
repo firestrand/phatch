@@ -23,7 +23,7 @@ if __name__ == '__main__':
     gettext.install('test')
 
 #---modules
-import cStringIO
+import io
 import os
 import zlib
 
@@ -38,13 +38,13 @@ from lib import formField
 from lib import metadata
 from lib import system
 
-import clipboard
-import droplet
-import graphics
-import tag
-import wildcard
-import wxPil
-import dialogsInspector
+from . import clipboard
+from . import droplet
+from . import graphics
+from . import tag
+from . import wildcard
+from . import wxPil
+from . import dialogsInspector
 
 try:
     import pyexiv2
@@ -415,7 +415,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
 
     def CopyCellValue(self, row, col):
         if self.table.GetNumberCols():
-            clipboard.copy_text(unicode(self.table.GetValue(row, col)))
+            clipboard.copy_text(str(self.table.GetValue(row, col)))
 
     def OnDrop(self, filenames, x, y):
         self.OpenImages(filenames)
@@ -737,7 +737,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
     def OpenImage(self, filename):
         try:
             self.image_table.open_image(filename, encoding=WX_ENCODING)
-        except IOError, message:
+        except IOError as message:
             self.show_error(_('Sorry, %s.') % str(message),
                 title=_('Image Inspector'))
             return
@@ -961,7 +961,7 @@ def getPencilBitmap():
 
 
 def getPencilImage():
-    stream = cStringIO.StringIO(getPencilData())
+    stream = io.StringIO(getPencilData())
     return wx.ImageFromStream(stream)
 
 
