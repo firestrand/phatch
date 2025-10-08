@@ -473,10 +473,13 @@ HEADER = "Phatch is the result of work by (in no particular order):"
 
 
 def all_credits():
-    #PIL - Python Image Library
+    #PIL - Python Image Library (Pillow)
     import Image
+    import PIL
     pil_credits = PIL_CREDITS
-    pil_credits['name'] += ' %s' % Image.VERSION
+    # Image.VERSION was removed in Pillow 10.0, use PIL.__version__ instead
+    version = getattr(Image, 'VERSION', None) or getattr(PIL, '__version__', 'unknown')
+    pil_credits['name'] += ' %s' % version
     if not (pil_credits in CREDITS['libraries']):
         CREDITS['libraries'].append(pil_credits)
     #wxPython

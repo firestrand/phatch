@@ -22,7 +22,13 @@
 
 import sys
 from os.path import abspath, dirname, join
-from .core import config
+
+# Handle both package import and direct execution
+try:
+    from phatch.core import config
+except (ImportError, ModuleNotFoundError):
+    # When phatch/ dir is in sys.path (e.g., in tests)
+    from core import config
 
 
 def create_paths(relative=''):

@@ -22,4 +22,10 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 
 from .core.config import init_config_paths
+
+# Initialize paths when imported, but also expose the function
+# so it can be called again if needed (e.g., by tests)
+__all__ = ['init_config_paths']
+
+# Initialize on import
 init_config_paths()

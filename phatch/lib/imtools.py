@@ -475,7 +475,9 @@ def has_transparency(image):
             has_alpha(image)
 
 
-if Image.VERSION == '1.1.7':
+# PIL.Image.VERSION was removed in Pillow 10.0
+# This check is for ancient PIL 1.1.7, which is no longer relevant
+if False:  # Image.VERSION == '1.1.7':
 
     def split(image):
         """Work around for bug in Pil 1.1.7

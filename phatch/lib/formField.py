@@ -94,8 +94,8 @@ IMAGE_WRITE_EXTENSIONS.sort()
 
 RANK_SIZES = [3, 5]
 
-RE_FILE_IN = re.compile('file_in([.]\w+)')
-RE_FILE_OUT = re.compile('file_out([.]\w+)')
+RE_FILE_IN = re.compile(r'file_in([.]\w+)')
+RE_FILE_OUT = re.compile(r'file_out([.]\w+)')
 
 
 def files_dictionary(paths, extensions, title_parser=None):

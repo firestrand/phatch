@@ -53,7 +53,10 @@ def open(uri):
     except IOError as message:
         ok = False
     # interlaced png
-    if ok and not(Image.VERSION < '1.1.7' and
+    # Image.VERSION was removed in Pillow 10.0 - this check is for ancient PIL 1.1.7
+    # Modern Pillow handles interlaced PNGs correctly
+    version = getattr(Image, 'VERSION', None) or getattr(Image, '__version__', '99.0')
+    if ok and not(version < '1.1.7' and
             image.format == 'PNG' and 'interlace' in image.info):
         return image
     # png, tiff (which pil can only handle partly)
@@ -171,8 +174,8 @@ TIFFCP = system.find_exe("tiffcp")
 
 if TIFFINFO and TIFFCP:
 
-    RE_TIFF_FIELD = re.compile('\s+(.*?):\s+(.*?)\n')
-    RE_TIFF_FIELD_IMAGE = re.compile(' Image (.*?):\s+(.*?)$')
+    RE_TIFF_FIELD = re.compile(r'\s+(.*?):\s+(.*?)\n')
+    RE_TIFF_FIELD_IMAGE = re.compile(r' Image (.*?):\s+(.*?)$')
 
     TIFF_COMPRESSION = {
         'CCITT Group 3': 'g3',

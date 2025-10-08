@@ -214,11 +214,15 @@ def init_config_paths(config_paths=None):
     #configure sys.path
     phatch_path = fix_python_path(config_paths.get('PHATCH_PYTHON_PATH', None))
     #patches for pil <= 1.1.6 (ImportError=skip during build process)
+    # No longer needed with modern Pillow - keeping for reference
     try:
         import Image
-        if Image.VERSION < '1.1.7':
+        # Image.VERSION was removed in Pillow 10.0
+        # This patch is only for ancient PIL versions, no longer relevant
+        version = getattr(Image, 'VERSION', None) or getattr(Image, '__version__', '99.0')
+        if version < '1.1.7':
             fix_python_path(os.path.join(phatch_path, 'other', 'pil_1_1_6'))
-    except ImportError:
+    except (ImportError, AttributeError):
         pass
     #user actions
     fix_python_path(USER_ACTIONS_PATH)
