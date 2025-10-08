@@ -33,6 +33,8 @@ python bin/phatch --inspect <image_file>
 python bin/phatch --droplet <actionlist> <image_files>
 ```
 
+**Note**: On first run, Phatch scans for system fonts (in ~/Library/Fonts, /Library/Fonts, /System/Library/Fonts on macOS). This takes ~0.2 seconds and creates a cache at `~/phatch/fonts.cache` for faster subsequent launches.
+
 ### Testing
 
 ```bash
