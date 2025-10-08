@@ -162,7 +162,7 @@ if hasattr(wx, "PopupWindow"):
 
             if sys.platform.startswith('linux'):
                 self.dropdownlistbox.SetBackgroundColour(
-                    wx.SystemSettings_GetColour(wx.SYS_COLOUR_INFOBK))
+                    wx.SystemSettings.GetColour(wx.SYS_COLOUR_INFOBK))
             #initialize the parent
             if multiChoices:
                 ln = len(multiChoices)

@@ -195,9 +195,9 @@ class Table(gridlib.PyGridTableBase):
         #selected rows
         self.selected_attr = gridlib.GridCellAttr()
         self.selected_attr.SetBackgroundColour(
-            wx.SystemSettings_GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
         self.selected_attr.SetTextColour(
-            wx.SystemSettings_GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT))
+            wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT))
 
     # This is all it takes to make a custom data table to plug into a
     # wxGrid.  There are many more methods that can be overridden, but

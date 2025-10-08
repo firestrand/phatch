@@ -23,15 +23,15 @@ def pil_wxImage(image):
     if image.mode == 'P':
         image = image.convert('RGBA')
     if image.mode == 'RGBA':
-        wx_image = wx.EmptyImage(*image.size)
-        wx_image.SetData(image.convert("RGB").tostring())
+        wx_image = wx.Image(*image.size)
+        wx_image.SetData(image.convert("RGB").tobytes())
         wx_image.InitAlpha()
-        wx_image.SetAlphaData(
-            image.convert("RGBA").split()[-1].tostring())
+        wx_image.SetAlphaBuffer(
+            image.convert("RGBA").split()[-1].tobytes())
     else:
-        wx_image = wx.EmptyImage(*image.size)
+        wx_image = wx.Image(*image.size)
         new_image = image.convert('RGB')
-        data = new_image.tostring()
+        data = new_image.tobytes()
         wx_image.SetData(data)
     return wx_image
 
@@ -41,13 +41,13 @@ def pil_wxBitmap(image):
 
 
 def wxImage_pil(wx_image):
-    size = wx_image.GetSize()
+    size = tuple(wx_image.GetSize())
     image = Image.new('RGB', size)
-    image.fromstring(wx_image.GetData())
+    image.frombytes(bytes(wx_image.GetDataBuffer()))
     if wx_image.HasAlpha():
         alpha = Image.new('L', size)
-        wx_alpha = wx_image.GetAlphaData()
-        alpha.fromstring(wx_alpha)
+        wx_alpha = bytes(wx_image.GetAlphaBuffer())
+        alpha.frombytes(wx_alpha)
         image = image.convert('RGBA')
         image.putalpha(alpha)
     return image

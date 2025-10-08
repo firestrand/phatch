@@ -119,9 +119,9 @@ class Grid(gridlib.Grid):
         self.even_attr.SetBackgroundColour(even)
         self.selected_attr = gridlib.GridCellAttr()
         self.selected_attr.SetBackgroundColour(
-            wx.SystemSettings_GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
         self.selected_attr.SetTextColour(
-            wx.SystemSettings_GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT))
+            wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT))
 
     def UpdateNumberRows(self):
         """Only consider adding or removing rows."""

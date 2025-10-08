@@ -65,7 +65,7 @@ class Box(wx.VListBox):
             self._color_to = wx.Colour(217, 226, 234)
         else:
             # theme based
-            hilight = wx.SystemSettings_GetColour(wx.SYS_COLOUR_MENUHILIGHT)
+            hilight = wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENUHILIGHT)
             self._color_from = self.GradientColour(hilight)
             self._color_to = hilight
 

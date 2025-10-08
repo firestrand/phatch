@@ -129,7 +129,7 @@ class WritePluginDialog(wx.Dialog):
         # begin wxGlade: WritePluginDialog.__set_properties
         self.SetTitle(_("Write Action Plugin"))
         self.icon.SetMinSize((32, 32))
-        self.code.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_INFOBK))
+        self.code.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_INFOBK))
         # end wxGlade
 
     def __do_layout(self):

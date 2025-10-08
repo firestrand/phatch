@@ -744,8 +744,8 @@ class EditPanel(wx.Panel):
 
     #---support methods
     def _SetColours(self):
-        self.bgcolor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_HIGHLIGHT)
-        self.fgcolor = wx.SystemSettings_GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT)
+        self.bgcolor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT)
+        self.fgcolor = wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT)
         self.SetBackgroundColour(self.bgcolor)
 
 

@@ -16,7 +16,7 @@
 # Follows PEP8
 
 import zlib
-from io import StringIO
+from io import BytesIO
 from urllib.request import urlopen
 
 import wx
@@ -38,9 +38,16 @@ def bitmap(icon, size=(48, 48), client=wx.ART_OTHER):
 
 def image(icon, size=(48, 48)):
     if icon[:4] == 'ART_':
-        return wx.ImageFromBitmap(bitmap(icon, size))
+        bmp = bitmap(icon, size)
+        return bmp.ConvertToImage()
     else:
-        return wx.ImageFromStream(StringIO(zlib.decompress(icon)))
+        # In Python 3, icon string literals need to be converted to bytes
+        if isinstance(icon, str):
+            icon = icon.encode('latin-1')
+        stream = BytesIO(zlib.decompress(icon))
+        img = wx.Image()
+        img.LoadFile(stream)
+        return img
 
 CACHE = {}
 

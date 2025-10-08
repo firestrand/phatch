@@ -100,12 +100,12 @@ class WxgPanel(wx.Panel):
 
     def __set_properties(self):
         # begin wxGlade: WxgPanel.__set_properties
-        self.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_APPWORKSPACE))
+        self.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_APPWORKSPACE))
         self.filter.SetFocus()
         self.tree.SetBackgroundColour(wx.Colour(255, 255, 255))
         self.preview.SetMinSize((128, 128))
         self.preview.Hide()
-        self.tree_panel.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_APPWORKSPACE))
+        self.tree_panel.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_APPWORKSPACE))
         # end wxGlade
 
     def __do_layout(self):
