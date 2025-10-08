@@ -23,7 +23,7 @@
 #---Global import
 
 #import
-import new
+import types
 import sys
 
 #check wx
@@ -1037,7 +1037,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         menu.InsertItem(0, item)
         #method
         method_name = 'on_' + name
-        method = new.instancemethod(method, self, self.__class__)
+        method = types.MethodType(method, self)
         setattr(self, method_name, method)
         #bind item & method
         self.Bind(wx.EVT_MENU, method, item)

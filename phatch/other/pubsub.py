@@ -2,7 +2,7 @@
 # License: wxWidgets(based on LGPL,http://www.wxwidgets.org/about/newlicen.htm)
 
 #---------------------------------------------------------------------------
-"""
+r"""
 This module provides a publish-subscribe component that allows
 listeners to subcribe to messages of a given topic. Contrary to the
 original wxPython.lib.pubsub module (which it is based on), it uses 
@@ -56,10 +56,9 @@ much cleaner separation of concerns. But time is over, time to move on.
 #---------------------------------------------------------------------------
 
 # for function and method parameter counting:
-from types   import InstanceType
-from inspect import getargspec, ismethod, isfunction
+from inspect import getfullargspec as getargspec, ismethod, isfunction
+from types import MethodType as InstanceMethod
 # for weakly bound methods:
-from new     import instancemethod as InstanceMethod
 from weakref import ref as WeakRef
 
 # -----------------------------------------------------------------------------
@@ -88,14 +87,15 @@ def _paramMinCount(callableObject):
     is number of default arguments. The 'self' parameter, in the case
     of methods, is not counted.
     """
-    if type(callableObject) is InstanceType:
-        min, d = _paramMinCountFunc(callableObject.__call__.__func__)
-        return min-1, d
-    elif ismethod(callableObject):
+    if ismethod(callableObject):
         min, d = _paramMinCountFunc(callableObject.__func__)
         return min-1, d
     elif isfunction(callableObject):
         return _paramMinCountFunc(callableObject)
+    elif hasattr(callableObject, '__call__'):
+        # Callable instance in Python 3
+        min, d = _paramMinCountFunc(callableObject.__call__.__func__)
+        return min-1, d
     else:
         raise TypeError('Cannot determine type of callable: '+repr(callableObject))
 
