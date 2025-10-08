@@ -33,7 +33,13 @@ class Box(wx.VListBox):
         else:
             self.SetTheme('light_blue')
         self._events()
-        wx.CallAfter(self.SetSelection, 0)
+        # Defer selection to ensure items have been added (wxPython 4.x requirement)
+        wx.CallAfter(self._safe_set_initial_selection)
+
+    def _safe_set_initial_selection(self):
+        """Set initial selection only if list has items."""
+        if self.GetItemCount() > 0:
+            self.SetSelection(0)
 
     def _events(self):
         """Can be overwritten."""
