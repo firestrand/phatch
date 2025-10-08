@@ -116,7 +116,7 @@ elif TB:
         ver_sizer.Add(message, 0, wx.ALL, 4)
 
         hor_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        hor_sizer.Add(wxicon, 0, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL \
+        hor_sizer.Add(wxicon, 0, wx.ALIGN_CENTER_VERTICAL \
             | wx.ALIGN_CENTER_HORIZONTAL | wx.ALL, 4)
         hor_sizer.Add(ver_sizer, 1, wx.EXPAND)
         hor_sizer.Layout()

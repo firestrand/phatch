@@ -97,7 +97,7 @@ class Browser(paint.Mixin, wx.Panel):
         browse_sizer.Add(self.filter, 1,
             wx.ALL | wx.ALIGN_CENTER_VERTICAL, 4)
         browse_sizer.Add(self.tag, 0,
-            wx.ALL | wx.ALIGN_CENTER_VERTICAL | wx.EXPAND, 4)
+            wx.ALL | wx.ALIGN_CENTER_VERTICAL, 4)
         main_sizer.Add(browse_sizer, 0, wx.EXPAND, 0)
         #content control
         main_sizer.Add(self.content, 1, wx.ALL | wx.EXPAND, 4)

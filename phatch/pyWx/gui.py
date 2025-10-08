@@ -1139,7 +1139,7 @@ class DropletMixin:
     def _loadSettings(self, settings):
         self.settings = settings
         if os.path.exists(ct.USER_SETTINGS_PATH):
-            f = open(ct.USER_SETTINGS_PATH, 'rb')
+            f = open(ct.USER_SETTINGS_PATH, 'r')
             #exclude paths as they should not be overwritten
             try:
                 items = list(safe.eval_restricted(f.read(),
@@ -1157,7 +1157,7 @@ class DropletMixin:
                     self.settings[key] = value
 
     def _saveSettings(self):
-        f = open(ct.USER_SETTINGS_PATH, 'wb')
+        f = open(ct.USER_SETTINGS_PATH, 'w')
         settings = self.settings.copy()
         # non permanent settings
         for key in ('desktop', 'safe', 'no_save'):
