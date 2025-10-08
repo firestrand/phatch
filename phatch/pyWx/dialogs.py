@@ -347,9 +347,8 @@ class ActionListBox(ContentMixin, vlistTag.Box):
             tag_i18n = tag.lower()
             self.tag_actions = [a for a in self.all_actions
                 if tag_i18n in a.tags_i18n]
-        #sort
-        self.tag_actions.sort(cmp=lambda \
-            x, y: cmp(_(x.label_i18n), _(y.label_i18n)))
+        #sort (Python 3: use key instead of cmp)
+        self.tag_actions.sort(key=lambda x: _(x.label_i18n))
         #take filter in account
         self.SetFilter(self.GetFilter().GetValue())
 
@@ -393,8 +392,8 @@ class ActionListBox(ContentMixin, vlistTag.Box):
         self.all_actions = list(actions.values())
         for action in self.all_actions:
             self.TranslateAction(action)
-        self.all_actions.sort(cmp=lambda x, y: \
-            cmp(_(x.label_i18n), _(y.label_i18n)))
+        # Python 3: sort() no longer accepts cmp parameter, use key instead
+        self.all_actions.sort(key=lambda x: _(x.label_i18n))
 
     def TranslateAction(self, action):
         action.label_i18n = _(action.label).lower()
