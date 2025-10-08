@@ -792,7 +792,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
 class OpenMixin(object):
 
     def OnOpen(self, event):
-        style = wx.OPEN | wx.CHANGE_DIR
+        style = wx.FD_OPEN | wx.CHANGE_DIR
         if hasattr(wx, 'FD_PREVIEW'):
             style |= wx.FD_PREVIEW
         path = os.path.dirname(self.image_table.images[-1].filename)

@@ -73,7 +73,11 @@ def _paramMinCountFunc(function):
     """Given a function, return pair (min,d) where min is minimum # of
     args required, and d is number of default arguments."""
     assert isfunction(function)
-    (args, va, kwa, dflt) = getargspec(function)
+    # Python 3's getfullargspec returns 7 values, we only need first 4
+    spec = getargspec(function)
+    args = spec.args
+    va = spec.varargs
+    dflt = spec.defaults
     lenDef = len(dflt or ())
     lenArgs = len(args or ())
     lenVA = int(va is not None)

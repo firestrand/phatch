@@ -119,7 +119,7 @@ class Frame(Mixin, wx.Frame):
     def OnPaint(self, evt):
         dc = wx.PaintDC(self)
         dc.DrawBitmap(self.bmp, 0, 0, True)
-        font = wx.Font(7, wx.NORMAL, wx.NORMAL, wx.NORMAL)
+        font = wx.Font(wx.FontInfo(7))
         dc.SetFont(font)
         dc.SetTextForeground(self.label_color)
         dc.DrawRotatedText(self.label, self.label_x, self.label_y,

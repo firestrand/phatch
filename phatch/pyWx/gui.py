@@ -560,7 +560,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
             message=_('Choose an Action List File...'),
             defaultDir=os.path.dirname(self.filename),
             wildcard=ct.WILDCARD,
-            style=wx.OPEN,
+            style=wx.FD_OPEN,
         )
         if dlg.ShowModal() == wx.ID_OK:
             filename = dlg.GetPath()
@@ -592,7 +592,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
             message=_('Save Action List As...'),
             defaultDir=default_dir,
             wildcard=ct.WILDCARD,
-            style=wx.SAVE | wx.OVERWRITE_PROMPT,
+            style=wx.FD_SAVE | wx.OVERWRITE_PROMPT,
         )
         if dlg.ShowModal() == wx.ID_OK:
             saved = True

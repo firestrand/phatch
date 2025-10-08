@@ -140,7 +140,7 @@ class Box(wx.VListBox):
         x0, y0 = rect.GetTopLeft()
         x1, y1 = rect.GetBottomRight()
         # bitmap
-        dc.DrawBitmap(bmp, x0 + self.icon_x, y0 + self.icon_y, True)
+        dc.DrawBitmap(bmp, int(x0 + self.icon_x), int(y0 + self.icon_y), True)
         # text
         if self.GetSelection() != n or self._theme == 'light_blue':
             c = self.GetForegroundColour()

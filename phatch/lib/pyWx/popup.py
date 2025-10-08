@@ -415,7 +415,7 @@ class FileCtrl(_PathCtrl):
     wildcard = _t('All files') + '|*'
 
     def OnBrowse(self, event):
-        style = wx.OPEN | wx.CHANGE_DIR
+        style = wx.FD_OPEN | wx.CHANGE_DIR
         if hasattr(wx, 'FD_PREVIEW'):
             style |= wx.FD_PREVIEW
         dlg = wx.FileDialog(self, self._to_local("Choose a file"),

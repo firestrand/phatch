@@ -137,7 +137,7 @@ class ToasterBox(wx.Timer):
 
        self._backgroundcolour = wx.WHITE
        self._foregroundcolour = wx.BLACK
-       self._textfont = wx.Font(8, wx.SWISS, wx.NORMAL, wx.NORMAL, False, "Verdana")
+       self._textfont = wx.Font(wx.FontInfo(8).Family(wx.FONTFAMILY_SWISS).FaceName("Verdana"))
 
        self._bitmap = None
 
@@ -220,7 +220,7 @@ class ToasterBox(wx.Timer):
        """
 
        if font is None:
-           font = wx.Font(8, wx.SWISS, wx.NORMAL, wx.NORMAL, False)
+           font = wx.Font(wx.FontInfo(8).Family(wx.FONTFAMILY_SWISS))
 
        self._textfont = font
 

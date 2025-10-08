@@ -31,7 +31,7 @@ except ImportError:
 
 def bitmap(icon, size=(48, 48), client=wx.ART_OTHER):
     if icon[:4] == 'ART_':
-        return wx.ArtProvider_GetBitmap(getattr(wx, icon), client, size)
+        return wx.ArtProvider.GetBitmap(getattr(wx, icon), client, size)
     else:
         return wx.BitmapFromImage(image(icon))
 

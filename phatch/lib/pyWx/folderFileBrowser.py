@@ -114,7 +114,7 @@ class WxgPanel(wx.Panel):
         list_sizer = wx.BoxSizer(wx.VERTICAL)
         tree_sizer = wx.BoxSizer(wx.VERTICAL)
         sizer_7 = wx.BoxSizer(wx.HORIZONTAL)
-        sizer_7.Add(self.filter, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 0)
+        sizer_7.Add(self.filter, 1, wx.EXPAND, 0)
         main_sizer.Add(sizer_7, 0, wx.EXPAND, 0)
         tree_sizer.Add(self.tree, 1, wx.EXPAND, 0)
         tree_sizer.Add(self.preview, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 6)

@@ -50,9 +50,7 @@ class Mixin:
             font_size = FONT_SIZE + 1
             while (tw >= cw or th >= ch) and font_size > 5:
                 font_size -= 1
-                font = wx.Font(font_size, wx.FONTFAMILY_SWISS,
-                                wx.FONTSTYLE_NORMAL, wx.FONTSTYLE_NORMAL,
-                                encoding=wx.FONTENCODING_SYSTEM)
+                font = wx.Font(wx.FontInfo(font_size).Family(wx.FONTFAMILY_SWISS))
                 dc.SetFont(font)
                 tw, th = dc.GetTextExtent(paint_message)
             td = font_size / 2
@@ -66,7 +64,7 @@ class Mixin:
             # Draw logo.
             lw, lh = self._paint_logo.GetSize()
             lx, ly = (ew - lw) / 2, (eh - lh + 2 * thd) / 2
-            dc.DrawBitmap(self._paint_logo, lx, ly, True)
+            dc.DrawBitmap(self._paint_logo, int(lx), int(ly), True)
         else:
             # Skip logo.
             lx, ly = ew / 2, eh / 2
@@ -78,17 +76,17 @@ class Mixin:
             rx, ry = (ew - twd) / 2, ly - 2 * thd
         else:
             rx, ry = (ew - twd) / 2, (eh - thd) / 2
-        rect = wx.Rect(rx, ry, twd, thd)
+        rect = wx.Rect(int(rx), int(ry), int(twd), int(thd))
         if self.paint_border_color:
             penclr = self.paint_border_color
         else:
             penclr = self.paint_color
         dc.SetPen(wx.Pen(penclr))
         dc.SetBrush(wx.Brush(self.paint_color))
-        dc.DrawRoundedRectangleRect(rect, self.paint_radius)
+        dc.DrawRoundedRectangle(rect.x, rect.y, rect.width, rect.height, self.paint_radius)
         # Draw text.
         dc.SetTextForeground(paint_object.GetBackgroundColour())
-        dc.DrawText(paint_message, rx + td, ry + td)
+        dc.DrawText(paint_message, int(rx + td), int(ry + td))
 
     def EnableBackgroundPainting(self, object, state=True, color=wx.WHITE):
         if state:

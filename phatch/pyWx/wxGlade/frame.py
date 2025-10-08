@@ -199,7 +199,8 @@ class Frame(wx.Frame):
         sizer_1 = wx.BoxSizer(wx.VERTICAL)
         sizer_1.Add(self.description, 0, wx.EXPAND, 0)
         sizer_1.Add(self.tree, 1, wx.EXPAND, 0)
-        sizer_1.Add(self.empty, 1, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL, 0)
+        # wx.EXPAND overrides alignment flags in wxPython 4.x
+        sizer_1.Add(self.empty, 1, wx.EXPAND, 0)
         self.SetSizer(sizer_1)
         sizer_1.Fit(self)
         self.Layout()

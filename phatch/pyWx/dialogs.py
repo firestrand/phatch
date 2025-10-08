@@ -133,7 +133,7 @@ class ExecuteDialog(BrowseMixin, dialogs.ExecuteDialog):
         self.set_drop(drop)
 
     def browse_files(self):
-        style = wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR
+        style = wx.FD_OPEN | wx.MULTIPLE | wx.CHANGE_DIR
         if hasattr(wx, 'FD_PREVIEW'):
             style |= wx.FD_PREVIEW
         dlg = wx.FileDialog(
@@ -503,8 +503,7 @@ class WritePluginDialog(dialogs.WritePluginDialog, IconMixin):
     def _code(self, path):
         self.code.SetValue(open(path).read())
         self.code.SetMinSize((660, 300))
-        self.code.SetFont(wx.Font(10, wx.TELETYPE, wx.NORMAL, wx.NORMAL,
-            0, ""))
+        self.code.SetFont(wx.Font(wx.FontInfo(10).Family(wx.FONTFAMILY_TELETYPE)))
 
     #---events
     def on_help(self, event):
