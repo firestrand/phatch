@@ -85,5 +85,7 @@ For this project, we'll primarily use the 2to3 tool since we're doing a direct m
 
 ## Remaining Issues
 
-1. [ ] Fix string exceptions in `phatch/lib/pyWx/treeDragDrop.py` (Line 81: `raise 'no order'`)
+1. [x] Fix string exceptions in `phatch/lib/pyWx/treeDragDrop.py` (Line 81: `raise 'no order'`)
+   - Fixed: Changed to `raise ValueError('no order')`
+   - Also fixed string exception in `phatch/other/pubsub.py` (Line 100)
 2. [ ] Review and fix any other warnings from 2to3 

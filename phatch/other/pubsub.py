@@ -97,7 +97,7 @@ def _paramMinCount(callableObject):
     elif isfunction(callableObject):
         return _paramMinCountFunc(callableObject)
     else:
-        raise 'Cannot determine type of callable: '+repr(callableObject)
+        raise TypeError('Cannot determine type of callable: '+repr(callableObject))
 
 
 def _tupleize(items):

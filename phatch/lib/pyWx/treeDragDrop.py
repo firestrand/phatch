@@ -78,7 +78,7 @@ class Mixin:
                 return 0
             return 1
         else:
-            raise 'no order'
+            raise ValueError('no order')
 
     # Drag & drop
     def EnableDrag(self, dragTo=None):
