@@ -72,11 +72,11 @@ WEEKDAYS = (_t('Monday'), _t('Tuesday'), _t('Wednesday'), _t('Thursday'),
     _t('Friday'), _t('Saturday'), _t('Sunday'))
 DATETIME_KEYS = ['year', 'month', 'day', 'hour', 'minute', 'second']
 re_DATETIME = re.compile(
-                '(?P<year>\d{4})[-:](?P<month>\d{2})[-:](?P<day>\d{2}) '
-                '(?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})')
+                r'(?P<year>\d{4})[-:](?P<month>\d{2})[-:](?P<day>\d{2}) '
+                r'(?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})')
 
-re_TAG = re.compile('(Pil|Exif|Iptc|Pexif|Zexif)([.]\w+)+')
-re_KEY = re.compile('(#*)((\w|[.])*$|[$])')
+re_TAG = re.compile(r'(Pil|Exif|Iptc|Pexif|Zexif)([.]\w+)+')
+re_KEY = re.compile(r'(#*)((\w|[.])*$|[$])')
 TRANSPARENCY_ERROR = _('Only palette images have transparency.')
 
 IMAGE_READ_EXTENSIONS = set(formField.IMAGE_READ_EXTENSIONS)\

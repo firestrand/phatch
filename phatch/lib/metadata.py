@@ -54,7 +54,7 @@ RE_DATETIME_KEYS = re.compile('(%s)$' % ('|'.join(['[.]' + key
     for key in DATETIME_KEYS])))
 
 RE_PYEXIV2_TAG = re.compile('^(Exif|Iptc)_.+')
-RE_PYEXIV2_TAG_EDITABLE = re.compile('^(Exif|Iptc)_\w+$')
+RE_PYEXIV2_TAG_EDITABLE = re.compile(r'^(Exif|Iptc)_\w+$')
 
 ORIENTATION_TAGS = ['orientation', 'Pexif_Orientation', 'Zexif_Orientation']
 WRITABLE_TAGS = ['dpi', 'transparency'] + ORIENTATION_TAGS
