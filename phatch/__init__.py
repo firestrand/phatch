@@ -21,11 +21,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from .core.config import init_config_paths
+# Import the development-aware init_config_paths from phatch.py
+from .phatch import init_config_paths
 
-# Initialize paths when imported, but also expose the function
-# so it can be called again if needed (e.g., by tests)
+# Expose the function for explicit initialization
+# DO NOT call it here - let the caller (bin/phatch or tests) call it explicitly
 __all__ = ['init_config_paths']
-
-# Initialize on import
-init_config_paths()

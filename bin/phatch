@@ -9,8 +9,8 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import phatch
-from phatch.core import config
 from phatch.app import main
 
-config_paths = config.init_config_paths()
+# Use phatch's init_config_paths which sets up development paths
+config_paths = phatch.init_config_paths()
 main(config_paths, app_file=__file__)

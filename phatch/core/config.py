@@ -67,6 +67,12 @@ USER_WATERMARKS_PATH = os.path.join(USER_DATA_PATH, 'watermarks')
 
 SYSTEM_INSTALL = False
 
+# These will be set by check_config_paths()
+PHATCH_DATA_PATH = None
+PHATCH_FONTS_PATH = None
+PHATCH_FONTS_CACHE_PATH = None
+PHATCH_ACTIONLISTS_PATH = None
+
 
 def verify_app_user_paths():
     """Create user path structure if it does not exist yet. If there
@@ -227,7 +233,7 @@ def init_config_paths(config_paths=None):
     #user actions
     fix_python_path(USER_ACTIONS_PATH)
     #set font cache
-    from lib.fonts import set_font_cache
+    from phatch.lib.fonts import set_font_cache
     set_font_cache(USER_FONTS_PATH, PHATCH_FONTS_PATH,
         USER_FONTS_CACHE_PATH, PHATCH_FONTS_CACHE_PATH)
     #register paths
@@ -245,7 +251,7 @@ def load_locale_only(config_paths=None):
 
 
 def check_fonts(force=False):
-    from core.config import USER_FONTS_CACHE_PATH, PHATCH_FONTS_CACHE_PATH
+    # These globals are already defined by check_config_paths()
     if force or not(os.path.exists(USER_FONTS_CACHE_PATH) or \
             os.path.exists(PHATCH_FONTS_CACHE_PATH)):
         subprocess.Popen([sys.executable,

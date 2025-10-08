@@ -24,9 +24,12 @@ from . import system
 
 from lib import safe
 
+USER_FONTS_PATH = None
+ROOT_FONTS_PATH = None
 USER_FONTS_CACHE_PATH = None
 ROOT_FONTS_CACHE_PATH = None
 WRITABLE_FONTS_CACHE_PATH = None
+SHIPPED_FONTS = {}
 
 _FONT_DICTIONARY = None
 _FONT_NAMES = None
@@ -241,6 +244,8 @@ def set_font_cache(user_fonts_path, root_fonts_path,
     global USER_FONTS_CACHE_PATH
     global ROOT_FONTS_CACHE_PATH
     global WRITABLE_FONTS_CACHE_PATH
+    global USER_FONTS_PATH
+    global ROOT_FONTS_PATH
     SHIPPED_FONTS = merge(root_fonts_path, user_fonts_path)
     USER_FONTS_PATH = user_fonts_path
     ROOT_FONTS_PATH = root_fonts_path
