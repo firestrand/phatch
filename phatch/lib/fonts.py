@@ -36,10 +36,40 @@ _FONT_NAMES = None
 
 re_WORD = re.compile(r'([A-Z0-9]+[^A-Z0-9]*)', re.UNICODE)
 re_SPACE = re.compile(r'_|\W+', re.UNICODE)
+
+# macOS standard font directories
+MACOS_FONT_DIRS = [
+    '/System/Library/Fonts',
+    '/System/Library/Fonts/Supplemental',
+    '/Library/Fonts',
+    os.path.expanduser('~/Library/Fonts'),
+]
+
+# Linux common font directories
+LINUX_FONT_DIRS = [
+    '/usr/share/fonts',
+    '/usr/local/share/fonts',
+    os.path.expanduser('~/.fonts'),
+    os.path.expanduser('~/.local/share/fonts'),
+]
+
 LOCATE = [
     ['locate', '-i', '.ttf', '.otf'],
     ['find', '/', '-iname', '*.ttf', '-o', '-name', '*.otf'],
 ]
+
+
+def collect_fonts_from_dirs(directories):
+    """Collect font files from specific directories."""
+    fonts = []
+    for directory in directories:
+        if os.path.isdir(directory):
+            for root, dirs, files in os.walk(directory):
+                for filename in files:
+                    if filename.lower().endswith(('.ttf', '.otf')):
+                        fonts.append(os.path.join(root, filename))
+    return fonts
+
 
 #collect_fonts (system dependent)
 if sys.platform.startswith('win'):
@@ -49,25 +79,31 @@ if sys.platform.startswith('win'):
     def collect_fonts():
         """Collect a list of all font filenames."""
         return findFonts()
+elif sys.platform.startswith('darwin'):
+    # macOS - use known font directories for speed
+    def collect_fonts():
+        """Collect a list of all font filenames on macOS."""
+        return collect_fonts_from_dirs(MACOS_FONT_DIRS)
 else:
-    #better unix alternative for collect_fonts/findFonts
-    #presume findutils are present
-    if not system.find_exe('locate'):
-        sys.exit(_('Please install "%s" first.') % 'locate')
-
+    # Linux/Unix - try known directories first, then fall back to locate/find
     def locate_files(command):
         return subprocess.Popen(command,
             stdout=subprocess.PIPE).stdout.read().splitlines()
 
     def collect_fonts():
         """Collect a list of all font filenames."""
-        #try first with locate otherwise with find
+        # Try known Linux font directories first
+        fonts = collect_fonts_from_dirs(LINUX_FONT_DIRS)
+        if fonts:
+            return fonts
+
+        # Fall back to locate/find
         for command in LOCATE:
             try:
                 if system.find_exe(command[0]):
                     output = locate_files(command)
                     files = [line for line in output
-                        if line[-4:].lower() in ['.ttf', '.otf']]
+                        if line[-4:].lower() in [b'.ttf', b'.otf']]
                     if files:
                         return files
             except:
@@ -205,15 +241,15 @@ def font_dictionary(filename=None, force=False):
             else:
                 filename = ROOT_FONTS_CACHE_PATH
         if filename and os.path.exists(filename) and not force:
-            _FONT_DICTIONARY = safe.eval_safe(file(filename, 'rb').read())
+            with open(filename, 'rb') as f:
+                _FONT_DICTIONARY = safe.eval_safe(f.read())
         else:
             _FONT_DICTIONARY = {}
         if not _FONT_DICTIONARY:
             _FONT_DICTIONARY = _font_dictionary()
             if not (WRITABLE_FONTS_CACHE_PATH is None):
-                f = file(WRITABLE_FONTS_CACHE_PATH, 'wb')
-                f.write(str(_FONT_DICTIONARY))
-                f.close()
+                with open(WRITABLE_FONTS_CACHE_PATH, 'wb') as f:
+                    f.write(str(_FONT_DICTIONARY).encode('utf-8'))
     if not _FONT_DICTIONARY:
         # 'empty' dict for ui
         _FONT_DICTIONARY = {'': ''}
