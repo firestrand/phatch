@@ -20,9 +20,18 @@ r"""This is a plugin/hook for bazaar.
 
 Linux/Mac: Symlink (ln -s) this file to ~/.bazaar/plugins/
 Windows: Copy this file to C:\Program Files\Bazaar\plugins
+
+NOTE: This test is OBSOLETE. Bazaar VCS has been discontinued and replaced
+by Git. This file is kept for historical purposes but is skipped during
+test runs as bzrlib is no longer maintained or available.
 """
 
 import sys
+import pytest
+
+# Skip this entire module - Bazaar VCS is obsolete and bzrlib is unavailable
+pytest.skip("Bazaar VCS is obsolete - bzrlib not available", allow_module_level=True)
+
 from bzrlib import branch
 from bzrlib.lazy_import import lazy_import
 lazy_import(globals(), """

@@ -1,0 +1,15 @@
+# Development dependencies for Phatch
+# Install with: pip install -r requirements-dev.txt
+
+# Testing framework
+pytest>=7.0.0
+pytest-cov>=4.0.0        # Coverage reporting
+pytest-xdist>=3.0.0      # Parallel test execution
+
+# Code quality
+ruff>=0.1.0              # Fast Python linter (replaces flake8, black, isort)
+
+# Optional test dependencies
+# Uncomment if needed:
+# pytest-mock>=3.10.0    # Mocking support
+# pytest-timeout>=2.1.0  # Test timeouts
