@@ -339,7 +339,7 @@ def blend(im1, im2, amount, color=None):
     else:
         if color is None:
             expanded = Image.new(im2.mode, im2.size)
-        elif im2.mode in ('1', 'L') and type(color) != int:
+        elif im2.mode in ('1', 'L') and not isinstance(color, int):
             expanded = Image.new(im2.mode, im2.size, color[0])
         else:
             expanded = Image.new(im2.mode, im2.size, color)
@@ -435,18 +435,18 @@ def calculate_location(horizontal_offset, vertical_offset,
 ####################################
 
 
-def flatten(l):
+def flatten(lst):
     """Flatten a list.
 
-    :param l: list to be flattened
-    :type l: list
+    :param lst: list to be flattened
+    :type lst: list
     :returns: flattened list
     :rtype: list
 
     >>> flatten([[1, 2], [3]])
     [1, 2, 3]
     """
-    return [item for sublist in l for item in sublist]
+    return [item for sublist in lst for item in sublist]
 
 
 def has_alpha(image):

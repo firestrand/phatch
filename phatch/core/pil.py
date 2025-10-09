@@ -118,7 +118,7 @@ def split_data(d):
     if done:
         return
     #date time values
-    if type(value) == datetime.datetime:
+    if isinstance(value, datetime.datetime):
         for k, v in list(d.items()):
             for key in DATETIME_KEYS:
                 d['%s.%s' % (k, key)] = getattr(v, key)

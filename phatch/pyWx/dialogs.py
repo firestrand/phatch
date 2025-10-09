@@ -318,7 +318,7 @@ class ProgressDialog(wx.ProgressDialog, ProgressReceiver):
     def update(self, result, value, **message):
         """Fix for wxPython2.6"""
         status = self.Update(value, **message)
-        if type(status) == bool:
+        if isinstance(status, bool):
             result['keepgoing'] = result['skip'] = status
         else:
             result['keepgoing'], result['skip'] = status

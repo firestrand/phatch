@@ -275,7 +275,7 @@ class Form(object):
                 if label in pixel_fields:
                     #pixel size -> base, dpi needed
                     param = pixel_fields[label]
-                    if type(param) != tuple:
+                    if not isinstance(param, tuple):
                         param = (param, info['dpi'])
                 elif self._get_field(label).__class__ == PixelField:
                     param = (1, 1)
@@ -1041,9 +1041,8 @@ class ColorField(Field):
 #Give Form all the tools
 FIELDS = [(name, cls) for name, cls in list(locals().items())
     if name[0] != '_' and \
-    ((type(cls) == type and issubclass(cls, Field)) or\
-    type(cls) in [bytes, str, list,
-    tuple])]
+    ((isinstance(cls, type) and issubclass(cls, Field)) or\
+    isinstance(cls, (bytes, str, list, tuple)))]
 
 for _name, _Field in FIELDS:
     setattr(Form, _name, _Field)

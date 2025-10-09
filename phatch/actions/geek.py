@@ -33,7 +33,7 @@ COMMANDS = [
     'convert -blur 0x5 file_in.tif file_out.png']
 
 try:
-    COMMANDS = [l.strip() for l in open(config.USER_GEEK_PATH).readlines()]
+    COMMANDS = [line.strip() for line in open(config.USER_GEEK_PATH).readlines()]
 except IndexError:
     pass
 

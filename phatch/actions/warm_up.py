@@ -59,11 +59,11 @@ def warmup(image, midtone, brighten, amount=100):
     m = ImageColor.getrgb(midtone)
     b = brighten / 600.0
     # Calculate channels separately
-    for l in range(3):
+    for channel in range(3):
         o.append(ImageMath.eval(
             "m*(255-i)*i+i",
             i=luma,
-            m=4 * ((m[l] / 255.0) - 0.5 + b) / 255.0).convert('L'))
+            m=4 * ((m[channel] / 255.0) - 0.5 + b) / 255.0).convert('L'))
 
     colorized = Image.merge('RGB', tuple(o))
 

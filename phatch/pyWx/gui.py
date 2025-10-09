@@ -301,9 +301,9 @@ class DialogsMixin:
 
     def _send_update_event(self):
         update_event = imageInspector.UpdateEvent()
-        for frame in wx.GetTopLevelWindows():
-            if frame != self:
-                wx.PostEvent(frame, update_event)
+        for window in wx.GetTopLevelWindows():
+            if window != self:
+                wx.PostEvent(window, update_event)
 
     def set_report(self, report):
         wx.GetApp().report = report
