@@ -169,7 +169,8 @@ class _WeakMethod:
         if self.objRef() is None:
             return None
         else:
-            return InstanceMethod(self.fun, self.objRef(), self.cls)
+            # Python 3: types.MethodType only takes 2 args (func, instance)
+            return InstanceMethod(self.fun, self.objRef())
         
     def __eq__(self, method2):
         """Two WeakMethod objects compare equal if they refer to the same method
