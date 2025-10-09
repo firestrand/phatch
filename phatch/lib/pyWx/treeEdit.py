@@ -37,7 +37,7 @@ if __name__ == '__main__':
 from lib.unicoding import exception_to_unicode
 
 FIELD_DELIMITER = ': '
-WX_ENCODING = wx.GetDefaultPyEncoding()
+WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
 IMAGE_TEST_INFO = metadata.InfoTest()
 
 # ---functions

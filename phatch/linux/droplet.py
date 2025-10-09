@@ -41,7 +41,7 @@ except ImportError:
     def nautilus_exists():
         return False
 
-WX_ENCODING = wx.GetDefaultPyEncoding()
+WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
 
 
 #---general

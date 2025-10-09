@@ -78,7 +78,7 @@ from . import dialogs
 from . import plugin
 from .wxGlade import frame
 
-WX_ENCODING = wx.GetDefaultPyEncoding()
+WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
 COMMAND_PASTE = \
     _('You can paste it as text into the properties of a new launcher.')
 ERROR_INSTALL_ACTION = \
@@ -1054,7 +1054,7 @@ class ImageInspectorApp(wx.App):
         super(ImageInspectorApp, self).__init__(*args, **keyw)
 
     def OnInit(self):
-        wx.InitAllImageHandlers()
+        # wx.InitAllImageHandlers() not needed - wxPython 4.x auto-initializes
         _theme()
         frame = dialogs.ImageInspectorFrame(None,
             size=dialogs.imageInspector.SIZE)
@@ -1092,7 +1092,7 @@ class DropletFrame(DialogsMixin, wx.Frame, FrameReceiver):
 class DropletMixin:
 
     def OnInit(self):
-        wx.InitAllImageHandlers()
+        # wx.InitAllImageHandlers() not needed - wxPython 4.x auto-initializes
         #do all application initialisation
         self.init()
         api.init()
@@ -1191,7 +1191,7 @@ class App(DropletMixin, wx.App):
         super(App, self).__init__(*args, **keyw)
 
     def OnInit(self):
-        wx.InitAllImageHandlers()
+        # wx.InitAllImageHandlers() not needed - wxPython 4.x auto-initializes
         #frame
         self.splash = self._splash()
         self.splash.CentreOnScreen()

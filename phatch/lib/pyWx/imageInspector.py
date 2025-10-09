@@ -72,7 +72,7 @@ if pyexiv2:
 TAGS.extend(['Pexif', 'Zexif'])  # 'EXIF',
 TITLE = _('Image Inspector')
 
-WX_ENCODING = wx.GetDefaultPyEncoding()
+WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
 
 
 def empty_bitmap(width, height):

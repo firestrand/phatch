@@ -23,7 +23,7 @@ from lib import system
 from lib.windows.register import register_extensions, deregister_extensions
 from lib.formField import IMAGE_READ_EXTENSIONS
 
-WX_ENCODING = wx.GetDefaultPyEncoding()
+WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
 ICON = os.path.join(config.PATHS['PHATCH_IMAGE_PATH'], 'phatch.ico')
 EXTENSIONS_INSTALL_SUCCESFUL =\
     _("These extensions have been succesfully installed:\n\n")
