@@ -171,7 +171,7 @@ class TextCtrl(_CtrlRelevantMixin, _CtrlChoices, wx.ComboBox):
         v = v.strip()
         if v and v not in local_choices:
             local_choices.insert(0, v)
-        super(TextCtrl, self).__init__(parent, id, value,
+        super(TextCtrl, self).__init__(parent, id, value=value,
             choices=local_choices, **keyw)
         self.Set(value)
         self.SetRelevant(wx.EVT_TEXT, on_change)
@@ -465,6 +465,18 @@ class FolderCtrl(_PathCtrl):
         if dlg.ShowModal() == wx.ID_OK:
             self.path.SetValue(dlg.GetPath())
         dlg.Destroy()
+
+
+class AutoCompleteFolderCtrl(FolderCtrl):
+    InputCtrl = AutoCompleteTextCtrl
+
+    def _CreateCtrls(self, value, extensions=[], **extra):
+        super(AutoCompleteFolderCtrl, self)._CreateCtrls(value,
+            extensions,
+            style=wx.CB_DROPDOWN,  # for compatibility with dropdown
+            ** extra)
+        if 'choices' in extra:
+            self.path.StartEvents()
 
 
 class DictionaryFileCtrl(LabelFileCtrl):
