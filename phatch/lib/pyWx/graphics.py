@@ -58,7 +58,7 @@ def bitmap_open(x, height=64):
     except KeyError:
         pass
     if system.is_www_file(x):
-        im = wx.ImageFromStream(StringIO(urlopen(x).read()))
+        im = wx.ImageFromStream(BytesIO(urlopen(x).read()))
     else:
         im = wx.Image(x)
     im = CACHE[(x, height)] = im.Rescale(

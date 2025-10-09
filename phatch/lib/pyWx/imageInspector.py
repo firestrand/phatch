@@ -138,7 +138,7 @@ class AddTagDialog(dialogsInspector.AddTagDialog):
         return tag, value
 
 
-class Table(gridlib.PyGridTableBase):
+class Table(gridlib.GridTableBase):
 
     def __init__(self, thumb_size=THUMB_SIZE):
         """This forms a bridge between :class:`imageTable.Table`` and
@@ -147,7 +147,7 @@ class Table(gridlib.PyGridTableBase):
         :param thumb_size: size of the thumbnails
         :type thumb_size: tuple of ints
         """
-        gridlib.PyGridTableBase.__init__(self)
+        gridlib.GridTableBase.__init__(self)
         self.table = imageTable.Table(thumb_size)
         self.SetRowColours()
         self.log = ''
@@ -961,7 +961,7 @@ def getPencilBitmap():
 
 
 def getPencilImage():
-    stream = io.StringIO(getPencilData())
+    stream = io.BytesIO(getPencilData())
     return wx.ImageFromStream(stream)
 
 

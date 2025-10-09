@@ -35,7 +35,7 @@ def getSmallUpArrowBitmap():
     return BitmapFromImage(getSmallUpArrowImage())
 
 def getSmallUpArrowImage():
-    stream = io.StringIO(getSmallUpArrowData())
+    stream = io.BytesIO(getSmallUpArrowData())
     return ImageFromStream(stream)
 
 
@@ -52,7 +52,7 @@ def getSmallDnArrowBitmap():
     return BitmapFromImage(getSmallDnArrowImage())
 
 def getSmallDnArrowImage():
-    stream = io.StringIO(getSmallDnArrowData())
+    stream = io.BytesIO(getSmallDnArrowData())
     return ImageFromStream(stream)
 #----------------------------------------------------------------------
 
