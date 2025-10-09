@@ -216,6 +216,154 @@ class Action:
 
 ---
 
+### phatch/core/settings.py
+
+**Issue**: Monolithic function doing multiple things
+**Principle**: Single Responsibility Principle (SOLID)
+**Location**: `create_settings()` function at lines 26-67
+**Problem**: Function creates defaults, merges options, merges config_paths, and conditionally initializes config
+
+**Suggested Improvement**:
+```python
+class SettingsBuilder:
+    """Build settings dict step by step."""
+
+    def __init__(self):
+        self.settings = self._get_defaults()
+
+    @staticmethod
+    def _get_defaults():
+        """Return default settings dictionary."""
+        return {
+            'extensions': IMAGE_READ_EXTENSIONS,
+            'recursive': False,
+            # ... all defaults ...
+        }
+
+    def merge_options(self, options):
+        """Merge command-line options into settings."""
+        if options:
+            for attr in self.settings:
+                if hasattr(options, attr):
+                    self.settings[attr] = getattr(options, attr)
+        return self
+
+    def merge_config_paths(self, config_paths):
+        """Merge configuration paths into settings."""
+        if config_paths is None:
+            from .config import init_config_paths
+            config_paths = init_config_paths()
+        self.settings.update(config_paths)
+        return self
+
+    def build(self):
+        """Return final settings dict."""
+        return self.settings
+
+# Usage:
+def create_settings(config_paths=None, options=None):
+    return (SettingsBuilder()
+            .merge_options(options)
+            .merge_config_paths(config_paths)
+            .build())
+```
+
+**Benefits**: Each method has single responsibility, easier to test, clearer flow, fluent interface
+
+---
+
+**Issue**: Magic default values scattered in code
+**Principle**: DRY (Don't Repeat Yourself)
+**Location**: Lines 28-57 (hardcoded defaults)
+**Problem**: Default settings are defined inline, making them hard to find and modify
+
+**Suggested Improvement**:
+```python
+# At module level or in separate config
+DEFAULT_SETTINGS = {
+    # Execute settings
+    'extensions': IMAGE_READ_EXTENSIONS,
+    'recursive': False,
+    'stop_for_errors': True,
+    # ... grouped logically ...
+}
+
+# Or even better, use dataclasses:
+@dataclass
+class PhatchSettings:
+    """Phatch application settings with defaults."""
+    # Execute settings
+    extensions: List[str] = field(default_factory=lambda: IMAGE_READ_EXTENSIONS)
+    recursive: bool = False
+    stop_for_errors: bool = True
+    # ...
+```
+
+**Benefits**: Centralized configuration, type hints, easier to document, better IDE support
+
+---
+
+**Issue**: FIXME comment indicates code smell
+**Principle**: KISS (Keep It Simple, Stupid)
+**Location**: Line 63 `#FIXME: when is this happening`
+**Problem**: Conditional initialization of config_paths when None - unclear why this happens
+
+**Suggested Improvement**:
+1. Document when/why config_paths is None (startup vs testing vs API call)
+2. Consider making config_paths required, or:
+3. Use default parameter that makes intention clear:
+
+```python
+def create_settings(config_paths='auto', options=None):
+    """Create settings dictionary.
+
+    Args:
+        config_paths: Configuration paths dict, or 'auto' to initialize
+        options: Command-line options to override defaults
+
+    Returns:
+        Complete settings dict
+    """
+    if config_paths == 'auto':
+        from .config import init_config_paths
+        config_paths = init_config_paths()
+    # ...
+```
+
+**Benefits**: Explicit intention, clearer API, easier to test
+
+---
+
+**Issue**: Tight coupling to ct and pil modules
+**Principle**: Dependency Inversion (SOLID)
+**Location**: Lines 22-23 (imports)
+**Problem**: Direct imports create tight coupling
+
+**Suggested Improvement**:
+```python
+def create_settings(config_paths=None, options=None,
+                   default_extensions=None, user_path=None):
+    """Create settings with injectable dependencies."""
+    if default_extensions is None:
+        from .pil import IMAGE_READ_EXTENSIONS
+        default_extensions = IMAGE_READ_EXTENSIONS
+    if user_path is None:
+        from . import ct
+        user_path = ct.USER_PATH
+
+    settings = {
+        'extensions': default_extensions,
+        # ...
+        'droplet_path': user_path,
+        'paths': [user_path],
+    }
+    # ...
+```
+
+**Benefits**: Easier to test with mocks, clearer dependencies, less coupling
+
+---
+
 ## General Patterns
 
 ### Translation System Initialization
