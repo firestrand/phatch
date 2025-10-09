@@ -437,6 +437,10 @@ class TreeMixin(treeDragDrop.Mixin):
         elif isinstance(field, formField.FileField):
             extra = {'extensions': field.extensions}
             typ = 'LabelFile'
+        elif isinstance(field, formField.FolderField) and hasattr(field, 'choices') and field.choices:
+            # FolderField with choices should use Choice dropdown, not folder browser
+            extra = {'choices': field.choices, 'on_change': on_change}
+            typ = 'Choice'
         elif hasattr(field, 'choices'):
             extra = {'choices': field.choices, 'on_change': on_change}
         elif isinstance(field, formField.BooleanField):
