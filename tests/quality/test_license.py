@@ -41,7 +41,7 @@ from pathlib import Path
 import pytest
 
 # Add project root to path so we can import phatch
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from phatch.lib import system
 
@@ -97,7 +97,8 @@ def test_license_headers():
     total = 0
 
     # Get project root
-    project_root = Path(__file__).parent.parent
+    # Script is now in tests/quality/, so parent.parent.parent = project root
+    project_root = Path(__file__).parent.parent.parent
 
     # Run licensecheck
     stdout, stderr = system.shell([

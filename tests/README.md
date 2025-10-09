@@ -23,12 +23,33 @@ pytest -m "not slow"  # Skip slow tests
 
 ## Test Organization
 
-### Test Files
+### Directory Structure
 
-- **`pep8_test.py`** - Code quality/PEP8 compliance checks using ruff
-- **`doc_test.py`** - Doctest runner for code examples in docstrings
-- **`license_test.py`** - License header validation (optional, requires licensecheck)
-- **`acceptance_test.py`** - End-to-end acceptance tests for image processing
+Tests are now organized following modern best practices:
+
+- **`unit/`** - Unit tests for individual functions/classes
+  - `unit/actions/` - Tests for phatch/actions/
+  - `unit/core/` - Tests for phatch/core/
+  - `unit/lib/` - Tests for phatch/lib/
+  - `unit/console/` - Tests for phatch/console/
+
+- **`integration/`** - Integration tests for component interactions
+  - Test action pipelines
+  - Test file I/O operations
+  - Test metadata operations
+
+- **`functional/`** - End-to-end functional/acceptance tests
+  - Test complete workflows
+  - Test with real images and actionlists
+
+- **`quality/`** - Code quality and standards tests
+  - `quality/test_pep8.py` - PEP8 compliance using ruff
+  - `quality/test_doctests.py` - Doctest runner
+  - `quality/test_license.py` - License header validation (optional)
+
+### Legacy Test Files
+
+- **`acceptance_test.py`** - Legacy acceptance tests (will be migrated to functional/)
 - **`test_suite/`** - Acceptance test utilities and configuration
 
 ### Test Data
@@ -58,20 +79,30 @@ pytest
 ### Specific Test Types
 
 ```bash
-# Code quality (PEP8)
-python tests/pep8_test.py
-# or
-pytest tests/pep8_test.py
+# Unit tests
+pytest tests/unit/
 
-# Doctests
-python tests/doc_test.py
+# Integration tests
+pytest tests/integration/
+
+# Functional tests
+pytest tests/functional/
+
+# Quality tests
+pytest tests/quality/
+
+# Code quality (PEP8) - can also run directly
+python tests/quality/test_pep8.py
 # or
-pytest --doctest-modules phatch/
+pytest tests/quality/test_pep8.py
+
+# Doctests - run directly
+python tests/quality/test_doctests.py
 
 # License headers (requires licensecheck command)
-pytest tests/license_test.py
+pytest tests/quality/test_license.py
 
-# Acceptance tests (generates and runs actionlists)
+# Legacy acceptance tests (will be migrated to functional/)
 cd tests
 python acceptance_test.py --help  # See options
 python acceptance_test.py --tag save --no-execute  # Generate only

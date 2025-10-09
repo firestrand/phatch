@@ -63,7 +63,8 @@ def main():
         pytest_args.extend(['--ignore-glob', pattern])
 
     # Change to phatch directory to run tests
-    project_root = Path(__file__).parent.parent
+    # Script is now in tests/quality/, so parent.parent.parent = project root
+    project_root = Path(__file__).parent.parent.parent
     phatch_dir = project_root / 'phatch'
 
     # Add module paths

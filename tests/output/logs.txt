@@ -1,0 +1,16 @@
+
+actionlist: /Users/firestrand/Projects/phatch/tests/output/actionlists/scale_ConstrainProportions=0_ScaleDownOnly=0.phatch
+b'Traceback (most recent call last):\n  File "/Users/firestrand/Projects/phatch/phatch/phatch.py", line 77, in <module>\n    main()\n  File "/Users/firestrand/Projects/phatch/phatch/phatch.py", line 73, in main\n    from . import app\nImportError: attempted relative import with no known parent package\n'
+
+
+actionlist: /Users/firestrand/Projects/phatch/tests/output/actionlists/scale_ConstrainProportions=0_ScaleDownOnly=1.phatch
+b'Traceback (most recent call last):\n  File "/Users/firestrand/Projects/phatch/phatch/phatch.py", line 77, in <module>\n    main()\n  File "/Users/firestrand/Projects/phatch/phatch/phatch.py", line 73, in main\n    from . import app\nImportError: attempted relative import with no known parent package\n'
+
+
+actionlist: /Users/firestrand/Projects/phatch/tests/output/actionlists/scale_ConstrainProportions=1_ScaleDownOnly=0.phatch
+b'Traceback (most recent call last):\n  File "/Users/firestrand/Projects/phatch/phatch/phatch.py", line 77, in <module>\n    main()\n  File "/Users/firestrand/Projects/phatch/phatch/phatch.py", line 73, in main\n    from . import app\nImportError: attempted relative import with no known parent package\n'
+
+
+actionlist: /Users/firestrand/Projects/phatch/tests/output/actionlists/scale_ConstrainProportions=1_ScaleDownOnly=1.phatch
+b'Traceback (most recent call last):\n  File "/Users/firestrand/Projects/phatch/phatch/phatch.py", line 77, in <module>\n    main()\n  File "/Users/firestrand/Projects/phatch/phatch/phatch.py", line 73, in main\n    from . import app\nImportError: attempted relative import with no known parent package\n'
+

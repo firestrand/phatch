@@ -1,0 +1,6 @@
+Number of errors: 4
+Errors:
+	scale_ConstrainProportions=0_ScaleDownOnly=0
+	scale_ConstrainProportions=0_ScaleDownOnly=1
+	scale_ConstrainProportions=1_ScaleDownOnly=0
+	scale_ConstrainProportions=1_ScaleDownOnly=1

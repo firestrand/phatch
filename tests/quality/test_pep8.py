@@ -42,16 +42,17 @@ def test(dirname='..'):
         bool: True if violations found, False if clean
     """
     # Calculate target directory relative to this script's location
+    # Script is now in tests/quality/, so parent.parent = project root
     script_dir = Path(__file__).parent
     if dirname == '..':
-        # Default: check project root (parent of tests directory)
-        target_dir = script_dir.parent
+        # Default: check project root (parent.parent of quality directory)
+        target_dir = script_dir.parent.parent
     elif dirname:
         # Check specific subdirectory relative to script location
         target_dir = (script_dir / dirname).resolve()
     else:
         # Empty string: check project root
-        target_dir = script_dir.parent
+        target_dir = script_dir.parent.parent
 
     # Build ruff command
     # --output-format=concise shows file:line:col: message format
