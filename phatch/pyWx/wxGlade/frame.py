@@ -191,6 +191,7 @@ class Frame(wx.Frame):
         self.description.SetMinSize((300, 40))
         self.description.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_INFOBK))
         self.description.SetForegroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_INFOTEXT))
+        self.tree.SetFont(wx.SystemSettings.GetFont(wx.SYS_DEFAULT_GUI_FONT))
         self.empty.SetBackgroundColour(wx.Colour(255, 255, 255))
         # end wxGlade
 

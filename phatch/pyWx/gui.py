@@ -345,7 +345,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
 
     def _set_size(self):
         #make it eee pc friendly
-        self._width = 400
+        self._width = 600
         self._max_height = dialogs.get_max_height()
         self.SetSize((self._width, min(600, self._max_height)))
         super(Frame, self).__set_properties()

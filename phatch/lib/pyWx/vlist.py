@@ -156,9 +156,9 @@ class Box(wx.VListBox):
         bold.SetWeight(wx.FONTWEIGHT_BOLD)
         dc.SetFont(bold)
         dc.SetTextForeground(c)
-        dc.DrawText(label, x0 + self.text_x, y0 + self.text_y1)
+        dc.DrawText(label, int(x0 + self.text_x), int(y0 + self.text_y1))
         dc.SetFont(self.GetFont())
-        dc.DrawText(summary, x0 + self.text_x, y0 + self.text_y2)
+        dc.DrawText(summary, int(x0 + self.text_x), int(y0 + self.text_y2))
 
     def SetVerticalGradient(self, bool=True):
         self._is_vertical = bool

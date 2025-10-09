@@ -703,8 +703,8 @@ class Grid(droplet.Mixin, gridlib.Grid):
                 offset_y = (rect[3] - self.PENCIL_BITMAP_SIZE[1]) / 2
             dc.SetPen(pen)
             if get_label:
-                dc.DrawText(get_label(index), rect[0] + self.border,
-                    rect[1] + offset_y)
+                dc.DrawText(get_label(index), int(rect[0] + self.border),
+                    int(rect[1] + offset_y))
 
     #---dialogs
     def Ask(self, message, title=''):
