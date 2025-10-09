@@ -62,6 +62,9 @@ CREDITS = {
             'email': 'v.oostveen@gmail.com'},
         {'name': 'Pawel T. Jochym',
             'email': 'jochym@gmail.com'},
+        {'name': 'Travis Silvers (maintainer currently)',
+            'email': 'firestrand@gmail.com',
+            'url': 'https://github.com/firestrand'},
                     ],
     'documentation': [
         STANI,
@@ -365,13 +368,7 @@ else:
 
 #setup.py information
 SETUP = {
-    'name': NAME,
-    'version': VERSION,
-    'author': AUTHOR,
-    'author_email': AUTHOR_EMAIL,
-    'maintainer': AUTHOR,
-    'maintainer_email': AUTHOR_EMAIL,
-    'url': 'http://phatch.org',
+    'name': PHATCH,
     'description': 'PHoto bATCH Processor',
     'long_description': 'Phatch enables you to resize, rotate, mirror, '
         'apply watermarks, shadows, rounded courners, '
@@ -408,14 +405,14 @@ SETUP = {
 }
 
 INFO = {
-    'copyright': '(c) %s www.stani.be' % CO_YEAR,
+    'copyright': '(c) %s https://github.com/firestrand/phatch' % CO_YEAR,
     'date': DATE,
     'description': 'Photo Batch Processor',
     'extension': '.' + NAME.lower(),
-    'download_url': 'http://phatch.org',
+    'download_url': 'https://github.com/firestrand/phatch',
     'gpl_version': GPL_VERSION,
     'license': 'GPL v.' + GPL_VERSION,
-    'maintainer': 'Stani M',
+    'maintainer': 'Travis Silvers',
     'fsf_adress': '51 Franklin Street, Fifth Floor, '
         'Boston, MA 02110-1301, USA',
 }
@@ -474,7 +471,7 @@ HEADER = "Phatch is the result of work by (in no particular order):"
 
 def all_credits():
     #PIL - Python Image Library (Pillow)
-    import Image
+    from PIL import Image
     import PIL
     pil_credits = PIL_CREDITS
     # Image.VERSION was removed in Pillow 10.0, use PIL.__version__ instead

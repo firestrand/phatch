@@ -21,7 +21,18 @@
 
 import sys
 import wx
-import wx.lib.hyperlink as hl
+# wxPython 4.x uses wx.adv.HyperlinkCtrl instead of wx.lib.hyperlink
+try:
+    import wx.lib.hyperlink as hl
+except (ImportError, ModuleNotFoundError):
+    # wxPython 4.x compatibility - create wrapper for different API
+    import wx.adv
+    class HyperlinkCompat:
+        @staticmethod
+        def HyperLinkCtrl(parent, id, label, URL):
+            # wx.adv.HyperlinkCtrl has different parameter names
+            return wx.adv.HyperlinkCtrl(parent, id, label, URL)
+    hl = HyperlinkCompat()
 
 if sys.platform.startswith('win'):
     class TransparentBitmap(wx.Panel):

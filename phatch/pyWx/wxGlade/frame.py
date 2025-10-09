@@ -136,7 +136,7 @@ class Frame(wx.Frame):
         self.frame_menubar.Append(self.menu_help, _("&Help"))
         self.SetMenuBar(self.frame_menubar)
         # Menu Bar end
-        self.frame_statusbar = self.CreateStatusBar(1, 0)
+        self.frame_statusbar = self.CreateStatusBar(2, 0)
         self.description = wx.TextCtrl(self, -1, "", style=wx.TE_MULTILINE)
         self.tree = Tree(self, -1, style=wx.TR_HAS_BUTTONS|wx.TR_NO_LINES|wx.TR_FULL_ROW_HIGHLIGHT|wx.TR_HIDE_ROOT|wx.TR_DEFAULT_STYLE|wx.SUNKEN_BORDER)
         self.empty = wx.Panel(self, -1)
@@ -183,9 +183,9 @@ class Frame(wx.Frame):
 
     def __set_properties(self):
         # begin wxGlade: Frame.__set_properties
-        self.frame_statusbar.SetStatusWidths([-1])
+        self.frame_statusbar.SetStatusWidths([-2, -1])
         # statusbar fields
-        frame_statusbar_fields = [""]
+        frame_statusbar_fields = ["", ""]
         for i in range(len(frame_statusbar_fields)):
             self.frame_statusbar.SetStatusText(frame_statusbar_fields[i], i)
         self.description.SetMinSize((300, 40))

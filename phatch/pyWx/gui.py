@@ -435,8 +435,8 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         path, filename = os.path.split(self.filename)
         self.SetTitle(ct.FRAME_TITLE\
             % (self.dirty, os.path.splitext(filename)[0]))
-        self.frame_statusbar.SetStatusText(path)
-        self.SetStatusText(ct.COPYRIGHT)
+        self.frame_statusbar.SetStatusText(path, 0)
+        self.frame_statusbar.SetStatusText(ct.COPYRIGHT, 1)
 
     def is_protected_actionlist(self, filename):
         return config.PATHS["PHATCH_ACTIONLISTS_PATH"] == \
@@ -742,20 +742,19 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         self.shell.Show(event.IsChecked())
 
     def on_menu_help_website(self, event):
-        webbrowser.open('http://photobatch.stani.be')
+        webbrowser.open('https://github.com/firestrand/phatch')
 
     def on_menu_help_documentation(self, event):
-        webbrowser.open('http://photobatch.stani.be/documentation')
+        webbrowser.open('https://github.com/firestrand/phatch/wiki')
 
     def on_menu_help_forum(self, event):
-        webbrowser.open('http://photobatch.stani.be/forum')
+        webbrowser.open('https://github.com/firestrand/phatch/discussions')
 
     def on_menu_help_translate(self, event):
-        webbrowser.open(
-            'https://translations.launchpad.net/phatch/trunk/+pots/phatch')
+        webbrowser.open('https://github.com/firestrand/phatch/wiki')
 
     def on_menu_help_bug(self, event):
-        webbrowser.open('https://bugs.launchpad.net/phatch')
+        webbrowser.open('https://github.com/firestrand/phatch/issues')
 
     def on_menu_help_plugin(self, event):
         help_path = self.get_setting("PHATCH_DOCS_PATH")

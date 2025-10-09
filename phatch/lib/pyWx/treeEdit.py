@@ -139,7 +139,7 @@ class TreeMixin(treeDragDrop.Mixin):
     # ---forms
     def append_form(self, form, item=-1):
         root = self.GetRootItem()
-        if item is -1:
+        if item == -1:
             item = self.AppendItem(root, _(form.label))
         else:
             item = self.InsertItem(root, item, _(form.label))
@@ -390,7 +390,7 @@ class TreeMixin(treeDragDrop.Mixin):
 
     def remove_selected_form(self):
         form = self.get_form_selected()
-        if form is -1:
+        if form == -1:
             return False
         else:
             self.Delete(form)
