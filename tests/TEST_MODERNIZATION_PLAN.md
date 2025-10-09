@@ -171,22 +171,32 @@ tests/
 **Duration**: 2-3 weeks
 **Priority**: HIGH - Critical path functionality
 
+#### 1.0 Fix Failing Tests & Code Quality
+- [x] Fix test infrastructure issues (sys.exit in pytest)
+- [ ] Address PEP8 violations (161 errors currently)
+  - Priority: Fix critical/breaking violations first
+  - Run: `ruff check --fix .` to auto-fix many issues
+  - May need manual fixes for remaining issues
+- [ ] Ensure all quality tests pass
+- [ ] Document any intentionally skipped tests
+
 #### 1.1 Create Test Infrastructure
 - [x] Set up pytest configuration (done in migration)
 - [x] Create conftest.py with shared fixtures (done)
-- [ ] Create unit/, integration/, functional/, quality/ directories
-- [ ] Create __init__.py files for all test directories
-- [ ] Create fixtures/ directory with sample test data
-- [ ] Set up coverage reporting workflow
+- [x] Create unit/, integration/, functional/, quality/ directories
+- [x] Create __init__.py files for all test directories
+- [x] Create fixtures/ directory with sample test data
+- [x] Set up coverage reporting workflow
 
 #### 1.2 Core Module Unit Tests
 Focus on `phatch/core/` - the heart of the application:
 
-**Priority 1: `core/models.py`**
-- Test `Action` base class
-- Test action interface validation
-- Test action parameter handling
-- Coverage target: 90%+
+**Priority 1: `core/models.py`** ✅ DONE
+- [x] Test `Action` base class
+- [x] Test action interface validation
+- [x] Test action parameter handling
+- Current coverage: 45% (26 tests passing)
+- Coverage target: 90%+ (needs more tests for apply(), is_done(), etc.)
 
 **Priority 2: `core/config.py`**
 - Test path initialization
@@ -498,6 +508,11 @@ def test_save_calls_pil_save(tmp_path):
 
 ### Phase 1 Success
 - [x] Modern test structure in place
+- [x] Test infrastructure fixed (no sys.exit issues)
+- [ ] All tests passing (quality, unit, integration)
+  - [x] Test infrastructure working correctly
+  - [ ] PEP8 violations addressed
+  - [ ] No failing tests in test suite
 - [ ] Core modules have 30%+ coverage
 - [ ] All core module tests passing
 - [ ] CI/CD running tests automatically

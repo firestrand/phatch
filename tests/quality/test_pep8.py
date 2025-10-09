@@ -30,6 +30,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 def test(dirname='..'):
     """
@@ -96,9 +98,20 @@ def test(dirname='..'):
         sys.exit(1)
 
 
-def test_with_exit(dirname='..'):
+def test_pep8_compliance():
     """
-    Run PEP8 tests and exit with appropriate code.
+    Pytest test for PEP8 compliance using ruff.
+
+    This test will fail if any PEP8 violations are found.
+    """
+    has_violations = test('..')
+    if has_violations:
+        pytest.fail("PEP8 violations found. Run 'ruff check --fix .' to auto-fix many issues.")
+
+
+def main_with_exit(dirname='..'):
+    """
+    Run PEP8 tests and exit with appropriate code (for command-line use).
 
     Args:
         dirname: Directory to check (default: parent directory)
@@ -114,4 +127,4 @@ def test_with_exit(dirname='..'):
 
 
 if __name__ == '__main__':
-    test_with_exit('..')
+    main_with_exit('..')
