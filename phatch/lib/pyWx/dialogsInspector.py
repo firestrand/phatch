@@ -76,7 +76,7 @@ if __name__ == "__main__":
     gettext.install("app") # replace with the appropriate catalog name
 
     app = wx.PySimpleApp(0)
-    wx.InitAllImageHandlers()
+    # wx.InitAllImageHandlers() not needed - wxPython 4.x auto-initializes
     dialog = AddTagDialog(None, -1, "")
     app.SetTopWindow(dialog)
     dialog.Show()

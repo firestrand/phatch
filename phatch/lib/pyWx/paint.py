@@ -113,7 +113,7 @@ def example():
 
     class TestApp(wx.App):
         def OnInit(self):
-            wx.InitAllImageHandlers()
+            # wx.InitAllImageHandlers() not needed - wxPython 4.x auto-initializes
             frame = TestFrame(None, -1, "Test", size=(600, 400))
             frame.EnableBackgroundPainting(frame)  # ,color=(245,245,255))
             self.SetTopWindow(frame)

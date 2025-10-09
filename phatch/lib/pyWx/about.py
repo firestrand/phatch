@@ -243,7 +243,7 @@ class Dialog(wxgAboutDialog):
 
 
     def OnClose(self,event):
-        self.Destroy()
+        self.EndModal(wx.ID_CLOSE)
 
 def example():
     import gettext, random

@@ -385,7 +385,7 @@ class Frame(wx.Frame):
 
 class App(wx.App):
     def OnInit(self):
-        wx.InitAllImageHandlers()
+        # wx.InitAllImageHandlers() not needed - wxPython 4.x auto-initializes
         frame = Frame(None, -1, "")
         self.SetTopWindow(frame)
         frame.Show()
