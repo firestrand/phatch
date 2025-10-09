@@ -162,7 +162,7 @@ class Panel(WxgPanel):
         else:
             all = []
         self.data_tree.insert(0, all)
-        self.tree.SetPyData(root, 0)
+        self.tree.SetItemData(root, 0)
         self.tree.ExpandAll()
         self.list.InitData(Data(all,headers=headers, id=id))
 
@@ -186,11 +186,11 @@ class Panel(WxgPanel):
         for key in keys:
             item = self.tree.AppendItem(parent, self.GetTreeLabel(key, parent_label), 0)
             self.data_tree.append(data_tree[key]['data'])
-            self.tree.SetPyData(item, len(self.data_tree))
+            self.tree.SetItemData(item, len(self.data_tree))
             self._append_children(item, key, data_tree[key]['children'])
 
     def on_tree_sel_changed(self, event):
-        index = self.tree.GetPyData(event.GetItem())
+        index = self.tree.GetItemData(event.GetItem())
         self.list.SetData(self.data_tree[index])
 
     def on_filter_text(self, event):
@@ -205,7 +205,7 @@ class OpenMixin(object):
         self.list.Bind(wx.EVT_LIST_ITEM_ACTIVATED, self.on_list_item_activated)
 
     def get_tree_folder(self, item):
-        index = self.tree.GetPyData(item)
+        index = self.tree.GetItemData(item)
         return os.path.split(self.data_tree[index][0]['path'])[0]
 
     def get_list_file(self, index):

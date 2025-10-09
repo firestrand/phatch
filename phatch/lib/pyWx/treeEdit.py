@@ -170,7 +170,7 @@ class TreeMixin(treeDragDrop.Mixin):
         self.enable_form_item(self.get_form_item(item), bool)
 
     def enable_form_item(self, item, bool):
-        form = self.GetPyData(item)
+        form = self.GetItemData(item)
         self.set_item_image(item, form.icon_tree_id[bool])
         self.SetItemTextColour(item, (wx.RED, wx.GREEN)[bool])
         if bool:
@@ -184,9 +184,9 @@ class TreeMixin(treeDragDrop.Mixin):
             self.Expand(child)
 
     def export_form(self, item, label=None):
-        form = self.GetPyData(item)
+        form = self.GetItemData(item)
         for field in self.GetItemChildren(item):
-            label, value_as_string = self.GetPyData(field)
+            label, value_as_string = self.GetItemData(field)
             form.set_field_as_string(label, value_as_string)
         form.set_field('__enabled__', self.is_form_enabled(item))
         return form
@@ -199,7 +199,7 @@ class TreeMixin(treeDragDrop.Mixin):
         return forms
 
     def import_form(self, item, form):
-        self.SetPyData(item, form)
+        self.SetItemData(item, form)
         self.DeleteChildren(item)
         fields = form._get_fields()
         if not self.update_form_relevance(item):
@@ -220,7 +220,7 @@ class TreeMixin(treeDragDrop.Mixin):
             # print
             new_item = method(parent, item,
                             self.tree_label(label, value_as_string))
-        self.SetPyData(new_item, (label, value_as_string))
+        self.SetItemData(new_item, (label, value_as_string))
         return new_item
 
     def get_form(self, item, label=None):
@@ -230,7 +230,7 @@ class TreeMixin(treeDragDrop.Mixin):
         return self.GetRootChild(item)
 
     def get_form_field(self, item):
-        label, value_as_string = self.GetPyData(item)
+        label, value_as_string = self.GetItemData(item)
         return self.get_form(item, label)._get_field(label)
 
     def get_form_fields_visible(self, item, form):
@@ -240,17 +240,17 @@ class TreeMixin(treeDragDrop.Mixin):
 
         Very important: this handles the dirty fields.
         """
-        form = self.GetPyData(item)
+        form = self.GetItemData(item)
         fields = []
         for index, ui_field in enumerate(self.GetItemChildren(item)):
-            label, value_as_string = self.GetPyData(ui_field)
+            label, value_as_string = self.GetItemData(ui_field)
             field = form._get_field(label)
             if field.dirty:
                 # overrule if dirty
                 value_as_string = field.get_as_string()
                 self.SetItemText(ui_field,
                     self.tree_label(label, value_as_string))
-                self.SetPyData(ui_field, (label, value_as_string))
+                self.SetItemData(ui_field, (label, value_as_string))
                 field.dirty = False
             fields.append((ui_field, label, value_as_string))
         return fields
@@ -272,7 +272,7 @@ class TreeMixin(treeDragDrop.Mixin):
                     self.set_dirty(True)
 
     def set_form_field_value(self, item, value_as_string):
-        label, old = self.GetPyData(item)
+        label, old = self.GetItemData(item)
         form = self.get_form(item, label)
         field = form._get_field(label)
         value_as_string = field.fix_string(value_as_string)
@@ -295,7 +295,7 @@ class TreeMixin(treeDragDrop.Mixin):
             if value_as_string == '':
                 # hack, fix me
                 value_as_string = ' '
-            self.SetPyData(item, (label, value_as_string))
+            self.SetItemData(item, (label, value_as_string))
             self.SetItemText(item, self.tree_label(label, value_as_string))
             form.set_field_as_string(label, value_as_string)
 
@@ -303,7 +303,7 @@ class TreeMixin(treeDragDrop.Mixin):
         item = self.GetSelection()
         if self.GetItemParent(item) == self.GetRootItem():
             return
-        if item and self.GetPyData(item):
+        if item and self.GetItemData(item):
             field = self.get_form_field(item)
             if not (isinstance(field, formField.ChoiceField) \
                 or  isinstance(field, formField.BooleanField) \
@@ -333,7 +333,7 @@ class TreeMixin(treeDragDrop.Mixin):
     def update_form_relevance(self, field_item):
         """Conditional form"""
         item = self.get_form_item(field_item)
-        form = self.GetPyData(item)
+        form = self.GetItemData(item)
         if not hasattr(form, 'get_relevant_field_labels'):
             return False
         all = form._get_fields()
@@ -360,7 +360,7 @@ class TreeMixin(treeDragDrop.Mixin):
                     next_ui = True
                 elif ui_field_prev:
                     # insert after previous ui field
-                    # print 'prev value', self.GetPyData(ui_field_prev)
+                    # print 'prev value', self.GetItemData(ui_field_prev)
                     ui_field_prev = self.append_field(item, label, field,
                         self.InsertItem, ui_field_prev)
                 elif self.ItemHasChildren(item):
@@ -571,7 +571,7 @@ class TreeMixin(treeDragDrop.Mixin):
         return self.GetItemParent(item) == self.GetRootItem()
 
     def is_form_enabled(self, item):
-        form = self.GetPyData(item)
+        form = self.GetItemData(item)
         return self.GetItemImage(item, wx.TreeItemIcon_Normal) ==\
                                             form.icon_tree_id[True]
 

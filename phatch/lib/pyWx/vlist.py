@@ -124,8 +124,8 @@ class Box(wx.VListBox):
 
         for coord in range(start, start + size):
 
-            currCol = wx.Colour(col1.Red() + rf, col1.Green() + gf, \
-            col1.Blue() + bf)
+            currCol = wx.Colour(int(col1.Red() + rf), int(col1.Green() + gf), \
+            int(col1.Blue() + bf))
             dc.SetBrush(wx.Brush(currCol, wx.SOLID))
             dc.SetPen(wx.Pen(currCol))
             if self._is_vertical:
