@@ -1,6 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (C) 2007-2010  www.stani.be
+# Copyright (C) 2015-2025  Travis Silvers
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,63 +15,153 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses/
 #
-# You need to have licensecheck installed:
-#   sudo apt-get install devscripts
+# Follows PEP8
 
+"""
+License header test for Phatch.
+
+Checks that all Python files have proper GPL v3+ license headers.
+
+This test requires the 'licensecheck' command from the devscripts package:
+  - Linux: sudo apt-get install devscripts
+  - macOS: brew install devscripts (or skip this test)
+  - Windows: Not commonly available (test will be skipped)
+
+The test is marked as optional and will be skipped if licensecheck
+is not available on the system.
+"""
 
 import os
 import re
+import shutil
 import sys
 import time
-sys.path.insert(0, os.path.join('..', 'phatch'))
+from pathlib import Path
 
+import pytest
 
-try:
-    from lib import system
-except ImportError:
-    print("You need to run this script from the 'tests' directory.")
-    sys.exit(1)
+# Add project root to path so we can import phatch
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-RE_FILE = re.compile(r'(?P<filename>.+?):\s(?P<license>.+?)\s*'\
-    r'\n(\s+\[(?P<copyright>.+?)\])?')
+from phatch.lib import system
+
+# Regex to parse licensecheck output
+RE_FILE = re.compile(
+    r'(?P<filename>.+?):\s(?P<license>.+?)\s*'
+    r'\n(\s+\[(?P<copyright>.+?)\])?'
+)
+
+# Check if licensecheck is available
+HAS_LICENSECHECK = shutil.which('licensecheck') is not None
 
 
 def get_error(d):
+    """
+    Validate license and copyright information.
+
+    Args:
+        d: Dictionary with 'license' and 'copyright' keys from licensecheck output
+
+    Returns:
+        Error message string if validation fails, None if valid
+    """
+    # Skip auto-generated files
     if 'GENERATED' in d['license']:
         return None
+
+    # Check license
     if d['license'] != 'GPL (v3 or later)':
         return 'License should be "GPL (v3 or later)".'
+
+    # Check copyright exists
     if d['copyright'] is None:
-        return 'Copyright is missing (needs to include www.stani.be).'
-    if not('www.stani.be' in d['copyright']):
-        return "Copyright doesn't include 'www.stani.be'"
+        return 'Copyright is missing.'
+
+    # Copyright should include original author or current maintainer
+    # Accept either www.stani.be (original) or Travis Silvers (current maintainer)
+    if not ('www.stani.be' in d['copyright'] or 'Travis Silvers' in d['copyright']):
+        return "Copyright should include 'www.stani.be' or 'Travis Silvers'"
+
+    return None
 
 
-def check():
+@pytest.mark.requires_external
+@pytest.mark.skipif(
+    not HAS_LICENSECHECK,
+    reason="licensecheck command not available (install devscripts package)"
+)
+def test_license_headers():
+    """Test that all Python files have proper GPL v3+ license headers."""
     time_start = time.time()
-    error = 0
+    errors = []
     total = 0
-    cur_dir = os.getcwd()
-    stdout, stderr = system.shell(['licensecheck',
+
+    # Get project root
+    project_root = Path(__file__).parent.parent
+
+    # Run licensecheck
+    stdout, stderr = system.shell([
+        'licensecheck',
         '--recursive',
         '--copyright',
-        '--ignore', 'phatch/other|wxGlade|license',
-        os.path.abspath('..'),
+        '--ignore', 'phatch/other|wxGlade|license|.venv|build|dist',
+        str(project_root),
     ])
+
+    # Parse output
     for match in RE_FILE.finditer(stdout):
         d = match.groupdict()
         d['error'] = get_error(d)
-        if d['error'] and not('api.py' in d['filename']):
-            print(('%(filename)s:\n'\
-                '- %(error)s\n'\
-                '- license: %(license)s\n'\
-                '- copyright: %(copyright)s\n' % d))
-            error += 1
+
+        # Skip api.py (known to have different format)
+        if d['error'] and 'api.py' not in d['filename']:
+            error_msg = (
+                f"{d['filename']}:\n"
+                f"- {d['error']}\n"
+                f"- license: {d['license']}\n"
+                f"- copyright: {d['copyright']}\n"
+            )
+            print(error_msg)
+            errors.append(d['filename'])
+
         total += 1
-    print(('Ran %d license tests in %.3fs'
-        % (total, time.time() - time_start)))
-    sys.exit(error)
+
+    elapsed = time.time() - time_start
+    print(f"Ran {total} license tests in {elapsed:.3f}s")
+
+    # Assert no errors
+    if errors:
+        pytest.fail(
+            f"Found {len(errors)} file(s) with license/copyright issues:\n" +
+            "\n".join(f"  - {e}" for e in errors)
+        )
+
+
+def main():
+    """
+    Run license check from command line.
+
+    Exit codes:
+        0: All files have proper licenses
+        1: Some files have license issues or licensecheck not available
+    """
+    if not HAS_LICENSECHECK:
+        print("ERROR: licensecheck command not found.")
+        print("Install it with:")
+        print("  Linux: sudo apt-get install devscripts")
+        print("  macOS: brew install devscripts")
+        print("\nAlternatively, run with pytest which will skip this test:")
+        print("  pytest tests/license_test.py")
+        sys.exit(1)
+
+    try:
+        test_license_headers()
+        print("\n✓ All files pass license checks!")
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n✗ License check failed: {e}")
+        sys.exit(1)
 
 
 if __name__ == '__main__':
-    check()
+    main()

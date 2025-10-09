@@ -214,27 +214,51 @@ All changes should follow:
 
 ---
 
-## Stage 5: Handle License Test (Optional)
+## Stage 5: Handle License Test (Optional) ✅ COMPLETE
 **Goal**: Make license test work or mark as optional
-**Status**: ⏳ Pending
+**Status**: ✅ Complete
 **Committable**: ✅ Yes
 
 ### Tasks
 
-#### Task 5.1: License test strategy
-- [ ] Option A: Skip if `licensecheck` not available
-  - Add `@pytest.mark.skipif(not has_licensecheck())`
-  - Document that licensecheck is optional
-- [ ] Option B: Implement Python-based checker
-  - Use TDD: Write tests for license header detection
-  - Implement simple license header validator
-  - Test against known good/bad files
-- [ ] Document choice and rationale
-- [ ] Update test runner documentation
+#### Task 5.1: License test strategy ✅
+- [x] **Chose Option A**: Skip if `licensecheck` not available
+  - Added `@pytest.mark.skipif(not has_licensecheck())`
+  - Added `@pytest.mark.requires_external` marker
+  - Documented that licensecheck is optional in docstring
+- [x] Modernized test to use pytest framework
+- [x] Fixed import path to use project root (same fix as other tests)
+- [x] Updated copyright validation to accept both original (www.stani.be) and current maintainer (Travis Silvers)
+- [x] Added clear error messages for command line usage
+- [x] Used modern Python: pathlib, f-strings, shutil.which()
 
-**Commit Message**: `Make license test optional or implement Python solution`
+**Commit Message**: `Modernize license test and make it optional`
 
-**Exit Criteria**: License test either runs successfully or is properly skipped
+**Exit Criteria**: License test properly skipped when licensecheck unavailable ✅
+
+**Files Changed**:
+- `tests/license_test.py`:
+  - Complete rewrite using pytest framework
+  - Added @pytest.mark.skipif decorator to skip when licensecheck not available
+  - Fixed sys.path to use project root (not phatch/ directory)
+  - Updated copyright check to accept either www.stani.be or Travis Silvers
+  - Modernized with pathlib, f-strings, proper function/test structure
+  - Added comprehensive docstrings explaining requirements
+  - Improved error messages and user guidance
+  - Added .venv, build, dist to ignore patterns
+
+**Verification**:
+- `python tests/license_test.py` shows clear error when licensecheck missing
+- `pytest tests/license_test.py -v` properly skips test with reason message
+- `pytest --collect-only tests/` includes license test in collection
+- Test is marked with `requires_external` marker for filtering
+
+**Decision Rationale**:
+- Option A (skip if unavailable) chosen over Option B (Python implementation)
+- Reasoning: licensecheck is a mature, well-tested tool
+- Python implementation would duplicate existing functionality
+- Making it optional allows development on systems without devscripts
+- Test still runs in CI environments where devscripts can be installed
 
 ---
 
@@ -289,9 +313,10 @@ All changes should follow:
 - ✅ **Stage 2** (2025-01-08): Modernized test infrastructure to use pytest
 - ✅ **Stage 3** (2025-01-08): Replaced bundled PEP8 checker with modern ruff linter
 - ✅ **Stage 4** (2025-01-08): Fixed acceptance tests for Python 3
+- ✅ **Stage 5** (2025-01-08): Modernized license test and made it optional
 
 ### Current Stage
-- **Stage 5**: Handle License Test (Optional - Not started)
+- **Stage 6**: Review, Refactor, Enhance (Not started)
 
 ### Blocked/Deferred
 - None yet
@@ -341,6 +366,11 @@ All changes should follow:
 - Fixed import path from phatch/ to project root to import phatch as package (not module)
 - Changed from phatch/phatch.py to bin/phatch (proper entry point with correct imports)
 - Fixed banner() function that had incorrect format string placeholders
+
+**Stage 5:**
+- Made license test optional via pytest.mark.skipif
+- Updated copyright validation to accept both original author and current maintainer
+- Test skips gracefully when licensecheck command not available
 
 ### Breaking Changes
 - None in Stage 1 (syntax-only fixes)
