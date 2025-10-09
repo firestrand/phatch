@@ -22,9 +22,9 @@ Following the successful Python 3 migration of the test infrastructure, this pla
 - **Core Modules**: ~20 core framework modules
 
 ### Existing Tests
-- `pep8_test.py` - Code quality (ruff)
-- `license_test.py` - License headers (optional)
-- `doc_test.py` - Docstring examples
+- `quality/test_code_quality.py` - Code quality checks using ruff
+- `quality/test_license.py` - License headers (optional)
+- `quality/test_doctests.py` - Docstring examples
 - `acceptance_test.py` - End-to-end testing framework (not integrated with pytest)
 
 ### Issues with Current Structure
@@ -117,7 +117,7 @@ tests/
 │
 ├── quality/                     # Code quality tests (REORGANIZED)
 │   ├── __init__.py
-│   ├── test_pep8.py            # Moved from root
+│   ├── test_code_quality.py    # Moved from root (was test_pep8.py)
 │   ├── test_license.py         # Moved from root
 │   └── test_doctests.py        # Moved from root
 │
@@ -163,7 +163,7 @@ tests/
   - License headers
   - Doctests
   - Documentation completeness
-- **Example**: PEP8 compliance, license header validation
+- **Example**: Ruff code quality checks, license header validation
 
 ## Phased Implementation Plan
 
@@ -173,10 +173,11 @@ tests/
 
 #### 1.0 Fix Failing Tests & Code Quality
 - [x] Fix test infrastructure issues (sys.exit in pytest)
-- [ ] Address PEP8 violations (161 errors currently)
+- [x] Rename test_pep8.py to test_code_quality.py (more accurate nomenclature)
+- [ ] Address code quality violations (161 errors currently)
   - Priority: Fix critical/breaking violations first
-  - Run: `ruff check --fix .` to auto-fix many issues
-  - May need manual fixes for remaining issues
+  - Run: `ruff check --fix .` to auto-fix many issues (121 auto-fixable)
+  - May need manual fixes for remaining 40 issues
 - [ ] Ensure all quality tests pass
 - [ ] Document any intentionally skipped tests
 
@@ -509,9 +510,10 @@ def test_save_calls_pil_save(tmp_path):
 ### Phase 1 Success
 - [x] Modern test structure in place
 - [x] Test infrastructure fixed (no sys.exit issues)
+- [x] Nomenclature updated (PEP8 → code quality/ruff)
 - [ ] All tests passing (quality, unit, integration)
   - [x] Test infrastructure working correctly
-  - [ ] PEP8 violations addressed
+  - [ ] Code quality violations addressed
   - [ ] No failing tests in test suite
 - [ ] Core modules have 30%+ coverage
 - [ ] All core module tests passing
@@ -577,9 +579,9 @@ This timeline assumes:
    touch unit/__init__.py integration/__init__.py functional/__init__.py quality/__init__.py
    ```
 
-2. **Move existing quality tests** (Day 1):
+2. **Move existing quality tests** (Day 1): ✅ DONE
    ```bash
-   mv pep8_test.py quality/test_pep8.py
+   mv pep8_test.py quality/test_code_quality.py
    mv license_test.py quality/test_license.py
    mv doc_test.py quality/test_doctests.py
    ```

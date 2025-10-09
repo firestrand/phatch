@@ -323,7 +323,7 @@ def check_actionlist_file_only(actions):
     True
     """
     for action in actions:
-        if not ('file' in action.tags):
+        if 'file' not in action.tags:
             return False
     return True
 

@@ -165,9 +165,9 @@ if hasattr(wx, "PopupWindow"):
                     wx.SystemSettings.GetColour(wx.SYS_COLOUR_INFOBK))
             #initialize the parent
             if multiChoices:
-                ln = len(multiChoices)
+                len(multiChoices)
             else:
-                ln = 1
+                pass
             #else: ln = len(choices)
 
             #load the data

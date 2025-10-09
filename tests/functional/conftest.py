@@ -6,7 +6,6 @@ These tests validate end-to-end workflows and real-world usage scenarios.
 """
 
 import pytest
-from pathlib import Path
 
 
 @pytest.fixture(scope="session")

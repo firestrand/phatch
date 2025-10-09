@@ -498,7 +498,7 @@ class TreeMixin(treeDragDrop.Mixin):
         return pos, offset, size
 
     def resize_popup(self):
-        if not(self.popup is None):
+        if self.popup is not None:
             item = self.GetSelection()
             pos, offset, size = self.get_popup_pos_offset_size(item)
             popup = self.popup
@@ -614,7 +614,7 @@ def example():
         'form2': Form2,
         'form3': Form3,
     }
-    form4 = formField.Form(foo3=formField.SliderField(value='100',
+    formField.Form(foo3=formField.SliderField(value='100',
                     minValue=0, maxValue=100))
     forms = [x() for x in list(form_factory.values())]  # + [form4]
 

@@ -15,7 +15,7 @@ pytest
 pytest --cov=phatch --cov-report=html
 
 # Run specific test file
-pytest tests/pep8_test.py
+pytest tests/quality/test_code_quality.py
 
 # Run tests by marker
 pytest -m "not slow"  # Skip slow tests
@@ -43,7 +43,7 @@ Tests are now organized following modern best practices:
   - Test with real images and actionlists
 
 - **`quality/`** - Code quality and standards tests
-  - `quality/test_pep8.py` - PEP8 compliance using ruff
+  - `quality/test_code_quality.py` - Code quality checks using ruff
   - `quality/test_doctests.py` - Doctest runner
   - `quality/test_license.py` - License header validation (optional)
 
@@ -91,10 +91,10 @@ pytest tests/functional/
 # Quality tests
 pytest tests/quality/
 
-# Code quality (PEP8) - can also run directly
-python tests/quality/test_pep8.py
+# Code quality (ruff) - can also run directly
+python tests/quality/test_code_quality.py
 # or
-pytest tests/quality/test_pep8.py
+pytest tests/quality/test_code_quality.py
 
 # Doctests - run directly
 python tests/quality/test_doctests.py
@@ -276,13 +276,13 @@ If license test is skipped:
 - Install licensecheck: `brew install devscripts` (macOS) or `sudo apt-get install devscripts` (Linux)
 - Or ignore: test is optional and will skip gracefully
 
-### PEP8 Test Failures
+### Code Quality Test Failures
 
-If PEP8 test finds violations:
+If code quality test finds violations:
 
 ```bash
 # View violations
-python tests/pep8_test.py
+python tests/quality/test_code_quality.py
 
 # Auto-fix many issues
 ruff check --fix .
@@ -319,7 +319,7 @@ sudo apt-get install -y devscripts
 pytest --cov=phatch --cov-report=xml
 
 # Check code quality
-python tests/pep8_test.py
+python tests/quality/test_code_quality.py
 ```
 
 ## Migration Notes
@@ -328,7 +328,7 @@ This test suite was fully migrated from Python 2 to Python 3 in October 2025. Se
 
 Key changes:
 - Replaced `nosetests` with `pytest`
-- Replaced bundled `pep8.py` with `ruff`
+- Replaced bundled `pep8.py` with modern `ruff` linter
 - Fixed import paths to use phatch package (not module)
 - Made license test optional (requires external tool)
 - Added pytest markers for test organization
@@ -341,7 +341,7 @@ When adding tests:
 2. Add appropriate markers (`@pytest.mark.unit`, etc.)
 3. Update this README if adding new test types
 4. Ensure tests pass: `pytest`
-5. Check code quality: `python tests/pep8_test.py`
+5. Check code quality: `python tests/quality/test_code_quality.py`
 
 ## Resources
 

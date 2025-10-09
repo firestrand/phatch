@@ -28,7 +28,6 @@
 import datetime
 import os
 import re
-import types
 
 from PIL import Image
 
@@ -172,7 +171,7 @@ class InfoPhoto(dict):
         self.get_pil = get_pil
         path = info['path']
         #sources
-        if image == None:
+        if image is None:
             image = get_pil()
         sources = {
             metadata.InfoPil: image,
@@ -314,7 +313,7 @@ class InfoPhoto(dict):
             pyexiv2_tag_value = self.pyexiv2[pyexiv2_tag]
         except KeyError:
             pyexiv2_tag_value = None
-        if self.pyexiv2 and pyexiv2_tag_value != None:
+        if self.pyexiv2 and pyexiv2_tag_value is not None:
             self.pyexiv2[pyexiv2_tag] = None
         if tag in self:
             super(InfoPhoto, self).__delitem__(tag)
@@ -648,12 +647,11 @@ class Photo:
         if shell is None:
             shell = not system.WINDOWS
         #get command line
-        info = self.info
         layer = self.get_layer()
         image = layer.image
         if mode != image.mode:
             image = imtools.convert(image, mode)
-        if size != None and size[0] < image.size[0]:
+        if size is not None and size[0] < image.size[0]:
             image = image.copy()
             image.thumbnail(size, Image.ANTIALIAS)
         #loop over input -> save to temp files
@@ -662,12 +660,12 @@ class Photo:
         error = None
         for match in RE_FILE_IN.finditer(command):
             source = match.group()
-            if not(source in done):
+            if source not in done:
                 ext = match.group(1)
                 target = system.TempFile(ext)
                 try:
                     imtools.save_safely(image, target.path)
-                except Exception as error:
+                except Exception:
                     pass
                 temp_files.append((source, target))
                 done.append(source)

@@ -218,7 +218,7 @@ class DialogsMixin:
             style=wx.OK | wx.ICON_INFORMATION)
 
     def show_progress(self, title, parent_max, child_max=1, message=''):
-        dlg = dialogs.ProgressDialog(self, title, parent_max, child_max,
+        dialogs.ProgressDialog(self, title, parent_max, child_max,
             message)
 
     def show_progress_error(self, result, message, ignore=True):
@@ -309,7 +309,7 @@ class DialogsMixin:
         wx.GetApp().report = report
 
     def get_icon_filename(self):
-        if self._icon_filename == None:
+        if self._icon_filename is None:
             self._icon_filename = os.path.join(
                 self.get_setting("PHATCH_IMAGE_PATH"), 'icons',
                     '48x48', 'phatch.png')
@@ -515,7 +515,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
             self.frame_toolbar.EnableTool(tool, state)
 
     def show_paint_message(self, message=None):
-        if message == None:
+        if message is None:
             self.paint_message = self.DEFAULT_PAINT_MESSAGE
         else:
             self.paint_message = message
@@ -997,7 +997,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         self._title()
 
     def set_safe_mode(self, state):
-        if state == False:
+        if state is False:
             answer = self.show_question(
                 _('Safe mode protects you from the execution of possibly '\
                 'harmful scripts.\nAre you sure you want to disable it?'),
@@ -1152,7 +1152,7 @@ class DropletMixin:
             f.close()
             for key, value in items:
                 #FIXME: paths should not be in settings
-                if not 'PATH' in key:
+                if 'PATH' not in key:
                     self.settings[key] = value
 
     def _saveSettings(self):

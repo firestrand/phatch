@@ -130,7 +130,7 @@ def update(py_root, rst_root='source', not_overwrite=['index.rst'],
         return os.path.join(rst_root, module + '.rst')
 
     for f in [f for f in glob.glob(os.path.join(rst_root, '*.rst'))
-        if not os.path.basename(f) in not_overwrite]:
+        if os.path.basename(f) not in not_overwrite]:
         os.remove(f)
 
     root = py_root

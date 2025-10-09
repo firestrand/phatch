@@ -21,7 +21,7 @@
 #
 # Follows PEP8
 
-from core import ct, models
+from core import models
 from lib.reverse_translation import _t
 
 
@@ -54,7 +54,7 @@ class Action(models.Action):
 
         # get timeshift
         # construct timedict if necessary
-        if not ('gps_timedict' in cache):
+        if 'gps_timedict' not in cache:
             cache['gps_timeshift'] = \
                 self.get_field('Time Shift (seconds)', info)
             gpx_file = self.get_field('GPS Data (gpx)', info)

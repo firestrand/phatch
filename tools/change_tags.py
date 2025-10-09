@@ -17,7 +17,6 @@
 # Follows PEP8
 
 # A script to modify action tags
-import pprint
 import re
 import glob
 import os.path

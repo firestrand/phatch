@@ -67,7 +67,7 @@ def ensure(recommended, minimal):
 
         class MyApp(wx.App):
             def OnInit(self):
-                result = wx.MessageBox(
+                wx.MessageBox(
                     _t("This application is known to be compatible" \
                         " with\nwxPython version(s) %(recommended)s" \
                         " (or at least %(minimal)s),\nbut you have " \

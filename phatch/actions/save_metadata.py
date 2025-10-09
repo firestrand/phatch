@@ -20,7 +20,7 @@
 
 # Follows PEP8
 
-from core import ct, models, pil
+from core import models
 from lib.reverse_translation import _t
 
 #no need to lazily import these as they are always imported

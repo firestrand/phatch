@@ -50,7 +50,7 @@ def open(uri):
     try:
         image = open_image_with_pil(uri)
         ok = True
-    except IOError as message:
+    except IOError:
         ok = False
     # interlaced png
     # Image.VERSION was removed in Pillow 10.0 - this check is for ancient PIL 1.1.7
@@ -85,7 +85,7 @@ def open_image_exif_thumb(uri):
             thumb_data = pyexiv2_image.getThumbnailData()
             if thumb_data:
                 return imtools.open_image_data(thumb_data)
-        except Exception as details:
+        except Exception:
             pass
     return open_image_exif(uri)
 
@@ -203,7 +203,7 @@ if TIFFINFO and TIFFCP:
 
         def set(key, value):
             key = 'libtiff.' + key.lower().replace(' ', '.')
-            if not (key in result):
+            if key not in result:
                 result[key] = value
 
         source, err = system.shell((TIFFINFO, filename))
@@ -442,11 +442,11 @@ def verify_image_with_pil(info_file, valid, invalid):
         im = open(info_file['path'])
         #if info has 'Convertor', the image is not opened by PIL
         #and already loaded and verified
-        if not ('Convertor' in im.info):
+        if 'Convertor' not in im.info:
             im.verify()
         valid.append(info_file)
         return True
-    except Exception as error:
+    except Exception:
         invalid.append(info_file['path'])
         return False
 

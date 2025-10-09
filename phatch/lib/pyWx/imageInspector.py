@@ -833,7 +833,7 @@ class GridTag(OpenMixin, tag.ContentMixin, Grid):
 
     def SetTag(self, tag):
         """Filters from all_data to tag_data"""
-        if not (tag is None):
+        if tag is not None:
             super(GridTag, self).SetTag(tag)
         self.image_table.set_tag(tag)
         self.image_table.set_filter()
@@ -871,7 +871,7 @@ class Frame(wx.Frame):
     def __init__(self, parent, filename='', icon=None,
             thumb_size=THUMB_SIZE, *args, **kwds):
         #adapt style
-        if not('style' in kwds) and parent:
+        if 'style' not in kwds and parent:
             kwds["style"] = wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER | \
                 wx.FRAME_FLOAT_ON_PARENT | wx.FRAME_NO_TASKBAR | \
                 wx.MAXIMIZE_BOX

@@ -25,7 +25,6 @@ code examples in docstrings work correctly.
 Modernized from nosetests to pytest for Python 3 compatibility.
 """
 
-import os
 import subprocess
 import sys
 from pathlib import Path

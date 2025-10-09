@@ -22,8 +22,7 @@
 
 from core import models
 from lib.reverse_translation import _t
-from lib.imtools import has_transparency, has_alpha, get_alpha, \
-    convert_safe_mode, paste
+from lib.imtools import has_transparency, paste
 
 #---PIL
 

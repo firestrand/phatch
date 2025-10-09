@@ -23,7 +23,7 @@
 import os
 
 from core import config
-from core import ct, models
+from core import models
 from lib.reverse_translation import _t
 from lib import system
 

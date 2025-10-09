@@ -31,7 +31,6 @@ The test is marked as optional and will be skipped if licensecheck
 is not available on the system.
 """
 
-import os
 import re
 import shutil
 import sys

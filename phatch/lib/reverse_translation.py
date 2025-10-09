@@ -18,7 +18,6 @@
 
 # Follows PEP8
 
-from . import gettextFix  # otherwise doctests will fail unfortunately
 
 REVERSE = {}
 

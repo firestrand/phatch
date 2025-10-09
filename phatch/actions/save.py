@@ -21,14 +21,11 @@
 # Follows PEP8
 
 import os
-from core import ct
 from core import models
-from core import pil
 from lib import imtools
 from lib.reverse_translation import _t
 
 #no need to lazily import these as they are always imported
-import os
 
 
 def init():

@@ -54,7 +54,6 @@ class ListCtrl(wx.ListCtrl):
                 pil_wxBitmap(open_thumb(file, size=icon_size)))
         self.SetImageList(self.image_list, wx.IMAGE_LIST_NORMAL)
         #populate
-        n = 10
         if type(files) is dict:
             labels_files = list(files.items())
             #labels_files = [(truncate(label,n),file)
@@ -146,9 +145,9 @@ class Dialog(wx.Dialog):
         value = li.GetLabel(value)
         if value in li._labels:
             index = li._labels.index(value)
-            item = li.GetItem(index)
+            li.GetItem(index)
             li.Select(index)
-        elif not(self.selection is None):
+        elif self.selection is not None:
             #print "deselect", self.selection
             #li.Deselect(self.selection) DO NOT ENABLE OR IT BLOCKS UI!
             self.selection = None

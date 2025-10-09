@@ -185,7 +185,7 @@ class DataDict(DataTuple):
         ['hello', 'foo', 'id']
         """
         if all:
-            if not(headers is None):
+            if headers is not None:
                 self._fixed_headers = headers
             _headers = []
             for row in self.data:

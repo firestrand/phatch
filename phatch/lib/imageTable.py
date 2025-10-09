@@ -203,7 +203,7 @@ class Table(object):
 
     #---key
     def _add_key(self, key):
-        if not(key in self.keys):
+        if key not in self.keys:
             self.keys = self.keys[:self.key_amount] + [key]\
                                 + self.keys[self.key_amount:]
             self.key_amount += 1
@@ -233,7 +233,6 @@ class Table(object):
 
     def _delete_key(self, key):
         to_keep = []
-        to_delete = []
         key_ = key + '.'  # derivate keys eg hour, day
         for index, k in enumerate(self.keys[:]):
             if (k == key or k.startswith(key_)):
@@ -289,7 +288,7 @@ class Table(object):
 
     def is_cell_empty(self, row, col):
         key, image = self._get_key_image(row, col)
-        return not(key in image.info)
+        return key not in image.info
 
     def is_cell_editable(self, row, col):
         key, image = self._get_key_image(row, col)
@@ -309,7 +308,7 @@ class Table(object):
         return self.set_image_key_value(image, key, value)
 
     def set_image_key_value(self, image, key, value):
-        if not(value is None):
+        if value is not None:
             value = str(value)
         return self._write(
             changes=((image, {key: value}), ),
@@ -385,7 +384,7 @@ class Table(object):
 
     #---selecting
     def set_tag(self, tag):
-        if not(tag is None):
+        if tag is not None:
             self._tag = tag
         if self._tag == ALL:
             self.keys.sort()
@@ -406,7 +405,7 @@ class Table(object):
         self.key_amount_tag = self.key_amount
 
     def set_filter(self, filter=''):
-        if not(filter is None):
+        if filter is not None:
             self._filter = filter
         filter = self._filter.lower()
 

@@ -19,7 +19,7 @@
 # Follows PEP8
 
 from lib.safe import RE_EXPR, RE_VAR
-from lib.reverse_translation import _t, _r
+from lib.reverse_translation import _r
 from lib.unicoding import ensure_unicode
 
 REVERSE = {}

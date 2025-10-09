@@ -39,7 +39,7 @@ class Blender(RegistryApplication):
 
 class Inkscape(RegistryApplication):
     name = 'inkscape'
-    filename = 'svgfile\\shell\edit'
+    filename = 'svgfile\\shell\\edit'
 
     def get_path(self, reg):
         return winreg.QueryValue(reg, 'command').rsplit(' ', 1)[0].strip('"')

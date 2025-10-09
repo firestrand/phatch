@@ -151,7 +151,7 @@ class ExecuteDialog(BrowseMixin, dialogs.ExecuteDialog):
         path = self.show_dir_dialog(
             defaultPath=self.get_default_path(),
             message=_("Choose an image folder"))
-        if path != None:
+        if path is not None:
             self.path.SetValue(path)
 
     def get_default_path(self):

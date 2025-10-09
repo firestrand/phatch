@@ -16,7 +16,6 @@
 # Follows PEP8
 
 #standard modules
-import types
 
 #gui-dependent
 import wx

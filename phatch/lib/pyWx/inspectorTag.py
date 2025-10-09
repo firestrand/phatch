@@ -18,7 +18,7 @@
 
 import wx
 from . import inspector
-from .tag import Browser, ContentMixin, extract_tags
+from .tag import Browser, ContentMixin
 
 TEST_DATA = {
     'decimal':   [[str((row, col)) for col in range(inspector.NUMBER_COLS)]

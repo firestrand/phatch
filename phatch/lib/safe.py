@@ -216,5 +216,5 @@ def extend_vars(vars, s):
         #locate <expr>
         for match in RE_VAR.finditer(expr):
             var = match.group('var')
-            if not var in vars:
+            if var not in vars:
                 vars.append(var)

@@ -185,7 +185,7 @@ if __name__ == '__main__':
     if 0 and LINUX:
         # Update the mime types
         ROOT = os.geteuid() == 0
-        if ROOT and dist != None:
+        if ROOT and dist is not None:
 
             #update the mimetypes database -> associate.phatch
             try:

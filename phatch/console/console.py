@@ -48,7 +48,7 @@ def u(txt):
 
 def ask(message, answers):
     answer = None
-    while not(answer in answers):
+    while answer not in answers:
         answer = input(u(message)).strip().lower()
     return answer
 
@@ -132,7 +132,7 @@ class Frame(CliMixin, FrameReceiver):
                 raise safe.UnsafeError(warning)
         else:
             self.show_message(warning)
-        report = api.apply_actions_to_photos(data['actions'], settings, \
+        api.apply_actions_to_photos(data['actions'], settings, \
                                                             paths=paths)
 
     def append_save_action(self, actions):

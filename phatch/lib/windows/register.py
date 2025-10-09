@@ -97,12 +97,12 @@ def deregister(label, filetype='Python.File'):
     try:
         key = '%s\\shell\\%s' % (filetype, label)
         winreg.DeleteKey(winreg.HKEY_CLASSES_ROOT, key + '\\command')
-    except  Exception as message:
+    except  Exception:
         pass
     try:
         winreg.DeleteKey(winreg.HKEY_CLASSES_ROOT, key)
         return True
-    except  Exception as message:
+    except  Exception:
         return False
 
 

@@ -483,13 +483,13 @@ def all_credits():
     # Image.VERSION was removed in Pillow 10.0, use PIL.__version__ instead
     version = getattr(Image, 'VERSION', None) or getattr(PIL, '__version__', 'unknown')
     pil_credits['name'] += ' %s' % version
-    if not (pil_credits in CREDITS['libraries']):
+    if pil_credits not in CREDITS['libraries']:
         CREDITS['libraries'].append(pil_credits)
     #wxPython
     import wx
     wxPython_credits = WXPYTHON_CREDITS
     wxPython_credits['name'] += ' %s' % wx.VERSION_STRING
-    if not (wxPython_credits in CREDITS['libraries']):
+    if wxPython_credits not in CREDITS['libraries']:
         CREDITS['libraries'].append(wxPython_credits)
     return CREDITS
 

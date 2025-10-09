@@ -91,7 +91,7 @@ def verify_app_user_paths():
             if os.path.exists(path):
                 existing = os.listdir(path)
                 for al in os.listdir(PHATCH_ACTIONLISTS_PATH):
-                    if not (al in existing):
+                    if al not in existing:
                         shutil.copyfile(
                             os.path.join(PHATCH_ACTIONLISTS_PATH, al),
                             os.path.join(path, al))
@@ -182,7 +182,7 @@ def fix_python_path(phatch_python_path=None):
     if not phatch_python_path:
         phatch_python_path = os.path.dirname(
             os.path.dirname(os.path.abspath(__file__)))
-    if not(phatch_python_path in [ensure_unicode(x) for x in sys.path]):
+    if phatch_python_path not in [ensure_unicode(x) for x in sys.path]:
         sys.path.insert(0, phatch_python_path)
     return phatch_python_path
 

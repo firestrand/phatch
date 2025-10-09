@@ -20,7 +20,7 @@
 
 # Follows PEP8
 
-from core import ct, models
+from core import models
 from lib.reverse_translation import _t
 
 COMMANDS = {

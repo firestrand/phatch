@@ -70,10 +70,10 @@ def is_editable_tag(tag):
 
 def is_writable_tag(tag):
     return tag in WRITABLE_TAGS or \
-        (RE_PYEXIV2_TAG_EDITABLE.match(tag) and not(tag in (
+        (RE_PYEXIV2_TAG_EDITABLE.match(tag) and tag not in (
             'Exif_Photo_PixelXDimension',
             'Exif_Photo_PixelYDimension',
-            'Exif_Image_Software')))
+            'Exif_Image_Software'))
 
 
 def is_writeable_not_exif_tag(tag, mode):
@@ -131,7 +131,7 @@ class _InfoCache(object):
         :param source: retrieve source from which to extract data
         :type source: object or callable
         """
-        if not (source is None):
+        if source is not None:
             if is_string(source):
                 source = self.get_source_from_file(source)
             self.set_source(source)
@@ -289,7 +289,7 @@ class _InfoCache(object):
     def extract_all(self):
         """Extract all values, which is usefull for inspector."""
         for var, extract in list(self._extract_methods.items()):
-            if not(var in self.dict):
+            if var not in self.dict:
                 extract(self)
         self._extract_others()
 
@@ -601,7 +601,7 @@ class InfoPil(_InfoPil):
     def _extract_others(self):
         """Extract all other possible vars"""
         for key, value in list(self._source.info.items()):
-            if not(key in self.vars_skip):
+            if key not in self.vars_skip:
                 self.dict[self.prefix + key] = value
 
     def reset_geometry(self):
@@ -905,7 +905,7 @@ class _InfoPyexiv2(_InfoCache):
         """Extract all other vars"""
         for var in exif_keys:
             _var = var.replace('.', '_')
-            if not(_var in self.dict):
+            if _var not in self.dict:
                 try:
                     value = self._source[var]
                 except:
@@ -1945,10 +1945,10 @@ class InfoExtract:
         :param vars: variables that have to be extracted (e.g. orientation)
         :type vars: list
         """
-        if not(vars is None):
+        if vars is not None:
             self.set_vars(vars)
             self.open(filename)
-        elif not(filename is None):
+        elif filename is not None:
             self.open(filename, sources)
 
     def open(self, filename, sources=None):
@@ -2005,7 +2005,7 @@ class InfoExtract:
                 for Info in set_vars_by_info.difference(INFOS_WITH_ORIENTATION)
                 if Info.needs_orientation(vars_by_info[Info])]
             if needs_orientation:
-                if not(vars_by_info[InfoPil] is None):
+                if vars_by_info[InfoPil] is not None:
                     # orientation is included in None already
                     vars_by_info[InfoPil] += ['orientation']
         return vars_by_info, vars_unknown

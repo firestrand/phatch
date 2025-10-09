@@ -47,7 +47,7 @@ WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
 #---general
 def menu_action(self, program, comment, method, *args, **keyw):
     try:
-        success = method(*args, **keyw)
+        method(*args, **keyw)
         self.show_info(_('If you restart %s, '
             'the action will appear in the context menu.') % program + comment)
     except Exception as details:

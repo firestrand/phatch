@@ -60,7 +60,7 @@ def create_paths(relative=''):
 
 def init_config_paths():
     if hasattr(sys, "frozen"):
-        __file__ = sys.argv[0]
+        sys.argv[0]
         relative = ''
     else:
         relative = '..'

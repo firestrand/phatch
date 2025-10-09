@@ -23,7 +23,7 @@
 from core import models
 from lib.reverse_translation import _t
 from lib.imtools import fill_background_color, generate_layer, \
-    remove_alpha, has_transparency, get_alpha, paste
+    has_transparency, paste
 
 #---Pil
 

@@ -26,7 +26,9 @@ import hashlib
 import os
 import stat
 import tempfile
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 
 from PIL import Image
 

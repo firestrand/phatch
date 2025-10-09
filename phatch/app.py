@@ -21,7 +21,9 @@
 import os
 import optparse
 import sys
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 
 from .data.info import INFO
 from .core import config

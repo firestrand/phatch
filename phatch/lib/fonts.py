@@ -247,7 +247,7 @@ def font_dictionary(filename=None, force=False):
             _FONT_DICTIONARY = {}
         if not _FONT_DICTIONARY:
             _FONT_DICTIONARY = _font_dictionary()
-            if not (WRITABLE_FONTS_CACHE_PATH is None):
+            if WRITABLE_FONTS_CACHE_PATH is not None:
                 with open(WRITABLE_FONTS_CACHE_PATH, 'wb') as f:
                     f.write(str(_FONT_DICTIONARY).encode('utf-8'))
     if not _FONT_DICTIONARY:

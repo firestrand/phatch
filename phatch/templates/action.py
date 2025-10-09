@@ -37,7 +37,7 @@ def init(cls=None):
 def foo(image, dpi, horizontal):
     # process image with pil
     # (...)
-    image2 = Image.new('RGB', (10, 10))
+    Image.new('RGB', (10, 10))
     return image
 
 

@@ -24,7 +24,7 @@
 import time
 from datetime import datetime
 
-from core import ct, models
+from core import models
 from lib.metadata import DateTime
 from lib.reverse_translation import _t
 

@@ -180,7 +180,7 @@ class Grid(gridlib.Grid):
 class TestFrame(wx.Frame):
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, -1, "inspector", size=(640, 480))
-        grid = Grid(self, TEST_DATA)
+        Grid(self, TEST_DATA)
 
 if __name__ == '__main__':
     app = wx.PySimpleApp()

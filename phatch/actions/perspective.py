@@ -93,7 +93,7 @@ def perspective(image,
         HTMLColorToRGBA(back_color, (255 * opacity) / 100))
     if crop:
         result = imtools.auto_crop(result)
-    if not (transpose is None):
+    if transpose is not None:
         result = result.transpose(transpose)
     return result
 

@@ -117,7 +117,7 @@ def write_metadata(source_pyexiv2_image, target, source_format=None,
         warnings = _copy_metadata(source_pyexiv2_image, target,
             source_format, target_format, broken_tag, thumbdata)
         copied = True
-    except Exception as message:
+    except Exception:
         copied = False
 
     #if metadata copied succesfully, check for warnings
@@ -203,7 +203,7 @@ def extension_to_image_format(ext):
 def read_thumbdata(image):
     try:
         return image.getThumbnailData()
-    except Exception as message:
+    except Exception:
         return None
 
 

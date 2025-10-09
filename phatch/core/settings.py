@@ -59,7 +59,7 @@ def create_settings(config_paths=None, options=None):
         for attr in settings:
             if hasattr(options, attr):
                 settings[attr] = getattr(options, attr)
-    if config_paths == None:
+    if config_paths is None:
         #FIXME: when is this happening
         from .config import init_config_paths
         config_paths = init_config_paths()

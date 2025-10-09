@@ -20,8 +20,7 @@
 
 # Follows PEP8
 
-import os
-from core import ct, models
+from core import models
 from lib.reverse_translation import _t
 
 

@@ -31,14 +31,12 @@ import re
 from . import safe
 from . import system
 import textwrap
-import types
 
 
 if '_' not in dir():
     _ = str
 
 #gui independent (lib)
-from . import system
 from . import unicoding
 from .odict import odict as Fields
 
@@ -271,7 +269,7 @@ class Form(object):
             pixel_fields = {}
         result = {}
         for label in self.get_field_labels():
-            if label[:2] != '__' and not (label in exclude):
+            if label[:2] != '__' and label not in exclude:
                 param = None
                 #skip hidden fields such as __enabled__
                 if label in pixel_fields:
@@ -476,7 +474,7 @@ class Field(object):
             validate=self.validate, preprocess=safe.format_expr)
 
     def interpolate(self, x, info, label):
-        if info == None:
+        if info is None:
             return self.value_as_string
         else:
             try:
@@ -623,7 +621,7 @@ class FloatField(Field):
     def to_python(self, x, label):
         try:
             return float(self.eval(x, label))
-        except ValueError as message:
+        except ValueError:
             raise ValidationError(self.description,
             '%s: %s.' % (_(label),
                 _('invalid literal "%s" for float') % x))
@@ -683,7 +681,7 @@ class ChoiceField(NotEmptyCharField):
 
     def set_choices(self, choices):
         self.choices = choices
-        if not (self.get_as_string() in choices):
+        if self.get_as_string() not in choices:
             self.set_as_string_dirty(choices[0])
 
 
@@ -700,7 +698,7 @@ class FileField(NotEmptyCharField):
             return ''
         ext = os.path.splitext(value)[-1][1:]
         if not self.allow_empty and self.extensions \
-                and not (ext.lower() in self.extensions):
+                and ext.lower() not in self.extensions:
             if ext:
                 raise ValidationError(self.description,
                 '%s: %s.\n\n%s:\n%s.' % (_(label),
@@ -1008,7 +1006,7 @@ class ExifItpcField(NotEmptyCharField):
         return super(ExifItpcField, self).fix_string(x)
 
     def to_python(self, x, label):
-        if not(x[:5] in ('Exif_', 'Iptc_')):
+        if x[:5] not in ('Exif_', 'Iptc_'):
             raise ValidationError(self.description,
                 _('Tag should start with "Exif_" or "Iptc_"'),
                 USE_INSPECTOR)

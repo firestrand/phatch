@@ -30,7 +30,6 @@ except NameError:
 
 import os
 
-from PIL import Image
 
 from lib.formField import files_dictionary, Form, Field, \
     ImageDictionaryReadFileField, \
@@ -143,7 +142,7 @@ class Action(Form):
         if not desktop:
             try:
                 self.ensure_path(folder)
-            except OSError as message:
+            except OSError:
                 desktop = error = True
         if desktop:
             base = os.path.basename(filename)

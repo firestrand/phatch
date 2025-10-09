@@ -39,7 +39,7 @@ from lib.colors import RGBToHTMLColor, HTMLColorToRGB
 from lib.fonts import font_dictionary
 from lib.reverse_translation import _t
 
-from .autoCompleteCtrls import AutoCompleteTextCtrl, AutoCompleteIconCtrl
+from .autoCompleteCtrls import AutoCompleteTextCtrl
 from .wildcard import wildcard_list
 
 ####Plain Controls (no i18N)
@@ -63,7 +63,7 @@ else:
 #---sizer
 
 def SetMinVerSize(item, size, border=0):
-    item_size = item.GetSize()
+    item.GetSize()
     min_size = (size[0], min(item.GetSize()[1], size[1] - 2 * border))
     item.SetMinSize(min_size)
     item.SetSize(min_size)
@@ -402,7 +402,7 @@ class ColorCtrl(_Ctrl, wx.lib.colourselect.ColourSelect):
         return self.GetColorAsString()
 
     def GetColorAsString(self, color=None):
-        if color == None:
+        if color is None:
             color = self.GetColour()
         if isinstance(color, str):
             return color
@@ -683,7 +683,7 @@ def ctrl_factory(name, CtrlMixin):
         else:
             #unknown -> default to textctrl
             Ctrl = globals().get(ctrl_name, TextCtrl)
-        if not (CtrlMixin is None):
+        if CtrlMixin is not None:
             if isinstance(CtrlMixin, list):
                 bases = tuple(CtrlMixin + [Ctrl])
             else:
@@ -775,7 +775,7 @@ def example():
     ctrls = [(name[:-4], obj[name]) for name in list(globals().keys())
         if name.endswith('Ctrl') and \
             not name.startswith('_') and \
-            not name in ('AutoCompleteTextCtrl', 'AutoCompleteIconCtrl',
+            name not in ('AutoCompleteTextCtrl', 'AutoCompleteIconCtrl',
             'ImageDictionaryFileCtrl', 'ColorCtrl')]
     ctrls.sort()
 

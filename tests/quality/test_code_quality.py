@@ -18,10 +18,14 @@
 # Follows PEP8
 
 """
-PEP8 compliance test for Phatch.
+Code quality test for Phatch using Ruff.
 
-Modernized to use ruff instead of bundled pep8.py for Python 3 compatibility.
-Ruff is a fast, modern Python linter that checks PEP8 compliance.
+Ruff is a fast, modern Python linter that checks code quality including:
+- PEP8 style compliance
+- Unused imports (F401)
+- Unused variables (F841)
+- Code correctness issues
+- And many more quality checks
 
 Configuration is in pyproject.toml at the project root.
 """
@@ -64,7 +68,7 @@ def test(dirname='..'):
         '--output-format=concise',
     ]
 
-    print(f"Running ruff PEP8 checks on: {target_dir}")
+    print(f"Running ruff code quality checks on: {target_dir}")
     print(f"Command: {' '.join(ruff_cmd)}\n")
 
     try:
@@ -78,11 +82,11 @@ def test(dirname='..'):
 
         # Ruff exits with 0 if no violations, 1 if violations found
         if result.returncode == 0:
-            print("✓ All files pass PEP8 checks!")
+            print("✓ All files pass code quality checks!")
             return False
         else:
             # Show the violations
-            print("✗ PEP8 violations found:\n")
+            print("✗ Code quality violations found:\n")
             print(result.stdout)
             if result.stderr:
                 print("Errors:")
@@ -98,26 +102,26 @@ def test(dirname='..'):
         sys.exit(1)
 
 
-def test_pep8_compliance():
+def test_code_quality():
     """
-    Pytest test for PEP8 compliance using ruff.
+    Pytest test for code quality using ruff.
 
-    This test will fail if any PEP8 violations are found.
+    This test will fail if any code quality violations are found.
     """
     has_violations = test('..')
     if has_violations:
-        pytest.fail("PEP8 violations found. Run 'ruff check --fix .' to auto-fix many issues.")
+        pytest.fail("Code quality violations found. Run 'ruff check --fix .' to auto-fix many issues.")
 
 
 def main_with_exit(dirname='..'):
     """
-    Run PEP8 tests and exit with appropriate code (for command-line use).
+    Run code quality checks and exit with appropriate code (for command-line use).
 
     Args:
         dirname: Directory to check (default: parent directory)
 
     Exit codes:
-        0: All tests passed
+        0: All checks passed
         1: Violations found or error occurred
     """
     has_violations = test(dirname)

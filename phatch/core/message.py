@@ -22,7 +22,7 @@
 
 #gui-independent
 import os
-from lib.events import send, Receiver  # send is used when message is imported
+from lib.events import Receiver  # send is used when message is imported
 from lib.unicoding import ensure_unicode
 
 #---classes

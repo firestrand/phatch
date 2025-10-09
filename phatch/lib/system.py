@@ -20,7 +20,6 @@ import re
 import shutil
 import subprocess
 import sys
-import types
 import tempfile
 import textwrap
 
@@ -36,7 +35,6 @@ RE_NEED_QUOTES = re.compile(r'^[^\'"].+?\s.+?[^\'"]$')
 
 if sys.platform.startswith('win'):
     _EXE = '.exe'
-    from .windows import locate
     WINDOWS = True
 
     def rename(src, dest):
@@ -174,9 +172,9 @@ def fix_quotes(text):
         text = text.decode('utf-8', errors='replace')
     if not RE_NEED_QUOTES.match(text):
         return text
-    if not ('"' in text):
+    if '"' not in text:
         return '"%s"' % text
-    elif not ("'" in text):
+    elif "'" not in text:
         return "'%s'" % text
     else:
         return '"%s"' % text.replace('"', r'\"')
@@ -255,7 +253,7 @@ def find_exe(executable, quote=True, use_which=True,
         if (executable_path is None) and WINDOWS:
             executable_path = windows.locate.find_exe(executable)
     #quote if necessary
-    if not (executable_path is None) and quote:
+    if executable_path is not None and quote:
         executable_path = fix_quotes(executable_path)
     #cache and return the result
     EXE_PATHS[executable] = executable_path
@@ -409,7 +407,7 @@ def shell_cache(args, cache='', key=None, validate=None, **options):
         # Add to cache
         result = {'validate': validate}
         result['stdout'], result['stderr'] = shell(args, **options)
-        if not key in cache_dict:
+        if key not in cache_dict:
             cache_dict[key] = {}
         cache_dict[key][sys.platform] = result
         # Save to cache
@@ -529,10 +527,10 @@ class MethodRegister:
         if method is None:
             return
         for extension in extensions:
-            if not(extension in self._methods):
+            if extension not in self._methods:
                 self._methods[extension] = []
             self._methods[extension].append(method)
-        if not (method in self._extensions):
+        if method not in self._extensions:
             self._extensions[method] = []
         self._extensions[method].extend(extensions)
         self._update()

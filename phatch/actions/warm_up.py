@@ -45,8 +45,6 @@ def warmup(image, midtone, brighten, amount=100):
     color while preserving blacks and whites with optional mixing
     with original image - amount: 0-100%"""
 
-    mode = image.mode
-    info = image.info
 
     if image.mode != 'L':
         im = imtools.convert(image, 'L')

@@ -6,7 +6,6 @@ Integration tests may use real file I/O and test interactions between modules.
 """
 
 import pytest
-from pathlib import Path
 from PIL import Image
 
 
