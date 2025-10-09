@@ -171,6 +171,9 @@ class TextCtrl(_CtrlRelevantMixin, _CtrlChoices, wx.ComboBox):
         v = v.strip()
         if v and v not in local_choices:
             local_choices.insert(0, v)
+        # Ensure dropdown arrow is shown in wxPython 4.x
+        if 'style' not in keyw:
+            keyw['style'] = wx.CB_DROPDOWN
         super(TextCtrl, self).__init__(parent, id, value=value,
             choices=local_choices, **keyw)
         self.Set(value)
