@@ -16,7 +16,7 @@
 #
 # Follows PEP8
 
-"""This is a plugin/hook for bazaar.
+r"""This is a plugin/hook for bazaar.
 
 Linux/Mac: Symlink (ln -s) this file to ~/.bazaar/plugins/
 Windows: Copy this file to C:\Program Files\Bazaar\plugins

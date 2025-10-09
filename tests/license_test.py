@@ -31,8 +31,8 @@ except ImportError:
     print("You need to run this script from the 'tests' directory.")
     sys.exit(1)
 
-RE_FILE = re.compile('(?P<filename>.+?):\s(?P<license>.+?)\s*'\
-    '\n(\s+\[(?P<copyright>.+?)\])?')
+RE_FILE = re.compile(r'(?P<filename>.+?):\s(?P<license>.+?)\s*'\
+    r'\n(\s+\[(?P<copyright>.+?)\])?')
 
 
 def get_error(d):

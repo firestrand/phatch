@@ -22,7 +22,7 @@
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""
+r"""
 Check Python source code formatting, according to PEP 8:
 http://www.python.org/dev/peps/pep-0008/
 
@@ -164,7 +164,7 @@ def tabs_obsolete(physical_line):
 
 
 def trailing_whitespace(physical_line):
-    """
+    r"""
     JCR: Trailing whitespace is superfluous.
 
     Okay: spam(1)
@@ -749,7 +749,7 @@ def find_checks(argument_name):
     for name, function in list(globals().items()):
         if not inspect.isfunction(function):
             continue
-        args = inspect.getargspec(function)[0]
+        args = inspect.getfullargspec(function)[0]
         if args and args[0].startswith(argument_name):
             codes = ERRORCODE_REGEX.findall(inspect.getdoc(function) or '')
             for code in codes or ['']:
