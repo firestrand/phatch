@@ -19,7 +19,8 @@
 
 import wx
 from .vlist import Box
-from .tag import Browser, ContentMixin  # imported by dialogs.py
+# Re-export extract_tags from .tag (imported by dialogs.py)
+from .tag import Browser, ContentMixin, extract_tags  # noqa: F401
 
 
 #---Test case

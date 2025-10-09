@@ -27,6 +27,16 @@ from data import license
 from data.info import INFO
 from lib.reverse_translation import _t
 
+# Re-export path constants from config for convenience
+# These are intentionally imported and re-exported (not unused)
+from .config import (  # noqa: F401
+    USER_PATH, USER_DATA_PATH, USER_CONFIG_PATH,
+    USER_CACHE_PATH, USER_ACTIONLISTS_PATH, USER_ACTIONS_PATH,
+    USER_BIN_PATH, USER_FONTS_PATH, USER_HIGHLIGHTS_PATH,
+    USER_LOG_PATH, USER_MASKS_PATH, USER_SETTINGS_PATH,
+    USER_WATERMARKS_PATH
+)
+
 #---description
 DESKTOP_ENTRY_COMMENT = _('Easily batch process images and edit metadata')
 DESCRIPTION = _('Photo Batch Processor')

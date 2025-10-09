@@ -19,7 +19,8 @@
 # Follows PEP8
 
 from lib.safe import RE_EXPR, RE_VAR
-from lib.reverse_translation import _r
+# Re-export _t and _r from lib.reverse_translation (used by modules importing translation)
+from lib.reverse_translation import _t, _r  # noqa: F401
 from lib.unicoding import ensure_unicode
 
 REVERSE = {}

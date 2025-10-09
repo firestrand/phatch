@@ -18,7 +18,8 @@
 
 import wx
 from . import inspector
-from .tag import Browser, ContentMixin
+# Re-export extract_tags from .tag (may be used by other modules)
+from .tag import Browser, ContentMixin, extract_tags  # noqa: F401
 
 TEST_DATA = {
     'decimal':   [[str((row, col)) for col in range(inspector.NUMBER_COLS)]

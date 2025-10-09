@@ -18,6 +18,8 @@
 
 # Follows PEP8
 
+# Import gettextFix to initialize translation system (required for doctests)
+from . import gettextFix  # noqa: F401
 
 REVERSE = {}
 

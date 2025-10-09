@@ -22,7 +22,8 @@
 
 #gui-independent
 import os
-from lib.events import Receiver  # send is used when message is imported
+# Re-export send from lib.events (used by modules importing message)
+from lib.events import send, Receiver  # noqa: F401
 from lib.unicoding import ensure_unicode
 
 #---classes
