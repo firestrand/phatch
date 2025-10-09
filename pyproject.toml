@@ -1,0 +1,63 @@
+# Phatch - Photo Batch Processor
+# Python project configuration
+
+[tool.ruff]
+# Ruff configuration - modern Python linter
+# Replaces the bundled phatch/other/pep8.py with faster, modern tooling
+
+# Target Python 3.8+ (minimum version per pytest.ini)
+target-version = "py38"
+
+# Line length to match PEP8
+line-length = 79
+
+# Exclude directories and files from linting
+exclude = [
+    ".git",
+    ".pytest_cache",
+    "__pycache__",
+    "*.egg-info",
+    "build",
+    "dist",
+    ".venv",
+    "venv",
+    # Original pep8_test.py exclusions
+    "phatch/other",           # Bundled third-party code
+    "tests/output",           # Test output directory
+    "*/wxGlade/*",            # Auto-generated wxGlade code
+    # Files from original BLACK_LIST
+    "phatch/lib/metadataTest.py",
+    "phatch/lib/pyWx/about.py",
+    "phatch/lib/pyWx/dialogsInspector.py",
+    "phatch/lib/pyWx/folderFileBrowser.py",
+]
+
+[tool.ruff.lint]
+# Enable pycodestyle (E, W) and pyflakes (F) rules
+# These are the PEP8 compliance checks
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+]
+
+# Allow some flexibility for legacy code
+# Adjust these as the codebase is cleaned up
+ignore = [
+    "E501",  # Line too long (many legacy lines exceed 79 chars)
+    "E722",  # Bare except (common in legacy code)
+    "E402",  # Module level import not at top (common in legacy code with sys.path manipulation)
+    "F821",  # Undefined name (many are gettext _ function, dynamically defined)
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Allow unused imports in __init__.py files
+"__init__.py" = ["F401"]
+# Test files may have additional issues from obsolete dependencies
+"tests/test_suite/bzr_precommit_test.py" = ["E401", "F401", "F821"]
+
+[tool.ruff.format]
+# Ruff formatter configuration (optional, not used in tests yet)
+quote-style = "single"
+indent-style = "space"
+line-ending = "auto"

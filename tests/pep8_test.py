@@ -1,6 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Copyright (C) 2007-2010  www.stani.be
+# Copyright (C) 2015-2025  Travis Silvers
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -16,104 +17,99 @@
 #
 # Follows PEP8
 
+"""
+PEP8 compliance test for Phatch.
 
-import os
-import pickle
-import time
-import shelve
+Modernized to use ruff instead of bundled pep8.py for Python 3 compatibility.
+Ruff is a fast, modern Python linter that checks PEP8 compliance.
+
+Configuration is in pyproject.toml at the project root.
+"""
+
+import subprocess
 import sys
-sys.path.insert(0, os.path.join('..', 'phatch'))
-
-
-try:
-    from other import pep8
-except ImportError:
-    print("You need to run this script from the 'tests' directory.")
-    sys.exit(1)
-
-
-ERROR_HEADER = "Shame on you! These file(s) don't follow PEP8:\n%s\n"
-PEP8_APP = os.path.join('..', 'phatch', 'other', 'pep8.py')
-PEP8_ARGS = ['python', PEP8_APP, '--show-source', '--repeat', '--count']
-WXGLADE = 'wxGlade'
-OTHER = os.path.join('phatch', 'other')
-OUTPUT = os.path.join('tests', 'output')
-
-ERROR_MESSAGE = ''
-
-
-def message(x):
-    global ERROR_MESSAGE
-    print(x)
-    ERROR_MESSAGE += '%s\n' % x
-
-pep8.process_options(PEP8_ARGS)
-pep8.message = message
-
-BLACK_LIST = [
-    os.path.join('phatch', 'lib', 'metadataTest.py'),
-    os.path.join('phatch', 'lib', 'pyWx', 'about.py'),
-    os.path.join('phatch', 'lib', 'pyWx', 'dialogsInspector.py'),
-    os.path.join('phatch', 'lib', 'pyWx', 'folderFileBrowser.py'),
-]
+from pathlib import Path
 
 
 def test(dirname='..'):
-    global ERROR_MESSAGE
+    """
+    Run ruff linter on the Phatch codebase.
 
-    def needs_pep8(filename):
-        key = os.path.abspath(filename)[n:]
-        return filename.endswith('.py') and not (
-            OTHER in filename
-            or OUTPUT in filename
-            or WXGLADE in filename
-            or key in BLACK_LIST
+    Args:
+        dirname: Directory to check (default: '..' for project root)
+
+    Returns:
+        bool: True if violations found, False if clean
+    """
+    # Calculate target directory relative to this script's location
+    script_dir = Path(__file__).parent
+    if dirname == '..':
+        # Default: check project root (parent of tests directory)
+        target_dir = script_dir.parent
+    elif dirname:
+        # Check specific subdirectory relative to script location
+        target_dir = (script_dir / dirname).resolve()
+    else:
+        # Empty string: check project root
+        target_dir = script_dir.parent
+
+    # Build ruff command
+    # --output-format=concise shows file:line:col: message format
+    ruff_cmd = [
+        sys.executable, '-m', 'ruff', 'check',
+        str(target_dir),
+        '--output-format=concise',
+    ]
+
+    print(f"Running ruff PEP8 checks on: {target_dir}")
+    print(f"Command: {' '.join(ruff_cmd)}\n")
+
+    try:
+        result = subprocess.run(
+            ruff_cmd,
+            cwd=target_dir,
+            capture_output=True,
+            text=True,
+            check=False
         )
 
-    time_start = time.time()
-    total = 0
-    dirname = os.path.abspath(dirname)
-    n = len(dirname) + 1
-    summary = []
-    if not os.path.exists('cache'):
-        os.mkdir('cache')
-    cache = shelve.open(os.path.join('cache', 'pep8'),
-        protocol=pickle.HIGHEST_PROTOCOL)
-    for root, dirs, files in os.walk(dirname):
-        for name in files:
-            filename = os.path.join(root, name)
-            if not needs_pep8(filename):
-                continue
-            ERROR_MESSAGE = ''
-            count = None
-            mtime = os.path.getmtime(filename)
-            if filename in cache:
-                error_message, count, cmtime = cache[filename]
-                if mtime != cmtime:
-                    count = None
-                elif error_message:
-                    message(error_message)
-            if count is None:
-                checker = pep8.Checker(filename)  # updates ERROR_MESSAGE
-                count = checker.check_all()
-                cache[filename] = ERROR_MESSAGE, count, mtime
-            if count or ERROR_MESSAGE:
-                summary.append((filename, count))
-            total += 1
-    cache.close()
-    if summary:
-        print((ERROR_HEADER % '\n'.join(
-            ['%s (%d)' % (filename, count) for filename, count in summary]
-        )))
-    print(('Ran %d PEP8 tests in %.3fs'
-        % (total, time.time() - time_start)))
-    return summary
+        # Ruff exits with 0 if no violations, 1 if violations found
+        if result.returncode == 0:
+            print("✓ All files pass PEP8 checks!")
+            return False
+        else:
+            # Show the violations
+            print("✗ PEP8 violations found:\n")
+            print(result.stdout)
+            if result.stderr:
+                print("Errors:")
+                print(result.stderr)
+            return True
 
-
-def test_with_exit(dirname=''):
-    summary = test(dirname)
-    if summary:
+    except FileNotFoundError:
+        print("ERROR: ruff not found. Install it with: pip install ruff")
+        print("Or install all dev dependencies: pip install -r requirements-dev.txt")
         sys.exit(1)
+    except Exception as e:
+        print(f"ERROR running ruff: {e}")
+        sys.exit(1)
+
+
+def test_with_exit(dirname='..'):
+    """
+    Run PEP8 tests and exit with appropriate code.
+
+    Args:
+        dirname: Directory to check (default: parent directory)
+
+    Exit codes:
+        0: All tests passed
+        1: Violations found or error occurred
+    """
+    has_violations = test(dirname)
+    if has_violations:
+        sys.exit(1)
+    sys.exit(0)
 
 
 if __name__ == '__main__':
