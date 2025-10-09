@@ -267,7 +267,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
         self.SetAsFileDropTarget(self.GetTopLevelParent(), self.OnDrop)
         #events
         self.Bind(wx.EVT_KEY_DOWN, self.OnKeyDown)
-        self.Bind(gridlib.EVT_GRID_CELL_CHANGE, self.OnGridCellChange)
+        self.Bind(gridlib.EVT_GRID_CELL_CHANGED, self.OnGridCellChange)
         self.Bind(gridlib.EVT_GRID_CELL_LEFT_CLICK,
             self.OnGridCellLeftClick)
         self.Bind(gridlib.EVT_GRID_CELL_RIGHT_CLICK,
@@ -938,7 +938,7 @@ class Frame(wx.Frame):
 def getPencilData():
     # Embedded icon from the openclipart gallery
     return zlib.decompress(
-'x\xda\x01\x88\x01w\xfe\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x10\
+b'x\xda\x01\x88\x01w\xfe\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x10\
 \x00\x00\x00\x10\x08\x06\x00\x00\x00\x1f\xf3\xffa\x00\x00\x00\x04sBIT\x08\
 \x08\x08\x08|\x08d\x88\x00\x00\x01?IDAT8\x8d\x8d\xd1\xbdj\x94A\x14\x06\xe0gc\
 4\x12\xe3\x8aM\xb0N\xa1M\xb0\xb3K\x04+\x03{\x0b\xa2!F\xc5\xe3\r\xe4\n\xbc\
@@ -962,7 +962,7 @@ def getPencilBitmap():
 
 def getPencilImage():
     stream = io.BytesIO(getPencilData())
-    return wx.ImageFromStream(stream)
+    return wx.Image(stream)
 
 
 if __name__ == '__main__':
