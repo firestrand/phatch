@@ -37,7 +37,7 @@ def pil_wxImage(image):
 
 
 def pil_wxBitmap(image):
-    return wx.BitmapFromImage(pil_wxImage(image))
+    return wx.Bitmap(pil_wxImage(image))
 
 
 def wxImage_pil(wx_image):

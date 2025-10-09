@@ -137,7 +137,7 @@ class Frame(wx.Frame):
 
     def CreateBitmapButton(self, id, tooltip, size=(24, 24), \
                                             style=wx.NO_BORDER):
-        bmp = wx.ArtProvider_GetBitmap(id, wx.ART_OTHER, size=size)
+        bmp = wx.ArtProvider.GetBitmap(id, wx.ART_OTHER, size=size)
         btn = wx.BitmapButton(self.panel, -1, bmp, style=style)
         btn.SetToolTipString(tooltip)
         return btn

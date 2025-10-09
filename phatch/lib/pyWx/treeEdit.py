@@ -113,13 +113,13 @@ class TreeMixin(treeDragDrop.Mixin):
 
     def _AddFormToImageList(self, form, icon_size, icon_disabled):
         wx_image = graphics.image(form.icon, icon_size)
-        form.icon_bitmap = wx.BitmapFromImage(wx_image)
+        form.icon_bitmap = wx.Bitmap(wx_image)
         # rescale(image, icon_size[0], icon_size[1])
         from PIL import Image
         from .wxPil import pil_wxImage, wxImage_pil
         wx_image = pil_wxImage(wxImage_pil(wx_image).resize(icon_size,\
                                                         Image.LANCZOS))
-        form.icon_tree = wx.BitmapFromImage(wx_image)
+        form.icon_tree = wx.Bitmap(wx_image)
         form.icon_tree_disabled = icon_disabled
         form.icon_tree_id = (
             self.image_list.Add(form.icon_tree_disabled),

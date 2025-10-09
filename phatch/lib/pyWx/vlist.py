@@ -166,7 +166,7 @@ class Box(wx.VListBox):
     def GetItem(self, n):
         """Needs to be overwritten."""
         return ('label %d' % n, 'summary %d' % n,
-            wx.ArtProvider_GetBitmap(wx.ART_INFORMATION, wx.ART_OTHER,
+            wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_OTHER,
                 self.GetIconSize()))
 
     def RefreshAll(self):

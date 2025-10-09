@@ -225,7 +225,7 @@ class _PathCtrl(_ComposedCtrl):
                 and not sys.platform.startswith('win'):
             self.path.SetSelection(-1, -1)
         #browse button
-        bmp = wx.ArtProvider_GetBitmap(wx.ART_FOLDER_OPEN, wx.ART_OTHER,
+        bmp = wx.ArtProvider.GetBitmap(wx.ART_FOLDER_OPEN, wx.ART_OTHER,
                         size=(16, 16))
         self.browse = wx.BitmapButton(self, -1, bmp, style=wx.NO_BORDER)
         #extensions

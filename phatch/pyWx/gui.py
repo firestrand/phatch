@@ -370,7 +370,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         self._set_file_history(self.get_setting('file_history'))
         self.Bind(wx.EVT_MENU_RANGE, self.on_menu_file_history,
             id=wx.ID_FILE1, id2=wx.ID_FILE9)
-        self.menu_file.InsertMenu(2, wx.ID_REFRESH,
+        self.menu_file.Insert(2, wx.ID_REFRESH,
             _("Open &Recent"),
             self.menu_file_recent, "")
 
@@ -391,7 +391,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         #    self.Bind(wx.EVT_MENU, self.on_menu_file_library, item)
         ##wx2.6 compatible
         #wx_ID_EDIT = 5030
-        #self.menu_file.InsertMenu(3, wx_ID_EDIT, _("Open &Library"),
+        #self.menu_file.Insert(3, wx_ID_EDIT, _("Open &Library"),
         #   library, "")
         self.library_files_dictionary = formField.files_dictionary(
                     paths=[config.PATHS["PHATCH_ACTIONLISTS_PATH"],
@@ -449,7 +449,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
                     client=wx.ART_TOOLBAR)
         args = (id, label, bitmap, wx.NullBitmap, item,
                     tooltip, "")
-        tool = self.frame_toolbar.AddLabelTool(*args)
+        tool = self.frame_toolbar.AddTool(*args)
         self.Bind(wx.EVT_TOOL, method, id=id)
         return tool
 

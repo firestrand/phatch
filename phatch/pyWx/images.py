@@ -3590,7 +3590,7 @@ jh|'
 
 
 def get_icon(name='phatch'):
-    icon = wx.EmptyIcon()
+    icon = wx.Icon()
     if sys.platform.startswith('win'):
         py = eval('ICON_%s_32GIF' % name.upper())
     else:

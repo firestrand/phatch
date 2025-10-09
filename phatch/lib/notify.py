@@ -93,7 +93,7 @@ elif TB:
     def send(title, message, icon='gtk-dialog-info',
             wxicon=None, urgency=None, timeout=None):
         if wxicon == None:
-            wxicon = wx.ArtProvider_GetBitmap(wx.ART_INFORMATION,
+            wxicon = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION,
                 wx.ART_OTHER, (48, 48))
         tb = TB.ToasterBox(wx.GetApp().GetTopWindow(),
             TB.TB_COMPLEX, TB.DEFAULT_TB_STYLE, TB.TB_ONTIME)

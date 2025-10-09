@@ -957,7 +957,7 @@ V\xfa\xe0\r,\xf7\xc3p\xa1\xd3\xe9T\xe8`\x0f\xb3\xedv\xfb\xb4\xd5j\xed\x16\
 
 
 def getPencilBitmap():
-    return wx.BitmapFromImage(getPencilImage())
+    return wx.Bitmap(getPencilImage())
 
 
 def getPencilImage():
