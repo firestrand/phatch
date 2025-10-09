@@ -368,7 +368,13 @@ else:
 
 #setup.py information
 SETUP = {
-    'name': PHATCH,
+    'name': NAME,
+    'version': VERSION,
+    'author': AUTHOR,
+    'author_email': AUTHOR_EMAIL,
+    'maintainer': 'Travis Silvers',
+    'maintainer_email': 'firestrand@gmail.com',
+    'url': 'https://github.com/firestrand/phatch',
     'description': 'PHoto bATCH Processor',
     'long_description': 'Phatch enables you to resize, rotate, mirror, '
         'apply watermarks, shadows, rounded courners, '
