@@ -44,15 +44,18 @@ DEFAULT_REPORT = utils.system_path('output/report.txt')
 OUT_ACTIONLISTS_PATH = utils.system_path('output/actionlists')
 # diff path
 OUT_DIFF = utils.system_path('output/diff')
-# Phatch package path
-PHATCH_PATH = utils.system_path('../phatch/')
-# Phatch application path
-PHATCH_APP_PATH = utils.system_path(os.path.join(PHATCH_PATH, 'phatch.py'))
+# Phatch package directory
+PHATCH_PACKAGE_DIR = utils.system_path('../phatch/')
+# Phatch project root (parent of phatch package)
+PHATCH_PROJECT_ROOT = utils.system_path('..')
+# Phatch application path (use bin/phatch, the proper entry point)
+PHATCH_APP_PATH = utils.system_path(os.path.join(PHATCH_PROJECT_ROOT, 'bin/phatch'))
 # Phatch actions path
-PHATCH_ACTIONS_PATH = utils.system_path(os.path.join(PHATCH_PATH, 'actions'))
+PHATCH_ACTIONS_PATH = utils.system_path(os.path.join(PHATCH_PACKAGE_DIR, 'actions'))
 
-# Inserting phatch path to system path
-sys.path.insert(0, PHATCH_PATH)
+# Insert project root to sys.path so 'import phatch' finds the package
+# (not just the phatch.py module)
+sys.path.insert(0, PHATCH_PROJECT_ROOT)
 
 import phatch
 

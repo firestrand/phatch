@@ -139,7 +139,7 @@ def info_diff(original_info, other_info):
 
 def image_diff(im1, im2):
     """Return the diff of two images"""
-    from PIL import Image, ImageMath
+    from PIL import ImageMath
     r1, g1, b1, a1 = im1.convert('RGBA').split()
     r2, g2, b2, a2 = im2.convert('RGBA').split()
     diff_image = ImageMath.eval(
@@ -181,7 +181,7 @@ def match_metadata(image1_path, image2_path):
 
 def banner(title, width=50):
     """Textual banner"""
-    return '%s\n*%s*\n%s\n' % ('*' * 50, title.center(48, ' ') + '*' * 50)
+    return '%s\n*%s*\n%s\n' % ('*' * width, title.center(width - 2, ' '), '*' * width)
 
 
 def product(*args, **kwds):
