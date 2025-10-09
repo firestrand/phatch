@@ -723,8 +723,13 @@ class EditPanel(wx.Panel):
         #create ctrl instance
         if Ctrl._busy_cursor:
             wx.BeginBusyCursor()
+        # For ComboBox, use default width to allow room for dropdown arrow
+        if issubclass(Ctrl, wx.ComboBox):
+            ctrl_size = (wx.DefaultSize.width, height - 2 * border)
+        else:
+            ctrl_size = (height, height - 2 * border)
         self.edit = Ctrl(self, value=Ctrl._to_english(value_as_string),
-                            size=(height, height - 2 * border), **extra)
+                            size=ctrl_size, **extra)
         #check min size
         if self.edit.GetSize()[1] > height:
             self.edit.SetMinSize((self.edit.GetMinSize()[0], height))
