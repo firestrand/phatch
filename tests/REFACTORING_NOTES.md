@@ -445,15 +445,167 @@ def test_check_fonts():
 
 ---
 
+### phatch/core/safeGlobals.py
+
+⚠️ **CRITICAL SECURITY ISSUE** ⚠️
+
+**Issue**: Attempting to create "safe" namespace for eval() - NOT ACTUALLY SECURE
+**Principle**: Security by Design, KISS
+**Location**: Entire module
+**Problem**: Using plain dict with filtered builtins to create "safe" globals for eval() is fundamentally insecure
+
+**Why This Is Dangerous**:
+1. **Trivial to bypass**: Attackers can access builtins through object introspection
+   ```python
+   # Example attack through "safe" globals:
+   eval("''.__class__.__bases__[0].__subclasses__()", safe_globals())
+   # Returns all classes, including file I/O, subprocess, etc.
+   ```
+
+2. **False sense of security**: Filtering `_` prefixed names doesn't prevent access
+   - Can still get `__import__` through `().__class__.__bases__[0].__subclasses__()`
+   - Can access `open()`, `exec()`, `compile()`, etc.
+
+3. **Cannot be fixed**: No way to make eval() with plain dict truly safe in Python
+
+**Current Usage**:
+- Used for evaluating user expressions (filename patterns like `<width>x<height>`)
+- Provides math, random, and now() functions for expressions
+
+**Edge Case Bugs Found**:
+- `allow('')` raises IndexError for empty string (line 30)
+- Should handle edge cases even if refactoring
+
+**Suggested Improvements** (HIGH PRIORITY):
+
+**Option 1: Template Engine (RECOMMENDED)**
+```python
+from string import Template
+
+# For simple substitution:
+template = Template('${width}x${height}')
+result = template.substitute(width=1920, height=1080)
+
+# Or use Jinja2 for more complex cases:
+from jinja2 import Environment, select_autoescape
+
+env = Environment(autoescape=select_autoescape())
+template = env.from_string('{{width}}x{{height}}')
+result = template.render(width=1920, height=1080)
+```
+
+**Option 2: AST-based Safe Evaluation**
+```python
+import ast
+import operator
+
+class SafeExpressionEvaluator:
+    """Safely evaluate mathematical expressions using AST."""
+
+    ALLOWED_OPS = {
+        ast.Add: operator.add,
+        ast.Sub: operator.sub,
+        ast.Mult: operator.mul,
+        ast.Div: operator.truediv,
+        ast.Pow: operator.pow,
+        # ... other safe operations
+    }
+
+    ALLOWED_FUNCS = {
+        'sqrt': math.sqrt,
+        'sin': math.sin,
+        # ... other safe functions
+    }
+
+    def eval(self, expr, variables):
+        """Evaluate expression safely."""
+        tree = ast.parse(expr, mode='eval')
+        return self._eval_node(tree.body, variables)
+
+    def _eval_node(self, node, variables):
+        if isinstance(node, ast.Constant):
+            return node.value
+        elif isinstance(node, ast.Name):
+            if node.id in variables:
+                return variables[node.id]
+            elif node.id in self.ALLOWED_FUNCS:
+                return self.ALLOWED_FUNCS[node.id]
+            else:
+                raise ValueError(f"Unknown variable: {node.id}")
+        elif isinstance(node, ast.BinOp):
+            if type(node.op) not in self.ALLOWED_OPS:
+                raise ValueError(f"Disallowed operation: {type(node.op)}")
+            left = self._eval_node(node.left, variables)
+            right = self._eval_node(node.right, variables)
+            return self.ALLOWED_OPS[type(node.op)](left, right)
+        # ... handle other node types
+        else:
+            raise ValueError(f"Disallowed expression type: {type(node)}")
+```
+
+**Option 3: RestrictedPython (if complex logic needed)**
+```python
+from RestrictedPython import compile_restricted, safe_globals
+
+# More secure than plain dict, but still has limitations
+code = compile_restricted(user_expression, '<string>', 'eval')
+result = eval(code, safe_globals)
+```
+
+**Option 4: Custom DSL Parser (MOST SECURE)**
+```python
+import pyparsing as pp
+
+class PatternParser:
+    """Parse filename patterns without eval()."""
+
+    def __init__(self):
+        # Define grammar for allowed patterns
+        self.variable = pp.Word(pp.alphas + '_')
+        self.pattern = pp.Combine(
+            pp.Literal('<') + self.variable + pp.Literal('>')
+        )
+
+    def parse(self, pattern, variables):
+        """Parse and substitute pattern safely."""
+        # Parse pattern, substitute variables
+        # No eval() needed!
+```
+
+**Migration Path**:
+1. Audit all uses of safeGlobals.safe_globals() in codebase
+2. Categorize expressions by complexity (simple substitution vs math expressions)
+3. Migrate simple cases to Template/Jinja2 first (low risk)
+4. Migrate math expressions to AST evaluator or custom parser
+5. Keep comprehensive tests as regression suite
+6. Remove safeGlobals.py entirely
+
+**Benefits**:
+- Actually secure (no eval() bypass)
+- Clearer intent (template vs expression evaluation)
+- Easier to extend (add new variables/functions safely)
+- Better error messages (parse errors vs runtime exceptions)
+- Performance improvement (no eval() overhead)
+
+**Testing Strategy During Migration**:
+- Keep current tests as "legacy behavior" suite
+- Add parallel tests for new implementation
+- Run both test suites during migration
+- Remove legacy tests only after full migration
+
+---
+
 ## Priority Refactorings
 
 Based on impact and feasibility:
 
-1. **HIGH**: Extract ConfigPaths class (config.py) - improves testability significantly
-2. **HIGH**: Split init_config_paths() into smaller functions - easier to understand and test
-3. **MEDIUM**: Add ABC/Protocol for Receiver classes - clearer contracts
-4. **MEDIUM**: Remove disabled code blocks - reduces confusion
-5. **LOW**: Standardize imports - long-term maintainability
+1. ⚠️ **CRITICAL**: Replace safeGlobals with secure alternative (template engine/AST parser) - SECURITY ISSUE
+2. **HIGH**: Extract ConfigPaths class (config.py) - improves testability significantly
+3. **HIGH**: Split init_config_paths() into smaller functions - easier to understand and test
+4. **MEDIUM**: Add ABC/Protocol for Receiver classes - clearer contracts
+5. **MEDIUM**: Remove disabled code blocks - reduces confusion
+6. **MEDIUM**: Refactor settings.py to use SettingsBuilder pattern
+7. **LOW**: Standardize imports - long-term maintainability
 
 ---
 
