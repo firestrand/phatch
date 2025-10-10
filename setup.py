@@ -172,7 +172,13 @@ setup_options = {
     'packages': PACKAGES,
     'scripts': ['bin/phatch'],
     'data_files': i18n_files + doc_files + data_files + os_files,
-    'classifiers': CLASSIFIERS}
+    'classifiers': CLASSIFIERS,
+    'install_requires': [
+        'Pillow>=11.3.0',  # Image processing library (replaces legacy PIL)
+        'wxPython>=4.2.3',  # Cross-platform GUI framework
+    ],
+    'python_requires': '>=3.8',  # Python 3.8+ required per pytest.ini
+}
 setup_options.update(info.SETUP)
 
 if __name__ == '__main__':
