@@ -411,7 +411,7 @@ SETUP = {
 }
 
 INFO = {
-    'copyright': '(c) %s https://github.com/firestrand/phatch' % CO_YEAR,
+    'copyright': '© %s' % CO_YEAR,
     'date': DATE,
     'description': 'Photo Batch Processor',
     'extension': '.' + NAME.lower(),

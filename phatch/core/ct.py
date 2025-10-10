@@ -44,7 +44,7 @@ LICENSE = license.GPL
 CONTACT = '%(author)s <%(author_email)s>' % INFO
 
 TITLE = '%(name)s' % INFO
-COPYRIGHT = '%(copyright)s (%(url)s)' % INFO
+COPYRIGHT = '%(copyright)s' % INFO
 EXTENSION = '%(extension)s' % INFO
 FRAME_TITLE = '%%s%%s - %s' % TITLE
 SEND_MAIL = 'mailto:%(author_email)s?subject=%%s&body=%%s' % INFO
