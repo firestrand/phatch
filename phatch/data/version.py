@@ -14,6 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses/
 
-BASE = "0.2.7"
-VERSION = "0.2.7"
-DATE = "Wed, 10 Mar 2010 18:49:51"
+BASE = "0.3.0"
+VERSION = "0.3.0"
+DATE = "Fri, 10 Oct 2025 11:29:45"

@@ -2,6 +2,34 @@
 
 This document tracks technical debt and refactoring opportunities identified during the Python 3 migration and test modernization effort.
 
+## Priority 0: Critical - Security & Stability
+
+### 1. Update Dependencies to Latest Versions
+
+**Issue:**
+GitHub Dependabot has identified 6 moderate security vulnerabilities in project dependencies.
+
+**Action Required:**
+- Audit all dependencies in setup.py and requirements files
+- Update all dependencies to latest compatible versions
+- Test application thoroughly after updates
+- Verify wxPython 4.x, Pillow 10.x compatibility
+- Update any deprecated API usages
+
+**Dependencies to Review:**
+- PIL/Pillow (currently using Pillow with version compatibility layer)
+- wxPython (migrated to 4.x Phoenix)
+- pyexiv2 or similar metadata libraries
+- Any other third-party libraries
+
+**Impact:** Security vulnerabilities could expose users to risks
+**Effort:** Medium (requires compatibility testing)
+**Priority:** High - should be addressed before production release
+
+**Reference:** https://github.com/firestrand/phatch/security/dependabot
+
+---
+
 ## Priority 1: High Impact, Medium Effort
 
 ### 1. Lazy-Loaded Dependencies Testability
