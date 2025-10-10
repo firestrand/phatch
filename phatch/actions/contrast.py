@@ -29,8 +29,7 @@ from functools import reduce
 
 def init():
     global Image, ImageColor, imtools
-    import Image
-    import ImageColor
+    from PIL import Image, ImageColor
     from lib import imtools
 
 
@@ -46,7 +45,7 @@ def contrast(image, amount=50):
             a + b, image.convert("L").histogram()) / 256.0
         im = imtools.blend(
                 image,
-                Image.new("L", image.size, mean).convert(image.mode),
+                Image.new("L", image.size, int(mean)).convert(image.mode),
                 -amount / 100.0)
     else:
         #high contrast

@@ -224,6 +224,8 @@ def fill_background_color(image, color):
         mode = 'RGBA'
     else:
         mode = 'RGB'
+    # Convert color values to integers for Pillow 10+ compatibility
+    color = tuple(int(c) for c in color)
     back = Image.new(mode, image.size, color)
     if (image.mode == 'P' and mode == 'RGBA'):
         image = image.convert('RGBA')

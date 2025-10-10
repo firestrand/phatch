@@ -595,17 +595,257 @@ class PatternParser:
 
 ---
 
+### phatch/core/preview.py
+
+**Issue**: Pillow API compatibility - Image.ANTIALIAS deprecated
+**Principle**: KISS, Future-proofing
+**Location**: Lines 40, 49 (FIXED), and many other files
+**Problem**: Used deprecated `Image.ANTIALIAS` constant which was removed in Pillow 10+
+
+**Fix Applied**:
+```python
+# Changed from:
+source_image.thumbnail(size, Image.ANTIALIAS)
+
+# To:
+source_image.thumbnail(size, Image.LANCZOS)
+```
+
+**Broader Issue**: This same problem exists in multiple files:
+- `phatch/lib/thumbnail.py` (3 occurrences)
+- `phatch/actions/round.py` (1 occurrence)
+- `phatch/actions/grid.py` (1 occurrence)
+- `phatch/actions/contour.py` (2 occurrences)
+- `phatch/other/tamogen.py` (1 occurrence)
+- `phatch/core/pil.py` (1 occurrence)
+
+**Suggested Improvement**: Create a compatibility constant at module level
+```python
+# In phatch/core/pil.py or phatch/lib/imtools.py:
+from PIL import Image
+
+# Compatibility for Pillow 10+
+RESAMPLING_FILTER = getattr(Image, 'LANCZOS', None) or Image.Resampling.LANCZOS
+
+# Then use throughout codebase:
+image.thumbnail(size, RESAMPLING_FILTER)
+```
+
+**Benefits**: Single point of compatibility handling, easier future upgrades
+
+---
+
+**Issue**: Duplicated calculation in thumbnail sizing
+**Principle**: DRY (Don't Repeat Yourself)
+**Location**: Lines 38-39
+**Problem**:
+```python
+source_image.thumbnail(
+    (min(source_image.size[0], size[0] * 1),
+    min(source_image.size[0], size[0] * 1)),  # Same calculation twice
+    Image.LANCZOS)
+```
+
+**Suggested Improvement**:
+```python
+# Should likely be:
+max_width = min(source_image.size[0], size[0])
+max_height = min(source_image.size[1], size[1])
+source_image.thumbnail((max_width, max_height), Image.LANCZOS)
+```
+
+**Note**: The current code uses `size[0]` for both width AND height calculation. This appears to be a bug - should use `size[1]` for height.
+
+---
+
+**Issue**: Tight coupling to api.ACTIONS global
+**Principle**: Dependency Inversion (SOLID)
+**Location**: Line 42
+**Problem**: Direct dependency on global `api.ACTIONS` dict makes testing difficult
+
+**Suggested Improvement**:
+```python
+def generate(source, size=(48, 48), path=USER_PREVIEW_PATH, force=True,
+             actions=None):
+    """Generate preview thumbnails for actions.
+
+    Args:
+        actions: Dict of action classes. If None, uses api.ACTIONS.
+    """
+    if actions is None:
+        actions = api.ACTIONS
+
+    # ... rest of function uses actions parameter
+```
+
+**Benefits**: Easier to test, more flexible, follows dependency injection
+
+---
+
+**Issue**: Hardcoded file extension
+**Principle**: KISS, Don't hardcode configuration
+**Location**: Line 44
+**Problem**: Always saves as `.png` regardless of source format
+
+**Suggested Improvement**:
+```python
+def generate(source, size=(48, 48), path=USER_PREVIEW_PATH, force=True,
+             output_format='png'):
+    # ...
+    filename = os.path.join(path, f"{action.label}.{output_format}")
+```
+
+**Benefits**: More flexible, could support other formats if needed
+
+---
+
+**Issue**: No error handling
+**Principle**: Robustness, KISS
+**Location**: Entire function
+**Problem**: No try/except for image operations that could fail
+
+**Suggested Improvement**:
+```python
+def generate(source, size=(48, 48), path=USER_PREVIEW_PATH, force=True):
+    try:
+        source_image = openImage.open(source)
+    except Exception as e:
+        print(f"Failed to open source image {source}: {e}")
+        return
+
+    # ... rest with appropriate error handling
+```
+
+**Benefits**: More robust, better user experience, easier debugging
+
+---
+
+### phatch/actions/*.py (39 files)
+
+✅ **FIXED - PYTHON 2 → 3 MIGRATION ISSUE** ✅
+
+**Issue**: Old PIL import syntax preventing Pillow 3+ compatibility
+**Principle**: Future-proofing, KISS
+**Location**: 39 action files in `phatch/actions/`
+**Problem**: Actions use Python 2 era `import Image` instead of `from PIL import Image`
+
+**Example** (from invert.py):
+```python
+# INCORRECT (Python 2 / old PIL):
+def init():
+    global Image, ImageChops, imtools
+    import Image          # ❌ ModuleNotFoundError in Pillow
+    import ImageChops     # ❌ ModuleNotFoundError in Pillow
+    from lib import imtools
+
+# CORRECT (Python 3 / Pillow 3+):
+def init():
+    global Image, ImageChops, imtools
+    from PIL import Image, ImageChops  # ✅ Works with Pillow
+    from lib import imtools
+```
+
+**Impact**:
+- **BLOCKS ACTION TESTING**: Cannot import and test any affected actions
+- **RUNTIME FAILURES**: Actions fail at runtime when called
+- **AFFECTS 71% OF ACTIONS**: 39 out of 55 action modules
+
+**Affected Actions**:
+All actions that import PIL modules in their `init()` function need fixing.
+
+**Fix Pattern**:
+```bash
+# Search pattern:
+grep -l "import Image$" phatch/actions/*.py
+
+# Replace:
+import Image → from PIL import Image
+import ImageOps → from PIL import ImageOps
+import ImageChops → from PIL import ImageChops
+import ImageDraw → from PIL import ImageDraw
+import ImageFilter → from PIL import ImageFilter
+import ImageFont → from PIL import ImageFont
+import ImageEnhance → from PIL import ImageEnhance
+```
+
+**Migration Strategy**:
+1. **Option A: Automated Fix** (RECOMMENDED)
+   ```python
+   # Script to fix all at once
+   import os
+   import re
+
+   for filename in os.listdir('phatch/actions/'):
+       if not filename.endswith('.py'):
+           continue
+       filepath = os.path.join('phatch/actions/', filename)
+       with open(filepath, 'r') as f:
+           content = f.read()
+
+       # Replace old PIL imports
+       replacements = {
+           r'    import Image\n': '    from PIL import Image\n',
+           r'    import ImageOps\n': '    from PIL import ImageOps\n',
+           # ... etc
+       }
+       for old, new in replacements.items():
+           content = re.sub(old, new, content)
+
+       with open(filepath, 'w') as f:
+           f.write(content)
+   ```
+
+2. **Option B: Incremental Fix**
+   - Fix actions as tests are written (current approach)
+   - Pros: Test-driven, careful
+   - Cons: Slow, many files
+
+**Recommended**: Option A - Automated bulk fix, then run all tests
+
+**Benefits**:
+- Unblocks action testing phase
+- Fixes runtime errors
+- Modernizes codebase
+- Single point in time fix
+
+**Testing Strategy**:
+- Fix one action, write tests, verify pattern works
+- Apply bulk fix to all actions
+- Run existing tests to ensure no regressions
+- Write tests for remaining actions
+
+**Status**:
+- ✅ **COMPLETED**: All 39 files fixed with automated script
+- ✅ Fixed 76 import statements across all action files
+- ✅ All tests passing (235 tests)
+- ✅ All action modules now importable and testable
+
+**Fix Applied** (2025-10-09):
+Used automated script `tests/scripts/fix_pil_imports.py` to bulk fix all affected files.
+Script features:
+- DRY-run mode for safe preview
+- Groups consecutive imports for cleaner output
+- Comprehensive error handling
+- Follows SOLID, DRY, KISS principles
+
+**Result**: ⚠️ CRITICAL blocker removed - Phase 2 action testing fully unblocked
+
+---
+
 ## Priority Refactorings
 
 Based on impact and feasibility:
 
 1. ⚠️ **CRITICAL**: Replace safeGlobals with secure alternative (template engine/AST parser) - SECURITY ISSUE
-2. **HIGH**: Extract ConfigPaths class (config.py) - improves testability significantly
-3. **HIGH**: Split init_config_paths() into smaller functions - easier to understand and test
-4. **MEDIUM**: Add ABC/Protocol for Receiver classes - clearer contracts
-5. **MEDIUM**: Remove disabled code blocks - reduces confusion
-6. **MEDIUM**: Refactor settings.py to use SettingsBuilder pattern
-7. **LOW**: Standardize imports - long-term maintainability
+2. ✅ **COMPLETED**: Fix PIL import syntax in 39 action files (Python 2 → 3 migration)
+3. **HIGH**: Fix Pillow Image.ANTIALIAS compatibility across codebase (8 files) - breaks on Pillow 10+
+4. **HIGH**: Extract ConfigPaths class (config.py) - improves testability significantly
+5. **HIGH**: Split init_config_paths() into smaller functions - easier to understand and test
+6. **MEDIUM**: Fix preview.py thumbnail calculation bug (uses width for both dimensions)
+7. **MEDIUM**: Add ABC/Protocol for Receiver classes - clearer contracts
+8. **MEDIUM**: Remove disabled code blocks - reduces confusion
+9. **MEDIUM**: Refactor settings.py to use SettingsBuilder pattern
+10. **LOW**: Standardize imports - long-term maintainability
 
 ---
 

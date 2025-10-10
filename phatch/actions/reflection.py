@@ -29,9 +29,7 @@ from lib.imtools import has_alpha, has_transparency, paste
 
 def init():
     global Image, ImageColor, ImageFilter
-    import Image
-    import ImageColor
-    import ImageFilter
+    from PIL import Image, ImageColor, ImageFilter
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA
 
@@ -61,7 +59,9 @@ def gradient_mask(size, opacity, cache):
     #gradient vector
     vector = gradient_vector(size[1], opacity, cache)
     #scale vector
-    grad = cache[id] = vector.resize(size, Image.LINEAR)
+    # Use BILINEAR for Pillow 10+ compatibility (LINEAR was renamed)
+    resample = getattr(Image, 'BILINEAR', getattr(Image, 'LINEAR', None))
+    grad = cache[id] = vector.resize(size, resample)
     return grad
 
 
@@ -83,6 +83,8 @@ def reflect(image, depth, opacity, background_color, background_opacity,
     else:
         mode = 'RGBA'
         color = HTMLColorToRGBA(background_color, background_opacity)
+        # Convert color values to integers for Pillow 10+ compatibility
+        color = tuple(int(c) for c in color)
     width, height = image.size
     depth = min(height, depth)
     #make reflection

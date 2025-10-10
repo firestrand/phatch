@@ -38,9 +38,7 @@ OPTIONS = [
 
 def init():
     global Image, ImageOps, ImageMath, imtools
-    import Image
-    import ImageOps
-    import ImageMath
+    from PIL import Image, ImageMath, ImageOps
     from lib import imtools
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA

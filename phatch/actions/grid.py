@@ -39,8 +39,7 @@ ZERO = ['', '0']
 #---PIL
 def init():
     global Image, ImageColor, HTMLColorToRGBA, imtools
-    import Image
-    import ImageColor
+    from PIL import Image, ImageColor
     from lib import imtools
     from lib.colors import HTMLColorToRGBA
 
@@ -66,8 +65,10 @@ def make_grid(image, grid, col_line_width=0, row_line_width=0,
         s = sqrt(cols * rows)
         old_size = tuple([int(x / s) for x in old_size])
         # To scale down we need to make the image processing safe.
+        # Use LANCZOS for Pillow 10+ compatibility (ANTIALIAS was deprecated)
+        resample = getattr(Image, 'LANCZOS', getattr(Image, 'ANTIALIAS', None))
         image = imtools.convert_safe_mode(image)\
-            .resize(old_size, getattr(Image, 'ANTIALIAS'))
+            .resize(old_size, resample)
 
     #displacement
     dx, dy = old_size

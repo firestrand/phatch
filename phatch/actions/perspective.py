@@ -28,7 +28,7 @@ from lib.reverse_translation import _t
 
 def init():
     global Image
-    import Image
+    from PIL import Image
 
     global math, r
     import math

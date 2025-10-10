@@ -31,8 +31,7 @@ from lib.imtools import has_transparency, paste
 
 def init():
     global Image, ImageMath, imtools
-    import Image
-    import ImageMath
+    from PIL import Image, ImageMath
     from lib import imtools
 
 
@@ -50,7 +49,8 @@ def put_highlight(image, highlight, resample_highlight, opacity, cache=None):
         if opacity < 100:
             #apply opacity
             highlight_alpha = imtools.get_alpha(highlight)
-            opacity = (255 * opacity) / 100
+            # Convert to int for Pillow 10+ compatibility
+            opacity = int((255 * opacity) / 100)
             highlight.putalpha(ImageMath.eval("convert((a * o) / 255, 'L')",
                 a=highlight_alpha, o=opacity))
         #store in cache

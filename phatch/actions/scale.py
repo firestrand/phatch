@@ -24,7 +24,7 @@ from lib.reverse_translation import _t
 
 def init():
     global Image
-    import Image
+    from PIL import Image
 
 
 def preserve_proportions(x0, y0, x1, y1):

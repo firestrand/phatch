@@ -32,8 +32,7 @@ MASKS = [MASK]
 
 def init():
     global Image, ImageMath, imtools
-    import Image
-    import ImageMath
+    from PIL import Image, ImageMath
     from lib import imtools
 
 

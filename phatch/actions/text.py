@@ -26,9 +26,7 @@ from lib.reverse_translation import _t
 
 def init():
     global Image, ImageDraw, ImageFont
-    import Image
-    import ImageDraw
-    import ImageFont
+    from PIL import Image, ImageDraw, ImageFont
     global calculate_location, convert_safe_mode
     from lib.imtools import calculate_location, convert_safe_mode
 
@@ -51,10 +49,19 @@ def draw_text(image, text, horizontal_offset, vertical_offset,
     if orientation:
         font = ImageFont.TransposedFont(font, orientation)
 
+    # Get text size (Pillow 10+ compatibility)
+    if hasattr(draw, 'textbbox'):
+        # Pillow 10+: use textbbox
+        bbox = draw.textbbox((0, 0), text, font=font)
+        text_size = (bbox[2] - bbox[0], bbox[3] - bbox[1])
+    else:
+        # Pillow 9 and earlier: use textsize
+        text_size = draw.textsize(text, font=font)
+
     location = calculate_location(
         horizontal_offset, vertical_offset,
         horizontal_justification, vertical_justification,
-        image.size, draw.textsize(text, font=font))
+        image.size, text_size)
 
     # draw
     draw.text(location, text, font=font, fill=color)

@@ -29,8 +29,7 @@ from lib.imtools import has_transparency, paste
 
 def init():
     global Image, ImageDraw
-    import Image
-    import ImageDraw
+    from PIL import Image, ImageDraw
 
 OPTIONS = [_t('Equal for all sides'), _t('Different for each side')]
 

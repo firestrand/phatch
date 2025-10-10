@@ -25,9 +25,9 @@
 # 1.1 Restructuring of the code, new pixel dispersion method and folder fill
 # type by Juho Vepsäläinen.
 
-import glob, os, sys, Image, ImageChops
-
-from ImageStat import Stat
+import glob, os, sys
+from PIL import Image, ImageChops
+from PIL.ImageStat import Stat
 from lib import openImage
 
 IMAGE_ITSELF = 0

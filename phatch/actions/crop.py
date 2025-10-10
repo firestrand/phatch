@@ -29,8 +29,7 @@ from lib.imtools import auto_crop
 
 def init():
     global Image, ImageOps
-    import Image
-    import ImageOps
+    from PIL import Image, ImageOps
 
 
 def crop(image, mode=None, all=0, left=0, right=0, top=0, bottom=0):

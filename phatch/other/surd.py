@@ -36,7 +36,7 @@
 
 def gcd (m, n):
     while n:
-	m, n = n, m % n
+        m, n = n, m % n
     return m
 
 import math
@@ -45,139 +45,139 @@ class surd:
 
     def __init__ (self, num=0, denom=1):
 
-	# If the constructor arguments were floats, we need to
-	# convert them into a whole number divided by an exponent
-	# of 10.
-	if type (num) == type (0.0):  # Were we handed a float?
-	    np = int (math.pow (10, len (repr(num - int(num))) - 2))
-	    nd = int (num * np)
-	    if type (denom) == type (0.0):  # Is the denominator a float too?
-		dp = int(math.pow (10, len (repr(denom - int(denom))) - 2))
-		dd = int (denom * dp)
-		num = nd * dp
-		denom = dd * np
-	    else:
-		num = nd
-		denom = denom * np
-	elif type (denom) == type (0.0): # Is the denom a float?
-	    dp = int (pow (10, len (repr(denom - int(denom))) - 2))
-	    dd = int (denom * dp)
-	    num = num * dp
-	    denom = dd
-	else:
-	    num = int (num)
-	    denom = int (denom)
+        # If the constructor arguments were floats, we need to
+        # convert them into a whole number divided by an exponent
+        # of 10.
+        if type (num) == type (0.0):  # Were we handed a float?
+            np = int (math.pow (10, len (repr(num - int(num))) - 2))
+            nd = int (num * np)
+            if type (denom) == type (0.0):  # Is the denominator a float too?
+                dp = int(math.pow (10, len (repr(denom - int(denom))) - 2))
+                dd = int (denom * dp)
+                num = nd * dp
+                denom = dd * np
+            else:
+                num = nd
+                denom = denom * np
+        elif type (denom) == type (0.0): # Is the denom a float?
+            dp = int (pow (10, len (repr(denom - int(denom))) - 2))
+            dd = int (denom * dp)
+            num = num * dp
+            denom = dd
+        else:
+            num = int (num)
+            denom = int (denom)
 
-	# Zero divisor is not allowed - nip this in the bud.
-	if denom == 0:
-	    raise ZeroDivisionError
+        # Zero divisor is not allowed - nip this in the bud.
+        if denom == 0:
+            raise ZeroDivisionError
 
-	# Always want the sign to go with the numerator.
-	if denom < 0:   # Think about it ;)
-	    num = -num
-	    denom = -denom
+        # Always want the sign to go with the numerator.
+        if denom < 0:   # Think about it ;)
+            num = -num
+            denom = -denom
 
-	# Reduct the fraction.
-	if num > 0:
-	    d = gcd (abs(num), abs (denom))
-	else:
-	    d = 1
-	self.num = num / d
-	self.denom = denom / d
+        # Reduct the fraction.
+        if num > 0:
+            d = gcd (abs(num), abs (denom))
+        else:
+            d = 1
+        self.num = num / d
+        self.denom = denom / d
 
     def __add__ (self, arg):
-	if not hasattr (arg, 'denom'):
-	    spam = int (arg)
-	    arg = surd (spam)
-	denom = self.denom * arg.denom
-	num = self.denom * arg.num + arg.denom * self.num
-	d = gcd (abs(num), abs(denom))
-	return surd (num / d, denom / d)
+        if not hasattr (arg, 'denom'):
+            spam = int (arg)
+            arg = surd (spam)
+        denom = self.denom * arg.denom
+        num = self.denom * arg.num + arg.denom * self.num
+        d = gcd (abs(num), abs(denom))
+        return surd (num / d, denom / d)
 
     __radd__ = __add__
 
     def __sub__ (self, arg):
-	if not hasattr (arg, 'denom'):
-	    spam = int (arg)
-	    arg = surd (spam)
-	denom = self.denom * arg.denom
-	num = self.num * arg.denom - arg.num * self.denom
-	d = gcd (abs(num), abs(denom))
-	return surd (num / d, denom / d)
+        if not hasattr (arg, 'denom'):
+            spam = int (arg)
+            arg = surd (spam)
+        denom = self.denom * arg.denom
+        num = self.num * arg.denom - arg.num * self.denom
+        d = gcd (abs(num), abs(denom))
+        return surd (num / d, denom / d)
 
     __rsub__ = __sub__
 
     def __mul__ (self, arg):
-	if not hasattr (arg, 'denom'):
-	    spam = int (arg)
-	    arg = surd (spam)
-	s = surd (self.num * arg.num, self.denom * arg.denom)
-	d = gcd (abs(s.num), abs(s.denom))
-	s.num = s.num / d
-	s.denom = s.denom / d
-	return s
+        if not hasattr (arg, 'denom'):
+            spam = int (arg)
+            arg = surd (spam)
+        s = surd (self.num * arg.num, self.denom * arg.denom)
+        d = gcd (abs(s.num), abs(s.denom))
+        s.num = s.num / d
+        s.denom = s.denom / d
+        return s
 
     __rmul__ = __mul__
 
     def __div__ (self, arg):
-	if not hasattr (arg, 'denom'):
-	    spam = int (arg)
-	    arg = surd (spam)
-	s = surd (self.num * arg.denom, self.denom * arg.num)
-	d = gcd (abs(s.num), abs(s.denom))
-	s.num = s.num / d
-	s.denom = s.denom / d
-	if s.denom == 0: raise ZeroDivisionError
-	return s
+        if not hasattr (arg, 'denom'):
+            spam = int (arg)
+            arg = surd (spam)
+        s = surd (self.num * arg.denom, self.denom * arg.num)
+        d = gcd (abs(s.num), abs(s.denom))
+        s.num = s.num / d
+        s.denom = s.denom / d
+        if s.denom == 0: raise ZeroDivisionError
+        return s
 
     __rdiv__ = __div__
 
     def __neg__ (self):
-	return surd (-self.num, self.denom)
+        return surd (-self.num, self.denom)
 
     def __abs__ (self):
-	return surd (abs (self.num), abs (self.denom))
+        return surd (abs (self.num), abs (self.denom))
 
     def __int__ (self):
-	return int (self.num) / int (self.denom)
+        return int (self.num) / int (self.denom)
 
     def __long__ (self):
-	return int (self.num) / int (self.denom)
+        return int (self.num) / int (self.denom)
 
     def __float__ (self):
-	return float (self.num) / float (self.denom)
+        return float (self.num) / float (self.denom)
 
     def __repr__ (self):
-	return repr(self.num) + '/' + repr(self.denom)
+        return repr(self.num) + '/' + repr(self.denom)
 
     def __str__ (self):
-	if self.denom == 1:
-	    return repr(self.num)
-	else:
-	    spam = repr(self.num) + '/' + repr(self.denom)
-	    return spam
+        if self.denom == 1:
+            return repr(self.num)
+        else:
+            spam = repr(self.num) + '/' + repr(self.denom)
+            return spam
 
     def __cmp__ (self, other):
-	if not hasattr (other, 'denom'):
-	    spam = int (other)
-	    other = surd (spam)
+        if not hasattr (other, 'denom'):
+            spam = int (other)
+            other = surd (spam)
 
-	# Make sure we are dealing with a common denominator.
-	spam = self.num * other.denom
-	eggs = other.num * self.denom
+        # Make sure we are dealing with a common denominator.
+        spam = self.num * other.denom
+        eggs = other.num * self.denom
 
-	if spam < eggs:
-	    return -1
-	elif spam > eggs:
-	    return 1
-	else:
-	    return 0
+        if spam < eggs:
+            return -1
+        elif spam > eggs:
+            return 1
+        else:
+            return 0
 
     def __hash__ (self):
-	return hash (repr(self))
+        return hash (repr(self))
 
     def __call__ (self, *args):
-	return 0
+        return 0
 
 
 
@@ -245,20 +245,20 @@ def test_driver ():
 
     # Sanity (div by zero) tests.
     try:
-	z = surd (4, 0)
+        z = surd (4, 0)
     except ZeroDivisionError:
-	pass
+        pass
     else:
-	test_error ()
+        test_error ()
 
     try:
-	z1 = surd (4)
-	z2 = surd () # 0/1
-	z = z1 / z2
+        z1 = surd (4)
+        z2 = surd () # 0/1
+        z = z1 / z2
     except ZeroDivisionError:
-	pass
+        pass
     else:
-	test_error ()
+        test_error ()
 
     # Hash tests
 
@@ -293,14 +293,14 @@ def test_driver ():
     start_time = time.time ()
     a = surd ()
     for i in range (0, 1000):
-	a = a + surd (4, 3)
+        a = a + surd (4, 3)
     print('1000 additions in ', time.time () - start_time, 'seconds')
 
     # Subtraction.
     start_time = time.time ()
     a = surd (10)
     for i in range (0, 1000):
-	a = a - surd (4, 3)
+        a = a - surd (4, 3)
     print('1000 subtractions in ', time.time () - start_time, 'seconds')
 
     # Multiplication.
@@ -308,7 +308,7 @@ def test_driver ():
     a = surd (3.2)
     b = surd (2.1)
     for i in range (0, 1000):
-	c = a * b
+        c = a * b
     print('1000 multiplications in ', time.time () - start_time, 'seconds')
 
     # Division.
@@ -316,7 +316,7 @@ def test_driver ():
     a = surd (4.2)
     b = surd (2.1)
     for i in range (0, 1000):
-	c = a / b
+        c = a / b
     print('1000 divisions in ', time.time () - start_time, 'seconds')
 
 

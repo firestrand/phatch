@@ -37,7 +37,7 @@ def generate(source, size=(48, 48), path=USER_PREVIEW_PATH, force=True):
     source_image.thumbnail(
         (min(source_image.size[0], size[0] * 1),
         min(source_image.size[0], size[0] * 1)),
-        Image.ANTIALIAS)
+        Image.LANCZOS)
     ensure_path(path)
     for Action in list(api.ACTIONS.values()):
         action = Action()
@@ -46,7 +46,7 @@ def generate(source, size=(48, 48), path=USER_PREVIEW_PATH, force=True):
             continue
         action.init()
         result = action.apply_pil(source_image.copy())
-        result.thumbnail(size, Image.ANTIALIAS)
+        result.thumbnail(size, Image.LANCZOS)
         result.save(filename)
 
 

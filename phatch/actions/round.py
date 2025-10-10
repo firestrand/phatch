@@ -31,9 +31,7 @@ from lib.reverse_translation import _t
 
 def init():
     global Image, ImageChops, ImageDraw, imtools
-    import Image
-    import ImageChops
-    import ImageDraw
+    from PIL import Image, ImageChops, ImageDraw
     from lib import imtools
 
 
@@ -121,7 +119,9 @@ def create_corner(radius=100, opacity=255, factor=2):
     draw = ImageDraw.Draw(corner)
     draw.pieslice((0, 0, 2 * factor * radius, 2 * factor * radius),
         180, 270, fill=opacity)
-    corner = corner.resize((radius, radius), Image.ANTIALIAS)
+    # Use LANCZOS for Pillow 10+ compatibility (ANTIALIAS was deprecated)
+    resample = getattr(Image, 'LANCZOS', getattr(Image, 'ANTIALIAS', None))
+    corner = corner.resize((radius, radius), resample)
     return corner
 
 #---Phatch

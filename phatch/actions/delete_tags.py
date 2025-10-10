@@ -43,11 +43,13 @@ class Action(models.Action):
         if method == METHODS[-1]:  # One
             tag = self.get_field('Tag', info)
             del info[tag]
-        elif method == 'all':
-            for tag in info:
+        elif method == METHODS[0]:  # All
+            # Need to iterate over a copy of keys in Python 3
+            for tag in list(info.keys()):
                 del info[tag]
         else:
-            for tag in info:
+            # Need to iterate over a copy of keys in Python 3
+            for tag in list(info.keys()):
                 if tag.startswith(method):
                     del info[tag]
         return photo

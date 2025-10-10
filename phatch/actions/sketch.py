@@ -30,10 +30,7 @@ from lib.reverse_translation import _t
 
 def init():
     global Image, ImageMath, ImageOps, ImageFilter
-    import Image
-    import ImageMath
-    import ImageOps
-    import ImageFilter
+    from PIL import Image, ImageFilter, ImageMath, ImageOps
 
 
 def sketch(image, details_degree=1):

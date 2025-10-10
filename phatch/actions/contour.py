@@ -29,8 +29,7 @@ from lib.imtools import has_transparency, paste
 
 def init():
     global Image, ImageOps, imtools
-    import Image
-    import ImageOps
+    from PIL import Image, ImageOps
     from lib import imtools
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA
@@ -39,7 +38,8 @@ def init():
 def put_border(image, size, offset, contour_color, fill_color, opacity,
         include_image):
     if opacity < 100:
-        fill_color = HTMLColorToRGBA(fill_color, (255 * opacity) / 100)
+        # Convert to int for Pillow 10+ compatibility
+        fill_color = HTMLColorToRGBA(fill_color, int((255 * opacity) / 100))
 
     if not include_image:
         w, h = image.size
@@ -61,15 +61,18 @@ def put_contour(image, size=1, offset=0, contour_color=0, fill_color=0,
     mask = imtools.get_alpha(image)
 
     w, h = image.size
+    # Use LANCZOS for Pillow 10+ compatibility (ANTIALIAS was deprecated)
+    resample = getattr(Image, 'LANCZOS', getattr(Image, 'ANTIALIAS', None))
     outer_mask = mask.resize(
         (w + 2 * (size + offset), h + 2 * (size + offset)),
-        Image.ANTIALIAS)
+        resample)
 
     inner_mask = mask.resize(
         (w + 2 * offset, h + 2 * offset),
-        Image.ANTIALIAS)
+        resample)
     inner_mask = ImageOps.expand(inner_mask, border=size, fill=0)
-    paste(outer_mask, (255 * opacity) / 100, mask=inner_mask)
+    # Convert to int for Pillow 10+ compatibility
+    paste(outer_mask, int((255 * opacity) / 100), mask=inner_mask)
     if include_image:
         image = ImageOps.expand(image, border=size + offset, fill=(0, 0, 0, 0))
         mask = ImageOps.expand(mask, border=size + offset, fill=0)

@@ -69,7 +69,7 @@ def open(uri):
     else:
         image = None
     if image is None:
-        raise IOError(message)
+        raise IOError("Could not open image: %s" % uri)
     return imtools.open_image(uri)
 
 

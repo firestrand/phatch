@@ -26,8 +26,7 @@ from lib.reverse_translation import _t
 
 def init():
     global Image, ImageOps
-    import Image
-    import ImageOps
+    from PIL import Image, ImageOps
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA
 
