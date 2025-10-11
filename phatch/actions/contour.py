@@ -44,12 +44,12 @@ def init(_inject_deps=None):
         return _inject_deps
 
     # Production mode: standard lazy loading
-    global Image, ImageOps, imtools
+    global Image, ImageOps, imtools, pillow_compat
     from PIL import Image, ImageOps
-    from lib import imtools
+    from lib import imtools, pillow_compat
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA
-    return {'Image': Image, 'ImageOps': ImageOps, 'imtools': imtools, 'HTMLColorToRGBA': HTMLColorToRGBA}
+    return {'Image': Image, 'ImageOps': ImageOps, 'imtools': imtools, 'HTMLColorToRGBA': HTMLColorToRGBA, 'pillow_compat': pillow_compat}
 def put_border(image, size, offset, contour_color, fill_color, opacity,
         include_image):
     if opacity < 100:
@@ -76,15 +76,14 @@ def put_contour(image, size=1, offset=0, contour_color=0, fill_color=0,
     mask = imtools.get_alpha(image)
 
     w, h = image.size
-    # Use LANCZOS for Pillow 10+ compatibility (ANTIALIAS was deprecated)
-    resample = getattr(Image, 'LANCZOS', getattr(Image, 'ANTIALIAS', None))
+    # Use pillow_compat for Pillow 10+ compatibility
     outer_mask = mask.resize(
         (w + 2 * (size + offset), h + 2 * (size + offset)),
-        resample)
+        pillow_compat.LANCZOS)
 
     inner_mask = mask.resize(
         (w + 2 * offset, h + 2 * offset),
-        resample)
+        pillow_compat.LANCZOS)
     inner_mask = ImageOps.expand(inner_mask, border=size, fill=0)
     # Convert to int for Pillow 10+ compatibility
     paste(outer_mask, int((255 * opacity) / 100), mask=inner_mask)

@@ -44,11 +44,12 @@ def init(_inject_deps=None):
         return _inject_deps
 
     # Production mode: standard lazy loading
-    global Image, ImageColor, ImageFilter
+    global Image, ImageColor, ImageFilter, pillow_compat
     from PIL import Image, ImageColor, ImageFilter
+    from lib import pillow_compat
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA
-    return {'Image': Image, 'ImageColor': ImageColor, 'ImageFilter': ImageFilter, 'HTMLColorToRGBA': HTMLColorToRGBA}
+    return {'Image': Image, 'ImageColor': ImageColor, 'ImageFilter': ImageFilter, 'HTMLColorToRGBA': HTMLColorToRGBA, 'pillow_compat': pillow_compat}
 REFLECT_ID = 'reflect_w%s_h%s_o%s'
 
 
@@ -75,9 +76,8 @@ def gradient_mask(size, opacity, cache):
     #gradient vector
     vector = gradient_vector(size[1], opacity, cache)
     #scale vector
-    # Use BILINEAR for Pillow 10+ compatibility (LINEAR was renamed)
-    resample = getattr(Image, 'BILINEAR', getattr(Image, 'LINEAR', None))
-    grad = cache[id] = vector.resize(size, resample)
+    # Use pillow_compat for Pillow 10+ compatibility
+    grad = cache[id] = vector.resize(size, pillow_compat.BILINEAR)
     return grad
 
 

@@ -54,11 +54,11 @@ def init(_inject_deps=None):
         return _inject_deps
 
     # Production mode: standard lazy loading
-    global Image, ImageColor, HTMLColorToRGBA, imtools
+    global Image, ImageColor, HTMLColorToRGBA, imtools, pillow_compat
     from PIL import Image, ImageColor
-    from lib import imtools
+    from lib import imtools, pillow_compat
     from lib.colors import HTMLColorToRGBA
-    return {'Image': Image, 'ImageColor': ImageColor, 'HTMLColorToRGBA': HTMLColorToRGBA, 'imtools': imtools}
+    return {'Image': Image, 'ImageColor': ImageColor, 'HTMLColorToRGBA': HTMLColorToRGBA, 'imtools': imtools, 'pillow_compat': pillow_compat}
 def make_grid(image, grid, col_line_width=0, row_line_width=0,
         line_color='#FFFFFF', line_opacity=0, old_size=None, scale=True):
 
@@ -80,10 +80,9 @@ def make_grid(image, grid, col_line_width=0, row_line_width=0,
         s = sqrt(cols * rows)
         old_size = tuple([int(x / s) for x in old_size])
         # To scale down we need to make the image processing safe.
-        # Use LANCZOS for Pillow 10+ compatibility (ANTIALIAS was deprecated)
-        resample = getattr(Image, 'LANCZOS', getattr(Image, 'ANTIALIAS', None))
+        # Use pillow_compat for Pillow 10+ compatibility
         image = imtools.convert_safe_mode(image)\
-            .resize(old_size, resample)
+            .resize(old_size, pillow_compat.LANCZOS)
 
     #displacement
     dx, dy = old_size

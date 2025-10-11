@@ -46,10 +46,10 @@ def init(_inject_deps=None):
         return _inject_deps
 
     # Production mode: standard lazy loading
-    global Image, ImageChops, ImageDraw, imtools
+    global Image, ImageChops, ImageDraw, imtools, pillow_compat
     from PIL import Image, ImageChops, ImageDraw
-    from lib import imtools
-    return {'Image': Image, 'ImageChops': ImageChops, 'ImageDraw': ImageDraw, 'imtools': imtools}
+    from lib import imtools, pillow_compat
+    return {'Image': Image, 'ImageChops': ImageChops, 'ImageDraw': ImageDraw, 'imtools': imtools, 'pillow_compat': pillow_compat}
 # Declare constants here
 
 CROSS = _t('Cross')
@@ -134,9 +134,8 @@ def create_corner(radius=100, opacity=255, factor=2):
     draw = ImageDraw.Draw(corner)
     draw.pieslice((0, 0, 2 * factor * radius, 2 * factor * radius),
         180, 270, fill=opacity)
-    # Use LANCZOS for Pillow 10+ compatibility (ANTIALIAS was deprecated)
-    resample = getattr(Image, 'LANCZOS', getattr(Image, 'ANTIALIAS', None))
-    corner = corner.resize((radius, radius), resample)
+    # Use pillow_compat for Pillow 10+ compatibility
+    corner = corner.resize((radius, radius), pillow_compat.LANCZOS)
     return corner
 
 #---Phatch
