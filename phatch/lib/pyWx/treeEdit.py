@@ -414,7 +414,8 @@ class TreeMixin(treeDragDrop.Mixin):
 
         def on_change(value_as_string):
             field.set_as_string(value_as_string)
-            self.update_form_relevance(item)
+            # Don't update relevance during change - wait until popup closes
+            # self.update_form_relevance(item)
         if isinstance(field, formField.SliderField):
             extra = {'minValue': field.min, 'maxValue': field.max}
         elif isinstance(field, formField.ChoiceField):
@@ -473,7 +474,8 @@ class TreeMixin(treeDragDrop.Mixin):
         if self.popup:
             value_as_string = self.popup.Close()
             self.set_form_field_value(self.popup_item, value_as_string)
-            # self.update_form_relevance(self.popup_item)
+            # Update form relevance AFTER popup closes, not during dropdown interaction
+            self.update_form_relevance(self.popup_item)
         self.popup = self.popup_item = None
 
 # #    This would be logical but only works in wxPython2.6
