@@ -411,7 +411,7 @@ class ActionListBox(ContentMixin, vlistTag.Box):
         item = wx.MenuItem(menu, self.id_view_source, _("View Source"))
         item.SetBitmap(graphics.bitmap('ART_FIND', (16, 16)))
         self.Bind(wx.EVT_MENU, self.OnViewSource, id=self.id_view_source)
-        menu.AppendItem(item)
+        menu.Append(item)
         #show menu
         self.PopupMenu(menu)
         #destroy menu

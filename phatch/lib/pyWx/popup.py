@@ -397,7 +397,6 @@ class ColorCtrl(_Ctrl, wx.lib.colourselect.ColourSelect):
         self.Bind(wx.lib.colourselect.EVT_COLOURSELECT, self.OnSelectColor)
         wx.CallAfter(self.SetLabel, label)
         wx.CallAfter(self.SetValue, value)
-        wx.CallAfter(self.OnClick, None)
 
     def GetValue(self):
         return self.GetColorAsString()
@@ -412,7 +411,7 @@ class ColorCtrl(_Ctrl, wx.lib.colourselect.ColourSelect):
     def OnSelectColor(self, event):
         color = event.GetValue()
         self.SetLabel(self.GetColorAsString(color))
-        self.SetValue(wx.NamedColour(color))
+        self.SetValue(wx.Colour(color))
 
 
 class FileCtrl(_PathCtrl):

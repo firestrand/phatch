@@ -457,7 +457,9 @@ class TreeMixin(treeDragDrop.Mixin):
                                 border=1, CtrlMixin=self.CtrlMixin)
         self.popup.Show()
         self.resize_popup()
-        if not isinstance(field, formField.FontFileField):
+        # Don't bind EVT_LEAVE_WINDOW for fields that open modal dialogs
+        # (prevents widget destruction while dialog is active)
+        if not isinstance(field, (formField.FontFileField, formField.ColorField)):
             wx.GetTopLevelParent(self).Bind(wx.EVT_LEAVE_WINDOW,
                 self.close_popup)
             self.evt_leave_window = True
