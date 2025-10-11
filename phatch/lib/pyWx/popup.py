@@ -390,13 +390,30 @@ class ImageDictionaryFileCtrl(_CtrlRelevantMixin, _Ctrl, wx.Button):
 class ColorCtrl(_Ctrl, wx.lib.colourselect.ColourSelect):
 
     def __init__(self, parent, value, size):
-        label = value
+        # Store original value for label
+        original_value = value
+
+        # Convert value to wx.Colour object for parent class
         if isinstance(value, str):
-            value = HTMLColorToRGB(value)
-        super(ColorCtrl, self).__init__(parent, -1, '', value, size=size)
+            rgb = HTMLColorToRGB(value)
+            colour_obj = wx.Colour(*rgb)
+        elif isinstance(value, tuple):
+            colour_obj = wx.Colour(*value)
+        else:
+            colour_obj = value
+
+        # Initialize parent with wx.Colour object
+        super(ColorCtrl, self).__init__(parent, -1, '', colour_obj, size=size)
+
+        # Explicitly set the colour to ensure it's properly initialized
+        # This ensures the color dialog opens with the correct color
+        self.SetColour(colour_obj)
+
         self.Bind(wx.lib.colourselect.EVT_COLOURSELECT, self.OnSelectColor)
-        wx.CallAfter(self.SetLabel, label)
-        wx.CallAfter(self.SetValue, value)
+
+        # Set label to show the HTML color string
+        if isinstance(original_value, str):
+            wx.CallAfter(self.SetLabel, original_value)
 
     def GetValue(self):
         return self.GetColorAsString()

@@ -121,7 +121,7 @@ class Action(models.Action):
         fields[_t('Right')] = self.PixelField('0px', choices=CHOICES)
         fields[_t('Top')] = self.PixelField('0px', choices=CHOICES)
         fields[_t('Bottom')] = self.PixelField('0px', choices=CHOICES)
-        fields[_t('Color')] = self.ColorField('#000000')
+        fields[_t('Color')] = self.ColorField('#FFFFFF')  # White default for better UX
         fields[_t('Opacity')] = self.SliderField(100, 1, 100)
 
     def values(self, info):
