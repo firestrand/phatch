@@ -32,12 +32,27 @@ from core.translation import _t
 
 
 #---PIL
-def init():
+def init(_inject_deps=None):
+    """Initialize action dependencies.
+
+    Args:
+        _inject_deps: For testing only. Dictionary of dependencies to inject.
+                     If None, uses standard global imports.
+
+    Returns:
+        Dictionary of loaded dependencies (for testing verification)
+    """
+    if _inject_deps:
+        # Testing mode: inject mocked dependencies
+        for name, value in _inject_deps.items():
+            globals()[name] = value
+        return _inject_deps
+
+    # Production mode: standard lazy loading
     global Image, ImageMath, ImageColor, imtools
     from PIL import Image, ImageColor, ImageMath
     from lib import imtools
-
-
+    return {'Image': Image, 'ImageMath': ImageMath, 'ImageColor': ImageColor, 'imtools': imtools}
 def warmup(image, midtone, brighten, amount=100):
     """Apply a toning filter. Move the midtones to the desired
     color while preserving blacks and whites with optional mixing

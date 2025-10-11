@@ -27,12 +27,28 @@ from lib.imtools import has_alpha, has_transparency, paste
 #---Pil
 
 
-def init():
+def init(_inject_deps=None):
+    """Initialize action dependencies.
+
+    Args:
+        _inject_deps: For testing only. Dictionary of dependencies to inject.
+                     If None, uses standard global imports.
+
+    Returns:
+        Dictionary of loaded dependencies (for testing verification)
+    """
+    if _inject_deps:
+        # Testing mode: inject mocked dependencies
+        for name, value in _inject_deps.items():
+            globals()[name] = value
+        return _inject_deps
+
+    # Production mode: standard lazy loading
     global Image, ImageColor, ImageFilter
     from PIL import Image, ImageColor, ImageFilter
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA
-
+    return {'Image': Image, 'ImageColor': ImageColor, 'ImageFilter': ImageFilter, 'HTMLColorToRGBA': HTMLColorToRGBA}
 REFLECT_ID = 'reflect_w%s_h%s_o%s'
 
 

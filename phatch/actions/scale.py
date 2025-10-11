@@ -22,11 +22,26 @@ from core import models
 from lib.reverse_translation import _t
 
 
-def init():
+def init(_inject_deps=None):
+    """Initialize action dependencies.
+
+    Args:
+        _inject_deps: For testing only. Dictionary of dependencies to inject.
+                     If None, uses standard global imports.
+
+    Returns:
+        Dictionary of loaded dependencies (for testing verification)
+    """
+    if _inject_deps:
+        # Testing mode: inject mocked dependencies
+        for name, value in _inject_deps.items():
+            globals()[name] = value
+        return _inject_deps
+
+    # Production mode: standard lazy loading
     global Image
     from PIL import Image
-
-
+    return {'Image': Image}
 def preserve_proportions(x0, y0, x1, y1):
     scaleX = float(x1) / x0
     scaleY = float(y1) / y0

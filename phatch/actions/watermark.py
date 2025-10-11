@@ -25,14 +25,28 @@ from lib.reverse_translation import _t
 from lib.imtools import convert_safe_mode
 
 
-def init():
-    #lazily import
+def init(_inject_deps=None):
+    """Initialize action dependencies.
+
+    Args:
+        _inject_deps: For testing only. Dictionary of dependencies to inject.
+                     If None, uses standard global imports.
+
+    Returns:
+        Dictionary of loaded dependencies (for testing verification)
+    """
+    if _inject_deps:
+        # Testing mode: inject mocked dependencies
+        for name, value in _inject_deps.items():
+            globals()[name] = value
+        return _inject_deps
+
+    # Production mode: standard lazy loading
     global Image
     from PIL import Image
     global generate_layer
     from lib.imtools import generate_layer
-
-
+    return {'Image': Image, 'generate_layer': generate_layer}
 def watermark(image, mark, horizontal_offset=None, vertical_offset=None,
         horizontal_justification=None, vertical_justification=None,
         orientation=None, method=None, opacity=100):

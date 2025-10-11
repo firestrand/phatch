@@ -27,11 +27,26 @@ from lib.imtools import auto_crop
 #---PIL
 
 
-def init():
+def init(_inject_deps=None):
+    """Initialize action dependencies.
+
+    Args:
+        _inject_deps: For testing only. Dictionary of dependencies to inject.
+                     If None, uses standard global imports.
+
+    Returns:
+        Dictionary of loaded dependencies (for testing verification)
+    """
+    if _inject_deps:
+        # Testing mode: inject mocked dependencies
+        for name, value in _inject_deps.items():
+            globals()[name] = value
+        return _inject_deps
+
+    # Production mode: standard lazy loading
     global Image, ImageOps
     from PIL import Image, ImageOps
-
-
+    return {'Image': Image, 'ImageOps': ImageOps}
 def crop(image, mode=None, all=0, left=0, right=0, top=0, bottom=0):
     if mode == _t('Auto'):
         image = auto_crop(image)

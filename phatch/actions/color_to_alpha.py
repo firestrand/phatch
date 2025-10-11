@@ -36,14 +36,29 @@ OPTIONS = [
 #---PIL
 
 
-def init():
+def init(_inject_deps=None):
+    """Initialize action dependencies.
+
+    Args:
+        _inject_deps: For testing only. Dictionary of dependencies to inject.
+                     If None, uses standard global imports.
+
+    Returns:
+        Dictionary of loaded dependencies (for testing verification)
+    """
+    if _inject_deps:
+        # Testing mode: inject mocked dependencies
+        for name, value in _inject_deps.items():
+            globals()[name] = value
+        return _inject_deps
+
+    # Production mode: standard lazy loading
     global Image, ImageOps, ImageMath, imtools
     from PIL import Image, ImageMath, ImageOps
     from lib import imtools
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA
-
-
+    return {'Image': Image, 'ImageOps': ImageOps, 'ImageMath': ImageMath, 'imtools': imtools, 'HTMLColorToRGBA': HTMLColorToRGBA}
 def difference1(source, color):
     """When source is bigger than color"""
     return (source - color) / (255.0 - color)

@@ -27,14 +27,29 @@ from lib.imtools import has_transparency, paste
 #---PIL
 
 
-def init():
+def init(_inject_deps=None):
+    """Initialize action dependencies.
+
+    Args:
+        _inject_deps: For testing only. Dictionary of dependencies to inject.
+                     If None, uses standard global imports.
+
+    Returns:
+        Dictionary of loaded dependencies (for testing verification)
+    """
+    if _inject_deps:
+        # Testing mode: inject mocked dependencies
+        for name, value in _inject_deps.items():
+            globals()[name] = value
+        return _inject_deps
+
+    # Production mode: standard lazy loading
     global Image, ImageOps, imtools
     from PIL import Image, ImageOps
     from lib import imtools
     global HTMLColorToRGBA
     from lib.colors import HTMLColorToRGBA
-
-
+    return {'Image': Image, 'ImageOps': ImageOps, 'imtools': imtools, 'HTMLColorToRGBA': HTMLColorToRGBA}
 def put_border(image, size, offset, contour_color, fill_color, opacity,
         include_image):
     if opacity < 100:

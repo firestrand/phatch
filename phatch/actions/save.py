@@ -28,12 +28,28 @@ from lib.reverse_translation import _t
 #no need to lazily import these as they are always imported
 
 
-def init():
+def init(_inject_deps=None):
+    """Initialize action dependencies.
+
+    Args:
+        _inject_deps: For testing only. Dictionary of dependencies to inject.
+                     If None, uses standard global imports.
+
+    Returns:
+        Dictionary of loaded dependencies (for testing verification)
+    """
+    if _inject_deps:
+        # Testing mode: inject mocked dependencies
+        for name, value in _inject_deps.items():
+            globals()[name] = value
+        return _inject_deps
+
+    # Production mode: standard lazy loading
     global Image
     from PIL import Image
     global get_quality, get_size, InvalidWriteFormatError
     from lib.imtools import get_quality, get_size, InvalidWriteFormatError
-
+    return {'Image': Image, 'get_quality': get_quality, 'get_size': get_size, 'InvalidWriteFormatError': InvalidWriteFormatError}
 SIZES = ['0', '10', '20', '50', '100', '200', '500', '1000', '2000', '5000']
 TOLERANCES = ['0', '1', '2', '5', '10', '20', '50']
 

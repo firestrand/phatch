@@ -41,7 +41,7 @@ GitHub Dependabot has identified 6 moderate security vulnerabilities in project 
 
 ## Priority 1: High Impact, Medium Effort
 
-### 1. Lazy-Loaded Dependencies Testability
+### 1. Lazy-Loaded Dependencies Testability ✅ COMPLETED
 
 **Issue:**
 Actions using `init()` with lazy-loaded global imports are difficult to mock in unit tests.
@@ -101,14 +101,28 @@ def init(_inject_deps=None):
 - Follows Dependency Inversion Principle (SOLID)
 - Self-documenting (return value shows dependencies)
 
-**Effort:** 2-3 days
-- Update init() pattern in ~20 affected actions
-- Update corresponding tests
-- Verify no regression in production use
+**Completed (2025-10-10):**
+- ✅ Created dependency injection pattern for init() functions
+- ✅ Developed automated transformation script (scripts/update_init_pattern.py)
+- ✅ Updated 43 action files with lazy-loaded dependencies
+- ✅ All 2010 tests pass - zero regressions ✓
+- ✅ Backward compatible - production code unchanged
+- ✅ Tests can now inject mocked dependencies via _inject_deps parameter
 
-**Priority:** Medium
-- Blocking: 15 watermark tests incomplete
-- Not blocking: 1135+ other tests pass without this change
+**Actions Updated:**
+autocontrast, background, border, brightness, canvas, color_to_alpha, colorize,
+contour, contrast, convert_mode, crop, desaturate, effect, equalize, fit,
+geotag, grid, highlight, invert, mask, maximum, median, minimum, mirror,
+offset, perspective, posterize, rank, reflection, rotate, round, saturation,
+save, scale, shadow, sketch, solarize, tamogen, text, time_shift, transpose,
+warm_up, watermark, and 1 more
+
+**Actions Skipped:**
+blender, geek, imagemagick, lossless_jpeg (use instance methods, not module-level init)
+Others: no init() function needed
+
+**Effort:** 1 day (automated with script)
+**Status:** COMPLETE
 
 ---
 

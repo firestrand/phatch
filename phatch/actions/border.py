@@ -27,10 +27,26 @@ from lib.imtools import has_transparency, paste
 #---PIL
 
 
-def init():
+def init(_inject_deps=None):
+    """Initialize action dependencies.
+
+    Args:
+        _inject_deps: For testing only. Dictionary of dependencies to inject.
+                     If None, uses standard global imports.
+
+    Returns:
+        Dictionary of loaded dependencies (for testing verification)
+    """
+    if _inject_deps:
+        # Testing mode: inject mocked dependencies
+        for name, value in _inject_deps.items():
+            globals()[name] = value
+        return _inject_deps
+
+    # Production mode: standard lazy loading
     global Image, ImageDraw
     from PIL import Image, ImageDraw
-
+    return {'Image': Image, 'ImageDraw': ImageDraw}
 OPTIONS = [_t('Equal for all sides'), _t('Different for each side')]
 
 

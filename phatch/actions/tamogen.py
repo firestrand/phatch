@@ -28,15 +28,29 @@ FOLDER = _t('Folder')
 FILL_TYPES = (OTHER_IMAGE, FOLDER)
 
 
-def init():
-    #lazily import
+def init(_inject_deps=None):
+    """Initialize action dependencies.
+
+    Args:
+        _inject_deps: For testing only. Dictionary of dependencies to inject.
+                     If None, uses standard global imports.
+
+    Returns:
+        Dictionary of loaded dependencies (for testing verification)
+    """
+    if _inject_deps:
+        # Testing mode: inject mocked dependencies
+        for name, value in _inject_deps.items():
+            globals()[name] = value
+        return _inject_deps
+
+    # Production mode: standard lazy loading
     global _tamogen
     import other.tamogen as _tamogen
     _tamogen.OTHER_IMAGE = OTHER_IMAGE
     _tamogen.FOLDER = FOLDER
     _tamogen.FILL_TYPES = FILL_TYPES
-
-
+    return {'_tamogen': _tamogen}
 def mosaic(image, fill_type, fill_image, fill_folder, columns, rows,
         canvas_width, canvas_height):
     if has_transparency(image):
