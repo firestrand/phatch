@@ -149,12 +149,13 @@ class _CtrlRelevantMixin:
         if event:
             event.Skip()
         if hasattr(self, 'on_change'):
-            self.on_change(str(self.Get()))
-        #other option in case troubles pop up (see also Close method)
-        #wx.CallAfter(self.OnAfterChange)
+            # Use CallAfter to allow dropdown to complete before triggering update
+            # This fixes the issue where dropdown closes immediately on click
+            wx.CallAfter(self.OnAfterChange)
 
     def OnAfterChange(self):
-        self.on_change(str(self.Get()))
+        if hasattr(self, 'on_change'):
+            self.on_change(str(self.Get()))
 
 
 class TextCtrl(_CtrlRelevantMixin, _CtrlChoices, wx.ComboBox):
