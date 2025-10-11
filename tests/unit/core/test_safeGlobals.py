@@ -224,23 +224,32 @@ class TestSafeGlobalsFunction:
         assert isinstance(result, dict)
 
     def test_safe_globals_includes_math(self):
-        """safe_globals should include math module functions."""
+        """safe_globals should include essential math functions only."""
         result = safeGlobals.safe_globals()
 
+        # Essential math functions for dimension calculations
         assert 'sqrt' in result
-        assert 'sin' in result
-        assert 'cos' in result
-        assert 'tan' in result
+        assert 'min' in result
+        assert 'max' in result
+        assert 'abs' in result
+        assert 'ceil' in result
+        assert 'floor' in result
         assert 'pi' in result
         assert 'e' in result
 
-    def test_safe_globals_includes_random(self):
-        """safe_globals should include random module functions."""
+        # Advanced trig functions should NOT be included (minimal whitelist)
+        assert 'sin' not in result
+        assert 'cos' not in result
+        assert 'tan' not in result
+
+    def test_safe_globals_excludes_random(self):
+        """safe_globals should NOT include random functions (not needed)."""
         result = safeGlobals.safe_globals()
 
-        assert 'randint' in result
-        assert 'random' in result
-        assert 'choice' in result
+        # Random functions not needed for filename/dimension expressions
+        assert 'randint' not in result
+        assert 'random' not in result
+        assert 'choice' not in result
 
     def test_safe_globals_includes_now(self):
         """safe_globals should include now function from metadata."""
@@ -263,10 +272,12 @@ class TestSafeGlobalsFunction:
         """safe_globals math functions should be functional."""
         result = safeGlobals.safe_globals()
 
-        # Test some math operations
+        # Test essential math operations (those in the whitelist)
         assert result['sqrt'](25) == 5.0
         assert result['pow'](2, 3) == 8.0
-        assert abs(result['sin'](0)) < 0.0001
+        assert result['min'](5, 10) == 5
+        assert result['max'](5, 10) == 10
+        assert result['abs'](-5) == 5
 
     def test_safe_globals_new_dict_each_call(self):
         """safe_globals should return new dict each call."""
@@ -290,13 +301,18 @@ class TestSafeGlobalsFunction:
         assert hasattr(timestamp, '__str__')
 
     def test_safe_globals_count(self):
-        """safe_globals should have reasonable number of items."""
+        """safe_globals should have minimal number of items (security)."""
         result = safeGlobals.safe_globals()
 
-        # Should have math + random functions + now
-        # Math has ~50 items, random has ~30 items
-        # Exact count depends on Python version, but should be > 50
-        assert len(result) > 50
+        # Should have only essential functions (minimal whitelist approach):
+        # Basic math (6): abs, min, max, round, pow, sum
+        # Math module (3): sqrt, ceil, floor
+        # Constants (2): pi, e
+        # Types (3): int, float, str
+        # Boolean (2): True, False
+        # Metadata (1): now
+        # Total: ~17 functions
+        assert 15 <= len(result) <= 20, f"Expected 15-20 functions, got {len(result)}"
 
     def test_safe_globals_no_builtins(self):
         """safe_globals should not include dangerous builtins."""
@@ -313,29 +329,33 @@ class TestIntegrationScenarios:
     """Test realistic usage scenarios for safe globals."""
 
     def test_math_expression_evaluation(self):
-        """Test evaluating math expressions with safe_globals."""
+        """Test evaluating essential math expressions with safe_globals."""
         globals_dict = safeGlobals.safe_globals()
 
-        # These expressions should work
+        # Essential math functions should work
         result1 = eval('sqrt(16)', globals_dict)
         assert result1 == 4.0
 
         result2 = eval('pi * 2', globals_dict)
         assert abs(result2 - 6.283185) < 0.00001
 
-        result3 = eval('sin(pi / 2)', globals_dict)
-        assert abs(result3 - 1.0) < 0.0001
+        result3 = eval('min(5, 10)', globals_dict)
+        assert result3 == 5
 
-    def test_random_expression_evaluation(self):
-        """Test evaluating random expressions with safe_globals."""
+        result4 = eval('max(5, 10)', globals_dict)
+        assert result4 == 10
+
+    def test_random_expressions_not_available(self):
+        """Random functions should NOT be available (minimal whitelist)."""
+        import pytest
         globals_dict = safeGlobals.safe_globals()
 
-        # Random functions should work
-        result = eval('randint(1, 10)', globals_dict)
-        assert 1 <= result <= 10
+        # Random functions should NOT be in globals (security reduction)
+        with pytest.raises(NameError):
+            eval('randint(1, 10)', globals_dict)
 
-        result = eval('choice([1, 2, 3])', globals_dict)
-        assert result in [1, 2, 3]
+        with pytest.raises(NameError):
+            eval('choice([1, 2, 3])', globals_dict)
 
     def test_combined_expression_evaluation(self):
         """Test evaluating expressions combining math and other functions."""
@@ -358,11 +378,16 @@ class TestIntegrationScenarios:
 
 
 class TestSecurityConcerns:
-    """Test known security vulnerabilities (documenting for refactoring).
+    """Test security of safe_globals() combined with safe.py validation.
 
-    WARNING: These tests demonstrate that safe_globals() is NOT secure.
-    This is intentional documentation for refactoring efforts.
-    DO NOT use safe_globals() for actual security!
+    SECURITY MODEL: safe_globals() alone is NOT secure. Combined with
+    safe.py's assert_safe() validation of code.co_names, it provides
+    defense-in-depth protection against code injection.
+
+    These tests verify that:
+    1. Dangerous functions are not in safe_globals()
+    2. Object introspection attacks are blocked by safe.py
+    3. Only minimal needed functions are exposed (reduced attack surface)
     """
 
     def test_security_note_in_docstring(self):
@@ -372,25 +397,159 @@ class TestSecurityConcerns:
         assert __doc__ is not None
         assert 'SECURITY' in __doc__
 
-    def test_no_builtins_in_globals(self):
-        """Document that builtins are not explicitly included."""
+    def test_no_dangerous_builtins_in_globals(self):
+        """Dangerous builtins should not be in safe_globals()."""
         result = safeGlobals.safe_globals()
 
         # These dangerous builtins should not be explicitly added
         assert 'eval' not in result
         assert 'exec' not in result
         assert '__import__' not in result
+        assert 'compile' not in result
+        assert 'open' not in result
+        assert 'file' not in result
 
-        # Note: This doesn't make eval() safe! Attackers can still access
-        # these through object introspection.
+    def test_no_random_functions_exposed(self):
+        """Random functions should not be exposed (not needed for expressions)."""
+        result = safeGlobals.safe_globals()
+
+        # Random module functions are not needed for dimension/filename expressions
+        assert 'random' not in result
+        assert 'randint' not in result
+        assert 'choice' not in result
+        assert 'Random' not in result  # No class constructors
+        assert 'SystemRandom' not in result
+        assert 'getstate' not in result  # No state manipulation
+        assert 'setstate' not in result
+
+    def test_no_advanced_math_exposed(self):
+        """Advanced math functions should not be exposed unless needed."""
+        result = safeGlobals.safe_globals()
+
+        # Trigonometric functions not needed for typical expressions
+        assert 'sin' not in result
+        assert 'cos' not in result
+        assert 'tan' not in result
+        assert 'asin' not in result
+        assert 'acos' not in result
+        assert 'atan' not in result
+
+    def test_minimal_whitelist_size(self):
+        """safe_globals() should have minimal number of functions."""
+        result = safeGlobals.safe_globals()
+
+        # Should have ~20 functions, not 94 like before
+        # Basic math (6): abs, min, max, round, pow, sum
+        # Math module (3): sqrt, ceil, floor
+        # Constants (2): pi, e
+        # Types (3): int, float, str
+        # Boolean (2): True, False
+        # Metadata (1): now
+        # Total: ~17 functions
+        assert len(result) < 30, f"Too many functions exposed: {len(result)}"
+        assert len(result) >= 15, f"Too few functions: {len(result)}"
 
     def test_namespace_is_dict(self):
-        """Document that result is a plain dict."""
+        """safe_globals() returns a plain dict."""
         result = safeGlobals.safe_globals()
 
         # It's a dict, not a custom restricted type
         assert isinstance(result, dict)
         assert type(result).__name__ == 'dict'  # Specifically dict, not subclass
 
-        # This means eval() with this dict is NOT secure - attackers can
-        # escape through ''.__class__.__bases__[0].__subclasses__() etc.
+        # This is OK because safe.py's assert_safe() validates code.co_names
+
+
+class TestSecurityWithSafePy:
+    """Test that safe_globals() + safe.py together block attacks.
+
+    These tests verify that the two-layer security model works:
+    1. safe_globals() provides minimal function set
+    2. safe.py validates code.co_names before eval()
+    """
+
+    def test_object_introspection_blocked(self):
+        """Object introspection attacks should be blocked by safe.py."""
+        import pytest
+        from phatch.lib.safe import eval_safe, UnsafeError, SAFE
+
+        def validate(names, _globals, _locals):
+            not_allowed = [name for name in names
+                if not (name in _globals or name in _locals or name in SAFE['all'])]
+            return not_allowed
+
+        # Attempt object introspection
+        with pytest.raises(UnsafeError) as exc_info:
+            eval_safe("''.__class__", safeGlobals.safe_globals(), {}, validate)
+
+        assert '__class__' in str(exc_info.value)
+
+    def test_import_blocked(self):
+        """__import__ should be blocked by safe.py."""
+        import pytest
+        from phatch.lib.safe import eval_safe, UnsafeError, SAFE
+
+        def validate(names, _globals, _locals):
+            not_allowed = [name for name in names
+                if not (name in _globals or name in _locals or name in SAFE['all'])]
+            return not_allowed
+
+        # Attempt to import
+        with pytest.raises(UnsafeError) as exc_info:
+            eval_safe('__import__("os")', safeGlobals.safe_globals(), {}, validate)
+
+        assert '__import__' in str(exc_info.value)
+
+    def test_basic_math_expressions_work(self):
+        """Basic math expressions should work with safe_globals."""
+        from phatch.lib.safe import eval_safe, SAFE
+
+        def validate(names, _globals, _locals):
+            not_allowed = [name for name in names
+                if not (name in _globals or name in _locals or name in SAFE['all'])]
+            return not_allowed
+
+        # Simple arithmetic (operators don't appear in co_names)
+        result = eval_safe('2 + 2', safeGlobals.safe_globals(), {}, validate)
+        assert result == 4
+
+        # Using min() with variables
+        result = eval_safe('min(width, height)',
+                          safeGlobals.safe_globals(),
+                          {'width': 100, 'height': 200},
+                          validate)
+        assert result == 100
+
+        # Using sqrt from globals
+        result = eval_safe('sqrt(16)', safeGlobals.safe_globals(), {}, validate)
+        assert result == 4.0
+
+    def test_common_phatch_expressions_work(self):
+        """Common Phatch expression patterns should work."""
+        from phatch.lib.safe import compile_expr, format_expr, SAFE
+
+        def validate(names, _globals, _locals):
+            not_allowed = [name for name in names
+                if not (name in _globals or name in _locals or name in SAFE['all'])]
+            return not_allowed
+
+        _globals = safeGlobals.safe_globals()
+        _locals = {
+            'width': 1920,
+            'height': 1080,
+            'filename': 'test.jpg',
+            'index': 0,
+        }
+
+        # Simple variable substitution
+        result = compile_expr('<filename>', _globals, _locals, validate)
+        assert result == 'test.jpg'
+
+        # Math expression
+        result = compile_expr('<min(width,height)>', _globals, _locals, validate)
+        assert result == '1080'
+
+        # Formatting with math
+        result = compile_expr('<###(index+1)>', _globals, _locals, validate,
+                            preprocess=format_expr)
+        assert result == '001'

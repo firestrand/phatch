@@ -53,8 +53,52 @@ def add_module(namespace, module):
 
 
 def safe_globals():
+    """Create a restricted namespace for safe expression evaluation.
+
+    This provides only the functions needed for Phatch expressions like:
+    - <width>, <height> (variables from _locals)
+    - <min(width, height)> (basic math)
+    - <###(index+1)> (formatting with arithmetic)
+    - <year>, <monthname> (date/time from metadata)
+
+    Security: Combined with safe.py's assert_safe() validation of code.co_names,
+    this prevents code injection attacks. All names in expressions must be in:
+    - This globals dict (math functions below)
+    - _locals dict (user image info)
+    - SAFE['all'] list (safe builtins: min, max, int, str, etc.)
+
+    Any attempt to use __class__, __import__, eval, exec, etc. will be blocked
+    by the co_names validator in safe.py.
+    """
     GLOBALS = {}
-    add_module(GLOBALS, math)
-    add_module(GLOBALS, random)
+
+    # Basic math functions (most commonly needed for dimension calculations)
+    GLOBALS['abs'] = abs
+    GLOBALS['min'] = min
+    GLOBALS['max'] = max
+    GLOBALS['round'] = round
+    GLOBALS['pow'] = pow
+    GLOBALS['sum'] = sum
+
+    # Math module functions (for advanced expressions)
+    GLOBALS['sqrt'] = math.sqrt
+    GLOBALS['ceil'] = math.ceil
+    GLOBALS['floor'] = math.floor
+
+    # Math constants (may be useful for calculations)
+    GLOBALS['pi'] = math.pi
+    GLOBALS['e'] = math.e
+
+    # Type conversions (needed for field validation)
+    GLOBALS['int'] = int
+    GLOBALS['float'] = float
+    GLOBALS['str'] = str
+
+    # Boolean constants (needed for conditionals)
+    GLOBALS['True'] = True
+    GLOBALS['False'] = False
+
+    # Metadata function for date/time expressions
     GLOBALS['now'] = now
+
     return GLOBALS

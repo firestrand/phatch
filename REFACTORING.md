@@ -37,6 +37,99 @@ GitHub Dependabot has identified 6 moderate security vulnerabilities in project 
 
 **Reference:** https://github.com/firestrand/phatch/security/dependabot
 
+### 2. Expression Evaluation Security Hardening ✅ COMPLETED
+
+**Issue:**
+The `safe_globals()` function exposed 94 functions from math and random modules to user expressions, creating unnecessary attack surface. While the two-layer security model (safe_globals + safe.py's code.co_names validation) was already effective at blocking attacks, the large whitelist violated the principle of least privilege.
+
+**Previous State:**
+```python
+def safe_globals():
+    GLOBALS = {}
+    add_module(GLOBALS, math)      # Exposed all 61 math functions
+    add_module(GLOBALS, random)    # Exposed all 32 random functions
+    GLOBALS['now'] = now
+    return GLOBALS  # Total: 94 functions
+```
+
+**Security Model (How It Actually Works):**
+The security is provided by TWO layers working together:
+
+1. **safe_globals()** - Provides namespace for eval()
+   - Exposes only whitelisted functions (math, etc.)
+   - Does NOT prevent attacks on its own
+
+2. **safe.py's assert_safe()** - The real security layer
+   - Compiles expressions using Python's `compile()`
+   - Extracts all names via `code.co_names`
+   - Validates each name against whitelist:
+     - `_globals` (from safe_globals)
+     - `_locals` (user image info: width, height, etc.)
+     - `SAFE['all']` (safe builtins: min, max, int, str, etc.)
+   - **Blocks any name not in whitelist** (prevents `__class__`, `__import__`, etc.)
+
+**Example Attack Prevention:**
+```python
+eval("''.__class__", safe_globals())  # ✗ BLOCKED
+# Reason: '__class__' appears in code.co_names
+#         and is not in any whitelist
+```
+
+**Analysis of Actual Usage:**
+Surveyed all .phatch actionlist files and found only these expression patterns:
+- Simple variables: `<width>`, `<height>`, `<filename>`, `<dpi>`
+- Date/time: `<year>`, `<month>`, `<day>`, `<hour>`, `<minute>`
+- One math expression: `<min(width,height)>`
+- Formatting: `<###(index+1)>`
+
+No usage of:
+- Random functions (random, randint, choice)
+- Advanced math (sin, cos, tan, etc.)
+- Statistical functions
+
+**Completed (2025-10-11):**
+- ✅ Reduced safe_globals() from 94 functions to 17 functions (82% reduction)
+- ✅ Removed all random module functions (not needed for expressions)
+- ✅ Removed advanced math (trig, statistics) - kept only essentials
+- ✅ Added comprehensive security tests (10 new tests):
+  - Verify dangerous functions excluded (eval, exec, __import__)
+  - Verify random functions excluded
+  - Verify advanced math excluded
+  - Verify object introspection blocked
+  - Verify import blocked
+  - Verify common Phatch expressions still work
+- ✅ Updated existing tests to reflect minimal whitelist
+- ✅ Verified all 42 safeGlobals tests pass
+- ✅ Verified all 49 integration tests pass (no functionality broken)
+
+**Functions Now Exposed (Minimal Whitelist):**
+```python
+# Basic math (6): abs, min, max, round, pow, sum
+# Math module (3): sqrt, ceil, floor
+# Constants (2): pi, e
+# Type conversions (3): int, float, str
+# Boolean (2): True, False
+# Metadata (1): now
+# Total: 17 functions (was 94)
+```
+
+**Security Improvements:**
+- ✓ 82% reduction in attack surface (94 → 17 functions)
+- ✓ Eliminated unnecessary random module access
+- ✓ Removed state manipulation (getstate, setstate)
+- ✓ Removed class constructors (Random, SystemRandom)
+- ✓ Principle of least privilege applied
+- ✓ Comprehensive test coverage for security
+
+**Documentation Updates:**
+- Added detailed security model explanation to safeGlobals.py docstring
+- Updated test comments to reflect actual security behavior
+- Corrected misleading "NOT secure" warnings in tests
+
+**Impact:** Significantly reduced attack surface while maintaining full functionality
+**Effort:** Low (1 day - mostly testing and documentation)
+**Status:** COMPLETE
+
 ---
 
 ## Priority 1: High Impact, Medium Effort
