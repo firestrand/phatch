@@ -37,13 +37,14 @@ from lib import formField
 from lib import safe
 from lib.unicoding import ENCODING
 
-#api.init()
+api.init()
 
 #---functions
 
 
 def u(txt):
-    return txt.encode(ENCODING, 'replace')
+    # Python 3: strings are already Unicode, no encoding needed for stdout
+    return txt
 
 
 def ask(message, answers):
@@ -109,7 +110,7 @@ class Progress(CliMixin, ProgressReceiver):
             if newmsg:
                 self.write(newmsg)
             percent = int(100.0 * value / self.max)
-            hpercent = percent / 2
+            hpercent = int(percent / 2)  # Convert to int for string multiplication
             message = '%3d%% [%s%s]' % \
                 (percent, '=' * hpercent, ' ' * (50 - hpercent))
             self.write(message)
