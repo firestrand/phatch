@@ -76,7 +76,8 @@ IMAGE_EFFECTS = [_t('blur'), _t('contour'), _t('detail'),
     _t('emboss'), _t('find edges'), _t('smooth'),
     _t('smooth more'), _t('sharpen')]
 IMAGE_FILTERS = [_t('nearest'), _t('bilinear'), _t('bicubic')]
-IMAGE_RESAMPLE_FILTERS = IMAGE_FILTERS + [_t('antialias')]
+# Use 'lanczos' (Pillow 10+ name) instead of deprecated 'antialias'
+IMAGE_RESAMPLE_FILTERS = IMAGE_FILTERS + [_t('lanczos')]
 IMAGE_TRANSPOSE = [_t('Rotate 90'), _t('Rotate 180'), _t('Rotate 270'),
     _t('Flip Left Right'), _t('Flip Top Bottom')]
 
@@ -380,7 +381,14 @@ class ValidationError(Exception):
 class PilConstantMixin:
 
     def to_python(self, x, label):
-        return x.upper().replace(' ', '_')
+        result = x.upper().replace(' ', '_')
+        # Backward compatibility: map deprecated Pillow constants to modern names
+        # This handles old .phatch files created with Pillow 9.x or earlier
+        compat_map = {
+            'ANTIALIAS': 'LANCZOS',  # Pillow 10+ renamed ANTIALIAS → LANCZOS
+            'LINEAR': 'BILINEAR',    # Pillow 10+ renamed LINEAR → BILINEAR
+        }
+        return compat_map.get(result, result)
 
 
 class TestFieldMixin:

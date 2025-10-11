@@ -82,7 +82,7 @@ def gradient_mask(size, opacity, cache):
 
 
 def reflect(image, depth, opacity, background_color, background_opacity,
-        scale_method, gap=0, scale_reflection=False,
+        scale_method='LANCZOS', gap=0, scale_reflection=False,
         blur_reflection=False, cache=None):
     if has_transparency(image):
         image = image.convert('RGBA')
@@ -148,7 +148,7 @@ class Action(models.Action):
         fields[_t('Opacity')] = self.SliderField(60, 0, 100)
         fields[_t('Blur Reflection')] = self.BooleanField(False)
         fields[_t('Scale Reflection')] = self.BooleanField(False)
-        fields[_t('Scale Method')] = self.ImageResampleField('antialias')
+        fields[_t('Scale Method')] = self.ImageResampleField('lanczos')
         fields[_t('Background Color')] = self.ColorField('#FFFFFF')
         fields[_t('Background Opacity')] = self.SliderField(90, 0, 100)
 

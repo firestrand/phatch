@@ -288,8 +288,9 @@ def generate_layer(image_size, mark, method,
         w = int(mark.size[0] * ratio)
         h = int(mark.size[1] * ratio)
         mark = mark.resize((w, h))
-        paste(layer, mark, ((image_size[0] - w) / 2,
-            (image_size[1] - h) / 2))
+        # Use integer division for Python 3 compatibility (PIL requires int coordinates)
+        paste(layer, mark, ((image_size[0] - w) // 2,
+            (image_size[1] - h) // 2))
     elif method == 'By Offset':
         location = calculate_location(
             horizontal_offset, vertical_offset,

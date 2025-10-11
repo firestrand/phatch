@@ -51,8 +51,8 @@ def init(_inject_deps=None):
     _tamogen.FOLDER = FOLDER
     _tamogen.FILL_TYPES = FILL_TYPES
     return {'_tamogen': _tamogen}
-def mosaic(image, fill_type, fill_image, fill_folder, columns, rows,
-        canvas_width, canvas_height):
+def mosaic(image, fill_type, fill_image=None, fill_folder=None, columns=10, rows=10,
+        canvas_width=100, canvas_height=100):
     if has_transparency(image):
         image = image.convert('RGBA')
     else:
