@@ -29,6 +29,7 @@ import glob, os, sys
 from PIL import Image, ImageChops
 from PIL.ImageStat import Stat
 from lib import openImage
+from lib import pillow_compat
 
 IMAGE_ITSELF = 0
 OTHER_IMAGE = 1
@@ -122,7 +123,7 @@ class FillImage(object):
         self.tone = get_tone(image.convert(mode))
 
     def _generateThumbnail(self, im, fill_section_size, mode):
-        return im.resize(fill_section_size, Image.ANTIALIAS).convert(mode)
+        return im.resize(fill_section_size, pillow_compat.LANCZOS).convert(mode)
 
 class BoundingBoxContainer(dict):
     def append(self, box_name, topleft, bottomright):

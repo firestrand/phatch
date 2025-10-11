@@ -72,7 +72,9 @@ class ListCtrl(wx.ListCtrl):
         #self.RefreshItems(0, self.data. amount)
 
     def OnGetItemText(self, item, col):
-        return self.data.get(item, col)
+        # wxPython 4.x requires string return value
+        value = self.data.get(item, col)
+        return str(value) if value is not None else ''
 
     def OnGetItemAttr(self, item):
         return None

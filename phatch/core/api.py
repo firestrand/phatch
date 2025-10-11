@@ -229,7 +229,7 @@ def filter_image_infos(folder, extensions, files, root, info_file):
     :rtype: list of dictionaries
     """
     #check if extensions work ok! '.png' vs 'png'
-    files.sort(key=string.lower)
+    files.sort(key=str.lower)  # Python 3: use str.lower instead of string.lower
     infos = []
     folder_index = 0
     for file in files:

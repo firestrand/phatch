@@ -36,6 +36,7 @@ from lib import formField
 from lib import imtools
 from lib import metadata
 from lib import openImage
+from lib import pillow_compat
 from lib import system
 from lib import thumbnail
 from lib import unicoding
@@ -653,7 +654,7 @@ class Photo:
             image = imtools.convert(image, mode)
         if size is not None and size[0] < image.size[0]:
             image = image.copy()
-            image.thumbnail(size, Image.ANTIALIAS)
+            image.thumbnail(size, pillow_compat.LANCZOS)
         #loop over input -> save to temp files
         temp_files = []
         done = []

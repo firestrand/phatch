@@ -65,7 +65,7 @@ class FolderFileBrowser(ffb.PreviewMixin, ffb.Panel):
 class ImageTreeDialog(wx.Dialog):
     def __init__(self, data, Data, headers, *args, **kwds):
         # begin wxGlade: ImageTreeDialog.__init__
-        kwds["style"] = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER|wx.MAXIMIZE_BOX|wx.THICK_FRAME
+        kwds["style"] = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER|wx.MAXIMIZE_BOX  # wx.THICK_FRAME removed in wxPython 4.x
         wx.Dialog.__init__(self, *args, **kwds)
         self.panel = wx.Panel(self, -1)
         self.browser = FolderFileBrowser(self.panel, -1, data, Data, headers)
@@ -232,7 +232,7 @@ class ErrorDialog(wx.Dialog):
 class FilesDialog(wx.Dialog):
     def __init__(self, *args, **kwds):
         # begin wxGlade: FilesDialog.__init__
-        kwds["style"] = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER|wx.MAXIMIZE_BOX|wx.THICK_FRAME
+        kwds["style"] = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER|wx.MAXIMIZE_BOX  # wx.THICK_FRAME removed in wxPython 4.x
         wx.Dialog.__init__(self, *args, **kwds)
         self.icon = wx.StaticBitmap(self, -1, wx.NullBitmap)
         self.message = wx.StaticText(self, -1, _("Message"))

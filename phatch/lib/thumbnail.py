@@ -33,6 +33,7 @@ import urllib.error
 from PIL import Image
 
 from . import imtools
+from . import pillow_compat
 from . import system
 
 
@@ -111,7 +112,9 @@ if FREEDESKTOP:
         >>> get_hash('file:///home/user/test.png')
         '03223f4f10458a8b5d14327f3ae23136'
         """
-        return hashlib.md5(get_uri(filename)).hexdigest()
+        # Python 3: hashlib.md5() requires bytes, not string
+        uri = get_uri(filename)
+        return hashlib.md5(uri.encode('utf-8')).hexdigest()
 
     def get_freedesktop_size_label(size):
         """Returns the freedesktop size label.
@@ -234,7 +237,7 @@ if FREEDESKTOP:
         pnginfo = get_freedesktop_pnginfo(filename, thumb_info=thumb_info)
         if not size_label:
             # too large -> make thumbnail
-            thumb.thumbnail(size, Image.ANTIALIAS)
+            thumb.thumbnail(size, pillow_compat.LANCZOS)
         thumb_cache = thumb.copy()
         # save large thumbnail
         if size_label == 'large':
@@ -250,7 +253,7 @@ if FREEDESKTOP:
     def _save_to_cache_size(cache_size_label, filename, size_label,
             thumb, thumb_cache, size, pnginfo, **options):
         thumb_cache.thumbnail(FREEDESKTOP_SIZE[cache_size_label],
-            Image.ANTIALIAS)
+            pillow_compat.LANCZOS)
         temp = system.TempFile('.png')
         imtools.save(thumb_cache, temp.path, pnginfo=pnginfo, **options)
         thumb_filename = get_freedesktop_filename(filename, cache_size_label)
@@ -357,7 +360,7 @@ def thumbnail(image, size=SIZE, checkboard=False, copy=True):
         thumb = image.copy()
     #skip if thumb is smaller than requested size
     if thumb.size[0] > size[0] or thumb.size[1] > size[1]:
-        thumb.thumbnail(size, Image.ANTIALIAS)
+        thumb.thumbnail(size, pillow_compat.LANCZOS)
     if checkboard:
         return imtools.add_checkboard(thumb)
     return thumb
