@@ -598,7 +598,7 @@ class ToasterBoxWindow(wx.Frame):
            return False
 
        self.ScrollUp()
-       timerid = wx.NewId()
+       timerid = wx.NewIdRef()
        self.showtime = wx.Timer(self, timerid)
        self.showtime.Start(self._pausetime)
        self.Bind(wx.EVT_TIMER, self.NotifyTimer, id=timerid)

@@ -382,7 +382,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         #prefix = len(actionlists) < 10
         #self.library_files = {}
         #for index, actionlist in enumerate(actionlists):
-        #    id = wx.NewId()
+        #    id = wx.NewIdRef()
         #    label = actionlist[0]
         #    if prefix:
         #        label = '&%d %s' % (index + 1, label)
@@ -444,7 +444,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
 
     #---toolBar
     def add_tool(self, bitmap, label, tooltip, method, item=wx.ITEM_NORMAL):
-        id = wx.NewId()
+        id = wx.NewIdRef()
         bitmap = graphics.bitmap(bitmap, self.tool_bitmap_size,
                     client=wx.ART_TOOLBAR)
         args = (id, label, bitmap, wx.NullBitmap, item,

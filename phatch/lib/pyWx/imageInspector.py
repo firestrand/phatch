@@ -488,7 +488,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
 
     def _AppendMenuItem(self, menu, label, method, shortcut='', id=None):
         if id is None:
-            id = wx.NewId()
+            id = wx.NewIdRef()
         menu.Append(id, '%s\t%s' % (label, shortcut))
         self.Bind(wx.EVT_MENU, method, id=id)
 

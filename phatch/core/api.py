@@ -31,7 +31,6 @@ import glob
 import operator
 import os
 import pprint
-import string
 import time
 import traceback
 from io import StringIO

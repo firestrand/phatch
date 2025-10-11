@@ -405,7 +405,7 @@ class ActionListBox(ContentMixin, vlistTag.Box):
     def OnContextMenu(self, event):
         # todo: does contextmenu always have to be recreated?
         #create id
-        self.id_view_source = wx.NewId()
+        self.id_view_source = wx.NewIdRef()
         #create menu
         menu = wx.Menu()
         item = wx.MenuItem(menu, self.id_view_source, _("View Source"))
@@ -612,7 +612,7 @@ class ImageTreeDialog(dialogs.ImageTreeDialog):
 
     def _AppendMenuItem(self, menu, label, method, shortcut='', id=None):
         if id is None:
-            id = wx.NewId()
+            id = wx.NewIdRef()
         menu.Append(id, '%s\t%s' % (label, shortcut))
         self.Bind(wx.EVT_MENU, method, id=id)
 
@@ -697,7 +697,7 @@ class ImageInspectorGrid(imageInspector.GridTag):
     def CreateRowLabelMenu(self, menu, row):
         super(ImageInspectorGrid, self).CreateRowLabelMenu(menu, row)
         if self.HasActionList():
-            id_insert = wx.NewId()
+            id_insert = wx.NewIdRef()
             menu.Append(id_insert,
                 _('&Insert Tag in Action List...') + '\tCtrl+Shift+I')
 
