@@ -442,8 +442,10 @@ class TreeMixin(treeDragDrop.Mixin):
             # FolderField with choices should use Choice dropdown, not folder browser
             extra = {'choices': field.choices, 'on_change': on_change}
             typ = 'Choice'
-        elif hasattr(field, 'choices'):
+        elif hasattr(field, 'choices') and field.choices:
+            # Any field with choices should use Choice dropdown for consistent behavior
             extra = {'choices': field.choices, 'on_change': on_change}
+            typ = 'Choice'
         elif isinstance(field, formField.BooleanField):
             extra = {'on_change': on_change}
         else:
