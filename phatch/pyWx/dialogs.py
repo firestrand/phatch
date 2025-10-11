@@ -94,7 +94,7 @@ class IconMixin:
         name = 'ART_%s' % name.upper()
         #title icon
         bitmap = graphics.bitmap(name, (16, 16))
-        _ic = wx.EmptyIcon()
+        _ic = wx.Icon()
         _ic.CopyFromBitmap(bitmap)
         self.SetIcon(_ic)
         #dialog icon

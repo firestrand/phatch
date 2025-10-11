@@ -77,7 +77,7 @@ WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
 
 def empty_bitmap(width, height):
     dc = wx.MemoryDC()
-    bmp = wx.EmptyBitmap(width, height)
+    bmp = wx.Bitmap(width, height)
     dc.SelectObject(bmp)
     dc.SetBrush(wx.TRANSPARENT_BRUSH)
     dc.Clear()

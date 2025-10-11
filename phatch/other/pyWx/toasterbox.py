@@ -71,6 +71,7 @@ Version 0.2
 """
 
 import textwrap
+import time
 import wx
 
 from wx.lib.statbmp import GenStaticBitmap as StaticBitmap
@@ -422,7 +423,7 @@ class ToasterBoxWindow(wx.Frame):
        wx.Frame.__init__(self, parent, wx.ID_ANY, "window", wx.DefaultPosition,
                          wx.DefaultSize, style=windowstyle | wx.CLIP_CHILDREN)
 
-       self._starttime = wx.GetLocalTime()
+       self._starttime = int(time.time())
        self._parent2 = parent2
        self._parent = parent
        self._sleeptime = 10

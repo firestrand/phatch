@@ -43,6 +43,9 @@ def _var_to_english(match):
 
 
 def to_local(x):
+    # Handle non-string values (e.g., integers from choice lists)
+    if not isinstance(x, str):
+        x = str(x)
     _x = _(x)
     if x != _x:
         return _x
