@@ -88,6 +88,16 @@ class Action(Form):
     metadata = []
 
     def values(self, info, pixel_fields=None, exclude=None):
+        # If action defines relevant fields, exclude irrelevant fields from validation
+        if hasattr(self, 'get_relevant_field_labels'):
+            if exclude is None:
+                exclude = []
+            relevant = set(self.get_relevant_field_labels())
+            all_fields = set(self.get_field_labels())
+            irrelevant = all_fields - relevant
+            # Merge with existing exclude list
+            exclude = list(set(exclude) | irrelevant)
+
         return self.get_fields(info, convert=True,
             pixel_fields=pixel_fields, exclude=exclude)
 

@@ -52,7 +52,7 @@ def init(_inject_deps=None):
 FILL_CHOICES = (_t('Color'), _t('Image'))
 
 
-def background(image, fill, mark, color,
+def background(image, fill, mark=None, color=None,
         horizontal_offset=None, vertical_offset=None,
         horizontal_justification=None, vertical_justification=None,
         orientation=None, method=None, opacity=100):
