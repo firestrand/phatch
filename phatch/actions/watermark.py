@@ -53,10 +53,22 @@ def watermark(image, mark, horizontal_offset=None, vertical_offset=None,
     """Adds a watermark to an image."""
     if image.mode == 'P':
         image = convert_safe_mode(image)
-    layer = generate_layer(image.size, mark, method,
-        horizontal_offset, vertical_offset,
-        horizontal_justification, vertical_justification,
-        orientation, opacity)
+    orientation_value = orientation
+    if isinstance(orientation, str):
+        image_module = globals().get('Image')
+        if image_module is not None and hasattr(image_module, orientation):
+            orientation_value = getattr(image_module, orientation)
+    layer = generate_layer(
+        image.size,
+        mark,
+        method,
+        horizontal_offset,
+        vertical_offset,
+        horizontal_justification,
+        vertical_justification,
+        orientation_value,
+        opacity,
+    )
     return Image.composite(layer, image, layer)
 
 

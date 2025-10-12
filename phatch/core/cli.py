@@ -11,40 +11,32 @@ except NameError:  # pragma: no cover - ensures translation fallback
     __builtins__['_'] = str
 
 
-CLI_DESCRIPTION_TEMPLATE = (
-    "%(name)s [actionlist]\n"
-    "%(name)s [options] [actionlist] [image folders/files/urls]\n"
-    "%(name)s --inspect [image files/urls]\n"
-    "%(name)s --droplet [actionlist/recent] [image files/urls]\n\n"
-    "%s:\n"
-    "  phatch action_list.phatch\n"
-    "  phatch --verbose --recursive action_list.phatch image_file.png image_folder\n"
-    "  phatch --inspect image_file.jpg\n"
-    "  phatch --droplet recent"
-)
+CLI_DESCRIPTION_TEMPLATE = """\
+%(name)s [actionlist]
+%(name)s [options] [actionlist] [image folders/files/urls]
+%(name)s --inspect [image files/urls]
+%(name)s --droplet [actionlist/recent] [image files/urls]
+
+%(examples_label)s:
+  phatch action_list.phatch
+  phatch --verbose --recursive action_list.phatch image_file.png image_folder
+  phatch --inspect image_file.jpg
+  phatch --droplet recent
+"""
 
 
 def get_cli_description_lines(info: MutableMapping[str, str]) -> List[str]:
     """Return the CLI usage/examples lines for the given ``info`` mapping."""
 
-    return [
-        "%(name)s [actionlist]" % info,
-        "%(name)s [options] [actionlist] [image folders/files/urls]" % info,
-        "%(name)s --inspect [image files/urls]" % info,
-        "%(name)s --droplet [actionlist/recent] [image files/urls]" % info,
-        "",
-        "%s:" % _('Examples'),
-        "  phatch action_list.phatch",
-        "  phatch --verbose --recursive action_list.phatch image_file.png image_folder",
-        "  phatch --inspect image_file.jpg",
-        "  phatch --droplet recent",
-    ]
+    return format_cli_description(info).strip().splitlines()
 
 
 def format_cli_description(info: MutableMapping[str, str]) -> str:
     """Return the full CLI description string for argparse."""
 
-    return "\n".join(get_cli_description_lines(info))
+    description_context = dict(info)
+    description_context['examples_label'] = _('Examples')
+    return CLI_DESCRIPTION_TEMPLATE % description_context
 
 
 def get_cli_option_specs(info: MutableMapping[str, str]) -> List[Dict[str, object]]:

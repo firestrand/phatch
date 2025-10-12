@@ -10,6 +10,8 @@ Following TDD principles:
 
 import builtins
 
+from PIL import Image
+
 # Initialize translation system for tests
 if not hasattr(builtins, '_'):
     builtins._ = lambda x: x
@@ -97,3 +99,94 @@ class TestWatermarkConstants:
         """METHODS should have three values."""
         action = watermark.Action()
         assert len(action.METHODS) == 3
+
+
+class TestWatermarkInit:
+    """Test dependency injection and initialization."""
+
+    def test_init_injects_dependencies(self):
+        """init should allow dependency injection for tests."""
+        dummy_image = object()
+        dummy_layer = object()
+
+        deps = watermark.init({'Image': dummy_image, 'generate_layer': dummy_layer})
+
+        assert watermark.Image is dummy_image
+        assert watermark.generate_layer is dummy_layer
+        assert deps == {'Image': dummy_image, 'generate_layer': dummy_layer}
+
+        # Restore real dependencies for subsequent tests
+        watermark.init()
+
+
+class TestWatermarkPil:
+    """Test the watermark.pil implementation."""
+
+    def test_watermark_calls_generate_layer(self, rgba_image):
+        """watermark should request a layer and composite it."""
+
+        calls = {}
+
+        def fake_generate_layer(size, mark, method, h_off, v_off, h_just, v_just, orientation, opacity):
+            calls['args'] = (size, mark, method, h_off, v_off, h_just, v_just, orientation, opacity)
+            return Image.new('RGBA', size, (0, 0, 0, 128))
+
+        watermark.init({'Image': Image, 'generate_layer': fake_generate_layer})
+
+        mark = Image.new('RGBA', (10, 10), (255, 255, 255, 128))
+        result = watermark.watermark(
+            rgba_image,
+            mark,
+            horizontal_offset=5,
+            vertical_offset=10,
+            horizontal_justification='center',
+            vertical_justification='center',
+            orientation='ROTATE_90',
+            method='tile',
+            opacity=80,
+        )
+
+        assert isinstance(result, Image.Image)
+        assert result.size == rgba_image.size
+        assert calls['args'][0] == rgba_image.size
+        assert calls['args'][-1] == 80
+        assert calls['args'][5] == 'center'
+        assert calls['args'][6] == 'center'
+        assert calls['args'][7] == getattr(Image, 'ROTATE_90')
+        assert calls['args'][8] == 80
+
+        watermark.init()
+
+    def test_palette_image_is_converted(self, monkeypatch, rgba_image):
+        """Palette images should be converted via convert_safe_mode."""
+
+        palette = rgba_image.convert('P')
+        converted = rgba_image.copy()
+        called = {}
+
+        def fake_convert_safe_mode(image):
+            called['image'] = image
+            return converted
+
+        def fake_generate_layer(*args, **kwargs):
+            return Image.new('RGBA', converted.size, (0, 0, 0, 128))
+
+        monkeypatch.setattr(watermark, 'convert_safe_mode', fake_convert_safe_mode)
+        watermark.init({'Image': Image, 'generate_layer': fake_generate_layer})
+
+        result = watermark.watermark(palette, Image.new('RGBA', (10, 10), (255, 255, 255, 128)))
+
+        assert called['image'] is palette
+        assert isinstance(result, Image.Image)
+        assert result.size == converted.size
+
+        watermark.init()
+
+
+class TestWatermarkActionPil:
+    """Test Action.pil wiring."""
+
+    def test_action_pil_points_to_module_function(self):
+        """The Action.pil staticmethod should reference watermark.watermark."""
+
+        assert watermark.Action.pil is watermark.watermark
