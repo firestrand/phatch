@@ -57,27 +57,35 @@ def draw_text(image, text, horizontal_offset, vertical_offset,
     draw = ImageDraw.Draw(image)
     if font.strip():
         font = ImageFont.truetype(font, size)
-        use_truetype_metrics = True
     else:
         font = ImageFont.load_default()
         text = text.encode('ascii', 'replace')
-        use_truetype_metrics = False
 
     if orientation:
         font = ImageFont.TransposedFont(font, orientation)
 
     # Get text size (Pillow 10+ compatibility)
     text_size = None
-    if use_truetype_metrics and hasattr(draw, 'textbbox'):
+    # Use textbbox for Pillow 10+ compatibility
+    if hasattr(draw, 'textbbox'):
         try:
             bbox = draw.textbbox((0, 0), text, font=font)
-        except ValueError:
-            # Fallback for non TrueType fonts despite flag
-            text_size = draw.textsize(text, font=font)
-        else:
             text_size = (bbox[2] - bbox[0], bbox[3] - bbox[1])
-    if text_size is None:
+        except (ValueError, AttributeError):
+            # Fallback for edge cases
+            pass
+
+    # Legacy textsize fallback for older Pillow versions
+    if text_size is None and hasattr(draw, 'textsize'):
         text_size = draw.textsize(text, font=font)
+
+    # Final fallback if neither method works
+    if text_size is None:
+        # Estimate based on font size
+        if hasattr(font, 'size'):
+            text_size = (len(text) * font.size, font.size)
+        else:
+            text_size = (len(text) * 10, 10)
 
     location = calculate_location(
         horizontal_offset, vertical_offset,
