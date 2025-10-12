@@ -24,6 +24,8 @@ from core import models
 from lib.reverse_translation import _t
 from lib.imtools import convert_safe_mode
 
+from .utils import resolve_orientation
+
 
 def init(_inject_deps=None):
     """Initialize action dependencies.
@@ -53,11 +55,7 @@ def watermark(image, mark, horizontal_offset=None, vertical_offset=None,
     """Adds a watermark to an image."""
     if image.mode == 'P':
         image = convert_safe_mode(image)
-    orientation_value = orientation
-    if isinstance(orientation, str):
-        image_module = globals().get('Image')
-        if image_module is not None and hasattr(image_module, orientation):
-            orientation_value = getattr(image_module, orientation)
+    orientation_value = resolve_orientation(orientation, globals().get('Image'))
     layer = generate_layer(
         image.size,
         mark,

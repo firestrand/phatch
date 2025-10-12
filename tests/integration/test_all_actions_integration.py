@@ -38,7 +38,7 @@ def get_all_action_modules():
     modules = []
     for filepath in action_files:
         filename = os.path.basename(filepath)
-        if filename.startswith('_') or filename == 'common.py':
+        if filename.startswith('_') or filename in ('common.py', 'utils.py'):
             continue
         module_name = filename[:-3]  # Remove .py
         modules.append(module_name)

@@ -25,7 +25,6 @@
 #   -> move call afterwards also to layer level
 #   -> adapt image inspector
 
-import datetime
 import os
 import re
 
@@ -62,7 +61,6 @@ CONVERTED_MODE = \
 _('%(mode)s has been converted to %(mode_copy)s to save as %(format)s.')
 
 DYNAMIC_VARS = set(('width', 'height', 'size', 'mode', 'transparency'))
-IMAGE_DEFAULT_DPI = 72
 SEPARATOR = '_'  # should be same as in core.translations
 MONTHS = (_t('January'), _t('February'), _t('March'), _t('April'),
     _t('May'), _t('June'), _t('July'), _t('August'), _t('September'),
@@ -74,8 +72,6 @@ re_DATETIME = re.compile(
                 r'(?P<year>\d{4})[-:](?P<month>\d{2})[-:](?P<day>\d{2}) '
                 r'(?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})')
 
-re_TAG = re.compile(r'(Pil|Exif|Iptc|Pexif|Zexif)([.]\w+)+')
-re_KEY = re.compile(r'(#*)((\w|[.])*$|[$])')
 TRANSPARENCY_ERROR = _('Only palette images have transparency.')
 
 IMAGE_READ_EXTENSIONS = set(formField.IMAGE_READ_EXTENSIONS)\
@@ -89,45 +85,6 @@ IMAGE_EXTENSIONS = [ext for ext in IMAGE_READ_EXTENSIONS
 BASE_VARS = ['dpi', 'compression', 'filename', 'format',
     'orientation', 'path', 'transparency', 'type']
 
-
-def split_data(d):
-    """Provide attribute access to the variables.
-
-    :param d: a dumped metadata dictionary
-    :type d: dict
-
-    >>> d = {'date': '2008-11-27 13:54:33', 'tuple': (1, 2)}
-    """
-    value = list(d.values())[0]
-    #tuples or list
-    if type(value) in (list, tuple):
-        if len(value) > 1:
-            for k, v in list(d.items()):
-                for i, x in enumerate(v):
-                    d['%s.%d' % (k, i)] = v[i]
-        return
-    #datetime strings
-    done = False
-    for k, v in list(d.items()):
-        if type(v) in (str,):
-            dt = re_DATETIME.match(v)
-            if dt:
-                for key in DATETIME_KEYS:
-                    d['%s.%s' % (k, key)] = dt.group(key)
-                    done = True
-    if done:
-        return
-    #date time values
-    if isinstance(value, datetime.datetime):
-        for k, v in list(d.items()):
-            for key in DATETIME_KEYS:
-                d['%s.%s' % (k, key)] = getattr(v, key)
-
-
-def fix_EXIF(tag):
-    if not tag.startswith('EXIF'):
-        tag = 'EXIF.' + tag
-    return tag.replace(' ', SEPARATOR)
 
 
 def image_to_dict(filename, im=None):

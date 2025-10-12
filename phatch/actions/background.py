@@ -25,6 +25,8 @@ from lib.reverse_translation import _t
 from lib.imtools import fill_background_color, generate_layer, \
     has_transparency, paste
 
+from .utils import resolve_orientation
+
 #---Pil
 
 
@@ -65,11 +67,18 @@ def background(image, fill, mark=None, color=None,
         return fill_background_color(image, HTMLColorToRGBA(color,
             opacity))
     elif fill == FILL_CHOICES[1]:
-        layer = generate_layer(image.size, mark, method,
-                               horizontal_offset, vertical_offset,
-                               horizontal_justification,
-                               vertical_justification,
-                               orientation, opacity)
+        orientation_value = resolve_orientation(orientation, globals().get('Image'))
+        layer = generate_layer(
+            image.size,
+            mark,
+            method,
+            horizontal_offset,
+            vertical_offset,
+            horizontal_justification,
+            vertical_justification,
+            orientation_value,
+            opacity,
+        )
         paste(layer, image, mask=image)
         return layer
 

@@ -22,8 +22,24 @@
 #---import modules
 
 #standard library
-import os
 import sys
+
+try:
+    import typer  # type: ignore
+except ImportError:  # pragma: no cover - fallback when typer is absent
+    class _TyperFallback:
+        @staticmethod
+        def prompt(message: str) -> str:
+            return input(message)
+
+    typer = _TyperFallback()  # type: ignore
+
+from rich.console import Console as RichConsole
+from rich.progress import (
+    BarColumn,
+    Progress as RichProgress,
+    TextColumn,
+)
 
 if __name__ == '__main__':
     sys.path.insert(0, '../..')
@@ -47,10 +63,12 @@ def u(txt):
 
 
 def ask(message, answers):
-    answer = None
-    while answer not in answers:
-        answer = input(u(message)).strip().lower()
-    return answer
+    normalized = [answer.lower() for answer in answers]
+    while True:
+        response = typer.prompt(u(message)).strip().lower()
+        if response in normalized:
+            index = normalized.index(response)
+            return answers[index]
 
 
 def ask_yes_no(message):
@@ -66,14 +84,25 @@ class CliMixin:
             self.exit()
 
     def show_message(self, *messages):
-        self.write('\n'.join(messages) + '\n')
+        if not self.verbose:
+            return
+        text = '\n'.join(messages)
+        if hasattr(self, 'console'):
+            self.console.print(text)
+        else:
+            self.output.write(u(text) + '\n')
+            self.output.flush()
 
     def show_notification(self, message, *args, **keyw):
         self.show_message(message)
 
-    def write(self, message):
-        if self.verbose:
-            self.output.write(u(message))
+    def write(self, message, end=''):
+        if not self.verbose:
+            return
+        if hasattr(self, 'console'):
+            self.console.print(u(message), end=end)
+        else:
+            self.output.write(u(message) + end)
             self.output.flush()
 
     def exit(self):
@@ -83,37 +112,38 @@ class CliMixin:
 
 
 class Progress(CliMixin, ProgressReceiver):
-    def __init__(self, title, parent_max, child_max, verbose, output, \
-                                    message=''):
+    def __init__(self, title, parent_max, child_max, verbose, output, message=''):
         ProgressReceiver.__init__(self, parent_max, child_max)
         self.verbose = verbose
         self.output = output
-        self.previous = 0
-        self.write('\n%s ...\n' % title)
+        self.console = RichConsole(file=output, highlight=False)
+        self._progress = None
+        self._task_id = None
+        if self.verbose:
+            total = parent_max * child_max
+            self.console.print(f"\n{title} ...")
+            self._progress = RichProgress(
+                TextColumn("[progress.description]{task.description}"),
+                BarColumn(),
+                TextColumn("{task.percentage:>3.0f}%"),
+                console=self.console,
+                transient=True,
+            )
+            self._progress.start()
+            self._task_id = self._progress.add_task(title, total=total)
 
     def close(self):
-        self.erase()
+        if self._progress is not None:
+            self._progress.stop()
+            self._progress = None
         self.unsubscribe_all()
-        #self.show_message('done!')
-        #self.previous = 0
-        del self
-
-    def erase(self):
-        self.write('\b' * self.previous + ' ' * self.previous + \
-                                            '\b' * self.previous)
 
     def update(self, result, value, newmsg=''):
-        if self.verbose:
-            #erase previous
-            self.erase()
+        if self.verbose and self._progress is not None and self._task_id is not None:
+            update_kwargs = {'completed': value}
             if newmsg:
-                self.write(newmsg)
-            percent = int(100.0 * value / self.max)
-            hpercent = int(percent / 2)  # Convert to int for string multiplication
-            message = '%3d%% [%s%s]' % \
-                (percent, '=' * hpercent, ' ' * (50 - hpercent))
-            self.write(message)
-            self.previous = len(message)
+                update_kwargs['description'] = newmsg
+            self._progress.update(self._task_id, **update_kwargs)
         result['keepgoing'] = True
 
 
@@ -124,6 +154,7 @@ class Frame(CliMixin, FrameReceiver):
         self.verbose = settings['verbose'] or settings['interactive']
         self.settings = settings
         self.output = output
+        self.console = RichConsole(file=output, highlight=False)
         self._pubsub()
         data, warning = api.open_actionlist(
             self.verify_actionlist(actionlist))
