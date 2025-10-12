@@ -145,6 +145,10 @@ class TestShadowFunction:
         # Cache should be reused
         assert cache_size_1 > 0
         assert cache_size_1 == cache_size_2
+        assert result1.width >= rgb_image.width
+        assert result2.width >= rgb_image.width
+        assert result1.height >= rgb_image.height
+        assert result2.height >= rgb_image.height
 
 
 class TestShadowEdgeCases:

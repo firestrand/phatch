@@ -187,25 +187,50 @@ def fix_python_path(phatch_python_path=None):
     return phatch_python_path
 
 
+def _detect_default_locale():
+    # First, honour environment variables
+    for key in ('LC_ALL', 'LC_MESSAGES', 'LANG'):
+        value = os.environ.get(key)
+        if value:
+            return value.split('.')[0]
+
+    # locale.getlocale can return (None, None) if unset; guard accordingly
+    def _safe_get_locale(category=None):
+        try:
+            lang, _ = locale.getlocale(category) if category is not None else locale.getlocale()
+        except (AttributeError, TypeError, ValueError):
+            return None
+        return lang
+
+    for category in (None, getattr(locale, 'LC_MESSAGES', None), locale.LC_CTYPE):
+        lang = _safe_get_locale(category)
+        if lang:
+            return lang
+    return None
+
+
 def load_locale(app, path, canonical='default', str=True):
-    locale.setlocale(locale.LC_ALL, '')
-    #get default canonical if necessary
+    try:
+        locale.setlocale(locale.LC_ALL, '')
+    except locale.Error:
+        # Fall back to the default C locale when the environment is minimal
+        pass
+    # get default canonical if necessary
     if canonical == 'default':
-        canonical = locale.getdefaultlocale(envvars=('LC_ALL', 'LANG'))[0]
-        if canonical is None:
-            #for mac
-            canonical = 'en'
-    #canonical = 'zh' #to test unicode languages
-    #expand with similar translations
+        canonical = _detect_default_locale() or 'en'
+    if not canonical:
+        canonical = 'en'
+    # canonical = 'zh' # to test unicode languages
+    # expand with similar translations
     base = canonical.split('_')[0]  # eg pt_BR -> pt
     base_path = os.path.join(path, base)
     languages = [base_path] + \
         [os.path.basename(x) for x in glob.glob(base_path + '_*')]
-    #ensure canonical is the first element (base the second)
+    # ensure canonical is the first element (base the second)
     if canonical in languages:
         languages.remove(canonical)
     languages.insert(0, canonical)
-    #install
+    # install
     i18n = gettext.translation(app, path, languages=languages, fallback=1)
     # Python 3: install() no longer takes unicode parameter
     i18n.install()

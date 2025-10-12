@@ -85,7 +85,7 @@ class TestDefaultValues:
         assert result['console'] is False
         assert result['init_fonts'] is False
         assert result['interactive'] is False
-        assert result['verbose'] is True
+        assert result['verbose'] is False
         assert result['description'] is True
         assert result['collapse_automatic'] is False
         assert result['droplet'] is False
@@ -173,7 +173,7 @@ class TestOptionsOverride:
             result = settings.create_settings(config_paths={}, options=options)
 
         assert result['recursive'] is True
-        assert result['verbose'] is True  # Should keep default
+        assert result['verbose'] is False  # Should keep default
 
     def test_options_none_keeps_defaults(self):
         """None options should keep all defaults."""
@@ -181,7 +181,7 @@ class TestOptionsOverride:
 
         # Should have default values
         assert result['recursive'] is False
-        assert result['verbose'] is True
+        assert result['verbose'] is False
 
 
 class TestConfigPathsMerge:

@@ -323,6 +323,7 @@ class TestOffsetEdgeCases:
         result_tl = result.getpixel((0, 0))
         # Due to wrap-around, these should be different
         # (unless the image is uniform, which multicolor_image is not)
+        assert result_tl != original_tl
 
 
 class TestOffsetIntegration:

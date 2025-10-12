@@ -9,9 +9,7 @@ Following TDD principles:
 """
 
 import builtins
-import os
-import tempfile
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 
 # Initialize translation system for tests
 if not hasattr(builtins, '_'):
@@ -323,6 +321,8 @@ class TestCopyApply:
         # Should use the path returned by ensure_path_or_desktop
         mock_copy2.assert_called_with('/source/image.jpg',
                                      '/actual/path/file.jpg')
+        # Should return the original photo for chaining
+        assert result is photo
 
 
 class TestCopyIntegration:

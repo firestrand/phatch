@@ -9,7 +9,7 @@ Following TDD principles:
 """
 
 import builtins
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 import pytest
 
 # Initialize translation system for tests

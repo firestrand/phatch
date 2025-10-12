@@ -14,9 +14,7 @@ import builtins
 if not hasattr(builtins, '_'):
     builtins._ = lambda x: x
 
-from PIL import Image
 from phatch.actions import watermark
-from unittest.mock import patch, Mock
 
 
 class TestWatermarkAction:

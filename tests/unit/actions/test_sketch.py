@@ -61,7 +61,7 @@ class TestSketchAction:
         """Sketch action should have cache disabled."""
         action = sketch.Action()
         assert hasattr(action, 'cache')
-        assert action.cache == False
+        assert not action.cache
 
 
 class TestSketchInterface:

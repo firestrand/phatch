@@ -5,9 +5,11 @@ path handling.
 """
 
 import builtins
+import locale
 import os
 import sys
 from unittest.mock import Mock, patch
+
 
 
 # Initialize translation system for tests
@@ -200,6 +202,35 @@ class TestCheckConfigPaths:
         assert config.PHATCH_ACTIONLISTS_PATH == '/test/actionlists'
 
 
+class TestLocaleDetection:
+    def test_detect_default_locale_prefers_environment(self):
+        with patch.dict(os.environ, {'LC_ALL': 'fr_FR.UTF-8'}, clear=True):
+            assert config._detect_default_locale() == 'fr_FR'
+
+    def test_load_locale_falls_back_to_en(self, monkeypatch, tmp_path):
+        # Force failing setlocale and no detected locale so fallback is used
+        monkeypatch.setattr(config.locale, 'setlocale', Mock(side_effect=locale.Error('fail')))
+        monkeypatch.setattr(config, '_detect_default_locale', lambda: None)
+
+        captured = {}
+
+        def fake_translation(app_name, translations_path, languages, fallback):
+            captured['languages'] = languages
+
+            class DummyTranslation:
+                def install(self_inner):
+                    captured['install_called'] = True
+
+            return DummyTranslation()
+
+        monkeypatch.setattr(config.gettext, 'translation', fake_translation)
+
+        config.load_locale('phatch', str(tmp_path), canonical='default')
+
+        assert captured['languages'][0] == 'en'
+        assert captured.get('install_called') is True
+
+
 class TestAddUserPaths:
     """Test add_user_paths function."""
 
@@ -329,18 +360,17 @@ class TestLoadLocale:
         call_args = mock_gettext.translation.call_args
         assert 'fr_FR' in call_args[1]['languages']
 
-    @patch('phatch.core.config.locale')
+    @patch('phatch.core.config.locale.setlocale')
     @patch('phatch.core.config.gettext')
     @patch('phatch.core.config.glob.glob')
-    def test_load_locale_handles_none_canonical(self, mock_glob, mock_gettext, mock_locale):
+    def test_load_locale_handles_none_canonical(self, mock_glob, mock_gettext, mock_setlocale):
         """load_locale should default to 'en' if canonical is None."""
-        # Mock locale returning None
-        mock_locale.getdefaultlocale.return_value = (None, None)
         mock_glob.return_value = []
         mock_translation = Mock()
         mock_gettext.translation.return_value = mock_translation
 
-        config.load_locale('phatch', '/test/locale')
+        with patch('phatch.core.config._detect_default_locale', return_value=None):
+            config.load_locale('phatch', '/test/locale')
 
         # Should use 'en' as fallback
         call_args = mock_gettext.translation.call_args

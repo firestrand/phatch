@@ -21,7 +21,6 @@
 # Follows PEP8
 
 import math
-import random
 
 from lib.metadata import now
 

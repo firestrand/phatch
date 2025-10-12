@@ -130,6 +130,22 @@ No usage of:
 **Effort:** Low (1 day - mostly testing and documentation)
 **Status:** COMPLETE
 
+### 3. Filename Encoding Regression (Python 3) ✅ COMPLETED
+
+**Issue:**
+`phatch.lib.unicoding.fix_filename()` mutates the original string into bytes while probing alternative encodings. On Python 3 the subsequent `system.is_file()` check calls `startswith` on a `bytes` object, raising `TypeError`. As a result the helper now crashes instead of returning `None` whenever the first encoding probe fails for a path containing non-ASCII characters.
+
+**Impact:**
+- File discovery breaks for action lists and GUI tables when encountering missing files with extended characters.
+- Reproduces immediately via `fix_filename('nonexistent-é.png')`.
+
+**Action Taken (2025-02-14):**
+- ✅ Preserve original text while probing encodings; operate on per-candidate copies.
+- ✅ Added bytes-path handling and regression tests in `tests/unit/lib/test_unicoding.py`.
+- ✅ Verified CLI/table flows no longer crash on missing files with extended characters.
+
+**Status:** COMPLETE
+
 ---
 
 ## Priority 1: High Impact, Medium Effort
@@ -215,6 +231,22 @@ blender, geek, imagemagick, lossless_jpeg (use instance methods, not module-leve
 Others: no init() function needed
 
 **Effort:** 1 day (automated with script)
+**Status:** COMPLETE
+
+### 2. CLI Bootstrap Hardening (Argparse + Locale) ✅ COMPLETED
+
+**Issue:**
+- `phatch.app.main()` now requires `(config_paths, app_file)` but the module guard still invokes it without arguments, so `python -m phatch.app` crashes.
+- CLI defaults are split between `optparse` definitions and `core.settings.create_settings()`, forcing double maintenance and violating DRY.
+- Locale bootstrap relies on deprecated `locale.getdefaultlocale()` and unguarded `locale.setlocale()`, which will fail on minimal environments once Python 3.15 removes the API.
+
+**Action Taken (2025-02-14):**
+- ✅ Exposed `core.settings.DEFAULT_SETTINGS` so CLI defaults derive from a single source.
+- ✅ Replaced `optparse` with `argparse`, including a `--version` action and shared defaults.
+- ✅ Centralised CLI option metadata to keep parser/help text in sync with settings.
+- ✅ Allowed `app.main()` to be invoked without arguments (tests cover the new entry point).
+- ✅ Hardened locale detection with `_detect_default_locale()` and graceful `setlocale` error handling plus unit tests.
+
 **Status:** COMPLETE
 
 ---

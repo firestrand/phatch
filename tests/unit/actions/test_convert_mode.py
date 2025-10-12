@@ -147,9 +147,7 @@ class TestConvertModeConstants:
     def test_image_modes_includes_common_modes(self):
         """IMAGE_MODES should include common modes."""
         action = convert_mode.Action()
-        modes_str = ' '.join(action.IMAGE_MODES)
-        # Should include at least some common modes
-        # RGB is almost always present (check if any mode contains 'RGB')
+        # Should include at least some common modes (such as RGB family)
         assert any('RGB' in mode for mode in action.IMAGE_MODES)
 
 

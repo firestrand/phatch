@@ -9,8 +9,7 @@ Following TDD principles:
 """
 
 import builtins
-from unittest.mock import Mock, patch
-import pytest
+from unittest.mock import patch
 
 # Initialize translation system for tests
 if not hasattr(builtins, '_'):
@@ -186,6 +185,8 @@ class TestPutHighlightFunction:
 
         # open_image should only be called once
         assert mock_open.call_count == 1
+        assert result1.size == image.size
+        assert result2.size == image.size
 
     @patch('phatch.actions.highlight.open_image')
     def test_put_highlight_resizes_highlight_to_image_size(self, mock_open):

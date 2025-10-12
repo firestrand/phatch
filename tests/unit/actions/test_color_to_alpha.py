@@ -10,7 +10,6 @@ Following TDD principles:
 
 import builtins
 from unittest.mock import Mock, patch
-import pytest
 
 # Initialize translation system for tests
 if not hasattr(builtins, '_'):
@@ -308,6 +307,8 @@ class TestColorToAlphaFunction:
 
             # Should have called HTMLColorToRGBA
             mock_html.assert_called_once_with('#FF0000', 255)
+            assert result.size == image.size
+            assert result.mode == image.mode
 
     def test_color_to_alpha_uses_corner_pixel(self):
         """color_to_alpha should use corner pixel when corner is selected."""

@@ -9,15 +9,13 @@ Following TDD principles:
 """
 
 import builtins
-from unittest.mock import Mock, patch, MagicMock
-import pytest
 
 # Initialize translation system for tests
 if not hasattr(builtins, '_'):
     builtins._ = lambda x: x
 
 from phatch.actions import effect
-from PIL import Image, ImageFilter
+from PIL import Image
 
 
 class TestEffectAction:

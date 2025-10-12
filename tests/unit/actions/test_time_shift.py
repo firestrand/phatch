@@ -9,8 +9,6 @@ Following TDD principles:
 """
 
 import builtins
-from unittest.mock import Mock, patch, MagicMock
-import pytest
 from datetime import datetime
 
 # Initialize translation system for tests

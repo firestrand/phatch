@@ -22,7 +22,6 @@ from PIL import Image
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
 
 from phatch.core import config
-from phatch.core.pil import Photo
 
 # Initialize config paths for testing
 config.init_config_paths()

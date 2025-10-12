@@ -9,7 +9,6 @@ Following TDD principles:
 """
 
 import builtins
-import os
 from unittest.mock import Mock, patch
 
 # Initialize translation system for tests
@@ -326,6 +325,7 @@ class TestRenameApply:
         # Should use the path returned by ensure_path_or_desktop
         mock_rename.assert_called_with('/source/image.jpg',
                                       '/actual/path/file.jpg')
+        assert result is photo
 
 
 class TestRenameIntegration:

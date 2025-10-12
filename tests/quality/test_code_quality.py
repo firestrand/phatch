@@ -30,6 +30,7 @@ Ruff is a fast, modern Python linter that checks code quality including:
 Configuration is in pyproject.toml at the project root.
 """
 
+import importlib.util
 import subprocess
 import sys
 from pathlib import Path
@@ -72,6 +73,8 @@ def test(dirname='..'):
     print(f"Command: {' '.join(ruff_cmd)}\n")
 
     try:
+        if importlib.util.find_spec('ruff') is None:
+            pytest.skip("ruff not installed in current environment")
         result = subprocess.run(
             ruff_cmd,
             cwd=target_dir,

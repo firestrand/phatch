@@ -210,6 +210,8 @@ class TestDesaturatePilFunction:
             # Check they're grayscale (R=G=B)
             assert red_region[0] == red_region[1] == red_region[2]
             assert green_region[0] == green_region[1] == green_region[2]
+            assert blue_region[0] == blue_region[1] == blue_region[2]
+            assert white_region[0] == white_region[1] == white_region[2]
 
 
 class TestDesaturateEdgeCases:

@@ -35,7 +35,6 @@ from core import api, ct
 from core.message import FrameReceiver, ProgressReceiver
 from lib import formField
 from lib import safe
-from lib.unicoding import ENCODING
 
 api.init()
 

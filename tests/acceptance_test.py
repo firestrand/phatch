@@ -20,11 +20,11 @@
 #
 # Follows PEP8
 
+import argparse
 import logging
-import time
-import optparse
-import sys
 import os
+import sys
+import time
 
 from test_suite import config, utils, phatchtools
 
@@ -59,85 +59,78 @@ def set_logger(log_path):
 
 
 if __name__ == '__main__':
-    # Option parser
-    parser = optparse.OptionParser()
+    parser = argparse.ArgumentParser(
+        prog='phatch-acceptance',
+        description='Generate acceptance tests and optionally execute them.',
+    )
     tags = sorted(list(phatchtools.get_action_tags().keys()) + ['library', 'save'])
-    parser.add_option(
+    parser.add_argument(
         '-t', '--tag',
-        default=None,
         choices=tags,
         help='Generate tests by tag',
     )
     actions = sorted(phatchtools.get_actions().keys())
-    parser.add_option(
+    parser.add_argument(
         '-s', '--select',
-        action="append",
+        action='append',
         choices=actions,
-        default=None,
         help='Generate selected actions tests',
     )
-    parser.add_option(
+    parser.add_argument(
         '-a', '--all',
         action='store_true',
-        default=False,
         help='Generate all tests',
     )
-    parser.add_option(
+    parser.add_argument(
         '-e', '--extended',
         action='store_true',
-        default=False,
         help='Generate extended tests',
     )
-    parser.add_option(
+    parser.add_argument(
         '-c', '--compare',
-        default=None,
         help='Comparison folder',
     )
-    parser.add_option(
+    parser.add_argument(
         '-i', '--input',
         default=config.DEFAULT_INPUT,
-        help='Image input folder [default: %default]',
+        help=f'Image input folder [default: {config.DEFAULT_INPUT}]',
     )
-    parser.add_option(
+    parser.add_argument(
         '-o', '--output',
         default=config.DEFAULT_OUTPUT,
-        help='Image output folder [default: %default]',
+        help=f'Image output folder [default: {config.DEFAULT_OUTPUT}]',
     )
-    parser.add_option(
+    parser.add_argument(
         '-l', '--log',
         default=config.DEFAULT_LOG,
-        help='Log file path [default: %default]',
+        help=f'Log file path [default: {config.DEFAULT_LOG}]',
     )
-    parser.add_option(
+    parser.add_argument(
         '-r', '--report',
         default=config.DEFAULT_REPORT,
-        help='Report file path [default: %default]',
+        help=f'Report file path [default: {config.DEFAULT_REPORT}]',
     )
-    parser.add_option(
+    parser.add_argument(
         '--no-execute',
         action='store_true',
-        default=False,
-        help='Generate actionlists only, don\'t execute',
+        help="Generate actionlists only, don't execute",
     )
-    parser.add_option(
+    parser.add_argument(
         '--no-clean',
         action='store_true',
-        default=False,
-        help='Don\'t remove previously generated files',
+        help="Don't remove previously generated files",
     )
-    parser.add_option(
+    parser.add_argument(
         '--clean',
         action='store_true',
-        default=False,
         help='Remove previously generated files',
     )
-    parser.add_option(
+    parser.add_argument(
         '--options',
-        action='store',
         default='',
         help='Command line options to pass to phatch',
     )
-    options, args = parser.parse_args()
+    options = parser.parse_args()
     if not options.no_execute and not os.path.exists(options.input):
         msg = 'The input directory "%s" is empty or doesn\'t exist'
         logging.error(
@@ -191,16 +184,17 @@ if __name__ == '__main__':
             choices_function=choices_function,
         )
     if options.select:
+        selected_actions = [phatchtools.get_action(name) for name in options.select]
         if options.extended:
             actionlists = phatchtools.minimal_actionlists(
-                [phatchtools.get_action(name) for name in options.select],
+                selected_actions,
                 save_action,
                 [convert_mode_action],
             )
             choices_function = phatchtools.extended_choices
         else:
             actionlists = phatchtools.minimal_actionlists(
-                [phatchtools.get_action(name) for name in options.select],
+                selected_actions,
                 save_action,
             )
         phatchtools.generate_actionlists(

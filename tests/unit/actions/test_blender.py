@@ -9,8 +9,6 @@ Following TDD principles:
 """
 
 import builtins
-from unittest.mock import Mock, patch
-import pytest
 
 # Initialize translation system for tests
 if not hasattr(builtins, '_'):

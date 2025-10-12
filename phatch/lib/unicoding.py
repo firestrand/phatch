@@ -17,6 +17,7 @@
 
 import codecs
 import locale
+import os
 from . import system
 
 ENCODING = locale.getdefaultlocale()[1]
@@ -54,18 +55,51 @@ def exception_to_unicode(x, encoding=ENCODING, errors='replace'):
             return '?'
 
 
+def _candidate_encodings(preferred=None):
+    encodings = ['latin1', 'utf-8', ENCODING]
+    if preferred:
+        # keep ordering stable but prioritise explicitly requested encoding
+        return [preferred] + [enc for enc in encodings if enc != preferred]
+    return encodings
+
+
 def fix_filename(f, encoding=None):
-    if system.is_file(f):
-        return f
-    if type(f) is str:
-        encodings = ['latin1', 'utf-8', ENCODING]
-        if encoding:
-            encodings = [encoding] + encodings
-        for encoding in encodings:
+    """Attempt to recover filenames with alternative encodings.
+
+    Always returns text (``str``) on success; ``None`` otherwise.
+    """
+    if not f:
+        return None
+
+    # Bytes paths short-circuit through os.path to avoid TypeError in system.is_file
+    if isinstance(f, bytes):
+        if os.path.isfile(f):
+            return os.fsdecode(f)
+        for candidate in _candidate_encodings(encoding):
             try:
-                f = f.encode(encoding)
-                if system.is_file(f):
-                    return f
-            except UnicodeEncodeError:
-                pass
+                decoded = f.decode(candidate)
+            except UnicodeDecodeError:
+                continue
+            if system.is_file(decoded):
+                return decoded
+        return None
+
+    # For text paths first try the straightforward check
+    try:
+        if system.is_file(f):
+            return f
+    except TypeError:
+        if os.path.isfile(f):
+            return f
+
+    for candidate in _candidate_encodings(encoding):
+        try:
+            encoded = f.encode(candidate)
+        except UnicodeEncodeError:
+            continue
+        decoded = os.fsdecode(encoded)
+        if decoded == f:
+            continue
+        if os.path.isfile(decoded) or system.is_file(decoded):
+            return decoded
     return None

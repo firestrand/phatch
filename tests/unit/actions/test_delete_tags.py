@@ -289,7 +289,7 @@ class TestDeleteTagsEdgeCases:
 
         # Should raise KeyError when trying to delete non-existent tag
         try:
-            result = action.apply(photo, setting, cache)
+            action.apply(photo, setting, cache)
             # If we get here, the tag wasn't found but no error was raised
             # which means the original data should be unchanged
             assert 'Exif_Image_Make' in photo.info
@@ -317,6 +317,7 @@ class TestDeleteTagsEdgeCases:
 
         # Should delete Exif tags
         assert len(photo.info) == 0
+        assert result.info == {}
 
 
 class TestDeleteTagsIntegration:

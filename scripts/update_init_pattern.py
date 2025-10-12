@@ -90,7 +90,6 @@ def transform_init_function(content):
         # Keep all lines except pure comment lines
         if stripped and not (stripped.startswith('#') and 'lazily import' in stripped.lower()):
             clean_body_lines.append(line)
-    clean_body = '\n'.join(clean_body_lines)
 
     # Build new init() function
     new_init_lines = [

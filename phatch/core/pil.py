@@ -29,7 +29,6 @@ import datetime
 import os
 import re
 
-from PIL import Image
 
 #todo make this lazy
 from lib import formField

@@ -174,6 +174,8 @@ class TestRoundFunction:
         # Cache should be reused
         assert cache_size_1 > 0
         assert cache_size_1 == cache_size_2
+        assert result1.size == rgb_image.size
+        assert result2.size == rgb_image.size
 
 
 class TestRoundIntegration:

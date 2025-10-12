@@ -18,8 +18,8 @@
 
 # Follows PEP8
 
+import argparse
 import os
-import optparse
 import sys
 import urllib.request
 import urllib.parse
@@ -27,6 +27,13 @@ import urllib.error
 
 from .data.info import INFO
 from .core import config
+from .core.cli import add_cli_options, format_cli_description
+from .core.settings import DEFAULT_SETTINGS
+
+try:
+    _
+except NameError:
+    __builtins__['_'] = str
 
 VERSION = "%(name)s %(version)s" % INFO
 
@@ -51,79 +58,21 @@ def parse_locale(config_paths):
 
 def parse_options():
 
-    parser = optparse.OptionParser(
-        usage="""
-  %(name)s [actionlist]
-  %(name)s [options] [actionlist] [image folders/files/urls]
-  %(name)s --inspect [image files/urls]
-  %(name)s --droplet [actionlist/recent] [image files/urls]""" % INFO + """
+    description = format_cli_description(INFO)
 
-%s:
-  phatch action_list.phatch
-  phatch --verbose --recursive action_list.phatch image_file.png image_folder
-  phatch --inspect image_file.jpg
-  phatch --droplet recent""" % _('Examples'),
-        version=VERSION,
+    parser = argparse.ArgumentParser(
+        prog=INFO['name'],
+        description=description,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_option("-c", "--console", action="store_true",
-        dest="console",
-        default=False,
-        help=_("Run %s as console program without a gui") % INFO['name'])
-    parser.add_option("-d", "--droplet", action="store_true",
-        dest="droplet",
-        default=False,
-        help=_("Run %s as a gui droplet") % INFO['name'])
-    parser.add_option("--desktop", action="store_true",
-        dest="desktop",
-        default=False,
-        help=_("Always save on desktop"))
-    parser.add_option("-f", "--force", action="store_false",
-        dest="stop_for_errors",
-        default=True,
-        help=_("Ignore errors"))
-    parser.add_option("--fonts", action="store_true",
-        dest="init_fonts",
-        default=False,
-        help=_("Initialize fonts (only for installation scripts)"))
-    parser.add_option("-i", "--interactive", action="store_true",
-        dest="interactive",
-        default=False,
-        help=_("Interactive"))
-    parser.add_option("-k", "--keep", action="store_false",
-        dest="overwrite_existing_images",
-        default=True,
-        help=_("Keep existing images (don't overwrite)"))
-    parser.add_option("-l", action="store",
-        dest="locale",
-        default='default',
-        type="string",
-        help=_("Specify locale language (for example en or en_GB)"))
-    parser.add_option("-n", "--inspect", action="store_true",
-        dest="image_inspector",
-        default=False,
-        help=_("Inspect metadata (requires exif & iptc plugin)"))
-    parser.add_option("--no-save", action="store_true",
-        dest="no_save",
-        default=False,
-        help=_("No save action required at the end"))
-    parser.add_option("-r", "--recursive", action="store_true",
-        dest="recursive",
-        default=False,
-        help=_("Include all subfolders"))
-    parser.add_option("-t", "--trust", action="store_false",
-        dest="check_images_first",
-        default=True,
-        help=_("Do not check images first"))
-    parser.add_option("--unsafe", action="store_false",
-        dest="safe",
-        default=True,
-        help=_("Allow Geek action and unsafe expressions"))
-    parser.add_option("-v", "--verbose", action="store_true",
-        dest="verbose",
-        default=False,
-        help=_("Verbose"))
-    options, paths = parser.parse_args()
-    paths = [fix_path(path) for path in paths if path and path[0] != '%']
+    add_cli_options(parser, DEFAULT_SETTINGS, INFO)
+    parser.add_argument('--version', action='version', version=VERSION)
+    parser.add_argument('paths', nargs='*')
+
+    options = parser.parse_args()
+    paths = [fix_path(path) for path in options.paths if path and path[0] != '%']
+    options.paths = paths
+
     return options, paths
 
 
@@ -139,7 +88,7 @@ def reexec_with_pythonw(f=None):
 
 
 def console(config_paths):
-    main(config_paths, app_file=None, gui=True)
+    main(config_paths=config_paths, app_file=None, force_console=True)
 
 
 PYWX_ERROR = """\
@@ -198,12 +147,18 @@ def _console(paths, settings):
         console.main(actionlist='', paths=paths, settings=settings)
 
 
-def main(config_paths, app_file):
-    """init should be called first!"""
+def main(config_paths=None, app_file=None, force_console=False):
+    """Entry point for both GUI and console front-ends."""
+    if config_paths is None:
+        config_paths = config.init_config_paths()
+    if app_file is None:
+        app_file = __file__
     parse_locale(config_paths)
     options, paths = parse_options()
     from .core.settings import create_settings
     settings = create_settings(config_paths, options)
+    if force_console:
+        settings['console'] = True
     if settings['verbose']:
         from .lib import system
         system.VERBOSE = True

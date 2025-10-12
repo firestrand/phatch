@@ -9,7 +9,7 @@ Following TDD principles:
 """
 
 import builtins
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 
 # Initialize translation system for tests
 if not hasattr(builtins, '_'):
@@ -194,6 +194,8 @@ class TestPutMaskFunction:
 
         # open should only be called once (on first call)
         assert mock_open.call_count == 1
+        assert result1.size == rgb_image.size
+        assert result2.size == rgb_image.size
 
     @patch('phatch.actions.mask.open_image')
     @patch('phatch.lib.imtools.has_transparency')

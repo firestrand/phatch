@@ -9,7 +9,6 @@ Following TDD principles:
 """
 
 import builtins
-from unittest.mock import Mock, patch, MagicMock
 
 # Initialize translation system for tests
 if not hasattr(builtins, '_'):
@@ -281,7 +280,7 @@ class TestValuesMethod:
         # Simple test that method accepts the expected signature
         # Full functional test requires font cache initialization
         info = {'size': (200, 100)}
-        # Method exists and is callable
+        assert info['size'] == (200, 100)
         assert callable(action.values)
 
 
