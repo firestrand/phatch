@@ -1,16 +1,13 @@
-"""
-Pytest configuration and shared fixtures for Phatch test suite.
-
-This module provides:
-- Common path fixtures (project_root, tests_dir)
-- Pytest configuration hooks
-- Shared test utilities
-"""
+"""Pytest configuration and shared fixtures for Phatch test suite."""
 
 import sys
 from pathlib import Path
 
 import pytest
+
+pytest_plugins = [
+    "tests.fixtures.images",
+]
 
 
 # ============================================================================

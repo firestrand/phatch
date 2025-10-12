@@ -26,7 +26,7 @@ import os
 import sys
 import time
 
-from test_suite import config, utils, phatchtools
+from tests.test_suite import config, utils, phatchtools
 
 report = logging.getLogger('report')
 
