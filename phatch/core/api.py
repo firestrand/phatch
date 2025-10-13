@@ -956,13 +956,32 @@ def open_actionlist(filename):
                 return None
 
     # Reconstruct action objects from saved data
+    # Check if actions have been imported
+    if 'ACTIONS' not in globals():
+        import sys
+        print("DEBUG: ACTIONS not initialized! Call api.init() first.", file=sys.stderr)
+        print("DEBUG: Available globals:", [k for k in globals().keys() if k.startswith('ACTION')], file=sys.stderr)
+        send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
+        return None
+
+    if not ACTIONS:
+        import sys
+        print("DEBUG: ACTIONS is empty! No actions were imported.", file=sys.stderr)
+        send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
+        return None
+
     result = []
     invalid_labels = []
     actions = data['actions']
     for action in actions:
         actionLabel = action['label']
         actionFields = action['fields']
-        newAction = ACTIONS[actionLabel]()
+        try:
+            newAction = ACTIONS[actionLabel]()
+        except KeyError:
+            import sys
+            print(f"DEBUG: Action '{actionLabel}' not found in ACTIONS. Available: {list(ACTIONS.keys())[:10]}", file=sys.stderr)
+            raise
         invalid_labels.extend(['- %s (%s)' % (label, actionLabel)
                                 for label in newAction.load(actionFields)])
         result.append(newAction)
