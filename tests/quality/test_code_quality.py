@@ -97,9 +97,7 @@ def test(dirname='..'):
             return True
 
     except FileNotFoundError:
-        print("ERROR: ruff not found. Install it with: pip install ruff")
-        print("Or install all dev dependencies: pip install -r requirements-dev.txt")
-        sys.exit(1)
+        pytest.skip("ruff executable not found")
     except Exception as e:
         print(f"ERROR running ruff: {e}")
         sys.exit(1)

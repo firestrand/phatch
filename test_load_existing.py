@@ -25,7 +25,7 @@ for filepath in test_files:
     try:
         result = api.open_actionlist(filepath)
         if result is None:
-            print(f"   ❌ FAILED: Returned None (incompatible version)")
+            print("   ❌ FAILED: Returned None (incompatible version)")
         else:
             data, warning = result
             print(f"   ✅ Success: {len(data.get('actions', []))} actions")

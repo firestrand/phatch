@@ -641,8 +641,34 @@ class FileSizeCtrl(PixelCtrl):
 class SliderCtrl(_ComposedCtrl):
     """Needs to mimic a wx.SliderCtrl"""
 
-    def _CreateCtrls(self, value, minValue, maxValue):
+    DEFAULT_MIN = 0
+    DEFAULT_MAX = 100
+
+    @staticmethod
+    def _resolve_bounds(min_value, max_value, value):
+        """Return a safe slider range even if metadata is missing."""
+
+        try:
+            numeric_value = int(value)
+        except (TypeError, ValueError):
+            numeric_value = 0
+
+        if min_value is None and max_value is None:
+            min_value = SliderCtrl.DEFAULT_MIN
+            max_value = SliderCtrl.DEFAULT_MAX
+        elif min_value is None:
+            min_value = min(numeric_value, max_value - 1) if max_value is not None else SliderCtrl.DEFAULT_MIN
+        elif max_value is None:
+            max_value = max(numeric_value, min_value + 1)
+
+        if max_value <= min_value:
+            max_value = min_value + 1
+        return int(min_value), int(max_value)
+
+    def _CreateCtrls(self, value, minValue=None, maxValue=None):
+        minValue, maxValue = self._resolve_bounds(minValue, maxValue, value)
         value = int(value)
+        value = max(minValue, min(value, maxValue))
         #spin ctrl
         self.spin = wx.SpinCtrl(self, id=-1)
         self.spin.SetRange(minValue, maxValue)
@@ -684,14 +710,21 @@ class FloatSliderCtrl(SliderCtrl):
     """Needs to mimic a wx.SliderCtrl"""
     unit = 100.0
 
-    def _CreateCtrls(self, value, minValue, maxValue):
-        value = int(value)
+    def _CreateCtrls(self, value, minValue=None, maxValue=None):
+        minValue, maxValue = self._resolve_bounds(minValue, maxValue, value)
+        numeric_value = float(value)
+        clamped = max(minValue, min(numeric_value, maxValue))
         #spin ctrl
-        self.spin = wx.TextCtrl(self, -1, str(value))
+        self.spin = wx.TextCtrl(self, -1, str(clamped))
         #slider
-        self.slider = wx.Slider(self, -1, int(value * self.unit),
-            int(minValue * self.unit), int(maxValue * self.unit),
-            style=wx.SL_HORIZONTAL)
+        self.slider = wx.Slider(
+            self,
+            -1,
+            int(clamped * self.unit),
+            int(minValue * self.unit),
+            int(maxValue * self.unit),
+            style=wx.SL_HORIZONTAL,
+        )
 
     def _CreateEvents(self):
         self.Bind(wx.EVT_TEXT, self.OnSpin, self.spin)

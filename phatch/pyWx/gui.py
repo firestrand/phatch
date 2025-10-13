@@ -61,10 +61,9 @@ from phatch.lib import formField
 from phatch.lib import notify
 from phatch.lib import safe
 from phatch.lib import system
-from phatch.lib import listData
 from phatch.lib.unicoding import exception_to_unicode
+from .dialog_service import DialogService
 from phatch.services import (
-    ActionListService,
     IncompatibleActionListError,
     MissingRequiredActionError,
     UnsafeActionListError,
@@ -82,11 +81,8 @@ from phatch.lib.pyWx.clipboard import copy_text
 from . import images
 from . import dialogs
 from . import plugin
-from .controller import ActionListController
-from .droplet_manager import DropletManager
-from phatch.services.action_advisor import ActionListAdvisor
-from phatch.services.file_dialogs import FileDialogService
-from phatch.services.shell_launcher import ShellLauncher
+from .frame_dependencies import FrameDependencies
+from .file_menu import ClipboardMessages
 from .ui_descriptors import (
     HELP_LINKS,
     MENU_ENABLE_GROUPS,
@@ -95,6 +91,15 @@ from .ui_descriptors import (
     build_toolbar,
 )
 from .wxGlade import frame
+
+try:  # pragma: no cover - gettext supplies _
+    _  # type: ignore[name-defined]
+except NameError:  # pragma: no cover - test fallback
+    import builtins
+
+    if '_' not in builtins.__dict__:
+        builtins.__dict__['_'] = lambda value: value
+    _ = builtins.__dict__['_']
 
 
 def _ensure_phatch_suffix(path):
@@ -147,150 +152,84 @@ class DialogsMixin:
     _icon_filename = None
 
     @property
+    def dependencies(self) -> FrameDependencies:
+        if not hasattr(self, "_dependencies"):
+            self._dependencies = FrameDependencies()
+        return self._dependencies
+
+    @property
+    def dialog_service(self) -> DialogService:
+        if not hasattr(self, "_dialog_service"):
+            factory = self.dependencies.dialog_service_factory
+            self._dialog_service = factory(self)
+        return self._dialog_service
+
+    @property
     def action_service(self):
         if not hasattr(self, '_action_service'):
-            self._action_service = ActionListService()
+            factory = self.dependencies.action_service_factory
+            self._action_service = factory()
         return self._action_service
 
     #---dialogs
     def show_error(self, message):
-        return self.show_message(message, style=wx.OK | wx.ICON_ERROR)
+        return self.dialog_service.show_error(message)
 
     def show_execute_dialog(self, result, settings, files=None):
-        dlg = dialogs.ExecuteDialog(self, drop=files)
-        if settings['overwrite_existing_images_forced']:
-            dlg.overwrite_existing_images.Disable()
-        if files:
-            #store in settings, not result as it will be saved
-            settings['paths'] = files
-        dlg.import_settings(settings)
-        result['cancel'] = dlg.ShowModal() == wx.ID_CANCEL
-        if result['cancel']:
-            dlg.Destroy()
-            return
-        #Retrieve settings from dialog
-        dlg.export_settings(settings)
-        dlg.Destroy()
+        self.dialog_service.show_execute_dialog(result, settings, files)
 
     def show_files_message(self, result, message, title, files):
-        dlg = dialogs.FilesDialog(self, message, title, files)
-        x0, y0 = self.GetSize()
-        x1, y1 = dlg.GetSize()
-        x = max(x0, x1)
-        y = max(y1, 200)
-        dlg.SetSize((x, y))
-        result['cancel'] = dlg.ShowModal() == wx.ID_CANCEL
+        self.dialog_service.show_files_message(result, message, title, files)
 
     def show_message(self, message, title='',
             style=wx.OK | wx.ICON_EXCLAMATION):
-        if self.IsShown():
-            parent = self
-        else:
-            parent = None
-        dlg = wx.MessageDialog(parent,
-                message,
-                '%(name)s ' % ct.INFO + title,
-                style,
-        )
-        answer = dlg.ShowModal()
-        dlg.Destroy()
-        return answer
+        return self.dialog_service.show_message(message, title, style)
 
     def show_status(self, message, log=True):
-        dlg = dialogs.StatusDialog(self)
-        dlg.log.Show(log)
-        dlg.SetMessage(message)
-        dlg.ShowModal()
-        dlg.Destroy()
+        self.dialog_service.show_status(message, log=log)
 
     def show_question(self, message, style=wx.YES_NO | wx.ICON_QUESTION):
-        return self.show_message(message, style=style)
+        return self.dialog_service.show_question(message, style=style)
 
     def show_image_tree(self, result, image_infos, widths, headers,
             ok_label='&OK', buttons=False, modal=False):
-        data = listData.files_data_dict(image_infos)
-        dlg = dialogs.ImageTreeDialog(data, listData.DataDict, headers,
-            self, size=(600, dialogs.get_max_height(300)))
-        dlg.SetColumnWidths(*widths)
-        dlg.SetOkLabel(ok_label)
-        dlg.ShowButtons(buttons)
-        if modal or buttons:
-            answer = dlg.ShowModal()
-            result['answer'] = answer == wx.ID_OK
-        else:
-            dlg.Show()
+        self.dialog_service.show_image_tree(
+            result,
+            image_infos,
+            widths,
+            headers,
+            ok_label=ok_label,
+            buttons=buttons,
+            modal=modal,
+        )
 
     def show_report(self):
-        report = wx.GetApp().report
-        if report:
-            self.show_image_tree({}, report,
-                widths=(200, 60, 60, 60, 500),
-                headers=['filename', 'width', 'height', 'mode',
-                    'source'],
-                buttons=False,
-                modal=not isinstance(self, Frame))
-        else:
-            self.show_message(_('No images have been processed to report.'))
+        self.dialog_service.show_report()
 
     def show_log(self):
-        if os.path.exists(ct.USER_LOG_PATH):
-            log_file = open(ct.USER_LOG_PATH)
-            msg = log_file.read().strip()
-            log_file.close()
-            if not msg:
-                msg = _('Hooray, no issues!')
-        else:
-            msg = _('Nothing has been logged yet.')
-        self.show_scrolled_message(msg, '%s - %s' \
-            % (_('Log'), ct.USER_LOG_PATH))
+        self.dialog_service.show_log()
 
     def show_info(self, message, title=''):
-        return self.show_message(message, title,
-            style=wx.OK | wx.ICON_INFORMATION)
+        return self.dialog_service.show_info(message, title)
 
     def show_progress(self, title, parent_max, child_max=1, message=''):
-        dialogs.ProgressDialog(self, title, parent_max, child_max,
-            message)
+        self.dialog_service.show_progress(title, parent_max, child_max, message)
 
     def show_progress_error(self, result, message, ignore=True):
-        message += '\n\n' + api.SEE_LOG
-        errorDlg = dialogs.ErrorDialog(self, message, ignore)
-        answer = errorDlg.ShowModal()
-        result['stop_for_errors'] = not errorDlg.future_errors.GetValue()
-        errorDlg.Destroy()
-        if answer == wx.ID_ABORT:
-            result['answer'] = _('abort')
-            self.show_log()
-        elif answer == wx.ID_FORWARD:
-            result['answer'] = _('skip')
-        else:
-            result['answer'] = _('ignore')
+        self.dialog_service.show_progress_error(result, message, ignore=ignore)
 
     def show_scrolled_message(self, message, title, **keyw):
-        import wx.lib.dialogs
-        dlg = wx.lib.dialogs.ScrolledMessageDialog(self, message, title,
-            style=wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX | wx.RESIZE_BORDER,
-            **keyw)
-        dlg.ShowModal()
+        self.dialog_service.show_scrolled_message(message, title, **keyw)
 
     def show_notification(self, message, force=False, report=None):
-        self.set_report(report)
-        active = wx.GetApp().IsActive() or self.IsActive()
-        if force or not active:
-            notify.send(
-                title=system.filename_to_title(self.filename),
-                message=message,
-                icon=self.get_icon_filename(),
-                wxicon=graphics.bitmap(images.ICON_PHATCH_64))
-        if not active:
-            self.RequestUserAttention()
+        self.dialog_service.show_notification(message, force=force, report=report)
 
     #---settings
     def get_setting(self, name):
-        return wx.GetApp().settings[name]
+        return self.dialog_service.get_setting(name)
 
     def set_setting(self, name, value):
-        wx.GetApp().settings[name] = value
+        self.dialog_service.set_setting(name, value)
 
     #---data
     def load_actionlist_data(self, filename):
@@ -347,7 +286,7 @@ class DialogsMixin:
                 wx.PostEvent(window, update_event)
 
     def set_report(self, report):
-        wx.GetApp().report = report
+        self.dialog_service.set_report(report)
 
     def get_icon_filename(self):
         if self._icon_filename is None:
@@ -373,11 +312,13 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         self.controller.state.filename = value
 
     def __init__(self, actionlist, *args, **keyw):
+        dependencies = keyw.pop("dependencies", None)
+        self._dependencies = dependencies or FrameDependencies()
         frame.Frame.__init__(self, *args, **keyw)
         _theme()
         self.dlg_library = None
-        self.controller = ActionListController(self.tree)
-        self.droplet_manager = DropletManager(
+        self.controller = self.dependencies.controller_factory(self.tree)
+        self.droplet_manager = self.dependencies.droplet_manager_factory(
             export_actions=self.controller.export_actions,
             settings_provider=lambda: wx.GetApp().settings,
             check_actionlist=api.check_actionlist,
@@ -385,11 +326,13 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
             schedule_hide=lambda: wx.CallAfter(self.on_show_droplet, False),
             state_callback=self._update_droplet_state,
         )
-        self.action_advisor = ActionListAdvisor()
-        self.file_dialogs = FileDialogService(wx.FileDialog)
-        from phatch.lib.pyWx import shell
-        self.shell_launcher = ShellLauncher(
-            shell_factory=shell.Frame,
+        self.action_advisor = self.dependencies.action_advisor_factory()
+        dialog_cls = self.dependencies.file_dialog_class or wx.FileDialog
+        self.file_dialogs = self.dependencies.file_dialog_service_factory(dialog_cls)
+        self.file_menu = None
+        shell_factory = self.dependencies.shell_frame_factory
+        self.shell_launcher = self.dependencies.shell_launcher_factory(
+            shell_factory=shell_factory,
             icon_provider=lambda: graphics.bitmap(images.ICON_PHATCH_64),
             app_provider=wx.GetApp,
         )
@@ -435,7 +378,20 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         self.menu_file_recent = wx.Menu()
         self.filehistory = wx.FileHistory()
         self.filehistory.UseMenu(self.menu_file_recent)
-        self._set_file_history(self.get_setting('file_history'))
+        self.file_menu = self.dependencies.file_menu_factory(
+            frame=self,
+            file_history=self.filehistory,
+            file_dialogs=self.file_dialogs,
+            clipboard_messages=ClipboardMessages(
+                paste_hint=COMMAND_PASTE,
+                actionlist=CLIPBOARD_ACTIONLIST,
+                recent=CLIPBOARD_RECENT,
+                inspector=CLIPBOARD_IMAGE_INSPECTOR,
+            ),
+            ensure_suffix=_ensure_phatch_suffix,
+            copy_text=copy_text,
+        )
+        self.file_menu.load_file_history(self.get_setting('file_history'))
         self.Bind(wx.EVT_MENU_RANGE, self.on_menu_file_history,
             id=wx.ID_FILE1, id2=wx.ID_FILE9)
         self.menu_file.Insert(2, wx.ID_REFRESH,
@@ -548,16 +504,10 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
 
 #---menu events
     def on_menu_file_new(self, event=None):
-        if self.is_save_not_ok():
-            return
-        state = self.controller.new_actionlist()
-        self._set_filename(ct.UNKNOWN)
-        self.description.SetValue(state.description)
-        self.show_description(False)
-        self.enable_actions(False)
+        self.file_menu.new_actionlist()
 
     def on_menu_file_open_library(self, event):
-        if self.is_save_not_ok():
+        if not self.file_menu.confirm_proceed():
             return
         if not self.dlg_library:
             self.dlg_library = imageFileBrowser.Dialog(
@@ -579,17 +529,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         return
 
     def on_menu_file_open(self, event):
-        if self.is_save_not_ok():
-            return
-        selection = self.file_dialogs.open_actionlist(
-            parent=self,
-            message=_('Choose an Action List File...'),
-            default_dir=os.path.dirname(self.filename),
-            wildcard=ct.WILDCARD,
-            style=getattr(wx, 'FD_OPEN', 0),
-        )
-        if selection:
-            self._open(selection.path)
+        self.file_menu.open_actionlist()
 
     #def on_menu_file_library(self, event):
     #    if self.is_save_not_ok():
@@ -599,65 +539,27 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
     #        os.path.basename(filename))
     #    self._open(filename, save_filename)
     def on_menu_file_save(self, event):
-        if self.filename == ct.UNKNOWN \
-                or self.is_protected_actionlist(self.filename):
-            return self.on_menu_file_save_as()
-        else:
-            self._save()
-            return True
+        return self.file_menu.save_current()
 
     def on_menu_file_save_as(self, event=None):
-        if self.is_protected_actionlist(self.filename) \
-                or not os.path.isfile(self.filename):
-            default_dir = ct.USER_ACTIONLISTS_PATH
-        else:
-            default_dir = os.path.dirname(self.filename)
-        selection = self.file_dialogs.save_actionlist(
-            parent=self,
-            message=_('Save Action List As...'),
-            default_dir=default_dir,
-            wildcard=ct.WILDCARD,
-            style=getattr(wx, 'FD_SAVE', 0),
-        )
-        if not selection:
-            return False
-        path = _ensure_phatch_suffix(selection.path)
-        if os.path.exists(path) and self.show_question('%s %s' % (
-                _('This file exists already.'),
-                _('Do you want to overwrite it?'))) == wx.ID_NO:
-            return False
-        self._save(path)
-        return True
+        return self.file_menu.save_as()
 
     def on_menu_file_export_actionlist_to_clipboard(self, event):
-        if self.is_save_not_ok():
-            return
-        copy_text(ct.COMMAND['DROP'] % self.filename)
-        self.show_info(' '.join([CLIPBOARD_ACTIONLIST, COMMAND_PASTE]))
+        self.file_menu.export_actionlist_to_clipboard()
 
     def on_menu_file_export_recent_to_clipboard(self, event):
-        if self.is_save_not_ok():
-            return
-        copy_text(ct.COMMAND['RECENT'])
-        self.show_info(' '.join([CLIPBOARD_RECENT, COMMAND_PASTE]))
+        self.file_menu.export_recent_to_clipboard()
 
     def on_menu_file_export_inspector_to_clipboard(self, event):
-        if self.is_save_not_ok():
-            return
-        copy_text(ct.COMMAND['INSPECTOR'])
-        self.show_info(' '.join([CLIPBOARD_IMAGE_INSPECTOR,
-            COMMAND_PASTE]))
+        self.file_menu.export_inspector_to_clipboard()
 
     def on_menu_file_quit(self, event):
         self.on_close()
 
     def on_menu_file_history(self, event):
-        if self.is_save_not_ok():
-            return
         # get the file based on the menu ID
         filenum = event.GetId() - wx.ID_FILE1
-        filename = self.filehistory.GetHistoryFile(filenum)
-        self._open(filename)
+        self.file_menu.open_recent(filenum)
 
     def on_menu_edit_add(self, event):
         settings = wx.GetApp().settings
@@ -969,15 +871,9 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
             self.controller.show_context_menu(self.menu_edit)
 
     def is_save_not_ok(self):
-        if self.controller.state.dirty:
-            answer = self.show_message(_('Save last changes to') + '\n"%s"?'\
-                % self.filename,
-                style=wx.YES_NO | wx.CANCEL | wx.ICON_EXCLAMATION)
-            if answer == wx.ID_CANCEL:
-                return True
-            if answer == wx.ID_YES:
-                return not self.on_menu_file_save(None)
-        return False
+        if self.file_menu is None:
+            return False
+        return not self.file_menu.confirm_proceed()
 
     def on_close(self, event=None):
         if self.is_save_not_ok():
@@ -999,18 +895,10 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
 
     #---file history
     def _get_file_history(self):
-        result = []
-        for index in range(self.filehistory.GetCount()):
-            filename = self.filehistory.GetHistoryFile(index)
-            if filename.strip():
-                result.append(filename)
-        return result
+        return self.file_menu.get_file_history()
 
     def _set_file_history(self, files):
-        files.reverse()
-        for filename in files:
-            if os.path.exists(filename):
-                self.filehistory.AddFileToHistory(filename)
+        self.file_menu.load_file_history(files)
 
     #---settings
     def set_dirty(self, value, description=None):
@@ -1100,7 +988,9 @@ def inspect(paths):
 
 class DropletFrame(DialogsMixin, wx.Frame, FrameReceiver):
 
-    def __init__(self, actionlist, paths, *args, **keyw):
+    def __init__(self, actionlist, paths, *args, dependencies=None, **keyw):
+        if dependencies is not None:
+            self._dependencies = dependencies
         wx.Frame.__init__(self, *args, **keyw)
         self.filename = actionlist
         self._pubsub()
@@ -1131,7 +1021,14 @@ class DropletMixin:
         if self.actionlist is None:
             return 0
         #create frame
-        frame = DropletFrame(self.actionlist, self.paths, None, -1, ct.TITLE)
+        frame = DropletFrame(
+            self.actionlist,
+            self.paths,
+            None,
+            -1,
+            ct.TITLE,
+            dependencies=getattr(self, "_dependencies", None),
+        )
         frame.Hide()
         self.SetTopWindow(frame)
         return 1
@@ -1195,15 +1092,16 @@ class DropletMixin:
 
 class DropletApp(DropletMixin, wx.App):
 
-    def __init__(self, actionlist, paths, settings, *args, **keyw):
+    def __init__(self, actionlist, paths, settings, *args, dependencies=None, **keyw):
         self.actionlist = actionlist
         self.paths = paths
+        self._dependencies = dependencies or FrameDependencies()
         self._loadSettings(settings)
         super(DropletApp, self).__init__(*args, **keyw)
 
 
-def drop(actionlist, paths, settings):
-    app = DropletApp(actionlist, paths, settings, 0)
+def drop(actionlist, paths, settings, dependencies=None):
+    app = DropletApp(actionlist, paths, settings, 0, dependencies=dependencies)
     app.MainLoop()
 
 #---Application
@@ -1211,9 +1109,10 @@ def drop(actionlist, paths, settings):
 
 class App(DropletMixin, wx.App):
 
-    def __init__(self, settings, actionlist, *args, **keyw):
+    def __init__(self, settings, actionlist, *args, dependencies=None, **keyw):
         self._loadSettings(settings)
         self.filename = actionlist
+        self._dependencies = dependencies or FrameDependencies()
         super(App, self).__init__(*args, **keyw)
 
     def OnInit(self):
@@ -1244,7 +1143,7 @@ class App(DropletMixin, wx.App):
         self.init()
         api.init()
         #create frame
-        frame = Frame(self.filename, None, -1, ct.TITLE)
+        frame = Frame(self.filename, None, -1, ct.TITLE, dependencies=self._dependencies)
         frame.menu_tools.Check(frame.menu_tools_safe.GetId(),
             formField.get_safe())
         frame.CentreOnScreen()
@@ -1269,8 +1168,8 @@ class App(DropletMixin, wx.App):
         super(App, self)._saveSettings()
 
 
-def main(settings, actionlist):
-    app = App(settings, actionlist, 0)
+def main(settings, actionlist, dependencies=None):
+    app = App(settings, actionlist, 0, dependencies=dependencies)
     app.MainLoop()
 
 
