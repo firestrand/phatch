@@ -35,9 +35,9 @@ import sys
 import wx
 import wx.lib.colourselect
 
-from lib.colors import RGBToHTMLColor, HTMLColorToRGB
-from lib.fonts import font_dictionary
-from lib.reverse_translation import _t
+from phatch.lib.colors import RGBToHTMLColor, HTMLColorToRGB
+from phatch.lib.fonts import font_dictionary
+from phatch.lib.reverse_translation import _t
 
 from .autoCompleteCtrls import AutoCompleteTextCtrl
 from .wildcard import wildcard_list

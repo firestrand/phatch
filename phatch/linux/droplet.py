@@ -18,13 +18,13 @@
 
 import os
 import wx
-from core import ct
-from lib.reverse_translation import _t
-from core.config import SYSTEM_INSTALL
-from lib import system
-from lib.linux.desktop import create_droplet
-from lib.unicoding import exception_to_unicode
-from lib.formField import IMAGE_READ_MIMETYPES
+from phatch.core import ct
+from phatch.lib.reverse_translation import _t
+from phatch.core.config import SYSTEM_INSTALL
+from phatch.lib import system
+from phatch.lib.linux.desktop import create_droplet
+from phatch.lib.unicoding import exception_to_unicode
+from phatch.lib.formField import IMAGE_READ_MIMETYPES
 
 try:
     from .thunar import thunar_exists, create_thunar_action

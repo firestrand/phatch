@@ -18,7 +18,7 @@
 import os
 import sys
 from subprocess import call
-from lib.unicoding import ENCODING
+from phatch.lib.unicoding import ENCODING
 
 
 def _t(x):

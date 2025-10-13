@@ -47,10 +47,10 @@ if __name__ == '__main__':
     init_config_paths()
 
 #gui-independent
-from core import api, ct
-from core.message import FrameReceiver, ProgressReceiver
-from lib import formField
-from lib import safe
+from phatch.core import api, ct
+from phatch.core.message import FrameReceiver, ProgressReceiver
+from phatch.lib import formField
+from phatch.lib import safe
 
 api.init()
 
