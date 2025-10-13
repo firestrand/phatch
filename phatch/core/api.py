@@ -28,6 +28,7 @@ except NameError:
 #standard library
 import codecs
 import glob
+import json
 import operator
 import os
 import pprint
@@ -50,6 +51,7 @@ from . import pil
 from .message import send
 
 #---constants
+ACTIONS_LIST_FORMAT_VERSION = '2.0'  # JSON format (was '1.0' for pprint format)
 PROGRESS_MESSAGE = 'In: %s%s\nFile' % (' ' * 100, '.')
 SEE_LOG = _('See "%s" for more details.') % _('Show Log')
 TREE_HEADERS = ['filename', 'type', 'folder', 'subfolder', 'root',
@@ -867,7 +869,7 @@ def import_actions():
 
 
 def save_actionlist(filename, data):
-    """Save actionlist ``data`` to ``filename``.
+    """Save actionlist ``data`` to ``filename`` in JSON format.
 
     :param filename:
 
@@ -884,6 +886,7 @@ def save_actionlist(filename, data):
     """
     #add version number
     data['version'] = VERSION
+    data['format_version'] = ACTIONS_LIST_FORMAT_VERSION
     #check filename
     if os.path.splitext(filename)[1].lower() != ct.EXTENSION:
         filename += ct.EXTENSION
@@ -895,29 +898,51 @@ def save_actionlist(filename, data):
         os.remove(previous)
     if os.path.isfile(filename):
         os.rename(filename, previous)
-    #write it
-    f = open(filename, 'wb')
-    f.write(pprint.pformat(data))
-    f.close()
+    #write it as JSON
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
 
 def open_actionlist(filename):
-    """Open the action list from a file.
+    """Open the action list from a file (supports both JSON and legacy formats).
 
     :param filename: the filename of the action list
     :type filename: string
-    :returns: action list
-    :rtype: dictionary
+    :returns: action list tuple (data, warning) or None if incompatible
+    :rtype: tuple or None
     """
     #read source
-    f = open(filename, 'rb')
-    source = f.read()
-    f.close()
-    #load data
-    data = safe.eval_safe(source)
-    if not data.get('version', '').startswith('0.2'):
-        send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
-        return None
+    with open(filename, 'r', encoding='utf-8') as f:
+        source = f.read()
+
+    #try to load as JSON first (new format)
+    try:
+        data = json.loads(source)
+    except json.JSONDecodeError:
+        # Fall back to Python literal eval (legacy format)
+        try:
+            data = safe.eval_safe(source)
+        except Exception:
+            # If both fail, it's an invalid file
+            send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
+            return None
+
+    # Check version compatibility
+    format_version = data.get('format_version')
+    if format_version is not None:
+        # Accept format versions 1.0 (pprint) and 2.0 (JSON)
+        if str(format_version) not in ('1.0', '2.0'):
+            send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
+            return None
+    else:
+        version = str(data.get('version', '')).strip()
+        if version:
+            # Legacy files: accept any version that starts with "0.2" or "0.3"
+            if not (version.startswith('0.2') or version.startswith('0.3')):
+                send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
+                return None
+
+    # Reconstruct action objects from saved data
     result = []
     invalid_labels = []
     actions = data['actions']
