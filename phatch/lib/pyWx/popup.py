@@ -35,9 +35,9 @@ import sys
 import wx
 import wx.lib.colourselect
 
-from lib.colors import RGBToHTMLColor, HTMLColorToRGB
-from lib.fonts import font_dictionary
-from lib.reverse_translation import _t
+from phatch.lib.colors import RGBToHTMLColor, HTMLColorToRGB
+from phatch.lib.fonts import font_dictionary
+from phatch.lib.reverse_translation import _t
 
 from .autoCompleteCtrls import AutoCompleteTextCtrl
 from .wildcard import wildcard_list
@@ -390,33 +390,23 @@ class ImageDictionaryFileCtrl(_CtrlRelevantMixin, _Ctrl, wx.Button):
 class ColorCtrl(_Ctrl, wx.lib.colourselect.ColourSelect):
 
     def __init__(self, parent, value, size):
-        # Store original value for label
-        original_value = value
-
-        # Convert value to wx.Colour object for parent class
-        if isinstance(value, str):
-            rgb = HTMLColorToRGB(value)
-            colour_obj = wx.Colour(*rgb)
-        elif isinstance(value, tuple):
-            colour_obj = wx.Colour(*value)
-        else:
-            colour_obj = value
-
-        # Initialize parent with wx.Colour object
+        colour_obj = self._coerce_colour(value)
         super(ColorCtrl, self).__init__(parent, -1, '', colour_obj, size=size)
-
-        # Explicitly set the colour to ensure it's properly initialized
-        # This ensures the color dialog opens with the correct color
-        self.SetColour(colour_obj)
+        super(ColorCtrl, self).SetValue(colour_obj)
 
         self.Bind(wx.lib.colourselect.EVT_COLOURSELECT, self.OnSelectColor)
-
-        # Set label to show the HTML color string
-        if isinstance(original_value, str):
-            wx.CallAfter(self.SetLabel, original_value)
+        self.Bind(wx.EVT_SET_FOCUS, self._on_focus)
+        self.Bind(wx.EVT_KILL_FOCUS, self._on_focus_lost)
+        self.Bind(wx.EVT_PAINT, self._on_paint)
+        self._apply_label(self.GetColour())
 
     def GetValue(self):
         return self.GetColorAsString()
+
+    def SetValue(self, colour):
+        colour_obj = self._coerce_colour(colour)
+        super(ColorCtrl, self).SetValue(colour_obj)
+        self._apply_label(colour_obj)
 
     def GetColorAsString(self, color=None):
         if color is None:
@@ -426,9 +416,52 @@ class ColorCtrl(_Ctrl, wx.lib.colourselect.ColourSelect):
         return RGBToHTMLColor((color.Red(), color.Green(), color.Blue()))
 
     def OnSelectColor(self, event):
-        color = event.GetValue()
-        self.SetLabel(self.GetColorAsString(color))
-        self.SetValue(wx.Colour(color))
+        self.SetValue(event.GetValue())
+
+    def _apply_label(self, colour):
+        if isinstance(colour, str):
+            colour = wx.Colour(*HTMLColorToRGB(colour))
+        hex_colour = self.GetColorAsString(colour)
+        self.SetLabel(hex_colour)
+        self.SetBackgroundColour(colour)
+        # Determine contrast against button background
+        brightness = (colour.Red() * 0.299) + (colour.Green() * 0.587) + (colour.Blue() * 0.114)
+        text_colour = wx.Colour(255, 255, 255) if brightness < 150 else wx.Colour(0, 0, 0)
+        self.SetForegroundColour(text_colour)
+        self._base_text_colour = text_colour
+        self._hex_text = hex_colour
+        self.Refresh()
+
+    @staticmethod
+    def _coerce_colour(value):
+        if isinstance(value, str):
+            return wx.Colour(*HTMLColorToRGB(value))
+        if isinstance(value, tuple):
+            return wx.Colour(*value)
+        return value
+
+    def _on_focus(self, event):
+        highlight_text = wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHTTEXT)
+        self.SetForegroundColour(highlight_text)
+        self.Refresh()
+        event.Skip()
+
+    def _on_focus_lost(self, event):
+        if hasattr(self, '_base_text_colour'):
+            self.SetForegroundColour(self._base_text_colour)
+            self.Refresh()
+        event.Skip()
+
+    def _on_paint(self, event):
+        # First let the base class draw the swatch and borders
+        wx.lib.colourselect.ColourSelect.OnPaint(self, event)
+        # Overlay the hex text centered across the control
+        if hasattr(self, '_hex_text'):
+            dc = wx.PaintDC(self)
+            dc.SetTextForeground(self.GetForegroundColour())
+            dc.SetBackgroundMode(wx.TRANSPARENT)
+            rect = self.GetClientRect()
+            dc.DrawLabel(self._hex_text, rect, alignment=wx.ALIGN_CENTER)
 
 
 class FileCtrl(_PathCtrl):
@@ -608,8 +641,34 @@ class FileSizeCtrl(PixelCtrl):
 class SliderCtrl(_ComposedCtrl):
     """Needs to mimic a wx.SliderCtrl"""
 
-    def _CreateCtrls(self, value, minValue, maxValue):
+    DEFAULT_MIN = 0
+    DEFAULT_MAX = 100
+
+    @staticmethod
+    def _resolve_bounds(min_value, max_value, value):
+        """Return a safe slider range even if metadata is missing."""
+
+        try:
+            numeric_value = int(value)
+        except (TypeError, ValueError):
+            numeric_value = 0
+
+        if min_value is None and max_value is None:
+            min_value = SliderCtrl.DEFAULT_MIN
+            max_value = SliderCtrl.DEFAULT_MAX
+        elif min_value is None:
+            min_value = min(numeric_value, max_value - 1) if max_value is not None else SliderCtrl.DEFAULT_MIN
+        elif max_value is None:
+            max_value = max(numeric_value, min_value + 1)
+
+        if max_value <= min_value:
+            max_value = min_value + 1
+        return int(min_value), int(max_value)
+
+    def _CreateCtrls(self, value, minValue=None, maxValue=None):
+        minValue, maxValue = self._resolve_bounds(minValue, maxValue, value)
         value = int(value)
+        value = max(minValue, min(value, maxValue))
         #spin ctrl
         self.spin = wx.SpinCtrl(self, id=-1)
         self.spin.SetRange(minValue, maxValue)
@@ -651,14 +710,21 @@ class FloatSliderCtrl(SliderCtrl):
     """Needs to mimic a wx.SliderCtrl"""
     unit = 100.0
 
-    def _CreateCtrls(self, value, minValue, maxValue):
-        value = int(value)
+    def _CreateCtrls(self, value, minValue=None, maxValue=None):
+        minValue, maxValue = self._resolve_bounds(minValue, maxValue, value)
+        numeric_value = float(value)
+        clamped = max(minValue, min(numeric_value, maxValue))
         #spin ctrl
-        self.spin = wx.TextCtrl(self, -1, str(value))
+        self.spin = wx.TextCtrl(self, -1, str(clamped))
         #slider
-        self.slider = wx.Slider(self, -1, int(value * self.unit),
-            int(minValue * self.unit), int(maxValue * self.unit),
-            style=wx.SL_HORIZONTAL)
+        self.slider = wx.Slider(
+            self,
+            -1,
+            int(clamped * self.unit),
+            int(minValue * self.unit),
+            int(maxValue * self.unit),
+            style=wx.SL_HORIZONTAL,
+        )
 
     def _CreateEvents(self):
         self.Bind(wx.EVT_TEXT, self.OnSpin, self.spin)

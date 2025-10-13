@@ -33,9 +33,9 @@ import os
 import wx
 from wx.lib.newevent import NewEvent
 
-from lib import listData
-from lib.system import start
-from lib.openImage import open_thumb
+from phatch.lib import listData
+from phatch.lib.system import start
+from phatch.lib.openImage import open_thumb
 
 from .compatible import SearchCtrl
 from .wxPil import pil_wxBitmap

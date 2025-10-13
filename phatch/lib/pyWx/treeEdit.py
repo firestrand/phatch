@@ -22,8 +22,8 @@ if __name__ == '__main__':
     import sys
     sys.path.insert(0, '..')
 
-from lib import formField
-from lib import metadata
+from phatch.lib import formField
+from phatch.lib import metadata
 
 # gui-dependent
 import wx
@@ -34,7 +34,7 @@ from . import treeDragDrop
 if __name__ == '__main__':
     sys.path.insert(0, '../..')
 
-from lib.unicoding import exception_to_unicode
+from phatch.lib.unicoding import exception_to_unicode
 
 FIELD_DELIMITER = ': '
 WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8

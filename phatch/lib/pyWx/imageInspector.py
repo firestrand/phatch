@@ -33,10 +33,10 @@ import wx.grid as gridlib
 import  wx.lib.newevent
 UpdateEvent, UPDATE_EVENT = wx.lib.newevent.NewEvent()
 
-from lib import imageTable
-from lib import formField
-from lib import metadata
-from lib import system
+from phatch.lib import imageTable
+from phatch.lib import formField
+from phatch.lib import metadata
+from phatch.lib import system
 
 from . import clipboard
 from . import droplet

@@ -25,7 +25,7 @@
 # Follow PEP8
 
 import wx
-from lib.pyWx import graphics
+from phatch.lib.pyWx import graphics
 
 
 class Provider(wx.ArtProvider):

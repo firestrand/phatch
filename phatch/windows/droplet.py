@@ -18,10 +18,10 @@
 
 import os
 import wx
-from core import ct, config
-from lib import system
-from lib.windows.register import register_extensions, deregister_extensions
-from lib.formField import IMAGE_READ_EXTENSIONS
+from phatch.core import ct, config
+from phatch.lib import system
+from phatch.lib.windows.register import register_extensions, deregister_extensions
+from phatch.lib.formField import IMAGE_READ_EXTENSIONS
 
 WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
 ICON = os.path.join(config.PATHS['PHATCH_IMAGE_PATH'], 'phatch.ico')

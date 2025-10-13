@@ -31,7 +31,7 @@ THUNAR_ACTION = \
 
 import os
 import shutil
-from core.ct import USER_PATH
+from phatch.core.ct import USER_PATH
 
 THUNAR_USER_ACTIONS = os.path.join(USER_PATH, '.config', 'Thunar', 'uca.xml')
 BACKUP = '.backup_before_phatch'

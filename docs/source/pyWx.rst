@@ -10,9 +10,11 @@ pyWx
    :maxdepth: 2
 
    pyWx.dialogs
+   pyWx.dialog_service
    pyWx.gui
    pyWx.images
    pyWx.nuovext
    pyWx.plugin
+   pyWx.file_menu
+   pyWx.frame_dependencies
    pyWx.wxGlade
-

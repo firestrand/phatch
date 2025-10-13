@@ -20,7 +20,7 @@
 
 import sys
 import wx
-from lib.pyWx import graphics
+from phatch.lib.pyWx import graphics
 
 LOGO_COLOUR = wx.Colour(174, 218, 48)
 

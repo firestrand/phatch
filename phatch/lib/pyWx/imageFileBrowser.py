@@ -25,8 +25,8 @@ if __name__ == '__main__':
     sys.path.insert(0, '..')
     sys.path.insert(0, '../..')
 
-from lib.openImage import open_thumb
-from lib.formField import IMAGE_READ_EXTENSIONS
+from phatch.lib.openImage import open_thumb
+from phatch.lib.formField import IMAGE_READ_EXTENSIONS
 
 from . import popup
 from .wxPil import pil_wxBitmap
