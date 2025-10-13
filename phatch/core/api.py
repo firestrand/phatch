@@ -918,12 +918,16 @@ def open_actionlist(filename):
     #try to load as JSON first (new format)
     try:
         data = json.loads(source)
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as json_err:
         # Fall back to Python literal eval (legacy format)
         try:
             data = safe.eval_safe(source)
-        except Exception:
+        except Exception as eval_err:
             # If both fail, it's an invalid file
+            import sys
+            print(f"DEBUG: Failed to parse file as JSON: {json_err}", file=sys.stderr)
+            print(f"DEBUG: Failed to parse file as Python: {eval_err}", file=sys.stderr)
+            print(f"DEBUG: First 200 chars: {source[:200]!r}", file=sys.stderr)
             send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
             return None
 
@@ -931,7 +935,13 @@ def open_actionlist(filename):
     format_version = data.get('format_version')
     if format_version is not None:
         # Accept format versions 1.0 (pprint) and 2.0 (JSON)
-        if str(format_version) not in ('1.0', '2.0'):
+        format_version_str = str(format_version)
+        if format_version_str not in ('1.0', '2.0'):
+            # DEBUG: Print what we got
+            import sys
+            print(f"DEBUG: Rejecting format_version: {format_version!r} (type: {type(format_version)})", file=sys.stderr)
+            print(f"DEBUG: After str(): {format_version_str!r}", file=sys.stderr)
+            print(f"DEBUG: Expected: '1.0' or '2.0'", file=sys.stderr)
             send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
             return None
     else:
@@ -939,6 +949,9 @@ def open_actionlist(filename):
         if version:
             # Legacy files: accept any version that starts with "0.2" or "0.3"
             if not (version.startswith('0.2') or version.startswith('0.3')):
+                # DEBUG: Print what we got
+                import sys
+                print(f"DEBUG: Rejecting version: {version!r}", file=sys.stderr)
                 send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
                 return None
 
