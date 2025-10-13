@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import wx
-from lib.pyWx.treeEdit import TreeMixin
+from phatch.lib.pyWx.treeEdit import TreeMixin
 
 class Tree(TreeMixin,wx.TreeCtrl):
-    
+
     def __init__(self,parent,*args,**keyw):
-        
-        from core.api import ACTIONS
-        from core.translation import to_local, to_english
+
+        from phatch.core.api import ACTIONS
+        from phatch.core.translation import to_local, to_english
         
         class I18n_CtrlMixin:
             """Fake example of a Mixin"""

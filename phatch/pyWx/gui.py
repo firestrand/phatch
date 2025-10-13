@@ -27,7 +27,7 @@ import types
 import sys
 
 #check wx
-from lib.pyWx.wxcheck import ensure
+from phatch.lib.pyWx.wxcheck import ensure
 try:
     wx = ensure('2.8', '2.8')
 except:
@@ -52,17 +52,17 @@ import os
 #---Local import
 
 #gui-independent
-from core import api
-from core import ct
-from core import config
-from core import pil
-from core.message import FrameReceiver
-from lib import formField
-from lib import notify
-from lib import safe
-from lib import system
-from lib import listData
-from lib.unicoding import exception_to_unicode
+from phatch.core import api
+from phatch.core import ct
+from phatch.core import config
+from phatch.core import pil
+from phatch.core.message import FrameReceiver
+from phatch.lib import formField
+from phatch.lib import notify
+from phatch.lib import safe
+from phatch.lib import system
+from phatch.lib import listData
+from phatch.lib.unicoding import exception_to_unicode
 from phatch.services import (
     ActionListService,
     IncompatibleActionListError,
@@ -72,12 +72,12 @@ from phatch.services import (
 notify.init(ct.INFO['name'])
 
 #gui-dependent
-from lib.pyWx import droplet
-from lib.pyWx import graphics
-from lib.pyWx import imageFileBrowser
-from lib.pyWx import imageInspector
-from lib.pyWx import paint
-from lib.pyWx.clipboard import copy_text
+from phatch.lib.pyWx import droplet
+from phatch.lib.pyWx import graphics
+from phatch.lib.pyWx import imageFileBrowser
+from phatch.lib.pyWx import imageInspector
+from phatch.lib.pyWx import paint
+from phatch.lib.pyWx.clipboard import copy_text
 
 from . import images
 from . import dialogs
@@ -387,7 +387,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         )
         self.action_advisor = ActionListAdvisor()
         self.file_dialogs = FileDialogService(wx.FileDialog)
-        from lib.pyWx import shell
+        from phatch.lib.pyWx import shell
         self.shell_launcher = ShellLauncher(
             shell_factory=shell.Frame,
             icon_provider=lambda: graphics.bitmap(images.ICON_PHATCH_64),
@@ -407,7 +407,9 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         self._pubsub()
         self._droplet_hint_shown = False
         if actionlist.endswith(ct.EXTENSION):
-            self._open(actionlist)
+            # Defer loading until after frame initialization completes
+            # to ensure api.init() has populated ACTIONS
+            wx.CallAfter(self._open, actionlist)
 
     def _set_size(self):
         #make it eee pc friendly
@@ -789,8 +791,8 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         #settings in mixin because now app bas, also config_path
 
     def on_menu_help_about(self, event):
-        from lib.pyWx import about
-        from data.info import all_credits
+        from phatch.lib.pyWx import about
+        from phatch.data.info import all_credits
         dlg = about.Dialog(self,
             title='%(version)s' % ct.INFO,
             logo=graphics.bitmap(images.LOGO),

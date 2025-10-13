@@ -52,6 +52,12 @@ from .message import send
 
 #---constants
 ACTIONS_LIST_FORMAT_VERSION = '2.0'  # JSON format (was '1.0' for pprint format)
+
+# Action registry - populated by import_actions()
+ACTIONS = None
+ACTION_LABELS = None
+ACTION_FIELDS = None
+
 PROGRESS_MESSAGE = 'In: %s%s\nFile' % (' ' * 100, '.')
 SEE_LOG = _('See "%s" for more details.') % _('Show Log')
 TREE_HEADERS = ['filename', 'type', 'folder', 'subfolder', 'root',
@@ -918,16 +924,12 @@ def open_actionlist(filename):
     #try to load as JSON first (new format)
     try:
         data = json.loads(source)
-    except json.JSONDecodeError as json_err:
+    except json.JSONDecodeError:
         # Fall back to Python literal eval (legacy format)
         try:
             data = safe.eval_safe(source)
-        except Exception as eval_err:
+        except Exception:
             # If both fail, it's an invalid file
-            import sys
-            print(f"DEBUG: Failed to parse file as JSON: {json_err}", file=sys.stderr)
-            print(f"DEBUG: Failed to parse file as Python: {eval_err}", file=sys.stderr)
-            print(f"DEBUG: First 200 chars: {source[:200]!r}", file=sys.stderr)
             send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
             return None
 
@@ -937,11 +939,6 @@ def open_actionlist(filename):
         # Accept format versions 1.0 (pprint) and 2.0 (JSON)
         format_version_str = str(format_version)
         if format_version_str not in ('1.0', '2.0'):
-            # DEBUG: Print what we got
-            import sys
-            print(f"DEBUG: Rejecting format_version: {format_version!r} (type: {type(format_version)})", file=sys.stderr)
-            print(f"DEBUG: After str(): {format_version_str!r}", file=sys.stderr)
-            print(f"DEBUG: Expected: '1.0' or '2.0'", file=sys.stderr)
             send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
             return None
     else:
@@ -949,24 +946,16 @@ def open_actionlist(filename):
         if version:
             # Legacy files: accept any version that starts with "0.2" or "0.3"
             if not (version.startswith('0.2') or version.startswith('0.3')):
-                # DEBUG: Print what we got
-                import sys
-                print(f"DEBUG: Rejecting version: {version!r}", file=sys.stderr)
                 send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
                 return None
 
     # Reconstruct action objects from saved data
     # Check if actions have been imported
-    if 'ACTIONS' not in globals():
-        import sys
-        print("DEBUG: ACTIONS not initialized! Call api.init() first.", file=sys.stderr)
-        print("DEBUG: Available globals:", [k for k in globals().keys() if k.startswith('ACTION')], file=sys.stderr)
+    if ACTIONS is None:
         send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
         return None
 
     if not ACTIONS:
-        import sys
-        print("DEBUG: ACTIONS is empty! No actions were imported.", file=sys.stderr)
         send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
         return None
 
@@ -979,8 +968,6 @@ def open_actionlist(filename):
         try:
             newAction = ACTIONS[actionLabel]()
         except KeyError:
-            import sys
-            print(f"DEBUG: Action '{actionLabel}' not found in ACTIONS. Available: {list(ACTIONS.keys())[:10]}", file=sys.stderr)
             raise
         invalid_labels.extend(['- %s (%s)' % (label, actionLabel)
                                 for label in newAction.load(actionFields)])

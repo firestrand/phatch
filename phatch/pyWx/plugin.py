@@ -21,8 +21,8 @@
 # Follow PEP8
 
 import wx
-from core import ct
-from core.api import import_module
+from phatch.core import ct
+from phatch.core.api import import_module
 
 ID_droplet = wx.ID_FORWARD
 

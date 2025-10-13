@@ -110,6 +110,15 @@ def test_save_writes_bytes_to_file(tmp_path):
 
 
 def test_round_trip_save_and_load(tmp_path):
+    # Initialize API to populate ACTIONS registry
+    import builtins
+    if '_' not in builtins.__dict__:
+        builtins.__dict__['_'] = lambda value: value
+
+    from phatch.core import config, api
+    config.init_config_paths()
+    api.init()
+
     file_path = tmp_path / "action.phatch"
 
     service = ActionListService(safe_mode_checker=lambda: False)

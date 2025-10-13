@@ -35,22 +35,22 @@ if __name__ == '__main__':
 #---begin
 import wx
 
-from core import ct
-from lib.reverse_translation import _r
-from core import pil
+from phatch.core import ct
+from phatch.lib.reverse_translation import _r
+from phatch.core import pil
 
 #core.lib
-from lib import system
-from core.message import send, ProgressReceiver
+from phatch.lib import system
+from phatch.core.message import send, ProgressReceiver
 
 #gui-dependent
-from lib.pyWx import clipboard
-from lib.pyWx import graphics
-from lib.pyWx import vlistTag
-from lib.pyWx import paint
-from lib.pyWx import imageInspector
-from lib.pyWx.wildcard import wildcard_list, _wildcard_extension
-from lib.pyWx.tag import Browser, ContentMixin
+from phatch.lib.pyWx import clipboard
+from phatch.lib.pyWx import graphics
+from phatch.lib.pyWx import vlistTag
+from phatch.lib.pyWx import paint
+from phatch.lib.pyWx import imageInspector
+from phatch.lib.pyWx.wildcard import wildcard_list, _wildcard_extension
+from phatch.lib.pyWx.tag import Browser, ContentMixin
 
 from . import images
 from .wxGlade import dialogs

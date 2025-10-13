@@ -84,19 +84,14 @@ class ActionListService:
 
         try:
             result = self._open_actionlist(filename)
-            # DEBUG: Check if None was returned
             if result is None:
-                import sys
-                print(f"DEBUG: open_actionlist returned None for {filename}", file=sys.stderr)
-                raise ValueError(f"open_actionlist returned None (incompatible version)")
+                raise ValueError("open_actionlist returned None (incompatible version)")
             data, warning = result
         except MissingRequiredActionError:
             raise
         except KeyError as exc:
             raise MissingRequiredActionError(exc) from exc
         except Exception as exc:  # noqa: BLE001 - we convert to a typed error
-            import sys
-            print(f"DEBUG: Exception in service.load: {type(exc).__name__}: {exc}", file=sys.stderr)
             raise IncompatibleActionListError(filename, exc) from exc
 
         invalid_labels = tuple(data.get("invalid labels", ()))

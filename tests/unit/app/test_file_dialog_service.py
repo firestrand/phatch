@@ -3,7 +3,7 @@ import builtins
 if '_' not in builtins.__dict__:
     builtins.__dict__['_'] = lambda value: value
 
-from phatch.services.file_dialogs import DialogSelection, FileDialogService
+from phatch.services.file_dialogs import DialogSelection, FileDialogService, wx
 
 
 class FakeDialog:
@@ -35,7 +35,7 @@ class FakeDialog:
 
 def test_open_actionlist_returns_selection_when_ok(monkeypatch):
     dialog = FakeDialog(None)
-    dialog.enqueue(True, "/tmp/list.phatch")
+    dialog.enqueue(wx.ID_OK, "/tmp/list.phatch")
 
     def factory(parent, **options):
         # Reuse the same dialog instance to inspect options
@@ -61,7 +61,7 @@ def test_open_actionlist_returns_selection_when_ok(monkeypatch):
 
 def test_save_actionlist_applies_overwrite_flag(monkeypatch):
     dialog = FakeDialog(None)
-    dialog.enqueue(True, "/tmp/list.phatch", filter_index=2)
+    dialog.enqueue(wx.ID_OK, "/tmp/list.phatch", filter_index=2)
 
     def factory(parent, **options):
         dialog.options = options
