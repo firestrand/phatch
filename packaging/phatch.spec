@@ -1,9 +1,16 @@
+import sys
 from pathlib import Path
 
 from PyInstaller.utils.hooks import collect_data_files, collect_submodules
 
+from phatch.data.info import NAME
+from phatch.data.version import VERSION
+
 
 root = Path(SPEC).resolve().parents[1]
+is_macos = sys.platform == "darwin"
+console_executable_name = "Phatch-CLI" if is_macos else "Phatch"
+gui_executable_name = NAME if is_macos else "Phatch-GUI"
 data_files = collect_data_files("phatch_assets") + [
     (str(root / "COPYING"), "."),
     (str(root / "AUTHORS"), "."),
@@ -19,7 +26,11 @@ hidden_imports = (
     + collect_submodules("phatch.pyWx")
 )
 hook_paths = [str(root / "packaging" / "hooks")]
-runtime_hooks = [str(root / "packaging" / "hooks" / "runtime_phatch_legacy_imports.py")]
+runtime_hooks = (
+    []
+    if is_macos
+    else [str(root / "packaging" / "hooks" / "runtime_phatch_legacy_imports.py")]
+)
 
 console_analysis = Analysis(
     [str(root / "packaging" / "console_entry.py")],
@@ -41,7 +52,11 @@ gui_analysis = Analysis(
     runtime_hooks=runtime_hooks,
     noarchive=False,
 )
-MERGE((console_analysis, "Phatch", "Phatch"), (gui_analysis, "Phatch-GUI", "Phatch-GUI"))
+if not is_macos:
+    MERGE(
+        (console_analysis, console_executable_name, console_executable_name),
+        (gui_analysis, gui_executable_name, gui_executable_name),
+    )
 
 console_pyz = PYZ(console_analysis.pure)
 console_exe = EXE(
@@ -50,7 +65,7 @@ console_exe = EXE(
     console_analysis.scripts,
     [],
     exclude_binaries=True,
-    name="Phatch",
+    name=console_executable_name,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -65,7 +80,7 @@ gui_exe = EXE(
     gui_analysis.scripts,
     [],
     exclude_binaries=True,
-    name="Phatch-GUI",
+    name=gui_executable_name,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -74,14 +89,34 @@ gui_exe = EXE(
     icon=str(root / "phatch_assets" / "images" / "icons" / "64x64" / "phatch.ico"),
 )
 
-COLLECT(
-    console_exe,
-    gui_exe,
-    console_analysis.binaries,
-    console_analysis.datas,
-    gui_analysis.binaries,
-    gui_analysis.datas,
-    strip=False,
-    upx=False,
-    name="Phatch",
-)
+if is_macos:
+    collection = COLLECT(
+        gui_exe,
+        gui_analysis.binaries,
+        gui_analysis.datas,
+        strip=False,
+        upx=False,
+        name="Phatch",
+    )
+    app = BUNDLE(
+        collection,
+        name="Phatch.app",
+        bundle_identifier="org.phatch.Phatch",
+        version=VERSION,
+        info_plist={
+            "CFBundleName": NAME,
+            "CFBundleDisplayName": NAME,
+        },
+    )
+else:
+    collection = COLLECT(
+        console_exe,
+        gui_exe,
+        console_analysis.binaries,
+        console_analysis.datas,
+        gui_analysis.binaries,
+        gui_analysis.datas,
+        strip=False,
+        upx=False,
+        name="Phatch",
+    )
