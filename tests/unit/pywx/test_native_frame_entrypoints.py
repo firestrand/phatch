@@ -30,7 +30,9 @@ def destroy_app(app) -> None:
             window.unsubscribe_all()
         window.Destroy()
     wx.Yield()
-    wx.App.Destroy(app)
+    app.OnExit()
+    wx.Yield()
+    app.Destroy()
 
 
 def test_droplet_selection_cancel_returns_no_action_list(
@@ -134,6 +136,12 @@ def test_recent_droplet_cancel_stops_before_frame_creation(
     native_runtime, native_interaction, monkeypatch
 ) -> None:
     # Given: recent mode with no isolated action lists and a cancelled native chooser
+    branding_installs: list[bool] = []
+    monkeypatch.setattr(
+        gui.DropletMixin,
+        "_install_application_branding",
+        lambda _app: branding_installs.append(True),
+    )
     monkeypatch.setattr(
         wx.SingleChoiceDialog,
         "ShowModal",
@@ -152,6 +160,7 @@ def test_recent_droplet_cancel_stops_before_frame_creation(
 
     # Then: initialization owns no top-level processing frame
     assert not wx.GetTopLevelWindows()
+    assert branding_installs == []
 
 
 def test_inspect_entrypoint_owns_scripted_main_loop(

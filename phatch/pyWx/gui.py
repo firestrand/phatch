@@ -81,6 +81,7 @@ from phatch.lib.pyWx.clipboard import copy_text
 from . import images
 from . import dialogs
 from . import plugin
+from .application_branding import ApplicationBrandingMixin
 from .frame_dependencies import FrameDependencies
 from .file_menu import ClipboardMessages
 from .ui_descriptors import (
@@ -980,7 +981,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
 #---Image Inspector
 
 
-class ImageInspectorApp(wx.App):
+class ImageInspectorApp(ApplicationBrandingMixin, wx.App):
 
     def __init__(self, paths, *args, **keyw):
         self.paths = paths
@@ -988,6 +989,7 @@ class ImageInspectorApp(wx.App):
 
     def OnInit(self):
         # wx.InitAllImageHandlers() not needed - wxPython 4.x auto-initializes
+        self._install_application_branding()
         _theme()
         frame = dialogs.ImageInspectorFrame(None,
             size=dialogs.imageInspector.SIZE)
@@ -1024,7 +1026,7 @@ class DropletFrame(DialogsMixin, wx.Frame, FrameReceiver):
         self.Destroy()
 
 
-class DropletMixin:
+class DropletMixin(ApplicationBrandingMixin):
 
     def OnInit(self):
         # wx.InitAllImageHandlers() not needed - wxPython 4.x auto-initializes
@@ -1039,6 +1041,7 @@ class DropletMixin:
                 self.settings['file_history'])
         if self.actionlist is None:
             return 0
+        self._install_application_branding()
         #create frame
         frame = DropletFrame(
             self.actionlist,
@@ -1136,6 +1139,7 @@ class App(DropletMixin, wx.App):
 
     def OnInit(self):
         # wx.InitAllImageHandlers() not needed - wxPython 4.x auto-initializes
+        self._install_application_branding()
         #frame
         self.splash = self._splash()
         self.splash.CentreOnScreen()

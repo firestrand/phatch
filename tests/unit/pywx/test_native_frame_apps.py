@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import pytest
@@ -21,7 +22,17 @@ def destroy_app(app) -> None:
             window.unsubscribe_all()
         window.Destroy()
     wx.Yield()
+    app.OnExit()
+    wx.Yield()
     app.Destroy()
+
+
+def assert_application_branding(app) -> None:
+    if sys.platform == "darwin":
+        assert app._dock_icon is not None
+        assert app._dock_icon.IsIconInstalled()
+    else:
+        assert app._dock_icon is None
 
 
 def test_application_replaces_real_splash_with_native_main_frame(
@@ -37,6 +48,7 @@ def test_application_replaces_real_splash_with_native_main_frame(
     app = gui.App(settings.create_settings(config.PATHS), "", False)
 
     try:
+        assert_application_branding(app)
         # When: deferred native startup events are processed
         wx.Yield()
         frame = app.GetTopWindow()
@@ -88,6 +100,7 @@ def test_droplet_application_executes_and_closes_hidden_native_frame(
     )
 
     try:
+        assert_application_branding(app)
         frame = app.GetTopWindow()
         assert isinstance(frame, gui.DropletFrame)
         assert not frame.IsShown()
@@ -99,6 +112,23 @@ def test_droplet_application_executes_and_closes_hidden_native_frame(
         assert len(service.executions) == 1
         assert service.executions[0][2] == {"paths": ["input.png"], "drop": True}
         assert not wx.GetTopLevelWindows()
+    finally:
+        destroy_app(app)
+
+
+def test_image_inspector_application_installs_native_application_branding(
+    native_runtime,
+) -> None:
+    # Given: the production image-inspector application boundary
+    app = gui.ImageInspectorApp([], False)
+
+    try:
+        # When: wx completes the application's native initialization
+        frame = app.GetTopWindow()
+
+        # Then: application branding shares the same lifetime as the inspector app
+        assert_application_branding(app)
+        assert isinstance(frame, gui.dialogs.ImageInspectorFrame)
     finally:
         destroy_app(app)
 
