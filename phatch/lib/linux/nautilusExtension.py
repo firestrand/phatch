@@ -17,8 +17,9 @@
 
 import codecs
 import os
-from core.ct import USER_PATH
-from lib.unicoding import ENCODING
+
+from phatch.core.ct import USER_PATH
+from phatch.lib.unicoding import ENCODING
 
 TEMPLATE = """
 from urllib import unquote

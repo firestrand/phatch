@@ -34,7 +34,7 @@ except ImportError:
         return False
 
 try:
-    from lib.linux.nautilusExtension import nautilus_exists, \
+    from phatch.lib.linux.nautilusExtension import nautilus_exists, \
                                                 create_nautilus_extension
 except ImportError:
 
