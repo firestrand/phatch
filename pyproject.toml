@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Phatch"
-version = "0.3.0"
+dynamic = ["version"]
 description = "PHoto bATCH Processor"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
@@ -84,6 +84,9 @@ dev = [
 [tool.setuptools.packages.find]
 include = ["phatch*"]
 namespaces = false
+
+[tool.setuptools.dynamic]
+version = { attr = "phatch.data.version.VERSION" }
 
 [tool.setuptools.package-data]
 phatch_assets = [

@@ -33,7 +33,7 @@ def test_package_identity_matches_current_runtime_metadata() -> None:
     # When: callers inspect its public name and version
     # Then: the historical distribution identity remains stable
     assert info.NAME == "Phatch"
-    assert VERSION == "0.3.0"
+    assert VERSION == "0.4.0"
 
 
 def test_core_image_and_console_dependencies_support_current_behavior() -> None:
@@ -67,13 +67,25 @@ def test_pep621_metadata_declares_supported_runtime() -> None:
     # When: installers inspect package identity and compatibility
     # Then: metadata matches the supported CPython 3.11-3.13 policy
     assert project["name"] == "Phatch"
-    assert project["version"] == "0.3.0"
+    assert project["dynamic"] == ["version"]
+    assert "version" not in project
     assert project["requires-python"] == ">=3.11,<3.14"
     assert dependency_names(project["dependencies"]) == {
         "pillow",
         "platformdirs",
         "rich",
     }
+
+
+def test_setuptools_reads_version_from_runtime_canonical_source() -> None:
+    # Given: the setuptools dynamic metadata contract
+    pyproject = load_pyproject()
+
+    # When: the configured version source is inspected
+    dynamic_version = pyproject["tool"]["setuptools"]["dynamic"]["version"]
+
+    # Then: packaging resolves the same module attribute used at runtime
+    assert dynamic_version == {"attr": "phatch.data.version.VERSION"}
 
 
 def test_optional_dependencies_match_capability_boundaries() -> None:
