@@ -20,58 +20,18 @@
 
 """Local launch script for all platforms"""
 
-import sys
-from os.path import abspath, dirname, join
-
-# Handle both package import and direct execution
-try:
-    from phatch.core import config
-except (ImportError, ModuleNotFoundError):
-    # When phatch/ dir is in sys.path (e.g., in tests)
-    from core import config
+from phatch.core import config
+from phatch.core.resource_config import direct_config_paths
 
 
-def create_paths(relative=''):
-    root = dirname(abspath(__file__))
-
-    def expand(path):
-        return abspath(join(root, relative, path))
-
-    phatch_data_path = 'data'
-    paths = {
-        'PHATCH_DOCS_PATH': 'docs',
-        'PHATCH_FONTS_CACHE_PATH': 'cache/fonts',
-        'PHATCH_IMAGE_PATH': 'images',
-        'PHATCH_LOCALE_PATH': 'locale',
-        #data
-        'PHATCH_DATA_PATH': phatch_data_path,
-        'PHATCH_ACTIONLISTS_PATH': join(phatch_data_path, 'actionlists'),
-        'PHATCH_BLENDER_PATH': join(phatch_data_path, 'blender'),
-        'PHATCH_FONTS_PATH': join(phatch_data_path, 'fonts'),
-        'PHATCH_HIGHLIGHTS_PATH': join(phatch_data_path, 'highlights'),
-        'PHATCH_MASKS_PATH': join(phatch_data_path, 'masks'),
-        'PHATCH_PERSPECTIVE_PATH': join(phatch_data_path, 'perspective'),
-    }
-    for key, path in list(paths.items()):
-        paths[key] = expand(path)
-    paths['PHATCH_PYTHON_PATH'] = root
-    return paths
+def create_paths(_relative=''):
+    return direct_config_paths()
 
 
 def init_config_paths():
-    if hasattr(sys, "frozen"):
-        sys.argv[0]
-        relative = ''
-    else:
-        relative = '..'
-    return config.init_config_paths(config_paths=create_paths(relative))
+    return config.init_config_paths(config_paths=create_paths())
 
 
 def main():
-    #override paths with local paths
-    #start application
     from . import app
     app.main(init_config_paths(), app_file=__file__)
-
-if __name__ == '__main__':
-    main()

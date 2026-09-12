@@ -19,6 +19,7 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 from lib.imtools import has_transparency
@@ -28,44 +29,27 @@ FOLDER = _t('Folder')
 FILL_TYPES = (OTHER_IMAGE, FOLDER)
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+import other.tamogen as _tamogen
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global _tamogen
-    import other.tamogen as _tamogen
-    _tamogen.OTHER_IMAGE = OTHER_IMAGE
-    _tamogen.FOLDER = FOLDER
-    _tamogen.FILL_TYPES = FILL_TYPES
-    return {'_tamogen': _tamogen}
 def mosaic(image, fill_type, fill_image=None, fill_folder=None, columns=10, rows=10,
         canvas_width=100, canvas_height=100):
     if has_transparency(image):
         image = image.convert('RGBA')
     else:
         image = image.convert('RGB')
-    return _tamogen.mosaic(image, fill_type, columns, rows,
+    fill_type_value = {
+        OTHER_IMAGE: _tamogen.OTHER_IMAGE,
+        FOLDER: _tamogen.FOLDER,
+    }[fill_type]
+    return _tamogen.mosaic(image, fill_type_value, columns, rows,
         canvas_width, canvas_height, fill_image, fill_folder)
 
 
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Tamogen')
     author = 'Juho Vepsäläinen'
     email = 'bebraw@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(mosaic)
     version = '0.1'
     tags = [_t('filter')]

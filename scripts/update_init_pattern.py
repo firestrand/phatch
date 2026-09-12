@@ -31,6 +31,7 @@ After:
         return {'Image': Image}
 """
 
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -52,16 +53,17 @@ def transform_init_function(content):
     lines = content.split('\n')
     init_start_idx = None
     init_end_idx = None
+    function_indent = ''
 
     # Find init() function
     for i, line in enumerate(lines):
         if line.strip() == 'def init():':
             init_start_idx = i
-            # Find where the function ends (next line that's not indented or empty/comment)
+            function_indent = line[:len(line) - len(line.lstrip())]
             for j in range(i + 1, len(lines)):
                 stripped = lines[j].strip()
-                # End of function if we hit a non-indented line (except blank lines/comments)
-                if stripped and not lines[j].startswith((' ', '\t')):
+                line_indent = lines[j][:len(lines[j]) - len(lines[j].lstrip())]
+                if stripped and len(line_indent) <= len(function_indent):
                     init_end_idx = j
                     break
             if init_end_idx is None:
@@ -88,43 +90,46 @@ def transform_init_function(content):
     for line in init_body_lines:
         stripped = line.strip()
         # Keep all lines except pure comment lines
-        if stripped and not (stripped.startswith('#') and 'lazily import' in stripped.lower()):
+        if stripped and not (
+                stripped.startswith('#')
+                and 'lazily import' in stripped.lower()):
             clean_body_lines.append(line)
 
     # Build new init() function
+    body_indent = function_indent + '    '
     new_init_lines = [
-        'def init(_inject_deps=None):',
-        '    """Initialize action dependencies.',
+        function_indent + 'def init(_inject_deps=None):',
+        body_indent + '"""Initialize action dependencies.',
         '',
-        '    Args:',
-        '        _inject_deps: For testing only. Dictionary of dependencies to inject.',
-        '                     If None, uses standard global imports.',
+        body_indent + 'Args:',
+        body_indent
+        + '    _inject_deps: For testing only. Dictionary of dependencies to inject.',
+        body_indent + '                 If None, uses standard global imports.',
         '',
-        '    Returns:',
-        '        Dictionary of loaded dependencies (for testing verification)',
-        '    """',
-        '    if _inject_deps:',
-        '        # Testing mode: inject mocked dependencies',
-        '        for name, value in _inject_deps.items():',
-        '            globals()[name] = value',
-        '        return _inject_deps',
+        body_indent + 'Returns:',
+        body_indent
+        + '    Dictionary of loaded dependencies (for testing verification)',
+        body_indent + '"""',
+        body_indent + 'if _inject_deps is not None:',
+        body_indent + '    # Testing mode: inject mocked dependencies',
+        body_indent + '    for name, value in _inject_deps.items():',
+        body_indent + '        globals()[name] = value',
+        body_indent + '    return _inject_deps',
         '',
-        '    # Production mode: standard lazy loading',
+        body_indent + '# Production mode: standard lazy loading',
     ]
     new_init_lines.extend(clean_body_lines)
-    new_init_lines.append(f'    return {return_dict}')
+    new_init_lines.append(f'{body_indent}return {return_dict}')
 
     # Reconstruct the file
     new_lines = lines[:init_start_idx] + new_init_lines + lines[init_end_idx:]
     return '\n'.join(new_lines)
 
 
-def main():
-    actions_dir = Path(__file__).parent.parent / 'phatch' / 'actions'
-
+def main(actions_dir):
     if not actions_dir.exists():
-        print(f"Error: Actions directory not found: {actions_dir}")
-        sys.exit(1)
+        print(f"Error: Actions directory not found: {actions_dir}", file=sys.stderr)
+        return 1
 
     updated_count = 0
     skipped_count = 0
@@ -133,7 +138,7 @@ def main():
         if action_file.name in ['__init__.py', 'common.py']:
             continue
 
-        content = action_file.read_text()
+        content = action_file.read_text(encoding='utf-8')
 
         # Skip if already transformed (check for _inject_deps)
         if '_inject_deps' in content:
@@ -144,7 +149,7 @@ def main():
         new_content = transform_init_function(content)
 
         if new_content:
-            action_file.write_text(new_content)
+            action_file.write_text(new_content, encoding='utf-8')
             print(f"✓ Updated: {action_file.name}")
             updated_count += 1
         else:
@@ -152,7 +157,15 @@ def main():
             skipped_count += 1
 
     print(f"\nSummary: {updated_count} updated, {skipped_count} skipped")
+    return 0
+
+
+def parse_actions_dir():
+    parser = argparse.ArgumentParser(
+        description='Update legacy action init functions in an explicit directory.')
+    parser.add_argument('actions_dir', type=Path)
+    return parser.parse_args().actions_dir
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main(parse_actions_dir()))

@@ -40,6 +40,7 @@ from lib import thumbnail
 from lib import unicoding
 from lib.reverse_translation import _t
 from lib.formField import RE_FILE_IN, RE_FILE_OUT
+from lib.image_codecs import codec_capabilities
 
 from .ct import TITLE
 from .config import USER_BIN_PATH
@@ -74,13 +75,22 @@ re_DATETIME = re.compile(
 
 TRANSPARENCY_ERROR = _('Only palette images have transparency.')
 
-IMAGE_READ_EXTENSIONS = set(formField.IMAGE_READ_EXTENSIONS)\
-    .union(openImage.WITHOUT_PIL.extensions)
+_CODECS = codec_capabilities()
+IMAGE_READ_EXTENSIONS = {
+    extension.lstrip('.')
+    for codec in _CODECS
+    if codec.can_read
+    for extension in codec.extensions
+}.union(openImage.WITHOUT_PIL.extensions)
 IMAGE_READ_EXTENSIONS = list(IMAGE_READ_EXTENSIONS)
 IMAGE_READ_EXTENSIONS.sort()
 
-IMAGE_EXTENSIONS = [ext for ext in IMAGE_READ_EXTENSIONS
-    if ext in formField.IMAGE_WRITE_EXTENSIONS]
+IMAGE_EXTENSIONS = sorted({
+    extension.lstrip('.')
+    for codec in _CODECS
+    if codec.can_read and codec.can_write
+    for extension in codec.extensions
+})
 
 BASE_VARS = ['dpi', 'compression', 'filename', 'format',
     'orientation', 'path', 'transparency', 'type']
@@ -400,6 +410,8 @@ class Photo:
     """Use :func:`get_photo` to obtain a photo from a filename."""
 
     def __init__(self, info, info_to_dump=None):
+        from phatch.services.output_transaction import AtomicOutputTransaction
+
         self.modify_date = None  # for time shift action
         self.report_files = []  # for reports
         self._exif_transposition_reverse = None
@@ -411,7 +423,11 @@ class Photo:
         #info
         self.info = InfoPhoto(info, info_to_dump, self.get_flattened_image,
             layer.image)
+        self.output_transaction = AtomicOutputTransaction()
         self.rotate_exif()
+
+    def set_output_transaction(self, transaction):
+        self.output_transaction = transaction
 
     def close(self):
         """Remove circular references."""
@@ -452,104 +468,55 @@ class Photo:
     #---image operations affecting all layers
     def save(self, filename, format=None, save_metadata=True, **options):
         """Saves a flattened image"""
-        #todo: flatten layers
+        from pathlib import Path
+
+        from phatch.services.image_output import (
+            ImageSaveRequest,
+            render_image,
+            save_transactionally,
+        )
+
         if format is None:
             format = imtools.get_format_filename(filename)
         image = self.get_flattened_image()
-        image_copy = imtools.convert_save_mode_by_format(image, format)
-        if image_copy.mode == 'P' and 'transparency' in image_copy.info:
-            options['transparency'] = image_copy.info['transparency']
-
-        if image_copy.mode != image.mode:
-            self.log(CONVERTED_MODE % {'mode': image.mode,
-                'mode_copy': image_copy.mode, 'format': format} + '\n')
-
-        #reverse exif previously applied exif orientation
-        #exif thumbnails are usually within 160x160
-        #desktop thumbnails size is defined by thumbnail.py and is
-        #probably 128x128
         save_metadata = save_metadata and exif \
             and exif.is_writable_format(format)
-        if save_metadata:
-            # Exif thumbnails are stored in their own format (eg JPG)
-            thumb = thumbnail.thumbnail(image_copy, (160, 160))
-            thumbdata = imtools.get_format_data(thumb, format)
-            image_copy = imtools.transpose(image_copy,
-                self._exif_transposition_reverse)
-            #thumb = thumbnail.thumbnail(thumb, copy=False)
-        else:
-            thumbdata = None
-            #postpone thumbnail production to see later if it is needed
-            thumb = None
+        rendered = render_image(
+            image, format, self._exif_transposition_reverse, save_metadata
+        )
+        if rendered.image.mode == 'P' and 'transparency' in rendered.image.info:
+            options['transparency'] = rendered.image.info['transparency']
+        if rendered.image.mode != image.mode:
+            self.log(CONVERTED_MODE % {'mode': image.mode,
+                'mode_copy': rendered.image.mode, 'format': format} + '\n')
+        compression = options.pop('compression.tif', 'none')
 
-        if 'compression.tif' in options:
-            compression = options['compression.tif']
-            del options['compression.tif']
-        else:
-            compression = 'none'
+        def log_conversion(source_mode, target_mode):
+            self.log(CONVERTED_MODE % {'mode': source_mode,
+                'mode_copy': target_mode, 'format': format} + '\n')
 
-        try:
-            if compression.lower() in ['raw', 'none']:
-                #save image with pil
-                file_mode = imtools.save_check_mode(image_copy, filename,
-                    **options)
-                #did PIL silently change the image mode?
-                if file_mode:
-                    #PIL did change the image mode without throwing
-                    # an exception.
-                    #Do not save thumbnails in this case
-                    # as they won't be reliable.
-                    if image_copy.mode.endswith('A') and \
-                            not file_mode.endswith('A'):
-                        #force RGBA when transparency gets lost
-                        #eg saving TIFF format with LA mode
-                        mode = image_copy.mode
-                        image_copy = image_copy.convert('RGBA')
-                        file_mode = imtools.save_check_mode(image_copy,
-                            filename, **options)
-                        if file_mode:
-                            # RGBA failed
-                            self.log(CONVERTED_MODE % {'mode': mode,
-                                'mode_copy': file_mode, 'format': format} \
-                                + '\n')
-                        else:
-                            # RGBA succeeded
-                            self.log(CONVERTED_MODE % {'mode': mode,
-                                'mode_copy': 'RGBA', 'format': format} + '\n')
-                    else:
-                        self.log(CONVERTED_MODE % {'mode': image_copy.mode,
-                            'mode_copy': file_mode, 'format': format} + '\n')
-                elif thumbnail.is_needed(image_copy, format):
-                    # save thumbnail in system cache if needed
-                    if thumb is None:
-                        thumb = image_copy
-                    thumb_info = {
-                        'width': image.size[0],
-                        'height': image.size[1]}
-                    thumbnail.save_to_cache(filename, thumb,
-                        thumb_info=thumb_info, **options)
-                # copy metadata if needed (problematic for tiff)
-                # FIXME: if metdata corrupts the image, there should be
-                # no thumbnail
-                if save_metadata:
-                    self.info.save(filename, thumbdata=thumbdata)
-            else:
-                # save with pil>libtiff
-                openImage.check_libtiff(compression)
-                self.log(openImage.save_libtiff(image_copy, filename,
-                    compression=compression, **options))
-            if self.modify_date:
-                # Update file access and modification date
-                os.utime(filename, (self.modify_date, self.modify_date))
-            self.append_to_report(filename, image_copy)
-        except IOError as message:
-            # clean up corrupted drawing
-            if os.path.exists(filename):
-                os.remove(filename)
-            raise IOError(message)
-        #update info
-        if hasattr(options, 'dpi'):
-            self.info['dpi'] = options['dpi'][0]
+        modified_time_ns = None
+        if self.modify_date:
+            modified_time_ns = int(self.modify_date * 1_000_000_000)
+        def after_publish():
+            self.append_to_report(filename, rendered.image)
+            if 'dpi' in options:
+                self.info['dpi'] = options['dpi'][0]
+
+        save_transactionally(
+            ImageSaveRequest(
+                Path(filename),
+                rendered,
+                format,
+                options,
+                compression,
+                self.info if save_metadata else None,
+                modified_time_ns,
+                log_conversion,
+                after_publish,
+            ),
+            getattr(self, "output_transaction", None),
+        )
 
     def append_to_report(self, filename, image=None):
         report = image_to_dict(filename, image)

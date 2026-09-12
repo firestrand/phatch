@@ -27,32 +27,15 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from core.translation import _t
 
 
 #---PIL
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image, ImageColor, ImageMath
+from lib import imtools
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image, ImageMath, ImageColor, imtools
-    from PIL import Image, ImageColor, ImageMath
-    from lib import imtools
-    return {'Image': Image, 'ImageMath': ImageMath, 'ImageColor': ImageColor, 'imtools': imtools}
 def warmup(image, midtone, brighten, amount=100):
     """Apply a toning filter. Move the midtones to the desired
     color while preserving blacks and whites with optional mixing
@@ -91,10 +74,10 @@ def warmup(image, midtone, brighten, amount=100):
 
 #---Phatch
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Warm Up')
     author = 'Pawel T. Jochym'
     email = 'jochym@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(warmup)
     version = '0.2'
     tags = [_t('filter'), _t('color')]

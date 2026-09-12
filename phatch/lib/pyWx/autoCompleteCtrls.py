@@ -63,8 +63,8 @@ if hasattr(wx, "PopupWindow"):
                 self.SetChoices(choices)
 
         def _showDropDown(self, state=True):
-            if not self.dropdown.IsShown():
-                TextCtrlAutoComplete._showDropDown(self, True)
+            if self.dropdown.IsShown() != state:
+                TextCtrlAutoComplete._showDropDown(self, state)
 
         def onControlChanged(self, event):
             if self:
@@ -201,7 +201,11 @@ if hasattr(wx, "PopupWindow"):
 
             self._ascending = True
 
-            self.initialize(value, choices)
+            if choices:
+                self.initialize(value, choices)
+            else:
+                self.SetValue(value)
+                wx.CallAfter(self._showDropDown)
 
             self.dropdown.SetSize((self.dropdown.GetSize()[0], 500))
 
@@ -227,21 +231,13 @@ if hasattr(wx, "PopupWindow"):
             if not isinstance(choices, list):
                 self._choices = [x for x in choices]
 
-            #prevent errors on "old" systems
-            if sys.version.startswith("2.3"):
-                self._choices.sort(lambda x, y: cmp(x.lower(), y.lower()))
-            else:
-                self._choices.sort(key=lambda x: locale.strxfrm(x).lower())
+            self._choices.sort(key=lambda x: locale.strxfrm(x).lower())
 
             self._updateDataList(self._choices)
 
-            self.dropdownlistbox.InsertColumn(0, "")
-
             for num, colVal in enumerate(self._choices):
-                index = self.dropdownlistbox.InsertImageStringItem(
-                    sys.maxsize, colVal, self.sm_dn)
-
-                self.dropdownlistbox.SetStringItem(index, 0, colVal)
+                index = self.dropdownlistbox.InsertItem(
+                    self.dropdownlistbox.GetItemCount(), colVal, self.sm_dn)
                 self.dropdownlistbox.SetItemData(index, num)
 
             self._setListSize()

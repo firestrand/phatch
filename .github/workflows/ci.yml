@@ -1,0 +1,281 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  UV_LOCKED: "1"
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked --dev
+      - run: uv lock --check
+      - run: uv run ruff format --check .
+      - run: uv run ruff check .
+      - run: uv run ty check --extra-search-path .
+      - run: mkdir -p artifacts
+        shell: bash
+      - run: >-
+          uv run pytest tests/unit tests/tooling --ignore=tests/unit/pywx --no-cov
+          --junitxml=artifacts/junit-quality.xml
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: quality-results
+          path: artifacts/junit-quality.xml
+          if-no-files-found: error
+
+  non_gui:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.11", "3.12", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: uv sync --locked --dev
+      - run: mkdir -p artifacts/coverage artifacts/junit
+        shell: bash
+      - run: >-
+          uv run coverage run -m pytest --no-cov
+          -m "not requires_display and not requires_external"
+          --ignore=tests/unit/pywx
+          --ignore=tests/integration/test_gui_smoke.py
+          --ignore=tests/integration/test_windows_gui_runtime.py
+          --junitxml=artifacts/junit/junit-non-gui-${{ matrix.os }}-${{ matrix.python-version }}.xml
+        env:
+          COVERAGE_FILE: artifacts/coverage/.coverage.non-gui-${{ matrix.os }}-${{ matrix.python-version }}
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: non-gui-${{ matrix.os }}-${{ matrix.python-version }}
+          path: |
+            artifacts/coverage/.coverage.non-gui-${{ matrix.os }}-${{ matrix.python-version }}
+            artifacts/junit/junit-non-gui-${{ matrix.os }}-${{ matrix.python-version }}.xml
+          if-no-files-found: error
+          include-hidden-files: true
+
+  distributions:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.11", "3.12", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: uv sync --locked --dev
+      - run: uv run python -m build --sdist --wheel --outdir artifacts/source
+      - run: uv run python scripts/distribution_smoke.py artifacts/source artifacts/distributions
+      - shell: bash
+        run: uv run python -m twine check artifacts/distributions/* artifacts/source/*
+      - run: >-
+          uv run python scripts/release_manifest.py artifacts/distributions artifacts/source
+          --metadata-wheel artifacts/source/*.whl
+          --output artifacts/release
+        shell: bash
+      - run: uv run pyspdxtools -i artifacts/release/sbom.spdx.json
+      - run: uv run python scripts/artifact_scan.py artifacts/distributions
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: distributions-${{ matrix.os }}-${{ matrix.python-version }}
+          path: artifacts/
+
+  windows_gui:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked --extra gui --dev
+      - run: mkdir -p artifacts/coverage artifacts/junit
+        shell: bash
+      - run: >-
+          uv run coverage run -m pytest --no-cov --strict-markers
+          tests/unit/pywx tests/integration/test_gui_smoke.py
+          tests/integration/test_windows_gui_runtime.py
+          --junitxml=artifacts/junit/junit-windows-gui-3.12.xml
+        env:
+          COVERAGE_FILE: artifacts/coverage/.coverage.windows-gui-3.12
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: windows-gui-3.12
+          path: |
+            artifacts/coverage/.coverage.windows-gui-3.12
+            artifacts/junit/junit-windows-gui-3.12.xml
+          if-no-files-found: error
+          include-hidden-files: true
+
+  coverage_gate:
+    needs: [non_gui, windows_gui]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked --dev
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          pattern: non-gui-*
+          path: artifacts/downloaded
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: windows-gui-3.12
+          path: artifacts/downloaded/windows-gui-3.12
+      - run: >-
+          uv run python scripts/coverage_artifacts.py
+          artifacts/downloaded artifacts/coverage-combine
+      - run: uv run coverage combine --keep artifacts/coverage-combine
+      - run: uv run coverage json -o artifacts/coverage.json
+      - run: uv run coverage xml -o artifacts/coverage.xml
+      - run: uv run coverage report
+      - run: >-
+          uv run python scripts/verify.py --check-coverage artifacts/coverage.json
+          --base-ref ${{ github.event.pull_request.base.sha || github.event.before || github.sha }}
+
+  windows_paths:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: checkout with spaces Ω
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+        with:
+          python-version: "3.12"
+      - working-directory: checkout with spaces Ω
+        run: uv sync --locked --dev
+      - working-directory: checkout with spaces Ω
+        run: >-
+          uv run pytest tests/unit/core/test_path_characterization.py
+          tests/unit/core/test_filesystem.py tests/unit/core/test_windows_names.py
+          tests/unit/lib/test_windows_register_failures.py
+          tests/unit/lib/test_windows_shortcut_failures.py
+          tests/integration/test_installed_wheel_automation.py
+          --junitxml=artifacts/junit-windows-paths.xml
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: windows-path-results
+          path: checkout with spaces Ω/artifacts/
+
+  optional_capabilities:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            extras: ""
+            tests: tests/unit/actions/test_dependency_isolation.py tests/unit/lib/test_capabilities.py
+          - os: ubuntu-latest
+            extras: --extra metadata
+            tests: tests/tooling/test_metadata.py tests/unit/lib/test_python_capability_probes.py
+          - os: windows-latest
+            extras: --extra windows
+            tests: tests/unit/lib/test_windows_register.py tests/unit/lib/test_windows_shortcut.py
+          - os: ubuntu-latest
+            extras: ""
+            tests: tests/unit/test_external_tools.py tests/unit/lib/test_external_capability_probes.py
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked --dev ${{ matrix.extras }}
+      - run: uv run pytest ${{ matrix.tests }} --junitxml=artifacts/junit-optional.xml
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: optional-${{ strategy.job-index }}
+          path: artifacts/
+
+  portable_build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+        with:
+          python-version: "3.12"
+      - run: uv sync --locked --extra gui --extra windows --dev
+      - run: uv run pyinstaller --noconfirm --clean packaging/phatch.spec
+      - run: uv run python -m build --wheel --outdir artifacts/source
+      - run: uv run python scripts/portable_smoke.py dist/Phatch
+      - run: >-
+          uv run python scripts/release_manifest.py dist/Phatch
+          --metadata-wheel artifacts/source/*.whl --extra gui --extra windows
+          --output artifacts/portable-inventory
+        shell: bash
+      - run: uv run python scripts/artifact_scan.py dist/Phatch
+      - run: uv run python -m zipfile -c artifacts/Phatch-windows-x64.zip dist/Phatch
+      - run: >-
+          uv run python scripts/release_manifest.py artifacts/Phatch-windows-x64.zip
+          --metadata-wheel artifacts/source/*.whl --extra gui --extra windows
+          --output artifacts/release
+        shell: bash
+      - run: uv run pyspdxtools -i artifacts/release/sbom.spdx.json
+      - run: >-
+          uv run pytest tests/tooling/test_release_artifacts.py
+          tests/tooling/test_release_artifact_branches.py
+          tests/tooling/test_release_smoke_tools.py
+          tests/tooling/test_portable_smoke_failures.py
+          --cov=scripts.release_manifest --cov=scripts.artifact_scan
+          --cov=scripts.distribution_smoke --cov=scripts.portable_smoke --cov-branch
+          --cov-fail-under=90 --cov-report=xml:artifacts/coverage-artifacts.xml
+          --junitxml=artifacts/junit-artifacts.xml
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: windows-portable
+          path: |
+            artifacts/Phatch-windows-x64.zip
+            artifacts/release/SHA256SUMS
+            artifacts/release/sbom.spdx.json
+            artifacts/release/licenses.tsv
+            artifacts/source/*.whl
+            artifacts/portable-inventory/SHA256SUMS
+            artifacts/coverage-artifacts.xml
+            artifacts/junit-artifacts.xml
+
+  downloaded_artifact_smoke:
+    needs: portable_build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: windows-portable
+          path: downloaded
+      - run: uv sync --locked --dev
+      - run: >-
+          uv run python scripts/release_manifest.py downloaded/Phatch-windows-x64.zip
+          --metadata-wheel downloaded/source/*.whl --extra gui --extra windows
+          --output downloaded/recheck
+          --verify downloaded/release/SHA256SUMS
+        shell: bash
+      - run: uv run pyspdxtools -i downloaded/release/sbom.spdx.json
+      - run: uv run python scripts/artifact_scan.py downloaded
+      - run: uv run python -m zipfile -e downloaded/Phatch-windows-x64.zip "downloaded/extracted Ω"
+      - run: uv run python scripts/portable_smoke.py "downloaded/extracted Ω/Phatch"

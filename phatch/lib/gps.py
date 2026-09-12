@@ -22,7 +22,7 @@ import os
 import datetime
 import xml.dom.minidom
 
-from other import surd
+from phatch.other import surd
 
 try:
     import pyexiv2
@@ -62,7 +62,7 @@ def search(dict, target):
     high = N - 1
 
     while low < high:
-        mid = (low + high) / 2
+        mid = (low + high) // 2
         if s[mid] < target:
             low = mid + 1
         else:

@@ -72,14 +72,15 @@ if FREEDESKTOP:
     FREEDESKTOP_PATH = {
         'normal': os.path.expanduser('~/.thumbnails/normal'),
         'large': os.path.expanduser('~/.thumbnails/large')}
-    if os.path.exists(FREEDESKTOP_PATH['normal']):
-        ensure_path(FREEDESKTOP_PATH['large'])
-    else:
-        #simulate freedesktop with a temp dir
-        thumb_path = ensure_path(tempfile.gettempdir(), 'thumbnails')
+    if not os.path.exists(FREEDESKTOP_PATH['normal']):
+        thumb_path = os.path.join(tempfile.gettempdir(), 'thumbnails')
         FREEDESKTOP_PATH = {
-            'normal': ensure_path(thumb_path, 'normal'),
-            'large': ensure_path(thumb_path, 'large')}
+            'normal': os.path.join(thumb_path, 'normal'),
+            'large': os.path.join(thumb_path, 'large')}
+
+    def _initialize_cache():
+        for path in FREEDESKTOP_PATH.values():
+            os.makedirs(path, exist_ok=True)
 
     def get_uri(filename):
         """Get uri of filename.
@@ -96,7 +97,7 @@ if FREEDESKTOP:
             return filename
         abspath = os.path.abspath(filename)
         try:
-            return 'file://%s' % urllib.request.pathname2url(abspath.encode('utf-8'))
+            return 'file://%s' % urllib.request.pathname2url(abspath)
         except:
             # fallback if fails on unicode
             return 'file://%s' % abspath
@@ -231,10 +232,12 @@ if FREEDESKTOP:
         :returns: image or thumb
         :rtype: Image
         """
+        _initialize_cache()
         thumb = imtools.convert_save_mode_by_format(image, 'PNG')
         if size_label is None:
             size_label = get_freedesktop_size_label(size)
-        pnginfo = get_freedesktop_pnginfo(filename, thumb_info=thumb_info)
+        pnginfo = get_freedesktop_pnginfo(
+            filename, image=image, thumb_info=thumb_info)
         if not size_label:
             # too large -> make thumbnail
             thumb.thumbnail(size, pillow_compat.LANCZOS)
@@ -356,8 +359,7 @@ def thumbnail(image, size=SIZE, checkboard=False, copy=True):
     >>> thumbnail(im, (128, 128)).size
     (128, 128)
     """
-    if copy:
-        thumb = image.copy()
+    thumb = image.copy() if copy else image
     #skip if thumb is smaller than requested size
     if thumb.size[0] > size[0] or thumb.size[1] > size[1]:
         thumb.thumbnail(size, pillow_compat.LANCZOS)

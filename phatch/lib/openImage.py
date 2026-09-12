@@ -22,7 +22,6 @@ from PIL import Image
 
 from . import imtools
 from . import system
-from . import thumbnail
 
 try:
     import pyexiv2
@@ -91,7 +90,10 @@ def open_image_exif_thumb(uri):
 
 
 def open_thumb(filename, image=None, open_image=open_image_exif_thumb,
-        size=thumbnail.SIZE, save_cache=True):
+        size=None, save_cache=True):
+    from . import thumbnail
+    if size is None:
+        size = thumbnail.SIZE
     return thumbnail.open(filename=filename, image=image,
         open_image=open_image, size=size,
         save_cache=save_cache)
@@ -169,8 +171,8 @@ def open_image_with_command(filename, command, app, extension='png',
 
 #libtiff
 
-TIFFINFO = system.find_exe("tiffinfo")
-TIFFCP = system.find_exe("tiffcp")
+TIFFINFO = system.find_exe("tiffinfo", use_which=False)
+TIFFCP = system.find_exe("tiffcp", use_which=False)
 
 if TIFFINFO and TIFFCP:
 
@@ -295,7 +297,7 @@ else:
 
 # inkscape
 
-INKSCAPE = system.find_exe('inkscape')
+INKSCAPE = system.find_exe('inkscape', use_which=False)
 
 if INKSCAPE:
 
@@ -310,8 +312,8 @@ else:
 
 # imagemagick
 
-IMAGEMAGICK_CONVERT = system.find_exe('convert')
-IMAGEMAGICK_IDENTIFY = system.find_exe('identify')
+IMAGEMAGICK_CONVERT = system.find_exe('convert', use_which=False)
+IMAGEMAGICK_IDENTIFY = system.find_exe('identify', use_which=False)
 
 if IMAGEMAGICK_CONVERT:
 
@@ -343,8 +345,8 @@ else:
 
 # xcf tools (gimp)
 
-XCF2PNG = system.find_exe('xcf2png')
-XCFINFO = system.find_exe('xcfinfo')
+XCF2PNG = system.find_exe('xcf2png', use_which=False)
+XCFINFO = system.find_exe('xcfinfo', use_which=False)
 if XCF2PNG:
 
     def open_xcf(filename):
@@ -373,7 +375,7 @@ else:
 
 # dcraw
 
-DCRAW = system.find_exe('dcraw')
+DCRAW = system.find_exe('dcraw', use_which=False)
 
 if DCRAW:
 

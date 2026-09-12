@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Phatch - Photo Batch Processor
 # Copyright (C) 2007-2008 www.stani.be
 #
@@ -21,284 +20,133 @@
 
 # Follows PEP8
 
-try:
-    _
-except NameError:
-    _ = str
+from pathlib import Path
+from typing import ClassVar
 
 from core import models
+from lib.formField import ChoiceField
 from lib.reverse_translation import _t
 
-#no need to lazily import these as they are always imported
-from lib import system
+from phatch.actions._lossless_jpeg_options import (
+    AUTOMATIC,
+    COPY,
+    CROP,
+    FLIP,
+    FLIP_DIRECTIONS,
+    GRAYSCALE,
+    HORIZONTAL,
+    ROTATE,
+    ROTATE_AMOUNTS,
+    THUMB,
+    TRANSPOSE,
+    TRANSVERSE,
+    VERTICAL,
+    Arguments,
+    Exiftran,
+    Jpegtran,
+    utilities_dict,
+)
+from phatch.actions._lossless_jpeg_transaction import (
+    LosslessJpegRequest,
+    run_lossless_jpeg,
+)
+from phatch.external_tools import ExternalTools
+from phatch.lib.external_capability_probes import EXIFTRAN, JPEGTRAN
+from phatch.lib.process import Command
 
-AUTOMATIC = _t('Automatic (use exif orientation)')
-COPY = _t('Copy')
-CROP = _t('Crop')
-ROTATE = _t('Rotate')
-FLIP = _t('Flip')
-GRAYSCALE = _t('Grayscale')
-THUMB = _t('Regenerate thumbnail')
-TRANSPOSE = _t('Transpose')
-TRANSVERSE = _t('Transverse')
+__all__ = ["AUTOMATIC", "COPY", "CROP", "EXIFTRAN", "FLIP"]
+__all__ += ["FLIP_DIRECTIONS", "GRAYSCALE", "HORIZONTAL", "JPEGTRAN"]
+__all__ += ["ROTATE", "ROTATE_AMOUNTS", "THUMB", "TRANSPOSE", "TRANSVERSE"]
+__all__ += ["VERTICAL", "Action", "Arguments", "Exiftran", "Jpegtran"]
 
-ROTATE_AMOUNTS = ('90 degrees', '180 degrees', '270 degrees')
-HORIZONTAL = _t('Horizontal')
-VERTICAL = _t('Vertical')
-FLIP_DIRECTIONS = (HORIZONTAL, VERTICAL)
-LOSSLESS_JPEG_FORMAT_ERROR = \
-    _('Lossless JPEG transformation does not work on a %s image:')
-
-
-class Arguments(list):
-    """List with tweaked append behaviour to make it suitable for
-    command line arguments."""
-
-    def __str__(self):
-        return ' '.join(self)
-
-    def append(self, *options):
-        option = '-%s' % options[0]
-        if len(options) > 1:
-            option += ' %s' % ' '.join(options[1:])
-        super(Arguments, self).append(option)
-
-
-class Exiftran(object):
-    name = 'Exiftran (with exif support)'
-    command = system.find_exe('exiftran')
-    angles = {'90 degrees': '9', '180 degrees': '1',
-                        '270 degrees': '2', }
-    directions = {HORIZONTAL: 'F', VERTICAL: 'f'}
-    transformations = (AUTOMATIC, ROTATE, FLIP, THUMB, TRANSPOSE,
-                        TRANSVERSE)
-
-    def interface(self, action, fields):
-        fields[_t('Transformation')] = action.ChoiceField(
-            self.transformations[0], choices=self.transformations)
-        fields[_t('Angle')] = action.ChoiceField(ROTATE_AMOUNTS[0],
-            choices=ROTATE_AMOUNTS)
-        fields[_t('Direction')] = action.ChoiceField(FLIP_DIRECTIONS[0],
-            choices=FLIP_DIRECTIONS)
-        fields[_t('Preserve Timestamp')] = action.BooleanField(True)
-        fields[_t('Show Advanced Options')] = action.BooleanField(False)
-        fields[_t('Update JPEG')] = action.BooleanField(True)
-        fields[_t('Update Exif Thumbnail')] = action.BooleanField(True)
-        fields[_t('Update Orientation Tag')] = action.BooleanField(True)
-
-    def get_relevant_field_labels(self, action):
-        advanced = action.get_field_string('Show Advanced Options') \
-            in ('yes', 'true')
-        relevant = ['Transformation']
-        transformation_fields = {ROTATE: 'Angle', FLIP: 'Direction'}
-        transformation = action.get_field_string('Transformation')
-        if transformation in transformation_fields:
-            relevant.append(transformation_fields[transformation])
-        if transformation == THUMB:
-            relevant.append('Preserve Timestamp')
-        else:
-            relevant.append('Show Advanced Options')
-            if advanced:
-                relevant.extend(['Update JPEG', 'Update Exif Thumbnail',
-                    'Update Orientation Tag'])
-        return relevant
-
-    def get_command_line_args(self, action, photo):
-        info = photo.info
-        values = action.values(info)
-        args = Arguments()
-        #transformation
-        transformation = values['transformation']
-        if transformation == AUTOMATIC:
-            args.append('a')
-        elif transformation == THUMB:
-            args.append('g')
-        elif transformation == ROTATE:
-            args.append(self.angles[values['angle']])
-        elif transformation == FLIP:
-            args.append(self.directions[values['direction']])
-        elif transformation == TRANSPOSE:
-            args.append('t')
-        elif transformation == TRANSVERSE:
-            args.append('T')
-        #options
-        if not values['update_jpeg']:
-            args.append('ni')
-        if not values['update_exif_thumbnail']:
-            args.append('nt')
-        if not values['update_orientation_tag']:
-            args.append('no')
-        if values['preserve_timestamp']:
-            args.append('p')
-        #done!
-        return args
-
-    def get_command_line(self, action, photo, input, output):
-        return '%s -i %s %s -o %s' % (self.command, system.fix_quotes(input),
-            self.get_command_line_args(action, photo),
-            system.fix_quotes(output))
+LOSSLESS_JPEG_FORMAT_ERROR = _t(
+    "Lossless JPEG transformation does not work on a %s image:"
+)
 
 
-class Jpegtran(models.CropMixin):
-    name = 'Jpegtran (without exif support)'
-    command = system.find_exe('jpegtran')
-    transformations = (COPY, CROP, FLIP, GRAYSCALE, ROTATE, TRANSPOSE,
-                        TRANSVERSE)
-    copy_choices = (_t('None'), _t('Comments'), _t('All'))
-    directions = {HORIZONTAL: 'horizontal', VERTICAL: 'vertical'}
-    angles = {'90 degrees': '90', '180 degrees': '180',
-                        '270 degrees': '270'}
-
-    def interface(self, action, fields):
-        # Juho: space hacks. get rid of those with ids later
-        fields[_t('Transformation ')] = action.ChoiceField(
-            self.transformations[1], choices=self.transformations)
-        fields[_t('Copy')] = action.ChoiceField(self.copy_choices[1],
-            choices=self.copy_choices)
-        fields[_t('Angle ')] = action.ChoiceField(ROTATE_AMOUNTS[0],
-            choices=ROTATE_AMOUNTS)
-        fields[_t('Direction ')] = action.ChoiceField(FLIP_DIRECTIONS[0],
-            choices=FLIP_DIRECTIONS)
-        super(Jpegtran, self).interface(fields, action)
-
-    def get_relevant_field_labels(self, action):
-        relevant = ['Transformation ']
-        transformation = action.get_field_string('Transformation ')
-        transformation_fields = {
-            COPY: ['Copy'],
-            CROP: \
-                models.CropMixin.get_relevant_field_labels(self, action),
-                #specify explicitly from crop mixin
-            ROTATE: ['Angle '],
-            FLIP: ['Direction '],
-        }
-        if transformation in transformation_fields:
-            relevant.extend(transformation_fields[transformation])
-        return relevant
-
-    def get_command_line_args(self, action, photo):
-        info = photo.info
-        args = Arguments()
-        #pixelfields defined in the CropMixin
-        values = models.CropMixin.values(self, info, action=action)
-        #transformation
-        transformation = values['transformation_']
-        if transformation == COPY:
-            args.append('copy', values['copy'].lower())
-        elif transformation == CROP:
-            mode = values['mode']
-            if mode == 'Auto':
-                bbox = photo.get_flattened_image().getbbox()
-                values['left'], values['top'], values['width'], \
-                    values['height'] = bbox
-            else:
-                if mode == 'All':
-                    values['left'] = values['top'] = values['right'] = \
-                        values['bottom'] = values['all']
-                values['width'], values['height'] = info['size']
-                values['width'] -= values['right'] + values['left'] + 1
-                values['height'] -= values['bottom'] + values['top'] + 1
-            args.append('crop',
-                '%(width)sx%(height)s+%(left)s+%(top)s' % values)
-        elif transformation == ROTATE:
-            args.append('rotate', self.angles[values['angle_']])
-        elif transformation == FLIP:
-            args.append('flip', self.directions[values['direction_']])
-        else:
-            #grayscale,transpose,transverse
-            args.append(transformation.lower())
-        #done!
-        return args
-
-    def get_command_line(self, action, photo, input, output):
-        return '%s %s %s > %s' % (self.command,
-            self.get_command_line_args(action, photo),
-                system.fix_quotes(input),
-                system.fix_quotes(output))
-
-
-def utilities_dict(*utilities):
-    d = {}
-    for utility in utilities:
-        d[utility.name] = utility
-    return d
-
-
-class UtilityMixin(object):
-    file_in = 'file_in.tif'
-    file_out = 'file_out.png'
+class UtilityMixin(models.Action):
+    utilities: dict[str, Exiftran | Jpegtran]
 
     def interface(self, fields):
-        super(UtilityMixin, self).interface(fields)
-        names = list(self.utilities.keys())
-        fields[_t('Utility')] = self.ChoiceField(names[0],
-            choices=names)
-        for utility in list(self.utilities.values()):
+        super().interface(fields)
+        names = list(self.utilities)
+        fields[_t("Utility")] = ChoiceField(names[0], choices=names)
+        for utility in self.utilities.values():
             utility.interface(self, fields)
 
     def get_relevant_field_labels(self, relevant=None):
-        if relevant is None:
-            relevant = []
-        utility_name = self.get_field_string('Utility')
-        utility = self.utilities[utility_name]
-        relevant.append('Utility')
-        relevant.extend(utility.get_relevant_field_labels(self))
-        return relevant
+        selected = self.utilities[self.get_field_string("Utility")]
+        labels = [] if relevant is None else relevant
+        labels.append("Utility")
+        labels.extend(selected.get_relevant_field_labels(self))
+        return labels
 
     def apply(self, photo, setting, cache):
-        info = photo.info
-        utility_name = self.get_field('Utility', info)
-        utility = self.utilities[utility_name]
-        self.call(photo, info, utility)
+        utility = self.utilities[self.get_field("Utility", photo.info)]
+        self.call(photo, photo.info, utility)
         return photo
 
-    def call(self, photo, info, utility):
-        """This is decoupled from the apply method so we can overwrite it."""
-        photo.call(utility.get_command_line(self, photo,
-            self.file_in, self.file_out))
+    def call(self, photo, info, utility: Exiftran | Jpegtran) -> None: ...
 
 
 class LossLessSaveUtilityMixin(models.LosslessSaveMixin, UtilityMixin):
-    """For lossless JPEG operations, this has to work on the source jpeg files
-    immediately, otherwise it makes no sense. So we need to overwrite the
-    call method."""
+    format = "JPEG"
+    _external_tools: ExternalTools
+    _initialized_utility: str
+    _initialized_executable: Path
 
-    format = 'JPEG'
+    def call(self, photo, info, utility: Exiftran | Jpegtran) -> None:
+        if info["format"] != self.format:
+            raise RuntimeError(
+                f"{LOSSLESS_JPEG_FORMAT_ERROR % info['format']}:\n{info['path']}"
+            )
+        filename = self.get_field("File Name", info)
+        folder = self.get_field("In", info)
+        destination = Path(folder) / f"{filename}.{info['type']}"
+        destination = Path(self.ensure_path_or_desktop(folder, photo, str(destination)))
+        executable = self._executable_for(utility)
+        preserve_timestamp = utility.preserves_timestamp(self, photo)
+        run_lossless_jpeg(
+            LosslessJpegRequest(Path(info["path"]), destination, preserve_timestamp),
+            self._external_tools.runner,
+            lambda paths: Command(
+                utility.build_argv(executable, self, photo, paths.source, paths.output),
+                timeout_seconds=60.0,
+            ),
+        )
+        photo.append_to_report(str(destination))
 
-    def call(self, photo, info, utility):
-        """This is called by the apply method."""
-        format = info['format']
-        if format != self.format:
-            raise Exception('%s:\n%s' \
-                % (LOSSLESS_JPEG_FORMAT_ERROR % format, info['path']))
+    def get_relevant_field_labels(self, relevant=None):
+        labels = ["File Name", "In"] if relevant is None else relevant
+        return super().get_relevant_field_labels(labels)
 
-        system.call(utility.get_command_line(self, photo, info['path'],
-            self.get_lossless_filename(photo, info)))
-
-    def get_relevant_field_labels(self):
-        """This should work like a save action. So it needs a filename and
-        folder, while the file type is fixed (e.g. JPEG)."""
-        return super(LossLessSaveUtilityMixin, self)\
-            .get_relevant_field_labels(['File Name', 'In'])
+    def _executable_for(self, utility: Exiftran | Jpegtran) -> Path:
+        if utility.name == self._initialized_utility:
+            return self._initialized_executable
+        return self._external_tools.executable(utility.capability)
 
 
-#---Phatch
-class Action(LossLessSaveUtilityMixin, models.Action):
-    label = _t('Lossless JPEG')
-    author = 'Juho Vepsäläinen'
-    email = 'bebraw@gmail.com'
-    version = '0.1'
-    tags = [_t('transform'), _t('size')]
-    __doc__ = _t('Rotate, flip, grayscale and crop')
+# ---Phatch
+class Action(LossLessSaveUtilityMixin):
+    label = _t("Lossless JPEG")
+    author = "Juho Vepsäläinen"
+    email = "bebraw@gmail.com"
+    version = "0.1"
+    tags: ClassVar[list[str]] = [_t("transform"), _t("size")]
+    __doc__ = _t("Rotate, flip, grayscale and crop")
 
-    utilities = utilities_dict(Exiftran(), Jpegtran())
+    def __init__(self, **options):
+        self.utilities = utilities_dict(Exiftran(), Jpegtran())
+        super().__init__(**options)
 
-    def init(self):
-        self.find_exe('exiftran')
-        self.find_exe('jpegtran')
+    def init(self, tools: ExternalTools | None = None):
+        self._external_tools = tools or self.plugin_context.external_tools
+        utility = self.utilities[self.get_field("Utility", {})]
+        self._initialized_utility = utility.name
+        tools = self._external_tools
+        self._initialized_executable = tools.executable(utility.capability)
 
-    icon = \
-'x\xda\x01\x17\r\xe8\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+    icon = 'x\xda\x01\x17\r\xe8\xf2\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x0c\xceIDATh\x81\xedZil\\\xd7u\xfe\xee\xbdo\x997\xf3f\
 \xe56\x1c\xaeCR2IQKJ\x15\xb6\x1b&u\x92\x06F\x9dn^\xe5\xd8N+\x07\x08R$E\xba\

@@ -50,14 +50,14 @@ class ListCtrl(wx.ListCtrl):
         self.image_list = wx.ImageList(*icon_size)
         self.icons = {}
         for file in list(files.values()):
-            self.icons[file] = self.image_list.Add(
-                pil_wxBitmap(open_thumb(file, size=icon_size)))
+            if file not in self.icons:
+                self.icons[file] = self.image_list.Add(
+                    pil_wxBitmap(open_thumb(file, size=icon_size)))
         self.SetImageList(self.image_list, wx.IMAGE_LIST_NORMAL)
         #populate
-        if type(files) is dict:
-            labels_files = list(files.items())
-            #labels_files = [(truncate(label,n),file)
-             #   for label, file in files.items()]
+        labels_files = list(files.items())
+        #labels_files = [(truncate(label,n),file)
+         #   for label, file in files.items()]
         labels_files.sort()
         self._labels = [label for label, file in labels_files]
         self._files = [file for label, file in labels_files]
@@ -65,10 +65,10 @@ class ListCtrl(wx.ListCtrl):
         for label, file in labels_files:
             self._files_to_labels[file] = label
         for index, (label, file) in enumerate(labels_files):
-            item = self.InsertImageStringItem(index, '', self.icons[file])
+            item = self.InsertItem(index, '', self.icons[file])
             self.SetItemData(item, index)
 
-    def GetLabel(self, file):
+    def GetFileLabel(self, file):
         return self._files_to_labels.get(file, file)
 
     def GetItemFile(self, item):
@@ -77,7 +77,7 @@ class ListCtrl(wx.ListCtrl):
     def GetItemLabel(self, item):
         return self._labels[item.GetData()]
 
-    def Select(self, index):
+    def SelectItem(self, index):
         self.SetItemState(index, wx.LIST_STATE_SELECTED,
             wx.LIST_STATE_SELECTED)
         self.EnsureVisible(index)
@@ -130,7 +130,8 @@ class Dialog(wx.Dialog):
 
     def OnItemSelected(self, event):
         self.selection = event.GetIndex()
-        value = self.image_list.GetItemLabel(event.GetItem())
+        value = self.image_list.GetItemLabel(
+            self.image_list.GetItem(self.selection))
         if value != self.image_path.GetValue():
             self.image_path.SetValue(value)
         event.Skip()
@@ -142,11 +143,11 @@ class Dialog(wx.Dialog):
     def Select(self, value):
         li = self.image_list
         #if the file is in the library -> use label instead
-        value = li.GetLabel(value)
+        value = li.GetFileLabel(value)
         if value in li._labels:
             index = li._labels.index(value)
             li.GetItem(index)
-            li.Select(index)
+            li.SelectItem(index)
         elif self.selection is not None:
             #print "deselect", self.selection
             #li.Deselect(self.selection) DO NOT ENABLE OR IT BLOCKS UI!
@@ -172,7 +173,7 @@ def example():
 
     class App(wx.App):
         def OnInit(self, *args, **keyw):
-            frame = wx.Frame(None, -1, 'image file test', size=(600, 400))
+            frame = wx.Frame(None, -1, 'image file test', size=wx.Size(600, 400))
             image_list = ListCtrl(frame, images)
             sizer = wx.BoxSizer(wx.VERTICAL)
             sizer.Add(image_list, 1, flag=wx.EXPAND)
@@ -188,7 +189,7 @@ def example():
             dialog.Destroy()
             return True
 
-    app = App(0)
+    app = App(False)
     app.MainLoop()
 
 if __name__ == '__main__':

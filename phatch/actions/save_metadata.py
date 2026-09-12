@@ -20,38 +20,54 @@
 
 # Follows PEP8
 
+from pathlib import Path
+
 from core import models
+from lib import imtools
 from lib.reverse_translation import _t
 
-#no need to lazily import these as they are always imported
-import shutil
-import os
+from phatch.services.image_output import (
+    MetadataCopyRequest,
+    save_metadata_transactionally,
+)
 
 
+# no need to lazily import these as they are always imported
 class Action(models.LosslessSaveMixin, models.Action):
     """Defined variables: <filename> <type> <folder> <width> <height>"""
 
-    label = _t('Save Tags')
-    author = 'Stani'
-    email = 'spe.stani.be@gmail.com'
-    version = '0.1'
-    tags = [_t('file'), _t('metadata')]
-    __doc__ = _t('Save only metadata (lossless)')
+    label = _t("Save Tags")
+    author = "Stani"
+    email = "spe.stani.be@gmail.com"
+    version = "0.1"
+    tags = (_t("file"), _t("metadata"))
+    __doc__ = _t("Save only metadata (lossless)")
 
     def apply(self, photo, setting, cache):
         info = photo.info
         filename = self.get_lossless_filename(photo, info)
-        #do it
-        if info['path'] != filename:
-            shutil.copy2(info['path'], filename)
-        info.save(filename)
+        source = Path(info["path"])
+        modified_time_ns = None
         if photo.modify_date:
-            # Update file access and modification date
-            os.utime(filename, (photo.modify_date, photo.modify_date))
+            modified_time_ns = int(photo.modify_date * 1_000_000_000)
+        request = MetadataCopyRequest(
+            source,
+            Path(filename),
+            imtools.get_format_filename(filename),
+            lambda staged: self.plugin_context.files.copy2(str(source), str(staged)),
+            lambda staged: self.plugin_context.metadata.save(info, str(staged)),
+            modified_time_ns,
+            tuple(info["size"]),
+            lambda: photo.append_to_report(filename),
+        )
+        transaction = getattr(photo, "output_transaction", None)
+        if transaction is None:
+            save_metadata_transactionally(request)
+        else:
+            save_metadata_transactionally(request, transaction)
         return photo
 
-    icon = \
-'x\xda\x01\xc7\x108\xef\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
+    icon = 'x\xda\x01\xc7\x108\xef\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
 \x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\x08\
 \x08|\x08d\x88\x00\x00\x10~IDATh\x81\xd5\x9a{pT\xd7}\xc7?\xe7\xbe\xf6\xa5\
 \xd5cWZIHH \x81$\x90\x01\x81\xb10\xe6Yc\x9c\x80\xf1\xd83\xb1\xf3p\x92\xdaq\

@@ -15,6 +15,8 @@
 #
 # Follow PEP8
 
+import builtins
+
 import wx
 
 ICON_SIZE = (48, 48)
@@ -52,16 +54,16 @@ class Box(wx.VListBox):
         if not rgb_without_max:
             return wx.Colour(128, 128, 128)
         n = max(rgb_without_max)
-        keyw = {}
+        channels = []
         for c in ('Red', 'Green', 'Blue'):
             x = getattr(color, c)()
             if x == m:
-                keyw[c.lower()] = x
+                channels.append(x)
             elif x == n:
-                keyw[c.lower()] = x / 2
+                channels.append(int(x / 2))
             else:
-                keyw[c.lower()] = x / 8
-        return wx.Colour(**keyw)
+                channels.append(int(x / 8))
+        return wx.Colour(*channels)
 
     def SetTheme(self, theme='default'):
         self._theme = theme
@@ -97,7 +99,7 @@ class Box(wx.VListBox):
         return self._icon_size
 
     def OnDrawSeparator(self, dc, rect, n):
-        dc.SetPen(wx.Pen(wx.LIGHT_GREY, style=wx.DOT))
+        dc.SetPen(wx.Pen(wx.LIGHT_GREY, style=wx.PENSTYLE_DOT))
         y = rect.GetBottom()
         dc.DrawLine(rect.GetLeft(), y, rect.GetRight(), y)
 
@@ -126,7 +128,7 @@ class Box(wx.VListBox):
 
             currCol = wx.Colour(int(col1.Red() + rf), int(col1.Green() + gf), \
             int(col1.Blue() + bf))
-            dc.SetBrush(wx.Brush(currCol, wx.SOLID))
+            dc.SetBrush(wx.Brush(currCol, wx.BRUSHSTYLE_SOLID))
             dc.SetPen(wx.Pen(currCol))
             if self._is_vertical:
                 dc.DrawLine(rect.x, coord, rect.x + rect.width, coord)
@@ -178,14 +180,14 @@ class Box(wx.VListBox):
 class TestFrame(wx.Frame):
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, -1, "Test Tag Browser",
-            size=(640, 480))
+            size=wx.Size(640, 480))
         vlist_box = Box(self)
         vlist_box.SetItemCount(10)
 
 
 def example():
     # install translation function everywhwere _
-    __builtins__._ = str
+    builtins.__dict__['_'] = str
     # create test application & dialog
     app = wx.PySimpleApp()
     frame = TestFrame(None)

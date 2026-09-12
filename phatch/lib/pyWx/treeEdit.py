@@ -22,8 +22,9 @@ if __name__ == '__main__':
     import sys
     sys.path.insert(0, '..')
 
-from phatch.lib import formField
-from phatch.lib import metadata
+from lib import formField
+from lib import metadata
+from lib import safe
 
 # gui-dependent
 import wx
@@ -34,7 +35,7 @@ from . import treeDragDrop
 if __name__ == '__main__':
     sys.path.insert(0, '../..')
 
-from phatch.lib.unicoding import exception_to_unicode
+from lib.unicoding import exception_to_unicode
 
 FIELD_DELIMITER = ': '
 WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
@@ -287,7 +288,7 @@ class TreeMixin(treeDragDrop.Mixin):
                     field.get(IMAGE_TEST_INFO, label=label,
                         value_as_string=value_as_string, test=True)
                 self.set_dirty(True)
-            except formField.ValidationError as details:
+            except (formField.ValidationError, safe.UnsafeError) as details:
                 reason = exception_to_unicode(details, WX_ENCODING)
                 self.show_error(reason)
                 if formField.Field.safe:

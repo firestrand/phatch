@@ -15,6 +15,7 @@
 
 # Follows PEP8
 
+import contextlib
 import os
 import re
 import shutil
@@ -22,39 +23,36 @@ import subprocess
 import sys
 import tempfile
 import textwrap
+from pathlib import Path
+
+from phatch.core.filesystem import ensure_directory
+from phatch.lib.executables import ExecutableLookup
 
 from . import safe
+from .windows import locate as windows_locate
 
-VERBOSE = False
+VERBOSE: bool = False
 BIN = []  # executable
 ARG_STR = r'".+?"|\'.+\'|\S+'
 RE_ARG = re.compile(ARG_STR)
-RE_COMMAND = re.compile(r'^(%s)' % ARG_STR)
+RE_COMMAND = re.compile(rf"^({ARG_STR})")
 RE_NEED_QUOTES = re.compile(r'^[^\'"].+?\s.+?[^\'"]$')
 
 
-if sys.platform.startswith('win'):
-    _EXE = '.exe'
+if sys.platform.startswith("win"):
+    _EXE = ".exe"
     WINDOWS = True
 
-    def rename(src, dest):
-        try:
-            os.remove(dest)
-        except:
-            pass
-        os.rename(src, dest)
 else:
-    _EXE = ''
+    _EXE = ""
     WINDOWS = False
 
-    rename = os.rename
 
-EXE_PATHS = {}
+rename = os.replace
 
 
 def wrap(text, fill=70):
-    return '\n'.join([textwrap.fill(line, 70)
-        for line in text.split('\n')])
+    return "\n".join([textwrap.fill(line, 70) for line in text.split("\n")])
 
 
 def title(text):
@@ -68,8 +66,10 @@ def title(text):
     >>> title('hello_world')
     'Hello World'
     """
-    return text.replace('_', ' ').replace('-', ' ').title()
-#---os
+    return text.replace("_", " ").replace("-", " ").title()
+
+
+# ---os
 
 
 def is_www_file(url):
@@ -87,7 +87,7 @@ def is_www_file(url):
     >>> is_www_file('logo.png')
     False
     """
-    return url.startswith('http://') or url.startswith('ftp://')
+    return url.startswith("http://") or url.startswith("ftp://")
 
 
 def is_file(path):
@@ -138,7 +138,7 @@ def ensure_path(path):
     :param path: the absolute folder path (not relative!)
     :type path: str
     """
-    _ensure_path(os.path.abspath(path).rstrip('/').rstrip('\\'))
+    ensure_directory(path)
 
 
 def _ensure_path(path):
@@ -150,7 +150,7 @@ def _ensure_path(path):
             _ensure_path(parent)
             os.mkdir(path)
         else:
-            raise OSError("The path '%s' is not valid." % path)
+            raise OSError(f"The path '{path}' is not valid.")
 
 
 def fix_quotes(text):
@@ -169,23 +169,25 @@ def fix_quotes(text):
     """
     # Handle bytes objects
     if isinstance(text, bytes):
-        text = text.decode('utf-8', errors='replace')
+        text = text.decode("utf-8", errors="replace")
     if not RE_NEED_QUOTES.match(text):
         return text
     if '"' not in text:
-        return '"%s"' % text
+        return f'"{text}"'
     elif "'" not in text:
-        return "'%s'" % text
+        return f"'{text}'"
     else:
-        return '"%s"' % text.replace('"', r'\"')
+        return '"{}"'.format(text.replace('"', r"\""))
 
 
-def set_bin_paths(paths=[]):
+def set_bin_paths(paths=None):
     """Initializes where binaries can be found.
 
     :param paths: list of paths where binaries might be found
     :type paths: list of strings
     """
+    if paths is None:
+        paths = []
     global BIN
     BIN = paths
 
@@ -207,8 +209,7 @@ def find_in(filename, paths):
     return None
 
 
-def find_exe(executable, quote=True, use_which=True,
-        raise_exception=False):
+def find_exe(executable, quote=True, use_which=True, raise_exception=False):
     """Finds an executable binary. Returns None if the binary can
     not be found.
 
@@ -230,35 +231,21 @@ def find_exe(executable, quote=True, use_which=True,
     >>> find_exe('python', use_which=False)
     '/usr/bin/python'
     """
-    try:
-        return EXE_PATHS[executable]
-    except KeyError:
-        pass
-    #executable with extension e.g. exe on windows
-    executable_exe = executable
-    if not executable_exe.endswith(_EXE):
-        executable_exe += _EXE
-    # try to first find in BIN
-    executable_path = find_in(executable_exe, BIN)
-    # try to find a system install (todo for windows)
-    if not sys.platform.startswith('win') and use_which and \
-            executable_path is None:
-        path, err = shell('which %s' % executable_exe, shell=True)
-        path = path.strip()
-        if os.path.isfile(path):
-            executable_path = path
-    if executable_path is None:
-        executable_path = find_in(executable_exe,
-            os.environ['PATH'].split(os.pathsep))
-        if (executable_path is None) and WINDOWS:
-            executable_path = windows.locate.find_exe(executable)
-    #quote if necessary
+    registry_lookup = windows_locate.find_exe if WINDOWS else None
+    lookup = ExecutableLookup(
+        search_directories=tuple(map(Path, BIN)),
+        path=os.environ.get("PATH"),
+        registry_lookup=registry_lookup,
+        platform="win32" if WINDOWS else sys.platform,
+    )
+    executable_path = lookup.find(executable)
+    # quote if necessary
     if executable_path is not None and quote:
-        executable_path = fix_quotes(executable_path)
-    #cache and return the result
-    EXE_PATHS[executable] = executable_path
+        executable_path = fix_quotes(os.fspath(executable_path))
+    elif executable_path is not None:
+        executable_path = os.fspath(executable_path)
     if executable_path is None and raise_exception:
-        raise IOError('No such program: %s' % executable)
+        raise OSError(f"No such program: {executable}")
     return executable_path
 
 
@@ -284,8 +271,7 @@ def find_command(text):
 
 
 class TempFile:
-
-    def __init__(self, suffix='', path=None):
+    def __init__(self, suffix="", path=None):
         """Make a temporary file with :func:`tempfile.mkstemp`. Use
         the ``path`` attribute to get the filename.
 
@@ -312,7 +298,7 @@ class TempFile:
             self.path = path
         self._closed = False
 
-    def close(self, force_remove=True, dest=''):
+    def close(self, force_remove=True, dest=""):
         """It is important to call this method when finished with
         the temporary file.
 
@@ -332,7 +318,7 @@ class TempFile:
 
         """
         if self._closed:
-            raise IOError("Temporary file '%s' is already closed." % self.path)
+            raise OSError(f"Temporary file '{self.path}' is already closed.")
         self._closed = True
         if self._fd:
             os.close(self._fd)
@@ -356,12 +342,14 @@ def shell(*args, **options):
     ('world\\n', '')
     """
     # TODO: 'shell': True IS REMOVED AND HAST BE MENTIONED EXPLICITLY
-    options.update({'stdout': subprocess.PIPE, 'stderr': subprocess.PIPE})
+    options.update({"stdout": subprocess.PIPE, "stderr": subprocess.PIPE})
     pipe = subprocess.Popen(*args, **options)
+    assert pipe.stdout is not None
+    assert pipe.stderr is not None
     return pipe.stdout.read(), pipe.stderr.read()
 
 
-def shell_cache(args, cache='', key=None, validate=None, **options):
+def shell_cache(args, cache="", key=None, validate=None, **options):
     """Runs a shell command and captures the output. It uses a caching system
     so that cached results don't need to run a subprocess anymore. The results
     are cached by sys.platform
@@ -384,13 +372,10 @@ def shell_cache(args, cache='', key=None, validate=None, **options):
         key = args
     # Try to load from cache file
     if os.path.isfile(cache):
-        f = open(cache, 'rb')
-        source = f.read()
-        f.close()
-        try:
+        with contextlib.closing(open(cache, "rb")) as cache_file:
+            source = cache_file.read()
+        with contextlib.suppress(SyntaxError):
             cache_dict = safe.eval_safe(source)
-        except SyntaxError:
-            pass
     # Initialize result
     result = None
     # Is it cached already?
@@ -399,23 +384,22 @@ def shell_cache(args, cache='', key=None, validate=None, **options):
         if sys.platform in x:
             x = x[sys.platform]
             if validate:
-                if validate == x['validate']:
+                if validate == x["validate"]:
                     result = x
             else:
                 result = x
     if result is None:
         # Add to cache
-        result = {'validate': validate}
-        result['stdout'], result['stderr'] = shell(args, **options)
+        result = {"validate": validate}
+        result["stdout"], result["stderr"] = shell(args, **options)
         if key not in cache_dict:
             cache_dict[key] = {}
         cache_dict[key][sys.platform] = result
         # Save to cache
         ensure_path(os.path.dirname(cache))
-        f = open(cache, 'wb')
-        f.write(str(cache_dict))
-        f.close()
-    return result['stdout'], result['stderr']
+        with contextlib.closing(open(cache, "wb")) as cache_file:
+            cache_file.write(str(cache_dict).encode())
+    return result["stdout"], result["stderr"]
 
 
 def shell_returncode(*args, **options):
@@ -426,7 +410,7 @@ def shell_returncode(*args, **options):
     :returns: command exit code
     :rtype: integer
     """
-    options.update({'stdout': subprocess.PIPE, 'stderr': subprocess.PIPE})
+    options.update({"stdout": subprocess.PIPE, "stderr": subprocess.PIPE})
     return subprocess.call(*args, **options)
 
 
@@ -451,17 +435,16 @@ def call(args, **keyw):
     given it breaks it in a list of arguments so it can be used
     also with ``shell=False`` on Unix.
     """
-    if 'shell' in keyw:
-        if not WINDOWS and type(args) in (str,) and \
-            not keyw['shell']:
-            args = split_command(args.replace('\\\n', ' '))
+    if "shell" in keyw:
+        if not WINDOWS and type(args) in (str,) and not keyw["shell"]:
+            args = split_command(args.replace("\\\n", " "))
     else:
-        keyw['shell'] = not WINDOWS
+        keyw["shell"] = not WINDOWS
     verbose = False
-    if 'verbose' in keyw:
-        if keyw['verbose']:
+    if "verbose" in keyw:
+        if keyw["verbose"]:
             verbose = True
-        del keyw['verbose']
+        del keyw["verbose"]
     if VERBOSE or verbose:
         print(args)
     subprocess.call(args, **keyw)
@@ -473,21 +456,21 @@ def start(path):
     :param path: location of the file
     :type path: string
     """
-    if hasattr(os, 'startfile'):
-        #windows
-        os.startfile(path)
+    startfile = getattr(os, "startfile", None)
+    if startfile is not None:
+        # windows
+        startfile(path)
     else:
-        if sys.platform.startswith('darwin'):
-            #mac
-            command = 'open'
+        if sys.platform.startswith("darwin"):
+            # mac
+            command = "open"
         else:
-            #linux
-            command = 'xdg-open'
-        subprocess.call('%s "%s"' % (command, path), shell=True)
+            # linux
+            command = "xdg-open"
+        subprocess.call(f'{command} "{path}"', shell=True)
 
 
 class MethodRegister:
-
     def __init__(self):
         """Creates a register where methods to open files are registered
         by the extensions.

@@ -102,13 +102,13 @@ class NotImplementedError(Exception):
 
 #---base controls
 
-def untranslated(self, x):
+def untranslated(x):
     return x
 
 
 class _Ctrl(object):
-    _to_local = untranslated
-    _to_english = untranslated
+    _to_local = staticmethod(untranslated)
+    _to_english = staticmethod(untranslated)
     _busy_cursor = False
 
     def Set(self, value):
@@ -131,7 +131,7 @@ class _CtrlChoices(_Ctrl):
 class _CtrlWithItems(_CtrlChoices):
 
     def Get(self):
-        index = super(ChoiceCtrl, self).GetSelection()
+        index = super(_CtrlWithItems, self).GetSelection()
         if index == wx.NOT_FOUND:
             index = 0
         return self._choices[index]
@@ -468,7 +468,7 @@ class FileCtrl(_PathCtrl):
     wildcard = _t('All files') + '|*'
 
     def OnBrowse(self, event):
-        style = wx.FD_OPEN | wx.CHANGE_DIR
+        style = wx.FD_OPEN | wx.FD_CHANGE_DIR
         if hasattr(wx, 'FD_PREVIEW'):
             style |= wx.FD_PREVIEW
         dlg = wx.FileDialog(self, self._to_local("Choose a file"),
@@ -753,7 +753,8 @@ CTRL_CACHE = {}
 
 
 def ctrl_factory(name, CtrlMixin):
-    ctrl_key = (name, CtrlMixin)
+    mixin_key = tuple(CtrlMixin) if isinstance(CtrlMixin, list) else CtrlMixin
+    ctrl_key = (name, mixin_key)
     try:
         Ctrl = CTRL_CACHE[ctrl_key]
     except KeyError:
@@ -881,6 +882,8 @@ def example():
                     extra = {'choices': ('1', '2'), 'on_change': on_change}
                 elif issubclass(ctrl, ComboCtrl):
                     extra = {'choices': ('1', '2')}
+                elif issubclass(ctrl, AutoCompleteFolderCtrl):
+                    extra = {'choices': ('folder', 'other')}
                 elif issubclass(ctrl, DictionaryFileCtrl):
                     extra = {'dictionary': {'hello': 'world'}}
                 elif issubclass(ctrl, FileCtrl):
@@ -905,7 +908,7 @@ def example():
             self.SetTopWindow(frame)
             return True
 
-    app = App(0)
+    app = App(False)
     app.MainLoop()
 
 

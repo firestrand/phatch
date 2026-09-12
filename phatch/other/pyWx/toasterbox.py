@@ -375,10 +375,11 @@ class ToasterBox(wx.Timer):
                # reset where the object THINKS its supposed to be
                tmpTb.SetPopupPosition((self._popupposition[0], ourNewHeight))
                # actually move it
-               tmpTb.SetDimensions(self._popupposition[0], ourNewHeight, tmpTb.GetSize().GetWidth(),
-                                   tmpTb.GetSize().GetHeight())
+               tmpTb.SetSize(self._popupposition[0], ourNewHeight,
+                             tmpTb.GetSize().GetWidth(),
+                             tmpTb.GetSize().GetHeight())
 
-           wx.Usleep(self._sleeptime)
+           wx.MilliSleep(self._sleeptime)
 
 
    def CleanList(self):
@@ -433,6 +434,7 @@ class ToasterBoxWindow(wx.Frame):
        self._popuptext = "Change Me!"
        # the size we want the dialog to be
        framesize = wx.Size(150, 170)
+       self._popupsize = framesize
        self._count = 1
        self._tbstyle = tbstyle
        self._windowstyle = windowstyle
@@ -455,8 +457,8 @@ class ToasterBoxWindow(wx.Frame):
        self._bottomright = wx.Point(wx.GetDisplaySize().GetWidth(),
                                     wx.GetDisplaySize().GetHeight())
 
-       self.SetDimensions(self._bottomright.x, self._bottomright.y,
-                          framesize.GetWidth(), framesize.GetHeight())
+       self.SetSize(self._bottomright.x, self._bottomright.y,
+                    framesize.GetWidth(), framesize.GetHeight())
 
 
    def OnClose(self, event):
@@ -490,7 +492,8 @@ class ToasterBoxWindow(wx.Frame):
    def SetPopupSize(self, size):
        """ Sets the ToasterBox size. """
 
-       self.SetDimensions(self._bottomright.x, self._bottomright.y, size[0], size[1])
+       self._popupsize = wx.Size(size[0], size[1])
+       self.SetSize(self._bottomright.x, self._bottomright.y, size[0], size[1])
 
 
    def SetPopupPosition(self, pos):
@@ -673,13 +676,13 @@ class ToasterBoxWindow(wx.Frame):
                      self._scrollType)
                raise ValueError(errMsg)
 
-           self.SetDimensions(self._dialogtop[0], dimY, self.GetSize().GetWidth(),
-                              windowsize)
+           self.SetSize(self._dialogtop[0], dimY, self.GetSize().GetWidth(),
+                        windowsize)
 
            if self._tbstyle == TB_SIMPLE:
                self.DrawText()
 
-           wx.Usleep(self._sleeptime)
+           wx.MilliSleep(self._sleeptime)
            self.Update()
            self.Refresh()
 
@@ -730,10 +733,10 @@ class ToasterBoxWindow(wx.Frame):
                      self._scrollType)
                raise ValueError(errMsg)
 
-           self.SetDimensions(self._dialogtop[0], dimY,
-                              self.GetSize().GetWidth(), windowsize)
+           self.SetSize(self._dialogtop[0], dimY,
+                        self.GetSize().GetWidth(), windowsize)
 
-           wx.Usleep(self._sleeptime)
+           wx.MilliSleep(self._sleeptime)
            self.Refresh()
 
        self.Hide()

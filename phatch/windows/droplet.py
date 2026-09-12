@@ -1,250 +1,260 @@
-# Phatch - Photo Batch Processor
-# Copyright (C) 2007-2008  www.stani.be
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses/
-#
-# Follows PEP8
+from __future__ import annotations
 
-import os
-import wx
-from phatch.core import ct, config
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Protocol
+
+from phatch.core import config, ct
 from phatch.lib import system
-from phatch.lib.windows.register import register_extensions, deregister_extensions
+from phatch.lib.capabilities import CapabilityStatus
+from phatch.lib.capability_probes import Pywin32CapabilityProbe
 from phatch.lib.formField import IMAGE_READ_EXTENSIONS
+from phatch.lib.reverse_translation import _translate
+from phatch.lib.windows.register import (
+    ExplorerVerb,
+    ExplorerVerbRegistry,
+    ExplorerVerbResult,
+    NativeRegistryStore,
+)
+from phatch.lib.windows.shortcut import ShortcutResult, ShortcutSpec, ShortcutWriter
 
-WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
-ICON = os.path.join(config.PATHS['PHATCH_IMAGE_PATH'], 'phatch.ico')
-EXTENSIONS_INSTALL_SUCCESFUL =\
-    _("These extensions have been succesfully installed:\n\n")
-EXTENSIONS_INSTALL_UNSUCCESFUL = \
-    _("Phatch did not succeed to install the requested feature.")
-EXTENSIONS_UNINSTALL =\
-    _("Phatch tried to uninstall itself from the Windows Explorer.")
+WX_ENCODING = "utf-8"
+EXTENSIONS_INSTALL_SUCCESFUL = _translate(
+    "These extensions have been succesfully installed:\n\n"
+)
+EXTENSIONS_INSTALL_UNSUCCESFUL = _translate(
+    "Phatch did not succeed to install the requested feature."
+)
+EXTENSIONS_UNINSTALL = _translate(
+    "Phatch tried to uninstall itself from the Windows Explorer."
+)
+WIN32_MISSING = _translate(
+    "You need to install the Python Win32 Extensions for this feature."
+)
+
+RECENT = ct.LABEL_PHATCH_RECENT + "..."
+INSPECTOR = ct.TITLE + " " + ct.LABEL_PHATCH_INSPECTOR + "..."
+_IMAGE_READ_EXTENSIONS = tuple("." + extension for extension in IMAGE_READ_EXTENSIONS)
 
 
-RECENT = ct.LABEL_PHATCH_RECENT + '...'
-INSPECTOR = ct.INFO['name'] + ' ' + ct.LABEL_PHATCH_INSPECTOR + '...'
-
-_IMAGE_READ_EXTENSIONS = ['.' + ext for ext in IMAGE_READ_EXTENSIONS]
-#warning win32
+@dataclass(frozen=True, slots=True)
+class Launcher:
+    argv: tuple[str, ...]
 
 
-def win32_missing(self):
-    "imports shortcut"
-    global shortcut
-    try:
-        import lib.windows.shortcut as shortcut
+@dataclass(frozen=True, slots=True)
+class DropletLauncherError(RuntimeError):
+    reason: str
+
+    def __str__(self) -> str:
+        return self.reason
+
+
+class ShortcutAdapter(Protocol):
+    def create(self, spec: ShortcutSpec) -> ShortcutResult: ...
+
+
+class ExplorerAdapter(Protocol):
+    def register(self, verb: ExplorerVerb) -> ExplorerVerbResult: ...
+
+    def remove(self, verb: ExplorerVerb) -> ExplorerVerbResult: ...
+
+
+def resolve_launcher(
+    installed_gui: Path,
+    active_interpreter: Path,
+    legacy_entry: Path,
+) -> Launcher:
+    if installed_gui.is_file():
+        return Launcher((str(installed_gui),))
+    pythonw = active_interpreter.with_name("pythonw.exe")
+    if pythonw.is_file() and legacy_entry.is_file():
+        return Launcher((str(pythonw), str(legacy_entry)))
+    raise DropletLauncherError("Phatch has no usable Windows GUI launcher")
+
+
+def _launcher() -> Launcher:
+    from phatch import phatch as legacy_entrypoint
+
+    interpreter = Path(sys.executable)
+    return resolve_launcher(
+        interpreter.with_name("phatch-gui.exe"),
+        interpreter,
+        Path(legacy_entrypoint.__file__),
+    )
+
+
+def _icon() -> Path:
+    return Path(config.PATHS["PHATCH_IMAGE_PATH"]) / "phatch.ico"
+
+
+def win32_missing(frame) -> bool:
+    capability = Pywin32CapabilityProbe(platform="win32")()
+    if capability.status is CapabilityStatus.AVAILABLE:
         return False
-    except ImportError:
-        self.show_info(
-        _('You need to install the Python Win32 Extensions for this feature.'))
-        return True
-
-#---droplets
+    frame.show_info(WIN32_MISSING)
+    return True
 
 
-def create_droplet(name, arguments, folder, description=None):
-    if description is None:
-        description = name
-    shortcut.create(
-        save_as=os.path.join(folder, name + '.lnk'),
-        path=ct.COMMAND_PATH,
-        arguments=arguments,
-        description=description,
-        icon_path=ICON,
+def create_droplet(
+    name: str,
+    arguments: tuple[str, ...],
+    folder: str,
+    description: str | None = None,
+    *,
+    writer: ShortcutAdapter | None = None,
+    launcher: Launcher | None = None,
+    icon: Path | None = None,
+) -> None:
+    selected_launcher = launcher or _launcher()
+    selected_writer = writer or ShortcutWriter()
+    selected_writer.create(
+        ShortcutSpec(
+            destination=Path(folder) / f"{name}.lnk",
+            target=Path(selected_launcher.argv[0]),
+            arguments=selected_launcher.argv[1:] + arguments,
+            description=name if description is None else description,
+            icon_path=icon or _icon(),
+        )
     )
 
-#droplet
 
-
-def create_phatch_droplet(actionlist, folder):
-    """"""
-    name = os.path.splitext(os.path.basename(actionlist))[0]
+def create_phatch_droplet(
+    actionlist: str,
+    folder: str,
+    *,
+    writer: ShortcutAdapter | None = None,
+    launcher: Launcher | None = None,
+    icon: Path | None = None,
+) -> None:
+    name = Path(actionlist).stem
     create_droplet(
-        name=name,
-        arguments=ct.COMMAND_ARGUMENTS['DROP'] % actionlist,
-        folder=folder,
-        description=ct.LABEL_PHATCH_ACTIONLIST % \
-                    system.filename_to_title(name))
+        name,
+        ("-d", actionlist),
+        folder,
+        ct.LABEL_PHATCH_ACTIONLIST % system.filename_to_title(name),
+        writer=writer,
+        launcher=launcher,
+        icon=icon,
+    )
 
 
-def create_phatch_recent_droplet(folder, icon=ICON):
-    """"""
+def create_phatch_recent_droplet(
+    folder: str,
+    *,
+    writer: ShortcutAdapter | None = None,
+    launcher: Launcher | None = None,
+    icon: Path | None = None,
+) -> None:
     create_droplet(
-        name=ct.LABEL_PHATCH_RECENT,
-        arguments=ct.COMMAND_ARGUMENTS['RECENT'],
-        folder=folder,
+        ct.LABEL_PHATCH_RECENT,
+        ("-d", "recent"),
+        folder,
+        writer=writer,
+        launcher=launcher,
+        icon=icon,
     )
 
 
-def create_phatch_inspector_droplet(folder, icon=ICON):
-    """"""
+def create_phatch_inspector_droplet(
+    folder: str,
+    *,
+    writer: ShortcutAdapter | None = None,
+    launcher: Launcher | None = None,
+    icon: Path | None = None,
+) -> None:
     create_droplet(
-        name=ct.LABEL_PHATCH_INSPECTOR,
-        arguments=ct.COMMAND_ARGUMENTS['INSPECTOR'],
-        folder=folder,
-        description=ct.INFO['name'] + ' ' + ct.LABEL_PHATCH_INSPECTOR,
+        ct.LABEL_PHATCH_INSPECTOR,
+        ("-n",),
+        folder,
+        ct.TITLE + " " + ct.LABEL_PHATCH_INSPECTOR,
+        writer=writer,
+        launcher=launcher,
+        icon=icon,
     )
 
 
-#wx dependent
+def _registrar() -> ExplorerVerbRegistry:
+    return ExplorerVerbRegistry(NativeRegistryStore.create())
 
 
-def on_menu_file_export_droplet_actionlist(self, event):
-    if self.is_save_not_ok():
-        return
-    if win32_missing(self):
-        return
-    self.menu_file_export_droplet(create_phatch_droplet, self.filename)
+def register_phatch(
+    verb: ExplorerVerb,
+    registrar: ExplorerAdapter | None = None,
+) -> str:
+    result = (registrar or _registrar()).register(verb)
+    return ", ".join(target.lstrip(".") for target in result.targets)
 
 
-def on_menu_file_export_droplet_recent(self, event):
-    if win32_missing(self):
-        return
-    self.menu_file_export_droplet(create_phatch_recent_droplet)
-
-
-def on_menu_file_export_droplet_inspector(self, event):
-    if win32_missing(self):
-        return
-    self.menu_file_export_droplet(create_phatch_inspector_droplet)
-
-#---windows explorer
-
-#register
-
-
-def register_phatch(label, arguments, extensions, folder):
-    return ', '.join([x.replace('.', '') for x in register_extensions(
-        label=label,
-        action=arguments,
-        extensions=extensions,
-        folder=folder,
-    )])
-
-
-def create_phatch_explorer_action(actionlist):
-    """"""
+def create_phatch_explorer_action(
+    actionlist: str,
+    *,
+    registrar: ExplorerAdapter | None = None,
+    launcher: Launcher | None = None,
+    extensions: tuple[str, ...] = _IMAGE_READ_EXTENSIONS,
+) -> str:
+    selected = launcher or _launcher()
     return register_phatch(
-        label=ct.LABEL_PHATCH_ACTIONLIST % \
-                        system.filename_to_title(actionlist),
-        arguments=ct.COMMAND_ARGUMENTS['DROP'] % actionlist,
-        extensions=_IMAGE_READ_EXTENSIONS,
-        folder=True,
+        ExplorerVerb(
+            "action-list",
+            ct.LABEL_PHATCH_ACTIONLIST % system.filename_to_title(actionlist),
+            (*selected.argv, "-d", actionlist),
+            extensions,
+            True,
+            actionlist,
+        ),
+        registrar,
     )
 
 
-def create_phatch_recent_explorer_action():
-    """"""
+def create_phatch_recent_explorer_action(
+    *,
+    registrar: ExplorerAdapter | None = None,
+    launcher: Launcher | None = None,
+    extensions: tuple[str, ...] = _IMAGE_READ_EXTENSIONS,
+) -> str:
+    selected = launcher or _launcher()
     return register_phatch(
-        label=RECENT,
-        arguments=ct.COMMAND_ARGUMENTS['RECENT'],
-        extensions=_IMAGE_READ_EXTENSIONS,
-        folder=True,
+        ExplorerVerb(
+            "recent", RECENT, (*selected.argv, "-d", "recent"), extensions, True
+        ),
+        registrar,
     )
 
 
-def create_phatch_inspect_explorer_action():
-    """"""
+def create_phatch_inspect_explorer_action(
+    *,
+    registrar: ExplorerAdapter | None = None,
+    launcher: Launcher | None = None,
+    extensions: tuple[str, ...] = _IMAGE_READ_EXTENSIONS,
+) -> str:
+    selected = launcher or _launcher()
     return register_phatch(
-        label=INSPECTOR,
-        arguments=ct.COMMAND_ARGUMENTS['INSPECTOR'],
-        extensions=_IMAGE_READ_EXTENSIONS,
-        folder=False,
+        ExplorerVerb("inspector", INSPECTOR, (*selected.argv, "-n"), extensions),
+        registrar,
     )
 
 
-def remove_phatch_explorer_actions(actionlist):
-    for label in [RECENT, INSPECTOR,
-            ct.LABEL_PHATCH_ACTIONLIST % system.filename_to_title(actionlist)]:
-        deregister_extensions(label, _IMAGE_READ_EXTENSIONS, folder=True)
-
-#wx dependent
-
-
-def menu_file_export_explorer(self, method, *arg, **keyw):
-    result = method(*arg, **keyw)
-    if result:
-        self.show_info(EXTENSIONS_INSTALL_SUCCESFUL + result)
-    else:
-        self.show_error(EXTENSIONS_INSTALL_UNSUCCESFUL)
+def remove_phatch_explorer_actions(
+    actionlist: str,
+    *,
+    registrar: ExplorerAdapter | None = None,
+    extensions: tuple[str, ...] = _IMAGE_READ_EXTENSIONS,
+) -> None:
+    selected = registrar or _registrar()
+    selected.remove(ExplorerVerb("recent", RECENT, (), extensions, True))
+    selected.remove(ExplorerVerb("inspector", INSPECTOR, (), extensions))
+    selected.remove(ExplorerVerb("action-list", "", (), extensions, True, actionlist))
 
 
-def on_menu_file_export_explorer_actionlist(self, event):
-    if self.is_save_not_ok():
-        return
-    menu_file_export_explorer(self, create_phatch_explorer_action, \
-                                                    self.filename)
+def menu_file_export_explorer(self, method, *args, **kwargs) -> None:
+    from phatch.windows.droplet_menu import menu_file_export_explorer as dispatch
+
+    dispatch(self, method, *args, **kwargs)
 
 
-def on_menu_file_export_explorer_recent(self, event):
-    menu_file_export_explorer(self, create_phatch_recent_explorer_action)
+def install(self) -> None:
+    from phatch.windows.droplet_menu import install as install_menu
 
-
-def on_menu_file_export_explorer_inspector(self, event):
-    menu_file_export_explorer(self, create_phatch_inspect_explorer_action)
-
-
-def on_menu_file_export_explorer_remove(self, event):
-    remove_phatch_explorer_actions(self.filename)
-    self.show_info(EXTENSIONS_UNINSTALL)
-
-
-#---install menus
-
-
-def install_menu_item(self, menu, name, label, tooltip="",
-        style=wx.ITEM_NORMAL):
-    method = globals()['on_' + name]
-    return self.install_menu_item(menu, name, label, method, tooltip, style)
-
-
-def install(self):
-    #install menu items in reverse order
-
-    #explorer
-    install_menu_item(self, self.menu_file_export,
-        name='menu_file_export_explorer_remove',
-        label=ct.INTEGRATE_PHATCH_REMOVE % "Windows Explore&r",)
-    install_menu_item(self, self.menu_file_export,
-        name='menu_file_export_explorer_inspector',
-        label=ct.INTEGRATE_PHATCH_INSPECTOR % "Windows Explore&r",)
-    install_menu_item(self, self.menu_file_export,
-        name='menu_file_export_explorer_recent',
-        label=ct.INTEGRATE_PHATCH_RECENT % "Windows &Explorer",)
-    self.menu_item.append((self.menu_file_export,
-        [install_menu_item(self, self.menu_file_export,
-            name='menu_file_export_explorer_actionlist',
-            label=ct.INTEGRATE_PHATCH_ACTIONLIST % "&Windows Explorer",)]))
-    self.menu_file_export.InsertSeparator(4)
-
-    #droplet
-    install_menu_item(self, self.menu_file_export,
-        name='menu_file_export_droplet_inspector',
-        label=ct.DROPLET_PHATCH_INSPECTOR,)
-    install_menu_item(self, self.menu_file_export,
-        name='menu_file_export_droplet_recent',
-        label=ct.DROPLET_PHATCH_RECENT,)
-    self.menu_item.append((self.menu_file_export,
-        [install_menu_item(self, self.menu_file_export,
-            name='menu_file_export_droplet_actionlist',
-            label=ct.DROPLET_PHATCH_ACTIONLIST,)]))
-    self.menu_file_export.InsertSeparator(3)
-
-
-if __name__ == '__main__':
-    create_phatch_droplet(
-        actionlist='/home/stani/sync/python/phatch/action \
-lists/tutorials/thumb round 3d reflect.phatch',
-        folder='/home/stani/sync/Desktop',)
+    install_menu(self)

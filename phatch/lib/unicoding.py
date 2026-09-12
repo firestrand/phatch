@@ -20,7 +20,7 @@ import locale
 import os
 from . import system
 
-ENCODING = locale.getdefaultlocale()[1]
+ENCODING = locale.getencoding()
 
 try:
     codecs.lookup(ENCODING)
@@ -35,6 +35,8 @@ except:
 def ensure_unicode(x, encoding=ENCODING, errors='replace'):
     if type(x) is str:
         return x
+    if isinstance(x, bytes):
+        return x.decode(encoding, errors)
     try:
         return str(x)
     except UnicodeDecodeError:

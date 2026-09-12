@@ -1,0 +1,19 @@
+{
+  "version": "0.3.0",
+  "format_version": "2.0",
+  "description": "Legacy two",
+  "actions": [
+    {
+      "label": "Scale",
+      "fields": {
+        "Canvas Height": "64px",
+        "Canvas Width": "64px",
+        "Constrain Proportions": "yes",
+        "Resample Image": "automatic",
+        "Resolution": "<dpi>",
+        "Scale Down Only": "no",
+        "__enabled__": "yes"
+      }
+    }
+  ]
+}

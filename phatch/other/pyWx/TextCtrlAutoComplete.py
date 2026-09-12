@@ -20,7 +20,6 @@ import locale, wx, sys, io
 
 import  wx.lib.mixins.listctrl  as  listmix
 
-from wx import ImageFromStream, BitmapFromImage
 #----------------------------------------------------------------------
 def getSmallUpArrowData():
     return \
@@ -32,11 +31,11 @@ def getSmallUpArrowData():
 \x82'
 
 def getSmallUpArrowBitmap():
-    return BitmapFromImage(getSmallUpArrowImage())
+    return wx.Bitmap(getSmallUpArrowImage())
 
 def getSmallUpArrowImage():
-    stream = io.BytesIO(getSmallUpArrowData())
-    return ImageFromStream(stream)
+    stream = io.BytesIO(getSmallUpArrowData().encode("latin-1"))
+    return wx.Image(stream)
 
 
 def getSmallDnArrowData():
@@ -49,11 +48,11 @@ def getSmallDnArrowData():
 ?\x84B\xef\x00\x00\x00\x00IEND\xaeB`\x82"
 
 def getSmallDnArrowBitmap():
-    return BitmapFromImage(getSmallDnArrowImage())
+    return wx.Bitmap(getSmallDnArrowImage())
 
 def getSmallDnArrowImage():
-    stream = io.BytesIO(getSmallDnArrowData())
-    return ImageFromStream(stream)
+    stream = io.BytesIO(getSmallDnArrowData().encode("latin-1"))
+    return wx.Image(stream)
 #----------------------------------------------------------------------
 
 class myListCtrl(wx.ListCtrl, listmix.ListCtrlAutoWidthMixin):
@@ -108,7 +107,7 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
 
         #Control the style
         self.dropdown = wx.PopupWindow( self, wx.SIMPLE_BORDER )
-        flags =  wx.NO_BORDER | wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_SORT_ASCENDING
+        flags = wx.NO_BORDER | wx.LC_REPORT | wx.LC_SINGLE_SEL
         if not (showHead and multiChoices) :
             flags = flags | wx.LC_NO_HEADER
 
@@ -300,36 +299,33 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
         if not isinstance(self._multiChoices, list):
             self._multiChoices = [ x for x in self._multiChoices]
 
-        flags = wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_SORT_ASCENDING
+        flags = wx.LC_REPORT | wx.LC_SINGLE_SEL
         if not self._showHead:
             flags |= wx.LC_NO_HEADER
         self.dropdownlistbox.SetWindowStyleFlag(flags)
 
-        #prevent errors on "old" systems
-        if sys.version.startswith("2.3"):
-            self._multiChoices.sort(lambda x, y: cmp(x[0].lower(), y[0].lower()))
-        else:
-            self._multiChoices.sort(key=lambda x: locale.strxfrm(x[0]).lower() )
+        self._multiChoices.sort(key=lambda x: locale.strxfrm(x[0]).lower() )
 
         self._updateDataList(self._multiChoices)
 
-        lChoices = len(choices)
+        lChoices = len(self._multiChoices)
         if lChoices < 2:
             raise ValueError("You have to pass me a multi-dimension list")
 
-        for numCol, rowValues in enumerate(choices[0]):
+        for numCol, rowValues in enumerate(self._multiChoices[0]):
 
             if self._colNames: colName = self._colNames[numCol]
             else: colName = "Select %i" % numCol
 
             self.dropdownlistbox.InsertColumn(numCol, colName)
 
-        for numRow, valRow in enumerate(choices):
+        for numRow, valRow in enumerate(self._multiChoices):
 
             for numCol, colVal in enumerate(valRow):
                 if numCol == 0:
-                    index = self.dropdownlistbox.InsertImageStringItem(sys.maxsize, colVal, -1)
-                self.dropdownlistbox.SetStringItem(index, numCol, colVal)
+                    index = self.dropdownlistbox.InsertItem(
+                        self.dropdownlistbox.GetItemCount(), colVal, -1)
+                self.dropdownlistbox.SetItem(index, numCol, colVal)
                 self.dropdownlistbox.SetItemData(index, numRow)
 
         self._setListSize()
@@ -343,26 +339,22 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
         '''
         self._choices = choices
         self._multiChoices = None
-        flags = wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_SORT_ASCENDING | wx.LC_NO_HEADER
+        flags = wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_NO_HEADER
         self.dropdownlistbox.SetWindowStyleFlag(flags)
 
         if not isinstance(choices, list):
             self._choices = [ x for x in choices]
 
-        #prevent errors on "old" systems
-        if sys.version.startswith("2.3"):
-            self._choices.sort(lambda x, y: cmp(x.lower(), y.lower()))
-        else:
-            self._choices.sort(key=lambda x: locale.strxfrm(x).lower())
+        self._choices.sort(key=lambda x: locale.strxfrm(x).lower())
 
         self._updateDataList(self._choices)
 
         self.dropdownlistbox.InsertColumn(0, "")
 
         for num, colVal in enumerate(self._choices):
-            index = self.dropdownlistbox.InsertImageStringItem(sys.maxsize, colVal, -1)
-
-            self.dropdownlistbox.SetStringItem(index, 0, colVal)
+            index = self.dropdownlistbox.InsertItem(
+                self.dropdownlistbox.GetItemCount(), colVal, -1)
+            self.dropdownlistbox.SetItem(index, 0, colVal)
             self.dropdownlistbox.SetItemData(index, num)
 
         self._setListSize()
@@ -372,7 +364,7 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
         self._colFetch = -1
 
     def GetChoices(self):
-        if self._choices:
+        if self._choices is not None:
             return self._choices
         else:
             return self._multiChoices
@@ -441,7 +433,7 @@ class TextCtrlAutoComplete (wx.TextCtrl, listmix.ColumnSorterMixin ):
         #delete, if need, all the previous data
         if self.dropdownlistbox.GetColumnCount() != 0:
             self.dropdownlistbox.DeleteAllColumns()
-            self.dropdownlistbox.DeleteAllItems()
+        self.dropdownlistbox.DeleteAllItems()
 
         #and update the dict
         if choices:
@@ -501,7 +493,7 @@ class test:
                         ]
 
 
-        app = wx.PySimpleApp()
+        app = wx.App(False)
         frm = wx.Frame(None,-1,"Test",style=wx.TAB_TRAVERSAL|wx.DEFAULT_FRAME_STYLE)
         panel = wx.Panel(frm)
         sizer = wx.BoxSizer(wx.VERTICAL)
@@ -593,4 +585,3 @@ class test:
 
 if __name__ == "__main__":
     test()
-

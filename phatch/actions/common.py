@@ -21,16 +21,9 @@
 # Embedded icon is taken from www.openclipart.org (public domain)
 
 from core import models
+from lib import imtools
 from lib.reverse_translation import _t
-
-#---PIL
-
-
-def init():
-    global Image, ImageFilter, imtools
-    from PIL import Image, ImageFilter
-    from lib import imtools
-
+from PIL import Image, ImageFilter
 
 def common(image, radius, amount=100):
     """Apply a filter
@@ -48,7 +41,6 @@ class Action(models.Action):
     label = _t('Common')
     author = 'Stani'
     email = 'spe.stani.be@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(common)
     version = '0.1'
     tags = [_t('filter')]

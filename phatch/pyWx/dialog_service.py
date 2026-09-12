@@ -3,34 +3,33 @@
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
-from typing import Any, Optional, Sequence
+from collections.abc import Sequence
+from dataclasses import dataclass, field
+from functools import partial
+from importlib import import_module
 from types import SimpleNamespace
+from typing import Any, TypeVar
 
-from phatch.core import api as api_module, ct
+from phatch.core import api as api_module
+from phatch.core import ct
 from phatch.lib import listData as list_data_module
 from phatch.lib import notify as notify_module
 from phatch.lib import system as system_module
+from phatch.lib.reverse_translation import _translate as _
 
-try:  # pragma: no cover - requires wxPython
-    from phatch.lib.pyWx import graphics as graphics_module
-except ImportError:  # pragma: no cover - fallback for headless tests
-    graphics_module = SimpleNamespace()
+Dependency = TypeVar("Dependency")
 
-try:  # pragma: no cover - requires wxPython
-    from phatch.pyWx import dialogs as dialogs_module
-except ImportError:  # pragma: no cover - fallback for headless tests
-    dialogs_module = SimpleNamespace()
 
-try:  # pragma: no cover - requires wxPython
-    from phatch.pyWx import images as images_module
-except ImportError:  # pragma: no cover - fallback for headless tests
-    images_module = SimpleNamespace(ICON_PHATCH_64=None)
+def _module_default(dependency: Dependency) -> Dependency:
+    return dependency
 
-try:  # pragma: no cover - provided by runtime environment
-    import wx  # type: ignore
-    import wx.lib.dialogs as wx_lib_dialogs  # type: ignore
-except ImportError:  # pragma: no cover - headless fall-back
+
+try:
+    imported_wx = import_module("wx")
+    imported_wx_lib_dialogs = import_module("wx.lib.dialogs")
+except ModuleNotFoundError as error:
+    if error.name not in {"wx", "wx.lib", "wx.lib.dialogs"}:
+        raise
 
     class _WxStub:
         OK = 0
@@ -53,48 +52,78 @@ except ImportError:  # pragma: no cover - headless fall-back
         def MessageDialog(self, *args, **kwargs):
             raise NotImplementedError("wxPython required for dialog execution")
 
-        def CallAfter(self, func, *args, **kwargs):  # noqa: D401 - stub
+        def CallAfter(self, func, *args, **kwargs):
             func(*args, **kwargs)
 
-        def GetApp(self):  # noqa: D401 - stub
+        def GetApp(self):
             raise NotImplementedError("wxPython required for dialog execution")
 
     class _WxLibDialogsStub:
-        class ScrolledMessageDialog:  # type: ignore[dead-code]
+        class ScrolledMessageDialog:
             def __init__(self, *args, **kwargs):
                 raise NotImplementedError("wxPython required for dialog execution")
 
-    wx = _WxStub()  # type: ignore
-    wx_lib_dialogs = _WxLibDialogsStub()  # type: ignore
+    wx = _WxStub()
+    wx_lib_dialogs = _WxLibDialogsStub()
+    graphics_module = SimpleNamespace()
+    dialogs_module = SimpleNamespace()
+    images_module = SimpleNamespace(ICON_PHATCH_64=None)
+    wx_default = _WxStub
+    wx_lib_dialogs_default = _WxLibDialogsStub
+    graphics_default = SimpleNamespace
+    dialogs_default = SimpleNamespace
+    images_default = partial(SimpleNamespace, ICON_PHATCH_64=None)
+else:
+    from phatch.lib.pyWx import graphics as imported_graphics
+    from phatch.pyWx import dialogs as imported_dialogs
+    from phatch.pyWx import images as imported_images
+
+    wx = imported_wx
+    wx_lib_dialogs = imported_wx_lib_dialogs
+    graphics_module = imported_graphics
+    dialogs_module = imported_dialogs
+    images_module = imported_images
+
+    wx_default = partial(_module_default, wx)
+    wx_lib_dialogs_default = partial(_module_default, wx_lib_dialogs)
+    graphics_default = partial(_module_default, graphics_module)
+    dialogs_default = partial(_module_default, dialogs_module)
+    images_default = partial(_module_default, images_module)
 
 
 @dataclass(frozen=True)
 class DialogDependencies:
     """Explicit dependencies used by the dialog service."""
 
-    wx: Any = wx
-    wx_lib_dialogs: Any = wx_lib_dialogs
-    dialogs: Any = dialogs_module
-    list_data: Any = list_data_module
-    notify: Any = notify_module
-    graphics: Any = graphics_module
-    images: Any = images_module
-    system: Any = system_module
-    api: Any = api_module
+    wx: Any = field(default_factory=wx_default)
+    wx_lib_dialogs: Any = field(default_factory=wx_lib_dialogs_default)
+    dialogs: Any = field(default_factory=dialogs_default)
+    list_data: Any = field(default_factory=partial(_module_default, list_data_module))
+    notify: Any = field(default_factory=partial(_module_default, notify_module))
+    graphics: Any = field(default_factory=graphics_default)
+    images: Any = field(default_factory=images_default)
+    system: Any = field(default_factory=partial(_module_default, system_module))
+    api: Any = field(default_factory=partial(_module_default, api_module))
 
 
 class DialogService:
     """Encapsulates message dialogs, notifications, and status helpers."""
 
-    def __init__(self, frame: Any, dependencies: Optional[DialogDependencies] = None) -> None:
+    def __init__(
+        self, frame: Any, dependencies: DialogDependencies | None = None
+    ) -> None:
         self._frame = frame
         self._deps = dependencies or DialogDependencies()
 
     # --- basic dialogs ---------------------------------------------
     def show_error(self, message: str):
-        return self.show_message(message, style=self._deps.wx.OK | self._deps.wx.ICON_ERROR)
+        return self.show_message(
+            message, style=self._deps.wx.OK | self._deps.wx.ICON_ERROR
+        )
 
-    def show_execute_dialog(self, result: dict, settings: dict, files: Optional[Sequence[str]] = None) -> None:
+    def show_execute_dialog(
+        self, result: dict, settings: dict, files: Sequence[str] | None = None
+    ) -> None:
         dlg = self._deps.dialogs.ExecuteDialog(self._frame, drop=files)
         try:
             if settings.get("overwrite_existing_images_forced"):
@@ -109,10 +138,12 @@ class DialogService:
         finally:
             dlg.Destroy()
 
-    def show_files_message(self, result: dict, message: str, title: str, files: Sequence[str]) -> None:
+    def show_files_message(
+        self, result: dict, message: str, title: str, files: Sequence[str]
+    ) -> None:
         dlg = self._deps.dialogs.FilesDialog(self._frame, message, title, files)
         try:
-            x0, y0 = self._frame.GetSize()
+            x0, _y0 = self._frame.GetSize()
             x1, y1 = dlg.GetSize()
             dlg.SetSize((max(x0, x1), max(y1, 200)))
             result["cancel"] = dlg.ShowModal() == self._deps.wx.ID_CANCEL
@@ -120,12 +151,18 @@ class DialogService:
             dlg.Destroy()
 
     def show_message(self, message: str, title: str = "", style: int | None = None):
-        style = self._deps.wx.OK | self._deps.wx.ICON_EXCLAMATION if style is None else style
-        parent = self._frame if getattr(self._frame, "IsShown", lambda: False)() else None
+        style = (
+            self._deps.wx.OK | self._deps.wx.ICON_EXCLAMATION
+            if style is None
+            else style
+        )
+        parent = (
+            self._frame if getattr(self._frame, "IsShown", lambda: False)() else None
+        )
         dlg = self._deps.wx.MessageDialog(
             parent,
             message,
-            "%(name)s " % ct.INFO + title,
+            f"{ct.INFO['name']} {title}",
             style,
         )
         try:
@@ -143,7 +180,11 @@ class DialogService:
             dlg.Destroy()
 
     def show_question(self, message: str, style: int | None = None):
-        style = self._deps.wx.YES_NO | self._deps.wx.ICON_QUESTION if style is None else style
+        style = (
+            self._deps.wx.YES_NO | self._deps.wx.ICON_QUESTION
+            if style is None
+            else style
+        )
         return self.show_message(message, style=style)
 
     def show_image_tree(
@@ -199,16 +240,24 @@ class DialogService:
             message = _("Nothing has been logged yet.")
         self.show_scrolled_message(
             message,
-            "%s - %s" % (_("Log"), ct.USER_LOG_PATH),
+            f"{_('Log')} - {ct.USER_LOG_PATH}",
         )
 
     def show_info(self, message: str, title: str = ""):
-        return self.show_message(message, title, style=self._deps.wx.OK | self._deps.wx.ICON_INFORMATION)
+        return self.show_message(
+            message, title, style=self._deps.wx.OK | self._deps.wx.ICON_INFORMATION
+        )
 
-    def show_progress(self, title: str, parent_max: int, child_max: int = 1, message: str = "") -> None:
-        self._deps.dialogs.ProgressDialog(self._frame, title, parent_max, child_max, message)
+    def show_progress(
+        self, title: str, parent_max: int, child_max: int = 1, message: str = ""
+    ) -> None:
+        self._deps.dialogs.ProgressDialog(
+            self._frame, title, parent_max, child_max, message
+        )
 
-    def show_progress_error(self, result: dict, message: str, ignore: bool = True) -> None:
+    def show_progress_error(
+        self, result: dict, message: str, ignore: bool = True
+    ) -> None:
         message += "\n\n" + self._deps.api.SEE_LOG
         dlg = self._deps.dialogs.ErrorDialog(self._frame, message, ignore)
         try:
@@ -237,7 +286,9 @@ class DialogService:
         scrolled_dialog.ShowModal()
         scrolled_dialog.Destroy()
 
-    def show_notification(self, message: str, force: bool = False, report: Optional[list] = None) -> None:
+    def show_notification(
+        self, message: str, force: bool = False, report: list | None = None
+    ) -> None:
         self.set_report(report)
         app = self._deps.wx.GetApp()
         active = app.IsActive() or self._frame.IsActive()
@@ -258,15 +309,5 @@ class DialogService:
     def set_setting(self, name: str, value: Any) -> None:
         self._deps.wx.GetApp().settings[name] = value
 
-    def set_report(self, report: Optional[list]) -> None:
+    def set_report(self, report: list | None) -> None:
         self._deps.wx.GetApp().report = report
-
-
-try:  # pragma: no cover - runtime gettext injection
-    _  # type: ignore[name-defined]
-except NameError:  # pragma: no cover - fallback for tests
-    import builtins
-
-    if "_" not in builtins.__dict__:
-        builtins.__dict__["_"] = lambda value: value
-    _ = builtins.__dict__["_"]

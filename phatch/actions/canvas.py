@@ -18,36 +18,17 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image
+from lib import imtools
+from lib.colors import HTMLColorToRGBA
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image
-    from PIL import Image
-    global imtools
-    from lib import imtools
-    global HTMLColorToRGBA
-    from lib.colors import HTMLColorToRGBA
-    return {'Image': Image, 'imtools': imtools, 'HTMLColorToRGBA': HTMLColorToRGBA}
 def canvas_size(image, new_size, centering, background_color, opacity,
         old_size=None):
     #because of layer support photo size can be different from image layer size
@@ -82,11 +63,11 @@ def canvas_size(image, new_size, centering, background_color, opacity,
 
 
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Canvas')
     all_layers = True
     author = 'Stani'
     email = 'spe.stani.be@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(canvas_size)
     version = '0.1'
     tags = [_t('transform'), _t('size')]

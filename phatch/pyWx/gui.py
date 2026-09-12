@@ -103,6 +103,8 @@ except NameError:  # pragma: no cover - test fallback
 
 
 def _ensure_phatch_suffix(path):
+    if path == ct.UNKNOWN:
+        return path
     root, ext = os.path.splitext(path)
     if ext.lower() != ct.EXTENSION:
         return f"{path}{ct.EXTENSION}"
@@ -868,7 +870,24 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
 
     def on_context_menu(self, event):
         if self.controller.has_selected_action():
-            self.controller.show_context_menu(self.menu_edit)
+            context_menu = wx.Menu()
+            for source_item in self.menu_edit.GetMenuItems():
+                if source_item.IsSeparator():
+                    context_menu.AppendSeparator()
+                    continue
+                item = context_menu.Append(
+                    source_item.GetId(),
+                    source_item.GetItemLabel(),
+                    source_item.GetHelp(),
+                    source_item.GetKind(),
+                )
+                item.Enable(source_item.IsEnabled())
+                if source_item.IsCheckable():
+                    item.Check(source_item.IsChecked())
+            try:
+                self.controller.show_context_menu(context_menu)
+            finally:
+                context_menu.Destroy()
 
     def is_save_not_ok(self):
         if self.file_menu is None:

@@ -21,6 +21,7 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 from lib.openImage import open as open_image
@@ -29,27 +30,9 @@ from lib.imtools import has_transparency, paste
 #---Pil
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image, ImageMath
+from lib import imtools
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image, ImageMath, imtools
-    from PIL import Image, ImageMath
-    from lib import imtools
-    return {'Image': Image, 'ImageMath': ImageMath, 'imtools': imtools}
 def put_highlight(image, highlight, resample_highlight, opacity, cache=None):
     if cache is None:
         cache = {}
@@ -73,8 +56,7 @@ def put_highlight(image, highlight, resample_highlight, opacity, cache=None):
     if not has_transparency(image):
         image = image.convert('RGBA')
     else:
-        if has_transparency(image):
-            image = image.convert('RGBA')
+        image = image.convert('RGBA')
         alpha = imtools.get_alpha(image)
         highlight = highlight.copy()
         highlight_alpha = imtools.get_alpha(highlight)
@@ -90,12 +72,12 @@ def put_highlight(image, highlight, resample_highlight, opacity, cache=None):
 
 class Action(models.Action):
     """Apply a transparency highlight"""
+    init = staticmethod(init)
 
     label = _t('Highlight')
     author = 'Nadia Alramli'
     cache = True
     email = 'mail@nadiana.com'
-    init = staticmethod(init)
     pil = staticmethod(put_highlight)
     version = '0.1'
     tags = [_t('filter')]

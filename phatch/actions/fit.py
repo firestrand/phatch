@@ -18,34 +18,17 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image, ImageOps
+from lib.colors import HTMLColorToRGBA
+from lib import pillow_compat
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image, ImageOps
-    from PIL import Image, ImageOps
-    global HTMLColorToRGBA
-    from lib.colors import HTMLColorToRGBA
-    return {'Image': Image, 'ImageOps': ImageOps, 'HTMLColorToRGBA': HTMLColorToRGBA}
 def fit(image, size, method, bleed, centering):
     return ImageOps.fit(image, size, method, bleed, centering)
 
@@ -54,12 +37,12 @@ def fit(image, size, method, bleed, centering):
 
 class Action(models.Action):
     """Resize an image"""
+    init = staticmethod(init)
 
     label = _t('Fit')
     author = 'Stani'
     all_layers = True
     email = 'spe.stani.be@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(fit)
     version = '0.1'
     tags = [_t('transform'), _t('size')]
@@ -88,10 +71,11 @@ class Action(models.Action):
         method = self.get_field('Resample Image', info)
         if method == 'AUTOMATIC':
             if x1 < x0 and y1 < y0:
-                method = 'ANTIALIAS'
+                method = pillow_compat.LANCZOS
             else:
-                method = 'BICUBIC'
-        method = getattr(Image, method)
+                method = Image.BICUBIC
+        else:
+            method = getattr(Image, method)
         #centering
         align_hor = self.get_field('Align Horizontal', info) / 100.0
         align_ver = self.get_field('Align Vertical', info) / 100.0

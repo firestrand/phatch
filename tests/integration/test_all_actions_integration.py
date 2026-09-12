@@ -10,24 +10,21 @@ This test suite executes every action with valid inputs to ensure:
 This catches the kinds of bugs found during batch execution testing.
 """
 
+import datetime
 import glob
 import os
 import shutil
-import sys
-import tempfile
 import pytest
 from PIL import Image
 
-# Add project root to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
-
 from phatch.core import config
+from phatch.phatch import create_paths
 
-# Initialize config paths for testing
-config.init_config_paths()
 
-# Create a temp directory for test images
-TEST_TEMP_DIR = tempfile.mkdtemp(prefix='phatch_test_')
+@pytest.fixture
+def action_temp_dir(tmp_path):
+    config.init_config_paths(create_paths('..'))
+    return tmp_path
 
 
 def get_all_action_modules():
@@ -98,6 +95,7 @@ class MockPhoto:
             'exif': {},
             'iptc': {},
         }
+        self.modify_date: datetime.datetime | None = None
         self._layer = self
 
     def get_layer(self):
@@ -106,22 +104,29 @@ class MockPhoto:
 
     def apply_pil(self, pil_func, **kwargs):
         """Apply a PIL function to the image."""
-        self.image = pil_func(self.image, **kwargs)
+        previous = self.image
+        self.image = pil_func(previous, **kwargs)
+        if self.image is not previous:
+            previous.close()
 
     def convert(self, mode, palette=None):
         """Convert image mode (for convert_mode action)."""
+        previous = self.image
         if palette:
-            self.image = self.image.convert(mode, palette=palette)
+            self.image = previous.convert(mode, palette=palette)
         else:
-            self.image = self.image.convert(mode)
+            self.image = previous.convert(mode)
+        previous.close()
         return self
 
     def resize(self, size, resample=None):
         """Resize image (for scale action)."""
+        previous = self.image
         if resample:
-            self.image = self.image.resize(size, resample)
+            self.image = previous.resize(size, resample)
         else:
-            self.image = self.image.resize(size)
+            self.image = previous.resize(size)
+        previous.close()
         return self
 
     def append_to_report(self, message):
@@ -138,19 +143,20 @@ class MockPhoto:
         return self
 
 
-def create_test_photo(image_mode='RGB', save_to_file=False):
+def create_test_photo(temp_dir, image_mode='RGB', save_to_file=False):
     """Create a MockPhoto object with test image."""
     image = create_test_image(mode=image_mode)
     if save_to_file:
         # Create a real temp file for actions that need it
-        temp_path = os.path.join(TEST_TEMP_DIR, f'test_{image_mode}_{id(image)}.png')
+        temp_path = os.path.join(
+            temp_dir, f'test_{image_mode}_{id(image)}.png')
         return MockPhoto(image, temp_path=temp_path)
     return MockPhoto(image)
 
 
-def create_helper_image(name, mode='RGBA', size=(50, 50)):
+def create_helper_image(temp_dir, name, mode='RGBA', size=(50, 50)):
     """Create helper images for watermark, mask, highlight, etc."""
-    temp_path = os.path.join(TEST_TEMP_DIR, f'{name}.png')
+    temp_path = os.path.join(temp_dir, f'{name}.png')
     if not os.path.exists(temp_path):
         if mode == 'L':
             # Grayscale for masks
@@ -158,7 +164,10 @@ def create_helper_image(name, mode='RGBA', size=(50, 50)):
         else:
             # RGBA with transparency for watermarks/highlights
             img = create_test_image(mode='RGBA', size=size, color=(255, 255, 255, 200))
-        img.save(temp_path)
+        try:
+            img.save(temp_path)
+        finally:
+            img.close()
     return temp_path
 
 
@@ -193,7 +202,7 @@ ACTION_IMAGE_MODES = {
 
 
 @pytest.mark.parametrize('action_name', get_all_action_modules())
-def test_action_executes_without_error(action_name):
+def test_action_executes_without_error(action_name, action_temp_dir):
     """Test that each action can be executed with valid default values."""
 
     # Skip actions with external dependencies
@@ -221,31 +230,25 @@ def test_action_executes_without_error(action_name):
     # Create action instance
     action = ActionClass()
 
-    # Initialize fields (calls interface method)
-    try:
-        action.interface(action._fields)
-    except Exception as e:
-        pytest.fail(f"Action {action_name} interface() failed: {e}")
-
     # Set up action-specific field values
     if action_name == 'watermark':
         # Provide a watermark image file
-        watermark_path = create_helper_image('watermark')
+        watermark_path = create_helper_image(action_temp_dir, 'watermark')
         action.set_field('Mark', watermark_path)
     elif action_name == 'mask':
         # Provide a mask image file
-        mask_path = create_helper_image('mask', mode='L')
+        mask_path = create_helper_image(action_temp_dir, 'mask', mode='L')
         action.set_field('Mask', mask_path)
     elif action_name == 'highlight':
         # Provide a highlight image file
-        highlight_path = create_helper_image('highlight')
+        highlight_path = create_helper_image(action_temp_dir, 'highlight')
         action.set_field('Highlight', highlight_path)
     elif action_name in ['save', 'copy', 'rename', 'save_metadata']:
         # Set valid folder (use temp dir instead of 'desktop')
-        action.set_field('In', TEST_TEMP_DIR)
+        action.set_field('In', str(action_temp_dir))
     elif action_name == 'tamogen':
         # Provide fill image
-        fill_image_path = create_helper_image('tamogen_fill')
+        fill_image_path = create_helper_image(action_temp_dir, 'tamogen_fill')
         action.set_field('Fill Image', fill_image_path)
     elif action_name == 'text':
         # Use empty string to trigger default font (line 58-61 in text.py checks font.strip())
@@ -270,11 +273,11 @@ def test_action_executes_without_error(action_name):
     image_mode = ACTION_IMAGE_MODES.get(action_name, 'RGB')
     # Some actions need real files
     needs_real_file = action_name in ['save', 'copy', 'rename', 'save_metadata', 'tamogen', 'text']
-    photo = create_test_photo(image_mode=image_mode, save_to_file=needs_real_file)
+    photo = create_test_photo(
+        action_temp_dir, image_mode=image_mode, save_to_file=needs_real_file)
 
     # Add time_shift metadata if needed
     if action_name == 'time_shift':
-        import datetime
         photo.info['exif'] = {
             'DateTimeOriginal': datetime.datetime(2020, 1, 1, 12, 0, 0),
         }
@@ -304,6 +307,8 @@ def test_action_executes_without_error(action_name):
         assert hasattr(result, 'info'), f"Action {action_name} result has no info attribute"
     except Exception as e:
         pytest.fail(f"Action {action_name} execution failed: {e}")
+    finally:
+        photo.image.close()
 
 
 def test_all_actions_discovered():
@@ -318,11 +323,10 @@ def test_all_actions_discovered():
     assert 'background' in modules
 
 
-def test_action_with_transparent_image():
+def test_action_with_transparent_image(action_temp_dir):
     """Test Background action specifically with transparency (regression test)."""
     action_module = __import__('phatch.actions.background', fromlist=['Action'])
     action = action_module.Action()
-    action.interface(action._fields)
 
     # Set to Color fill (Mark should be excluded from validation)
     action.set_field('Fill', 'Color')
@@ -333,21 +337,23 @@ def test_action_with_transparent_image():
         action.init()
 
     # Create transparent image
-    photo = create_test_photo(image_mode='RGBA')
+    photo = create_test_photo(action_temp_dir, image_mode='RGBA')
 
     # Should not raise ValidationError for Mark field
-    result = action.apply(photo, setting={}, cache={})
-    assert result is not None
+    try:
+        result = action.apply(photo, setting={}, cache={})
+        assert result is not None
+    finally:
+        photo.image.close()
 
 
-def test_action_with_pillow_compat():
+def test_action_with_pillow_compat(action_temp_dir):
     """Test actions that use Pillow resampling filters (regression test)."""
     test_actions = ['scale', 'fit', 'canvas']
 
     for action_name in test_actions:
         action_module = __import__(f'phatch.actions.{action_name}', fromlist=['Action'])
         action = action_module.Action()
-        action.interface(action._fields)
 
         if hasattr(action, 'init'):
             try:
@@ -355,7 +361,7 @@ def test_action_with_pillow_compat():
             except:
                 pytest.skip(f"Action {action_name} requires external dependencies")
 
-        photo = create_test_photo(image_mode='RGB')
+        photo = create_test_photo(action_temp_dir, image_mode='RGB')
 
         try:
             result = action.apply(photo, setting={}, cache={})
@@ -364,6 +370,8 @@ def test_action_with_pillow_compat():
             if 'ANTIALIAS' in str(e) or 'LINEAR' in str(e):
                 pytest.fail(f"Action {action_name} still using deprecated Pillow constants: {e}")
             raise
+        finally:
+            photo.image.close()
 
 
 if __name__ == '__main__':

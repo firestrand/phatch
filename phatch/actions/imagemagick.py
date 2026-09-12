@@ -20,207 +20,32 @@
 
 # Follows PEP8
 
-from core import models
+from typing import ClassVar
+
 from lib.reverse_translation import _t
 
-COMMANDS = {
+from phatch.actions._imagemagick_action import ImageMagickActionMixin
+from phatch.actions._imagemagick_argv import BUILDERS as COMMANDS
+from phatch.lib.external_capability_probes import IMAGEMAGICK_6
 
-_t('3D Edge'):
-    """%(convert)s file_in.tif  -fx A  +matte -blur 0x6  -shade 110x30  \
-    -normalize \
-    file_in.tif  -compose Overlay -composite \
-    file_in.tif  -matte  -compose Dst_In  -composite \
-    file_out.png""",
-
-#http://www.imagemagick.org/Usage/convolve/
-_t('Blur'): \
-    """%(convert)s file_in.tif -blur %(blur_radius)sx%(blur_sigma)s \
-    file_out.png""",
-
-_t('Bullet'): r"""%(convert)s file_in.tif -matte \
-    \( +clone -channel A -separate +channel -negate \
-   -bordercolor black -border %(border)s  -blur 0x%(blur1)s \
-   -shade %(shade)s \
-   -normalize -blur 0x%(blur2)s -fill '%(color)s' -tint 100 \) \
-    -gravity center -compose Atop -composite \
-    file_out.png""",
-
-_t('Charcoal'): \
-    """%(convert)s file_in.tif -charcoal %(charcoal_radius)s file_out.png""",
-
-_t('Motion Blur'): \
-    """%(convert)s file_in.tif \
-    -motion-blur %(blur_radius)sx%(blur_sigma)s+%(blur_angle)s file_out.png""",
-
-_t('Pencil Sketch'): \
-    """%(convert)s file_in.tif -colorspace gray -sketch \
-    %(sketch_radius)sx%(sketch_sigma)s+%(sketch_angle)s file_out.png""",
-
-_t('Paint'): \
-    """%(convert)s file_in.tif -paint %(paint_radius)s file_out.png""",
-
-_t('Polaroid'):
-    """%(convert)s %(caption_cli)s file_in.tif \
-    -bordercolor '%(border_color)s' \
-    -background '%(shadow_color)s' +polaroid file_out.png""",
-
-#http://www.imagemagick.org/Usage/convolve/
-_t('Shadow'):
-    r"""%(convert)s file_in.tif \( +clone  -background '%(shadow_color)s' \
-    -shadow \
-    %(blur_radius)sx%(blur_sigma)s+%(horizontal_offset)s+%(vertical_offset)s \
-    \) +swap -background none   -layers merge  +repage file_out.png""",
-
-_t('Sharpen'): \
-    """%(convert)s file_in.tif -sharpen %(sharpen_radius)sx%(sharpen_sigma)s \
-    file_out.png""",
-
-_t('Sigmoidal Contrast'):\
-    """%(convert)s file_in.tif  \
-    -sigmoidal-contrast %(contrast_factor)s,%(contrast_treshold)s%% \
-    file_out.png""",
-
-_t('Unsharp'): \
-    """%(convert)s file_in.tif -unsharp %(unsharp_radius)sx%(unsharp_sigma)s \
-    file_out.png""",
-
-_t('Wave'): \
-    """%(convert)s file_in.tif -wave %(wave_height)sx%(wave_length)s \
-    file_out.png""",
-}
+__all__ = ["ACTIONS", "COMMANDS", "IMAGEMAGICK_6", "Action"]
 
 ACTIONS = list(COMMANDS.keys())
 ACTIONS.sort()
 
 
-class Action(models.Action):
+class Action(ImageMagickActionMixin):
     """Defined variables: <filename> <type> <folder> <width> <height>"""
 
-    label = _t('Imagemagick')
-    author = 'Stani'
-    email = 'spe.stani.be@gmail.com'
-    version = '0.1'
-    tags = [_t('filter'), _t('plugin')]
-    tags_hidden = ACTIONS
-    __doc__ = _t('Blur, Polaroid, Shadow, Unsharp...')
+    label = _t("Imagemagick")
+    author = "Stani"
+    email = "spe.stani.be@gmail.com"
+    version = "0.1"
+    tags: ClassVar[list[str]] = [_t("filter"), _t("plugin")]
+    tags_hidden: ClassVar[list[str]] = ACTIONS
+    __doc__ = _t("Blur, Polaroid, Shadow, Unsharp...")
 
-    def init(self):
-        self.find_exe('convert', 'Imagemagick')
-
-    def interface(self, fields):
-        fields[_t('Action')] = self.ChoiceField('Polaroid',
-            choices=ACTIONS)
-        fields[_t('Horizontal Offset')] = self.PixelField('2%',
-                                        choices=self.SMALL_PIXELS)
-        fields[_t('Vertical Offset')] = self.PixelField('2%',
-                                        choices=self.SMALL_PIXELS)
-        fields[_t('Color')] = self.ColorField('#FF0000')
-        fields[_t('Border Color')] = self.ColorField('#FFFFFF')
-        fields[_t('Shadow Color')] = self.ColorField('#000000')
-        fields[_t('Caption')] = self.CharField(choices=self.STAMPS)
-        fields[_t('Charcoal Radius')] = self.PixelField('0.5%')
-        fields[_t('Contrast Factor')] = self.SliderField(100, 0, 100)
-        fields[_t('Contrast Treshold')] = self.SliderField(50, 0, 100)
-        fields[_t('Blur Radius')] = self.PixelField('80px')
-        fields[_t('Blur Sigma')] = self.PixelField('3px')
-        fields[_t('Blur Angle')] = self.SliderField(120, 0, 359)
-        fields[_t('Paint Radius')] = self.PixelField('0.5%')
-        fields[_t('Sharpen Radius')] = self.PixelField('0px')
-        fields[_t('Sharpen Sigma')] = self.PixelField('3px')
-        fields[_t('Sketch Radius')] = self.PixelField('0px')
-        fields[_t('Sketch Sigma')] = self.PixelField('20px')
-        fields[_t('Sketch Angle')] = self.SliderField(120, 0, 359)
-        fields[_t('Unsharp Radius')] = self.PixelField('0px')
-        fields[_t('Unsharp Sigma')] = self.PixelField('3px')
-        fields[_t('Wave Height')] = self.PixelField('0px')
-        fields[_t('Wave Length')] = self.PixelField('3px')
-
-    def get_relevant_field_labels(self):
-        """If this method is present, Phatch will only show relevant
-        fields.
-
-:returns: list of the field labels which are relevant
-:rtype: list of strings
-
-        .. note::
-
-            It is very important that the list of labels has EXACTLY
-            the same order as defined in the interface method.
-        """
-        relevant = ['Action']
-        action = self.get_field_string('Action')
-        if action == 'Blur':
-            relevant.extend(['Blur Radius', 'Blur Sigma'])
-        elif action == 'Bullet':
-            relevant.extend(['Color'])
-        elif action == 'Charcoal':
-            relevant.extend(['Charcoal Radius'])
-        if action == 'Motion Blur':
-            relevant.extend(['Blur Radius', 'Blur Sigma', 'Blur Angle'])
-        elif action == 'Paint':
-            relevant.extend(['Paint Radius'])
-        elif action == 'Polaroid':
-            relevant.extend(['Border Color', 'Shadow Color', 'Caption'])
-        elif action == 'Shadow':
-            relevant.extend(['Horizontal Offset', 'Vertical Offset',
-                'Shadow Color', 'Blur Radius', 'Blur Sigma'])
-        elif action == 'Sharpen':
-            relevant.extend(['Sharpen Radius', 'Sharpen Sigma'])
-        elif action == 'Pencil Sketch':
-            relevant.extend(['Sketch Radius', 'Sketch Sigma',
-                'Sketch Angle'])
-        elif action == 'Sigmoidal Contrast':
-            relevant.extend(['Contrast Factor', 'Contrast Treshold'])
-        elif action == 'Unsharp':
-            relevant.extend(['Unsharp Radius', 'Unsharp Sigma'])
-        elif action == 'Wave':
-            relevant.extend(['Wave Height', 'Wave Length'])
-        return relevant
-
-    def apply(self, photo, setting, cache):
-        info = photo.info
-        action = self.get_field('Action', info)
-
-        w, h = info['size']
-        dia = (w + h) / 2
-        values = self.values(info, pixel_fields={
-            'Horizontal Offset': w,
-            'Vertical Offset': h,
-            'Blur Radius': dia,
-            'Blur Sigma': dia,
-            'Charcoal Radius': dia,
-            'Paint Radius': dia,
-            'Sharpen Radius': dia,
-            'Sharpen Sigma': dia,
-            'Sketch Radius': dia,
-            'Sketch Sigma': dia,
-            'Unsharp Radius': dia,
-            'Unsharp Sigma': dia,
-            'Wave Height': dia,
-            'Wave Length': dia,
-        })
-        values['convert'] = self.exe['convert']
-        if action == 'Bullet':
-            #extra values
-            values['border'] = dia / 3
-            values['blur1'] = dia / 7
-            values['shade'] = '%dx%d' % (dia + 105, dia + 15)
-            values['blur2'] = dia / 12
-        elif action == 'Polaroid':
-            caption = values['caption']
-            if caption.strip():
-                values['caption_cli'] = \
-                    '-caption "%s" -gravity center' % caption
-        elif action == 'Sigmoidal Contrast':
-            values['contrast_factor'] /= 10.0
-
-        command = COMMANDS[action] % values
-        #print(command)  #use "python phatch.py -v" for verbose mode
-        photo.call(command)
-        return photo
-
-    icon = \
-'x\xda\x01\x03\x0e\xfc\xf1\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\
+    icon = 'x\xda\x01\x03\x0e\xfc\xf1\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\
 \x00\x00\x000\x08\x06\x00\x00\x00W\x02\xf9\x87\x00\x00\x00\x04sBIT\x08\x08\
 \x08\x08|\x08d\x88\x00\x00\r\xbaIDATh\x81\xd5\x9a{\x90T\xd5\x9d\xc7?\xe7\xde\
 \xdb\xaf\xa1a\xde\xcc\x003 \x0fet$\xf2R\x03\x0b\x1b5\xe0\x82\xb2\xac\xa2"\

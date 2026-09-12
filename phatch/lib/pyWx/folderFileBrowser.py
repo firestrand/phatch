@@ -143,7 +143,9 @@ class Panel(WxgPanel):
         self.SetData(data, Data, headers)
         self._events()
 
-    def _tree(self, root_label=_('all'), icon=wx.ART_FOLDER):
+    def _tree(self, root_label=None, icon=wx.ART_FOLDER):
+        if root_label is None:
+            root_label = _('all')
         self.splitter.SetSashPosition(200)
         il = wx.ImageList(16, 16)
         il.Add(wx.ArtProvider.GetBitmap(icon, wx.ART_OTHER, (16, 16)))

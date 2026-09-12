@@ -62,9 +62,10 @@ class odict(dict):
             return key, val
 
     def setdefault(self, key, failobj=None):
-        dict.setdefault(self, key, failobj)
+        value = dict.setdefault(self, key, failobj)
         if key not in self._keys:
             self._keys.append(key)
+        return value
 
     def update(self, d):
         for key in list(d.keys()):

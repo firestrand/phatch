@@ -103,7 +103,7 @@ def linuxFontDirectories( ):
 	executable = '/usr/sbin/chkfontpath'
 	if os.path.isfile( executable ):
 		data = os.popen( executable ).readlines()
-		match = re.compile( '\d+: (.+)')
+		match = re.compile( r'\d+: (.+)')
 		set = []
 		for line in data:
 			result = match.match( line )
@@ -130,13 +130,12 @@ def linuxFontDirectories( ):
 		]
 		
 		set = []
-		def add( arg, directory, files):
-			set.append( directory )
 		for directory in directories:
 			directory = directory = os.path.expanduser( os.path.expandvars(directory))
 			try:
 				if os.path.isdir( directory ):
-					os.path.walk(directory, add, ())
+					for current, _, _ in os.walk(directory):
+						set.append(current)
 			except (IOError, OSError, TypeError, ValueError):
 				pass
 		return set
@@ -171,4 +170,3 @@ def findFonts(paths = None):
 if __name__ == "__main__":
 	print('linux font directories', linuxFontDirectories())
 	print('font names', findFonts())
-

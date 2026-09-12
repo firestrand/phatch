@@ -36,6 +36,7 @@ from lib.formField import files_dictionary, Form, Field, \
     ImageDictionaryField, rotation_title_parser
 from lib.reverse_translation import _t
 from .config import PATHS
+from .plugin_context import PluginContext, default_plugin_context
 from lib import openImage
 from lib.desktop import DESKTOP_FOLDER, USER_FOLDER
 if DESKTOP_FOLDER == USER_FOLDER:
@@ -87,6 +88,23 @@ class Action(Form):
     __doc__ = 'Action base class.'
     metadata = []
 
+    def __init__(self, *, plugin_context=None, **options):
+        instance_state = self.__dict__
+        instance_state['plugin_context'] = (
+            default_plugin_context() if plugin_context is None else plugin_context
+        )
+        instance_state.setdefault('tags', list(self.tags))
+        instance_state.setdefault('tags_hidden', list(self.tags_hidden))
+        instance_state.setdefault('metadata', list(self.metadata))
+        instance_state.setdefault('exe', dict(self.exe))
+        super(Action, self).__init__(**options)
+
+    def bind_plugin_context(self, plugin_context: PluginContext):
+        self.plugin_context = plugin_context
+
+    def ensure_path(self, path):
+        self.plugin_context.files.ensure_path(path)
+
     def values(self, info, pixel_fields=None, exclude=None):
         # If action defines relevant fields, exclude irrelevant fields from validation
         if hasattr(self, 'get_relevant_field_labels'):
@@ -125,7 +143,7 @@ class Action(Form):
         except KeyError:
             return False
         #check if file exists
-        if not os.path.exists(filename):
+        if not self.plugin_context.files.exists(filename):
             return False
         #check if file is valid
         return openImage.verify_image({'path': filename}, [], [])
@@ -149,16 +167,18 @@ class Action(Form):
         :rtype: str
         """
         error = False
+        error_message = ''
         if not desktop:
             try:
                 self.ensure_path(folder)
-            except OSError:
+            except OSError as message:
                 desktop = error = True
+                error_message = str(message)
         if desktop:
             base = os.path.basename(filename)
             if error:
                 photo.log('Could not save "%s" in "%s":\n%s\n'\
-                    % (base, folder, message))
+                    % (base, folder, error_message))
                 photo.log('Will try to save in "%s" instead.\n'\
                     % DESKTOP_FOLDER)
             self.ensure_path(DESKTOP_FOLDER)
@@ -358,7 +378,6 @@ class LosslessSaveMixin(object):
         filename = os.path.join(folder, '%s.%s' % (filename, typ))
         #ensure folder
         filename = self.ensure_path_or_desktop(folder, photo, filename)
-        photo.append_to_report(filename)
         return filename
 
     def is_done(self, photo):

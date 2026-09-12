@@ -270,12 +270,12 @@ class Table(object):
             # return error
             return RE_TAG_ERROR % value
         key = self.keys[index]
+        changes = [(image, {value:image.info[key], key:None})
+            for image in self.images if key in image.info]
         log = self._write(
-            changes=[(image, {value:image.info[key], key:None})
-                for image in self.images if key in image.info],
+            changes=changes,
             error_message=_('Unable to rename tag <%s>'))
-        if not log:
-            self.keys[index] = value
+        self._update_keys()
         return log
 
     #---cell
@@ -354,6 +354,7 @@ class Table(object):
         keys_to_delete = set()
         for image, image_changes in changes:
             # try to save to image file
+            key = next(reversed(image_changes))
             try:
                 exiv2_image = pyexiv2.Image(image.filename)
                 exiv2_image.readMetadata()
@@ -370,13 +371,14 @@ class Table(object):
                 continue
             # successfully saved to image file (wait until now)
             image.update_time()
-            if value:
-                image.info[key] = value
-                metadata.InfoExtract.expand_var(image.info, key,
-                    metadata.convert_from_string(value))
-            else:
-                del image.info[key]
-                keys_to_delete.add(key)
+            for key, value in list(image_changes.items()):
+                if value:
+                    image.info[key] = value
+                    metadata.InfoExtract.expand_var(image.info, key,
+                        metadata.convert_from_string(value))
+                else:
+                    del image.info[key]
+                    keys_to_delete.add(key)
         for key in keys_to_delete:
             if self.is_key_empty(key):
                 self._delete_key(key)

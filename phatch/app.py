@@ -19,58 +19,55 @@
 # Follows PEP8
 
 import argparse
+import builtins
 import os
 import sys
-import urllib.request
-import urllib.parse
-import urllib.error
+from collections.abc import MutableMapping
+from typing import cast
 
-from .data.info import INFO
 from .core import config
 from .core.cli import add_cli_options, format_cli_description
+from .core.file_references import parse_file_reference
 from .core.settings import DEFAULT_SETTINGS
+from .core.user_paths import current_platform
+from .data.info import INFO
 
-try:
-    _
-except NameError:
-    __builtins__['_'] = str
+CLI_INFO = cast(MutableMapping[str, str], INFO)
+_ = getattr(builtins, "_", str)
 
-VERSION = "%(name)s %(version)s" % INFO
+VERSION = "{name} {version}".format(**INFO)
 
 
 def fix_path(path):
-    #TODO: move me to lib/system.py
-    if path.startswith('file://'):
-        return urllib.parse.unquote(path[7:])
-    return path
+    return os.fspath(parse_file_reference(path, current_platform()))
 
 
 def parse_locale(config_paths):
-    if '-l' in sys.argv:
-        index = sys.argv.index('-l') + 1
+    if "-l" in sys.argv:
+        index = sys.argv.index("-l") + 1
         if index >= len(sys.argv):
             sys.exit('Please specify locale language after "-l".')
         canonical = sys.argv[index]
     else:
-        canonical = 'default'
-    config.load_locale('phatch', config_paths["PHATCH_LOCALE_PATH"], canonical)
+        canonical = "default"
+    config.load_locale("phatch", config_paths["PHATCH_LOCALE_PATH"], canonical)
 
 
 def parse_options():
 
-    description = format_cli_description(INFO)
+    description = format_cli_description(CLI_INFO)
 
     parser = argparse.ArgumentParser(
-        prog=INFO['name'],
+        prog=CLI_INFO["name"],
         description=description,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    add_cli_options(parser, DEFAULT_SETTINGS, INFO)
-    parser.add_argument('--version', action='version', version=VERSION)
-    parser.add_argument('paths', nargs='*')
+    add_cli_options(parser, DEFAULT_SETTINGS, CLI_INFO)
+    parser.add_argument("--version", action="version", version=VERSION)
+    parser.add_argument("paths", nargs="*")
 
     options = parser.parse_args()
-    paths = [fix_path(path) for path in options.paths if path and path[0] != '%']
+    paths = [fix_path(path) for path in options.paths if path and path[0] != "%"]
     options.paths = paths
 
     return options, paths
@@ -79,12 +76,15 @@ def parse_options():
 def reexec_with_pythonw(f=None):
     """'pythonw' needs to be called for any wxPython app
     to run from the command line on Mac Os X."""
-    if sys.version.split(' ')[0] < '2.5' and sys.platform == 'darwin' and\
-           not (sys.executable.endswith('/Python') or hasattr(sys, 'frozen')):
-        sys.stderr.write('re-executing using pythonw')
+    if (
+        sys.version.split(" ")[0] < "2.5"
+        and sys.platform == "darwin"
+        and not (sys.executable.endswith("/Python") or hasattr(sys, "frozen"))
+    ):
+        sys.stderr.write("re-executing using pythonw")
         if not f:
             f = __file__
-        os.execvp('pythonw', ['pythonw', f] + sys.argv[1:])
+        os.execvp("pythonw", ["pythonw", f, *sys.argv[1:]])
 
 
 def console(config_paths):
@@ -100,7 +100,9 @@ Please install the graphical user interface package 'phatch' as well.
 def import_pyWx():
     try:
         from .pyWx import gui
-    except ImportError:
+    except ModuleNotFoundError as error:
+        if error.name != "wx":
+            raise
         sys.exit(PYWX_ERROR)
     return gui
 
@@ -108,16 +110,19 @@ def import_pyWx():
 def _gui(app_file, paths, settings):
     reexec_with_pythonw(app_file)  # ensure pythonw for mac
     gui = import_pyWx()
-    if paths:
-        actionlist = paths[0]
-    else:
-        actionlist = ''
-    gui.main(settings, actionlist)
+    from .core import api
+    from .pyWx.frame_dependencies import FrameDependencies
+
+    registry = api.init()
+    dependencies = FrameDependencies.for_action_registry(registry)
+    actionlist = paths[0] if paths else ""
+    gui.main(settings, actionlist, dependencies)
 
 
 def _init_fonts():
     config.verify_app_user_paths()
     from .lib.fonts import font_dictionary
+
     font_dictionary(force=True)
 
 
@@ -130,7 +135,17 @@ def _inspect(app_file, paths):
 def _droplet(app_file, paths, settings):
     reexec_with_pythonw(app_file)  # ensure pythonw for mac
     gui = import_pyWx()
-    gui.drop(actionlist=paths[0], paths=paths[1:], settings=settings)
+    from .core import api
+    from .pyWx.frame_dependencies import FrameDependencies
+
+    registry = api.init()
+    dependencies = FrameDependencies.for_action_registry(registry)
+    gui.drop(
+        actionlist=paths[0],
+        paths=paths[1:],
+        settings=settings,
+        dependencies=dependencies,
+    )
 
 
 def has_ext(path, ext):
@@ -139,12 +154,16 @@ def has_ext(path, ext):
 
 def _console(paths, settings):
     from .core.api import init
-    init()
+
+    registry = init()
     from .console import console
-    if paths and has_ext(paths[0], INFO['extension']):
-        console.main(actionlist=paths[0], paths=paths[1:], settings=settings)
+
+    if paths and has_ext(paths[0], INFO["extension"]):
+        console.main(
+            actionlist=paths[0], paths=paths[1:], settings=settings, registry=registry
+        )
     else:
-        console.main(actionlist='', paths=paths, settings=settings)
+        console.main(actionlist="", paths=paths, settings=settings, registry=registry)
 
 
 def main(config_paths=None, app_file=None, force_console=False):
@@ -156,36 +175,39 @@ def main(config_paths=None, app_file=None, force_console=False):
     parse_locale(config_paths)
     options, paths = parse_options()
     from .core.settings import create_settings
+
     settings = create_settings(config_paths, options)
     if force_console:
-        settings['console'] = True
-    if settings['verbose']:
+        settings["console"] = True
+    if settings["verbose"]:
         from .lib import system
+
         system.VERBOSE = True
-    if 'safe' in settings:
+    if "safe" in settings:
         from .lib import formField
-        formField.set_safe(settings['safe'])
-        del settings['safe']
-    if settings['image_inspector']:
+
+        formField.set_safe(settings["safe"])
+        del settings["safe"]
+    if settings["image_inspector"]:
         _inspect(app_file, paths)
         return
-    if settings['init_fonts']:
+    if settings["init_fonts"]:
         _init_fonts()
         return
     else:
         config.check_fonts()
-    if paths and not (paths[0] == 'recent' or \
-            has_ext(paths[0], INFO['extension'])):
-        settings['droplet'] = True
-        paths.insert(0, 'recent')
-    if settings['droplet']:
+    if paths and not (paths[0] == "recent" or has_ext(paths[0], INFO["extension"])):
+        settings["droplet"] = True
+        paths.insert(0, "recent")
+    if settings["droplet"]:
         if not paths:
-            paths = ['recent']
+            paths = ["recent"]
         _droplet(app_file, paths, settings)
-    elif len(paths) > 1 or settings['console'] or settings['interactive']:
+    elif len(paths) > 1 or settings["console"] or settings["interactive"]:
         _console(paths, settings)
     else:
         _gui(app_file, paths, settings)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

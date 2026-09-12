@@ -133,7 +133,7 @@ class ExecuteDialog(BrowseMixin, dialogs.ExecuteDialog):
         self.set_drop(drop)
 
     def browse_files(self):
-        style = wx.FD_OPEN | wx.MULTIPLE | wx.CHANGE_DIR
+        style = wx.FD_OPEN | wx.FD_MULTIPLE | wx.FD_CHANGE_DIR
         if hasattr(wx, 'FD_PREVIEW'):
             style |= wx.FD_PREVIEW
         dlg = wx.FileDialog(
@@ -282,8 +282,8 @@ class FilesDialog(dialogs.FilesDialog, IconMixin):
         self.list.InsertColumn(0, _("File"))
         self.list.InsertColumn(1, _("Folder"))
         for index, f in enumerate(files):
-            index = self.list.InsertStringItem(index, os.path.basename(f))
-            self.list.SetStringItem(index, 1, os.path.dirname(f))
+            index = self.list.InsertItem(index, os.path.basename(f))
+            self.list.SetItem(index, 1, os.path.dirname(f))
         self.list.SetColumnWidth(0, wx.LIST_AUTOSIZE)
         self.list.SetColumnWidth(1, wx.LIST_AUTOSIZE)
         min = 100
@@ -427,7 +427,7 @@ class ActionListBox(ContentMixin, vlistTag.Box):
             size=(600, 300))
 
     def RefreshList(self):
-        self.actions.sort(cmp=lambda x, y: cmp(_(x.label), _(y.label)))
+        self.actions.sort(key=lambda action: _(action.label))
         self.Clear()
         self.SetItemCount(len(self.actions))
         self.RefreshAll()
@@ -559,10 +559,11 @@ def example():
             dlg.Destroy()
 
         def show_progress_dialog(self):
-            from lib.events import send
             import time
+
+            from phatch.lib.events import send
             n = 5
-            dlg = ProgressDialog(self.GetTopWindow(), 'title', 'messages', n)
+            dlg = ProgressDialog(self.GetTopWindow(), 'title', n)
             result = {}
             for value in range(n):
                 send.progress_update(result, value)
@@ -585,8 +586,10 @@ def example():
 
 class ImageTreeDialog(dialogs.ImageTreeDialog):
 
-    def __init__(self, *args, **keyw):
-        super(ImageTreeDialog, self).__init__(*args, **keyw)
+    def __init__(self, data, Data, headers, *args, **keyw):
+        self._data_class = Data
+        self._headers = headers
+        super(ImageTreeDialog, self).__init__(data, Data, headers, *args, **keyw)
         self.SetSize(keyw['size'])
         self.browser.tree.Bind(wx.EVT_TREE_ITEM_RIGHT_CLICK,
             self.on_tree_item_right_click)
@@ -600,7 +603,7 @@ class ImageTreeDialog(dialogs.ImageTreeDialog):
         self.browser.UpdateHeaders(headers)
 
     def SetData(self, data):
-        self.browser.SetData(data)
+        self.browser.SetData(data, self._data_class, self._headers)
 
     def SetOkLabel(self, label):
         self.ok.SetLabel(label)

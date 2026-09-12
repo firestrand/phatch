@@ -242,6 +242,7 @@ class TestRenameApply:
         # Should call rename
         mock_rename.assert_called_once_with('/source/oldfile.jpg',
                                            '/dest/folder/newfile.jpg')
+        photo.append_to_report.assert_called_once_with('/dest/folder/newfile.jpg')
         assert result == photo
 
     @patch('phatch.actions.rename.os.rename')
@@ -267,6 +268,7 @@ class TestRenameApply:
 
         # Should NOT call rename
         mock_rename.assert_not_called()
+        photo.append_to_report.assert_not_called()
         assert result == photo
 
     @patch('phatch.actions.rename.os.rename')

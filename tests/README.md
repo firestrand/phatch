@@ -1,18 +1,20 @@
 # Phatch Test Suite
 
-This directory contains the test suite for Phatch (PHoto bATCH Processor), fully migrated to Python 3.12+.
+This directory contains the test suite for Phatch (PHoto bATCH Processor) on supported CPython 3.11-3.13 releases.
 
 ## Quick Start
 
 ```bash
-# Install test dependencies
-pip install -r requirements-dev.txt
+# Install the locked project, GUI support, and development tools
+uv sync --locked --dev --extra gui
 
-# Run all tests
-pytest
+# Run the full canonical GUI-enabled gate with 90% coverage enforcement
+uv run --extra gui python scripts/verify.py
 
-# Run tests with coverage
-pytest --cov=phatch --cov-report=html
+# Run only the partial headless suite without making a coverage claim
+uv run pytest --no-cov --ignore=tests/unit/pywx \
+  --ignore=tests/integration/test_gui_smoke.py \
+  --ignore=tests/integration/test_windows_gui_runtime.py
 
 # Run specific test file
 pytest tests/quality/test_code_quality.py
@@ -60,7 +62,7 @@ Tests are now organized following modern best practices:
 ### Configuration Files
 
 - **`conftest.py`** - Pytest configuration and shared fixtures
-- **`pytest.ini`** - Pytest settings, markers, and test discovery patterns
+- **`pyproject.toml`** - Pytest, coverage, Ruff, and ty configuration
 - **`PYTHON3_MIGRATION_PLAN.md`** - Detailed migration documentation
 
 ## Running Tests
@@ -68,13 +70,18 @@ Tests are now organized following modern best practices:
 ### All Tests
 
 ```bash
-# From project root
-pytest
-
-# From tests directory
-cd tests
-pytest
+# From the project root; native GUI tests are scripted and require no human input
+uv run --extra gui python scripts/verify.py
 ```
+
+The canonical local gate includes the GUI suite and enforces 90% line, branch,
+and changed-module coverage. The headless command above is intentionally only a
+partial test run. CI makes its final coverage judgment after combining all nine
+non-GUI OS/Python contributors with the native Windows GUI contributor. Native
+Windows execution is still required downstream and is not proven by a local
+Linux or macOS run.
+Local coverage verification derives its changed-module boundary from Git rather
+than treating the configured historical module list as authoritative.
 
 ### Specific Test Types
 
@@ -154,7 +161,7 @@ pytest --cov=phatch --cov-report=term
 
 Install all required dependencies:
 ```bash
-pip install -r requirements-dev.txt
+uv sync --all-extras --dev
 ```
 
 ### Optional
@@ -212,7 +219,7 @@ pip install -r requirements-dev.txt
 
 ## Test Markers
 
-Defined in `pytest.ini`:
+Defined in `[tool.pytest.ini_options]` in `../pyproject.toml`:
 
 - **`@pytest.mark.unit`** - Unit tests
 - **`@pytest.mark.acceptance`** - Acceptance/integration tests
@@ -310,16 +317,13 @@ python acceptance_test.py --clean
 For CI environments:
 
 ```bash
-# Install all dependencies including optional ones
-pip install -r requirements-dev.txt
+# Install all locked dependencies including optional ones
+uv sync --all-extras --dev
 # If on Linux:
 sudo apt-get install -y devscripts
 
-# Run full test suite
-pytest --cov=phatch --cov-report=xml
-
-# Check code quality
-python tests/quality/test_code_quality.py
+# Run the complete repository gate
+uv run python scripts/verify.py --base-ref origin/master
 ```
 
 ## Migration Notes

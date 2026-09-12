@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from typing import Any, Iterable, Protocol, Sequence
 
 from phatch.core import ct
+from phatch.services.action_list import ActionListService
+from phatch.services.preflight import PreflightRequest, PreflightResult
 
 
 class ActionTree(Protocol):
@@ -20,6 +22,8 @@ class ActionTree(Protocol):
     def export_forms(self) -> Iterable[Any]: ...
 
     def append_form_by_label_to_selected(self, label: str) -> None: ...
+
+    def append_form_by_label_to_last(self, label: str) -> None: ...
 
     def remove_selected_form(self) -> bool: ...
 
@@ -44,6 +48,10 @@ class ActionTree(Protocol):
     def popup_menu(self, menu: object) -> None: ...
 
 
+class PreflightProvider(Protocol):
+    def preflight(self, request: PreflightRequest) -> PreflightResult: ...
+
+
 @dataclass
 class ActionListState:
     """Represents the mutable state of the action list editor."""
@@ -63,9 +71,17 @@ class ActionListState:
 class ActionListController:
     """Coordinates state changes for the action list editor."""
 
-    def __init__(self, tree: ActionTree):
+    def __init__(
+        self,
+        tree: ActionTree,
+        action_service: PreflightProvider | None = None,
+    ):
         self._tree = tree
+        self._action_service = action_service or ActionListService()
         self.state = ActionListState()
+
+    def preflight(self, request: PreflightRequest) -> PreflightResult:
+        return self._action_service.preflight(request)
 
     # --- lifecycle -------------------------------------------------
     def new_actionlist(self) -> ActionListState:

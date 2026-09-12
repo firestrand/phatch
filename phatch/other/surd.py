@@ -40,30 +40,20 @@ def gcd (m, n):
     return m
 
 import math
+from fractions import Fraction
 
 class surd:
 
-    def __init__ (self, num=0, denom=1):
+    def __init__ (self, num: int | float = 0,
+                  denom: int | float = 1) -> None:
 
         # If the constructor arguments were floats, we need to
         # convert them into a whole number divided by an exponent
         # of 10.
-        if type (num) == type (0.0):  # Were we handed a float?
-            np = int (math.pow (10, len (repr(num - int(num))) - 2))
-            nd = int (num * np)
-            if type (denom) == type (0.0):  # Is the denominator a float too?
-                dp = int(math.pow (10, len (repr(denom - int(denom))) - 2))
-                dd = int (denom * dp)
-                num = nd * dp
-                denom = dd * np
-            else:
-                num = nd
-                denom = denom * np
-        elif type (denom) == type (0.0): # Is the denom a float?
-            dp = int (pow (10, len (repr(denom - int(denom))) - 2))
-            dd = int (denom * dp)
-            num = num * dp
-            denom = dd
+        if isinstance(num, float) or isinstance(denom, float):
+            value = Fraction(str(num)) / Fraction(str(denom))
+            num = value.numerator
+            denom = value.denominator
         else:
             num = int (num)
             denom = int (denom)
@@ -78,12 +68,9 @@ class surd:
             denom = -denom
 
         # Reduct the fraction.
-        if num > 0:
-            d = gcd (abs(num), abs (denom))
-        else:
-            d = 1
-        self.num = num / d
-        self.denom = denom / d
+        d = gcd (abs(num), abs (denom))
+        self.num = num // d
+        self.denom = denom // d
 
     def __add__ (self, arg):
         if not hasattr (arg, 'denom'):
@@ -92,7 +79,7 @@ class surd:
         denom = self.denom * arg.denom
         num = self.denom * arg.num + arg.denom * self.num
         d = gcd (abs(num), abs(denom))
-        return surd (num / d, denom / d)
+        return surd (num // d, denom // d)
 
     __radd__ = __add__
 
@@ -103,9 +90,10 @@ class surd:
         denom = self.denom * arg.denom
         num = self.num * arg.denom - arg.num * self.denom
         d = gcd (abs(num), abs(denom))
-        return surd (num / d, denom / d)
+        return surd (num // d, denom // d)
 
-    __rsub__ = __sub__
+    def __rsub__ (self, arg):
+        return surd(arg).__sub__(self)
 
     def __mul__ (self, arg):
         if not hasattr (arg, 'denom'):
@@ -113,8 +101,8 @@ class surd:
             arg = surd (spam)
         s = surd (self.num * arg.num, self.denom * arg.denom)
         d = gcd (abs(s.num), abs(s.denom))
-        s.num = s.num / d
-        s.denom = s.denom / d
+        s.num = s.num // d
+        s.denom = s.denom // d
         return s
 
     __rmul__ = __mul__
@@ -125,12 +113,16 @@ class surd:
             arg = surd (spam)
         s = surd (self.num * arg.denom, self.denom * arg.num)
         d = gcd (abs(s.num), abs(s.denom))
-        s.num = s.num / d
-        s.denom = s.denom / d
+        s.num = s.num // d
+        s.denom = s.denom // d
         if s.denom == 0: raise ZeroDivisionError
         return s
 
     __rdiv__ = __div__
+    __truediv__ = __div__
+
+    def __rtruediv__ (self, arg):
+        return surd(arg).__div__(self)
 
     def __neg__ (self):
         return surd (-self.num, self.denom)
@@ -139,10 +131,10 @@ class surd:
         return surd (abs (self.num), abs (self.denom))
 
     def __int__ (self):
-        return int (self.num) / int (self.denom)
+        return int(self.num / self.denom)
 
     def __long__ (self):
-        return int (self.num) / int (self.denom)
+        return int(self)
 
     def __float__ (self):
         return float (self.num) / float (self.denom)
@@ -173,8 +165,31 @@ class surd:
         else:
             return 0
 
+    def __eq__ (self, other):
+        if not hasattr(other, 'denom'):
+            try:
+                other = surd(other)
+            except (TypeError, ValueError):
+                return False
+        return self.num == other.num and self.denom == other.denom
+
+    def __ne__ (self, other):
+        return not self == other
+
+    def __lt__ (self, other):
+        return self.__cmp__(other) < 0
+
+    def __le__ (self, other):
+        return self.__cmp__(other) <= 0
+
+    def __gt__ (self, other):
+        return self.__cmp__(other) > 0
+
+    def __ge__ (self, other):
+        return self.__cmp__(other) >= 0
+
     def __hash__ (self):
-        return hash (repr(self))
+        return hash((self.num, self.denom))
 
     def __call__ (self, *args):
         return 0
@@ -187,7 +202,8 @@ class surd:
 #
 ########################################################
 
-SurdTestError = 'SurdTestError'
+class SurdTestError(Exception):
+    pass
 
 import time
 
@@ -262,15 +278,15 @@ def test_driver ():
 
     # Hash tests
 
-    if hash (a) != hash ('0L/1L'): test_error ()
-    if hash (b) != hash ('10L/1L'): test_error ()
-    if hash (c) != hash ('29L/3L'): test_error ()
+    if hash (a) != hash ((0, 1)): test_error ()
+    if hash (b) != hash ((10, 1)): test_error ()
+    if hash (c) != hash ((29, 3)): test_error ()
     if hash (c) == hash (b): test_error ()
     if hash (c) == hash (a): test_error ()
     if hash (c) == hash (-c): test_error ()
     # Sign should always go on numerator ...
-    if hash (surd (4, -3)) != hash ('-4L/3L'): test_error ()
-    if hash (surd (-14, -3)) != hash ('14L/3L'): test_error ()
+    if hash (surd (4, -3)) != hash ((-4, 3)): test_error ()
+    if hash (surd (-14, -3)) != hash ((14, 3)): test_error ()
 
     # Call tests.
     if a(): test_error ()

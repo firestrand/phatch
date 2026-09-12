@@ -165,7 +165,7 @@ def create_phatch_nautilus_action(actionlist):
     title = system.title(name)
     create_nautilus_extension(
         name='phatch_actionlist_' + \
-                        name.encode('ascii', 'ignore'),
+                        name.encode('ascii', 'ignore').decode('ascii'),
         label='_("%s") + "..."' % _t('Phatch with %s') % title,
         command='phatch -d "%s" %%s &' % actionlist,
         mimetypes=IMAGE_READ_MIMETYPES,

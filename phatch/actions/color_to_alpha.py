@@ -23,6 +23,7 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 
@@ -36,29 +37,10 @@ OPTIONS = [
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image, ImageMath, ImageOps
+from lib import imtools
+from lib.colors import HTMLColorToRGBA
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image, ImageOps, ImageMath, imtools
-    from PIL import Image, ImageMath, ImageOps
-    from lib import imtools
-    global HTMLColorToRGBA
-    from lib.colors import HTMLColorToRGBA
-    return {'Image': Image, 'ImageOps': ImageOps, 'ImageMath': ImageMath, 'imtools': imtools, 'HTMLColorToRGBA': HTMLColorToRGBA}
 def difference1(source, color):
     """When source is bigger than color"""
     return (source - color) / (255.0 - color)
@@ -146,11 +128,11 @@ def color_to_alpha(image, color_value=None, select_color_by=None):
 
 
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Color to Alpha')
     author = 'Nadia Alramli'
     email = 'mail@nadiana.com'
     cache = False
-    init = staticmethod(init)
     pil = staticmethod(color_to_alpha)
     version = '0.1'
     tags = [_t('color')]

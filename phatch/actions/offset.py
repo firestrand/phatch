@@ -20,32 +20,15 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import ImageChops
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global ImageChops
-    from PIL import ImageChops
-    return {'ImageChops': ImageChops}
 def offset(image, horizontal_offset, vertical_offset=None):
     return ImageChops.offset(image, horizontal_offset, vertical_offset)
 
@@ -53,10 +36,10 @@ def offset(image, horizontal_offset, vertical_offset=None):
 
 
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Offset')
     author = 'Stani'
     email = 'spe.stani.be@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(offset)
     version = '0.1'
     tags = [_t('transform'), _t('filter')]

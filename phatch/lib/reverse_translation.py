@@ -19,15 +19,27 @@
 # Follows PEP8
 
 # Import gettextFix to initialize translation system (required for doctests)
+import builtins
+
 from . import gettextFix  # noqa: F401
 
-REVERSE = {}
+if not callable(getattr(builtins, "_", None)):
+    builtins.__dict__["_"] = str
+
+REVERSE: dict[str, str] = {}
 
 
-def _t(phrase):
-    REVERSE[_(phrase)] = phrase
+def _translate(phrase: str) -> str:
+    translator = getattr(builtins, "_", None)
+    if not callable(translator):
+        return phrase
+    return str(translator(phrase))
+
+
+def _t(phrase: str) -> str:
+    REVERSE[_translate(phrase)] = phrase
     return phrase
 
 
-def _r(phrase):
+def _r(phrase: str) -> str:
     return REVERSE.get(phrase, phrase)

@@ -20,6 +20,7 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 import os
 from core import models
 from lib import imtools
@@ -28,40 +29,21 @@ from lib.reverse_translation import _t
 #no need to lazily import these as they are always imported
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image
+from lib.imtools import get_quality, get_size, InvalidWriteFormatError
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image
-    from PIL import Image
-    global get_quality, get_size, InvalidWriteFormatError
-    from lib.imtools import get_quality, get_size, InvalidWriteFormatError
-    return {'Image': Image, 'get_quality': get_quality, 'get_size': get_size, 'InvalidWriteFormatError': InvalidWriteFormatError}
 SIZES = ['0', '10', '20', '50', '100', '200', '500', '1000', '2000', '5000']
 TOLERANCES = ['0', '1', '2', '5', '10', '20', '50']
 
 
 class Action(models.Action):
     """Defined variables: <filename> <type> <folder> <width> <height>"""
+    init = staticmethod(init)
 
     label = _t('Save')
     author = 'Stani'
     email = 'spe.stani.be@gmail.com'
     version = '0.1'
-    init = staticmethod(init)
     tags = [_t('default'), _t('file')]
     __doc__ = _t('Save and convert to other types')
     valid_last = True
@@ -134,7 +116,7 @@ class Action(models.Action):
         folder, filename, typ = self.is_done_info(info)
         format = self.get_format(typ, photo)
         if not setting('overwrite_existing_images') \
-                and os.path.exists(filename):
+                and self.plugin_context.files.exists(filename):
             return photo
 
         #get other values

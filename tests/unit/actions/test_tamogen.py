@@ -172,19 +172,12 @@ class TestTamogenInit:
         assert hasattr(tamogen, 'init')
         assert callable(tamogen.init)
 
-    def test_init_imports_tamogen_module(self):
-        """init should import other.tamogen module."""
-        try:
-            # Delete _tamogen if it exists to test import
-            if hasattr(tamogen, '_tamogen'):
-                delattr(tamogen, '_tamogen')
+    def test_init_preserves_imported_tamogen_module(self):
+        implementation = tamogen._tamogen
 
-            tamogen.init()
-            # Should have loaded _tamogen
-            assert hasattr(tamogen, '_tamogen')
-        except (ImportError, ModuleNotFoundError, TabError, IndentationError) as e:
-            # Skip if module has issues (legacy Python 2 code)
-            pytest.skip(f"Tamogen module has import/indentation issues: {e}")
+        tamogen.init()
+
+        assert tamogen._tamogen is implementation
 
 
 class TestTamogenMosaic:

@@ -16,7 +16,7 @@
 # Follows PEP8
 
 import os
-from io import StringIO
+from io import BytesIO, StringIO
 from itertools import cycle
 from urllib.request import urlopen
 
@@ -193,7 +193,7 @@ def get_quality(im, size, format, down=0, up=100, delta=1000, options=None):
     """
     if options is None:
         options = {}
-    q = options['quality'] = (down + up) / 2
+    q = options['quality'] = (down + up) // 2
     if q == down or q == up:
         return max(q, 1)
     s = get_size(im, format, **options)
@@ -535,9 +535,9 @@ def get_format_data(image, format):
     :type format: string
     :returns: byte data of the image
     """
-    f = StringIO()
-    convert_save_mode_by_format(image, format).save(f, format)
-    return f.getvalue()
+    with BytesIO() as data:
+        convert_save_mode_by_format(image, format).save(data, format)
+        return data.getvalue()
 
 
 def get_palette(image):

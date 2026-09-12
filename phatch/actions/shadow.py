@@ -20,6 +20,7 @@
 
 # Embedded icon is taken from www.openclipart.org (public domain)
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 from lib.imtools import has_transparency, paste
@@ -27,27 +28,9 @@ from lib.imtools import has_transparency, paste
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image, ImageChops, ImageFilter
+from lib import imtools
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image, ImageChops, ImageFilter, imtools
-    from PIL import Image, ImageChops, ImageFilter
-    from lib import imtools
-    return {'Image': Image, 'ImageChops': ImageChops, 'ImageFilter': ImageFilter, 'imtools': imtools}
 def drop_shadow(image, horizontal_offset=5, vertical_offset=5,
         background_color=(255, 255, 255, 0), shadow_color=0x444444,
         border=8, shadow_blur=3, force_background_color=False, cache=None):
@@ -159,12 +142,12 @@ def drop_shadow(image, horizontal_offset=5, vertical_offset=5,
 
 class Action(models.Action):
     """Drops shadow"""
+    init = staticmethod(init)
 
     label = _t('Shadow')
     author = 'Stani'
     email = 'spe.stani.be@gmail.com'
     cache = True
-    init = staticmethod(init)
     pil = staticmethod(drop_shadow)
     version = '0.1'
     tags = [_t('default'), _t('filter')]

@@ -1,0 +1,11 @@
+{'actions': [{'fields': {'Canvas Height': '64px',
+                         'Canvas Width': '64px',
+                         'Constrain Proportions': 'yes',
+                         'Resample Image': 'automatic',
+                         'Resolution': '<dpi>',
+                         'Scale Down Only': 'no',
+                         '__enabled__': 'yes'},
+              'label': 'Scale'}],
+ 'description': 'Legacy one',
+ 'format_version': '1.0',
+ 'version': '0.3.0'}

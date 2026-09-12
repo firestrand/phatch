@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import builtins
 from types import SimpleNamespace
+from typing import ClassVar
 
 from phatch.pyWx.dialog_service import DialogDependencies, DialogService
 
@@ -8,7 +11,7 @@ if "_" not in builtins.__dict__:
 
 
 class MessageDialogStub:
-    instances = []
+    instances: ClassVar[list[MessageDialogStub]] = []
     result = 101
 
     def __init__(self, parent, message, title, style):
@@ -160,7 +163,7 @@ def build_service():
 
 def test_show_message_uses_frame_as_parent_when_visible():
     MessageDialogStub.instances.clear()
-    service, frame, wx_stub, *_ = build_service()
+    service, frame, _wx_stub, *_ = build_service()
 
     result = service.show_message("Hello", "World")
 
@@ -172,7 +175,7 @@ def test_show_message_uses_frame_as_parent_when_visible():
 
 def test_show_notification_sends_when_inactive_and_updates_report():
     MessageDialogStub.instances.clear()
-    service, frame, wx_stub, notify_stub, graphics_stub, system_stub = build_service()
+    service, frame, wx_stub, notify_stub, _graphics_stub, system_stub = build_service()
     frame.set_active(False)
     wx_stub.app.active = False
 

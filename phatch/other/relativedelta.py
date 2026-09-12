@@ -190,7 +190,7 @@ Here is the behavior of operations with relativedelta:
                     if yday <= ydays:
                         self.month = idx+1
                         if idx == 0:
-                            self.day = ydays
+                            self.day = yday
                         else:
                             self.day = yday-ydayidx[idx-1]
                         break
@@ -299,34 +299,39 @@ Here is the behavior of operations with relativedelta:
                              seconds=other.seconds+self.seconds,
                              microseconds=other.microseconds+self.microseconds,
                              leapdays=other.leapdays or self.leapdays,
-                             year=other.year or self.year,
-                             month=other.month or self.month,
-                             day=other.day or self.day,
+                             year=other.year if other.year is not None else self.year,
+                             month=(other.month
+                                    if other.month is not None else self.month),
+                             day=other.day if other.day is not None else self.day,
                              weekday=other.weekday or self.weekday,
-                             hour=other.hour or self.hour,
-                             minute=other.minute or self.minute,
-                             second=other.second or self.second,
-                             microsecond=other.second or self.microsecond)
+                             hour=other.hour if other.hour is not None else self.hour,
+                             minute=(other.minute
+                                     if other.minute is not None else self.minute),
+                             second=(other.second
+                                     if other.second is not None else self.second),
+                             microsecond=(other.microsecond
+                                          if other.microsecond is not None
+                                          else self.microsecond))
 
     def __sub__(self, other):
         if not isinstance(other, relativedelta):
             raise TypeError("unsupported type for sub operation")
-        return relativedelta(years=other.years-self.years,
-                             months=other.months-self.months,
-                             days=other.days-self.days,
-                             hours=other.hours-self.hours,
-                             minutes=other.minutes-self.minutes,
-                             seconds=other.seconds-self.seconds,
-                             microseconds=other.microseconds-self.microseconds,
-                             leapdays=other.leapdays or self.leapdays,
-                             year=other.year or self.year,
-                             month=other.month or self.month,
-                             day=other.day or self.day,
-                             weekday=other.weekday or self.weekday,
-                             hour=other.hour or self.hour,
-                             minute=other.minute or self.minute,
-                             second=other.second or self.second,
-                             microsecond=other.second or self.microsecond)
+        return relativedelta(years=self.years-other.years,
+                             months=self.months-other.months,
+                             days=self.days-other.days,
+                             hours=self.hours-other.hours,
+                             minutes=self.minutes-other.minutes,
+                             seconds=self.seconds-other.seconds,
+                             microseconds=self.microseconds-other.microseconds,
+                             leapdays=self.leapdays or other.leapdays,
+                             year=self.year,
+                             month=self.month,
+                             day=self.day,
+                             weekday=self.weekday,
+                             hour=self.hour,
+                             minute=self.minute,
+                             second=self.second,
+                             microsecond=self.microsecond)
 
     def __neg__(self):
         return relativedelta(years=-self.years,
@@ -366,13 +371,13 @@ Here is the behavior of operations with relativedelta:
 
     def __mul__(self, other):
         f = float(other)
-        return relativedelta(years=self.years*f,
-                             months=self.months*f,
-                             days=self.days*f,
-                             hours=self.hours*f,
-                             minutes=self.minutes*f,
-                             seconds=self.seconds*f,
-                             microseconds=self.microseconds*f,
+        return relativedelta(years=int(self.years*f),
+                             months=int(self.months*f),
+                             days=int(self.days*f),
+                             hours=int(self.hours*f),
+                             minutes=int(self.minutes*f),
+                             seconds=int(self.seconds*f),
+                             microseconds=int(self.microseconds*f),
                              leapdays=self.leapdays,
                              year=self.year,
                              month=self.month,
@@ -414,6 +419,8 @@ Here is the behavior of operations with relativedelta:
 
     def __div__(self, other):
         return self.__mul__(1/float(other))
+
+    __truediv__ = __div__
 
     def __repr__(self):
         l = []

@@ -18,30 +18,14 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image
+from lib import pillow_compat
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image
-    from PIL import Image
-    return {'Image': Image}
 def preserve_proportions(x0, y0, x1, y1):
     scaleX = float(x1) / x0
     scaleY = float(y1) / y0
@@ -54,11 +38,11 @@ def preserve_proportions(x0, y0, x1, y1):
 
 class Action(models.Action):
     """Resize an image"""
+    init = staticmethod(init)
 
     label = _t('Scale')
     author = 'Stani'
     email = 'spe.stani.be@gmail.com'
-    init = staticmethod(init)
     version = '0.1'
     tags = [_t('default'), _t('transform'), _t('size')]
     __doc__ = _t('Make the image smaller or bigger')
@@ -96,10 +80,11 @@ class Action(models.Action):
             #and bicubic for bigger
             if method == 'AUTOMATIC':
                 if x1 < x0 and y1 < y0:
-                    method = 'ANTIALIAS'
+                    method = pillow_compat.LANCZOS
                 else:
-                    method = 'BICUBIC'
-            method = getattr(Image, method)
+                    method = Image.BICUBIC
+            else:
+                method = getattr(Image, method)
             #resize image
             photo.resize((x1, y1), method)
         return photo

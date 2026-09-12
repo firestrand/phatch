@@ -26,7 +26,6 @@ from lib.reverse_translation import _t
 
 #no need to lazily import these as they are always imported
 import os
-import shutil
 
 
 class Action(models.Action):
@@ -51,11 +50,12 @@ class Action(models.Action):
         #get file values
         folder, filename, typ = self.is_done_info(info)
         if setting('overwrite_existing_images') \
-                or not os.path.exists(filename):
+                or not self.plugin_context.files.exists(filename):
             #ensure folder
             filename = self.ensure_path_or_desktop(folder, photo, filename)
             #do it
-            shutil.copy2(info['path'], filename)
+            self.plugin_context.files.copy2(info['path'], filename)
+            photo.append_to_report(filename)
         return photo
 
     def is_done_info(self, info):

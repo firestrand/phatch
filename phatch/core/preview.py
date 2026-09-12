@@ -18,38 +18,77 @@
 
 # Follows PEP8
 
-if __name__ == '__main__':
-    import sys
-    sys.path.insert(0, '../..')
-    from phatch.phatch import init_config_paths
-    init_config_paths()
-
 import os
+from collections.abc import Callable
+from dataclasses import dataclass
+from typing import Protocol
+
 from PIL import Image
+
+from phatch.lib import openImage
+from phatch.lib.system import ensure_path
+
 from . import api
 from .config import USER_PREVIEW_PATH
-from lib import openImage
-from lib.system import ensure_path
+from .execution_types import ExecutionIssue
 
 
-def generate(source, size=(48, 48), path=USER_PREVIEW_PATH, force=True):
+class PreviewRegistry(Protocol):
+    def labels(self) -> tuple[str, ...]: ...
+
+    def create(self, label: str) -> object | ExecutionIssue: ...
+
+
+@dataclass(frozen=True, slots=True)
+class BoundPreviewAction:
+    label: str
+    initialize: Callable[[], object]
+    render: Callable[[Image.Image], object]
+
+
+def _bind_preview_action(action: object) -> BoundPreviewAction:
+    label = getattr(action, "label", None)
+    initialize = getattr(action, "init", None)
+    render = getattr(action, "apply_pil", None)
+    if not isinstance(label, str) or not callable(initialize) or not callable(render):
+        raise TypeError("Preview actions require label, init, and apply_pil")
+    return BoundPreviewAction(label, initialize, render)
+
+
+def generate(
+    source: str,
+    registry: PreviewRegistry,
+    size: tuple[int, int] = (48, 48),
+    path: str = USER_PREVIEW_PATH,
+    force: bool = True,
+) -> None:
     source_image = openImage.open(source)
-    source_image.thumbnail(
-        (min(source_image.size[0], size[0] * 1),
-        min(source_image.size[0], size[0] * 1)),
-        Image.LANCZOS)
+    if source_image is None:
+        raise OSError(f"Could not open preview source: {source}")
+    source_image.thumbnail(size, Image.Resampling.LANCZOS)
     ensure_path(path)
-    for Action in list(api.ACTIONS.values()):
-        action = Action()
-        filename = os.path.join(path, action.label + '.png')
+    for label in registry.labels():
+        created = registry.create(label)
+        if isinstance(created, ExecutionIssue):
+            raise RuntimeError(created.message)
+        action = _bind_preview_action(created)
+        filename = os.path.join(path, action.label + ".png")
         if os.path.exists(filename) and not force:
             continue
-        action.init()
-        result = action.apply_pil(source_image.copy())
-        result.thumbnail(size, Image.LANCZOS)
+        action.initialize()
+        result = action.render(source_image.copy())
+        if not isinstance(result, Image.Image):
+            raise TypeError("Preview action must return an image")
+        result.thumbnail(size, Image.Resampling.LANCZOS)
         result.save(filename)
 
 
-if __name__ == '__main__':
-    api.init()
-    generate('/home/stani/sync/python/phatch/icons/lenna/lenna_new.png')
+def main() -> None:
+    action_registry = api.init()
+    generate(
+        "/home/stani/sync/python/phatch/icons/lenna/lenna_new.png", action_registry
+    )
+
+
+if __name__ == "__main__":
+    main()

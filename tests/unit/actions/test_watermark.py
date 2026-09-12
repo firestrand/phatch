@@ -102,27 +102,21 @@ class TestWatermarkConstants:
 
 
 class TestWatermarkInit:
-    """Test dependency injection and initialization."""
+    def test_init_preserves_imported_dependencies(self):
+        image_module = watermark.Image
+        layer_factory = watermark.generate_layer
 
-    def test_init_injects_dependencies(self):
-        """init should allow dependency injection for tests."""
-        dummy_image = object()
-        dummy_layer = object()
+        result = watermark.init()
 
-        deps = watermark.init({'Image': dummy_image, 'generate_layer': dummy_layer})
-
-        assert watermark.Image is dummy_image
-        assert watermark.generate_layer is dummy_layer
-        assert deps == {'Image': dummy_image, 'generate_layer': dummy_layer}
-
-        # Restore real dependencies for subsequent tests
-        watermark.init()
+        assert result is None
+        assert watermark.Image is image_module
+        assert watermark.generate_layer is layer_factory
 
 
 class TestWatermarkPil:
     """Test the watermark.pil implementation."""
 
-    def test_watermark_calls_generate_layer(self, rgba_image):
+    def test_watermark_calls_generate_layer(self, monkeypatch, rgba_image):
         """watermark should request a layer and composite it."""
 
         calls = {}
@@ -131,7 +125,7 @@ class TestWatermarkPil:
             calls['args'] = (size, mark, method, h_off, v_off, h_just, v_just, orientation, opacity)
             return Image.new('RGBA', size, (0, 0, 0, 128))
 
-        watermark.init({'Image': Image, 'generate_layer': fake_generate_layer})
+        monkeypatch.setattr(watermark, 'generate_layer', fake_generate_layer)
 
         mark = Image.new('RGBA', (10, 10), (255, 255, 255, 128))
         result = watermark.watermark(
@@ -155,8 +149,6 @@ class TestWatermarkPil:
         assert calls['args'][7] == getattr(Image, 'ROTATE_90')
         assert calls['args'][8] == 80
 
-        watermark.init()
-
     def test_palette_image_is_converted(self, monkeypatch, rgba_image):
         """Palette images should be converted via convert_safe_mode."""
 
@@ -172,15 +164,13 @@ class TestWatermarkPil:
             return Image.new('RGBA', converted.size, (0, 0, 0, 128))
 
         monkeypatch.setattr(watermark, 'convert_safe_mode', fake_convert_safe_mode)
-        watermark.init({'Image': Image, 'generate_layer': fake_generate_layer})
+        monkeypatch.setattr(watermark, 'generate_layer', fake_generate_layer)
 
         result = watermark.watermark(palette, Image.new('RGBA', (10, 10), (255, 255, 255, 128)))
 
         assert called['image'] is palette
         assert isinstance(result, Image.Image)
         assert result.size == converted.size
-
-        watermark.init()
 
 
 class TestWatermarkActionPil:

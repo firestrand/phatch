@@ -17,6 +17,8 @@
 
 """Wraps vlist in a tag browser jacket."""
 
+import builtins
+
 import wx
 from .vlist import Box
 # Re-export extract_tags from .tag (imported by dialogs.py)
@@ -55,7 +57,7 @@ class TestBrowser(Browser):
 class TestFrame(wx.Frame):
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, -1, "Test Tag Browser",
-            size=(640, 480))
+            size=wx.Size(640, 480))
         browser = TestBrowser(self, ['vertical', 'horizontal'], {})
         browser.EnableResize()
 
@@ -113,7 +115,7 @@ class TestDialog(Dialog):
 
 def example():
     #install translation function everywhwere _
-    __builtins__._ = str
+    builtins.__dict__['_'] = str
     #create test application & dialog
     app = wx.PySimpleApp()
     frame = TestFrame(None)

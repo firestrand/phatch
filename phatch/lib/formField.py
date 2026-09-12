@@ -705,8 +705,7 @@ class FileField(NotEmptyCharField):
         if not value.strip() and self.allow_empty:
             return ''
         ext = os.path.splitext(value)[-1][1:]
-        if not self.allow_empty and self.extensions \
-                and ext.lower() not in self.extensions:
+        if self.extensions and ext.lower() not in self.extensions:
             if ext:
                 raise ValidationError(self.description,
                 '%s: %s.\n\n%s:\n%s.' % (_(label),
@@ -820,7 +819,7 @@ class CommandLineField(NotEmptyCharField):
             if not file_out:
                 self.raise_error_file(label, 'file_out')
             elif len(file_out) > 1:
-                self.raise_error_out_max(label, 'file_out')
+                self.raise_error_out_max(label)
         return command
 
     def raise_error_not_found(self, label, what):

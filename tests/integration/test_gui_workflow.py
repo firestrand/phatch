@@ -2,7 +2,7 @@ import builtins
 
 import pytest
 
-from phatch.core import api, config
+from phatch.core import api
 from phatch.services.action_list import ActionListService
 
 
@@ -10,12 +10,9 @@ if "_" not in builtins.__dict__:
     builtins.__dict__["_"] = str
 
 
-@pytest.fixture(scope="module", autouse=True)
-def _init_phatch_runtime():
-    """Initialise configuration and action registry once for the workflow tests."""
-
-    config.init_config_paths()
-    api.init()
+@pytest.fixture(autouse=True)
+def _init_phatch_runtime(initialized_runtime):
+    return initialized_runtime
 
 
 @pytest.fixture
@@ -43,7 +40,7 @@ def test_action_list_round_trip(saved_actionlist_path):
 
     assert loaded.description == "Test from GUI workflow"
     assert len(loaded.actions) == 2
-    assert loaded.data.get("format_version") is not None
+    assert loaded.data["schema_version"] == 3
 
 
 def test_action_list_loads_with_safe_mode(saved_actionlist_path):

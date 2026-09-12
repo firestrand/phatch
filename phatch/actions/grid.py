@@ -26,6 +26,7 @@
 # TODO: Add spacing between images for which the line color will need
 # to be used.
 
+from ._action_lifecycle import init
 from core import models
 from core.translation import _t
 from lib import imtools
@@ -37,28 +38,10 @@ ZERO = ['', '0']
 
 
 #---PIL
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image, ImageColor
+from lib import imtools, pillow_compat
+from lib.colors import HTMLColorToRGBA
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image, ImageColor, HTMLColorToRGBA, imtools, pillow_compat
-    from PIL import Image, ImageColor
-    from lib import imtools, pillow_compat
-    from lib.colors import HTMLColorToRGBA
-    return {'Image': Image, 'ImageColor': ImageColor, 'HTMLColorToRGBA': HTMLColorToRGBA, 'imtools': imtools, 'pillow_compat': pillow_compat}
 def make_grid(image, grid, col_line_width=0, row_line_width=0,
         line_color='#FFFFFF', line_opacity=0, old_size=None, scale=True):
 
@@ -139,11 +122,11 @@ def make_grid(image, grid, col_line_width=0, row_line_width=0,
 
 #---Phatch
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Grid')
     all_layers = True
     author = 'Pawel T. Jochym'
     email = 'jochym@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(make_grid)
     version = '0.2'
     tags = [_t('size'), _t('filter')]

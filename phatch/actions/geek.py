@@ -32,10 +32,15 @@ COMMANDS = [
         + '+polaroid file_out.png',
     'convert -blur 0x5 file_in.tif file_out.png']
 
-try:
-    COMMANDS = [line.strip() for line in open(config.USER_GEEK_PATH).readlines()]
-except IndexError:
-    pass
+
+def load_commands(path=None):
+    if path is None:
+        path = config.USER_GEEK_PATH
+    try:
+        with open(path, encoding='utf-8') as command_file:
+            return [line.strip() for line in command_file]
+    except FileNotFoundError:
+        return COMMANDS
 
 
 class Action(models.Action):
@@ -67,7 +72,7 @@ class Action(models.Action):
 
     def interface(self, fields):
         fields[_t('Command')] = \
-            self.CommandLineField(choices=COMMANDS)
+            self.CommandLineField(choices=load_commands())
         fields[_t('Verify Program')] = self.BooleanField(True)
         fields[_t('Verify Input')] = self.BooleanField(True)
         fields[_t('Verify Output')] = self.BooleanField(True)

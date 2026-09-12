@@ -23,42 +23,43 @@ from copy import deepcopy
 try:
     _
 except NameError:
-    __builtins__['_'] = str
+    __builtins__["_"] = str
 
-#from lib.formField import IMAGE_EXTENSIONS
+# from lib.formField import IMAGE_EXTENSIONS
 from . import ct
 from .pil import IMAGE_READ_EXTENSIONS
 
 
 DEFAULT_SETTINGS = {
     # execute
-    'extensions': list(IMAGE_READ_EXTENSIONS),
-    'recursive': False,
-    'stop_for_errors': True,
-    'overwrite_existing_images': True,
-    'no_save': False,
-    'check_images_first': True,
-    'always_show_status_dialog': True,
-    'desktop': False,
-    'safe': True,
-    'repeat': 1,
+    "extensions": list(IMAGE_READ_EXTENSIONS),
+    "recursive": False,
+    "stop_for_errors": True,
+    "overwrite_existing_images": True,
+    "no_save": False,
+    "check_images_first": True,
+    "always_show_status_dialog": True,
+    "desktop": False,
+    "safe": True,
+    "repeat": 1,
+    "max_workers": 1,
     # console
-    'console': False,
-    'init_fonts': False,
-    'interactive': False,
-    'verbose': False,
+    "console": False,
+    "init_fonts": False,
+    "interactive": False,
+    "verbose": False,
     # gui
-    'browse_source': 0,
-    'tag_actions': _('All'),
-    'description': True,
-    'collapse_automatic': False,
-    'droplet': False,
-    'droplet_path': ct.USER_PATH,
-    'file_history': [],
-    'image_inspector': False,
-    'paths': [ct.USER_PATH],
+    "browse_source": 0,
+    "tag_actions": _("All"),
+    "description": True,
+    "collapse_automatic": False,
+    "droplet": False,
+    "droplet_path": ct.USER_PATH,
+    "file_history": [],
+    "image_inspector": False,
+    "paths": [ct.USER_PATH],
     # internal
-    'overwrite_existing_images_forced': False,
+    "overwrite_existing_images_forced": False,
 }
 
 
@@ -66,14 +67,15 @@ def create_settings(config_paths=None, options=None):
 
     settings = deepcopy(DEFAULT_SETTINGS)
     # Ensure extensions always reference the latest list from pil
-    settings['extensions'] = list(IMAGE_READ_EXTENSIONS)
+    settings["extensions"] = list(IMAGE_READ_EXTENSIONS)
     if options:
         for attr in settings:
             if hasattr(options, attr):
                 settings[attr] = getattr(options, attr)
     if config_paths is None:
-        #FIXME: when is this happening
+        # FIXME: when is this happening
         from .config import init_config_paths
+
         config_paths = init_config_paths()
     settings.update(config_paths)
     return settings

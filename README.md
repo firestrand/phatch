@@ -18,53 +18,78 @@ Phatch is a powerful, cross-platform photo batch processing application that ena
 
 ### Requirements
 
-- **Python 3.x** (3.8+ recommended)
+- **CPython 3.11-3.13**
 - **Pillow** (Python Imaging Library fork)
 - **wxPython 4.x** (Phoenix) - for GUI mode
 
 ### Running Phatch
 
 ```bash
-# GUI mode (default)
-python bin/phatch
+# Installed console and GUI entry points
+phatch --help
+phatch-gui
 
 # Console mode (no GUI required)
-python bin/phatch --console <actionlist.phatch> <image_files>
+phatch <actionlist.phatch> <image_files>
 
 # Image inspector
-python bin/phatch --inspect <image_file>
+phatch-gui --inspect <image_file>
 
 # Droplet mode
-python bin/phatch --droplet <actionlist.phatch> <image_files>
+phatch-gui --droplet <actionlist.phatch> <image_files>
 ```
 
+`bin/phatch` remains a source-checkout compatibility wrapper for `phatch`.
+Runtime action lists, images, fonts, masks, highlights, perspective data,
+compiled locales, HTML documentation, and Blender support files are package
+resources and do not depend on the current working directory.
+
 **Note**: On first run, Phatch scans for system fonts and creates a cache at `~/phatch/fonts.cache` for faster subsequent launches.
+
+See [Action Lists and Automation](docs/action_list_schema.md) for the versioned
+schema, read-only preflight, JSON report, resume, capability, and exit-code
+contracts.
+
+See [CI and Portable Artifacts](docs/release_gate.md) for supported CI targets,
+unsigned Windows portable behavior, optional capabilities, manifests, and
+artifact scanning.
 
 ### Installation
 
 ```bash
-# Install dependencies
-pip install Pillow wxPython
-
-# Install Phatch (Linux/macOS)
-python setup.py install
+# Standard wheel install (uv is not required)
+python -m pip install "Phatch[gui]"
 ```
 
 ## 🧪 Testing
 
 ```bash
-# Run all tests
-cd tests
-python -m pytest
+# Create the reproducible GUI-enabled development environment
+uv sync --locked --dev --extra gui
 
-# Run PEP8 style checks
-cd tests
-python pep8_test.py
+# Run the canonical local gate, including automated native GUI tests and 90% coverage
+uv run --extra gui python scripts/verify.py
+
+# CI must identify the comparison base explicitly
+uv run --extra gui python scripts/verify.py --base-ref origin/master
+
+# Run the headless suite only; this is partial testing, not a coverage pass
+uv run pytest --no-cov --ignore=tests/unit/pywx \
+  --ignore=tests/integration/test_gui_smoke.py \
+  --ignore=tests/integration/test_windows_gui_runtime.py
 ```
+
+The GUI tests are scripted and guarded against human input. CI combines raw
+branch coverage from the required nine-job non-GUI matrix with the native
+Windows GUI contributor before enforcing the same 90% global and changed-module
+thresholds. Actual native Windows completion remains a downstream release gate;
+local runs on other platforms do not constitute a native Windows claim.
+Local coverage checks derive changed production modules directly from Git, so
+new or unlisted files cannot bypass the changed-module threshold.
 
 ## 📚 Documentation
 
-- **Action Lists**: Pre-configured batch processing recipes in `data/actionlists/`
+- **Action Lists**: Pre-configured batch processing recipes shipped as package data
 - **Developer Guide**: See `CLAUDE.md` for architecture and plugin development
 - **License**: See `COPYING` for GPL v3 license details
 - **Credits**: See `AUTHORS` file
@@ -87,10 +112,10 @@ Each action is a self-contained plugin that declares its parameters and implemen
 
 Phatch has been successfully migrated from Python 2 to Python 3 with full functionality:
 
-- ✅ Python 3.8+ compatible
+- ✅ CPython 3.11-3.13 compatible
 - ✅ wxPython 4.x Phoenix support
 - ✅ Pillow (modern PIL fork) integration
-- ✅ 2173 passing tests
+- ✅ Automated unit, integration, GUI, and release-gate tests
 - ✅ PEP8 compliant codebase
 
 ## 🤝 Contributing

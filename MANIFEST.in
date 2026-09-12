@@ -1,4 +1,7 @@
-include AUTHORS COPYING README linux/phatch.desktop
+include AUTHORS COPYING README.md linux/phatch.desktop
 recursive-include phatch *.wxg
-recursive-include locale */LC_MESSAGES/phatch.mo
-recursive-include images *.png
+recursive-include phatch_assets/data *
+recursive-include phatch_assets/docs/html *
+recursive-include phatch_assets/images *
+recursive-include phatch_assets/locale */LC_MESSAGES/phatch.mo
+global-exclude *.py[cod] __pycache__ .DS_Store

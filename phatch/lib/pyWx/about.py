@@ -240,6 +240,7 @@ class Dialog(wxgAboutDialog):
         dlg = wx.lib.dialogs.ScrolledMessageDialog(self, self.license,
                 _('License'))
         dlg.ShowModal()
+        dlg.Destroy()
 
 
     def OnClose(self,event):

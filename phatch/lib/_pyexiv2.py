@@ -111,13 +111,16 @@ def write_metadata(source_pyexiv2_image, target, source_format=None,
 
     #copy the tags
     log = ''
+    warnings = ''
+    failure_message = ''
 
     #attempt to copy metadata
     try:
         warnings = _copy_metadata(source_pyexiv2_image, target,
             source_format, target_format, broken_tag, thumbdata)
         copied = True
-    except Exception:
+    except Exception as message:
+        failure_message = str(message)
         copied = False
 
     #if metadata copied succesfully, check for warnings
@@ -125,7 +128,7 @@ def write_metadata(source_pyexiv2_image, target, source_format=None,
         if warnings:
             log += ISSUES % target + warnings
     else:
-        log = FAILED % (target, message, BROKEN)
+        log = FAILED % (target, failure_message, BROKEN)
 
     return log
 
@@ -183,7 +186,7 @@ def _copy_metadata(source_pyexiv2_image, target, source_format=None,
             target.setComment(source_pyexiv2_image.getComment())
             written = True
         except Exception as message:
-            warnings.append(message)
+            warnings.append(str(message))
     warnings.append(write_thumbdata(target, thumbdata))
     #save metadata (this might rise an exception)
     if written:

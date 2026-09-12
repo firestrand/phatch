@@ -20,33 +20,16 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image, ImageFilter
+from lib import imtools
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image, ImageFilter, imtools
-    from PIL import Image, ImageFilter
-    from lib import imtools
-    return {'Image': Image, 'ImageFilter': ImageFilter, 'imtools': imtools}
 def maximum(image, radius, amount=100):
     """Apply a filter
     - amount: 0-1"""
@@ -60,10 +43,10 @@ def maximum(image, radius, amount=100):
 
 
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Maximum')
     author = 'Stani'
     email = 'spe.stani.be@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(maximum)
     version = '0.1'
     tags = [_t('filter')]

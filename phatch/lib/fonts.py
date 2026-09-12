@@ -15,7 +15,6 @@
 
 # Follows PEP8
 
-import glob
 import os
 import re
 import subprocess
@@ -194,7 +193,7 @@ def _font_name(font_name, base='xxx'):
     if font_name[-3:] == ' It':
         font_name += 'alic'
     elif font_name[-3:] == ' Bd':
-        font_name = font_name[-1:] + 'old'
+        font_name = font_name[:-3] + ' Bold'
     font_name = font_name.replace(' Ms', ' Microsoft ')\
                     .replace(' Std', ' Standard ')\
                     .replace('Mg ', 'Magenta ')\
@@ -215,6 +214,7 @@ def _font_dictionary(font_files=None):
     #step 1: temporary font names derived from file names
     t = {}
     for font_file in font_files:
+        font_file = os.fsdecode(font_file)
         t[name(basename(font_file))] = font_file
     #step 2: fix font names derived from context
     #normally a base come first, than italic, bold
@@ -234,9 +234,9 @@ def font_dictionary(filename=None, force=False):
     Path specification for the font dictionary, cached
     """
     global _FONT_DICTIONARY
-    if _FONT_DICTIONARY is None:
+    if _FONT_DICTIONARY is None or force:
         if filename is None:
-            if os.path.exists(USER_FONTS_CACHE_PATH):
+            if USER_FONTS_CACHE_PATH and os.path.exists(USER_FONTS_CACHE_PATH):
                 filename = USER_FONTS_CACHE_PATH
             else:
                 filename = ROOT_FONTS_CACHE_PATH
@@ -266,10 +266,7 @@ def font_names(filename=None):
 
 
 def merge(*paths):
-    font_files = []
-    for path in paths:
-        font_files += glob.glob(os.path.join(path, "*.ttf"))
-    return _font_dictionary(font_files)
+    return _font_dictionary(collect_fonts_from_dirs(paths))
 
 
 def set_font_cache(user_fonts_path, root_fonts_path,
@@ -282,11 +279,15 @@ def set_font_cache(user_fonts_path, root_fonts_path,
     global WRITABLE_FONTS_CACHE_PATH
     global USER_FONTS_PATH
     global ROOT_FONTS_PATH
+    global _FONT_DICTIONARY
+    global _FONT_NAMES
     SHIPPED_FONTS = merge(root_fonts_path, user_fonts_path)
     USER_FONTS_PATH = user_fonts_path
     ROOT_FONTS_PATH = root_fonts_path
     USER_FONTS_CACHE_PATH = user_fonts_cache_path
     ROOT_FONTS_CACHE_PATH = root_fonts_cache_path
+    _FONT_DICTIONARY = None
+    _FONT_NAMES = None
     if not hasattr(os, 'getuid') or os.getuid():
         WRITABLE_FONTS_CACHE_PATH = USER_FONTS_CACHE_PATH
     else:

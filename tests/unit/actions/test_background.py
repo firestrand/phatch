@@ -249,7 +249,7 @@ class TestBackgroundEdgeCases:
                                           opacity=100)
             assert isinstance(result, Image.Image)
 
-    def test_background_image_fill_orientation_string(self, rgba_image):
+    def test_background_image_fill_orientation_string(self, monkeypatch, rgba_image):
         """Image fill should resolve string orientation names."""
         calls = {}
 
@@ -259,8 +259,7 @@ class TestBackgroundEdgeCases:
                              h_just, v_just, orientation, opacity)
             return Image.new('RGBA', size, (255, 255, 255, 128))
 
-        background.init({'Image': Image, 'generate_layer': fake_generate_layer,
-                          'HTMLColorToRGBA': background.HTMLColorToRGBA})
+        monkeypatch.setattr(background, 'generate_layer', fake_generate_layer)
 
         mark = Image.new('RGBA', (20, 20), (0, 0, 0, 128))
         result = background.background(
@@ -277,8 +276,6 @@ class TestBackgroundEdgeCases:
         assert calls['args'][2] == 'tile'
         assert calls['args'][7] == getattr(Image, 'ROTATE_180')
         assert calls['args'][8] == 70
-
-        background.init()
 
     def test_background_small_image(self):
         """Background works with small transparent images."""

@@ -21,6 +21,7 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 import time
 from datetime import datetime
 
@@ -31,26 +32,8 @@ from lib.reverse_translation import _t
 OPTIONS = [_t('Exif time'), _t('File time'), _t('Exif and file')]
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from other.relativedelta import relativedelta
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global relativedelta
-    from other.relativedelta import relativedelta
-    return {'relativedelta': relativedelta}
 def get_date(info):
     return datetime(
         year=info[_t('year')],
@@ -62,11 +45,11 @@ def get_date(info):
 
 
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Time Shift')
     author = 'Juho Vepsäläinen'
     email = 'bebraw@gmail.com'
     version = '0.2'
-    init = staticmethod(init)
     tags = [_t('metadata')]
     __doc__ = _t('Shift time values of tags')
     metadata = ['Exif_Image_DateTime', 'year', 'month', 'day', 'hour',

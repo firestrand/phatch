@@ -158,7 +158,7 @@ class Grid(gridlib.Grid):
     def GetTableAttr(self, row, col, kind):
         attr = [self.even_attr, self.odd_attr][row % 2]
         self.AttrIncRef(attr)
-        self.SetAttrReadOnly(attr)
+        self.SetAttrReadOnly(attr, True)
         return attr
 
     def SetAttrReadOnly(self, attr, bool):

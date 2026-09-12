@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 
-"""Launch script from the bin folder."""
+"""Compatibility wrapper for the installed console entry point."""
 
 import sys
-import os
+from pathlib import Path
 
-# Add phatch directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-import phatch
-from phatch.app import main
+from phatch.entrypoints import console_main
 
-# Use phatch's init_config_paths which sets up development paths
-config_paths = phatch.init_config_paths()
-main(config_paths, app_file=__file__)
+
+if __name__ == "__main__":
+    raise SystemExit(console_main())

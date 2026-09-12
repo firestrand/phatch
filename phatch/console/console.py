@@ -22,7 +22,13 @@
 #---import modules
 
 #standard library
+import builtins
+import os
 import sys
+
+if not hasattr(builtins, '_'):
+    setattr(builtins, '_', str)
+_ = getattr(builtins, '_')
 
 try:
     import typer  # type: ignore
@@ -47,12 +53,10 @@ if __name__ == '__main__':
     init_config_paths()
 
 #gui-independent
-from phatch.core import api, ct
+from phatch.core import ct
 from phatch.core.message import FrameReceiver, ProgressReceiver
 from phatch.lib import formField
 from phatch.lib import safe
-
-api.init()
 
 #---functions
 
@@ -150,14 +154,28 @@ class Progress(CliMixin, ProgressReceiver):
 class Frame(CliMixin, FrameReceiver):
     Progress = Progress
 
-    def __init__(self, actionlist, paths, settings, output=sys.stdout):
+    @classmethod
+    def receiver(cls, settings, output=sys.stderr):
+        instance = cls.__new__(cls)
+        instance.verbose = False
+        instance.settings = settings
+        instance.output = output
+        instance.console = RichConsole(file=output, highlight=False)
+        instance._pubsub()
+        return instance
+
+    def __init__(self, actionlist, paths, settings, output=sys.stdout, registry=None):
+        from phatch.core import api
         self.verbose = settings['verbose'] or settings['interactive']
         self.settings = settings
         self.output = output
         self.console = RichConsole(file=output, highlight=False)
         self._pubsub()
-        data, warning = api.open_actionlist(
-            self.verify_actionlist(actionlist))
+        filename = self.verify_actionlist(actionlist)
+        if registry is None:
+            data, warning = api.open_actionlist(filename)
+        else:
+            data, warning = api.open_actionlist(filename, registry=registry)
         if formField.get_safe():
             if warning:
                 raise safe.UnsafeError(warning)
@@ -227,8 +245,11 @@ def example():
     path=['/home/stani/sync/python/phatch/test images/building/IMGA3166.JPG'])
 
 
-def main(actionlist, paths, settings):
-    Frame(actionlist, paths, settings)
+def main(actionlist, paths, settings, registry=None):
+    from phatch.core import api
+    if registry is None:
+        registry = api.init()
+    Frame(actionlist, paths, settings, registry=registry)
 
 if __name__ == '__main__':
     example()

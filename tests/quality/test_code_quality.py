@@ -37,6 +37,8 @@ from pathlib import Path
 
 import pytest
 
+from scripts.coverage_git import derive_changed_python_modules
+
 
 def test(dirname='..'):
     """
@@ -112,6 +114,30 @@ def test_code_quality():
     has_violations = test('..')
     if has_violations:
         pytest.fail("Code quality violations found. Run 'ruff check --fix .' to auto-fix many issues.")
+
+
+def test_changed_production_source_has_no_syntax_or_name_errors():
+    changed_paths = derive_changed_python_modules(None)
+    if not changed_paths:
+        return
+    result = subprocess.run(
+        (
+            sys.executable,
+            "-m",
+            "ruff",
+            "check",
+            "--isolated",
+            "--select=E9,F63,F7,F82",
+            "--config",
+            'builtins=["_","_t"]',
+            *changed_paths,
+        ),
+        cwd=Path(__file__).parents[2],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
 
 
 def main_with_exit(dirname='..'):

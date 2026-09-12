@@ -15,6 +15,7 @@ except ImportError:  # pragma: no cover - fallback for headless tests
 
     wx = _WxStub()  # type: ignore
 
+from phatch.core.execution_ports import ActionRegistry
 from phatch.services import ActionListService
 from phatch.services.action_advisor import ActionListAdvisor
 from phatch.services.file_dialogs import FileDialogService
@@ -62,3 +63,7 @@ class FrameDependencies:
         self.file_menu_factory = file_menu_factory or (lambda **kwargs: FileMenuCoordinator(**kwargs))
         self.file_dialog_class = file_dialog_class or getattr(wx, "FileDialog", None)
         self.shell_frame_factory = shell_frame_factory or _default_shell_frame_factory()
+
+    @classmethod
+    def for_action_registry(cls, registry: ActionRegistry) -> "FrameDependencies":
+        return cls(action_service_factory=lambda: ActionListService(registry=registry))

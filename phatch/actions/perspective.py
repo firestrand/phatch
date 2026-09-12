@@ -20,39 +20,20 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image
+import math
+from lib import imtools
+from lib.colors import HTMLColorToRGBA
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
+r = math.radians
 
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image
-    from PIL import Image
-    global math, r
-    import math
-    r = math.radians
-    global imtools
-    from lib import imtools
-    global HTMLColorToRGBA
-    from lib.colors import HTMLColorToRGBA
-    return {'Image': Image, 'math': math, 'r': r, 'imtools': imtools, 'HTMLColorToRGBA': HTMLColorToRGBA}
 TOP = [100, 30, 0, 0, 120, '0%', '5%']
 BOTTOM_STRETCHED = [35, -30, 0, 0, -120, '30%', '5%']
 LEFT = [100, 0, 30, 120, 0, '5%', '0%']
@@ -114,10 +95,10 @@ def perspective(image,
 
 
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Perspective')
     author = 'Stani'
     email = 'spe.stani.be@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(perspective)
     version = '0.1'
     tags = [_t('transform'), _t('filter')]

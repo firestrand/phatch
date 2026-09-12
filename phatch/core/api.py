@@ -18,37 +18,31 @@
 
 # Follows PEP8
 
-try:
-    _
-except NameError:
-    __builtins__['_'] = str
-
 #---import modules
 
 #standard library
+import builtins
 import codecs
 import glob
-import json
+import importlib
 import operator
 import os
 import pprint
-import time
 import traceback
 from io import StringIO
-from datetime import timedelta
 
 #gui-independent
-from data.version import VERSION
 from lib import formField
 from lib import metadata
 from lib import openImage
 from lib import safe
-from lib.odict import ReadOnlyDict
 from lib.unicoding import ensure_unicode, exception_to_unicode, ENCODING
 
 from . import ct
 from . import pil
 from .message import send
+
+_ = getattr(builtins, '_', str)
 
 #---constants
 ACTIONS_LIST_FORMAT_VERSION = '2.0'  # JSON format (was '1.0' for pprint format)
@@ -98,7 +92,7 @@ def init():
     be called at the start."""
     from .config import verify_app_user_paths
     verify_app_user_paths()
-    import_actions()
+    return import_actions()
 
 
 #---error logs
@@ -142,7 +136,7 @@ def log_error(message, filename, action=None, label='Error'):
         stringio = StringIO()
         traceback.print_exc(file=stringio)
         traceb = stringio.read()
-        ERROR_LOG_FILE.write(str(traceb, ENCODING, 'replace'))
+        ERROR_LOG_FILE.write(traceb)
     ERROR_LOG_FILE.write('*' + os.linesep)
     ERROR_LOG_FILE.flush()
     ERROR_LOG_COUNTER += 1
@@ -235,13 +229,23 @@ def filter_image_infos(folder, extensions, files, root, info_file):
     :returns: list of image file info
     :rtype: list of dictionaries
     """
-    #check if extensions work ok! '.png' vs 'png'
-    files.sort(key=str.lower)  # Python 3: use str.lower instead of string.lower
+    from pathlib import Path
+
+    from phatch.services.file_discovery import (
+        DirectoryListing,
+        FileDiscovery,
+        LocalDiscoveryFileSystem,
+    )
+
+    discovery = FileDiscovery(LocalDiscoveryFileSystem())
+    listing = DirectoryListing(Path(folder), tuple(files))
     infos = []
     folder_index = 0
-    for file in files:
-        info = info_file.dump((os.path.join(folder, file), root))
-        if os.path.isfile(info['path']) and info['type'].lower() in extensions:
+    normalized_extensions = frozenset(extension.lower() for extension in extensions)
+    for candidate in discovery.candidates(listing, Path(root)):
+        info = info_file.dump((str(candidate.path), str(candidate.source_root)))
+        if discovery.is_file(candidate.path) and \
+                info['type'].lower() in normalized_extensions:
             info['folderindex'] = folder_index
             infos.append(info)
             folder_index += 1
@@ -264,17 +268,21 @@ def get_image_infos_from_folder(folder, info_file, extensions, recursive):
 
     .. see also:: :func:`filter_image_infos`
     """
-    source_parent = folder  # do not change (independent of recursion!)
-    # root = os.path.dirname(folder) #do not change (independent of recursion!)
-    if recursive:
-        image_infos = []
-        for folder, dirs, files in os.walk(folder):
-            image_infos.extend(filter_image_infos(folder, extensions,
-                files, source_parent, info_file))
-        return image_infos
-    else:
-        return filter_image_infos(folder, extensions, os.listdir(folder),
-            source_parent, info_file)
+    from pathlib import Path
+
+    from phatch.services.file_discovery import (
+        FileDiscovery,
+        LocalDiscoveryFileSystem,
+    )
+
+    discovery = FileDiscovery(LocalDiscoveryFileSystem())
+    source_parent = Path(folder)  # do not change (independent of recursion!)
+    image_infos = []
+    for listing in discovery.listings(source_parent, recursive=recursive):
+        image_infos.extend(filter_image_infos(
+            str(listing.folder), extensions, list(listing.files),
+            str(source_parent), info_file))
+    return image_infos
 
 
 def get_image_infos(paths, info_file, extensions, recursive):
@@ -291,23 +299,35 @@ def get_image_infos(paths, info_file, extensions, recursive):
 
     .. see also:: :func:`get_image_infos_from_folder`
     """
+    from typing import assert_never
+
+    from phatch.services.file_discovery import (
+        FileDiscovery,
+        InvalidDiscoveryPathError,
+        LocalDiscoveryFileSystem,
+        ResolvedFile,
+        ResolvedFolder,
+    )
+
+    discovery = FileDiscovery(LocalDiscoveryFileSystem())
     image_infos = []
-    for path in paths:
-        path = os.path.abspath(path.strip())
-        if os.path.isfile(path):
-            #single image file
-            info = {'folderindex': 0}
-            info.update(info_file.dump(path))
-            image_infos.append(info)
-        elif os.path.isdir(path):
-            #folder of image files
-            image_infos.extend(get_image_infos_from_folder(
-                path, info_file, extensions, recursive))
-        else:
-            #not a file or folder?! probably does not exist
+    for raw_path in paths:
+        try:
+            resolved = discovery.resolve(raw_path)
+        except InvalidDiscoveryPathError as error:
             send.frame_show_error('Sorry, "%s" is not a valid path.' \
-                % ensure_unicode(path))
+                % ensure_unicode(str(error.path)))
             return []
+        match resolved:
+            case ResolvedFile(path):
+                info = {'folderindex': 0}
+                info.update(info_file.dump(str(path)))
+                image_infos.append(info)
+            case ResolvedFolder(path):
+                image_infos.extend(get_image_infos_from_folder(
+                    str(path), info_file, extensions, recursive))
+            case unreachable:
+                assert_never(unreachable)
     image_infos.sort(key=operator.itemgetter('path'))
     return image_infos
 
@@ -367,36 +387,55 @@ def check_actionlist(actions, settings):
 
     .. see also:: :func:`check_actionlist_file_only`
     """
-    #Check if there is something to do
-    if actions == []:
-        send.frame_show_error('%s %s' % (_('Nothing to do.'),
-            _('The action list is empty.')))
-        return None
-    #Check if the actionlist is safe
-    if formField.get_safe():
-        warnings = assert_safe(actions)
-        if warnings:
-            send.frame_show_error('%s\n\n%s\n%s' % (
-                ERROR_UNSAFE_ACTIONLIST_INTRO, warnings,
-                ERROR_UNSAFE_ACTIONLIST_DISABLE_SAFE))
+    from typing import assert_never
+
+    from phatch.core.execution_types import ExecutionOptions
+    from phatch.services.action_validation import (
+        AcceptedActionList,
+        ActionListRejectionReason,
+        RejectedActionList,
+        SaveActionRequired,
+        validate_actionlist,
+    )
+
+    result = validate_actionlist(
+        tuple(actions),
+        ExecutionOptions(
+            extensions=(),
+            require_save_action=not settings['no_save'],
+            safe_mode=formField.get_safe(),
+        ),
+        assert_safe,
+    )
+    match result:
+        case RejectedActionList(reason=reason, diagnostic=diagnostic):
+            match reason:
+                case ActionListRejectionReason.EMPTY:
+                    send.frame_show_error('%s %s' % (_('Nothing to do.'),
+                        _('The action list is empty.')))
+                    return None
+                case ActionListRejectionReason.UNSAFE:
+                    send.frame_show_error('%s\n\n%s\n%s' % (
+                        ERROR_UNSAFE_ACTIONLIST_INTRO, diagnostic,
+                        ERROR_UNSAFE_ACTIONLIST_DISABLE_SAFE))
+                    return None
+                case ActionListRejectionReason.ALL_DISABLED:
+                    send.frame_show_error('%s %s' % (_('Nothing to do.'),
+                        _('There is no action enabled.')))
+                    return None
+                case unreachable:
+                    assert_never(unreachable)
+        case SaveActionRequired(enabled_actions=enabled_actions):
+            send.frame_append_save_action(list(enabled_actions))
             return None
-    #Skip disabled actions
-    actions = [action for action in actions if action.is_enabled()]
-    if actions == []:
-        send.frame_show_error('%s %s' % (_('Nothing to do.'),
-            _('There is no action enabled.')))
-        return None
-    #Check if there is a save statement
-    last_action = actions[-1]
-    if not (last_action.valid_last or check_actionlist_file_only(actions)\
-            or settings['no_save']):
-        send.frame_append_save_action(actions)
-        return None
-    #Check if overwrite is forced
-    settings['overwrite_existing_images_forced'] = \
-        (not settings['no_save']) and \
-        actions[-1].is_overwrite_existing_images_forced()
-    return actions
+        case AcceptedActionList(
+                enabled_actions=enabled_actions,
+                overwrite_existing_forced=overwrite_existing_forced):
+            settings['overwrite_existing_images_forced'] = \
+                overwrite_existing_forced
+            return list(enabled_actions)
+        case unreachable:
+            assert_never(unreachable)
 
 
 def verify_images(image_infos, repeat):
@@ -479,39 +518,6 @@ def get_paths_and_settings(paths, settings, drop=False):
     return paths
 
 
-def get_photo(info_file, info_not_file, result):
-    """Get a :class:`core.pil.Photo` instance from a file. If there is an
-    error opening the file, func:`process_error` will be called.
-
-    :param info_file: file information
-    :type info_file: dictionary
-    :param info_not_file: image information not related to file
-    :type info_not_file: string
-    :param result:
-
-        settings to send to progress dialog box
-        (such as ``stop for errors``)
-
-    :type result: dict
-    :returns: photo, result
-    :rtype: tuple
-    """
-    try:
-        photo = pil.Photo(info_file, info_not_file)
-        result['skip'] = False
-        result['abort'] = False
-        return photo, result
-    except Exception as details:
-        reason = exception_to_unicode(details)
-        #log error details
-        message = '%s: %s:\n%s' % (_('Unable to open file'),
-            info_file['path'], reason)
-    ignore = False
-    action = None
-    photo = None
-    return process_error(photo, message, info_file['path'], action,
-            result, ignore)
-
 #---apply
 
 
@@ -575,69 +581,6 @@ def flush_log(photo, image_file, action=None):
         photo.clear_log()
 
 
-def init_actions(actions):
-    """Initializes all actions. Shows an error to the user if an
-    action fails to initialize.
-
-    :param actions: actions
-    :type actions: list of :class:`core.models.Action`
-    :returns: False, if one action fails, True otherwise
-    :rtype: bool
-    """
-    for action in actions:
-        try:
-            action.init()
-        except Exception as details:
-            reason = exception_to_unicode(details)
-            message = '%s\n\n%s' % (
-                _("Can not apply action %(a)s:") \
-                % {'a': _(action.label)}, reason)
-            send.frame_show_error(message)
-            return False
-    return True
-
-
-def apply_action_to_photo(action, photo, read_only_settings, cache,
-        image_file, result):
-    """Apply a single action to a photo. It uses :func:`log_error` for
-    non fatal errors or :func:`process_error` for serious errors. The
-    settings are read only as the actions don't have permission to
-    change them.
-
-    :param action: action
-    :type action: :class:`core.models.Action`
-    :param photo: photo
-    :type photo: :class:`core.pil.Photo`
-    :param read_only_settings: read only settings
-    :type read_only_settings: :class:`lib.odict.ReadOnlyDict`
-    :param cache: cache for data which is usefull across photos
-    :type cache: dictionary
-    :param image_file: filename reference during error logging
-    :type image_file: string
-    :param result: settings for dialog (eg ``stop_for_errors``)
-    :type result: dictionary
-    """
-    try:
-        photo = action.apply(photo, read_only_settings, cache)
-        result['skip'] = False
-        result['abort'] = False
-        #log non fatal errors/warnings
-        flush_log(photo, image_file, action)
-        return photo, result
-    except Exception as details:
-        flush_log(photo, image_file, action)
-        folder, image = os.path.split(ensure_unicode(image_file))
-        reason = exception_to_unicode(details)
-        message = '%s\n%s\n\n%s' % (
-            _("Can not apply action %(a)s on image '%(i)s' in folder:")\
-                % {'a': _(action.label), 'i': image},
-            folder,
-            reason,
-        )
-        return process_error(photo, message, image_file, action,
-            result, ignore=True)
-
-
 def apply_actions_to_photos(actions, settings, paths=None, drop=False,
         update=None):
     """Apply all the actions to the photos in path.
@@ -659,175 +602,17 @@ def apply_actions_to_photos(actions, settings, paths=None, drop=False,
 
     :type drop: bool
     """
-    # Start log file
-    init_error_log_file()
+    from phatch.services.legacy_execution import apply_actions_to_photos as execute
 
-    # Check action list
-    actions = check_actionlist(actions, settings)
-    if not actions:
-        return
-
-    # Get paths (and update settings) -> show execute dialog
-    paths = get_paths_and_settings(paths, settings, drop=drop)
-    if not paths:
-        return
-
-    # retrieve all necessary variables in one time
-    vars = set(pil.BASE_VARS).union(get_vars(actions))
-    if settings['check_images_first']:
-        # we need some extra vars for the list control
-        vars = TREE_VARS.union(vars)
-    vars_file, vars_not_file = metadata.InfoFile.split_vars(list(vars))
-    info_file = metadata.InfoFile(vars=list(vars_file))
-
-    # Check if all files exist
-    # folderindex is set here in filter_image_infos
-    image_infos = get_image_infos(paths, info_file,
-        settings['extensions'], settings['recursive'])
-    if not image_infos:
-        return
-
-    # Check if all the images are valid
-    #  -> show invalid to user
-    #  -> show valid to user in tree dialog (optional)
-    if settings['check_images_first']:
-        image_infos = verify_images(image_infos, settings['repeat'])
-        if not image_infos:
-            return
-
-    # Initialize actions
-    if not init_actions(actions):
-        return
-
-    # Retrieve settings
-    skip_existing_images = not (settings['overwrite_existing_images'] or\
-        settings['overwrite_existing_images_forced']) and\
-        not settings['no_save']
-    result = {
-        'stop_for_errors': settings['stop_for_errors'],
-        'last_answer': None,
-    }
-
-    # only keep static vars
-    vars_not_file = pil.split_vars_static_dynamic(vars_not_file)[0]
-
-    # create parent info instance
-    #  -> will be used by different files with the open method
-    info_not_file = metadata.InfoExtract(vars=vars_not_file)
-
-    # Execute action list
-    image_amount = len(image_infos)
-    actions_amount = len(actions) + 1  # open image is extra action
-    cache = {}
-    is_done = actions[-1].is_done  # checking method for resuming
-    read_only_settings = ReadOnlyDict(settings)
-
-    # Start progress dialog
-    repeat = settings['repeat']
-    send.frame_show_progress(title=_("Executing action list"),
-        parent_max=image_amount * repeat,
-        child_max=actions_amount,
-        message=PROGRESS_MESSAGE)
-    report = []
-    start = time.time()
-    for image_index, image_info in enumerate(image_infos):
-        statement = apply_actions_to_photo(actions, image_info, info_not_file,
-            cache, read_only_settings, skip_existing_images, result, report,
-            is_done, image_index, repeat)
-        # reraise statement
-        if statement == 'return':
-            send.progress_close()
-            return
-        elif statement == 'break':
-            break
-        if update:
-            update()
-    send.progress_close()
-    if update:
-        update()
-
-    # mention amount of photos and duration
-    delta = time.time() - start
-    duration = timedelta(seconds=int(delta))
-    if image_amount == 1:
-        message = _('One image done in %s') % duration
-    else:
-        message = _('%(amount)d images done in %(duration)s')\
-            % {'amount': image_amount, 'duration': duration}
-    # add error status
-    if ERROR_LOG_COUNTER == 1:
-        message += '\n' + _('One issue was logged')
-    elif ERROR_LOG_COUNTER:
-        message += '\n' + _('%d issues were logged')\
-            % ERROR_LOG_COUNTER
-
-    # show notification
-    send.frame_show_notification(message, report=report)
-
-    # show status dialog
-    if ERROR_LOG_COUNTER == 0:
-        if settings['always_show_status_dialog']:
-            send.frame_show_status(message, log=False)
-    else:
-        message = '%s\n\n%s' % (message, SEE_LOG)
-        send.frame_show_status(message)
+    execute(actions, settings, paths, drop, update)
 
 
-def apply_actions_to_photo(actions, image_info, info_not_file,
-        cache, read_only_settings, skip_existing_images, result, report,
-        is_done, image_index, repeat):
-    """Apply the action list to one photo."""
-    image_info['index'] = image_index
-    #open image and check for errors
-    photo, result = get_photo(image_info, info_not_file, result)
-    if result['abort']:
-        photo.close()
-        return 'return'
-    elif not photo or result['skip']:
-        photo.close()
-        return 'continue'
-    info = photo.info
-    info.set('imageindex', image_index)
-    image = photo.get_layer().image
-    for r in range(repeat):
-        info.set('index', image_index * repeat + r)
-        info.set('repeatindex', r)
-        #update image file & progress dialog box
-        progress_result = {}
-        send.progress_update_filename(progress_result, info['index'],
-            info['path'])
-        if progress_result and not progress_result['keepgoing']:
-            photo.close()
-            return 'return'
-        #check if already not done
-        if skip_existing_images and is_done(photo):
-            continue
-        if r == repeat - 1:
-            photo.get_layer().image = image
-        elif r > 0:
-            photo.get_layer().image = image.copy()
-        #do the actions
-        for action_index, action in enumerate(actions):
-            #update progress
-            progress_result = {}
-            send.progress_update_index(progress_result, info['index'],
-                action_index)
-            if progress_result and not progress_result['keepgoing']:
-                photo.close()
-                return 'return'
-            #apply action
-            photo, result = apply_action_to_photo(action, photo,
-                read_only_settings, cache, image_info['path'], result)
-            if result['abort']:
-                photo.close()
-                return 'return'
-            elif result['skip']:
-                #skip to next image immediately
-                continue
-    report.extend(photo.report_files)
-    photo.close()
-    if result['abort']:
-        return 'return'
+def apply_actions_to_photos_with_recovery(actions, settings, recovery, paths=None,
+        drop=False, update=None):
+    """Apply actions with durable completed-output recovery."""
+    from phatch.services.legacy_recovery import execute_with_recovery as execute
+
+    return execute(actions, settings, recovery, paths, drop, update)
 
 
 #---common
@@ -843,35 +628,44 @@ def import_module(module, folder=None):
     :type folder: string
     """
     if folder is None:
-        return __import__(module)
-    return getattr(__import__('%s.%s' % (folder.replace(os.path.sep, '.'),
-        module)), module)
+        return importlib.import_module(module)
+    return importlib.import_module('%s.%s' % (
+        folder.replace(os.path.sep, '.'), module))
 
 
 def import_actions():
     """Import all actions from the ``ct.PHATCH_ACTIONS_PATH``."""
+    from pathlib import Path
+    from typing import assert_never
+
+    from phatch.core.action_registry import (
+        ActionCatalogSources,
+        ActionRegistryBuildError,
+        ActionRegistryBuildFailure,
+        ActionRegistryBuildSuccess,
+        build_action_registry,
+    )
+
     global ACTIONS, ACTION_LABELS, ACTION_FIELDS
-    modules = \
-        [import_module(os.path.basename(os.path.splitext(filename)[0]),
-            'actions') for filename in \
-            glob.glob(os.path.join(ct.PHATCH_ACTIONS_PATH, '*.py'))] + \
-        [import_module(os.path.basename(os.path.splitext(filename)[0])) for
-            filename in glob.glob(os.path.join(ct.USER_ACTIONS_PATH, '*.py'))]
-    ACTIONS = {}
-    for module in modules:
-        try:
-            cl = getattr(module, ct.ACTION)
-        except AttributeError:
-            continue
-        #register action
-        ACTIONS[cl.label] = cl
-    #ACTION_LABELS
-    ACTION_LABELS = list(ACTIONS.keys())
-    ACTION_LABELS.sort()
-    #ACTION_FIELDS
-    ACTION_FIELDS = {}
-    for label in ACTIONS:
-        ACTION_FIELDS[label] = ACTIONS[label]()._fields
+    sources = ActionCatalogSources(
+        built_in=tuple(Path(filename) for filename in
+            glob.glob(os.path.join(ct.PHATCH_ACTIONS_PATH, '*.py'))),
+        user=tuple(Path(filename) for filename in
+            glob.glob(os.path.join(ct.USER_ACTIONS_PATH, '*.py'))),
+        action_attribute=ct.ACTION,
+    )
+    result = build_action_registry(sources)
+    match result:
+        case ActionRegistryBuildFailure(issues=issues):
+            raise ActionRegistryBuildError(issues)
+        case ActionRegistryBuildSuccess(registry=registry):
+            actions = dict(registry.factories)
+            action_labels = list(registry.labels())
+            action_fields = dict(registry.fields)
+        case unreachable:
+            assert_never(unreachable)
+    ACTIONS, ACTION_LABELS, ACTION_FIELDS = actions, action_labels, action_fields
+    return registry
 
 
 def save_actionlist(filename, data):
@@ -890,26 +684,43 @@ def save_actionlist(filename, data):
 
         data = {'actions':[...], 'description':'...'}
     """
-    #add version number
-    data['version'] = VERSION
-    data['format_version'] = ACTIONS_LIST_FORMAT_VERSION
     #check filename
     if os.path.splitext(filename)[1].lower() != ct.EXTENSION:
         filename += ct.EXTENSION
-    #prepare data
-    data['actions'] = [action.dump() for action in data['actions']]
+    from phatch.services.action_schema import (
+        ActionDocument,
+        ActionField,
+        ActionSpec,
+        normalize_identifier,
+        serialize_action_list,
+    )
+
+    dumped_actions = [action.dump() for action in data['actions']]
+    document = ActionDocument(
+        3,
+        data.get('description', ''),
+        tuple(
+            ActionSpec(
+                normalize_identifier(action['label']),
+                tuple(
+                    ActionField(normalize_identifier(label), value)
+                    for label, value in action.get('fields', {}).items()
+                ),
+            )
+            for action in dumped_actions
+        ),
+    )
     #backup previous
     previous = filename + '~'
     if os.path.exists(previous):
         os.remove(previous)
     if os.path.isfile(filename):
         os.rename(filename, previous)
-    #write it as JSON
     with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+        f.write(serialize_action_list(document))
 
 
-def open_actionlist(filename):
+def open_actionlist(filename, registry=None, plugin_context=None):
     """Open the action list from a file (supports both JSON and legacy formats).
 
     :param filename: the filename of the action list
@@ -921,58 +732,43 @@ def open_actionlist(filename):
     with open(filename, 'r', encoding='utf-8') as f:
         source = f.read()
 
-    #try to load as JSON first (new format)
+    from pathlib import Path
+
+    from phatch.core.action_registry import ImmutableActionRegistry
+    from phatch.core.plugin_context import default_plugin_context
+    from phatch.services.action_schema import (
+        RegistrySchemaCatalog,
+        SchemaValidationError,
+        construct_document_actions,
+        migrate_action_list,
+        parse_action_list,
+    )
+
+    active_registry = registry
+    if active_registry is None and ACTIONS:
+        assert ACTION_FIELDS is not None
+        context = default_plugin_context() if plugin_context is None else plugin_context
+        active_registry = ImmutableActionRegistry(
+            ACTIONS,
+            {label: Path('<legacy>') for label in ACTIONS},
+            {label: ACTION_FIELDS[label] for label in ACTIONS},
+            context,
+        )
+    if active_registry is None:
+        send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
+        return None
+    catalog = RegistrySchemaCatalog(active_registry)
     try:
-        data = json.loads(source)
-    except json.JSONDecodeError:
-        # Fall back to Python literal eval (legacy format)
-        try:
-            data = safe.eval_safe(source)
-        except Exception:
-            # If both fail, it's an invalid file
-            send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
-            return None
-
-    # Check version compatibility
-    format_version = data.get('format_version')
-    if format_version is not None:
-        # Accept format versions 1.0 (pprint) and 2.0 (JSON)
-        format_version_str = str(format_version)
-        if format_version_str not in ('1.0', '2.0'):
-            send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
-            return None
-    else:
-        version = str(data.get('version', '')).strip()
-        if version:
-            # Legacy files: accept any version that starts with "0.2" or "0.3"
-            if not (version.startswith('0.2') or version.startswith('0.3')):
-                send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
-                return None
-
-    # Reconstruct action objects from saved data
-    # Check if actions have been imported
-    if ACTIONS is None:
+        parsed = parse_action_list(source)
+    except SchemaValidationError:
         send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
         return None
-
-    if not ACTIONS:
-        send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
-        return None
-
-    result = []
-    invalid_labels = []
-    actions = data['actions']
-    for action in actions:
-        actionLabel = action['label']
-        actionFields = action['fields']
-        try:
-            newAction = ACTIONS[actionLabel]()
-        except KeyError:
-            raise
-        invalid_labels.extend(['- %s (%s)' % (label, actionLabel)
-                                for label in newAction.load(actionFields)])
-        result.append(newAction)
+    document = migrate_action_list(parsed, catalog)
+    result = list(construct_document_actions(document, catalog, active_registry))
     warning = assert_safe(result)
-    data['actions'] = result
-    data['invalid labels'] = invalid_labels
-    return data, warning
+    return {
+        'schema_version': document.schema_version,
+        'description': document.description,
+        'actions': result,
+        'invalid labels': [],
+    }, warning

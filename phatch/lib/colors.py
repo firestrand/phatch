@@ -26,7 +26,7 @@ def RGBToHTMLColor(rgb_tuple):
 def HTMLColorToRGB(colorstring):
     """ convert #RRGGBB to an (R, G, B) tuple """
     colorstring = colorstring.strip()
-    if colorstring[0] == '#':
+    if colorstring.startswith('#'):
         colorstring = colorstring[1:]
     if len(colorstring) != 6:
         raise ValueError("input #%s is not in #RRGGBB format" % colorstring)

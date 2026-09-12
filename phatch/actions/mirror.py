@@ -21,6 +21,7 @@
 
 #Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 from lib.imtools import convert_safe_mode, paste
@@ -28,26 +29,8 @@ from lib.imtools import convert_safe_mode, paste
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image
-    from PIL import Image
-    return {'Image': Image}
 # Declare constants here
 
 BOTH = _t('Both')
@@ -111,10 +94,10 @@ def xy_mirror(image, result):
 
 
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Mirror')
     author = 'Juho Vepsäläinen'
     email = 'bebraw@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(tile)
     version = '0.1'
     tags = [_t('transform'), _t('filter')]

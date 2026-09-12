@@ -50,17 +50,16 @@ def create_thunar_action(name, command, description, types='<text-files/>',
         'description': description, 'types': types, 'patterns': patterns}
     action = THUNAR_ACTION % data
     #create actions string
-    f = open(THUNAR_USER_ACTIONS, 'rb')
-    actions = f.read()
-    f.close()
+    with open(THUNAR_USER_ACTIONS, encoding='utf-8') as action_file:
+        actions = action_file.read()
     #check if already done
     if action in actions:
         return True
     actions = actions.replace(END, action + END)
     #write actions string
-    f = open(THUNAR_USER_ACTIONS + '.phatch', 'wb')
-    f.write(actions)
-    f.close()
+    with open(THUNAR_USER_ACTIONS + '.phatch', 'w', encoding='utf-8') \
+            as action_file:
+        action_file.write(actions)
     #backup previous
     if not os.path.isfile(THUNAR_USER_ACTIONS + BACKUP):
         shutil.copy2(THUNAR_USER_ACTIONS, THUNAR_USER_ACTIONS + BACKUP)

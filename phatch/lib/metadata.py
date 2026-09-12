@@ -28,16 +28,12 @@
 #sphinx doc everything
 
 import datetime
+import importlib.util
 import os
 import re
 import time
 
-try:
-    import pyexiv2
-    from . import _pyexiv2
-except ImportError:
-    pyexiv2 = None
-    _pyexiv2 = None
+_PYEXIV2_AVAILABLE = importlib.util.find_spec('pyexiv2') is not None
 
 from . import imtools
 from . import odict
@@ -647,7 +643,7 @@ class InfoPil(_InfoPil):
 #Initialize PIL metadata
 #This can't be lazily loaded as it is needed by the provide method.
 try:
-    from ExifTags import TAGS, GPSTAGS
+    from PIL.ExifTags import GPSTAGS, TAGS
     EXIFTAGS = {}
     EXIFTAGS.update(TAGS)
     EXIFTAGS.update(GPSTAGS)
@@ -1377,7 +1373,7 @@ class InfoEXIF(_InfoCache):
 
 
 INFOS = [InfoFile]
-if pyexiv2:
+if _PYEXIV2_AVAILABLE:
     INFOS.extend([InfoExif, InfoIptc])
 INFOS.extend([InfoPil, InfoPexif, InfoZexif])
 #, InfoEXIF] #EXIF disabled for now as it crashes
@@ -1392,10 +1388,13 @@ VARS_BY_INFO = {InfoFile: None, InfoPil: None}
 
 def get_vars_by_info(filename):
     format = imtools.get_format_filename(filename)
-    if (_pyexiv2 and _pyexiv2.is_readable_format(format)) or format == 'JPEG':
+    if format == 'JPEG':
         return VARS_BY_INFO_EXIF.copy()
-    else:
-        return VARS_BY_INFO.copy()
+    if _PYEXIV2_AVAILABLE:
+        _InfoPyexiv2._load_module()
+        if _InfoPyexiv2._pyexiv2.is_readable_format(format):
+            return VARS_BY_INFO_EXIF.copy()
+    return VARS_BY_INFO.copy()
 
 
 class InfoTest:

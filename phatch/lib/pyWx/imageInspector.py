@@ -210,7 +210,7 @@ class Table(gridlib.GridTableBase):
         return self.table.get_row_label(row)
 
     def SetRowLabelValue(self, row, value):
-        return self.table.set_row_label(row, value)
+        return self.table.set_key_label(row, value)
 
     def GetNumberRows(self):
         return self.table.get_row_amount()
@@ -302,6 +302,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
             needs_update = needs_update or image.update_if_modified()
         if needs_update:
             self.RefreshAll(update_column=True, force_thumbs=True)
+        return needs_update
 
     def UpdateRowsColsNumbers(self):
         """Only consider adding or removing rows."""
@@ -696,8 +697,8 @@ class Grid(droplet.Mixin, gridlib.Grid):
                     offset_x = rect[2] - bitmap_size[0] - self.border
                 offset_y = (rect[3] - bitmap_size[1]) / 2
                 dc.DrawBitmap(bitmap,
-                    rect[0] + offset_x,
-                    rect[1] + offset_y,
+                    int(rect[0] + offset_x),
+                    int(rect[1] + offset_y),
                     True)
             else:
                 offset_y = (rect[3] - self.PENCIL_BITMAP_SIZE[1]) / 2
@@ -792,7 +793,7 @@ class Grid(droplet.Mixin, gridlib.Grid):
 class OpenMixin(object):
 
     def OnOpen(self, event):
-        style = wx.FD_OPEN | wx.CHANGE_DIR
+        style = wx.FD_OPEN | wx.FD_CHANGE_DIR
         if hasattr(wx, 'FD_PREVIEW'):
             style |= wx.FD_PREVIEW
         path = os.path.dirname(self.image_table.images[-1].filename)
@@ -858,7 +859,7 @@ class Browser(tag.Browser):
         if not content.image_table.images:
             return _('drag & drop any images here')
         tag = self.tag.GetStringSelection().lower()
-        if tag == 'Exif' and not pyexiv2:
+        if tag == 'exif' and not pyexiv2:
             return _('please install pyexiv2')
         if content.image_table.key_amount_tag:
             return _('broaden your search')

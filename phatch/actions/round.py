@@ -23,33 +23,16 @@
 # Follows PEP8
 
 # Always import this:
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image, ImageChops, ImageDraw
+from lib import imtools, pillow_compat
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image, ImageChops, ImageDraw, imtools, pillow_compat
-    from PIL import Image, ImageChops, ImageDraw
-    from lib import imtools, pillow_compat
-    return {'Image': Image, 'ImageChops': ImageChops, 'ImageDraw': ImageDraw, 'imtools': imtools, 'pillow_compat': pillow_compat}
 # Declare constants here
 
 CROSS = _t('Cross')
@@ -142,12 +125,12 @@ def create_corner(radius=100, opacity=255, factor=2):
 
 
 class Action(models.Action):
+    init = staticmethod(init)
 
     label = _t('Round')
     author = 'Stani'
     cache = True
     email = 'spe.stani.be@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(round_image)
     version = '0.1'
     tags = [_t('default'), _t('filter')]

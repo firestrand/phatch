@@ -9,10 +9,11 @@ Following TDD principles:
 """
 
 import builtins
+from types import SimpleNamespace
 
 # Initialize translation system for tests
 if not hasattr(builtins, '_'):
-    builtins._ = lambda x: x
+    setattr(builtins, '_', lambda x: x)
 
 from phatch.actions import geek
 
@@ -128,6 +129,34 @@ class TestGeekInit:
         assert hasattr(action, 'init')
         assert callable(action.init)
 
+    def test_init_accepts_existing_executable(self, tmp_path, monkeypatch):
+        executable = tmp_path / 'tool'
+        executable.touch()
+        action = geek.Action()
+        monkeypatch.setattr(action, 'get_field_string', lambda label: str(executable))
+        monkeypatch.setattr(
+            geek.system,
+            'find_exe',
+            lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError()),
+        )
+
+        action.init()
+
+    def test_init_resolves_missing_executable(self, monkeypatch):
+        calls = []
+        action = geek.Action()
+        monkeypatch.setattr(action, 'get_field_string', lambda label: 'tool')
+        monkeypatch.setattr(
+            geek.system,
+            'find_exe',
+            lambda executable, raise_exception: calls.append(
+                (executable, raise_exception)),
+        )
+
+        action.init()
+
+        assert calls == [('tool', True)]
+
 
 class TestGeekApply:
     """Test the apply() method."""
@@ -154,6 +183,39 @@ class TestGeekApply:
         action = geek.Action()
         assert action.is_overwrite_existing_images_forced() is False
 
+    def test_get_relevant_fields_updates_validation_flags(self, monkeypatch):
+        field = SimpleNamespace()
+        action = geek.Action()
+        values = {
+            'Verify Program': True,
+            'Verify Input': False,
+            'Verify Output': True,
+            'Allow as last action': True,
+        }
+        monkeypatch.setattr(action, '_get_field', lambda label: field)
+        monkeypatch.setattr(action, 'is_field_true', values.__getitem__)
+
+        labels = action.get_relevant_field_labels()
+
+        assert labels == [
+            'Command', 'Verify Program', 'Verify Input',
+            'Verify Output', 'Allow as last action',
+        ]
+        assert (field.needs_exe, field.needs_in, field.needs_out) == (
+            True, False, True)
+        assert action.valid_last is True
+
+    def test_apply_calls_photo_command(self, monkeypatch):
+        calls = []
+        photo = SimpleNamespace(info={'filename': 'input.jpg'}, call=calls.append)
+        action = geek.Action()
+        monkeypatch.setattr(action, 'get_field', lambda label, info: 'tool input')
+
+        result = action.apply(photo, setting={}, cache={})
+
+        assert result is photo
+        assert calls == ['tool input']
+
 
 class TestGeekConstants:
     """Test module-level constants."""
@@ -174,6 +236,15 @@ class TestGeekConstants:
         """COMMANDS should contain strings."""
         for command in geek.COMMANDS:
             assert isinstance(command, str)
+
+    def test_load_commands_reads_explicit_utf8_file(self, tmp_path):
+        commands = tmp_path / 'geek.txt'
+        commands.write_text('first command\nsecond command\n', encoding='utf-8')
+
+        assert geek.load_commands(commands) == ['first command', 'second command']
+
+    def test_load_commands_uses_defaults_when_file_is_absent(self, tmp_path):
+        assert geek.load_commands(tmp_path / 'missing.txt') == geek.COMMANDS
 
 
 class TestGeekIntegration:
@@ -201,6 +272,7 @@ class TestGeekIntegration:
     def test_action_docstring_mentions_command(self):
         """Action documentation mentions command or execute."""
         action = geek.Action()
+        assert action.__doc__ is not None
         doc_lower = action.__doc__.lower()
         assert 'command' in doc_lower or 'execute' in doc_lower
 

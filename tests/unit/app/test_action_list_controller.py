@@ -4,6 +4,8 @@ if '_' not in builtins.__dict__:
     builtins.__dict__['_'] = lambda value: value
 
 from phatch.pyWx.controller import ActionListController, ActionListState
+from phatch.services.action_schema import ActionDocument
+from phatch.services.preflight import PreflightRequest, PreflightResult
 
 
 class FakeTree:
@@ -28,7 +30,6 @@ class FakeTree:
         self.deleted += 1
         self._has_forms = False
         self.appended.clear()
-
     def append_forms(self, actions):
         self.appended.append(tuple(actions))
         self._has_forms = bool(actions)
@@ -85,6 +86,23 @@ class FakeTree:
     def popup_menu(self, menu):
         self.popup_menu_invoked.append(menu)
 
+    def PopupMenu(self, menu):
+        self.popup_menu_invoked.append(menu)
+
+
+def test_controller_returns_shared_preflight_domain_result():
+    expected = PreflightResult((), (), (), (), (), (), 0)
+
+    class Service:
+        def preflight(self, request):
+            assert request.document.description == "gui"
+            return expected
+
+    controller = ActionListController(FakeTree(), Service())
+    request = PreflightRequest(ActionDocument.from_values("gui", ()), (), ())
+
+    assert controller.preflight(request) is expected
+
 
 def test_new_actionlist_resets_tree_and_state():
     tree = FakeTree()
@@ -131,6 +149,15 @@ def test_mark_dirty_and_clean_toggle_state():
     assert controller.state.dirty is False
     assert controller.state.description == "Saved"
     assert controller.state.saved_description == "Saved"
+
+
+def test_dirty_indicator_reflects_dirty_state():
+    state = ActionListState()
+
+    assert state.dirty_indicator() == ""
+
+    state.dirty = True
+    assert state.dirty_indicator() == "*"
 
 
 def test_update_description_marks_dirty_when_changed():
@@ -187,6 +214,13 @@ def test_remove_selected_action_marks_clean_when_no_actions_remain():
     assert removed is True
     assert controller.state.has_actions is False
     assert controller.state.dirty is False
+
+
+def test_remove_selected_action_preserves_state_when_nothing_is_selected():
+    controller = ActionListController(FakeTree())
+
+    assert controller.remove_selected_action() is False
+    assert controller.state == ActionListState()
 
 
 def test_remove_selected_action_marks_dirty_when_actions_remain():
@@ -300,6 +334,17 @@ def test_resize_popup_delegates_to_tree():
 
 def test_show_context_menu_delegates_to_tree():
     tree = FakeTree()
+    controller = ActionListController(tree)
+    menu = object()
+
+    controller.show_context_menu(menu)
+
+    assert tree.popup_menu_invoked == [menu]
+
+
+def test_show_context_menu_supports_legacy_tree_method():
+    tree = FakeTree()
+    tree.__dict__["popup_menu"] = None
     controller = ActionListController(tree)
     menu = object()
 

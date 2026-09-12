@@ -1,18 +1,338 @@
-# Phatch - Photo Batch Processor
-# Python project configuration
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Phatch"
+version = "0.3.0"
+description = "PHoto bATCH Processor"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = "GPL-3.0-or-later"
+license-files = ["COPYING"]
+authors = [
+    { name = "Stani", email = "spe.stani.be@gmail.com" },
+]
+maintainers = [
+    { name = "Travis Silvers", email = "firestrand@gmail.com" },
+]
+keywords = ["batch", "image", "photo", "Pillow"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Environment :: MacOS X",
+    "Environment :: Win32 (MS Windows)",
+    "Environment :: X11 Applications",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+]
+dependencies = [
+    "Pillow>=11.3.0,<12",
+    "platformdirs>=4.9.6,<5",
+    "rich>=14.1.0",
+]
+
+[project.optional-dependencies]
+gui = ["wxPython>=4.2.3"]
+windows = ["pywin32>=311; sys_platform == 'win32'"]
+metadata = ["pyexiv2>=2.8.0"]
+heif = ["pillow-heif>=1.1.1"]
+dev = [
+    "build>=1.3.0",
+    "coverage[toml]>=7.10.0",
+    "packaging>=25.0",
+    "pytest>=8.4.0",
+    "pytest-cov>=7.0.0",
+    "pyinstaller>=6.16.0,<7",
+    "PyYAML>=6.0.2",
+    "ruff>=0.14.0",
+    "spdx-tools>=0.8.3",
+    "twine>=6.2.0",
+    "ty>=0.0.18",
+]
+
+[project.scripts]
+phatch = "phatch.entrypoints:console_main"
+
+[project.gui-scripts]
+phatch-gui = "phatch.entrypoints:gui_main"
+
+[project.urls]
+Homepage = "https://github.com/firestrand/phatch"
+Issues = "https://github.com/firestrand/phatch/issues"
+
+[dependency-groups]
+dev = [
+    "build>=1.3.0",
+    "coverage[toml]>=7.10.0",
+    "packaging>=25.0",
+    "pytest>=8.4.0",
+    "pytest-cov>=7.0.0",
+    "pyinstaller>=6.16.0,<7",
+    "PyYAML>=6.0.2",
+    "ruff>=0.14.0",
+    "spdx-tools>=0.8.3",
+    "twine>=6.2.0",
+    "ty>=0.0.18",
+]
+
+[tool.setuptools.packages.find]
+include = ["phatch*"]
+namespaces = false
+
+[tool.setuptools.package-data]
+phatch_assets = [
+    "data/**/*",
+    "docs/*",
+    "docs/html/**/*",
+    "images/**/*",
+    "locale/**/*",
+]
+
+[tool.uv]
+default-groups = ["dev"]
 
 [tool.ruff]
-# Ruff configuration - modern Python linter
-# Replaces the bundled phatch/other/pep8.py with faster, modern tooling
+target-version = "py311"
+line-length = 88
+builtins = ["_", "_t"]
+# Expand this positive boundary as legacy modules are modernized.
+include = [
+    "phatch/app.py",
+    "phatch/core/action_registry.py",
+    "phatch/core/preview.py",
+    "phatch/core/plugin_context.py",
+    "phatch/core/cli.py",
+    "phatch/core/config.py",
+    "phatch/core/execution_ports.py",
+    "phatch/core/execution_types.py",
+    "phatch/core/file_references.py",
+    "phatch/core/filesystem.py",
+    "phatch/core/resource_config.py",
+    "phatch/core/user_paths.py",
+    "phatch/core/windows_names.py",
+    "phatch/entrypoints.py",
+    "phatch/external_tools.py",
+    "phatch/services/__init__.py",
+    "phatch/services/action_validation.py",
+    "phatch/services/action_schema.py",
+    "phatch/services/action_schema_types.py",
+    "phatch/services/automation_cli.py",
+    "phatch/services/automation_execution.py",
+    "phatch/services/automation_report.py",
+    "phatch/services/execution.py",
+    "phatch/services/execution_runner.py",
+    "phatch/services/image_output.py",
+    "phatch/services/file_discovery.py",
+    "phatch/services/legacy_actions.py",
+    "phatch/services/legacy_execution.py",
+    "phatch/services/legacy_recovery.py",
+    "phatch/services/legacy_interaction.py",
+    "phatch/services/legacy_photos.py",
+    "phatch/services/legacy_types.py",
+    "phatch/services/output_rollback.py",
+    "phatch/services/output_transaction.py",
+    "phatch/services/parallel_image_jobs.py",
+    "phatch/services/parallel_image_pool.py",
+    "phatch/services/parallel_save.py",
+    "phatch/services/parallel_save_spec.py",
+    "phatch/services/parallel_worker_bootstrap.py",
+    "phatch/services/preflight.py",
+    "phatch/services/recovery.py",
+    "phatch/services/recovery_fingerprint.py",
+    "phatch/services/recovery_journal.py",
+    "phatch/services/structured_report.py",
+    "phatch/actions/_blender_argv.py",
+    "phatch/actions/_imagemagick_argv.py",
+    "phatch/actions/_lossless_jpeg_transaction.py",
+    "phatch/lib/capabilities.py",
+    "phatch/lib/capability_probes.py",
+    "phatch/lib/external_capability_probes.py",
+    "phatch/lib/executables.py",
+    "phatch/lib/image_process.py",
+    "phatch/lib/image_codecs.py",
+    "phatch/lib/process.py",
+    "phatch/lib/reverse_translation.py",
+    "phatch/lib/subprocess_runner.py",
+    "phatch/lib/system.py",
+    "phatch/lib/windows/locate.py",
+    "phatch/lib/windows/register.py",
+    "phatch/lib/windows/shortcut.py",
+    "phatch/other/EXIF.py",
+    "phatch/pyWx/dialog_service.py",
+    "phatch/pyWx/documentation.py",
+    "phatch/resources/*.py",
+    "phatch/windows/droplet.py",
+    "phatch/windows/droplet_menu.py",
+    "scripts/coverage_artifacts.py",
+    "scripts/coverage_git.py",
+    "scripts/coverage_policy.py",
+    "scripts/artifact_scan.py",
+    "scripts/distribution_smoke.py",
+    "scripts/portable_smoke.py",
+    "scripts/windows_window_probe.py",
+    "scripts/portable_state.py",
+    "scripts/release_manifest.py",
+    "scripts/runtime_inventory.py",
+    "scripts/verify.py",
+    "tests/integration/test_packaged_resources.py",
+    "tests/integration/test_installed_wheel_automation.py",
+    "tests/tooling/*.py",
+    "tests/integration/test_windows_gui_runtime.py",
+    "tests/unit/app/test_installed_entrypoints.py",
+    "tests/unit/app/test_dialog_service*.py",
+    "tests/unit/app/test_gui_documentation.py",
+    "tests/unit/core/test_resource_provider.py",
+    "tests/unit/core/test_resource_provider_security.py",
+    "tests/unit/core/test_automation_cli_save_semantics.py",
+    "tests/unit/core/test_parallel_image_job_lifecycle.py",
+    "tests/unit/core/test_parallel_image_job_processes.py",
+    "tests/unit/core/test_parallel_save_cancellation.py",
+    "tests/unit/core/test_parallel_save_eligibility.py",
+    "tests/unit/core/test_action_validation*.py",
+    "tests/unit/core/test_action_registry*.py",
+    "tests/unit/core/test_file_discovery*.py",
+    "tests/unit/lib/test_capabilities.py",
+    "tests/unit/lib/test_capability_probes.py",
+    "tests/unit/lib/test_external_capability_probes.py",
+    "tests/unit/lib/test_executables.py",
+    "tests/unit/lib/test_process_contracts.py",
+    "tests/unit/lib/test_python_capability_probes.py",
+    "tests/unit/lib/test_subprocess_runner.py",
+    "tests/unit/lib/test_image_process.py",
+    "tests/unit/test_external_tools.py",
+    "tests/unit/actions/test_imagemagick.py",
+    "tests/unit/actions/test_imagemagick_argv.py",
+    "tests/unit/lib/test_system_behaviors.py",
+    "tests/unit/lib/test_windows_*.py",
+    "tests/unit/other/test_exif_*.py",
+    "tests/unit/app/test_windows_droplet.py",
+]
 
-# Target Python 3.8+ (minimum version per pytest.ini)
-target-version = "py38"
+[tool.ruff.lint]
+select = ["B", "C4", "E", "F", "I", "PERF", "RUF", "SIM", "UP", "W"]
 
-# Line length to match PEP8
-line-length = 79
+[tool.ruff.lint.per-file-ignores]
+"scripts/release_manifest.py" = ["E402"]
+"scripts/verify.py" = ["E402"]
+"tests/**/*.py" = ["S101"]
 
-# Exclude directories and files from linting
-exclude = [
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ty.environment]
+python-version = "3.11"
+extra-paths = ["."]
+
+[tool.pyright]
+extraPaths = ["."]
+
+[tool.ty.src]
+# Expand this boundary with each typed modernization task.
+include = [
+    "phatch/app.py",
+    "phatch/core/action_registry.py",
+    "phatch/core/preview.py",
+    "phatch/core/plugin_context.py",
+    "phatch/core/cli.py",
+    "phatch/core/config.py",
+    "phatch/core/execution_ports.py",
+    "phatch/core/execution_types.py",
+    "phatch/core/file_references.py",
+    "phatch/core/filesystem.py",
+    "phatch/core/resource_config.py",
+    "phatch/core/user_paths.py",
+    "phatch/core/windows_names.py",
+    "phatch/entrypoints.py",
+    "phatch/external_tools.py",
+    "phatch/services/__init__.py",
+    "phatch/services/action_validation.py",
+    "phatch/services/action_schema.py",
+    "phatch/services/action_schema_types.py",
+    "phatch/services/automation_cli.py",
+    "phatch/services/automation_execution.py",
+    "phatch/services/automation_report.py",
+    "phatch/services/execution.py",
+    "phatch/services/execution_runner.py",
+    "phatch/services/image_output.py",
+    "phatch/services/file_discovery.py",
+    "phatch/services/legacy_actions.py",
+    "phatch/services/legacy_execution.py",
+    "phatch/services/legacy_recovery.py",
+    "phatch/services/legacy_interaction.py",
+    "phatch/services/legacy_photos.py",
+    "phatch/services/legacy_types.py",
+    "phatch/services/output_rollback.py",
+    "phatch/services/output_transaction.py",
+    "phatch/services/parallel_image_jobs.py",
+    "phatch/services/parallel_image_pool.py",
+    "phatch/services/parallel_save.py",
+    "phatch/services/parallel_save_spec.py",
+    "phatch/services/parallel_worker_bootstrap.py",
+    "phatch/services/preflight.py",
+    "phatch/services/recovery.py",
+    "phatch/services/recovery_fingerprint.py",
+    "phatch/services/recovery_journal.py",
+    "phatch/services/structured_report.py",
+    "phatch/actions/_blender_argv.py",
+    "phatch/actions/_imagemagick_argv.py",
+    "phatch/actions/_lossless_jpeg_transaction.py",
+    "phatch/lib/capabilities.py",
+    "phatch/lib/capability_probes.py",
+    "phatch/lib/external_capability_probes.py",
+    "phatch/lib/executables.py",
+    "phatch/lib/image_process.py",
+    "phatch/lib/image_codecs.py",
+    "phatch/lib/process.py",
+    "phatch/lib/reverse_translation.py",
+    "phatch/lib/subprocess_runner.py",
+    "phatch/lib/system.py",
+    "phatch/lib/windows/locate.py",
+    "phatch/lib/windows/register.py",
+    "phatch/lib/windows/shortcut.py",
+    "phatch/other/EXIF.py",
+    "phatch/pyWx/dialog_service.py",
+    "phatch/pyWx/controller.py",
+    "phatch/resources",
+    "phatch/windows/droplet.py",
+    "phatch/windows/droplet_menu.py",
+    "scripts/__init__.py",
+    "scripts/verify.py",
+    "scripts/artifact_scan.py",
+    "scripts/coverage_artifacts.py",
+    "scripts/coverage_git.py",
+    "scripts/distribution_smoke.py",
+    "scripts/portable_smoke.py",
+    "scripts/windows_window_probe.py",
+    "scripts/portable_state.py",
+    "scripts/release_manifest.py",
+    "phatch/release_inventory.py",
+]
+exclude = ["build", "dist"]
+
+[tool.pytest.ini_options]
+minversion = "8.4"
+testpaths = ["tests"]
+python_files = ["*_test.py", "test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+console_output_style = "progress"
+addopts = ["-ra", "--strict-config", "--strict-markers", "--tb=short"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m not slow')",
+    "requires_display: marks tests that require a display/GUI",
+    "requires_external: marks tests that require external tools",
+    "acceptance: marks acceptance/integration tests",
+    "unit: marks unit tests",
+]
+norecursedirs = [
     ".git",
     ".pytest_cache",
     "__pycache__",
@@ -21,43 +341,174 @@ exclude = [
     "dist",
     ".venv",
     "venv",
-    # Original pep8_test.py exclusions
-    "phatch/other",           # Bundled third-party code
-    "tests/output",           # Test output directory
-    "*/wxGlade/*",            # Auto-generated wxGlade code
-    # Files from original BLACK_LIST
-    "phatch/lib/metadataTest.py",
-    "phatch/lib/pyWx/about.py",
-    "phatch/lib/pyWx/dialogsInspector.py",
-    "phatch/lib/pyWx/folderFileBrowser.py",
 ]
+doctest_optionflags = ["NORMALIZE_WHITESPACE", "ELLIPSIS"]
 
-[tool.ruff.lint]
-# Enable pycodestyle (E, W) and pyflakes (F) rules
-# These are the PEP8 compliance checks
-select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # pyflakes
+[tool.coverage.run]
+source = ["phatch", "scripts"]
+branch = true
+relative_files = true
+
+[tool.coverage.report]
+fail_under = 90.0
+precision = 2
+show_missing = true
+skip_empty = true
+
+[tool.phatch]
+verify-script = "scripts/verify.py"
+
+[tool.phatch.coverage-ratchet]
+line = 90.0
+branch = 90.0
+changed = 90.0
+changed-modules = [
+    "phatch/app.py",
+    "phatch/actions/_action_lifecycle.py",
+    "phatch/actions/autocontrast.py",
+    "phatch/actions/background.py",
+    "phatch/actions/border.py",
+    "phatch/actions/brightness.py",
+    "phatch/actions/canvas.py",
+    "phatch/actions/color_to_alpha.py",
+    "phatch/actions/colorize.py",
+    "phatch/actions/common.py",
+    "phatch/actions/contour.py",
+    "phatch/actions/contrast.py",
+    "phatch/actions/convert_mode.py",
+    "phatch/actions/copy.py",
+    "phatch/actions/crop.py",
+    "phatch/actions/desaturate.py",
+    "phatch/actions/effect.py",
+    "phatch/actions/equalize.py",
+    "phatch/actions/fit.py",
+    "phatch/actions/geotag.py",
+    "phatch/actions/grid.py",
+    "phatch/actions/highlight.py",
+    "phatch/actions/invert.py",
+    "phatch/actions/mask.py",
+    "phatch/actions/maximum.py",
+    "phatch/actions/median.py",
+    "phatch/actions/minimum.py",
+    "phatch/actions/mirror.py",
+    "phatch/actions/offset.py",
+    "phatch/actions/perspective.py",
+    "phatch/actions/posterize.py",
+    "phatch/actions/rank.py",
+    "phatch/actions/reflection.py",
+    "phatch/actions/rename.py",
+    "phatch/actions/rotate.py",
+    "phatch/actions/round.py",
+    "phatch/actions/saturation.py",
+    "phatch/actions/save.py",
+    "phatch/actions/save_metadata.py",
+    "phatch/actions/scale.py",
+    "phatch/actions/shadow.py",
+    "phatch/actions/sketch.py",
+    "phatch/actions/solarize.py",
+    "phatch/actions/tamogen.py",
+    "phatch/actions/text.py",
+    "phatch/actions/time_shift.py",
+    "phatch/actions/transpose.py",
+    "phatch/actions/warm_up.py",
+    "phatch/actions/watermark.py",
+    "phatch/actions/geek.py",
+    "phatch/actions/_blender_action.py",
+    "phatch/actions/_blender_argv.py",
+    "phatch/actions/_blender_options.py",
+    "phatch/actions/_imagemagick_action.py",
+    "phatch/actions/_imagemagick_argv.py",
+    "phatch/actions/_lossless_jpeg_options.py",
+    "phatch/actions/_lossless_jpeg_transaction.py",
+    "phatch/actions/blender.py",
+    "phatch/actions/imagemagick.py",
+    "phatch/actions/lossless_jpeg.py",
+    "phatch/console/console.py",
+    "phatch/core/api.py",
+    "phatch/core/action_registry.py",
+    "phatch/core/preview.py",
+    "phatch/core/plugin_context.py",
+    "phatch/core/cli.py",
+    "phatch/core/config.py",
+    "phatch/core/execution_ports.py",
+    "phatch/core/execution_types.py",
+    "phatch/core/file_references.py",
+    "phatch/core/filesystem.py",
+    "phatch/core/models.py",
+    "phatch/core/pil.py",
+    "phatch/core/resource_config.py",
+    "phatch/core/settings.py",
+    "phatch/core/user_paths.py",
+    "phatch/core/windows_names.py",
+    "phatch/entrypoints.py",
+    "phatch/external_tools.py",
+    "phatch/lib/capabilities.py",
+    "phatch/lib/capability_probes.py",
+    "phatch/lib/external_capability_probes.py",
+    "phatch/lib/executables.py",
+    "phatch/lib/image_process.py",
+    "phatch/lib/image_codecs.py",
+    "phatch/lib/imtools.py",
+    "phatch/lib/process.py",
+    "phatch/pyWx/dialog_service.py",
+    "phatch/pyWx/controller.py",
+    "phatch/pyWx/documentation.py",
+    "phatch/pyWx/frame_dependencies.py",
+    "phatch/lib/metadata.py",
+    "phatch/lib/openImage.py",
+    "phatch/lib/reverse_translation.py",
+    "phatch/lib/subprocess_runner.py",
+    "phatch/lib/system.py",
+    "phatch/lib/windows/locate.py",
+    "phatch/lib/windows/register.py",
+    "phatch/lib/windows/shortcut.py",
+    "phatch/other/EXIF.py",
+    "phatch/phatch.py",
+    "phatch/resources/__init__.py",
+    "phatch/resources/inventory.py",
+    "phatch/resources/provider.py",
+    "phatch/services/__init__.py",
+    "phatch/services/action_list.py",
+    "phatch/services/action_schema.py",
+    "phatch/services/action_schema_types.py",
+    "phatch/services/automation_cli.py",
+    "phatch/services/automation_execution.py",
+    "phatch/services/automation_report.py",
+    "phatch/services/action_validation.py",
+    "phatch/services/execution.py",
+    "phatch/services/execution_runner.py",
+    "phatch/services/image_output.py",
+    "phatch/services/file_discovery.py",
+    "phatch/services/legacy_actions.py",
+    "phatch/services/legacy_execution.py",
+    "phatch/services/legacy_recovery.py",
+    "phatch/services/legacy_interaction.py",
+    "phatch/services/legacy_photos.py",
+    "phatch/services/legacy_types.py",
+    "phatch/services/output_rollback.py",
+    "phatch/services/output_transaction.py",
+    "phatch/services/parallel_image_jobs.py",
+    "phatch/services/parallel_image_pool.py",
+    "phatch/services/parallel_save.py",
+    "phatch/services/parallel_save_spec.py",
+    "phatch/services/parallel_worker_bootstrap.py",
+    "phatch/services/preflight.py",
+    "phatch/services/recovery.py",
+    "phatch/services/recovery_fingerprint.py",
+    "phatch/services/recovery_journal.py",
+    "phatch/services/structured_report.py",
+    "phatch/windows/droplet.py",
+    "phatch/windows/droplet_menu.py",
+    "scripts/__init__.py",
+    "scripts/artifact_scan.py",
+    "scripts/coverage_artifacts.py",
+    "scripts/coverage_git.py",
+    "scripts/coverage_policy.py",
+    "scripts/distribution_smoke.py",
+    "scripts/portable_smoke.py",
+    "scripts/windows_window_probe.py",
+    "scripts/portable_state.py",
+    "scripts/release_manifest.py",
+    "phatch/release_inventory.py",
+    "scripts/verify.py",
 ]
-
-# Allow some flexibility for legacy code
-# Adjust these as the codebase is cleaned up
-ignore = [
-    "E501",  # Line too long (many legacy lines exceed 79 chars)
-    "E722",  # Bare except (common in legacy code)
-    "E402",  # Module level import not at top (common in legacy code with sys.path manipulation)
-    "F821",  # Undefined name (many are gettext _ function, dynamically defined)
-]
-
-[tool.ruff.lint.per-file-ignores]
-# Allow unused imports in __init__.py files
-"__init__.py" = ["F401"]
-# Test files may have additional issues from obsolete dependencies
-"tests/test_suite/bzr_precommit_test.py" = ["E401", "F401", "F821"]
-
-[tool.ruff.format]
-# Ruff formatter configuration (optional, not used in tests yet)
-quote-style = "single"
-indent-style = "space"
-line-ending = "auto"

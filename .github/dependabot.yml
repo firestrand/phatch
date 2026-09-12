@@ -1,0 +1,34 @@
+version: 2
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Etc/UTC"
+    groups:
+      python-production:
+        dependency-type: "production"
+        exclude-patterns:
+          - "Pillow"
+          - "pillow-heif"
+          - "pyexiv2"
+          - "pywin32"
+          - "wxPython"
+      python-development:
+        dependency-type: "development"
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Etc/UTC"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 5

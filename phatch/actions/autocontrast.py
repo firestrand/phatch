@@ -20,33 +20,16 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image, ImageOps
+from lib import imtools
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image, ImageOps, imtools
-    from PIL import Image, ImageOps
-    from lib import imtools
-    return {'Image': Image, 'ImageOps': ImageOps, 'imtools': imtools}
 def autocontrast(image, amount=100.0, cutoff=0):
     """Apply a filter
     - amount: 0-1
@@ -67,9 +50,9 @@ def autocontrast(image, amount=100.0, cutoff=0):
 
 
 class Action(models.Action):
+    init = staticmethod(init)
     author = 'Stani'
     email = 'spe.stani.be@gmail.com'
-    init = staticmethod(init)
     label = _t('Auto Contrast')
     version = '0.1'
     pil = staticmethod(autocontrast)

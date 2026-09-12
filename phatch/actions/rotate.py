@@ -20,6 +20,7 @@
 
 # Follows PEP8
 
+from ._action_lifecycle import init
 from core import models
 from lib.reverse_translation import _t
 from lib.colors import HTMLColorToRGBA
@@ -27,27 +28,9 @@ from lib.colors import HTMLColorToRGBA
 #---PIL
 
 
-def init(_inject_deps=None):
-    """Initialize action dependencies.
+from PIL import Image
+from lib import imtools
 
-    Args:
-        _inject_deps: For testing only. Dictionary of dependencies to inject.
-                     If None, uses standard global imports.
-
-    Returns:
-        Dictionary of loaded dependencies (for testing verification)
-    """
-    if _inject_deps:
-        # Testing mode: inject mocked dependencies
-        for name, value in _inject_deps.items():
-            globals()[name] = value
-        return _inject_deps
-
-    # Production mode: standard lazy loading
-    global Image, imtools
-    from PIL import Image
-    from lib import imtools
-    return {'Image': Image, 'imtools': imtools}
 def rotate(image, angle, resample_image, expand=0, amount=100,
         background_color='#000000', background_opacity=100):
     resample_image = getattr(Image, resample_image)
@@ -65,10 +48,10 @@ def rotate(image, angle, resample_image, expand=0, amount=100,
 
 
 class Action(models.Action):
+    init = staticmethod(init)
     label = _t('Rotate')
     author = 'Stani'
     email = 'spe.stani.be@gmail.com'
-    init = staticmethod(init)
     pil = staticmethod(rotate)
     version = '0.1'
     tags = [_t('transform')]

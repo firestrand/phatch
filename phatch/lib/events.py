@@ -17,10 +17,7 @@
 
 """The aim of this library is to abstract pubsub."""
 #check this for the console version (wx should dissappear)
-try:
-    from other.pubsub import ALL_TOPICS, Publisher
-except ImportError:
-    from wx.lib.pubsub import ALL_TOPICS, Publisher
+from phatch.other.pubsub import ALL_TOPICS, Publisher
 
 
 #---Send
@@ -43,7 +40,7 @@ send = Sender()
 
 
 def subscribe(method, obj):
-    Publisher().subscribe(method, getattr(obj, method))
+    Publisher().subscribe(getattr(obj, method), method)
 
 
 class ReceiveListener:
@@ -66,15 +63,17 @@ class Receiver:
         Afterwars you can call it with send.frame_error()"""
         listener = ReceiveListener(self, method)
         self._listeners.append(listener)
-        Publisher().subscribe(listener, '%s_%s' % (self._pubsub_name, method))
+        Publisher().subscribe(listener, f'{self._pubsub_name}_{method}')
 
     def unsubscribe(self, method):
         """Subscribe with some class magic.
         Example: self.subscribe('error') -> subscribe('frame.error')"""
-        listener = ReceiveListener(self, method)
+        target = getattr(self, method)
+        listener = next(
+            listener for listener in self._listeners
+            if listener.method == target)
         self._listeners.remove(listener)
-        Publisher().unsubscribe(listener,
-                                '%s_%s' % (self._pubsub_name, method))
+        Publisher().unsubscribe(listener, f'{self._pubsub_name}_{method}')
 
     def unsubscribe_all(self):
         for listener in self._listeners:

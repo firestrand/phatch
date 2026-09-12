@@ -13,7 +13,7 @@ from unittest.mock import Mock, patch
 
 # Initialize translation system for tests
 if not hasattr(builtins, '_'):
-    builtins._ = lambda x: x
+    setattr(builtins, '_', lambda x: x)
 
 from phatch.actions import copy as copy_action
 
@@ -209,8 +209,8 @@ class TestIsOverwriteForced:
 class TestCopyApply:
     """Test the apply() method."""
 
-    @patch('phatch.actions.copy.shutil.copy2')
-    @patch('phatch.actions.copy.os.path.exists')
+    @patch('core.plugin_context.StdlibFileOperations.copy2')
+    @patch('core.plugin_context.StdlibFileOperations.exists')
     @patch.object(copy_action.Action, 'ensure_path_or_desktop')
     @patch.object(copy_action.Action, 'is_done_info')
     def test_apply_copies_file_when_not_exists(self, mock_is_done_info,
@@ -238,10 +238,11 @@ class TestCopyApply:
         # Should call copy2
         mock_copy2.assert_called_once_with('/source/image.jpg',
                                           '/dest/folder/file.jpg')
+        photo.append_to_report.assert_called_once_with('/dest/folder/file.jpg')
         assert result == photo
 
-    @patch('phatch.actions.copy.shutil.copy2')
-    @patch('phatch.actions.copy.os.path.exists')
+    @patch('core.plugin_context.StdlibFileOperations.copy2')
+    @patch('core.plugin_context.StdlibFileOperations.exists')
     @patch.object(copy_action.Action, 'is_done_info')
     def test_apply_skips_when_exists_no_overwrite(self, mock_is_done_info,
                                                   mock_exists, mock_copy2):
@@ -263,10 +264,11 @@ class TestCopyApply:
 
         # Should NOT call copy2
         mock_copy2.assert_not_called()
+        photo.append_to_report.assert_not_called()
         assert result == photo
 
-    @patch('phatch.actions.copy.shutil.copy2')
-    @patch('phatch.actions.copy.os.path.exists')
+    @patch('core.plugin_context.StdlibFileOperations.copy2')
+    @patch('core.plugin_context.StdlibFileOperations.exists')
     @patch.object(copy_action.Action, 'ensure_path_or_desktop')
     @patch.object(copy_action.Action, 'is_done_info')
     def test_apply_copies_when_exists_with_overwrite(self, mock_is_done_info,
@@ -293,8 +295,8 @@ class TestCopyApply:
         mock_copy2.assert_called_once()
         assert result == photo
 
-    @patch('phatch.actions.copy.shutil.copy2')
-    @patch('phatch.actions.copy.os.path.exists')
+    @patch('core.plugin_context.StdlibFileOperations.copy2')
+    @patch('core.plugin_context.StdlibFileOperations.exists')
     @patch.object(copy_action.Action, 'ensure_path_or_desktop')
     @patch.object(copy_action.Action, 'is_done_info')
     def test_apply_ensures_path(self, mock_is_done_info, mock_ensure_path,
@@ -350,7 +352,7 @@ class TestCopyIntegration:
     def test_action_docstring_mentions_copy(self):
         """Action documentation mentions copy."""
         action = copy_action.Action()
-        doc_lower = action.__doc__.lower()
+        doc_lower = (action.__doc__ or '').lower()
         assert 'copy' in doc_lower
 
     def test_action_uses_apply_not_pil(self):

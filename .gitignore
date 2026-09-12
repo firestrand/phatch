@@ -137,3 +137,8 @@ dmypy.json
 ~/phatch/fonts.cache
 coverage.json
 .coverage
+
+# Agent workspace state
+.omo/
+.serena/
+.claude/
