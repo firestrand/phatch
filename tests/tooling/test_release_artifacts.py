@@ -56,6 +56,7 @@ def test_manifest_contains_real_checksums_sbom_and_runtime_licenses(
     assert hashlib.sha256(b"portable").hexdigest() in checksums
     sbom = json.loads((output / "sbom.spdx.json").read_text(encoding="utf-8"))
     assert sbom["spdxVersion"] == "SPDX-2.3"
+    assert sbom["documentNamespace"].endswith("/0.3.0")
     assert {package["name"].lower() for package in sbom["packages"]} >= {
         "phatch",
         "pillow",

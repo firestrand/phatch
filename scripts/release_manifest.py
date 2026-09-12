@@ -87,7 +87,9 @@ def _write_sbom(output: Path, packages: tuple[PackageRecord, ...]) -> None:
         "dataLicense": "CC0-1.0",
         "SPDXID": "SPDXRef-DOCUMENT",
         "name": "Phatch release dependencies",
-        "documentNamespace": "https://github.com/firestrand/phatch/sbom/0.3.0",
+        "documentNamespace": (
+            f"https://github.com/firestrand/phatch/sbom/{packages[0].version}"
+        ),
         "creationInfo": {
             "creators": ["Tool: scripts/release_manifest.py"],
             "created": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
