@@ -17,9 +17,11 @@
 
 import locale
 import sys
+
 import wx
+
+from ...other.pyWx.TextCtrlAutoComplete import TextCtrlAutoComplete
 from . import graphics
-from other.pyWx.TextCtrlAutoComplete import TextCtrlAutoComplete
 
 if hasattr(wx, "PopupWindow"):
 

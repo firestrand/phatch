@@ -23,9 +23,10 @@ except NameError:
 
 import os
 import sys
-from data import license
-from data.info import INFO
-from lib.reverse_translation import _t
+
+from ..data import license
+from ..data.info import INFO
+from ..lib.reverse_translation import _t
 
 # Re-export path constants from config for convenience
 # These are intentionally imported and re-exported (not unused)
