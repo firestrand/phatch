@@ -3,9 +3,11 @@ from __future__ import annotations
 import hashlib
 import subprocess
 import sys
+from io import BytesIO
 from pathlib import Path
 
 import pytest
+from PIL import Image
 
 from phatch.resources.inventory import RESOURCE_CLASSES, ResourceClass
 from phatch.resources.provider import ResourceProvider
@@ -56,6 +58,21 @@ def test_source_resource_paths_are_checkout_independent(
 
     # Then: lookup succeeds without using the current directory
     assert payload.startswith(b"\x89PNG")
+
+
+def test_macos_application_icon_has_valid_high_resolution_pixels() -> None:
+    # Given: the packaged artwork selected for native macOS application branding
+    payload = ResourceProvider().read_bytes("images/icons/256x256/phatch.png")
+
+    # When: Pillow decodes the complete image payload
+    with Image.open(BytesIO(payload)) as image:
+        image.load()
+
+        # Then: the asset is a non-empty, high-resolution RGBA PNG
+        assert image.format == "PNG"
+        assert image.size == (256, 256)
+        assert image.mode == "RGBA"
+        assert image.getbbox() is not None
 
 
 def test_resource_import_does_not_import_gui(tmp_path: Path) -> None:
