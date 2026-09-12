@@ -13,6 +13,7 @@ from tests.unit.pywx.native_inspector_support import (
 from tests.unit.pywx.native_inspector_support import native_runtime as native_runtime
 from tests.unit.pywx.native_inspector_support import show_frame, wx
 from tests.unit.pywx.native_inspector_support import wx_app as wx_app
+from tests.unit.pywx.native_popup_support import wait_until
 
 pytestmark = pytest.mark.requires_display
 
@@ -196,11 +197,16 @@ def test_modified_image_activation_focuses_filter_control(
     native_runtime, jpeg_path: Path
 ) -> None:
     frame, grid = _frame(str(jpeg_path))
+    app = wx.GetApp()
+    app.SetTopWindow(frame)
+    frame.Raise()
+    frame.SetFocus()
+    wait_until(frame.IsActive)
     old_time = grid.image_table.images[0].time
     os.utime(jpeg_path, (old_time + 10, old_time + 10))
 
     frame.UpdateIfNeeded()
-    wx.Yield()
+    wait_until(frame.browser.filter.HasFocus)
 
     assert grid.image_table.images[0].time > old_time
     assert frame.browser.filter.HasFocus()
