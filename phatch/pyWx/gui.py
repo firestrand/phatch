@@ -699,7 +699,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         from phatch.lib.pyWx import about
         from phatch.data.info import all_credits
         dlg = about.Dialog(self,
-            title='%(version)s' % ct.INFO,
+            title='%(name)s %(version)s' % ct.INFO,
             logo=graphics.bitmap(images.LOGO),
             description=_('PHoto bATCH Processor'),
             website=ct.INFO['url'],

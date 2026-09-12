@@ -26,7 +26,15 @@ class DockIconRecorder:
 
 
 class BrandingApplication(ApplicationBrandingMixin):
-    pass
+    def __init__(self) -> None:
+        self.app_names: list[str] = []
+        self.display_names: list[str] = []
+
+    def SetAppName(self, name: str) -> None:
+        self.app_names.append(name)
+
+    def SetAppDisplayName(self, name: str) -> None:
+        self.display_names.append(name)
 
 
 class FailingDockIcon(DockIconRecorder):
@@ -107,6 +115,21 @@ def test_application_exit_destroys_owned_dock_icon_once() -> None:
     assert icon.remove_calls == 1
     assert app._dock_icon is None
     assert (first_result, second_result) == (0, 0)
+
+
+def test_application_branding_sets_name_without_release_version(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Given: a wx application whose platform icon installation is isolated
+    app = BrandingApplication()
+    monkeypatch.setattr(application_branding, "install_macos_dock_icon", lambda: None)
+
+    # When: the shared application branding boundary initializes
+    app._install_application_branding()
+
+    # Then: native application identity uses only the product name
+    assert app.app_names == ["Phatch"]
+    assert app.display_names == ["Phatch"]
 
 
 def test_non_macos_branding_does_not_import_or_create_wx_taskbar_icon(

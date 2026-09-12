@@ -22,6 +22,14 @@ class DockIcon(Protocol):
     def RemoveIcon(self) -> bool: ...
 
 
+class ApplicationIdentity(Protocol):
+    _dock_icon: DockIcon | None
+
+    def SetAppName(self, name: str) -> None: ...
+
+    def SetAppDisplayName(self, name: str) -> None: ...
+
+
 @dataclass(frozen=True, slots=True)
 class DockIconInstallError(RuntimeError):
     resource: str
@@ -52,7 +60,9 @@ class ApplicationBrandingMixin:
 
     _dock_icon: DockIcon | None = None
 
-    def _install_application_branding(self) -> None:
+    def _install_application_branding(self: ApplicationIdentity) -> None:
+        self.SetAppName(NAME)
+        self.SetAppDisplayName(NAME)
         self._dock_icon = install_macos_dock_icon()
 
     def _cleanup_application_branding(self) -> None:
