@@ -76,10 +76,10 @@ uv run --extra gui python scripts/verify.py
 
 The canonical local gate includes the GUI suite and enforces 90% line, branch,
 and changed-module coverage. The headless command above is intentionally only a
-partial test run. CI makes its final coverage judgment after combining all nine
-non-GUI OS/Python contributors with the native Windows GUI contributor. Native
-Windows execution is still required downstream and is not proven by a local
-Linux or macOS run.
+partial test run. GitHub Actions is disabled, so release evidence comes from
+complete local runs on the platforms named in the release notes. The 0.4.0
+release was verified on macOS and Ubuntu; native Windows execution and a Windows
+binary are deferred.
 Local coverage verification derives its changed-module boundary from Git rather
 than treating the configured historical module list as authoritative.
 
@@ -312,9 +312,9 @@ cd tests
 python acceptance_test.py --clean
 ```
 
-## Continuous Integration
+## Automated Runners
 
-For CI environments:
+When running the gate in an automated environment:
 
 ```bash
 # Install all locked dependencies including optional ones
