@@ -901,7 +901,14 @@ class Checker(object):
         self.blank_lines_before_comment = 0
         self.tokens = []
         parens = 0
-        for token in tokenize.generate_tokens(self.readline_check_physical):
+        tokens = tokenize.generate_tokens(self.readline_check_physical)
+        while True:
+            try:
+                token = next(tokens)
+            except StopIteration:
+                break
+            except IndentationError:
+                break
             # print(tokenize.tok_name[token[0]], repr(token))
             self.tokens.append(token)
             token_type, text = token[0:2]
