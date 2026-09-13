@@ -444,9 +444,7 @@ class TreeMixin(treeDragDrop.Mixin):
             extra = {'choices': field.choices, 'on_change': on_change}
             typ = 'Choice'
         elif hasattr(field, 'choices') and field.choices:
-            # Any field with choices should use Choice dropdown for consistent behavior
-            extra = {'choices': field.choices, 'on_change': on_change}
-            typ = 'Choice'
+            extra = {'choices': field.choices}
         elif isinstance(field, formField.BooleanField):
             extra = {'on_change': on_change}
         else:
