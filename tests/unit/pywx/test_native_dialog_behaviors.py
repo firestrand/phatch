@@ -60,6 +60,44 @@ def test_progress_dialog_tracks_continue_skip_and_cancel_states(dialog_runtime) 
     assert result == {"keepgoing": False, "skip": False}
 
 
+def test_valid_file_confirmation_closes_verification_progress(
+    dialog_runtime, monkeypatch
+) -> None:
+    # Given
+    from phatch.core import api
+    from phatch.pyWx import dialogs
+    from phatch.services.legacy_execution import LegacyExecutionContext
+    from phatch.services.legacy_interaction import LegacyInteraction
+
+    parent, _counter, _root = dialog_runtime
+    context = LegacyExecutionContext(
+        (),
+        (),
+        {"stop_for_errors": False, "repeat": 1},
+        None,
+        False,
+    )
+    context.photo_state.valid_infos.append({"path": "valid.png"})
+    verification = dialogs.ProgressDialog(parent, "Checking images", 1)
+    monkeypatch.setattr(
+        api.send,
+        "frame_show_image_tree",
+        lambda result, *args, **kwargs: result.update(answer=True),
+    )
+
+    # When
+    assert LegacyInteraction(context).confirm_valid_files(())
+
+    # Then
+    assert verification._listeners == []
+    execution = dialogs.ProgressDialog(parent, "Executing action list", 1, 2)
+    result = {}
+    api.send.progress_update_filename(result, 0, "valid.png")
+    api.send.progress_update_index(result, 0, 0)
+    assert result == {"keepgoing": True, "skip": False}
+    execution.close()
+
+
 def test_action_dialog_filters_real_list_and_exposes_selected_values(
     dialog_runtime
 ) -> None:
@@ -131,11 +169,19 @@ def test_status_dialog_reflects_report_and_dispatches_parent_actions(
     # Given
     from phatch.pyWx import dialogs
 
+    class RecordingStatusDialog(dialogs.StatusDialog):
+        def __init__(self, parent: wx.Window) -> None:
+            self.modal_results: list[int] = []
+            super().__init__(parent)
+
+        def EndModal(self, retCode: int) -> None:
+            self.modal_results.append(retCode)
+
     parent, _counter, _root = dialog_runtime
     calls: list[str] = []
     parent.show_report = lambda: calls.append("report")
     parent.show_log = lambda: calls.append("log")
-    dialog = dialogs.StatusDialog(parent)
+    dialog = RecordingStatusDialog(parent)
     app = wx.GetApp()
 
     # When
@@ -146,8 +192,7 @@ def test_status_dialog_reflects_report_and_dispatches_parent_actions(
     assert vars(app)["report"] == [("image.jpg",)]
     assert dialog.report.IsShown()
 
-    dialog.Show()
     dialog.on_button_report(wx.CommandEvent())
-    dialog.Show()
     dialog.on_button_log(wx.CommandEvent())
     assert calls == ["report", "log"]
+    assert dialog.modal_results == [wx.ID_OK, wx.ID_OK]

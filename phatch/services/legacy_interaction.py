@@ -128,6 +128,7 @@ class LegacyInteraction:
     def confirm_valid_files(self, files: tuple[DiscoveredFile, ...]) -> bool:
         from phatch.core import api
 
+        api.send.progress_close()
         for index, info in enumerate(self.context.photo_state.valid_infos):
             info["index"] = index * _setting_int(self.context.settings, "repeat")
         result: dict[str, object] = {}
