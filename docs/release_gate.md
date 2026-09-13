@@ -1,18 +1,26 @@
-# CI and Portable Artifacts
+# Release Verification and Artifacts
 
-The GitHub Actions workflow is configured to validate CPython 3.11-3.13 on
-Windows, Linux, and macOS. It separates fast Python 3.12 quality checks, the
-non-GUI OS/Python matrix, the same 3-by-3 OS/Python distribution matrix, native
-Windows GUI behavior, Windows path failures, optional-capability contracts, the
-Windows portable build, and a second job that downloads and re-tests the
-uploaded portable archive.
+GitHub Actions is disabled for this repository. Workflow definitions are kept
+for future use, but they are not release evidence and must not be enabled as
+part of the 0.4.0 release. The stable release is gated by complete local runs of
+`uv run --extra gui python scripts/verify.py` on macOS and Ubuntu, followed by
+native GUI processing on both desktops and fresh-artifact validation on macOS.
 
-All external actions are pinned to full immutable commits listed with their
-official tag API sources in `.github/action-pins.txt`. The workflow grants only
-`contents: read`. It uploads workflow artifacts for review but does not create a
-release, publish a package, sign binaries, or upload to a public registry.
+The canonical gate checks the lock file, formatting, linting, typing, the full
+test suite, 90% line and branch coverage, changed-module coverage, wheel and
+source-distribution builds, and package metadata. Headless or focused test runs
+are partial checks and do not satisfy the release gate.
 
-## Portable Windows Build
+## Stable 0.4.0 Scope
+
+The published binary is `Phatch-0.4.0-macos-arm64.zip` for Apple silicon on
+macOS 14 or newer. It is ad-hoc signed and is not Developer ID signed or
+notarized. The release also provides the matching SHA-256 sidecar. Ubuntu 24.04
+is validated as a source installation from the exact tag; no Linux binary is
+published. Windows source support remains in the repository, but native Windows
+verification and the unsigned portable Windows archive are deferred.
+
+## Deferred Portable Windows Build
 
 `packaging/phatch.spec` produces unsigned x64 one-folder `Phatch.exe` and
 `Phatch-GUI.exe` applications on native Windows with Python 3.12. The reviewed
@@ -52,6 +60,5 @@ exiftran adapters remain optional capability boundaries. The portable artifact
 includes wxPython and pywin32 but does not bundle those external executables or
 promise HEIF/AVIF support when their providers/codecs are unavailable.
 
-The portable build is Windows x64 only. The workflow is configured to validate
-macOS and Linux source, sdist, and wheel installations; no native portable
-application is claimed for those targets.
+The portable build design is Windows x64 only. It is not an artifact of the
+0.4.0 stable release and is not covered by the macOS and Ubuntu evidence above.
