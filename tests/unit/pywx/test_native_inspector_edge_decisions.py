@@ -13,7 +13,7 @@ from tests.unit.pywx.native_inspector_support import (
 from tests.unit.pywx.native_inspector_support import native_runtime as native_runtime
 from tests.unit.pywx.native_inspector_support import show_frame, wx
 from tests.unit.pywx.native_inspector_support import wx_app as wx_app
-from tests.unit.pywx.native_popup_support import wait_until
+from tests.unit.pywx.native_popup_support import pump_events, wait_until
 
 pytestmark = pytest.mark.requires_display
 
@@ -180,13 +180,21 @@ def test_corner_logo_loads_bitmap_through_native_paint(
 ) -> None:
     from phatch.lib.pyWx import imageInspector
 
-    _frame_window, grid = _frame(str(jpeg_path))
+    frame_window, grid = _frame(str(jpeg_path))
     monkeypatch.setattr(
         grid, "corner_logo", zlib.compress(imageInspector.getPencilData())
     )
     grid._corner_logo = None
 
-    grid.OnCornerLabelPaint(None)
+    corner_window = grid.GetGridCornerLabelWindow()
+    corner_window.Bind(wx.EVT_PAINT, grid.OnCornerLabelPaint)
+    frame_size = frame_window.GetSize()
+    frame_window.SetSize(wx.Size(frame_size.width + 1, frame_size.height + 1))
+    corner_window.Hide()
+    pump_events()
+    corner_window.Show()
+    corner_window.Refresh()
+    wait_until(lambda: grid._corner_logo is not None)
 
     corner_logo = grid._corner_logo
     assert corner_logo is not None
@@ -199,9 +207,6 @@ def test_modified_image_activation_focuses_filter_control(
     frame, grid = _frame(str(jpeg_path))
     app = wx.GetApp()
     app.SetTopWindow(frame)
-    frame.Raise()
-    frame.SetFocus()
-    wait_until(frame.IsActive)
     old_time = grid.image_table.images[0].time
     os.utime(jpeg_path, (old_time + 10, old_time + 10))
 

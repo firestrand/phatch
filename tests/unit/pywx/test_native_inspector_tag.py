@@ -145,7 +145,8 @@ def test_child_frame_applies_floating_style_and_icon(native_runtime) -> None:
 
     # Given
     parent = wx.Frame(None, title="Parent")
-    icon = wx.Icon(imageInspector.getPencilBitmap())
+    icon = wx.Icon()
+    icon.CopyFromBitmap(imageInspector.getPencilBitmap())
 
     # When
     frame = inspectorTag.Frame(
@@ -162,7 +163,10 @@ def test_child_frame_applies_floating_style_and_icon(native_runtime) -> None:
     # Then
     assert frame.GetWindowStyle() & wx.FRAME_FLOAT_ON_PARENT
     assert frame.GetWindowStyle() & wx.FRAME_NO_TASKBAR
-    assert frame.GetIcon().IsOk()
+    frame_icon = frame.GetIcons().GetIcon(
+        wx.Size(icon.GetWidth(), icon.GetHeight())
+    )
+    assert frame_icon.IsOk()
     grid = frame.GetGrid()
     assert isinstance(grid, inspectorTag.TestContentGrid)
     assert grid.GetNumberRows() == 100

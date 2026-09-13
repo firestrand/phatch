@@ -8,6 +8,7 @@ from tests.unit.pywx.native_inspector_support import jpeg_path as jpeg_path
 from tests.unit.pywx.native_inspector_support import native_runtime as native_runtime
 from tests.unit.pywx.native_inspector_support import show_frame, wx
 from tests.unit.pywx.native_inspector_support import wx_app as wx_app
+from tests.unit.pywx.native_popup_support import pump_events
 
 pytestmark = pytest.mark.requires_display
 
@@ -149,7 +150,11 @@ def test_native_corner_and_keyboard_handlers_paint_and_skip(
         or True,
     )
 
-    grid.OnCornerLabelPaint(None)
+    corner_window = grid.GetGridCornerLabelWindow()
+    corner_window.Bind(wx.EVT_PAINT, grid.OnCornerLabelPaint)
+    corner_window.Refresh()
+    corner_window.Update()
+    pump_events()
     grid.OnKeyDown(event)
 
     assert grid._corner_logo.IsOk()
@@ -164,7 +169,8 @@ def test_child_frame_opens_isolated_folder_with_icon(
 
     parent = wx.Frame(None, title="Parent")
     show_frame(parent)
-    icon = wx.Icon(imageInspector.getPencilBitmap())
+    icon = wx.Icon()
+    icon.CopyFromBitmap(imageInspector.getPencilBitmap())
 
     frame = imageInspector.Frame(
         parent,
@@ -175,7 +181,10 @@ def test_child_frame_opens_isolated_folder_with_icon(
     show_frame(frame)
 
     assert frame.GetWindowStyle() & wx.FRAME_FLOAT_ON_PARENT
-    assert frame.GetIcon().IsOk()
+    frame_icon = frame.GetIcons().GetIcon(
+        wx.Size(icon.GetWidth(), icon.GetHeight())
+    )
+    assert frame_icon.IsOk()
     grid = frame.GetGrid()
     assert isinstance(grid, imageInspector.GridTag)
     assert grid.GetNumberCols() == 1
