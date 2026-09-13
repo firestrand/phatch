@@ -39,7 +39,8 @@ def test_vlist_initializes_geometry_theme_and_selection(native_frame) -> None:
     assert control.GetIconSize() == (48, 48)
     assert control.OnMeasureItem(0) == 72
     assert control.GetSelection() == 0
-    assert control._theme == "light_blue"
+    expected_theme = "default" if wx.Platform == "__WXGTK__" else "light_blue"
+    assert control._theme == expected_theme
     assert control.GetItem(1)[0:2] == ("label 1", "summary 1")
 
 

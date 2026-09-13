@@ -32,20 +32,21 @@ def test_macos_collection_uses_only_configured_directory_list(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     # Given: deterministic results for the current macOS collector
+    module = load_fonts_for_platform(monkeypatch, "darwin")
     observed: list[list[str]] = []
 
     def collect(directories: list[str]) -> list[str]:
         observed.append(directories)
         return ["/fonts/FreeSans.ttf"]
 
-    monkeypatch.setattr(fonts, "collect_fonts_from_dirs", collect)
+    monkeypatch.setattr(module, "collect_fonts_from_dirs", collect)
 
     # When: platform font discovery runs
-    discovered = fonts.collect_fonts()
+    discovered = module.collect_fonts()
 
     # Then: only the declared macOS roots are passed to recursive discovery
     assert discovered == ["/fonts/FreeSans.ttf"]
-    assert observed == [fonts.MACOS_FONT_DIRS]
+    assert observed == [module.MACOS_FONT_DIRS]
 
 
 def test_linux_collection_prefers_known_directories(

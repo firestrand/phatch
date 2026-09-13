@@ -18,13 +18,14 @@ pytestmark = [pytest.mark.unit, pytest.mark.requires_display]
 def test_forced_sizer_applies_requested_native_control_height(native_frame):
     # Given
     button = wx.Button(panel(native_frame), label="Browse")
+    native_height = button.GetSize().height
     sizer = popup.ForcedBoxSizer(wx.HORIZONTAL, 28, border=2)
 
     # When
     sizer.AddForced(button, 1)
 
     # Then
-    assert button.GetMinSize().height == 20
+    assert button.GetMinSize().height == min(native_height, 24)
 
 
 def test_abstract_composed_control_reports_missing_widget_contract(native_frame):

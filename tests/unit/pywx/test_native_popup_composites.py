@@ -160,11 +160,14 @@ def test_autocomplete_dictionary_and_folder_controls_close_event_bindings(
 
 
 
-def test_font_control_uses_existing_font_directory(native_frame, tmp_path: Path):
+def test_font_control_uses_existing_font_directory(
+    native_frame, tmp_path: Path, monkeypatch
+):
     # Given
     font_dir = tmp_path / "fonts"
     font_dir.mkdir()
     font_path = font_dir / "font.ttf"
+    monkeypatch.setattr(popup, "FONT_PATHS", [str(font_dir)])
     control = popup.FontFileCtrl(
         panel(native_frame),
         str(font_path),
