@@ -22,6 +22,7 @@ class NativeInteractionGuard:
     def __init__(self) -> None:
         self._dialogs: deque[DialogExpectation] = deque()
         self._popups: deque[bool] = deque()
+        self._paths: dict[int, str] = {}
         self._main_loops = 0
         self.main_loop_apps: list[wx.App] = []
 
@@ -55,6 +56,7 @@ class NativeInteractionGuard:
         if expected.path is not None:
             match dialog:
                 case wx.FileDialog() | wx.DirDialog():
+                    self._paths[id(dialog)] = expected.path
                     dialog.SetPath(expected.path)
                 case _:
                     raise AssertionError(
@@ -82,6 +84,9 @@ class NativeInteractionGuard:
                 for control, value in zip(controls, expected.values, strict=False):
                     control.SetValue(value)
         return expected.result
+
+    def scripted_path(self, dialog: wx.Dialog) -> str | None:
+        return self._paths.get(id(dialog))
 
     def popup_menu(self, window: wx.Window, menu: wx.Menu, *args, **kwargs) -> bool:
         del window, menu, args, kwargs

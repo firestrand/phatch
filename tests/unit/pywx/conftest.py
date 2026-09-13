@@ -17,6 +17,9 @@ def pytest_runtest_makereport(item, call) -> None:
 @pytest.fixture(autouse=True)
 def native_interaction(monkeypatch, request) -> Iterator[NativeInteractionGuard]:
     guard = NativeInteractionGuard()
+    file_get_path = wx.FileDialog.GetPath
+    file_get_paths = wx.FileDialog.GetPaths
+    dir_get_path = wx.DirDialog.GetPath
 
     def show_modal(dialog: wx.Dialog) -> int:
         return guard.show_modal(dialog)
@@ -26,6 +29,16 @@ def native_interaction(monkeypatch, request) -> Iterator[NativeInteractionGuard]
 
     def main_loop(app: wx.App) -> None:
         guard.main_loop(app)
+
+    def get_file_path(dialog: wx.FileDialog) -> str:
+        return guard.scripted_path(dialog) or file_get_path(dialog)
+
+    def get_file_paths(dialog: wx.FileDialog) -> list[str]:
+        path = guard.scripted_path(dialog)
+        return [path] if path is not None else file_get_paths(dialog)
+
+    def get_dir_path(dialog: wx.DirDialog) -> str:
+        return guard.scripted_path(dialog) or dir_get_path(dialog)
 
     def unexpected_prompt(*args, **kwargs):
         raise AssertionError(
@@ -42,6 +55,9 @@ def native_interaction(monkeypatch, request) -> Iterator[NativeInteractionGuard]
         monkeypatch.setattr(dialog_type, "ShowModal", show_modal)
     monkeypatch.setattr(wx.Window, "PopupMenu", popup_menu)
     monkeypatch.setattr(wx.App, "MainLoop", main_loop)
+    monkeypatch.setattr(wx.FileDialog, "GetPath", get_file_path)
+    monkeypatch.setattr(wx.FileDialog, "GetPaths", get_file_paths)
+    monkeypatch.setattr(wx.DirDialog, "GetPath", get_dir_path)
     for name in (
         "MessageBox",
         "GetTextFromUser",
