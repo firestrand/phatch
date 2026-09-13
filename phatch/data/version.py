@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses/
 
-VERSION = "0.4.0rc2"
+VERSION = "0.4.0"
 BASE = VERSION
-DATE = "Sun, 13 Sep 2026 20:20:26 +0000"
+DATE = "Sun, 13 Sep 2026 23:33:33 +0000"
 MACOS_VERSION = "0.4.0"
-MACOS_BUILD_VERSION = "2"
+MACOS_BUILD_VERSION = "3"

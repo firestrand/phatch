@@ -33,9 +33,9 @@ def test_package_identity_matches_current_runtime_metadata() -> None:
     # When: callers inspect its public name and version
     # Then: the historical distribution identity remains stable
     assert info.NAME == "Phatch"
-    assert VERSION == "0.4.0rc2"
+    assert VERSION == "0.4.0"
     assert MACOS_VERSION == "0.4.0"
-    assert MACOS_BUILD_VERSION == "2"
+    assert MACOS_BUILD_VERSION == "3"
 
 
 def test_core_image_and_console_dependencies_support_current_behavior() -> None:
