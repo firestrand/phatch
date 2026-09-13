@@ -154,7 +154,7 @@ class _CtrlRelevantMixin:
             wx.CallAfter(self.OnAfterChange)
 
     def OnAfterChange(self):
-        if hasattr(self, 'on_change'):
+        if self and not self.IsBeingDeleted() and hasattr(self, 'on_change'):
             self.on_change(str(self.Get()))
 
 
