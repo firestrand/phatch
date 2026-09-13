@@ -5,7 +5,6 @@ import os
 import signal
 import subprocess
 import sys
-import tempfile
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -38,12 +37,16 @@ class InstalledPhatch:
             timeout=60,
         )
 
-    def start(self, *arguments: str) -> subprocess.Popen[str]:
+    def start(
+        self,
+        *arguments: str,
+        environment: dict[str, str] | None = None,
+    ) -> subprocess.Popen[str]:
         creationflags = subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0
         return subprocess.Popen(
             [str(self.command), *arguments],
             cwd=self.work,
-            env=self.environment,
+            env={**self.environment, **(environment or {})},
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
@@ -479,25 +482,29 @@ def test_parallel_sigint_terminates_workers_and_cleans_stages(
             "resolution": "72",
         },
     )
+    temporary = installed_phatch.work / "parallel temporary"
+    temporary.mkdir()
     process = installed_phatch.start(
         "--max-workers",
         "2",
         "--report-format=json",
         str(action_list),
         *(str(path) for path in inputs),
+        environment={
+            "TMPDIR": str(temporary),
+            "TEMP": str(temporary),
+            "TMP": str(temporary),
+        },
     )
     worker_pids: set[int] = set()
-    if os.name == "nt":
-        time.sleep(0.5)
-    else:
-        deadline = time.monotonic() + 10
-        while time.monotonic() < deadline and len(worker_pids) < 2:
-            if process.poll() is not None:
-                stdout, stderr = process.communicate()
-                pytest.fail(f"process completed before SIGINT: {stdout=} {stderr=}")
-            worker_pids = _spawn_worker_pids(process.pid)
-            time.sleep(0.01)
-        assert len(worker_pids) >= 2
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline and len(worker_pids) < 2:
+        if process.poll() is not None:
+            stdout, stderr = process.communicate()
+            pytest.fail(f"process completed before SIGINT: {stdout=} {stderr=}")
+        worker_pids = _registered_worker_pids(temporary)
+        time.sleep(0.01)
+    assert len(worker_pids) >= 2
 
     interrupted = time.monotonic()
     interrupt = signal.CTRL_BREAK_EVENT if os.name == "nt" else signal.SIGINT
@@ -511,7 +518,6 @@ def test_parallel_sigint_terminates_workers_and_cleans_stages(
     if os.name != "nt":
         remaining_pids = {pid for pid in worker_pids if _pid_exists(pid)}
         assert remaining_pids == set()
-    temporary = Path(tempfile.gettempdir())
     assert all(
         not tuple(temporary.glob(f".{input_path.name}.worker-*"))
         for input_path in inputs
@@ -602,30 +608,15 @@ def test_installed_wheel_parallel_save_reports_real_worker_pids(
     assert len(worker_pids) == 2
 
 
-def _spawn_worker_pids(root_pid: int) -> set[int]:
-    completed = subprocess.run(
-        ["ps", "-axo", "pid=,ppid=,command="],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    rows = tuple(
-        (int(parts[0]), int(parts[1]), parts[2])
-        for line in completed.stdout.splitlines()
-        if len(parts := line.split(maxsplit=2)) == 3
-    )
-    descendants = {root_pid}
-    while True:
-        expanded = descendants | {
-            pid for pid, parent_pid, _command in rows if parent_pid in descendants
-        }
-        if expanded == descendants:
-            return {
-                pid
-                for pid, _parent_pid, command in rows
-                if pid in descendants and "multiprocessing.spawn" in command
-            }
-        descendants = expanded
+def _registered_worker_pids(temporary: Path) -> set[int]:
+    pids: set[int] = set()
+    for registry in temporary.glob("phatch-worker-pids-*"):
+        try:
+            markers = tuple(registry.iterdir())
+        except FileNotFoundError:
+            continue
+        pids.update(int(marker.name) for marker in markers if marker.name.isdecimal())
+    return pids
 
 
 def _pid_exists(pid: int) -> bool:
