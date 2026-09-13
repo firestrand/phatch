@@ -113,6 +113,7 @@ if is_macos:
             "CFBundleName": NAME,
             "CFBundleDisplayName": NAME,
             "CFBundleVersion": MACOS_BUILD_VERSION,
+            "LSMinimumSystemVersion": "14.0",
         },
     )
 else:

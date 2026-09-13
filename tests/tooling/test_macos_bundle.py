@@ -20,6 +20,7 @@ def test_pyinstaller_spec_declares_native_macos_application_identity() -> None:
     assert '"CFBundleDisplayName": NAME' in macos_bundle[1]
     assert "version=MACOS_VERSION" in macos_bundle[1]
     assert '"CFBundleVersion": MACOS_BUILD_VERSION' in macos_bundle[1]
+    assert '"LSMinimumSystemVersion": "14.0"' in macos_bundle[1]
 
 
 @pytest.mark.unit
