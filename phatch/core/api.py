@@ -653,6 +653,7 @@ def import_actions():
         user=tuple(Path(filename) for filename in
             glob.glob(os.path.join(ct.USER_ACTIONS_PATH, '*.py'))),
         action_attribute=ct.ACTION,
+        built_in_package="phatch.actions",
     )
     result = build_action_registry(sources)
     match result:

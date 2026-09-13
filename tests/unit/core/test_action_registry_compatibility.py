@@ -109,7 +109,7 @@ def test_successful_import_publishes_exact_legacy_projection_shapes(
     configure_catalog(
         monkeypatch,
         {
-            "actions.first": plugin("actions.first", FirstAction),
+            "phatch.actions.first": plugin("phatch.actions.first", FirstAction),
             "first": plugin("first", OverrideAction),
         },
     )
@@ -136,7 +136,7 @@ def test_failed_rebuild_preserves_prior_projection_objects(monkeypatch) -> None:
     configure_catalog(
         monkeypatch,
         {
-            "actions.first": plugin("actions.first", FirstAction),
+            "phatch.actions.first": plugin("phatch.actions.first", FirstAction),
             "first": plugin("first", BrokenAction),
         },
     )

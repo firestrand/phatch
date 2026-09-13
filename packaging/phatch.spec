@@ -1,36 +1,42 @@
 import sys
 from pathlib import Path
 
-from PyInstaller.utils.hooks import collect_data_files, collect_submodules
+from PyInstaller.utils.hooks import collect_data_files
 
 from phatch.data.info import NAME
-from phatch.data.version import VERSION
+from phatch.data.version import MACOS_BUILD_VERSION, MACOS_VERSION
 
 
 root = Path(SPEC).resolve().parents[1]
 is_macos = sys.platform == "darwin"
 console_executable_name = "Phatch-CLI" if is_macos else "Phatch"
 gui_executable_name = NAME if is_macos else "Phatch-GUI"
-data_files = collect_data_files("phatch_assets") + [
+action_sources = [
+    (str(path), "phatch/actions")
+    for path in sorted((root / "phatch" / "actions").glob("*.py"))
+]
+
+
+def module_name(path):
+    parts = path.relative_to(root).with_suffix("").parts
+    if parts[-1] == "__init__":
+        parts = parts[:-1]
+    return ".".join(parts)
+
+
+package_modules = [
+    module_name(path) for path in sorted((root / "phatch").rglob("*.py"))
+]
+data_files = collect_data_files("phatch_assets") + action_sources + [
     (str(root / "COPYING"), "."),
     (str(root / "AUTHORS"), "."),
     (str(root / "packaging" / "portable-data" / ".keep"), "portable-data"),
 ]
-hidden_imports = (
-    collect_submodules("phatch.actions")
-    + collect_submodules("phatch.core")
-    + collect_submodules("phatch.data")
-    + collect_submodules("phatch.lib")
-    + collect_submodules("phatch.other")
-    + collect_submodules("phatch.services")
-    + collect_submodules("phatch.pyWx")
-)
+hidden_imports = package_modules
 hook_paths = [str(root / "packaging" / "hooks")]
-runtime_hooks = (
-    []
-    if is_macos
-    else [str(root / "packaging" / "hooks" / "runtime_phatch_legacy_imports.py")]
-)
+runtime_hooks = [
+    str(root / "packaging" / "hooks" / "runtime_phatch_legacy_imports.py")
+]
 
 console_analysis = Analysis(
     [str(root / "packaging" / "console_entry.py")],
@@ -102,10 +108,11 @@ if is_macos:
         collection,
         name="Phatch.app",
         bundle_identifier="org.phatch.Phatch",
-        version=VERSION,
+        version=MACOS_VERSION,
         info_plist={
             "CFBundleName": NAME,
             "CFBundleDisplayName": NAME,
+            "CFBundleVersion": MACOS_BUILD_VERSION,
         },
     )
 else:

@@ -78,10 +78,15 @@ SAVE_ACTION_NEEDED = _("There should be a 'Save' action at the end.")
 #---paths
 if hasattr(sys, "frozen"):
     FILE = sys.argv[0]
+    BUNDLE_PATH = getattr(
+        sys, '_MEIPASS', os.path.dirname(os.path.dirname(FILE)))
+    PHATCH_ACTIONS_PATH = os.path.join(
+        BUNDLE_PATH, 'phatch', 'actions')
 else:
     FILE = __file__
+    PHATCH_ACTIONS_PATH = os.path.join(
+        os.path.dirname(os.path.dirname(FILE)), 'actions')
 PATH = os.path.dirname(os.path.dirname(FILE))
-PHATCH_ACTIONS_PATH = os.path.join(PATH, 'actions')
 
 PATH_DELIMITER = ';'
 
