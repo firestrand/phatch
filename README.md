@@ -50,16 +50,41 @@ See [Action Lists and Automation](docs/action_list_schema.md) for the versioned
 schema, read-only preflight, JSON report, resume, capability, and exit-code
 contracts.
 
-See [CI and Portable Artifacts](docs/release_gate.md) for supported CI targets,
-unsigned Windows portable behavior, optional capabilities, manifests, and
-artifact scanning.
+See [Release Verification and Artifacts](docs/release_gate.md) for the current
+release evidence, platform scope, optional capabilities, and artifact scanning.
 
 ### Installation
 
+macOS 14 or newer on Apple silicon can use the ad-hoc-signed application from
+the [v0.4.0 release](https://github.com/firestrand/phatch/releases/tag/v0.4.0).
+Download both files, verify the checksum, extract the archive, and move the app:
+
 ```bash
-# Standard wheel install (uv is not required)
-python -m pip install "Phatch[gui]"
+shasum -a 256 -c Phatch-0.4.0-macos-arm64.zip.sha256
+ditto -x -k Phatch-0.4.0-macos-arm64.zip Phatch-0.4.0
+mv Phatch-0.4.0/Phatch.app /Applications/
+open /Applications/Phatch.app
 ```
+
+The application is ad-hoc signed, not Developer ID signed or notarized. On the
+first launch, macOS may require Control-clicking `Phatch.app`, choosing Open,
+and confirming Open. Do not disable Gatekeeper globally.
+
+Ubuntu 24.04 and other source installations require Python development headers
+and wxPython build dependencies supplied by the operating system. From a clean
+checkout of the stable tag, install into an isolated environment with `uv`:
+
+```bash
+git clone --branch v0.4.0 --depth 1 https://github.com/firestrand/phatch.git
+cd phatch
+uv venv --python 3.12
+uv sync --locked --extra gui
+uv run phatch --help
+uv run phatch-gui
+```
+
+The project is not published to PyPI as part of this release. The tag-bound
+source checkout above and the macOS archive are the supported 0.4.0 inputs.
 
 ## 🧪 Testing
 
@@ -70,8 +95,8 @@ uv sync --locked --dev --extra gui
 # Run the canonical local gate, including automated native GUI tests and 90% coverage
 uv run --extra gui python scripts/verify.py
 
-# CI must identify the comparison base explicitly
-uv run --extra gui python scripts/verify.py --base-ref origin/master
+# An automated runner must identify the comparison base explicitly
+CI=1 uv run --extra gui python scripts/verify.py --base-ref origin/master
 
 # Run the headless suite only; this is partial testing, not a coverage pass
 uv run pytest --no-cov --ignore=tests/unit/pywx \
@@ -79,11 +104,11 @@ uv run pytest --no-cov --ignore=tests/unit/pywx \
   --ignore=tests/integration/test_windows_gui_runtime.py
 ```
 
-The GUI tests are scripted and guarded against human input. CI combines raw
-branch coverage from the required nine-job non-GUI matrix with the native
-Windows GUI contributor before enforcing the same 90% global and changed-module
-thresholds. Actual native Windows completion remains a downstream release gate;
-local runs on other platforms do not constitute a native Windows claim.
+The GUI tests are scripted and guarded against human input. GitHub Actions is
+disabled for this repository, so the 0.4.0 release is gated by complete local
+macOS and Ubuntu runs of `scripts/verify.py`, including the same 90% line,
+branch, and changed-module thresholds. Windows remains supported source code
+but was not natively verified for 0.4.0, and no Windows binary is published.
 Local coverage checks derive changed production modules directly from Git, so
 new or unlisted files cannot bypass the changed-module threshold.
 
