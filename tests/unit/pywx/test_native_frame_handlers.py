@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import warnings
+
 import pytest
 
 from phatch.core import config
@@ -211,18 +213,21 @@ def test_dynamic_menu_item_dispatches_on_real_frame(native_frame_harness) -> Non
     def on_dynamic(frame, event) -> None:
         calls.append(event.GetId())
 
-    item_id = native_frame_harness.frame.install_menu_item(
-        native_frame_harness.frame.menu_tools,
-        "menu_tools_dynamic",
-        "Dynamic",
-        on_dynamic,
-    )
+    with warnings.catch_warnings(record=True) as deprecations:
+        warnings.simplefilter("always", wx.wxPyDeprecationWarning)
+        item_id = native_frame_harness.frame.install_menu_item(
+            native_frame_harness.frame.menu_tools,
+            "menu_tools_dynamic",
+            "Dynamic",
+            on_dynamic,
+        )
 
     # When: wx dispatches the installed item
     native_frame_harness.dispatch_menu(native_frame_harness.frame.menu_tools_dynamic)
 
     # Then: the bound callback receives the generated native ID
     assert calls == [item_id]
+    assert deprecations == []
 
 
 def test_update_fonts_handler_invokes_config_boundary(

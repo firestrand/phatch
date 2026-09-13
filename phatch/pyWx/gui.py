@@ -794,18 +794,19 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
 
         class ManagedDroplet(droplet.Frame):
             def show(self_inner, bool=True):
-                parent.Show(not bool)
                 if bool:
                     self_inner.Show()
+                    wx.CallAfter(parent.Hide)
                 else:
                     self_inner.Destroy()
+                    parent.Show(True)
                 self_inner.OnShow(bool)
 
         label_text = self.droplet_label_format(
             system.filename_to_title(self.filename)
         )
         return ManagedDroplet(
-            parent,
+            None,
             title=_("Drag & Drop") + ' - ' + ct.TITLE,
             bitmap=graphics.bitmap(images.DROPLET),
             method=self.on_drop,
@@ -814,7 +815,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
             label_pos=(8, 8),
             label_angle=0,
             pos=self.GetPosition(),
-            auto=True,
+            auto=False,
             OnShow=self.on_show_droplet,
             tooltip=_(
                 "Drop any files and/or folders on this Phatch droplet\n"
@@ -968,7 +969,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         #item
         item = wx.MenuItem(menu, -1, label, tooltip, style)
         setattr(self, name, item)
-        menu.InsertItem(0, item)
+        menu.Insert(0, item)
         #method
         method_name = 'on_' + name
         method = types.MethodType(method, self)
