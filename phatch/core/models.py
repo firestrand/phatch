@@ -105,12 +105,14 @@ class Action(Form):
     def ensure_path(self, path):
         self.plugin_context.files.ensure_path(path)
 
-    def values(self, info, pixel_fields=None, exclude=None):
+    def values(self, info, pixel_fields=None, exclude=None, include=None):
         # If action defines relevant fields, exclude irrelevant fields from validation
         if hasattr(self, 'get_relevant_field_labels'):
             if exclude is None:
                 exclude = []
             relevant = set(self.get_relevant_field_labels())
+            if include is not None:
+                relevant.update(include)
             all_fields = set(self.get_field_labels())
             irrelevant = all_fields - relevant
             # Merge with existing exclude list
@@ -209,10 +211,13 @@ class Action(Form):
         dialog = PATHS["USER_WATERMARKS_PATH"]  # _('Select Watermark')
 
         def init_dictionary(self):
+            from phatch.core import config as runtime_config
+
             self.dictionary = files_dictionary(
                 paths=[
-                    PATHS["PHATCH_IMAGE_PATH"],
-                    PATHS["USER_WATERMARKS_PATH"],
+                    runtime_config.PATHS["PHATCH_IMAGE_PATH"],
+                    runtime_config.PATHS["PHATCH_ACTIONLISTS_PATH"],
+                    runtime_config.PATHS["USER_WATERMARKS_PATH"],
                 ],
                 extensions=self.extensions)
 
@@ -301,7 +306,7 @@ class OffsetMixin(object):
             relevant += ['Offset']
         return relevant
 
-    def values(self, info, pixel_fields=None, exclude=None):
+    def values(self, info, pixel_fields=None, exclude=None, include=None):
         if exclude is None:
             exclude = []
         #transform position, offset to custom
@@ -339,8 +344,15 @@ class OffsetMixin(object):
                 'Horizontal Offset': x,
                 'Vertical Offset': y,
             })
+        derived = (
+            'Horizontal Offset',
+            'Vertical Offset',
+            'Horizontal Justification',
+            'Vertical Justification',
+        )
+        include = tuple(include or ()) + derived
         return super(OffsetMixin, self).values(info,
-            pixel_fields=pixel_fields, exclude=exclude)
+            pixel_fields=pixel_fields, exclude=exclude, include=include)
 
 
 class StampMixin(OffsetMixin):
