@@ -11,6 +11,7 @@ from phatch.services.parallel_image_jobs import (
     ESTIMATED_BYTES_PER_PIXEL,
     ESTIMATED_FRAME_OVERHEAD_BYTES,
     ImageJob,
+    ImageJobCancelled,
     ImageJobFailure,
     ImageJobSuccess,
     execute_image_jobs,
@@ -192,7 +193,7 @@ def test_future_failure_preserves_unrelated_success(
     assert "worker failed" in result.results[1].reason
 
 
-def test_keyboard_interrupt_uses_non_waiting_cancel_shutdown(
+def test_keyboard_interrupt_returns_cancelled_jobs_with_non_waiting_shutdown(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     # Given
@@ -200,7 +201,7 @@ def test_keyboard_interrupt_uses_non_waiting_cancel_shutdown(
     executor = _RecordingExecutor(
         [
             _failed(KeyboardInterrupt()),
-            _completed(parallel_image_jobs._execute_image_job(jobs[1])),
+            Future(),
         ]
     )
     monkeypatch.setattr(
@@ -210,9 +211,11 @@ def test_keyboard_interrupt_uses_non_waiting_cancel_shutdown(
         raising=False,
     )
 
-    # When / Then
-    with pytest.raises(KeyboardInterrupt):
-        execute_image_jobs(jobs, 2)
+    # When
+    result = execute_image_jobs(jobs, 2)
+
+    # Then
+    assert all(isinstance(item, ImageJobCancelled) for item in result.results)
     assert executor.shutdown_calls == [(False, True)]
 
 
