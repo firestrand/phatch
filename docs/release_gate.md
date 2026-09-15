@@ -62,3 +62,26 @@ promise HEIF/AVIF support when their providers/codecs are unavailable.
 
 The portable build design is Windows x64 only. It is not an artifact of the
 0.4.0 stable release and is not covered by the macOS and Ubuntu evidence above.
+
+## Unpublished 0.5 Candidate
+
+The 0.5 usability work is a source candidate until the complete native macOS and
+Ubuntu gates, packaging checks, and release authorization are complete. There is
+no published 0.5 tag, PyPI release, Linux binary, or downloadable 0.5 macOS ZIP.
+Candidate documentation must point to an authorized local checkout or candidate
+wheel rather than inventing a remote artifact.
+
+Task-focused tests and historical 0.4.0 logs do not establish 0.5 release
+readiness. The candidate gate remains the same canonical command with `CI`
+unset so native checks are not bypassed:
+
+```bash
+env -u CI uv run --frozen --extra gui python scripts/verify.py
+```
+
+Ubuntu launcher verification additionally uses a user-owned prefix whose path
+contains a space, installs the XDG desktop entry and icon, launches with
+`gtk-launch` from outside the checkout, and removes only those owned files.
+macOS verification must use the candidate application produced by the packaging
+task; the published 0.4.0 Apple-silicon ZIP remains historical evidence only.
+Windows native 0.5 verification and binaries remain deferred.
