@@ -8,10 +8,14 @@ from typing import Any
 
 from phatch.core import api
 from phatch.core.execution_ports import ActionRegistry
-from phatch.core.execution_types import RecoveryConfiguration
+from phatch.core.execution_types import ExecutionResult, RecoveryConfiguration
 from phatch.core.plugin_context import PluginContext
 from phatch.lib import formField
-from phatch.services.preflight import PreflightRequest, PreflightResult, PreflightService
+from phatch.services.preflight import (
+    PreflightRequest,
+    PreflightResult,
+    PreflightService,
+)
 
 
 class ActionListError(Exception):
@@ -72,7 +76,9 @@ class ActionListService:
             api.open_actionlist
         ),
         save_actionlist: Callable[[str, Mapping[str, Any]], None] = api.save_actionlist,
-        apply_actions_to_photos: Callable[..., None] = api.apply_actions_to_photos,
+        apply_actions_to_photos: Callable[..., ExecutionResult] = (
+            api.apply_actions_to_photos
+        ),
         safe_mode_checker: Callable[[], bool] = formField.get_safe,
         *,
         registry: ActionRegistry | None = None,
@@ -157,15 +163,14 @@ class ActionListService:
         update_callback: Callable[[], None] | None = None,
         recovery: RecoveryConfiguration | None = None,
         **kwargs: Any,
-    ) -> None:
+    ) -> ExecutionResult:
         """Apply the action list to the provided inputs."""
 
         call_kwargs = dict(kwargs)
         if update_callback is not None and "update" not in call_kwargs:
             call_kwargs["update"] = update_callback
         if recovery is None:
-            self._apply_actions_to_photos(actions, settings, **call_kwargs)
-        else:
-            api.apply_actions_to_photos_with_recovery(
-                actions, settings, recovery, **call_kwargs
-            )
+            return self._apply_actions_to_photos(actions, settings, **call_kwargs)
+        return api.apply_actions_to_photos_with_recovery(
+            actions, settings, recovery, **call_kwargs
+        )

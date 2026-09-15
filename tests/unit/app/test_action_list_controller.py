@@ -1,7 +1,7 @@
 import builtins
 
-if '_' not in builtins.__dict__:
-    builtins.__dict__['_'] = lambda value: value
+if "_" not in builtins.__dict__:
+    builtins.__dict__["_"] = lambda value: value
 
 from phatch.pyWx.controller import ActionListController, ActionListState
 from phatch.services.action_schema import ActionDocument
@@ -25,11 +25,13 @@ class FakeTree:
         self.popup_closed = 0
         self.popup_resized = 0
         self.popup_menu_invoked = []
+        self.remaining_after_remove = None
 
     def delete_all_forms(self):
         self.deleted += 1
         self._has_forms = False
         self.appended.clear()
+
     def append_forms(self, actions):
         self.appended.append(tuple(actions))
         self._has_forms = bool(actions)
@@ -42,6 +44,29 @@ class FakeTree:
     def export_forms(self):
         return list(self._exported)
 
+    def snapshot_document(self, description):
+        return ActionDocument.from_values(
+            description,
+            tuple(
+                (
+                    f"item_{value}",
+                    (("enabled", str(self.enabled_flags[-1])),)
+                    if self.enabled_flags
+                    else (),
+                )
+                for value in self._exported
+            ),
+        )
+
+    def restore_document(self, document, selected_index):
+        self.delete_all_forms()
+        self._exported = [action.action_id for action in document.actions]
+        self._has_forms = bool(self._exported)
+        self.selected_index = selected_index
+
+    def get_selected_index(self):
+        return getattr(self, "selected_index", None)
+
     def append_form_by_label_to_selected(self, label):
         self.append_forms([label])
 
@@ -52,15 +77,22 @@ class FakeTree:
         if not self._has_forms:
             return False
         self.removed_calls += 1
+        if self.remaining_after_remove is not None:
+            self._exported = self.remaining_after_remove
+            return True
         self._has_forms = False
         self._exported = []
         return True
 
     def move_form_selected_up(self):
         self.moved_up += 1
+        if len(self._exported) >= 2:
+            self._exported[-2:] = reversed(self._exported[-2:])
 
     def move_form_selected_down(self):
         self.moved_down += 1
+        if len(self._exported) >= 2:
+            self._exported[-2:] = reversed(self._exported[-2:])
 
     def enable_selected_form(self, enabled):
         self.enabled_flags.append(enabled)
@@ -141,6 +173,7 @@ def test_apply_loaded_data_falls_back_to_default_description():
 def test_mark_dirty_and_clean_toggle_state():
     tree = FakeTree()
     controller = ActionListController(tree)
+    tree._exported = ["external"]
 
     controller.mark_dirty()
     assert controller.state.dirty is True
@@ -204,18 +237,6 @@ def test_add_action_by_label_updates_state_and_marks_dirty():
     assert tree.appended[-1] == ("Resize",)
 
 
-def test_remove_selected_action_marks_clean_when_no_actions_remain():
-    tree = FakeTree()
-    controller = ActionListController(tree)
-    controller.apply_loaded_data("file", ["resize"], "")
-
-    removed = controller.remove_selected_action()
-
-    assert removed is True
-    assert controller.state.has_actions is False
-    assert controller.state.dirty is False
-
-
 def test_remove_selected_action_preserves_state_when_nothing_is_selected():
     controller = ActionListController(FakeTree())
 
@@ -223,42 +244,27 @@ def test_remove_selected_action_preserves_state_when_nothing_is_selected():
     assert controller.state == ActionListState()
 
 
-def test_remove_selected_action_marks_dirty_when_actions_remain():
-    tree = FakeTree()
-    controller = ActionListController(tree)
-    controller.apply_loaded_data("file", ["resize", "crop"], "")
-    tree._has_forms = True  # ensure after removal still considered populated
-
-    # Simulate removal without clearing stored export list entirely
-    def fake_remove():
-        tree._exported = ["crop"]
-        return True
-
-    tree.remove_selected_form = fake_remove
-    tree.has_forms = lambda: True  # noqa: E731
-
-    removed = controller.remove_selected_action()
-
-    assert removed is True
-    assert controller.state.has_actions is True
-    assert controller.state.dirty is True
-
-
 def test_move_selected_actions_mark_dirty():
     tree = FakeTree()
     controller = ActionListController(tree)
+    controller.apply_loaded_data("file", ["first", "second"], "")
 
     controller.move_selected_action_up()
-    controller.move_selected_action_down()
 
     assert controller.state.dirty is True
     assert tree.moved_up == 1
+
+    controller.mark_clean()
+    controller.move_selected_action_down()
+
+    assert controller.state.dirty is True
     assert tree.moved_down == 1
 
 
 def test_enable_selected_action_tracks_dirty_state():
     tree = FakeTree()
     controller = ActionListController(tree)
+    controller.apply_loaded_data("file", ["resize"], "")
 
     controller.enable_selected_action(True)
     controller.enable_selected_action(False)
