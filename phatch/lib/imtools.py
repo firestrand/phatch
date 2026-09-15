@@ -418,14 +418,14 @@ def calculate_location(horizontal_offset, vertical_offset,
     if horizontal_justification == 'Left':
         horizontal_delta = 0
     elif horizontal_justification == 'Middle':
-        horizontal_delta = -image_width / 2
+        horizontal_delta = -image_width // 2
     elif horizontal_justification == 'Right':
         horizontal_delta = -image_width
 
     if vertical_justification == 'Top':
         vertical_delta = 0
     elif vertical_justification == 'Middle':
-        vertical_delta = -image_height / 2
+        vertical_delta = -image_height // 2
     elif vertical_justification == 'Bottom':
         vertical_delta = -image_height
 
