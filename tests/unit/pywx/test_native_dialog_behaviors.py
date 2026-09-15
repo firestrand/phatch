@@ -1,9 +1,19 @@
 from __future__ import annotations
 
+import builtins
+import json
+import sys
 from pathlib import Path
 
 import pytest
 import wx
+
+from phatch.lib.capabilities import (
+    Capability,
+    CapabilityId,
+    CapabilityReasonCode,
+    CapabilityStatus,
+)
 
 from .native_dialog_support import ActionFixture, image_tree_data
 from .native_dialog_support import dialog_runtime as dialog_runtime
@@ -123,12 +133,101 @@ def test_action_dialog_filters_real_list_and_exposes_selected_values(
     assert not list_box.IsEmpty()
     assert list_box.GetStringSelection() == "Resize"
     assert dialog.GetStringSelection() == "Resize"
-    assert list_box.GetItem(0)[:2] == ("Resize", "Resize an image")
+    label, summary = list_box.GetItem(0)[:2]
+    assert label == "Resize"
+    assert summary.endswith("\nResize an image")
+    assert summary.startswith("[Available] [Preview unavailable")
     assert dialog.ok.IsEnabled()
 
     list_box.SetFilter("absent")
     assert list_box.IsEmpty()
     assert not dialog.ok.IsEnabled()
+
+
+def test_action_dialog_uses_capability_badges_without_constructing_action(
+    dialog_runtime,
+) -> None:
+    from phatch.pyWx import dialogs
+
+    class ExplodingAction(ActionFixture):
+        label = "Imagemagick"
+
+        def __init__(self) -> None:
+            raise AssertionError("presentation must not construct actions")
+
+    capability = Capability(
+        CapabilityId("imagemagick-6"),
+        CapabilityStatus.UNAVAILABLE,
+        CapabilityReasonCode.MISSING_EXECUTABLE,
+        "install ImageMagick 6",
+    )
+    parent, _counter, _root = dialog_runtime
+
+    dialog = dialogs.ActionDialog(
+        parent,
+        {"Imagemagick": ExplodingAction},
+        capabilities={"imagemagick-6": capability},
+        size=(420, 360),
+    )
+    summary = dialog.GetListBox().GetItem(0)[1]
+
+    assert "Unavailable" in summary
+    assert "install ImageMagick 6" in summary
+    assert "Preview blocked" in summary
+
+
+def test_action_dialog_renders_full_translated_unavailability_reason(
+    dialog_runtime,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from phatch.pyWx import dialogs
+
+    translations = {
+        "Unavailable": "Nicht verfügbar",
+        "install ImageMagick 6": "ImageMagick 6 installieren",
+        "Preview blocked: external process": "Vorschau gesperrt: externer Prozess",
+    }
+    monkeypatch.setattr(
+        builtins,
+        "_",
+        lambda source: translations.get(source, source),
+    )
+
+    class ExternalAction(ActionFixture):
+        label = "Imagemagick"
+        __doc__ = "Run ImageMagick"
+
+    capability = Capability(
+        CapabilityId("imagemagick-6"),
+        CapabilityStatus.UNAVAILABLE,
+        CapabilityReasonCode.MISSING_EXECUTABLE,
+        "install ImageMagick 6",
+    )
+    parent, _counter, _root = dialog_runtime
+    dialog = dialogs.ActionDialog(
+        parent,
+        {"Imagemagick": ExternalAction},
+        capabilities={"imagemagick-6": capability},
+        size=(420, 360),
+    )
+    list_box = dialog.GetListBox()
+
+    event = wx.CommandEvent(wx.EVT_LISTBOX.typeId, list_box.GetId())
+    event.SetInt(0)
+    wx.PostEvent(list_box, event)
+    wx.Yield()
+
+    rendered_detail = dialog.status.GetLabel()
+    assert rendered_detail == (
+        "[Nicht verfügbar] ImageMagick 6 installieren\n"
+        "[Vorschau gesperrt: externer Prozess]"
+    )
+    assert "Unavailable" not in rendered_detail
+    assert "install ImageMagick 6" not in rendered_detail
+    assert "Preview blocked" not in rendered_detail
+    sys.stdout.write(
+        json.dumps({"rendered_detail": rendered_detail}, ensure_ascii=False) + "\n"
+    )
 
 
 def test_image_tree_controller_updates_controls_and_inspection_frame(
