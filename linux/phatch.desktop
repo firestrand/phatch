@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Exec=phatch %U
+Exec=phatch-gui %U
 Icon=phatch
 Terminal=false
 Type=Application
@@ -53,4 +53,3 @@ GenericName[zh_CN]=照片批量处理 & 命名
 GenericName[zh_TW]=照片批次處理器
 Comment=Easily batch process images and edit metadata
 Comment[nl]=Gemakkelijk massaal foto's en metadata bewerken
-
