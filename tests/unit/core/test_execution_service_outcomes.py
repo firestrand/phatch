@@ -23,6 +23,7 @@ from phatch.services.action_validation import (
     SaveActionRequired,
 )
 from phatch.services.execution import ExecutionService
+from phatch.services.execution_outcomes import validation_issue
 from tests.unit.core.execution_fakes import ActionFake, ActionRunFake, PhotoFake
 from tests.unit.core.test_execution_service import DiscoveryFake, make_service
 
@@ -118,6 +119,16 @@ def test_rejected_validation_returns_recorded_failure(reason, diagnostic) -> Non
     assert progress.started is None
 
 
+def test_unknown_validation_rejection_reason_fails_exhaustively() -> None:
+    rejection = replace(
+        RejectedActionList(ActionListRejectionReason.EMPTY, ""),
+        reason="future",
+    )
+
+    with pytest.raises(AssertionError, match="future"):
+        validation_issue(rejection.reason, rejection.diagnostic)
+
+
 def test_save_requirement_returns_failure_before_discovery() -> None:
     source = DiscoveredFile(Path("input.png"))
     action = ActionFake()
@@ -191,7 +202,10 @@ def test_no_valid_files_returns_photo_open_failure() -> None:
 
     assert result.outcome is ExecutionOutcome.FAILED
     assert result.issues[0].stage is IssueStage.PHOTO_OPEN
-    assert recorder.records == [(result.issues[0], 0)]
+    assert [issue.stage for issue, _sequence in recorder.records] == [
+        IssueStage.PHOTO_OPEN,
+        IssueStage.PHOTO_OPEN,
+    ]
 
 
 def test_valid_files_can_cancel_verification() -> None:
