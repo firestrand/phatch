@@ -57,6 +57,38 @@ class ToolbarSeparator:
     """Marker that a separator should be inserted."""
 
 
+@dataclass(frozen=True)
+class HistoryMenuLabels:
+    undo: str
+    redo: str
+
+
+@dataclass(frozen=True)
+class HistoryAccelerator:
+    command: str
+    modifier: str
+    key: str
+    shifted: bool = False
+
+
+def history_menu_labels() -> HistoryMenuLabels:
+    return HistoryMenuLabels(
+        undo=_("&Undo"),
+        redo=_("&Redo"),
+    )
+
+
+def history_accelerators(platform: str) -> Tuple[HistoryAccelerator, ...]:
+    modifier = "cmd" if platform == "__WXMAC__" else "ctrl"
+    accelerators = [
+        HistoryAccelerator("undo", modifier, "Z"),
+        HistoryAccelerator("redo", modifier, "Z", shifted=True),
+    ]
+    if platform != "__WXMAC__":
+        accelerators.append(HistoryAccelerator("redo", "ctrl", "Y"))
+    return tuple(accelerators)
+
+
 def build_menu_groups(frame: object, descriptors: Sequence[MenuGroupDescriptor]) -> List[Tuple[Any, List[int]]]:
     """Return a list of menu/id collections used for enable toggling."""
 
@@ -126,7 +158,12 @@ MENU_ENABLE_GROUPS: Tuple[MenuGroupDescriptor, ...] = (
     ),
     MenuGroupDescriptor(
         menu_attr="menu_tools",
-        item_attrs=("menu_tools_execute", "menu_tools_show_report", "menu_tools_show_log"),
+        item_attrs=(
+            "menu_tools_execute",
+            "menu_tools_preview",
+            "menu_tools_show_report",
+            "menu_tools_show_log",
+        ),
     ),
     MenuGroupDescriptor(
         menu_attr="menu_file_export",

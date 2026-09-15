@@ -1,7 +1,7 @@
 import builtins
 
-if '_' not in builtins.__dict__:
-    builtins.__dict__['_'] = lambda value: value
+if "_" not in builtins.__dict__:
+    builtins.__dict__["_"] = lambda value: value
 
 from phatch.pyWx.ui_descriptors import (
     MenuGroupDescriptor,
@@ -9,6 +9,8 @@ from phatch.pyWx.ui_descriptors import (
     ToolbarSeparator,
     build_menu_groups,
     build_toolbar,
+    history_accelerators,
+    history_menu_labels,
 )
 
 
@@ -41,6 +43,8 @@ class DummyToolbar:
 
 
 class DummyFrame:
+    toolbar_execute: DummyTool
+
     def __init__(self):
         self.menu_file = DummyMenu()
         self.menu_edit = DummyMenu()
@@ -132,3 +136,20 @@ def test_build_toolbar_creates_tools_and_tracks_ids():
     assert toolbar.separators == 1
     assert frame.toolbar_execute.GetId() == 31
     assert frame.generated[0][0] == "ART_FILE_OPEN"
+
+
+def test_history_descriptors_map_native_platform_shortcuts():
+    mac = history_accelerators("__WXMAC__")
+    gtk = history_accelerators("__WXGTK__")
+
+    assert [(item.command, item.modifier, item.key, item.shifted) for item in mac] == [
+        ("undo", "cmd", "Z", False),
+        ("redo", "cmd", "Z", True),
+    ]
+    assert [(item.command, item.modifier, item.key, item.shifted) for item in gtk] == [
+        ("undo", "ctrl", "Z", False),
+        ("redo", "ctrl", "Z", True),
+        ("redo", "ctrl", "Y", False),
+    ]
+    assert history_menu_labels().undo == "&Undo"
+    assert history_menu_labels().redo == "&Redo"
