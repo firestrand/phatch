@@ -90,7 +90,15 @@ def test_offset_values_translate_center_and_corners(monkeypatch):
     action = OffsetAction()
     written = {}
     monkeypatch.setattr(action, "set_field_as_string", lambda label, value: written.__setitem__(label, value))
-    monkeypatch.setattr(models.Action, "values", lambda self, info, pixel_fields=None, exclude=None: {"pixels": pixel_fields, "exclude": exclude})
+    monkeypatch.setattr(
+        models.Action,
+        "values",
+        lambda self, info, pixel_fields=None, exclude=None, include=None: {
+            "pixels": pixel_fields,
+            "exclude": exclude,
+            "include": include,
+        },
+    )
     selections = iter([action.CENTER, action.POSITION[1], "5%", action.POSITION[4], "5%", action.CUSTOM])
     monkeypatch.setattr(action, "get_field_string", lambda _label: next(selections))
 
@@ -101,6 +109,12 @@ def test_offset_values_translate_center_and_corners(monkeypatch):
 
     assert center["pixels"] == {"Horizontal Offset": 100, "Vertical Offset": 80}
     assert custom["exclude"] == ["Position", "Offset"]
+    assert custom["include"] == (
+        "Horizontal Offset",
+        "Vertical Offset",
+        "Horizontal Justification",
+        "Vertical Justification",
+    )
     assert written["Horizontal Justification"] == action.RIGHT
 
 
