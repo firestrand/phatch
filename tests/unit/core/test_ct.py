@@ -28,7 +28,7 @@ import builtins
 # Initialize translation system for tests
 # The ct module uses _t() which expects _ to be defined globally
 if not hasattr(builtins, '_'):
-    builtins._ = lambda x: x  # No-op translation for tests
+    setattr(builtins, '_', lambda x: x)  # No-op translation for tests
 
 from phatch.core import ct
 
@@ -59,6 +59,17 @@ class TestCoreConstants:
         """ct should have file extension constant."""
         assert hasattr(ct, 'EXTENSION')
         assert isinstance(ct.EXTENSION, str)
+
+    def test_translation_falls_back_when_translator_is_not_callable(
+            self, monkeypatch):
+        monkeypatch.setattr(ct, '_translator', None)
+
+        assert ct._('message') == 'message'
+
+    def test_translation_coerces_non_string_result(self, monkeypatch):
+        monkeypatch.setattr(ct, '_translator', lambda _message: 42)
+
+        assert ct._('message') == '42'
 
 
 class TestUserPathReExports:
