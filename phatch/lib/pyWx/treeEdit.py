@@ -36,6 +36,13 @@ if __name__ == '__main__':
     sys.path.insert(0, '../..')
 
 from lib.unicoding import exception_to_unicode
+from phatch.services.action_schema import normalize_identifier
+from phatch.services.field_presentation import describe_field
+from phatch.services.field_presentation_types import (
+    EditorFamily,
+    FieldPresentationError,
+    PresetBehavior,
+)
 
 FIELD_DELIMITER = ': '
 WX_ENCODING = 'utf-8'  # wxPython 4.x always uses UTF-8
@@ -89,6 +96,7 @@ class TreeMixin(treeDragDrop.Mixin):
         # popup
         self.popup = None
         self.popup_item = None
+        self.popup_initial_value = None
         self._field_selected = False
         # methods
         self.show_error = show_error
@@ -100,6 +108,8 @@ class TreeMixin(treeDragDrop.Mixin):
         # collapse
         self.collapse_automatic = False
         self.evt_leave_window = False
+        self.transaction_controller = None
+        self.popup_transaction = None
         # clear
         self.delete_all_forms()
         # events
@@ -151,6 +161,8 @@ class TreeMixin(treeDragDrop.Mixin):
         return item
 
     def append_forms(self, forms):
+        if not forms:
+            return forms
         collapse = len(forms) > 4
         for form in forms[: -1]:
             item = self.append_form(form)
@@ -268,9 +280,10 @@ class TreeMixin(treeDragDrop.Mixin):
             if parent == root:
                 image = self.GetItemImage(item, wx.TreeItemIcon_Normal)
                 if image != -1:
+                    transaction = self._begin_transaction()
                     self.enable_form_item(item,
                         not self.is_form_enabled(item))
-                    self.set_dirty(True)
+                    self._commit_transaction(transaction)
 
     def set_form_field_value(self, item, value_as_string):
         label, old = self.GetItemData(item)
@@ -287,18 +300,21 @@ class TreeMixin(treeDragDrop.Mixin):
                 else:
                     field.get(IMAGE_TEST_INFO, label=label,
                         value_as_string=value_as_string, test=True)
-                self.set_dirty(True)
+                if self.transaction_controller is None:
+                    self.set_dirty(True)
             except (formField.ValidationError, safe.UnsafeError) as details:
                 reason = exception_to_unicode(details, WX_ENCODING)
                 self.show_error(reason)
                 if formField.Field.safe:
-                    return
+                    return False
             if value_as_string == '':
                 # hack, fix me
                 value_as_string = ' '
             self.SetItemData(item, (label, value_as_string))
             self.SetItemText(item, self.tree_label(label, value_as_string))
             form.set_field_as_string(label, value_as_string)
+            return True
+        return True
 
     def set_form_field_value_selected(self, value):
         item = self.GetSelection()
@@ -310,7 +326,13 @@ class TreeMixin(treeDragDrop.Mixin):
                 or  isinstance(field, formField.BooleanField) \
                 or  isinstance(field, formField.ColorField) \
                 or  isinstance(field, formField.SliderField)):
-                self.set_form_field_value(item, value)
+                if self.popup_transaction is not None:
+                    self.cancel_popup()
+                transaction = self._begin_transaction()
+                if self.set_form_field_value(item, value):
+                    self._commit_transaction(transaction)
+                else:
+                    self._cancel_transaction(transaction)
 
     # ---selected form
     def append_form_by_label_to_selected(self, label):
@@ -411,49 +433,52 @@ class TreeMixin(treeDragDrop.Mixin):
         field = self.get_form_field(item)
         label, value = self.GetItemText(item).split(FIELD_DELIMITER, 1)
         pos, offset, size = self.get_popup_pos_offset_size(item)
-        typ = field.__class__.__name__.replace('Field', '')
-
-        def on_change(value_as_string):
-            field.set_as_string(value_as_string)
-            # Don't update relevance during change - wait until popup closes
-            # self.update_form_relevance(item)
-        if isinstance(field, formField.SliderField):
+        form = self.GetItemData(self.get_form_item(item))
+        action_id = normalize_identifier(form.label)
+        field_id = normalize_identifier(self.GetItemData(item)[0])
+        try:
+            descriptor = describe_field(action_id, field_id,
+                self.GetItemData(item)[0], field)
+        except FieldPresentationError as details:
+            self.show_error(str(details))
+            return
+        typ = self._editor_type(descriptor, field)
+        on_change = None
+        if descriptor.editor in (EditorFamily.BOOLEAN, EditorFamily.CHOICE):
+            on_change = lambda value_as_string: None
+        if descriptor.editor in (EditorFamily.SLIDER, EditorFamily.FLOAT_SLIDER):
             extra = {'minValue': field.min, 'maxValue': field.max}
-        elif isinstance(field, formField.ChoiceField):
+        elif descriptor.preset is PresetBehavior.STRICT:
             extra = {'choices': field.choices, 'on_change': on_change}
-            typ = 'Choice'
-        elif isinstance(field, formField.DictionaryReadFileField):
+        elif descriptor.editor in (EditorFamily.IMAGE_FILE,
+                EditorFamily.IMAGE_CATALOG, EditorFamily.FONT_FILE):
             if field.dictionary is None:
                 field.init_dictionary()
             extra = {'extensions': field.extensions,
                         'dictionary': field.dictionary}
-            if isinstance(field, formField.ImageDictionaryField):
+            if descriptor.editor in (EditorFamily.IMAGE_FILE,
+                    EditorFamily.IMAGE_CATALOG):
                 extra['show_path'] = False
                 extra['on_change'] = on_change
-            if isinstance(field, formField.ImageDictionaryReadFileField):
-                typ = 'ImageDictionaryFile'
+            if typ == 'ImageDictionaryFile':
                 extra['dialog'] = field.dialog
                 extra['icon_size'] = field.icon_size
-            elif not isinstance(field, formField.FontFileField):
-                typ = 'DictionaryFile'
-        elif isinstance(field, formField.FileField):
+        elif descriptor.editor is EditorFamily.FILE:
             extra = {'extensions': field.extensions}
-            typ = 'LabelFile'
-        elif isinstance(field, formField.FolderField) and hasattr(field, 'choices') and field.choices:
-            # FolderField with choices should use Choice dropdown, not folder browser
-            extra = {'choices': field.choices, 'on_change': on_change}
-            typ = 'Choice'
-        elif hasattr(field, 'choices') and field.choices:
-            extra = {'choices': field.choices}
-        elif isinstance(field, formField.BooleanField):
-            extra = {'on_change': on_change}
         else:
-            extra = {}
+            extra = {'choices': descriptor.choices} if descriptor.choices else {}
+        if descriptor.units:
+            extra['units'] = descriptor.units
         self.popup_item = item
+        self.popup_transaction = self._begin_transaction()
         self.popup = popup.EditPanel(self, pos=pos, offset=offset,
                                 size=size, label=_(label) + FIELD_DELIMITER,
                                 value=value, extra=extra, typ=typ,
-                                border=1, CtrlMixin=self.CtrlMixin)
+                                border=1, CtrlMixin=self.CtrlMixin,
+                                help_text=_(descriptor.help_text),
+                                on_confirm=self.close_popup,
+                                on_cancel=self.cancel_popup)
+        self.popup_initial_value = str(self.popup.edit.Get())
         self.popup.Show()
         self.resize_popup()
         # Don't bind EVT_LEAVE_WINDOW for fields that open modal dialogs
@@ -476,10 +501,103 @@ class TreeMixin(treeDragDrop.Mixin):
             self.evt_leave_window = False
         if self.popup:
             value_as_string = self.popup.Close()
-            self.set_form_field_value(self.popup_item, value_as_string)
-            # Update form relevance AFTER popup closes, not during dropdown interaction
-            self.update_form_relevance(self.popup_item)
+            if value_as_string == self.popup_initial_value:
+                self._cancel_transaction(self.popup_transaction)
+            else:
+                valid = self.set_form_field_value(self.popup_item, value_as_string)
+                if valid:
+                    self.update_form_relevance(self.popup_item)
+                    self._commit_transaction(self.popup_transaction)
+                else:
+                    self._cancel_transaction(self.popup_transaction)
         self.popup = self.popup_item = None
+        self.popup_initial_value = None
+        self.popup_transaction = None
+        self.SetFocus()
+
+    def cancel_popup(self, event=None):
+        frame = wx.GetTopLevelParent(self)
+        if frame and self.evt_leave_window:
+            frame.Unbind(wx.EVT_LEAVE_WINDOW)
+            self.evt_leave_window = False
+        if self.popup:
+            self.popup.Destroy()
+            self._cancel_transaction(self.popup_transaction)
+        self.popup = self.popup_item = None
+        self.popup_initial_value = None
+        self.popup_transaction = None
+        self.SetFocus()
+
+    def finish_active_editor(self):
+        self.close_popup()
+
+    def set_transaction_controller(self, controller):
+        self.transaction_controller = controller
+
+    def _begin_transaction(self):
+        if self.transaction_controller is None \
+                or self.transaction_controller.is_restoring:
+            return None
+        return self.transaction_controller.begin_transaction()
+
+    def _commit_transaction(self, transaction):
+        if transaction is None:
+            self.set_dirty(True)
+            return
+        self.transaction_controller.commit_transaction(transaction)
+
+    def _cancel_transaction(self, transaction):
+        if transaction is not None:
+            self.transaction_controller.cancel_transaction(transaction)
+
+    @staticmethod
+    def _editor_type(descriptor, field):
+        editor = descriptor.editor
+        if descriptor.preset is PresetBehavior.STRICT:
+            return 'Choice'
+        mapping = {
+            EditorFamily.TEXT: 'Text',
+            EditorFamily.NUMBER: 'Text',
+            EditorFamily.BOOLEAN: 'Boolean',
+            EditorFamily.CHOICE: 'Text',
+            EditorFamily.FILE: 'LabelFile',
+            EditorFamily.FOLDER: 'AutoCompleteFolder',
+            EditorFamily.FONT_FILE: 'FontFile',
+            EditorFamily.IMAGE_FILE: 'ImageDictionaryFile',
+            EditorFamily.IMAGE_CATALOG: 'ImageDictionaryFile',
+            EditorFamily.COLOR: 'Color',
+            EditorFamily.PIXEL: 'Pixel',
+            EditorFamily.FILE_SIZE: 'FileSize',
+            EditorFamily.SLIDER: 'Slider',
+            EditorFamily.FLOAT_SLIDER: 'FloatSlider',
+        }
+        return mapping[editor]
+
+    def get_selected_index(self):
+        selection = self.GetSelection()
+        if not selection.IsOk():
+            return None
+        selected = self.get_form_item(selection)
+        children = self.GetItemChildren(self.GetRootItem())
+        return children.index(selected) if selected in children else None
+
+    def select_index(self, index):
+        children = self.GetItemChildren(self.GetRootItem())
+        if index is not None and children:
+            self.SelectItem(children[min(index, len(children) - 1)])
+
+    def OnBeginDrag(self, event):
+        result = super(TreeMixin, self).OnBeginDrag(event)
+        self._drag_transaction = (
+            self._begin_transaction() if event.IsAllowed() else None)
+        return result
+
+    def OnEndDrag(self, event):
+        result = super(TreeMixin, self).OnEndDrag(event)
+        transaction = getattr(self, '_drag_transaction', None)
+        self._commit_transaction(transaction)
+        self._drag_transaction = None
+        return result
 
 # #    This would be logical but only works in wxPython2.6
 # #    def get_popup_pos_offset_size(self, item):
