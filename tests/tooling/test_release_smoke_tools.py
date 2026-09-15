@@ -41,13 +41,15 @@ def test_distribution_smoke_builds_from_one_sdist_and_uses_clean_environment(
 
     # Then: it builds, creates a venv, installs the wheel, and smokes entries/resources
     assert result == 0
-    assert len(commands) == 7
+    assert len(commands) == 8
     assert "build" in commands[0]
     assert "venv" in commands[1]
     assert commands[2][0] == "uv"
     assert "--help" in commands[3]
-    assert "ResourceProvider" in commands[5][-1]
-    assert "phatch.actions" in commands[6][-1]
+    assert "runtime_inventory.py" in commands[5][1]
+    assert "--json" in commands[5]
+    assert "ResourceProvider" in commands[6][-1]
+    assert "phatch.actions" in commands[7][-1]
 
 
 def test_distribution_smoke_ignores_preexisting_wheels(
