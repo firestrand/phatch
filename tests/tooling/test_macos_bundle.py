@@ -33,7 +33,7 @@ def test_pyinstaller_spec_collects_action_sources_for_runtime_discovery() -> Non
     assert '(root / "phatch" / "actions").glob("*.py")' in spec
     assert '"phatch/actions"' in spec
     assert '(root / "phatch").rglob("*.py")' in spec
-    assert "hidden_imports = package_modules" in spec
+    assert "set(package_modules)" in spec
     runtime_hooks = spec.split("runtime_hooks =", maxsplit=1)[1].split(
         "console_analysis =", maxsplit=1
     )[0]
@@ -41,3 +41,13 @@ def test_pyinstaller_spec_collects_action_sources_for_runtime_discovery() -> Non
     assert "if is_macos" not in runtime_hooks
     assert "sys, '_MEIPASS', os.path.dirname(os.path.dirname(FILE))" in constants
     assert "BUNDLE_PATH, 'phatch', 'actions'" in constants
+
+
+@pytest.mark.unit
+def test_pyinstaller_spec_registers_required_preview_runtime_modules() -> None:
+    # Given: the runtime inventory and frozen application specification
+    spec = (PROJECT_ROOT / "packaging" / "phatch.spec").read_text(encoding="utf-8")
+
+    # When/Then: frozen hidden imports consume the same explicit module contract
+    assert "REQUIRED_RUNTIME_MODULES" in spec
+    assert "set(REQUIRED_RUNTIME_MODULES)" in spec
