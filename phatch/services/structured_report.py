@@ -1,15 +1,21 @@
 from __future__ import annotations
 
 from enum import IntEnum, StrEnum
-from typing import TypedDict, assert_never
+from typing import Final, TypedDict, assert_never
 
 from phatch.core.execution_types import (
-    ExecutionDecision,
     ExecutionOutcome,
     ExecutionResult,
-    IssueSeverity,
 )
 from phatch.services.action_schema import normalize_identifier
+from phatch.services.report_privacy import (
+    ReportPrivacyContext,
+    privacy_for_paths,
+    redact_path,
+    redact_text,
+)
+
+REPORT_VERSION: Final = 2
 
 
 class AutomationOutcome(StrEnum):
@@ -30,10 +36,17 @@ class ExitCode(IntEnum):
     USER_CANCELLATION = 130
 
 
+class OutputReportData(TypedDict):
+    path: str
+    survived: bool
+
+
 class FileReportData(TypedDict):
     source: str
-    decision: str
-    outputs: list[str]
+    outcome: str
+    cancellation: str
+    rollback: str
+    outputs: list[OutputReportData]
 
 
 class IssueReportData(TypedDict):
@@ -45,10 +58,19 @@ class IssueReportData(TypedDict):
     details: str | None
 
 
+class CountReportData(TypedDict):
+    processed: int
+    skipped: int
+    failed: int
+    cancelled: int
+    total: int
+
+
 class ExecutionReportData(TypedDict):
     report_version: int
     outcome: str
     elapsed_seconds: float
+    counts: CountReportData
     files: list[FileReportData]
     issues: list[IssueReportData]
 
@@ -71,17 +93,40 @@ def exit_code(outcome: AutomationOutcome) -> ExitCode:
             assert_never(unreachable)
 
 
-def execution_report(result: ExecutionResult) -> ExecutionReportData:
-    outcome = _execution_outcome(result)
+def execution_report(
+    result: ExecutionResult,
+    *,
+    privacy: ReportPrivacyContext | None = None,
+) -> ExecutionReportData:
+    report_privacy = privacy or privacy_for_paths(
+        result.planned_sources,
+        tuple(output.report.path for file in result.files for output in file.outputs),
+    )
+    counts = result.counts
     return {
-        "report_version": 1,
-        "outcome": outcome.value,
+        "report_version": REPORT_VERSION,
+        "outcome": _execution_outcome(result).value,
         "elapsed_seconds": result.elapsed_seconds,
+        "counts": {
+            "processed": counts.processed,
+            "skipped": counts.skipped,
+            "failed": counts.failed,
+            "cancelled": counts.cancelled,
+            "total": counts.total,
+        },
         "files": [
             {
-                "source": str(file.source.resolve()),
-                "decision": file.decision.value,
-                "outputs": [str(report.path.resolve()) for report in file.reports],
+                "source": redact_path(file.source, report_privacy),
+                "outcome": file.outcome.value,
+                "cancellation": file.cancellation.value,
+                "rollback": file.rollback.value,
+                "outputs": [
+                    {
+                        "path": redact_path(output.report.path, report_privacy),
+                        "survived": output.survived,
+                    }
+                    for output in file.outputs
+                ],
             }
             for file in result.files
         ],
@@ -89,16 +134,22 @@ def execution_report(result: ExecutionResult) -> ExecutionReportData:
             {
                 "stage": issue.stage.value,
                 "severity": issue.severity.value,
-                "message": issue.message,
+                "message": redact_text(issue.message, report_privacy),
                 "source": (
-                    str(issue.source.resolve()) if issue.source is not None else None
+                    redact_path(issue.source, report_privacy)
+                    if issue.source is not None
+                    else None
                 ),
                 "action_id": (
                     normalize_identifier(issue.action_label)
                     if issue.action_label is not None
                     else None
                 ),
-                "details": issue.details,
+                "details": (
+                    redact_text(issue.details, report_privacy)
+                    if issue.details is not None
+                    else None
+                ),
             }
             for issue in result.issues
         ],
@@ -112,15 +163,11 @@ def _execution_outcome(result: ExecutionResult) -> AutomationOutcome:
         case ExecutionOutcome.FAILED:
             return AutomationOutcome.PROCESSING_FAILURE
         case ExecutionOutcome.COMPLETED:
-            has_errors = any(
-                issue.severity is IssueSeverity.ERROR for issue in result.issues
-            )
-            has_success = any(
-                file.decision is ExecutionDecision.CONTINUE for file in result.files
-            )
-            if has_errors and has_success:
+            has_failures = result.counts.failed > 0
+            has_successes = result.counts.processed + result.counts.skipped > 0
+            if has_failures and has_successes:
                 return AutomationOutcome.PARTIAL_SUCCESS
-            if has_errors:
+            if has_failures:
                 return AutomationOutcome.PROCESSING_FAILURE
             return AutomationOutcome.SUCCESS
         case unreachable:
