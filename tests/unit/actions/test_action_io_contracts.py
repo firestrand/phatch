@@ -177,7 +177,21 @@ def test_text_estimates_size_when_pillow_has_no_measurement_api(monkeypatch):
 
 def test_text_values_uses_average_dimension_as_pixel_reference(monkeypatch):
     action = text.Action()
-    monkeypatch.setattr(text.models.Action, "values", lambda self, info, pixel_fields=None, exclude=None: pixel_fields)
+    captured = {}
+
+    def values(self, info, pixel_fields=None, exclude=None, include=None):
+        captured["include"] = include
+        return {
+            **(pixel_fields or {}),
+            "Horizontal Justification": "Middle",
+            "Vertical Justification": "Middle",
+        }
+
+    monkeypatch.setattr(
+        text.models.Action,
+        "values",
+        values,
+    )
 
     result = action.values({"size": (100, 50)})
 
@@ -185,6 +199,60 @@ def test_text_values_uses_average_dimension_as_pixel_reference(monkeypatch):
         "Size": 75,
         "Horizontal Offset": 100,
         "Vertical Offset": 50,
+        "Horizontal Justification": "Middle",
+        "Vertical Justification": "Middle",
+    }
+    assert captured["include"] == (
+        "Horizontal Offset",
+        "Vertical Offset",
+        "Horizontal Justification",
+        "Vertical Justification",
+    )
+
+
+def test_text_values_extends_explicit_pixel_fields_and_forwards_filters(monkeypatch):
+    action = text.Action()
+    captured = {}
+    pixel_fields = {"Custom": 40}
+
+    def values(self, info, pixel_fields=None, exclude=None, include=None):
+        captured.update(
+            pixel_fields=pixel_fields,
+            exclude=exclude,
+            include=include,
+        )
+        return dict(pixel_fields or {})
+
+    monkeypatch.setattr(text.models.Action, "values", values)
+
+    result = action.values(
+        {"size": (120, 80)},
+        pixel_fields=pixel_fields,
+        exclude=["Color"],
+        include=("Text",),
+    )
+
+    assert result == {
+        "Custom": 40,
+        "Size": 100,
+        "Horizontal Offset": 120,
+        "Vertical Offset": 80,
+    }
+    assert captured == {
+        "pixel_fields": {
+            "Custom": 40,
+            "Size": 100,
+            "Horizontal Offset": 120,
+            "Vertical Offset": 80,
+        },
+        "exclude": ["Color", "Position", "Offset"],
+        "include": (
+            "Text",
+            "Horizontal Offset",
+            "Vertical Offset",
+            "Horizontal Justification",
+            "Vertical Justification",
+        ),
     }
 
 
