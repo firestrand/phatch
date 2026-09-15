@@ -1,7 +1,6 @@
 import io
 from pathlib import Path
 
-import pytest
 from PIL import Image
 
 from phatch.console import console
@@ -204,7 +203,8 @@ def test_legacy_entrypoint_cancellation_stops_before_open(monkeypatch, tmp_path)
         [str(path) for path in image_paths],
     )
 
-    assert results[0].files == ()
+    assert len(results[0].files) == 2
+    assert results[0].counts.cancelled == 2
     assert results[0].outcome is ExecutionOutcome.CANCELLED
 
 
@@ -313,13 +313,14 @@ def test_public_recovery_resumes_real_multi_output_batch_after_interruption(
     recovery = RecoveryConfiguration((tmp_path / "batch.jsonl").resolve())
     interrupted = RecoverableSaveAction(output, interrupt_on_call=2)
 
-    with pytest.raises(KeyboardInterrupt):
-        api.apply_actions_to_photos_with_recovery(
-            [interrupted],
-            batch_settings(no_save=True, overwrite=True),
-            recovery,
-            [str(source) for source in sources],
-        )
+    result = api.apply_actions_to_photos_with_recovery(
+        [interrupted],
+        batch_settings(no_save=True, overwrite=True),
+        recovery,
+        [str(source) for source in sources],
+    )
+
+    assert result.outcome is ExecutionOutcome.CANCELLED
 
     resumed = RecoverableSaveAction(output)
     api.apply_actions_to_photos_with_recovery(
