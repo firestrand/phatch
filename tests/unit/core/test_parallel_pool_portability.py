@@ -8,6 +8,7 @@ import pytest
 from phatch.services import parallel_image_pool
 from phatch.services.parallel_image_jobs import (
     ImageJob,
+    ImageJobCancelled,
     ImageJobResult,
     execute_image_jobs,
 )
@@ -93,9 +94,11 @@ def test_submission_interrupt_shuts_down_and_terminates_owned_processes(
         iter(([], [process])).__next__,
     )
 
-    # When / Then
-    with pytest.raises(KeyboardInterrupt):
-        execute_image_jobs((_job(tmp_path, 0), _job(tmp_path, 1)), 2)
+    # When
+    result = execute_image_jobs((_job(tmp_path, 0), _job(tmp_path, 1)), 2)
+
+    # Then
+    assert all(isinstance(item, ImageJobCancelled) for item in result.results)
     assert executor.shutdown_calls == [(False, True)]
     assert process.calls == ["terminate", "join:1.0"]
 
