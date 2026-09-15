@@ -100,3 +100,22 @@ def test_choice_rapid_close_and_reopen_only_delivers_live_editor_change(
     assert callback.values == ["two"]
     assert unhandled == []
     second.Close()
+
+
+def test_editor_keys_without_callbacks_leave_editor_open(native_frame) -> None:
+    # Given
+    editor = popup.EditPanel(panel(native_frame), "Text", "value", {})
+
+    # When
+    for key_code in (wx.WXK_RETURN, wx.WXK_ESCAPE):
+        event = wx.KeyEvent(wx.wxEVT_CHAR_HOOK)
+        event.SetKeyCode(key_code)
+        editor._OnKey(event)
+    ordinary_event = wx.KeyEvent(wx.wxEVT_CHAR_HOOK)
+    ordinary_event.SetKeyCode(ord("A"))
+    editor._OnKey(ordinary_event)
+
+    # Then
+    assert editor
+    assert ordinary_event.GetSkipped()
+    editor.Close()
