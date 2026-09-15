@@ -9,7 +9,6 @@ import pytest
 from phatch.core.execution_types import (
     ActionApplication,
     DiscoveredFile,
-    ExecutionDecision,
     ExecutionInvariantError,
     ExecutionIssue,
     ExecutionOptions,
@@ -18,9 +17,11 @@ from phatch.core.execution_types import (
     ExecutionRequest,
     ExecutionResult,
     ExecutionSelection,
+    FileOutcome,
     FileResult,
     IssueSeverity,
     IssueStage,
+    OutputRecord,
     ReportFile,
 )
 from tests.unit.core.execution_fakes import ActionFake, PhotoFake
@@ -47,9 +48,14 @@ def test_tuple_boundaries_reject_mutable_sequences() -> None:
     photo = PhotoFake(source)
     application = ActionApplication(photo, True, ())
     report = ReportFile(source.path, Path("output.jpg"))
-    file_result = FileResult(source.path, ExecutionDecision.CONTINUE, (report,))
+    file_result = FileResult(
+        source.path,
+        FileOutcome.PROCESSED,
+        outputs=(OutputRecord(report),),
+    )
     result = ExecutionResult(
         ExecutionOutcome.COMPLETED,
+        (source.path,),
         (file_result,),
         (issue(),),
     )
@@ -64,8 +70,8 @@ def test_tuple_boundaries_reject_mutable_sequences() -> None:
         replace(selection, paths=[source.path])
     with pytest.raises(ExecutionInvariantError, match="issues"):
         replace(application, issues=[issue()])
-    with pytest.raises(ExecutionInvariantError, match="reports"):
-        replace(file_result, reports=[report])
+    with pytest.raises(ExecutionInvariantError, match="outputs"):
+        replace(file_result, outputs=[OutputRecord(report)])
     with pytest.raises(ExecutionInvariantError, match="files"):
         replace(result, files=[file_result])
     with pytest.raises(ExecutionInvariantError, match="issues"):
@@ -177,4 +183,4 @@ def test_action_application_enforces_success_error_coherence() -> None:
 @pytest.mark.parametrize("elapsed", [-1.0, nan, inf, -inf])
 def test_result_rejects_invalid_elapsed_seconds(elapsed: float) -> None:
     with pytest.raises(ExecutionInvariantError, match="elapsed_seconds"):
-        ExecutionResult(ExecutionOutcome.FAILED, elapsed_seconds=elapsed)
+        ExecutionResult(ExecutionOutcome.FAILED, (), elapsed_seconds=elapsed)

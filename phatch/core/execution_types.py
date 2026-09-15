@@ -2,9 +2,25 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import StrEnum
-from math import isfinite
 from pathlib import Path
 from typing import TYPE_CHECKING, TypeVar
+
+from .execution_results import CancellationState as CancellationState
+from .execution_results import (
+    ExecutionInvariantError,
+    ExecutionIssue,
+    FileResult,
+    IssueSeverity,
+    require_tuple,
+)
+from .execution_results import ExecutionOutcome as ExecutionOutcome
+from .execution_results import ExecutionResult as ExecutionResult
+from .execution_results import FileOutcome as FileOutcome
+from .execution_results import FileOutcomeCounts as FileOutcomeCounts
+from .execution_results import IssueStage as IssueStage
+from .execution_results import OutputRecord as OutputRecord
+from .execution_results import ReportFile as ReportFile
+from .execution_results import RollbackState as RollbackState
 
 if TYPE_CHECKING:
     from phatch.core.execution_ports import Action, ActionRun, Photo, UpdateCallback
@@ -12,17 +28,8 @@ if TYPE_CHECKING:
 _TupleItem = TypeVar("_TupleItem")
 
 
-@dataclass(frozen=True, slots=True)
-class ExecutionInvariantError(ValueError):
-    reason: str
-
-    def __str__(self) -> str:
-        return self.reason
-
-
 def _require_tuple(values: tuple[_TupleItem, ...], field_name: str) -> None:
-    if not isinstance(values, tuple):
-        raise ExecutionInvariantError(f"{field_name} must be a tuple")
+    require_tuple(values, field_name)
 
 
 class ExecutionDecision(StrEnum):
@@ -31,30 +38,9 @@ class ExecutionDecision(StrEnum):
     ABORT = "abort"
 
 
-class ExecutionOutcome(StrEnum):
-    COMPLETED = "completed"
-    CANCELLED = "cancelled"
-    FAILED = "failed"
-
-
 class ProgressDecision(StrEnum):
     CONTINUE = "continue"
     CANCEL = "cancel"
-
-
-class IssueSeverity(StrEnum):
-    WARNING = "warning"
-    ERROR = "error"
-
-
-class IssueStage(StrEnum):
-    FILE_DISCOVERY = "file_discovery"
-    ACTION_VALIDATION = "action_validation"
-    PLUGIN_IMPORT = "plugin_import"
-    ACTION_INITIALIZATION = "action_initialization"
-    PHOTO_OPEN = "photo_open"
-    ACTION_EXECUTION = "action_execution"
-    RECOVERY = "recovery"
 
 
 class RecoveryReason(StrEnum):
@@ -146,45 +132,6 @@ class ExecutionPosition:
 
 
 @dataclass(frozen=True, slots=True)
-class ReportFile:
-    source: Path
-    path: Path
-    width: int | None = None
-    height: int | None = None
-    mode: str | None = None
-
-    def __post_init__(self) -> None:
-        if self.width is None and self.height is None and self.mode is None:
-            return
-        if self.width is None or self.height is None or self.mode is None:
-            raise ExecutionInvariantError(
-                "report width, height, and mode must be all present or all absent"
-            )
-        if self.width <= 0 or self.height <= 0 or not self.mode:
-            raise ExecutionInvariantError(
-                "report details require positive dimensions and a nonempty mode"
-            )
-
-    @property
-    def filename(self) -> str:
-        return self.path.name
-
-
-@dataclass(frozen=True, slots=True)
-class ExecutionIssue:
-    stage: IssueStage
-    severity: IssueSeverity
-    message: str
-    source: Path | None = None
-    action_label: str | None = None
-    details: str | None = None
-
-    def __post_init__(self) -> None:
-        if not self.message:
-            raise ExecutionInvariantError("issue message must not be empty")
-
-
-@dataclass(frozen=True, slots=True)
 class IssueResponse:
     decision: ExecutionDecision
     prompt_on_future_issues: bool
@@ -209,36 +156,6 @@ class ActionApplication:
             )
 
 
-@dataclass(frozen=True, slots=True)
-class FileResult:
-    source: Path
-    decision: ExecutionDecision
-    reports: tuple[ReportFile, ...] = ()
-
-    def __post_init__(self) -> None:
-        _require_tuple(self.reports, "reports")
-
-
-@dataclass(frozen=True, slots=True)
-class ExecutionResult:
-    outcome: ExecutionOutcome
-    files: tuple[FileResult, ...] = ()
-    issues: tuple[ExecutionIssue, ...] = ()
-    elapsed_seconds: float = 0.0
-
-    def __post_init__(self) -> None:
-        _require_tuple(self.files, "files")
-        _require_tuple(self.issues, "issues")
-        if not isfinite(self.elapsed_seconds) or self.elapsed_seconds < 0:
-            raise ExecutionInvariantError(
-                "elapsed_seconds must be finite and nonnegative"
-            )
-
-    @property
-    def report(self) -> tuple[ReportFile, ...]:
-        return tuple(report for file in self.files for report in file.reports)
-
-
 @dataclass(slots=True)
 class ExecutionContext:
     """Mutable state owned by exactly one execution."""
@@ -246,5 +163,6 @@ class ExecutionContext:
     action_run: ActionRun
     prompt_on_issue: bool
     remembered_decision: ExecutionDecision | None = field(default=None, init=False)
+    planned_sources: tuple[Path, ...] = field(default=(), init=False)
     issues: list[ExecutionIssue] = field(default_factory=list, init=False)
     files: list[FileResult] = field(default_factory=list, init=False)
