@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 
 from phatch.core import api
+from phatch.core.execution_types import ExecutionOutcome, ExecutionResult
 from phatch.services.action_list import (
     ActionListLoadResult,
     ActionListService,
@@ -139,8 +140,9 @@ def test_execute_resets_report_and_supplies_update_callback(
     # Given: a real action in the native tree and recording execution service
     executions: list[tuple] = []
 
-    def apply_actions(actions, settings, **options) -> None:
+    def apply_actions(actions, settings, **options) -> ExecutionResult:
         executions.append((tuple(actions), settings, options))
+        return ExecutionResult(ExecutionOutcome.COMPLETED, ())
 
     service = ActionListService(apply_actions_to_photos=apply_actions)
     frame = native_frame_harness.frame
