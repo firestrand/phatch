@@ -197,7 +197,7 @@ def test_installed_wheel_reports_real_processing_failure(
 
     payload = json.loads(completed.stdout)
     assert completed.returncode == 4, completed.stderr
-    assert payload["report_version"] == 1
+    assert payload["report_version"] == 2
     assert payload["outcome"] == "processing_failure"
 
 
@@ -261,7 +261,7 @@ def test_installed_wheel_reports_validation_and_unavailable_capability(
         "issues": ["No action list provided."],
         "kind": "error",
         "outcome": "validation_failure",
-        "report_version": 1,
+        "report_version": 2,
     }
     unavailable_payload = json.loads(unavailable.stdout)
     assert unavailable.returncode == 3, unavailable.stderr
@@ -341,7 +341,11 @@ def test_installed_wheel_planned_output_matches_execution_report(
     )
 
     planned_path = json.loads(planned.stdout)["planned_outputs"]
-    reported_path = json.loads(executed.stdout)["files"][0]["outputs"]
+    reported_path = [
+        output["path"]
+        for output in json.loads(executed.stdout)["files"][0]["outputs"]
+        if output["survived"]
+    ]
     assert planned.returncode == 0, planned.stderr
     assert executed.returncode == 0, executed.stderr
     assert planned_path == reported_path
@@ -370,10 +374,11 @@ def _assert_installed_output_path_parity(
 
     assert planned.returncode == 0, planned.stderr
     assert executed.returncode == 0, executed.stderr
-    assert (
-        json.loads(planned.stdout)["planned_outputs"]
-        == json.loads(executed.stdout)["files"][0]["outputs"]
-    )
+    assert json.loads(planned.stdout)["planned_outputs"] == [
+        output["path"]
+        for output in json.loads(executed.stdout)["files"][0]["outputs"]
+        if output["survived"]
+    ]
 
 
 @pytest.mark.slow
@@ -431,7 +436,11 @@ def test_installed_wheel_recursive_plan_matches_execution_subfolder(
     )
 
     planned_path = json.loads(planned.stdout)["planned_outputs"]
-    reported_path = json.loads(executed.stdout)["files"][0]["outputs"]
+    reported_path = [
+        output["path"]
+        for output in json.loads(executed.stdout)["files"][0]["outputs"]
+        if output["survived"]
+    ]
     assert planned.returncode == 0, planned.stderr
     assert executed.returncode == 0, executed.stderr
     assert planned_path == reported_path
