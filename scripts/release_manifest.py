@@ -82,6 +82,11 @@ def _read_checksums(path: Path) -> dict[str, str]:
 
 
 def _write_sbom(output: Path, packages: tuple[PackageRecord, ...]) -> None:
+    extracted_licenses = {
+        package.license_expression: package.license_text
+        for package in packages
+        if package.license_text is not None
+    }
     document = {
         "spdxVersion": "SPDX-2.3",
         "dataLicense": "CC0-1.0",
@@ -120,6 +125,10 @@ def _write_sbom(output: Path, packages: tuple[PackageRecord, ...]) -> None:
                 }
                 for index in range(2, len(packages) + 1)
             ],
+        ],
+        "hasExtractedLicensingInfos": [
+            {"licenseId": license_id, "extractedText": text}
+            for license_id, text in sorted(extracted_licenses.items())
         ],
     }
     (output / "sbom.spdx.json").write_text(
