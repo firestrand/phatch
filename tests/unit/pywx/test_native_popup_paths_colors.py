@@ -134,21 +134,15 @@ def test_color_selection_event_changes_rendered_value(native_frame):
     assert control.GetLabel() == "#0c2238"
 
 
-def test_control_factory_caches_dynamic_mixin_and_falls_back_to_text(native_frame):
+def test_control_factory_rejects_unknown_editor_family(native_frame):
     # Given
     class TranslationMixin:
         _to_local = staticmethod(lambda value: f"local:{value}")
         _to_english = staticmethod(lambda value: value.removeprefix("local:"))
 
     # When
-    generated = popup.ctrl_factory("UnknownNative", TranslationMixin)
-    cached = popup.ctrl_factory("UnknownNative", TranslationMixin)
-    control = generated(panel(native_frame), "value")
-
-    # Then
-    assert generated is cached
-    assert control.GetValue() == "local:value"
-    assert control.Get() == "value"
+    with pytest.raises(popup.UnsupportedEditorError, match="UnknownNative"):
+        popup.ctrl_factory("UnknownNative", TranslationMixin)
 
 
 def test_image_dictionary_control_starts_disabled_until_loaded(native_frame):
