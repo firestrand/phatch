@@ -604,7 +604,7 @@ def apply_actions_to_photos(actions, settings, paths=None, drop=False,
     """
     from phatch.services.legacy_execution import apply_actions_to_photos as execute
 
-    execute(actions, settings, paths, drop, update)
+    return execute(actions, settings, paths, drop, update)
 
 
 def apply_actions_to_photos_with_recovery(actions, settings, recovery, paths=None,
