@@ -63,11 +63,13 @@ from phatch.lib import safe
 from phatch.lib import system
 from phatch.lib.unicoding import exception_to_unicode
 from .dialog_service import DialogService
+from .execution_results import present_completion
 from phatch.services import (
     IncompatibleActionListError,
     MissingRequiredActionError,
     UnsafeActionListError,
 )
+from phatch.services.completion import completion_dispatch
 notify.init(ct.INFO['name'])
 
 #gui-dependent
@@ -84,6 +86,7 @@ from . import plugin
 from .application_branding import ApplicationBrandingMixin
 from .frame_dependencies import FrameDependencies
 from .file_menu import ClipboardMessages
+from .preview_panel import PreviewPanel
 from .ui_descriptors import (
     HELP_LINKS,
     MENU_ENABLE_GROUPS,
@@ -274,13 +277,22 @@ class DialogsMixin:
     #---notification
     def _execute(self, actionlist, **keyw):
         app = wx.GetApp()
-        self.set_report([])
-        self.action_service.execute(
-            actionlist,
-            app.settings,
-            update_callback=self._send_update_event,
-            **keyw,
-        )
+        owner = "droplet" if keyw.get("drop") else "gui"
+        with completion_dispatch(owner) as completion:
+            self.set_report([])
+            result = self.action_service.execute(
+                actionlist,
+                app.settings,
+                update_callback=self._send_update_event,
+                **keyw,
+            )
+            self._last_completion = present_completion(
+                self.dialog_service,
+                result,
+                owner,
+                dispatcher=completion,
+            )
+            return result
 
     def _send_update_event(self):
         update_event = imageInspector.UpdateEvent()
@@ -320,7 +332,10 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         frame.Frame.__init__(self, *args, **keyw)
         _theme()
         self.dlg_library = None
+        self.preview_dialog = None
         self.controller = self.dependencies.controller_factory(self.tree)
+        self.tree.set_transaction_controller(self.controller)
+        self._history_refreshing = False
         self.droplet_manager = self.dependencies.droplet_manager_factory(
             export_actions=self.controller.export_actions,
             settings_provider=lambda: wx.GetApp().settings,
@@ -341,6 +356,8 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         )
         self.EnableBackgroundPainting(self.empty)
         self._menu()
+        self.controller.add_history_listener(self._on_history_change)
+        self._on_history_change()
         self._toolBar()
         self._plugin()
         self.on_menu_file_new()
@@ -507,6 +524,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
 
 #---menu events
     def on_menu_file_new(self, event=None):
+        self.controller.close_context_popup()
         self.file_menu.new_actionlist()
 
     def on_menu_file_open_library(self, event):
@@ -532,6 +550,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         return
 
     def on_menu_file_open(self, event):
+        self.controller.close_context_popup()
         self.file_menu.open_actionlist()
 
     #def on_menu_file_library(self, event):
@@ -542,10 +561,30 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
     #        os.path.basename(filename))
     #    self._open(filename, save_filename)
     def on_menu_file_save(self, event):
+        self.controller.close_context_popup()
         return self.file_menu.save_current()
 
     def on_menu_file_save_as(self, event=None):
+        self.controller.close_context_popup()
         return self.file_menu.save_as()
+
+    def on_menu_edit_undo(self, event):
+        focus = wx.Window.FindFocus()
+        if (focus is not None and hasattr(focus, "CanUndo")
+                and focus.CanUndo()):
+            focus.Undo()
+            return
+        self.tree.finish_active_editor()
+        self.controller.undo()
+
+    def on_menu_edit_redo(self, event):
+        focus = wx.Window.FindFocus()
+        if (focus is not None and hasattr(focus, "CanRedo")
+                and focus.CanRedo()):
+            focus.Redo()
+            return
+        self.tree.finish_active_editor()
+        self.controller.redo()
 
     def on_menu_file_export_actionlist_to_clipboard(self, event):
         self.file_menu.export_actionlist_to_clipboard()
@@ -565,10 +604,12 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         self.file_menu.open_recent(filenum)
 
     def on_menu_edit_add(self, event):
+        self.controller.close_context_popup()
         settings = wx.GetApp().settings
         if not hasattr(self, 'dialog_actions'):
             self.dialog_actions = dialogs.ActionDialog(self,
                 api.ACTIONS, settings['tag_actions'],
+                capabilities=self.dependencies.action_capabilities_factory(),
                 size=(self._width, min(400, self._max_height)),
                 title=_("%(name)s actions") % ct.INFO)
         if self.dialog_actions.ShowModal() == wx.ID_OK:
@@ -580,27 +621,32 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         self.dialog_actions.Hide()
 
     def on_menu_edit_remove(self, event):
+        self.controller.close_context_popup()
         if self.controller.remove_selected_action():
             self.enable_actions(self.controller.state.has_actions)
             self.set_dirty(self.controller.state.dirty,
                 description=self.description.GetValue())
 
     def on_menu_edit_up(self, event):
+        self.controller.close_context_popup()
         self.controller.move_selected_action_up()
         self.set_dirty(self.controller.state.dirty,
             description=self.description.GetValue())
 
     def on_menu_edit_down(self, event):
+        self.controller.close_context_popup()
         self.controller.move_selected_action_down()
         self.set_dirty(self.controller.state.dirty,
             description=self.description.GetValue())
 
     def on_menu_edit_enable(self, event):
+        self.controller.close_context_popup()
         self.controller.enable_selected_action(True)
         self.set_dirty(self.controller.state.dirty,
             description=self.description.GetValue())
 
     def on_menu_edit_disable(self, event):
+        self.controller.close_context_popup()
         self.controller.enable_selected_action(False)
         self.set_dirty(self.controller.state.dirty,
             description=self.description.GetValue())
@@ -627,6 +673,18 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
     def on_menu_tools_execute(self, event):
         actionlist = self.controller.export_actions()
         self._execute(actionlist)
+
+    def on_menu_tools_preview(self, event):
+        self.controller.close_context_popup()
+        if self.preview_dialog is None or self.preview_dialog.IsBeingDeleted():
+            self.preview_dialog = PreviewPanel(
+                self,
+                lambda: self.controller.current_document,
+                self.dependencies.preview_dependencies_factory(),
+                self.dependencies.file_dialog_class or wx.FileDialog,
+            )
+        self.preview_dialog.Show()
+        self.preview_dialog.Raise()
 
     def on_menu_tools_safe(self, event):
         self.set_safe_mode(event.IsChecked())
@@ -842,6 +900,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
     def _events(self):
         #wxPython events
         self.Bind(wx.EVT_CLOSE, self.on_close, self)
+        self.Bind(wx.EVT_WINDOW_DESTROY, self.on_destroy, self)
         self.Bind(wx.EVT_SIZE, self.on_size, self)
         self.Bind(wx.EVT_MENU_HIGHLIGHT_ALL, self.on_menu_tool_enter)
         self.Bind(wx.EVT_TOOL_ENTER, self.on_menu_tool_enter)
@@ -850,14 +909,15 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         self.tree.Bind(wx.EVT_CONTEXT_MENU, self.on_context_menu, self.tree)
 
     def on_description_text(self, event):
+        if self._history_refreshing:
+            return
         text = event.GetString()
         self.controller.update_description(text)
         self.set_dirty(self.controller.state.dirty, description=text)
 
     def on_drop(self, filenames, x, y):
-        self.action_service.execute(
+        return self._execute(
             self.controller.export_actions(),
-            wx.GetApp().settings,
             paths=filenames,
             drop=True,
         )
@@ -897,12 +957,38 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         return not self.file_menu.confirm_proceed()
 
     def on_close(self, event=None):
+        self.tree.finish_active_editor()
         if self.is_save_not_ok():
             return
+        self.controller.remove_history_listener(self._on_history_change)
+        if self.preview_dialog is not None and not self.preview_dialog.IsBeingDeleted():
+            self.preview_dialog.on_close()
+        self.unsubscribe_all()
         self.Hide()
         wx.GetApp()._saveSettings()
         #Destroy everything
         self.Destroy()
+
+    def on_destroy(self, event):
+        self.unsubscribe_all()
+        event.Skip()
+
+    def _on_history_change(self):
+        if not self or self.IsBeingDeleted():
+            return
+        self._history_refreshing = True
+        try:
+            description = self.controller.state.description
+            if self.description.GetValue() != description:
+                self.description.SetValue(description)
+            self.menu_edit_undo.Enable(self.controller.can_undo)
+            self.menu_edit_redo.Enable(self.controller.can_redo)
+            if (self.preview_dialog is not None
+                    and not self.preview_dialog.IsBeingDeleted()):
+                self.preview_dialog.mark_stale()
+            self._title()
+        finally:
+            self._history_refreshing = False
 
     def on_size(self, event):
         event.Skip()
@@ -1023,8 +1109,11 @@ class DropletFrame(DialogsMixin, wx.Frame, FrameReceiver):
             sys.exit(_('Impossible to load data from action list.'))
 
     def execute(self, actionlist, paths):
-        self._execute(actionlist, paths=paths, drop=True)
-        self.Destroy()
+        try:
+            self._execute(actionlist, paths=paths, drop=True)
+        finally:
+            self.unsubscribe_all()
+            self.Destroy()
 
 
 class DropletMixin(ApplicationBrandingMixin):
