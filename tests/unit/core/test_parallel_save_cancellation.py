@@ -3,7 +3,15 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
-from phatch.core.execution_types import ExecutionIssue, RecoveryReevaluation, ReportFile
+from phatch.core.execution_types import (
+    ExecutionIssue,
+    ExecutionOutcome,
+    FileOutcome,
+    OutputRecord,
+    RecoveryReevaluation,
+    ReportFile,
+    RollbackState,
+)
 from phatch.services import parallel_save
 from phatch.services.output_transaction import DeferredOutputTransaction
 from phatch.services.parallel_image_jobs import (
@@ -12,6 +20,10 @@ from phatch.services.parallel_image_jobs import (
     ImageJobSuccess,
 )
 from phatch.services.parallel_save import execute_parallel_save
+from phatch.services.recovery_outcomes import (
+    RecoveryFinishFailed,
+    RecoveryFinishSucceeded,
+)
 
 
 class _RecordingAttempt:
@@ -23,9 +35,11 @@ class _RecordingAttempt:
         self,
         reports: tuple[ReportFile, ...],
         issues: tuple[ExecutionIssue, ...],
-    ) -> None:
-        del reports, issues
-        raise AssertionError("finish must not run after interruption")
+    ) -> RecoveryFinishSucceeded:
+        del issues
+        return RecoveryFinishSucceeded(
+            tuple(OutputRecord(report) for report in reports)
+        )
 
     def fail(self, issues: tuple[ExecutionIssue, ...]) -> None:
         del issues
@@ -55,9 +69,13 @@ class _InterruptingAttempt(_RecordingAttempt):
         self,
         reports: tuple[ReportFile, ...],
         issues: tuple[ExecutionIssue, ...],
-    ) -> None:
-        del reports, issues
-        raise KeyboardInterrupt
+    ) -> RecoveryFinishFailed:
+        del issues
+        return RecoveryFinishFailed(
+            KeyboardInterrupt(),
+            tuple(OutputRecord(report, survived=False) for report in reports),
+            RollbackState.COMPLETED,
+        )
 
 
 def test_interrupt_aborts_all_attempts_and_removes_stages(
@@ -76,9 +94,13 @@ def test_interrupt_aborts_all_attempts_and_removes_stages(
         lambda _jobs, _workers: (_ for _ in ()).throw(KeyboardInterrupt()),
     )
 
-    # When / Then
-    with pytest.raises(KeyboardInterrupt):
-        execute_parallel_save((job,), 2, _RecordingRecovery(attempt))
+    # When
+    result, batch = execute_parallel_save((job,), 2, _RecordingRecovery(attempt))
+
+    # Then
+    assert result.outcome is ExecutionOutcome.CANCELLED
+    assert result.files[0].outcome is FileOutcome.CANCELLED
+    assert batch.results == ()
     assert attempt.aborts == 1
     assert not stage.exists()
 
@@ -102,9 +124,12 @@ def test_interrupt_after_prepare_aborts_transaction(
         lambda _jobs, _workers: ImageJobBatchResult((success,), (1234,), 4321, 2),
     )
 
-    # When / Then
-    with pytest.raises(KeyboardInterrupt):
-        execute_parallel_save((job,), 2, _RecordingRecovery(attempt))
+    # When
+    result, _batch = execute_parallel_save((job,), 2, _RecordingRecovery(attempt))
+
+    # Then
+    assert result.files[0].outcome is FileOutcome.CANCELLED
+    assert result.files[0].outputs[0].survived is False
     assert attempt.aborts == 1
     assert not job.destination.exists()
     assert not stage.exists()
