@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import os
 import tempfile
 from collections.abc import Callable
@@ -11,9 +10,16 @@ from typing import Protocol
 from PIL import Image
 from PIL.Image import Image as PillowImage
 
+from phatch.services.output_publication import (
+    OutputIdentity,
+    PublicationFailed,
+    PublicationResult,
+    PublicationSucceeded,
+    output_identity,
+    publication_outputs,
+)
 from phatch.services.output_rollback import (
     OriginalDestination,
-    PublicationRollbackError,
     RollbackError,
     backup_originals,
     remove_backups,
@@ -55,15 +61,6 @@ class MetadataWriteError(RuntimeError):
 
     def __str__(self) -> str:
         return f"metadata write failed for {self.path}: {self.reason}"
-
-
-@dataclass(frozen=True, slots=True)
-class OutputIdentity:
-    path: Path
-    size: int
-    sha256: str
-    modified_ns: int
-    original: OriginalDestination | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -182,7 +179,7 @@ class AtomicOutputTransaction:
                 os.utime(stage, ns=(request.modified_time_ns, request.modified_time_ns))
             with stage.open("rb") as stream:
                 self._fsync(stream.fileno())
-            identity = _identity(stage, destination)
+            identity = output_identity(stage, destination)
             prepared = True
             return PreparedOutput(stage, identity, request.after_publish)
         finally:
@@ -196,12 +193,13 @@ class AtomicOutputTransaction:
 
 
 class DeferredOutputTransaction:
-    __slots__ = ("_originals", "_outputs", "_transaction")
+    __slots__ = ("_originals", "_outputs", "_sealed", "_transaction")
 
     def __init__(self) -> None:
         self._transaction = AtomicOutputTransaction()
         self._outputs: list[PreparedOutput] = []
         self._originals: dict[Path, OriginalDestination] = {}
+        self._sealed = False
 
     def execute(self, request: OutputRequest) -> OutputIdentity:
         prepared = self._transaction.prepare(request)
@@ -221,43 +219,78 @@ class DeferredOutputTransaction:
                 prepared.stage.unlink(missing_ok=True)
 
     def identities(self) -> tuple[OutputIdentity, ...]:
+        if not self._sealed:
+            self._refresh_originals()
+            self._sealed = True
         return tuple(output.identity for output in self._outputs)
 
-    def publish_all(self) -> None:
+    def publish_all(self) -> PublicationResult:
+        self.identities()
         outputs = tuple(self._outputs)
         originals = tuple(self._originals.values())
+        identities = tuple(output.identity for output in outputs)
         try:
             backup_originals(originals)
-            try:
-                for output in outputs:
-                    self._transaction.publish(output, notify=False)
-            except OSError as publication_error:
-                try:
-                    restore_originals(originals)
-                except RollbackError as rollback_error:
-                    raise PublicationRollbackError(
-                        publication_error, rollback_error
-                    ) from publication_error
-                raise
-            remove_backups(originals)
             for output in outputs:
-                output.after_publish()
-        finally:
+                self._transaction.publish(output, notify=False)
+        except (OSError, KeyboardInterrupt) as publication_error:
+            rollback_error = None
+            try:
+                restore_originals(originals)
+            except RollbackError as error:
+                rollback_error = error
+            result: PublicationResult = PublicationFailed(
+                publication_error,
+                publication_outputs(identities),
+                rollback_error,
+            )
+        else:
+            try:
+                remove_backups(originals)
+                for output in outputs:
+                    output.after_publish()
+            except (OSError, KeyboardInterrupt) as publication_error:
+                result = PublicationFailed(
+                    publication_error,
+                    publication_outputs(identities),
+                    None,
+                )
+            else:
+                result = PublicationSucceeded(publication_outputs(identities))
+        try:
             self.discard()
+        except (OSError, KeyboardInterrupt) as cleanup_error:
+            if isinstance(result, PublicationFailed):
+                return replace(
+                    result,
+                    cleanup_errors=(*result.cleanup_errors, cleanup_error),
+                )
+            return PublicationFailed(
+                cleanup_error,
+                publication_outputs(identities),
+                None,
+            )
+        return result
 
     def discard(self) -> None:
         for output in self._outputs:
             output.stage.unlink(missing_ok=True)
         self._outputs.clear()
         self._originals.clear()
+        self._sealed = False
 
-
-def _identity(stage: Path, destination: Path) -> OutputIdentity:
-    digest = hashlib.sha256()
-    with stage.open("rb") as stream:
-        for block in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(block)
-    stat = stage.stat()
-    return OutputIdentity(
-        destination, stat.st_size, digest.hexdigest(), stat.st_mtime_ns
-    )
+    def _refresh_originals(self) -> None:
+        for destination, original in tuple(self._originals.items()):
+            if destination.exists() == original.existed:
+                continue
+            self._originals[destination] = reserve_original(destination)
+        self._outputs = [
+            replace(
+                output,
+                identity=replace(
+                    output.identity,
+                    original=self._originals[output.identity.path.resolve()],
+                ),
+            )
+            for output in self._outputs
+        ]
