@@ -3,7 +3,6 @@ from __future__ import annotations
 import time
 from collections.abc import Sequence
 from dataclasses import dataclass, field
-from datetime import timedelta
 from pathlib import Path
 
 from phatch.core.execution_ports import Recovery
@@ -11,7 +10,6 @@ from phatch.core.execution_types import (
     DiscoveredFile,
     ExecutionIssue,
     ExecutionOptions,
-    ExecutionOutcome,
     ExecutionRequest,
     ExecutionResult,
     IssueResponse,
@@ -44,14 +42,12 @@ from phatch.services.legacy_interaction import (
     _setting_int as _setting_int,
 )
 from phatch.services.legacy_photos import LegacyPhotoAccess, LegacyPhotoState
+from phatch.services.legacy_recovery_decision import LegacyRecoveryDecision
 from phatch.services.legacy_types import (
     LegacyActionObject,
     LegacyPaths,
     LegacySettings,
     UpdateCallback,
-)
-from phatch.services.legacy_types import (
-    translate as _,
 )
 
 
@@ -190,7 +186,13 @@ def _execute_actions_to_photos(
     photo_access = LegacyPhotoAccess(context.photo_state, interaction)
     progress = LegacyProgress()
     runner = ExecutionRunner(
-        RunnerServices(interaction, progress, photo_access, recorder)
+        RunnerServices(
+            interaction,
+            progress,
+            photo_access,
+            recorder,
+            LegacyRecoveryDecision(interaction),
+        )
     )
     service = ExecutionService(
         ExecutionServices(
@@ -210,37 +212,9 @@ def _execute_actions_to_photos(
             recovery,
         )
     )
-    result = service.execute(
+    return service.execute(
         ExecutionRequest(adapters, context.options(), None, drop, update)
     )
-    if result.outcome is ExecutionOutcome.COMPLETED:
-        _present_completion(result, context)
-    return result
-
-
-def _present_completion(
-    result: ExecutionResult, context: LegacyExecutionContext
-) -> None:
-    from phatch.core import api
-
-    image_count = len(result.files)
-    duration = timedelta(seconds=int(result.elapsed_seconds))
-    if image_count == 1:
-        message = _("One image done in %s") % duration
-    else:
-        message = _("%(amount)d images done in %(duration)s") % {
-            "amount": image_count,
-            "duration": duration,
-        }
-    if api.ERROR_LOG_COUNTER == 1:
-        message += "\n" + _("One issue was logged")
-    elif api.ERROR_LOG_COUNTER:
-        message += "\n" + _("%d issues were logged") % api.ERROR_LOG_COUNTER
-    api.send.frame_show_notification(message, report=context.photo_state.report)
-    if api.ERROR_LOG_COUNTER:
-        api.send.frame_show_status(f"{message}\n\n{api.SEE_LOG}")
-    elif _setting_bool(context.settings, "always_show_status_dialog"):
-        api.send.frame_show_status(message, log=False)
 
 
 def _setting_bool(settings: LegacySettings, key: str) -> bool:

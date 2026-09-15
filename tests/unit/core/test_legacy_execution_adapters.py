@@ -8,11 +8,8 @@ from phatch.core.execution_types import (
     ExecutionDecision,
     ExecutionIssue,
     ExecutionOptions,
-    ExecutionOutcome,
     ExecutionPosition,
     ExecutionRequest,
-    ExecutionResult,
-    FileResult,
     IssueSeverity,
     IssueStage,
     ProgressDecision,
@@ -27,7 +24,6 @@ from phatch.services.legacy_execution import (
     LegacyIssueRecorder,
     LegacyProgress,
     LegacyValidator,
-    _present_completion,
     _progress_decision,
     _setting_bool,
     _setting_int,
@@ -357,7 +353,7 @@ def test_interaction_progress_and_setting_branches(monkeypatch):
             function({"x": value}, "x")
 
 
-def test_legacy_error_and_completion_branches(monkeypatch):
+def test_legacy_error_branches(monkeypatch):
     raw = ActionFake()
     adapter = LegacyActionAdapter(raw)
     context = LegacyExecutionContext(
@@ -416,30 +412,3 @@ def test_legacy_error_and_completion_branches(monkeypatch):
     recorder.begin()
     recorder.record(issue, 0)
     recorder.close()
-
-    notices = []
-    monkeypatch.setattr(
-        api.send,
-        "frame_show_notification",
-        lambda message, report: notices.append(message),
-    )
-    monkeypatch.setattr(
-        api.send,
-        "frame_show_status",
-        lambda message, **kwargs: notices.append(message),
-    )
-    result = ExecutionResult(
-        ExecutionOutcome.COMPLETED,
-        (
-            FileResult(Path("one"), ExecutionDecision.CONTINUE),
-            FileResult(Path("two"), ExecutionDecision.CONTINUE),
-        ),
-    )
-    monkeypatch.setattr(api, "ERROR_LOG_COUNTER", 1, raising=False)
-    _present_completion(result, context)
-    monkeypatch.setattr(api, "ERROR_LOG_COUNTER", 2)
-    _present_completion(result, context)
-    context.settings["always_show_status_dialog"] = True
-    monkeypatch.setattr(api, "ERROR_LOG_COUNTER", 0)
-    _present_completion(result, context)
-    assert notices
