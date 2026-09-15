@@ -1,0 +1,39 @@
+{
+  "schema_version": 3,
+  "description": "Apply the packaged starter watermark and export a PNG copy.",
+  "actions": [
+    {
+      "id": "watermark",
+      "fields": {
+        "enabled": "yes",
+        "mark": "Watermark",
+        "opacity": "60",
+        "method": "Scale",
+        "orientation": "Normal",
+        "position": "Center",
+        "offset": "5%",
+        "horizontal_offset": "50%",
+        "vertical_offset": "50%",
+        "horizontal_justification": "Middle",
+        "vertical_justification": "Middle"
+      }
+    },
+    {
+      "id": "save",
+      "fields": {
+        "enabled": "yes",
+        "file_name": "<filename>-watermarked",
+        "as": "png",
+        "in": "<folder>/_phatch-watermark",
+        "resolution": "72",
+        "show_type_options": "no",
+        "png_optimize": "no",
+        "jpeg_quality": "85",
+        "jpeg_size_maximum": "0 kb",
+        "jpeg_size_tolerance": "10 kb",
+        "tiff_compression": "none",
+        "metadata": "no"
+      }
+    }
+  ]
+}
