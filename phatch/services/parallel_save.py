@@ -1,104 +1,47 @@
 from __future__ import annotations
 
+import hashlib
 import os
-import shutil
-import tempfile
 import time
-from dataclasses import dataclass
 from pathlib import Path
 from typing import assert_never
 
-from PIL import Image
-
-from phatch.core.execution_ports import Recovery, RecoveryAttempt
+from phatch.core.execution_ports import Recovery
 from phatch.core.execution_types import (
-    ExecutionDecision,
     ExecutionIssue,
     ExecutionOutcome,
     ExecutionResult,
+    FileOutcome,
     FileResult,
     IssueSeverity,
     IssueStage,
+    OutputRecord,
     ReportFile,
+    RollbackState,
 )
-from phatch.lib.image_codecs import codec_capabilities, codec_for_extension
 from phatch.services.action_schema import ActionDocument
-from phatch.services.output_transaction import (
-    AtomicOutputTransaction,
-    NoMetadataProvider,
-    OutputRequest,
-    PillowValidator,
-)
 from phatch.services.parallel_image_jobs import (
     ImageJob,
     ImageJobBatchResult,
+    ImageJobCancelled,
     ImageJobFailure,
     ImageJobSuccess,
     execute_image_jobs,
-    source_frame_pixel_counts,
 )
-from phatch.services.parallel_save_spec import (
-    SaveJobSpec,
-    structural_parallel_constraint,
+from phatch.services.parallel_recovery_boundary import ParallelRecoveryBoundary
+from phatch.services.parallel_save_publication import commit_image
+from phatch.services.parallel_save_spec import structural_parallel_constraint
+from phatch.services.recovery_outcomes import (
+    RecoveryFinishFailed,
+    RecoveryFinishSucceeded,
 )
-from phatch.services.preflight import PreflightResult
 
-
-@dataclass(frozen=True, slots=True)
-class CopyPreparedImage:
-    source: Path
-
-    def __call__(self, destination: Path) -> None:
-        shutil.copyfile(self.source, destination)
+from .parallel_save_jobs import ImageJobConstruction as ImageJobConstruction
+from .parallel_save_jobs import build_image_jobs as build_image_jobs
 
 
 def parallel_constraint(document: ActionDocument) -> str | None:
     return structural_parallel_constraint(document)
-
-
-def build_image_jobs(
-    spec: SaveJobSpec,
-    preflight: PreflightResult,
-) -> tuple[ImageJob, ...]:
-    capabilities = codec_capabilities()
-    jobs: list[ImageJob] = []
-    for index, (source, destination) in enumerate(
-        zip(preflight.inputs, preflight.outputs, strict=True)
-    ):
-        codec = codec_for_extension(destination.suffix, capabilities)
-        if codec is None or not codec.can_write:
-            continue
-        descriptor, stage_name = tempfile.mkstemp(
-            prefix=f".{destination.name}.worker-",
-            suffix=destination.suffix,
-        )
-        os.close(descriptor)
-        stage = Path(stage_name)
-        stage.unlink()
-        with Image.open(source) as image:
-            frame_count = int(getattr(image, "n_frames", 1))
-            retains_animation = frame_count > 1 and codec.format_name in Image.SAVE_ALL
-            frame_pixel_counts = source_frame_pixel_counts(image, retains_animation)
-        pixel_count = frame_pixel_counts[0]
-        jobs.append(
-            ImageJob(
-                index,
-                source,
-                destination,
-                stage,
-                codec.format_name,
-                pixel_count,
-                spec.jpeg_quality if codec.format_name == "JPEG" else None,
-                spec.png_optimize if codec.format_name == "PNG" else False,
-                spec.tiff_compression,
-                frame_count=frame_count,
-                frame_pixel_counts=frame_pixel_counts,
-                retains_animation=retains_animation,
-                resolution=spec.resolution,
-                preserve_metadata=spec.preserve_metadata,
-            )
-        )
-    return tuple(jobs)
 
 
 def execute_parallel_save(
@@ -107,26 +50,40 @@ def execute_parallel_save(
     recovery: Recovery | None = None,
 ) -> tuple[ExecutionResult, ImageJobBatchResult]:
     started = time.monotonic()
+    sources = tuple(job.source for job in jobs)
     if len({job.destination.resolve() for job in jobs}) != len(jobs):
         issue = ExecutionIssue(
             IssueStage.ACTION_VALIDATION,
             IssueSeverity.ERROR,
             "Multiple image jobs resolve to the same output path.",
         )
-        return ExecutionResult(
-            ExecutionOutcome.FAILED, issues=(issue,)
-        ), ImageJobBatchResult((), (), os.getpid(), max_workers)
-    attempts = tuple(
-        recovery.begin(job.source) if recovery is not None else None for job in jobs
-    )
-    completed_attempts: set[int] = set()
-    try:
-        batch = execute_image_jobs(jobs, max_workers)
-        files: list[FileResult] = []
-        issues: list[ExecutionIssue] = []
-        for index, (result, attempt) in enumerate(
-            zip(batch.results, attempts, strict=True)
-        ):
+        files = tuple(
+            FileResult(job.source, FileOutcome.FAILED, issues=(issue,)) for job in jobs
+        )
+        return (
+            ExecutionResult(
+                ExecutionOutcome.FAILED,
+                sources,
+                files,
+                (issue,),
+                time.monotonic() - started,
+            ),
+            _empty_batch(max_workers),
+        )
+    boundary = ParallelRecoveryBoundary(jobs)
+    runnable = boundary.prepare(recovery)
+    if boundary.interrupted:
+        batch = _empty_batch(max_workers)
+    else:
+        try:
+            batch = execute_image_jobs(runnable, max_workers)
+        except KeyboardInterrupt:
+            batch = _empty_batch(max_workers)
+            for job in runnable:
+                boundary.cancel(job)
+            boundary.interrupted = True
+    if not boundary.interrupted:
+        for result in batch.results:
             match result:
                 case ImageJobSuccess() as success:
                     report = ReportFile(
@@ -136,82 +93,94 @@ def execute_parallel_save(
                         success.height,
                         success.mode,
                     )
+                    job = next(job for job in jobs if job.index == success.index)
                     try:
-                        _commit(success, report, attempt)
-                    except OSError as error:
-                        issue = ExecutionIssue(
+                        finish = commit_image(success, report, boundary.attempt(job))
+                    except (OSError, KeyboardInterrupt) as error:
+                        output = observed_output(success, report)
+                        boundary.record_boundary_failure(
+                            jobs.index(job),
+                            error,
+                            outputs=(output,),
+                            rollback=(
+                                RollbackState.FAILED
+                                if output.survived
+                                else RollbackState.COMPLETED
+                            ),
+                        )
+                        if isinstance(error, KeyboardInterrupt):
+                            boundary.cancel_after(jobs.index(job))
+                            boundary.interrupted = True
+                            break
+                        continue
+                    match finish:
+                        case RecoveryFinishFailed() as failure:
+                            errors = (failure.cause, *failure.cleanup_errors)
+                            for error in errors:
+                                boundary.record_boundary_failure(
+                                    jobs.index(job),
+                                    error,
+                                    outputs=failure.outputs,
+                                    rollback=failure.rollback,
+                                )
+                            interrupted = any(
+                                isinstance(error, KeyboardInterrupt) for error in errors
+                            )
+                            if interrupted:
+                                boundary.cancel_after(jobs.index(job))
+                                boundary.interrupted = True
+                                break
+                            boundary.complete(job)
+                        case RecoveryFinishSucceeded(outputs=outputs):
+                            boundary.complete(job)
+                            boundary.set_result(
+                                job,
+                                FileResult(
+                                    success.source,
+                                    FileOutcome.PROCESSED,
+                                    outputs=outputs,
+                                ),
+                            )
+                        case unreachable:
+                            assert_never(unreachable)
+                case ImageJobFailure() as failure:
+                    job = next(job for job in jobs if job.index == failure.index)
+                    boundary.fail(
+                        job,
+                        ExecutionIssue(
                             IssueStage.ACTION_EXECUTION,
                             IssueSeverity.ERROR,
-                            str(error),
-                            success.source,
+                            failure.reason,
+                            failure.source,
                             "Save",
-                        )
-                        if attempt is not None:
-                            attempt.fail((issue,))
-                            completed_attempts.add(index)
-                        issues.append(issue)
-                        files.append(FileResult(success.source, ExecutionDecision.SKIP))
-                    else:
-                        if attempt is not None:
-                            completed_attempts.add(index)
-                        files.append(
-                            FileResult(
-                                success.source,
-                                ExecutionDecision.CONTINUE,
-                                (report,),
-                            )
-                        )
-                case ImageJobFailure() as failure:
-                    issue = ExecutionIssue(
-                        IssueStage.ACTION_EXECUTION,
-                        IssueSeverity.ERROR,
-                        failure.reason,
-                        failure.source,
-                        "Save",
+                        ),
                     )
-                    if attempt is not None:
-                        attempt.fail((issue,))
-                        completed_attempts.add(index)
-                    issues.append(issue)
-                    files.append(FileResult(failure.source, ExecutionDecision.SKIP))
+                    if boundary.interrupted:
+                        break
+                case ImageJobCancelled() as cancelled:
+                    boundary.cancel(
+                        next(job for job in jobs if job.index == cancelled.index)
+                    )
                 case unreachable:
                     assert_never(unreachable)
-        return (
-            ExecutionResult(
-                ExecutionOutcome.COMPLETED,
-                tuple(files),
-                tuple(issues),
-                time.monotonic() - started,
-            ),
-            batch,
-        )
-    finally:
-        for index, attempt in enumerate(attempts):
-            if attempt is not None and index not in completed_attempts:
-                attempt.abort()
-        for job in jobs:
-            job.stage.unlink(missing_ok=True)
+    boundary.cleanup()
+    return boundary.result(time.monotonic() - started), batch
 
 
-def _commit(
-    success: ImageJobSuccess,
-    report: ReportFile,
-    attempt: RecoveryAttempt | None,
-) -> None:
-    success.destination.parent.mkdir(parents=True, exist_ok=True)
-    transaction = (
-        attempt.transaction if attempt is not None else AtomicOutputTransaction()
-    )
-    transaction.execute(
-        OutputRequest(
-            success.destination,
-            CopyPreparedImage(success.stage),
-            NoMetadataProvider(),
-            PillowValidator(
-                success.format_name,
-                (success.width, success.height),
-            ),
-        )
-    )
-    if attempt is not None:
-        attempt.finish((report,), ())
+def _empty_batch(max_workers: int) -> ImageJobBatchResult:
+    return ImageJobBatchResult((), (), os.getpid(), max_workers)
+
+
+def observed_output(success: ImageJobSuccess, report: ReportFile) -> OutputRecord:
+    survived = success.destination.is_file() and _digest(
+        success.destination
+    ) == _digest(success.stage)
+    return OutputRecord(report, survived)
+
+
+def _digest(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()

@@ -3,16 +3,28 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
-from phatch.services.parallel_image_jobs import ImageJob
+from phatch.core.execution_types import (
+    ExecutionOutcome,
+    FileOutcome,
+    OutputRecord,
+    RollbackState,
+)
+from phatch.services import parallel_save
 from phatch.services.action_schema import ActionDocument
+from phatch.services.parallel_image_jobs import (
+    ImageJob,
+    ImageJobBatchResult,
+    ImageJobCancelled,
+    ImageJobFailure,
+)
 from phatch.services.parallel_save import (
     build_image_jobs,
     execute_parallel_save,
-    parallel_constraint,
 )
 from phatch.services.parallel_save_spec import SaveJobSpec
 from phatch.services.preflight import PreflightResult
 from phatch.services.recovery import RecoveryJournal, RecoverySession
+from phatch.services.recovery_outcomes import RecoveryFinishFailed
 
 
 def _job(tmp_path: Path, index: int, name: str) -> ImageJob:
@@ -40,6 +52,8 @@ def test_coordinator_commits_ordered_worker_results_and_journal(tmp_path: Path) 
 
     # Then
     assert [file.source for file in result.files] == [job.source for job in jobs]
+    assert result.planned_sources == tuple(job.source for job in jobs)
+    assert all(file.outcome is FileOutcome.PROCESSED for file in result.files)
     assert all(job.destination.is_file() for job in jobs)
     assert not any(job.stage.exists() for job in jobs)
     assert [record["state"] for record in journal.records()] == [
@@ -67,11 +81,64 @@ def test_worker_failure_preserves_unrelated_commit_and_failed_journal(
     assert jobs[0].destination.is_file()
     assert not jobs[1].destination.exists()
     assert len(result.issues) == 1
+    assert [file.outcome for file in result.files] == [
+        FileOutcome.PROCESSED,
+        FileOutcome.FAILED,
+    ]
     assert [record["state"] for record in journal.records()] == [
         "prepared",
         "completed",
         "failed",
     ]
+
+
+def test_worker_failure_and_cancellation_are_preserved_without_recovery(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    failed_job = _job(tmp_path, 0, "failed")
+    cancelled_job = _job(tmp_path, 1, "cancelled")
+    failed_job.stage.write_bytes(b"failed stage")
+    cancelled_job.stage.write_bytes(b"cancelled stage")
+    batch = ImageJobBatchResult(
+        (
+            ImageJobFailure(
+                failed_job.index,
+                failed_job.source,
+                failed_job.destination,
+                failed_job.stage,
+                "worker failed",
+                1234,
+            ),
+            ImageJobCancelled(
+                cancelled_job.index,
+                cancelled_job.source,
+                cancelled_job.destination,
+                cancelled_job.stage,
+                1235,
+            ),
+        ),
+        (1234, 1235),
+        4321,
+        2,
+    )
+    monkeypatch.setattr(
+        parallel_save,
+        "execute_image_jobs",
+        lambda _jobs, _workers: batch,
+    )
+
+    result, returned_batch = execute_parallel_save((failed_job, cancelled_job), 2)
+
+    assert returned_batch is batch
+    assert result.outcome is ExecutionOutcome.CANCELLED
+    assert [file.outcome for file in result.files] == [
+        FileOutcome.FAILED,
+        FileOutcome.CANCELLED,
+    ]
+    assert result.issues[0].message == "worker failed"
+    assert not failed_job.stage.exists()
+    assert not cancelled_job.stage.exists()
 
 
 @pytest.mark.parametrize("with_recovery", [False, True])
@@ -105,15 +172,39 @@ def test_publication_failure_preserves_unrelated_commit(
     # Then
     assert good.destination.is_file()
     assert len(result.files) == 2
-    assert result.files[1].decision.value == "skip"
+    assert result.files[1].outcome is FileOutcome.FAILED
+    assert result.files[1].rollback is RollbackState.COMPLETED
+    assert result.files[1].outputs[0].survived is False
     assert len(result.issues) == 1
 
 
-def test_job_builder_skips_unavailable_output_codec(tmp_path: Path) -> None:
+def test_publication_rollback_failure_is_explicit(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    job = _job(tmp_path, 0, "rollback-failure")
+    job.destination.parent.mkdir()
+    monkeypatch.setattr(
+        parallel_save,
+        "commit_image",
+        lambda _success, report, _attempt: RecoveryFinishFailed(
+            PermissionError(13, "publication blocked", job.destination),
+            (OutputRecord(report, survived=False),),
+            RollbackState.FAILED,
+        ),
+    )
+
+    result, _batch = execute_parallel_save((job,), 1)
+
+    assert result.files[0].outcome is FileOutcome.FAILED
+    assert result.files[0].rollback is RollbackState.FAILED
+    assert result.files[0].outputs[0].survived is False
+
+
+def test_job_builder_records_unavailable_output_codec_failure(tmp_path: Path) -> None:
     # Given
     source = tmp_path / "input.png"
     destination = tmp_path / "output" / "result.unavailable"
-    Image.new("RGB", (2, 2)).save(source)
     spec = SaveJobSpec(85, False, "none", 72, False)
     preflight = PreflightResult(
         (source,),
@@ -126,10 +217,23 @@ def test_job_builder_skips_unavailable_output_codec(tmp_path: Path) -> None:
     )
 
     # When
-    jobs = build_image_jobs(spec, preflight)
+    construction = build_image_jobs(spec, preflight)
+    result, _batch = execute_parallel_save(construction.jobs, 1)
+    result = construction.reconcile(result)
 
     # Then
-    assert jobs == ()
+    assert construction.jobs == ()
+    assert construction.planned_sources == (source,)
+    assert len(construction.failures) == 1
+    failure = construction.failures[0]
+    assert failure.source == source
+    assert failure.outcome is FileOutcome.FAILED
+    assert failure.issues[0].source == source
+    assert "output codec" in failure.issues[0].message.lower()
+    assert ".unavailable" in failure.issues[0].message
+    assert result.planned_sources == (source,)
+    assert result.files == construction.failures
+    assert result.counts.failed == 1
 
 
 def test_output_collision_fails_before_worker_or_publication(tmp_path: Path) -> None:
@@ -150,30 +254,10 @@ def test_output_collision_fails_before_worker_or_publication(tmp_path: Path) -> 
 
     # Then
     assert result.outcome.value == "failed"
+    assert result.planned_sources == (first.source, collision.source)
+    assert all(file.outcome is FileOutcome.FAILED for file in result.files)
     assert not first.destination.exists()
     assert batch.worker_pids == ()
-
-
-def test_dynamic_index_naming_explicitly_stays_serial() -> None:
-    # Given
-    document = ActionDocument.from_values(
-        "",
-        (("save", (("file_name", "<filename>-<index>"),)),),
-    )
-
-    # When
-    constraint = parallel_constraint(document)
-
-    # Then
-    assert constraint == "parallel Save does not support dynamic variables: index"
-
-
-def test_non_save_action_set_explicitly_stays_serial() -> None:
-    document = ActionDocument.from_values("", (("scale", ()),))
-
-    assert parallel_constraint(document) == (
-        "parallel execution requires exactly one enabled Save action"
-    )
 
 
 def test_build_and_execute_jobs_uses_preflight_paths_and_save_options(
@@ -183,7 +267,7 @@ def test_build_and_execute_jobs_uses_preflight_paths_and_save_options(
     source = tmp_path / "input.png"
     destination = tmp_path / "output" / "result.png"
     Image.new("RGB", (14, 11), "orange").save(source)
-    document = ActionDocument.from_values(
+    ActionDocument.from_values(
         "",
         (
             (
@@ -207,11 +291,12 @@ def test_build_and_execute_jobs_uses_preflight_paths_and_save_options(
     )
 
     # When
-    jobs = build_image_jobs(SaveJobSpec(91, True, "none", 72, False), preflight)
-    result, _batch = execute_parallel_save(jobs, 1)
+    construction = build_image_jobs(SaveJobSpec(91, True, "none", 72, False), preflight)
+    result, _batch = execute_parallel_save(construction.jobs, 1)
+    result = construction.reconcile(result)
 
     # Then
-    assert jobs[0].quality is None
-    assert jobs[0].optimize is True
+    assert construction.jobs[0].quality is None
+    assert construction.jobs[0].optimize is True
     assert result.files[0].reports[0].path == destination
     assert destination.is_file()
