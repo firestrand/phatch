@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Protocol
 
 if TYPE_CHECKING:
     from phatch.services.output_transaction import DeferredOutputTransaction
+    from phatch.services.recovery_outcomes import RecoveryFinishResult
 
 from phatch.core.execution_types import (
     ActionApplication,
@@ -164,7 +165,7 @@ class RecoveryAttempt(Protocol):
         self,
         reports: tuple[ReportFile, ...],
         issues: tuple[ExecutionIssue, ...],
-    ) -> None: ...
+    ) -> RecoveryFinishResult: ...
 
     def fail(self, issues: tuple[ExecutionIssue, ...]) -> None: ...
 
