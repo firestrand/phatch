@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from phatch.services.output_rollback import PublicationRollbackError
+from phatch.services.output_publication import PublicationFailed, PublicationSucceeded
 from phatch.services.output_transaction import (
     DeferredOutputTransaction,
     NoMetadataProvider,
@@ -52,13 +52,41 @@ def test_deferred_publication_discloses_rollback_denial_and_retains_backups(
             )
         )
 
-    with pytest.raises(PublicationRollbackError) as raised:
-        transaction.publish_all()
+    result = transaction.publish_all()
 
-    assert isinstance(raised.value.publication_error, PermissionError)
+    assert isinstance(result, PublicationFailed)
+    assert isinstance(result.cause, PermissionError)
+    assert result.rollback_error is not None
     rollback_destinations = {
-        failure.destination for failure in raised.value.rollback_error.failures
+        failure.destination for failure in result.rollback_error.failures
     }
     assert rollback_destinations == set(destinations)
     assert len(tuple(tmp_path.glob(".*.bak"))) == 2
     assert not tuple(tmp_path.glob(".*.tmp"))
+
+
+def test_deferred_publication_refreshes_original_reserved_state(
+    tmp_path: Path,
+) -> None:
+    destination = tmp_path / "result.bin"
+    transaction = DeferredOutputTransaction()
+    transaction.execute(
+        OutputRequest(
+            destination,
+            lambda path: path.write_bytes(b"new"),
+            NoMetadataProvider(),
+            lambda path: None,
+        )
+    )
+    destination.write_bytes(b"appeared-after-prepare")
+
+    identities = transaction.identities()
+    result = transaction.publish_all()
+
+    assert identities[0].original is not None
+    assert identities[0].original.existed is True
+    assert identities[0].original.backup is not None
+    assert isinstance(result, PublicationSucceeded)
+    assert result.outputs[0].survived is True
+    assert destination.read_bytes() == b"new"
+    assert not tuple(tmp_path.glob(".*.bak"))
