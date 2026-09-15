@@ -1,11 +1,14 @@
 import builtins
 from types import SimpleNamespace
 
+import pytest
+
 if "_" not in builtins.__dict__:
     builtins.__dict__["_"] = lambda value: value
 
 from phatch.core import ct
-from phatch.pyWx.file_menu import ClipboardMessages, FileMenuCoordinator, wx as file_wx
+from phatch.pyWx.file_menu import ClipboardMessages, FileMenuCoordinator
+from phatch.pyWx.file_menu import wx as file_wx
 from phatch.services.file_dialogs import DialogSelection
 
 
@@ -19,6 +22,7 @@ class DescriptionField:
 
 class StubController:
     def __init__(self):
+        self.lifecycle_events = []
         self.state = SimpleNamespace(
             filename=ct.UNKNOWN,
             description=ct.ACTION_LIST_DESCRIPTION,
@@ -36,6 +40,18 @@ class StubController:
             has_actions=False,
         )
         return self.state
+
+    def begin_open(self):
+        self.lifecycle_events.append("begin_open")
+
+    def finish_open(self, *, success):
+        self.lifecycle_events.append(("finish_open", success))
+
+    def begin_save(self):
+        self.lifecycle_events.append("begin_save")
+
+    def finish_save(self, *, success):
+        self.lifecycle_events.append(("finish_save", success))
 
 
 class StubFileHistory:
@@ -57,8 +73,8 @@ class StubFileHistory:
 
 class StubFileDialogs:
     def __init__(self):
-        self.open_selection = None
-        self.save_selection = None
+        self.open_selection: DialogSelection | None = None
+        self.save_selection: DialogSelection | None = None
         self.open_kwargs = None
         self.save_kwargs = None
 
@@ -85,15 +101,21 @@ class StubFrame:
         self.last_message = None
         self.message_response = file_wx.ID_NO
         self.info_messages: list[str] = []
+        self.open_succeeds = True
+        self.save_error: OSError | None = None
 
     def _set_filename(self, filename):
         self.filename = filename
 
     def _save(self, filename=None):
+        if self.save_error is not None:
+            raise self.save_error
         self.saved_paths.append(filename if filename is not None else self.filename)
 
     def _open(self, path):
         self.opened_paths.append(path)
+        if self.open_succeeds:
+            self.controller.state.filename = path
 
     def show_description(self, value):
         self.show_description_state = value
@@ -138,7 +160,9 @@ def build_coordinator(frame, file_history=None, file_dialogs=None, copy_log=None
         file_history=file_history,
         file_dialogs=file_dialogs,
         clipboard_messages=clipboard,
-        ensure_suffix=lambda value: value if value.endswith(ct.EXTENSION) else f"{value}{ct.EXTENSION}",
+        ensure_suffix=lambda value: (
+            value if value.endswith(ct.EXTENSION) else f"{value}{ct.EXTENSION}"
+        ),
         copy_text=copy_text,
     )
     return coordinator, file_history, file_dialogs, copy_log
@@ -197,6 +221,52 @@ def test_open_actionlist_loads_selected_path():
     coordinator.open_actionlist()
 
     assert frame.opened_paths == ["path/to/file.phatch"]
+    assert frame.controller.lifecycle_events == [
+        "begin_open",
+        ("finish_open", True),
+    ]
+
+
+def test_open_actionlist_reports_failed_load_to_controller():
+    frame = StubFrame()
+    frame.open_succeeds = False
+    file_dialogs = StubFileDialogs()
+    file_dialogs.open_selection = DialogSelection("broken.phatch")
+    coordinator, *_ = build_coordinator(frame, file_dialogs=file_dialogs)
+
+    coordinator.open_actionlist()
+
+    assert frame.controller.lifecycle_events == [
+        "begin_open",
+        ("finish_open", False),
+    ]
+
+
+def test_save_current_reports_success_to_controller(tmp_path):
+    frame = StubFrame()
+    frame.filename = str(tmp_path / "saved.phatch")
+    coordinator, *_ = build_coordinator(frame)
+
+    assert coordinator.save_current() is True
+    assert frame.controller.lifecycle_events == [
+        "begin_save",
+        ("finish_save", True),
+    ]
+
+
+def test_save_current_reports_failure_without_swallowing_error(tmp_path):
+    frame = StubFrame()
+    frame.filename = str(tmp_path / "failed.phatch")
+    frame.save_error = OSError("disk full")
+    coordinator, *_ = build_coordinator(frame)
+
+    with pytest.raises(OSError, match="disk full"):
+        coordinator.save_current()
+
+    assert frame.controller.lifecycle_events == [
+        "begin_save",
+        ("finish_save", False),
+    ]
 
 
 def test_save_as_honours_overwrite_rejection(tmp_path):
