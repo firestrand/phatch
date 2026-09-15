@@ -1,0 +1,35 @@
+{
+  "schema_version": 3,
+  "description": "Scale down to fit 96 by 96 pixels and export a web-ready PNG copy.",
+  "actions": [
+    {
+      "id": "scale",
+      "fields": {
+        "enabled": "yes",
+        "canvas_width": "96px",
+        "canvas_height": "96px",
+        "resolution": "72",
+        "constrain_proportions": "yes",
+        "resample_image": "automatic",
+        "scale_down_only": "yes"
+      }
+    },
+    {
+      "id": "save",
+      "fields": {
+        "enabled": "yes",
+        "file_name": "<filename>-web",
+        "as": "png",
+        "in": "<folder>/_phatch-web",
+        "resolution": "72",
+        "show_type_options": "no",
+        "png_optimize": "yes",
+        "jpeg_quality": "85",
+        "jpeg_size_maximum": "0 kb",
+        "jpeg_size_tolerance": "10 kb",
+        "tiff_compression": "none",
+        "metadata": "no"
+      }
+    }
+  ]
+}
