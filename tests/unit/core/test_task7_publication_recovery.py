@@ -8,7 +8,14 @@ import pytest
 from PIL import Image
 
 from phatch.core import api
-from phatch.core.execution_types import RecoveryConfiguration
+from phatch.core.execution_types import (
+    CancellationState,
+    ExecutionOutcome,
+    FileOutcome,
+    IssueStage,
+    RecoveryConfiguration,
+    RollbackState,
+)
 from phatch.services.recovery import JournalWriteError, RecoveryJournal
 from tests.unit.core.test_execution_characterization_batch import batch_settings
 from tests.unit.core.test_legacy_execution_public_api import (
@@ -55,16 +62,19 @@ def test_intent_journal_failure_prevents_publication_and_report(
 
     monkeypatch.setattr(RecoveryJournal, "append", fail_append)
 
-    with pytest.raises(JournalWriteError):
-        api.apply_actions_to_photos_with_recovery(
-            [action],
-            batch_settings(no_save=True, overwrite=True),
-            recovery,
-            [str(source)],
-        )
+    result = api.apply_actions_to_photos_with_recovery(
+        [action],
+        batch_settings(no_save=True, overwrite=True),
+        recovery,
+        [str(source)],
+    )
 
+    assert result.files[0].outcome is FileOutcome.FAILED
+    assert result.files[0].issues[0].stage is IssueStage.RECOVERY
+    assert result.files[0].rollback is RollbackState.COMPLETED
     assert destination.read_bytes() == b"OLD_DESTINATION"
     assert action.photo is not None
+    assert not hasattr(action.photo, "info")
     assert action.photo.report_files == []
 
 
@@ -85,14 +95,20 @@ def test_crash_after_replace_recovers_prepared_output_without_reapplying(
         original_append(self, record)
 
     monkeypatch.setattr(RecoveryJournal, "append", crash_on_completed)
-    with pytest.raises(KeyboardInterrupt):
-        api.apply_actions_to_photos_with_recovery(
-            [action],
-            batch_settings(no_save=True, overwrite=True),
-            recovery,
-            [str(source)],
-        )
+    result = api.apply_actions_to_photos_with_recovery(
+        [action],
+        batch_settings(no_save=True, overwrite=True),
+        recovery,
+        [str(source)],
+    )
 
+    assert result.outcome is ExecutionOutcome.CANCELLED
+    assert result.files[0].outcome is FileOutcome.FAILED
+    assert result.files[0].cancellation is CancellationState.REQUESTED
+    assert result.files[0].outputs[0].survived is True
+    assert result.files[0].rollback is RollbackState.NOT_REQUIRED
+    assert action.photo is not None
+    assert not hasattr(action.photo, "info")
     published_hash = _sha256(destination)
     published_inode = destination.stat().st_ino
     records_before = RecoveryJournal(recovery.journal_path).records()
@@ -139,14 +155,19 @@ def test_partial_multioutput_publication_remains_recoverable(
     monkeypatch.setattr(
         "phatch.services.output_transaction.os.replace", fail_second_replace
     )
-    with pytest.raises(PermissionError):
-        api.apply_actions_to_photos_with_recovery(
-            [TransactionalOutputsAction(outputs)],
-            batch_settings(no_save=True, overwrite=True),
-            recovery,
-            [str(source)],
-        )
+    action = TransactionalOutputsAction(outputs)
+    result = api.apply_actions_to_photos_with_recovery(
+        [action],
+        batch_settings(no_save=True, overwrite=True),
+        recovery,
+        [str(source)],
+    )
     records = RecoveryJournal(recovery.journal_path).records()
+    assert result.files[0].outcome is FileOutcome.FAILED
+    assert result.files[0].rollback is RollbackState.COMPLETED
+    assert [output.survived for output in result.files[0].outputs] == [False, False]
+    assert action.photo is not None
+    assert not hasattr(action.photo, "info")
     assert len(records) == 1
     assert records[0]["state"] == "prepared"
     assert len(records[0]["outputs"]) == 2
@@ -191,14 +212,18 @@ def test_failed_multioutput_publication_removes_new_destination(
         "phatch.services.output_transaction.os.replace", fail_second_replace
     )
 
-    with pytest.raises(PermissionError):
-        api.apply_actions_to_photos_with_recovery(
-            [TransactionalOutputsAction(outputs)],
-            batch_settings(no_save=True, overwrite=True),
-            recovery,
-            [str(source)],
-        )
+    action = TransactionalOutputsAction(outputs)
+    result = api.apply_actions_to_photos_with_recovery(
+        [action],
+        batch_settings(no_save=True, overwrite=True),
+        recovery,
+        [str(source)],
+    )
 
+    assert result.files[0].outcome is FileOutcome.FAILED
+    assert result.files[0].rollback is RollbackState.COMPLETED
+    assert action.photo is not None
+    assert not hasattr(action.photo, "info")
     records = RecoveryJournal(recovery.journal_path).records()
     assert [record["state"] for record in records] == ["prepared"]
     assert not outputs[0].exists()
@@ -228,18 +253,26 @@ def test_restart_reconciles_interrupted_multioutput_publication(
     monkeypatch.setattr(
         "phatch.services.output_transaction.os.replace", interrupt_second_replace
     )
-    with pytest.raises(KeyboardInterrupt):
-        api.apply_actions_to_photos_with_recovery(
-            [TransactionalOutputsAction(outputs)],
-            batch_settings(no_save=True, overwrite=True),
-            recovery,
-            [str(source)],
-        )
+    interrupted = TransactionalOutputsAction(outputs)
+    result = api.apply_actions_to_photos_with_recovery(
+        [interrupted],
+        batch_settings(no_save=True, overwrite=True),
+        recovery,
+        [str(source)],
+    )
 
+    assert result.outcome is ExecutionOutcome.CANCELLED
+    assert result.files[0].outcome is FileOutcome.FAILED
+    assert result.files[0].cancellation is CancellationState.REQUESTED
+    assert result.files[0].rollback is RollbackState.COMPLETED
+    assert interrupted.photo is not None
+    assert not hasattr(interrupted.photo, "info")
     assert [
         record["state"] for record in RecoveryJournal(recovery.journal_path).records()
     ] == ["prepared"]
-    assert len(tuple(tmp_path.glob(".*.bak"))) == 2
+    assert not tuple(tmp_path.glob(".*.bak"))
+    assert outputs[0].read_bytes() == b"ORIGINAL_FIRST"
+    assert outputs[1].read_bytes() == b"ORIGINAL_SECOND"
 
     monkeypatch.setattr(
         "phatch.services.output_transaction.os.replace", original_replace
