@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import builtins
 import importlib
+import subprocess
 import sys
 from collections.abc import Callable
 
@@ -55,3 +56,21 @@ def test_droplet_translation_uses_identity_when_gettext_is_missing(
         module.EXTENSIONS_INSTALL_UNSUCCESFUL
         == "Phatch did not succeed to install the requested feature."
     )
+
+
+def test_droplet_import_handles_a_noncallable_gettext_value() -> None:
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            (
+                "import builtins, phatch.lib.reverse_translation; "
+                "builtins._ = None; import phatch.windows.droplet"
+            ),
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert completed.returncode == 0, completed.stderr
