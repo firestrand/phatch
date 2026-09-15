@@ -69,7 +69,16 @@ class ImageJobFailure:
     worker_pid: int
 
 
-ImageJobResult: TypeAlias = ImageJobSuccess | ImageJobFailure
+@dataclass(frozen=True, slots=True)
+class ImageJobCancelled:
+    index: int
+    source: Path
+    destination: Path
+    stage: Path
+    worker_pid: int = 0
+
+
+ImageJobResult: TypeAlias = ImageJobSuccess | ImageJobFailure | ImageJobCancelled
 ImageSaveOption: TypeAlias = (
     bool | int | str | bytes | tuple[int, int] | list[Image.Image] | list[int]
 )
