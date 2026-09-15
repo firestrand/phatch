@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Iterator
+from contextlib import contextmanager
 from dataclasses import FrozenInstanceError
 from pathlib import Path
 
@@ -17,6 +19,7 @@ from phatch.core.execution_types import (
     ExecutionRequest,
     ExecutionResult,
     ExecutionSelection,
+    FileOutcome,
     FileResult,
     IssueResponse,
     IssueSeverity,
@@ -78,8 +81,8 @@ def test_records_are_frozen_and_slotted() -> None:
         (issue, "message"),
         (IssueResponse(ExecutionDecision.CONTINUE, True), "decision"),
         (ActionApplication(photo, True), "succeeded"),
-        (FileResult(source.path, ExecutionDecision.CONTINUE), "decision"),
-        (ExecutionResult(ExecutionOutcome.COMPLETED), "outcome"),
+        (FileResult(source.path, FileOutcome.PROCESSED), "outcome"),
+        (ExecutionResult(ExecutionOutcome.COMPLETED, ()), "outcome"),
     )
 
     for record, field_name in records:
@@ -130,3 +133,12 @@ def test_invariant_error_preserves_typed_reason_and_string() -> None:
 
     assert error.reason == "invalid execution record"
     assert str(error) == "invalid execution record"
+
+
+def test_invariant_error_survives_generator_context_manager() -> None:
+    @contextmanager
+    def passthrough() -> Iterator[None]:
+        yield
+
+    with pytest.raises(ExecutionInvariantError, match="invalid state"), passthrough():
+        raise ExecutionInvariantError("invalid state")
