@@ -157,9 +157,9 @@ def test_explicit_supported_fields_create_typed_worker_spec(tmp_path: Path) -> N
     assert isinstance(selection, SaveJobSpec)
     assert selection.resolution == 144
     assert selection.preserve_metadata is False
-    jobs = build_image_jobs(selection, preflight)
-    assert jobs[0].frame_count == 2
-    assert jobs[0].retains_animation is True
+    construction = build_image_jobs(selection, preflight)
+    assert construction.jobs[0].frame_count == 2
+    assert construction.jobs[0].retains_animation is True
 
 
 def test_dynamic_resolution_uses_legacy_serial_path(tmp_path: Path) -> None:
