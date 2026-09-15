@@ -201,17 +201,25 @@ def test_corner_logo_loads_bitmap_through_native_paint(
     assert corner_logo.IsOk()
 
 
-def test_modified_image_activation_focuses_filter_control(
-    native_runtime, jpeg_path: Path
+def test_modified_image_activation_requests_filter_focus(
+    native_runtime, jpeg_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     frame, grid = _frame(str(jpeg_path))
     app = wx.GetApp()
     app.SetTopWindow(frame)
     old_time = grid.image_table.images[0].time
     os.utime(jpeg_path, (old_time + 10, old_time + 10))
+    scheduled: list[tuple[object, tuple[object, ...]]] = []
+    monkeypatch.setattr(
+        wx,
+        "CallAfter",
+        lambda callback, *args: scheduled.append((callback, args)),
+    )
 
     frame.UpdateIfNeeded()
-    wait_until(frame.browser.filter.HasFocus)
 
     assert grid.image_table.images[0].time > old_time
-    assert frame.browser.filter.HasFocus()
+    assert len(scheduled) == 1
+    callback, args = scheduled[0]
+    assert callback == frame.browser.filter.SetFocus
+    assert args == ()
