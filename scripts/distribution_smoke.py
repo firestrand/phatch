@@ -74,6 +74,10 @@ def main(arguments: tuple[str, ...] | None = None) -> int:
         _run([phatch, "--help"], cwd=work)
         _run([phatch_gui, "--help"], cwd=work)
         _run(
+            [python, sources[0] / "scripts" / "runtime_inventory.py", "--json"],
+            cwd=work,
+        )
+        _run(
             [
                 python,
                 "-c",
