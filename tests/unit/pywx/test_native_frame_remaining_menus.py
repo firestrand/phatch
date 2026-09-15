@@ -112,6 +112,21 @@ def test_add_action_accepts_native_dialog_selection(
     assert frame.controller.state.dirty
 
 
+def test_tools_preview_opens_one_reusable_modeless_dialog(
+    native_frame_harness,
+) -> None:
+    frame = native_frame_harness.frame
+
+    frame.on_menu_tools_preview(None)
+    first = frame.preview_dialog
+    frame.on_menu_tools_preview(None)
+
+    assert first is not None
+    assert first is frame.preview_dialog
+    assert first.IsShown()
+    assert frame.menu_tools_preview.GetItemLabelText() == "Preview..."
+
+
 def test_remove_without_selection_preserves_native_action(
     native_frame_harness,
 ) -> None:
