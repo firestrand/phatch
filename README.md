@@ -8,7 +8,8 @@ Phatch is a powerful, cross-platform photo batch processing application that ena
 
 - **50+ Image Actions**: Resize, rotate, crop, watermark, shadow, reflection, borders, effects, and more
 - **GUI & Console Modes**: Interactive desktop application or command-line batch processing
-- **Cross-Platform**: Runs on Linux, macOS, and Windows
+- **Cross-Platform Source**: Linux, macOS, and Windows code, with release
+  support limited to the platforms explicitly verified for each release
 - **Action Lists**: Save and reuse your favorite batch processing workflows
 - **Image Inspector**: View detailed EXIF/IPTC metadata
 - **Droplet Mode**: Drag and drop images onto saved action lists
@@ -53,6 +54,12 @@ contracts.
 See [Release Verification and Artifacts](docs/release_gate.md) for the current
 release evidence, platform scope, optional capabilities, and artifact scanning.
 
+The [0.5 usability candidate guide](docs/usability_050.md) documents the new
+preview, action-list history, keyboard shortcuts, report v2 migration, six
+starter workflows, and verified user-local Ubuntu launcher procedure. The 0.5
+candidate is not published; this link describes a development candidate, not a
+downloadable release.
+
 ### Installation
 
 macOS 14 or newer on Apple silicon can use the ad-hoc-signed application from
@@ -70,9 +77,9 @@ The application is ad-hoc signed, not Developer ID signed or notarized. On the
 first launch, macOS may require Control-clicking `Phatch.app`, choosing Open,
 and confirming Open. Do not disable Gatekeeper globally.
 
-Ubuntu 24.04 and other source installations require Python development headers
-and wxPython build dependencies supplied by the operating system. From a clean
-checkout of the stable tag, install into an isolated environment with `uv`:
+Ubuntu 24.04 source installations require Python development headers and
+wxPython build dependencies supplied by the operating system. For the published
+0.4.0 release, install from a clean checkout of the exact stable tag:
 
 ```bash
 git clone --branch v0.4.0 --depth 1 https://github.com/firestrand/phatch.git
@@ -85,6 +92,9 @@ uv run phatch-gui
 
 The project is not published to PyPI as part of this release. The tag-bound
 source checkout above and the macOS archive are the supported 0.4.0 inputs.
+For an authorized local 0.5 candidate checkout or wheel, follow the
+[Ubuntu user-local installation](docs/usability_050.md#ubuntu-2404-user-local-installation)
+instructions; do not substitute a nonexistent 0.5 tag or remote download.
 
 ## 🧪 Testing
 
@@ -115,6 +125,7 @@ new or unlisted files cannot bypass the changed-module threshold.
 ## 📚 Documentation
 
 - **Action Lists**: Pre-configured batch processing recipes shipped as package data
+- **0.5 Usability Candidate**: Preview, history, workflows, reports, and Ubuntu setup in [`docs/usability_050.md`](docs/usability_050.md)
 - **Developer Guide**: See `CLAUDE.md` for architecture and plugin development
 - **License**: See `COPYING` for GPL v3 license details
 - **Credits**: See `AUTHORS` file
