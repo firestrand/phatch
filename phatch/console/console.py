@@ -55,6 +55,8 @@ if __name__ == '__main__':
 #gui-independent
 from phatch.core import ct
 from phatch.core.message import FrameReceiver, ProgressReceiver
+from phatch.pyWx.execution_results import format_completion
+from phatch.services.completion import completion_dispatch
 from phatch.lib import formField
 from phatch.lib import safe
 
@@ -165,24 +167,28 @@ class Frame(CliMixin, FrameReceiver):
         return instance
 
     def __init__(self, actionlist, paths, settings, output=sys.stdout, registry=None):
-        from phatch.core import api
-        self.verbose = settings['verbose'] or settings['interactive']
-        self.settings = settings
-        self.output = output
-        self.console = RichConsole(file=output, highlight=False)
-        self._pubsub()
-        filename = self.verify_actionlist(actionlist)
-        if registry is None:
-            data, warning = api.open_actionlist(filename)
-        else:
-            data, warning = api.open_actionlist(filename, registry=registry)
-        if formField.get_safe():
-            if warning:
-                raise safe.UnsafeError(warning)
-        else:
-            self.show_message(warning)
-        api.apply_actions_to_photos(data['actions'], settings, \
-                                                            paths=paths)
+        with completion_dispatch("console") as completion:
+            from phatch.core import api
+            self.verbose = settings['verbose'] or settings['interactive']
+            self.settings = settings
+            self.output = output
+            self.console = RichConsole(file=output, highlight=False)
+            self._pubsub()
+            filename = self.verify_actionlist(actionlist)
+            if registry is None:
+                data, warning = api.open_actionlist(filename)
+            else:
+                data, warning = api.open_actionlist(filename, registry=registry)
+            if formField.get_safe():
+                if warning:
+                    raise safe.UnsafeError(warning)
+            else:
+                self.show_message(warning)
+            self.result = api.apply_actions_to_photos(
+                data['actions'], settings, paths=paths
+            )
+            self.console.print(format_completion(self.result))
+            self.completion_receipt = completion.complete()
 
     def append_save_action(self, actions):
         self.show_error(ct.SAVE_ACTION_NEEDED, exit=True)
