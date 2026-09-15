@@ -5,6 +5,7 @@ from PyInstaller.utils.hooks import collect_data_files
 
 from phatch.data.info import NAME
 from phatch.data.version import MACOS_BUILD_VERSION, MACOS_VERSION
+from phatch.release_inventory import REQUIRED_RUNTIME_MODULES
 
 
 root = Path(SPEC).resolve().parents[1]
@@ -32,7 +33,7 @@ data_files = collect_data_files("phatch_assets") + action_sources + [
     (str(root / "AUTHORS"), "."),
     (str(root / "packaging" / "portable-data" / ".keep"), "portable-data"),
 ]
-hidden_imports = package_modules
+hidden_imports = sorted(set(package_modules) | set(REQUIRED_RUNTIME_MODULES))
 hook_paths = [str(root / "packaging" / "hooks")]
 runtime_hooks = [
     str(root / "packaging" / "hooks" / "runtime_phatch_legacy_imports.py")
