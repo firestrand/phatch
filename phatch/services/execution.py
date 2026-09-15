@@ -15,6 +15,7 @@ from phatch.core.execution_ports import (
     Recovery,
 )
 from phatch.core.execution_types import (
+    DiscoveredFile,
     ExecutionContext,
     ExecutionIssue,
     ExecutionOutcome,
@@ -25,15 +26,21 @@ from phatch.core.execution_types import (
 )
 from phatch.services.action_validation import (
     AcceptedActionList,
-    ActionListRejectionReason,
     ActionListValidationResult,
     RejectedActionList,
     SaveActionRequired,
     validate_actionlist,
 )
+from phatch.services.execution_outcomes import (
+    execution_result,
+    fail_unfinished,
+    invalid_file_result,
+    validation_issue,
+)
 from phatch.services.execution_runner import (
     BatchRunner,
     ExecutionPlan,
+    cancel_sources,
 )
 
 
@@ -94,7 +101,7 @@ class ExecutionService:
             validation = self.services.validator.validate(request, action_run)
             match validation:
                 case RejectedActionList(reason=reason, diagnostic=diagnostic):
-                    issue = _validation_issue(reason, diagnostic)
+                    issue = validation_issue(reason, diagnostic)
                     self._record(context, issue)
                     self.services.interaction.present_issue(issue)
                     return self._result(context, ExecutionOutcome.FAILED, started)
@@ -135,6 +142,7 @@ class ExecutionService:
                 self._record(context, issue)
                 self.services.interaction.present_issue(issue)
                 return self._result(context, ExecutionOutcome.FAILED, started)
+            context.planned_sources = tuple(source.path for source in sources)
 
             if selection.options.verify_images:
                 valid = tuple(
@@ -146,7 +154,10 @@ class ExecutionService:
                 if invalid and not self.services.interaction.confirm_invalid_files(
                     invalid
                 ):
+                    self._record_invalid(context, invalid, cancelled=True)
+                    cancel_sources(context, valid)
                     return self._result(context, ExecutionOutcome.CANCELLED, started)
+                self._record_invalid(context, invalid, cancelled=False)
                 if not valid:
                     issue = ExecutionIssue(
                         IssueStage.PHOTO_OPEN,
@@ -157,6 +168,7 @@ class ExecutionService:
                     self.services.interaction.present_issue(issue)
                     return self._result(context, ExecutionOutcome.FAILED, started)
                 if not self.services.interaction.confirm_valid_files(valid):
+                    cancel_sources(context, valid)
                     return self._result(context, ExecutionOutcome.CANCELLED, started)
                 sources = valid
 
@@ -164,6 +176,7 @@ class ExecutionService:
                 if (issue := action_run.initialize(action)) is not None:
                     self._record(context, issue)
                     self.services.interaction.present_issue(issue)
+                    fail_unfinished(context, sources, issue)
                     return self._result(context, ExecutionOutcome.FAILED, started)
 
             required_variables = action_run.required_variables(actions)
@@ -202,35 +215,26 @@ class ExecutionService:
         self.services.issue_recorder.record(issue, len(context.issues))
         context.issues.append(issue)
 
+    def _record_invalid(
+        self,
+        context: ExecutionContext,
+        sources: tuple[DiscoveredFile, ...],
+        *,
+        cancelled: bool,
+    ) -> None:
+        for source in sources:
+            result = invalid_file_result(source, cancelled=cancelled)
+            self._record(context, result.issues[0])
+            context.files.append(result)
+
     def _result(
         self,
         context: ExecutionContext,
         outcome: ExecutionOutcome,
         started: float,
     ) -> ExecutionResult:
-        return ExecutionResult(
+        return execution_result(
+            context,
             outcome,
-            tuple(context.files),
-            tuple(context.issues),
             self.services.clock.monotonic() - started,
         )
-
-
-def _validation_issue(
-    reason: ActionListRejectionReason,
-    diagnostic: str,
-) -> ExecutionIssue:
-    match reason:
-        case ActionListRejectionReason.EMPTY:
-            message = "The action list is empty."
-        case ActionListRejectionReason.UNSAFE:
-            message = diagnostic
-        case ActionListRejectionReason.ALL_DISABLED:
-            message = "There is no enabled action."
-        case unreachable:
-            assert_never(unreachable)
-    return ExecutionIssue(
-        IssueStage.ACTION_VALIDATION,
-        IssueSeverity.ERROR,
-        message,
-    )
