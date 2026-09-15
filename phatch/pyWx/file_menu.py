@@ -2,23 +2,20 @@
 
 from __future__ import annotations
 
+import builtins
 import os
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
-from typing import Any, Callable, Optional, Sequence
+from typing import Protocol
 
 from phatch.core import ct
+from phatch.pyWx.controller_history import ActionListState
+from phatch.services.file_dialogs import DialogSelection
 
-try:  # pragma: no cover - provided by gettext at runtime
-    _  # type: ignore[name-defined]
-except NameError:  # pragma: no cover - fallback for tests
-    import builtins
-
-    if '_' not in builtins.__dict__:
-        builtins.__dict__['_'] = lambda value: value
-    _ = builtins.__dict__['_']
+_ = getattr(builtins, "_", lambda value: value)
 
 try:  # pragma: no cover - optional at test time
-    import wx  # type: ignore
+    import wx
 except ImportError:  # pragma: no cover - used in headless test environments
 
     class _WxStub:  # minimal shim so unit tests run without wxPython
@@ -31,10 +28,82 @@ except ImportError:  # pragma: no cover - used in headless test environments
         FD_OPEN = 0
         FD_SAVE = 0
 
-    wx = _WxStub()  # type: ignore
+    wx = _WxStub()
 
 
-@dataclass(frozen=True)
+class DescriptionControl(Protocol):
+    def SetValue(self, value: str) -> None: ...
+
+
+class FileMenuController(Protocol):
+    state: ActionListState
+
+    def new_actionlist(self) -> ActionListState: ...
+
+    def begin_open(self) -> None: ...
+
+    def finish_open(self, *, success: bool) -> None: ...
+
+    def begin_save(self) -> None: ...
+
+    def finish_save(self, *, success: bool) -> None: ...
+
+
+class FileMenuFrame(Protocol):
+    controller: FileMenuController
+    filename: str
+    description: DescriptionControl
+
+    def show_message(self, message: str, *, style: int) -> int: ...
+
+    def show_question(self, message: str) -> int: ...
+
+    def show_info(self, message: str) -> None: ...
+
+    def is_protected_actionlist(self, filename: str) -> bool: ...
+
+    def show_description(self, visible: bool) -> None: ...
+
+    def enable_actions(self, enabled: bool) -> None: ...
+
+    def _set_filename(self, filename: str) -> None: ...
+
+    def _open(self, path: str) -> None: ...
+
+    def _save(self, path: str | None = None) -> None: ...
+
+
+class FileHistory(Protocol):
+    def GetHistoryFile(self, index: int) -> str: ...
+
+    def GetCount(self) -> int: ...
+
+    def AddFileToHistory(self, filename: str) -> None: ...
+
+
+class FileDialogs(Protocol):
+    def open_actionlist(
+        self,
+        *,
+        parent: FileMenuFrame,
+        message: str,
+        default_dir: str,
+        wildcard: str,
+        style: int,
+    ) -> DialogSelection | None: ...
+
+    def save_actionlist(
+        self,
+        *,
+        parent: FileMenuFrame,
+        message: str,
+        default_dir: str,
+        wildcard: str,
+        style: int,
+    ) -> DialogSelection | None: ...
+
+
+@dataclass(frozen=True, slots=True)
 class ClipboardMessages:
     """Bundle of user-facing clipboard hints."""
 
@@ -50,9 +119,9 @@ class FileMenuCoordinator:
     def __init__(
         self,
         *,
-        frame: Any,
-        file_history: Any,
-        file_dialogs: Any,
+        frame: FileMenuFrame,
+        file_history: FileHistory,
+        file_dialogs: FileDialogs,
         clipboard_messages: ClipboardMessages,
         ensure_suffix: Callable[[str], str],
         copy_text: Callable[[str], None],
@@ -72,7 +141,7 @@ class FileMenuCoordinator:
         if not getattr(state, "dirty", False):
             return True
         answer = self._frame.show_message(
-            _('Save last changes to') + '\n"%s"?' % self._frame.filename,
+            f'{_("Save last changes to")}\n"{self._frame.filename}"?',
             style=self._prompt_style(),
         )
         if answer == getattr(wx, "ID_CANCEL", -1):
@@ -102,18 +171,19 @@ class FileMenuCoordinator:
             style=getattr(wx, "FD_OPEN", 0),
         )
         if selection:
-            self._frame._open(selection.path)
+            self._open_path(selection.path)
 
     def save_current(self) -> bool:
         filename = self._frame.filename
         if filename == ct.UNKNOWN or self._frame.is_protected_actionlist(filename):
             return self.save_as()
-        self._frame._save()
-        return True
+        return self._save_path()
 
     def save_as(self) -> bool:
         filename = self._frame.filename
-        if self._frame.is_protected_actionlist(filename) or not os.path.isfile(filename):
+        if self._frame.is_protected_actionlist(filename) or not os.path.isfile(
+            filename
+        ):
             default_dir = ct.USER_ACTIONLISTS_PATH
         else:
             default_dir = os.path.dirname(filename)
@@ -129,20 +199,23 @@ class FileMenuCoordinator:
         path = self._ensure_suffix(selection.path)
         if os.path.exists(path):
             overwrite = self._frame.show_question(
-                "%s %s"
-                % (_("This file exists already."), _("Do you want to overwrite it?"))
+                f"{_('This file exists already.')} {_('Do you want to overwrite it?')}"
             )
             if overwrite == getattr(wx, "ID_NO", -1):
                 return False
-        self._frame._save(path)
-        return True
+        return self._save_path(path)
 
     def export_actionlist_to_clipboard(self) -> None:
         if not self.confirm_proceed():
             return
         self._copy_text(ct.COMMAND["DROP"] % self._frame.filename)
         self._frame.show_info(
-            " ".join([self._clipboard_messages.actionlist, self._clipboard_messages.paste_hint])
+            " ".join(
+                [
+                    self._clipboard_messages.actionlist,
+                    self._clipboard_messages.paste_hint,
+                ]
+            )
         )
 
     def export_recent_to_clipboard(self) -> None:
@@ -150,7 +223,9 @@ class FileMenuCoordinator:
             return
         self._copy_text(ct.COMMAND["RECENT"])
         self._frame.show_info(
-            " ".join([self._clipboard_messages.recent, self._clipboard_messages.paste_hint])
+            " ".join(
+                [self._clipboard_messages.recent, self._clipboard_messages.paste_hint]
+            )
         )
 
     def export_inspector_to_clipboard(self) -> None:
@@ -158,7 +233,12 @@ class FileMenuCoordinator:
             return
         self._copy_text(ct.COMMAND["INSPECTOR"])
         self._frame.show_info(
-            " ".join([self._clipboard_messages.inspector, self._clipboard_messages.paste_hint])
+            " ".join(
+                [
+                    self._clipboard_messages.inspector,
+                    self._clipboard_messages.paste_hint,
+                ]
+            )
         )
 
     def open_recent(self, index: int) -> None:
@@ -166,7 +246,7 @@ class FileMenuCoordinator:
             return
         filename = self._file_history.GetHistoryFile(index)
         if filename:
-            self._frame._open(filename)
+            self._open_path(filename)
 
     # --- history --------------------------------------------------
     def get_file_history(self) -> list[str]:
@@ -178,12 +258,33 @@ class FileMenuCoordinator:
                 result.append(filename)
         return result
 
-    def load_file_history(self, files: Optional[Sequence[str]]) -> None:
+    def load_file_history(self, files: Sequence[str] | None) -> None:
         if not files:
             return
         for filename in reversed(list(files)):
             if filename and os.path.exists(filename):
                 self._file_history.AddFileToHistory(filename)
+
+    def _open_path(self, path: str) -> None:
+        controller = self._frame.controller
+        controller.begin_open()
+        success = False
+        try:
+            self._frame._open(path)
+            success = controller.state.filename != ct.UNKNOWN
+        finally:
+            controller.finish_open(success=success)
+
+    def _save_path(self, path: str | None = None) -> bool:
+        controller = self._frame.controller
+        controller.begin_save()
+        success = False
+        try:
+            self._frame._save(path)
+            success = True
+            return True
+        finally:
+            controller.finish_save(success=success)
 
     # --- helpers --------------------------------------------------
     @staticmethod
