@@ -1,5 +1,6 @@
 import pytest
 
+from phatch.core.execution_types import ExecutionOutcome, ExecutionResult
 from phatch.services.action_list import (
     ActionListService,
     IncompatibleActionListError,
@@ -191,17 +192,20 @@ def test_save_and_load_real_actions(tmp_path, initialized_runtime):
 def test_execute_passes_update_callback_when_missing_from_kwargs():
     captured = {}
 
+    expected = ExecutionResult(ExecutionOutcome.COMPLETED, ())
+
     def fake_apply(actions, settings, **kwargs):
         captured["actions"] = actions
         captured["settings"] = settings
         captured["kwargs"] = kwargs
+        return expected
 
     def callback():
         return None
 
     service = ActionListService(apply_actions_to_photos=fake_apply)
 
-    service.execute(
+    result = service.execute(
         ["resize"], {"quality": 90}, update_callback=callback, extra="value"
     )
 
@@ -209,6 +213,7 @@ def test_execute_passes_update_callback_when_missing_from_kwargs():
     assert captured["settings"] == {"quality": 90}
     assert captured["kwargs"]["update"] is callback
     assert captured["kwargs"]["extra"] == "value"
+    assert result is expected
 
 
 def test_preflight_uses_injected_shared_domain_service():
@@ -243,15 +248,18 @@ def test_preflight_uses_default_shared_domain_service(tmp_path):
 
 def test_execute_respects_explicit_update_kwarg():
     captured = {}
+    expected = ExecutionResult(ExecutionOutcome.COMPLETED, ())
 
     def fake_apply(actions, settings, **kwargs):
         captured["kwargs"] = kwargs
+        return expected
 
     service = ActionListService(apply_actions_to_photos=fake_apply)
 
-    service.execute([], {}, update_callback=lambda: None, update="custom")
+    result = service.execute([], {}, update_callback=lambda: None, update="custom")
 
     assert captured["kwargs"]["update"] == "custom"
+    assert result is expected
 
 
 def test_execute_delegates_recovery_to_recovery_api(monkeypatch, tmp_path):
