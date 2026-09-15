@@ -1,28 +1,48 @@
 from __future__ import annotations
 
 import json
+from dataclasses import dataclass, field
 from typing import TextIO
 
 from phatch.lib.capabilities import Capability
 from phatch.services.preflight import PreflightResult
-from phatch.services.structured_report import AutomationOutcome, exit_code
+from phatch.services.report_privacy import (
+    ReportPrivacyContext,
+    privacy_for_paths,
+    redact_path,
+    redact_text,
+)
+from phatch.services.structured_report import (
+    REPORT_VERSION,
+    AutomationOutcome,
+    exit_code,
+)
+
+
+@dataclass(frozen=True, slots=True)
+class ReportDestination:
+    report_format: str
+    stdout: TextIO
+    stderr: TextIO
+    privacy: ReportPrivacyContext = field(default_factory=privacy_for_paths)
 
 
 def write_capabilities(
-    capabilities: tuple[Capability, ...], report_format: str, stdout: TextIO
+    capabilities: tuple[Capability, ...], destination: ReportDestination
 ) -> None:
+    privacy = destination.privacy
     data = {
-        "report_version": 1,
+        "report_version": REPORT_VERSION,
         "kind": "capabilities",
         "capabilities": [
             {
                 "id": str(capability.identifier),
                 "status": capability.status.value,
                 "reason_code": capability.reason_code.value,
-                "reason": capability.reason,
+                "reason": redact_text(capability.reason, privacy),
                 "version": capability.version,
                 "executable": (
-                    str(capability.executable)
+                    redact_path(capability.executable, privacy)
                     if capability.executable is not None
                     else None
                 ),
@@ -30,66 +50,75 @@ def write_capabilities(
             for capability in capabilities
         ],
     }
-    if report_format == "json":
-        print(json.dumps(data, ensure_ascii=False, sort_keys=True), file=stdout)
+    if destination.report_format == "json":
+        print(
+            json.dumps(data, ensure_ascii=False, sort_keys=True),
+            file=destination.stdout,
+        )
     else:
         for capability in capabilities:
+            reason = redact_text(capability.reason, privacy)
             print(
-                f"{capability.identifier}: {capability.status.value} "
-                f"({capability.reason})",
-                file=stdout,
+                f"{capability.identifier}: {capability.status.value} ({reason})",
+                file=destination.stdout,
             )
 
 
 def write_preflight(
     result: PreflightResult,
     outcome: AutomationOutcome,
-    report_format: str,
-    stdout: TextIO,
+    destination: ReportDestination,
 ) -> None:
+    privacy = destination.privacy.with_paths(result.inputs, result.outputs)
     data = {
-        "report_version": 1,
+        "report_version": REPORT_VERSION,
         "kind": "preflight",
         "outcome": outcome.value,
-        "inputs": [str(path) for path in result.inputs],
-        "planned_outputs": [str(path) for path in result.outputs],
-        "conflicts": [str(path) for path in result.conflicts],
+        "inputs": [redact_path(path, privacy) for path in result.inputs],
+        "planned_outputs": [redact_path(path, privacy) for path in result.outputs],
+        "conflicts": [redact_path(path, privacy) for path in result.conflicts],
         "unavailable_capabilities": [
             str(capability.identifier) for capability in result.unavailable_capabilities
         ],
-        "unsafe_operations": list(result.unsafe_operations),
-        "invalid_fields": list(result.invalid_fields),
+        "unsafe_operations": [
+            redact_text(operation, privacy) for operation in result.unsafe_operations
+        ],
+        "invalid_fields": [
+            redact_text(field_name, privacy) for field_name in result.invalid_fields
+        ],
         "estimated_work": result.estimated_work,
     }
-    if report_format == "json":
-        print(json.dumps(data, ensure_ascii=False, sort_keys=True), file=stdout)
+    if destination.report_format == "json":
+        print(
+            json.dumps(data, ensure_ascii=False, sort_keys=True),
+            file=destination.stdout,
+        )
     else:
-        print(f"Outcome: {outcome.value}", file=stdout)
-        print(f"Inputs: {len(result.inputs)}", file=stdout)
-        print(f"Planned outputs: {len(result.outputs)}", file=stdout)
-        print(f"Estimated work: {result.estimated_work}", file=stdout)
+        print(f"Outcome: {outcome.value}", file=destination.stdout)
+        print(f"Inputs: {len(result.inputs)}", file=destination.stdout)
+        print(f"Planned outputs: {len(result.outputs)}", file=destination.stdout)
+        print(f"Estimated work: {result.estimated_work}", file=destination.stdout)
 
 
 def write_failure(
     outcome: AutomationOutcome,
     diagnostic: str,
-    report_format: str,
-    stdout: TextIO,
-    stderr: TextIO,
+    destination: ReportDestination,
 ) -> int:
-    print(diagnostic, file=stderr)
-    if report_format == "json":
+    safe_diagnostic = redact_text(diagnostic, destination.privacy)
+    print(safe_diagnostic, file=destination.stderr)
+    if destination.report_format == "json":
         print(
             json.dumps(
                 {
-                    "report_version": 1,
+                    "report_version": REPORT_VERSION,
                     "kind": "error",
                     "outcome": outcome.value,
-                    "issues": [diagnostic],
+                    "issues": [safe_diagnostic],
                 },
                 ensure_ascii=False,
                 sort_keys=True,
             ),
-            file=stdout,
+            file=destination.stdout,
         )
     return exit_code(outcome)
