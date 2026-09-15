@@ -7,10 +7,14 @@ from types import SimpleNamespace
 import pytest
 
 from phatch.console import console
+from phatch.core.execution_types import ExecutionOutcome, ExecutionResult
 
 
 if not hasattr(builtins, '_'):
     setattr(builtins, '_', lambda x: x)
+
+
+EMPTY_RESULT = ExecutionResult(ExecutionOutcome.COMPLETED, ())
 
 
 class CliHarness(console.CliMixin):
@@ -179,8 +183,9 @@ def test_frame_initialization_opens_and_applies_actionlist(monkeypatch):
     monkeypatch.setattr(
         api,
         'apply_actions_to_photos',
-        lambda actions, settings, paths: events.append(
-            (actions, settings, paths)),
+        lambda actions, settings, paths: (
+            events.append((actions, settings, paths)) or EMPTY_RESULT
+        ),
     )
     monkeypatch.setattr(console.formField, 'get_safe', lambda: False)
 
@@ -225,7 +230,9 @@ def test_frame_initialization_processes_safe_actionlist_without_warning(
     monkeypatch.setattr(
         api,
         'apply_actions_to_photos',
-        lambda actions, settings, paths: processed.append((actions, paths)),
+        lambda actions, settings, paths: (
+            processed.append((actions, paths)) or EMPTY_RESULT
+        ),
     )
     monkeypatch.setattr(console.formField, 'get_safe', lambda: True)
 
@@ -247,7 +254,9 @@ def test_frame_initialization_displays_warning_when_safe_mode_is_off(
         'open_actionlist',
         lambda path: ({'actions': []}, 'warning'),
     )
-    monkeypatch.setattr(api, 'apply_actions_to_photos', lambda *args, **kwargs: None)
+    monkeypatch.setattr(
+        api, 'apply_actions_to_photos', lambda *args, **kwargs: EMPTY_RESULT
+    )
     monkeypatch.setattr(console.formField, 'get_safe', lambda: False)
 
     console.Frame(
