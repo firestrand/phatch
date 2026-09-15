@@ -5,6 +5,7 @@ import pytest
 from PIL import Image
 
 from phatch.core import api
+from phatch.core.execution_types import ExecutionOutcome, ExecutionResult
 from phatch.services.action_list import ActionListService
 from phatch.services.execution import ExecutionService
 
@@ -138,7 +139,7 @@ def test_cancellation_suppresses_updates_and_completion_messages(monkeypatch):
         update=lambda: events.append("update"),
     )
 
-    assert result is None
+    assert result.outcome is ExecutionOutcome.CANCELLED
     assert events == [
         "log:init",
         ("progress:start", 1, 2),
@@ -147,7 +148,7 @@ def test_cancellation_suppresses_updates_and_completion_messages(monkeypatch):
     ]
 
 
-def test_legacy_call_returns_none_and_reports_after_file_loop(monkeypatch):
+def test_legacy_call_returns_typed_result_without_presenting_completion(monkeypatch):
     events = []
     actions = configure_batch(monkeypatch, events)
 
@@ -159,7 +160,8 @@ def test_legacy_call_returns_none_and_reports_after_file_loop(monkeypatch):
         lambda: events.append("update"),
     )
 
-    assert result is None
+    assert result.outcome is ExecutionOutcome.COMPLETED
+    assert result.counts.processed == 1
     assert events == [
         "log:init",
         ("progress:start", 1, 2),
@@ -167,7 +169,6 @@ def test_legacy_call_returns_none_and_reports_after_file_loop(monkeypatch):
         "update",
         "progress:close",
         "update",
-        ("notification", ({"source": "photo.jpg", "path": "report.jpg"},)),
     ]
 
 
@@ -254,6 +255,7 @@ def test_legacy_signature_remains_positional_and_optional():
 
 def test_explicit_update_takes_precedence_over_update_callback():
     captured = []
+    expected = ExecutionResult(ExecutionOutcome.COMPLETED, ())
 
     def callback():
         return None
@@ -261,11 +263,13 @@ def test_explicit_update_takes_precedence_over_update_callback():
     def explicit():
         return None
 
-    service = ActionListService(
-        apply_actions_to_photos=lambda *args, **kwargs: captured.append(kwargs)
-    )
+    def apply_actions(*args, **kwargs):
+        captured.append(kwargs)
+        return expected
+
+    service = ActionListService(apply_actions_to_photos=apply_actions)
 
     result = service.execute([], {}, update_callback=callback, update=explicit)
 
-    assert result is None
+    assert result is expected
     assert captured == [{"update": explicit}]
