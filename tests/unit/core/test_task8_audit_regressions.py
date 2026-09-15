@@ -220,17 +220,19 @@ def test_parser_failure_emits_json_when_equals_form_requested() -> None:
     stderr = io.StringIO()
 
     result = automation_cli.run_automation_cli(
-        ("--dry-run", "--report-format=json", "--unknown"), stdout, stderr
+        ("--dry-run", "--report-format=json", "--unknown/path"), stdout, stderr
     )
 
     assert result == ExitCode.VALIDATION_FAILURE
     assert json.loads(stdout.getvalue())["outcome"] == "validation_failure"
     assert "unrecognized arguments" in stderr.getvalue()
+    assert "--unknown/path" in stderr.getvalue()
 
 
 def test_execution_report_normalizes_action_label_to_stable_id() -> None:
     result = ExecutionResult(
         ExecutionOutcome.FAILED,
+        (),
         (),
         (
             ExecutionIssue(
