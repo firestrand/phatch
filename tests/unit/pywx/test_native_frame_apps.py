@@ -6,8 +6,11 @@ from pathlib import Path
 import pytest
 
 from phatch.core import api, config, settings
+from phatch.core.execution_types import ExecutionOutcome, ExecutionResult
 from phatch.pyWx import gui
+from phatch.pyWx.dialog_service import DialogService
 from phatch.pyWx.frame_dependencies import FrameDependencies
+from phatch.pyWx.wxGlade import frame as generated_frame
 from phatch.services.action_list import ActionListLoadResult, ActionListService
 
 wx = pytest.importorskip("wx")
@@ -79,8 +82,20 @@ class DropletActionService(ActionListService):
 
     def execute(
         self, actions, settings, update_callback=None, recovery=None, **options
-    ) -> None:
+    ) -> ExecutionResult:
         self.executions.append((tuple(actions), settings, options))
+        return ExecutionResult(ExecutionOutcome.COMPLETED, ())
+
+
+class DropletDialogRecorder(DialogService):
+    def __init__(self) -> None:
+        self.presentations = 0
+
+    def set_report(self, report) -> None:
+        return None
+
+    def show_execution_result(self, result, message: str) -> None:
+        self.presentations += 1
 
 
 def test_droplet_application_executes_and_closes_hidden_native_frame(
@@ -90,7 +105,11 @@ def test_droplet_application_executes_and_closes_hidden_native_frame(
     actionlist = tmp_path / "droplet.phatch"
     actionlist.touch()
     service = DropletActionService()
-    dependencies = FrameDependencies(action_service_factory=lambda: service)
+    dialogs = DropletDialogRecorder()
+    dependencies = FrameDependencies(
+        action_service_factory=lambda: service,
+        dialog_service_factory=lambda _parent: dialogs,
+    )
     app = gui.DropletApp(
         str(actionlist),
         ["input.png"],
@@ -111,6 +130,8 @@ def test_droplet_application_executes_and_closes_hidden_native_frame(
         # Then: production routing executes once and destroys its hidden frame
         assert len(service.executions) == 1
         assert service.executions[0][2] == {"paths": ["input.png"], "drop": True}
+        assert dialogs.presentations == 1
+        assert frame._listeners == []
         assert not wx.GetTopLevelWindows()
     finally:
         destroy_app(app)
@@ -190,3 +211,25 @@ def test_droplet_file_discovery_uses_isolated_user_library(
 
     # Then: the isolated action list is discoverable
     assert str(actionlist) in files
+
+
+def test_generated_frame_placeholder_handlers_skip_events(capsys) -> None:
+    class Event:
+        def __init__(self) -> None:
+            self.skipped = False
+
+        def Skip(self) -> None:
+            self.skipped = True
+
+    handlers = tuple(
+        handler
+        for name, handler in vars(generated_frame.Frame).items()
+        if name.startswith("on_")
+    )
+
+    for handler in handlers:
+        event = Event()
+        handler(None, event)
+        assert event.skipped
+
+    assert capsys.readouterr().out.count("not implemented") == len(handlers)
