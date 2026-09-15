@@ -107,11 +107,13 @@ class Action(models.OffsetMixin, models.Action):
         return ['Text', 'Font', 'Size', 'Color'] + \
             super(Action, self).get_relevant_field_labels()
 
-    def values(self, info, pixel_fields={}):
+    def values(self, info, pixel_fields=None, exclude=None, include=None):
+        if pixel_fields is None:
+            pixel_fields = {}
         x, y = info['size']
         pixel_fields.update({'Size': (x + y) / 2})
         return super(Action, self).values(info,
-            pixel_fields=pixel_fields)
+            pixel_fields=pixel_fields, exclude=exclude, include=include)
 
     icon = \
 'x\xda\x01\xcc\x043\xfb\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x000\x00\
