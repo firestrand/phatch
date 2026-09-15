@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 from typing import Final, NoReturn, TextIO, assert_never
 
+from phatch.core import config
 from phatch.core.action_registry import (
     ActionCatalogSources,
     ActionRegistryBuildFailure,
@@ -13,6 +14,7 @@ from phatch.core.action_registry import (
     build_action_registry,
 )
 from phatch.core.cli import add_cli_options
+from phatch.core.resource_config import packaged_config_paths
 from phatch.core.settings import DEFAULT_SETTINGS
 from phatch.data.info import INFO
 from phatch.lib.capabilities import Capability
@@ -28,15 +30,18 @@ from phatch.services.action_schema import (
     parse_action_list,
 )
 from phatch.services.automation_report import (
+    ReportDestination,
     write_capabilities,
     write_failure,
     write_preflight,
 )
+from phatch.services.completion import completion_dispatch
 from phatch.services.preflight import (
     PreflightRequest,
     PreflightService,
     PreflightValidationError,
 )
+from phatch.services.report_privacy import privacy_for_cli_paths
 from phatch.services.structured_report import (
     AutomationOutcome,
     ExitCode,
@@ -49,7 +54,14 @@ from .automation_execution import (
 )
 
 _STRUCTURED_FLAGS: Final = frozenset(
-    {"--dry-run", "--report-format", "--resume", "--capabilities", "--max-workers"}
+    {
+        "--dry-run",
+        "--report-format",
+        "--report-version",
+        "--resume",
+        "--capabilities",
+        "--max-workers",
+    }
 )
 
 
@@ -80,43 +92,64 @@ def run_automation_cli(
     stdout: TextIO = sys.stdout,
     stderr: TextIO = sys.stderr,
 ) -> int:
+    with (
+        completion_dispatch("automation"),
+        packaged_config_paths() as resource_paths,
+    ):
+        config.init_config_paths(resource_paths)
+        return _run_automation_cli(arguments, stdout, stderr)
+
+
+def _run_automation_cli(
+    arguments: tuple[str, ...],
+    stdout: TextIO,
+    stderr: TextIO,
+) -> int:
+    destination = ReportDestination(
+        report_format_from_arguments(arguments), stdout, stderr
+    )
     parser = _AutomationArgumentParser(prog="phatch")
     info = {"name": str(INFO["name"]), "version": str(INFO["version"])}
     add_cli_options(parser, DEFAULT_SETTINGS, info)
+    parser.add_argument("--report-version", choices=("2",), default="2")
     parser.add_argument("paths", nargs="*")
     try:
-        options = parser.parse_args(arguments)
+        options, unknown = parser.parse_known_args(arguments)
+        requested_paths = tuple(Path(path) for path in options.paths)
+        if requested_paths:
+            destination = ReportDestination(
+                options.report_format,
+                stdout,
+                stderr,
+                privacy_for_cli_paths(requested_paths[0], requested_paths[1:]),
+            )
+        if unknown:
+            parser.error(f"unrecognized arguments: {' '.join(unknown)}")
     except AutomationArgumentError as error:
         return write_failure(
             AutomationOutcome.VALIDATION_FAILURE,
             str(error),
-            report_format_from_arguments(arguments),
-            stdout,
-            stderr,
+            destination,
         )
     if options.capabilities and not options.paths:
         capabilities = _capabilities()
-        write_capabilities(capabilities, options.report_format, stdout)
+        write_capabilities(capabilities, destination)
         return ExitCode.SUCCESS
     if not options.paths:
         return write_failure(
             AutomationOutcome.VALIDATION_FAILURE,
             "No action list provided.",
-            options.report_format,
-            stdout,
-            stderr,
+            destination,
         )
-    action_list = Path(options.paths[0])
-    input_paths = tuple(Path(path) for path in options.paths[1:])
+    action_list = requested_paths[0]
+    input_paths = requested_paths[1:]
     try:
         parsed = parse_action_list(action_list.read_text(encoding="utf-8"))
     except (OSError, UnicodeError, SchemaValidationError) as error:
         return write_failure(
             AutomationOutcome.VALIDATION_FAILURE,
             str(error),
-            options.report_format,
-            stdout,
-            stderr,
+            destination,
         )
     registry_result = _build_registry()
     match registry_result:
@@ -124,9 +157,7 @@ def run_automation_cli(
             return write_failure(
                 AutomationOutcome.PROCESSING_FAILURE,
                 "; ".join(issue.message for issue in issues),
-                options.report_format,
-                stdout,
-                stderr,
+                destination,
             )
         case ActionRegistryBuildSuccess(registry=registry):
             pass
@@ -140,9 +171,7 @@ def run_automation_cli(
         return write_failure(
             AutomationOutcome.VALIDATION_FAILURE,
             str(error),
-            options.report_format,
-            stdout,
-            stderr,
+            destination,
         )
     capabilities = _capabilities()
     try:
@@ -159,9 +188,7 @@ def run_automation_cli(
         return write_failure(
             AutomationOutcome.VALIDATION_FAILURE,
             str(error),
-            options.report_format,
-            stdout,
-            stderr,
+            destination,
         )
     if options.dry_run:
         outcome = (
@@ -171,14 +198,13 @@ def run_automation_cli(
             if preflight.unsafe_operations or preflight.invalid_fields
             else AutomationOutcome.SUCCESS
         )
-        write_preflight(preflight, outcome, options.report_format, stdout)
+        write_preflight(preflight, outcome, destination)
         return exit_code(outcome)
     if preflight.unavailable_capabilities:
         write_preflight(
             preflight,
             AutomationOutcome.UNAVAILABLE_CAPABILITY,
-            options.report_format,
-            stdout,
+            destination,
         )
         return ExitCode.UNAVAILABLE_CAPABILITY
     return execute_automation(

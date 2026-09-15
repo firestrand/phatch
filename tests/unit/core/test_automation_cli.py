@@ -75,6 +75,22 @@ def test_report_format_scanning_defaults_and_accepts_both_option_forms() -> None
     )
 
 
+def test_requested_report_v1_is_explicitly_rejected() -> None:
+    stdout = io.StringIO()
+    stderr = io.StringIO()
+
+    result = automation_cli.run_automation_cli(
+        ("--report-version", "1", "--report-format", "json"),
+        stdout,
+        stderr,
+    )
+
+    payload = json.loads(stdout.getvalue())
+    assert result == ExitCode.VALIDATION_FAILURE
+    assert payload["report_version"] == 2
+    assert "invalid choice" in stderr.getvalue()
+
+
 def test_capabilities_and_missing_action_list_reports(monkeypatch) -> None:
     monkeypatch.setattr(automation_cli, "_capabilities", lambda: ())
     stdout = io.StringIO()
@@ -84,7 +100,9 @@ def test_capabilities_and_missing_action_list_reports(monkeypatch) -> None:
     )
 
     assert result == ExitCode.SUCCESS
-    assert json.loads(stdout.getvalue())["kind"] == "capabilities"
+    payload = json.loads(stdout.getvalue())
+    assert payload["kind"] == "capabilities"
+    assert payload["report_version"] == 2
 
     stderr = io.StringIO()
     result = automation_cli.run_automation_cli(("--dry-run",), io.StringIO(), stderr)
@@ -204,7 +222,9 @@ def test_live_no_save_execution_reports_success(tmp_path: Path) -> None:
     )
 
     assert result == ExitCode.SUCCESS
-    assert json.loads(stdout.getvalue())["outcome"] == "success"
+    payload = json.loads(stdout.getvalue())
+    assert payload["outcome"] == "success"
+    assert payload["report_version"] == 2
 
     stdout = io.StringIO()
     result = automation_cli.run_automation_cli(
