@@ -2,6 +2,7 @@
 
 import wx
 from phatch.lib.pyWx.treeEdit import TreeMixin
+from phatch.pyWx.ui_descriptors import history_accelerators, history_menu_labels
 
 class Tree(TreeMixin,wx.TreeCtrl):
 
@@ -63,6 +64,12 @@ class Frame(wx.Frame):
         self.menu_file.Append(self.menu_file_quit)
         self.frame_menubar.Append(self.menu_file, _("&Action List"))
         self.menu_edit = wx.Menu()
+        history_labels = history_menu_labels()
+        self.menu_edit_undo = wx.MenuItem(self.menu_edit, wx.ID_UNDO, history_labels.undo, _("Undo the last action-list edit"), wx.ITEM_NORMAL)
+        self.menu_edit.Append(self.menu_edit_undo)
+        self.menu_edit_redo = wx.MenuItem(self.menu_edit, wx.ID_REDO, history_labels.redo, _("Redo the last action-list edit"), wx.ITEM_NORMAL)
+        self.menu_edit.Append(self.menu_edit_redo)
+        self.menu_edit.AppendSeparator()
         self.menu_edit_add = wx.MenuItem(self.menu_edit, wx.ID_ADD, _("&Add...\tCtrl-+"), _("Add an action"), wx.ITEM_NORMAL)
         self.menu_edit.Append(self.menu_edit_add)
         self.menu_edit_remove = wx.MenuItem(self.menu_edit, wx.ID_REMOVE, _("&Remove\tCtrl--"), _("Remove the selected action."), wx.ITEM_NORMAL)
@@ -94,6 +101,8 @@ class Frame(wx.Frame):
         self.menu_tools = wx.Menu()
         self.menu_tools_execute = wx.MenuItem(self.menu_tools, wx.ID_OK, _("&Execute...\tCtrl-Return"), _("Execute the action list"), wx.ITEM_NORMAL)
         self.menu_tools.Append(self.menu_tools_execute)
+        self.menu_tools_preview = wx.MenuItem(self.menu_tools, wx.NewIdRef(), _("&Preview..."), _("Preview this action list on one sample image"), wx.ITEM_NORMAL)
+        self.menu_tools.Append(self.menu_tools_preview)
         self.menu_tools_safe = wx.MenuItem(self.menu_tools, wx.ID_YESTOALL, _("&Safe Mode (recommended)"), _("Allow Geek action and unsafe expressions"), wx.ITEM_CHECK)
         self.menu_tools.Append(self.menu_tools_safe)
         self.menu_tools.AppendSeparator()
@@ -135,6 +144,22 @@ class Frame(wx.Frame):
         self.menu_help.Append(self.menu_help_about)
         self.frame_menubar.Append(self.menu_help, _("&Help"))
         self.SetMenuBar(self.frame_menubar)
+        command_ids = {"undo": wx.ID_UNDO, "redo": wx.ID_REDO}
+        command_items = {"undo": self.menu_edit_undo, "redo": self.menu_edit_redo}
+        modifier_flags = {"cmd": wx.ACCEL_CMD, "ctrl": wx.ACCEL_CTRL}
+        entries = []
+        displayed_commands = set()
+        for accelerator in history_accelerators(wx.Platform):
+            flags = modifier_flags[accelerator.modifier]
+            if accelerator.shifted:
+                flags |= wx.ACCEL_SHIFT
+            entry = wx.AcceleratorEntry(
+                flags, ord(accelerator.key), command_ids[accelerator.command])
+            entries.append(entry)
+            if accelerator.command not in displayed_commands:
+                command_items[accelerator.command].SetAccel(entry)
+                displayed_commands.add(accelerator.command)
+        self.SetAcceleratorTable(wx.AcceleratorTable(entries))
         # Menu Bar end
         self.frame_statusbar = self.CreateStatusBar(2, 0)
         self.description = wx.TextCtrl(self, -1, "", style=wx.TE_MULTILINE)
@@ -153,6 +178,8 @@ class Frame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.on_menu_file_export_recent_to_clipboard, self.menu_file_export_recent_to_clipboard)
         self.Bind(wx.EVT_MENU, self.on_menu_file_export_inspector_to_clipboard, self.menu_file_export_inspector_to_clipboard)
         self.Bind(wx.EVT_MENU, self.on_menu_file_quit, self.menu_file_quit)
+        self.Bind(wx.EVT_MENU, self.on_menu_edit_undo, self.menu_edit_undo)
+        self.Bind(wx.EVT_MENU, self.on_menu_edit_redo, self.menu_edit_redo)
         self.Bind(wx.EVT_MENU, self.on_menu_edit_add, self.menu_edit_add)
         self.Bind(wx.EVT_MENU, self.on_menu_edit_remove, self.menu_edit_remove)
         self.Bind(wx.EVT_MENU, self.on_menu_edit_enable, self.menu_edit_enable)
@@ -165,6 +192,7 @@ class Frame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.on_menu_view_collapse_all, self.menu_view_collapse_all)
         self.Bind(wx.EVT_MENU, self.on_menu_view_collapse_automatic, self.menu_view_collapse_automatic)
         self.Bind(wx.EVT_MENU, self.on_menu_tools_execute, self.menu_tools_execute)
+        self.Bind(wx.EVT_MENU, self.on_menu_tools_preview, self.menu_tools_preview)
         self.Bind(wx.EVT_MENU, self.on_menu_tools_safe, self.menu_tools_safe)
         self.Bind(wx.EVT_MENU, self.on_menu_tools_image_inspector, self.menu_tools_image_inspector)
         self.Bind(wx.EVT_MENU, self.on_menu_tools_browse_library_user, self.menu_tools_browse_library_user)
@@ -241,6 +269,18 @@ class Frame(wx.Frame):
 
     def on_menu_edit_modify(self, event): # wxGlade: Frame.<event_handler>
         print("Event handler `on_menu_edit_modify' not implemented!")
+        event.Skip()
+
+    def on_menu_tools_preview(self, event):
+        print("Event handler `on_menu_tools_preview' not implemented!")
+        event.Skip()
+
+    def on_menu_edit_undo(self, event):
+        print("Event handler `on_menu_edit_undo' not implemented!")
+        event.Skip()
+
+    def on_menu_edit_redo(self, event):
+        print("Event handler `on_menu_edit_redo' not implemented!")
         event.Skip()
 
     def on_menu_edit_up(self, event): # wxGlade: Frame.<event_handler>
