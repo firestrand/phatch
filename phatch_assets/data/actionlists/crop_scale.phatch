@@ -1,0 +1,47 @@
+{
+  "schema_version": 3,
+  "description": "Crop 10 pixels from every edge, scale to fit 60 by 60 pixels, and export a PNG copy.",
+  "actions": [
+    {
+      "id": "crop",
+      "fields": {
+        "enabled": "yes",
+        "mode": "All",
+        "all": "10px",
+        "left": "0px",
+        "right": "0px",
+        "top": "0px",
+        "bottom": "0px"
+      }
+    },
+    {
+      "id": "scale",
+      "fields": {
+        "enabled": "yes",
+        "canvas_width": "60px",
+        "canvas_height": "60px",
+        "resolution": "72",
+        "constrain_proportions": "yes",
+        "resample_image": "automatic",
+        "scale_down_only": "no"
+      }
+    },
+    {
+      "id": "save",
+      "fields": {
+        "enabled": "yes",
+        "file_name": "<filename>-crop-scale",
+        "as": "png",
+        "in": "<folder>/_phatch-crop-scale",
+        "resolution": "72",
+        "show_type_options": "no",
+        "png_optimize": "no",
+        "jpeg_quality": "85",
+        "jpeg_size_maximum": "0 kb",
+        "jpeg_size_tolerance": "10 kb",
+        "tiff_compression": "none",
+        "metadata": "no"
+      }
+    }
+  ]
+}
