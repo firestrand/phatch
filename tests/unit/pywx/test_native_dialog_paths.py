@@ -158,7 +158,7 @@ def test_image_tree_menus_inspect_and_status_empty_report(
         size=(520, 340),
     )
     root = dialog.browser.tree.GetRootItem()
-    dialog._AppendMenuItem(wx.Menu(), "Item", lambda event: None, id=wx.ID_OPEN)
+    dialog._AppendMenuItem(wx.Menu(), "Item", lambda event: None)
 
     # When
     native_interaction.expect_popup()
@@ -191,13 +191,16 @@ def test_image_tree_menus_inspect_and_status_empty_report(
     status.SetMessage("No report", report=None)
 
     # Then
-    assert len(
-        [
-            w
-            for w in vars(wx)["GetTopLevelWindows"]()
-            if w.GetClassName() == "wxFrame"
-        ]
-    ) >= 3
+    assert (
+        len(
+            [
+                w
+                for w in vars(wx)["GetTopLevelWindows"]()
+                if w.GetClassName() == "wxFrame"
+            ]
+        )
+        >= 3
+    )
     assert not status.report.IsShown()
 
 
@@ -300,9 +303,7 @@ def test_controller_import_covers_alternate_native_icon_platform(
 
     # When
     with pytest.warns(RuntimeWarning, match="found in sys.modules"):
-        namespace = runpy.run_module(
-            "phatch.pyWx.dialogs", run_name="dialog_platform"
-        )
+        namespace = runpy.run_module("phatch.pyWx.dialogs", run_name="dialog_platform")
 
     # Then
     assert namespace["IconMixin"]._icon_size == (32, 32)
