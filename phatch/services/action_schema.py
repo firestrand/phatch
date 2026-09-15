@@ -235,6 +235,7 @@ def migrate_action_list(
                     raise SchemaValidationError(
                         f"unknown legacy action label: {action.label}"
                     )
+                legacy_values = dict(action.fields)
                 fields: list[ActionField] = []
                 for label, value in action.fields:
                     field_id = catalog.field_id(action_id, label)
@@ -242,6 +243,14 @@ def migrate_action_list(
                         raise SchemaValidationError(
                             f"unknown field label for {action_id}: {label}"
                         )
+                    if (
+                        action_id == "save"
+                        and field_id == "jpeg_size_tolerance"
+                        and value.endswith("%")
+                        and legacy_values.get("JPEG Size Maximum", "").replace(" ", "")
+                        == "0kb"
+                    ):
+                        value = "10 kb"
                     fields.append(ActionField(field_id, value))
                 migrated.append(ActionSpec(action_id, tuple(fields)))
             return ActionDocument(SCHEMA_VERSION, description, tuple(migrated))
