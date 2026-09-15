@@ -99,7 +99,7 @@ def test_mixed_dimension_tiff_is_rejected_by_decoded_memory_budget(
     destination = tmp_path / "output.tiff"
     preflight = PreflightResult((source,), (destination,), (), (), (), (), 1)
     spec = SaveJobSpec(85, False, "none", 72, False)
-    jobs = build_image_jobs(spec, preflight)
+    jobs = build_image_jobs(spec, preflight).jobs
 
     # When
     result = execute_image_jobs(jobs, 1, memory_budget_bytes=1024 * 1024)
@@ -122,7 +122,7 @@ def test_worker_revalidates_retained_frames_before_decode(tmp_path: Path) -> Non
     )
     destination = tmp_path / "output.tiff"
     preflight = PreflightResult((source,), (destination,), (), (), (), (), 1)
-    jobs = build_image_jobs(SaveJobSpec(85, False, "none", 72, False), preflight)
+    jobs = build_image_jobs(SaveJobSpec(85, False, "none", 72, False), preflight).jobs
     first.save(
         source,
         format="TIFF",
