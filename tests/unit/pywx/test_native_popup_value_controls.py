@@ -111,6 +111,17 @@ def test_pixel_control_splits_and_round_trips_units(
     assert control.GetValue() == expected
 
 
+def test_pixel_control_accepts_custom_units(native_frame):
+    # Given / When
+    control = popup.PixelCtrl(
+        panel(native_frame), "12pt", (220, 28), units=["pt", "em"]
+    )
+
+    # Then
+    assert control.units == ["pt", "em"]
+    assert control.GetValue() == "12 pt"
+
+
 def test_slider_controls_synchronize_real_spin_and_slider_widgets(native_frame):
     # Given
     control = popup.SliderCtrl(
