@@ -1,0 +1,14 @@
+{
+  "schema_version": 3,
+  "description": "Export an unchanged image copy with its tags. Requires the optional legacy-metadata capability provided by pyexiv2.",
+  "actions": [
+    {
+      "id": "save_tags",
+      "fields": {
+        "enabled": "yes",
+        "file_name": "<filename>-metadata",
+        "in": "<folder>/_phatch-metadata"
+      }
+    }
+  ]
+}
