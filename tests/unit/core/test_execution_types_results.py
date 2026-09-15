@@ -4,6 +4,7 @@ from pathlib import Path
 
 from phatch.core.execution_ports import ActionDependencies
 from phatch.core.execution_types import (
+    CancellationState,
     DiscoveredFile,
     ExecutionContext,
     ExecutionDecision,
@@ -11,9 +12,11 @@ from phatch.core.execution_types import (
     ExecutionOptions,
     ExecutionOutcome,
     ExecutionResult,
+    FileOutcome,
     FileResult,
     IssueSeverity,
     IssueStage,
+    OutputRecord,
     ReportFile,
 )
 from tests.unit.core.execution_fakes import ActionDependenciesFake
@@ -21,25 +24,27 @@ from tests.unit.core.execution_fakes import ActionDependenciesFake
 
 def test_result_report_flattens_in_order_without_deduplication() -> None:
     first = ReportFile(Path("one.jpg"), Path("first.jpg"))
-    duplicate = ReportFile(Path("two.jpg"), Path("same.jpg"))
+    duplicate = ReportFile(Path("one.jpg"), Path("same.jpg"))
+    second_duplicate = ReportFile(Path("two.jpg"), Path("same.jpg"))
     result = ExecutionResult(
         ExecutionOutcome.COMPLETED,
+        (Path("one.jpg"), Path("two.jpg")),
         files=(
             FileResult(
                 Path("one.jpg"),
-                ExecutionDecision.CONTINUE,
-                (first, duplicate),
+                FileOutcome.PROCESSED,
+                outputs=(OutputRecord(first), OutputRecord(duplicate)),
             ),
             FileResult(
                 Path("two.jpg"),
-                ExecutionDecision.SKIP,
-                (duplicate,),
+                FileOutcome.SKIPPED,
+                outputs=(OutputRecord(second_duplicate),),
             ),
         ),
         elapsed_seconds=1.25,
     )
 
-    assert result.report == (first, duplicate, duplicate)
+    assert result.report == (first, duplicate, second_duplicate)
 
 
 def test_execution_contexts_own_independent_run_state() -> None:
@@ -58,7 +63,7 @@ def test_execution_contexts_own_independent_run_state() -> None:
         IssueSeverity.WARNING,
         "warning",
     )
-    file_result = FileResult(Path("source.jpg"), ExecutionDecision.CONTINUE)
+    file_result = FileResult(Path("source.jpg"), FileOutcome.PROCESSED)
 
     first.prompt_on_issue = False
     first.remembered_decision = ExecutionDecision.SKIP
@@ -79,7 +84,14 @@ def test_zero_values_are_valid_execution_boundaries() -> None:
     source = DiscoveredFile(Path("source.jpg"), folder_index=0)
     result = ExecutionResult(
         ExecutionOutcome.CANCELLED,
-        files=(FileResult(source.path, ExecutionDecision.ABORT),),
+        (source.path,),
+        files=(
+            FileResult(
+                source.path,
+                FileOutcome.CANCELLED,
+                cancellation=CancellationState.REQUESTED,
+            ),
+        ),
         elapsed_seconds=0.0,
     )
 
