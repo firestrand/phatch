@@ -35,6 +35,8 @@ if __name__ == '__main__':
 #---begin
 import wx
 
+from phatch.pyWx.action_availability import describe_action_availability
+
 from phatch.core import ct
 from phatch.lib.reverse_translation import _r
 from phatch.core import pil
@@ -319,7 +321,8 @@ class ProgressDialog(wx.ProgressDialog, ProgressReceiver):
         """Fix for wxPython2.6"""
         status = self.Update(value, **message)
         if isinstance(status, bool):
-            result['keepgoing'] = result['skip'] = status
+            result['keepgoing'] = status
+            result['skip'] = False
         else:
             result['keepgoing'], result['skip'] = status
         if result['keepgoing']:
@@ -332,6 +335,8 @@ class ProgressDialog(wx.ProgressDialog, ProgressReceiver):
 
 
 class ActionListBox(ContentMixin, vlistTag.Box):
+
+    status: wx.StaticText
 
     #---vlist.Box obligatory overwritten
     def SetTag(self, tag=imageInspector.ALL):
@@ -386,9 +391,16 @@ class ActionListBox(ContentMixin, vlistTag.Box):
 
     def _events(self):
         self.Bind(wx.EVT_CONTEXT_MENU, self.OnContextMenu)
+        self.Bind(wx.EVT_LISTBOX, self.OnSelection)
+
+    def OnSelection(self, event):
+        _label, summary, _bitmap = self.GetItem(event.GetInt())
+        self.status.SetLabel(summary)
+        event.Skip()
 
     #---actions
-    def SetActions(self, actions):
+    def SetActions(self, actions, capabilities=None):
+        self.capabilities = capabilities or {}
         self.all_actions = list(actions.values())
         for action in self.all_actions:
             self.TranslateAction(action)
@@ -434,7 +446,19 @@ class ActionListBox(ContentMixin, vlistTag.Box):
 
     def GetItem(self, n):
         action = self.actions[n]
-        return (_(action.label), _(action.__doc__),
+        availability = describe_action_availability(
+            action.label, self.capabilities)
+        state = _("Available") if availability.available else _("Unavailable")
+        preview = _(availability.preview_reason)
+        if availability.available:
+            summary = "[%s] [%s]\n%s" % (state, preview, _(action.__doc__))
+        else:
+            summary = "[%s] %s\n[%s]" % (
+                state,
+                _(availability.availability_reason),
+                preview,
+            )
+        return (_(action.label), summary,
             graphics.bitmap(action.icon, self.GetIconSize()))
 
     def GetStringSelection(self):
@@ -454,14 +478,15 @@ class ActionBrowser(Browser):
 class ActionDialog(paint.Mixin, vlistTag.Dialog):
     ContentBrowser = ActionBrowser
 
-    def __init__(self, parent, actions, tag='default', **keyw):
+    def __init__(self, parent, actions, tag='default', capabilities=None, **keyw):
         #extract tags
         tags = self.ExtractTags(list(actions.values()))
         #init dialog
         super(ActionDialog, self).__init__(parent, tags, -1, **keyw)
         #configure listbox
         list_box = self.GetListBox()
-        list_box.SetActions(actions)
+        list_box.status = self.status
+        list_box.SetActions(actions, capabilities)
         list_box.SetIconSize(VLIST_ICON_SIZE)
         list_box.SetTag(_(tag))
         self.Bind(wx.EVT_ACTIVATE, self.OnActivate)
