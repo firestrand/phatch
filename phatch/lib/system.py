@@ -27,6 +27,8 @@ from pathlib import Path
 
 from phatch.core.filesystem import ensure_directory
 from phatch.lib.executables import ExecutableLookup
+from phatch.lib.process import Command
+from phatch.lib.subprocess_runner import StdlibProcessRunner
 
 from . import safe
 from .windows import locate as windows_locate
@@ -128,6 +130,25 @@ def filename_to_title(filename):
     'Highlight Mask'
     """
     return title(os.path.splitext(os.path.basename(filename))[0])
+
+
+def open_directory_command(path, platform=None):
+    directory = Path(path).resolve(strict=True)
+    if not directory.is_dir():
+        raise NotADirectoryError(directory)
+    current_platform = platform or sys.platform
+    if current_platform == "darwin":
+        executable = "open"
+    elif current_platform.startswith("win"):
+        executable = "explorer.exe"
+    else:
+        executable = "xdg-open"
+    return Command((executable, str(directory)))
+
+
+def open_directory(path, runner=None):
+    process_runner = runner or StdlibProcessRunner()
+    return process_runner.run(open_directory_command(path))
 
 
 def ensure_path(path):
