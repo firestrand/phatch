@@ -5,6 +5,7 @@ import warnings
 import pytest
 
 from phatch.core import config
+from phatch.core.execution_types import ExecutionOutcome, ExecutionResult
 from phatch.lib import formField
 from phatch.services.action_list import ActionListService
 
@@ -20,10 +21,11 @@ class ActionServiceRecorder(ActionListService):
 
     def execute(
         self, actions, settings, update_callback=None, recovery=None, **options
-    ) -> None:
+    ) -> ExecutionResult:
         self.executions.append(
             (tuple(actions), settings, update_callback, recovery, options)
         )
+        return ExecutionResult(ExecutionOutcome.COMPLETED, ())
 
 
 class FileMenuRecorder:
@@ -157,6 +159,10 @@ def test_execute_and_drop_handlers_forward_real_tree_actions(
     assert len(service.executions) == 2
     assert service.executions[0][0][0].label == "Border"
     assert service.executions[1][4] == {"paths": ["one.png"], "drop": True}
+    assert [call[0] for call in native_frame_harness.dialogs.calls].count(
+        "execution_result"
+    ) == 2
+    assert frame._last_completion.owner == "droplet"
 
 
 def test_tree_view_and_size_handlers_operate_on_native_controls(
