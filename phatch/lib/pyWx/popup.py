@@ -100,6 +100,15 @@ class NotImplementedError(Exception):
             % (self.instance.__class__.__name__, self.method)
 
 
+class UnsupportedEditorError(LookupError):
+
+    def __init__(self, editor_name):
+        self.editor_name = editor_name
+
+    def __str__(self):
+        return 'Unsupported native editor: %s' % self.editor_name
+
+
 #---base controls
 
 def untranslated(x):
@@ -345,8 +354,13 @@ class ImageDictionaryFileCtrl(_CtrlRelevantMixin, _Ctrl, wx.Button):
         self.show_path = show_path
         self.icon_size = icon_size
         self.Disable()
-        wx.CallAfter(self.OnChange, None, value)
+        wx.CallAfter(self._FinishLoading, value)
         self.SetRelevant(wx.EVT_BUTTON, on_change)
+
+    def _FinishLoading(self, value):
+        if not self or self.IsBeingDeleted():
+            return
+        self.OnChange(None, value)
 
     def OnChange(self, event, value=None):
         if self.title in self.dialogs:
@@ -588,7 +602,9 @@ class PixelCtrl(_ComposedCtrl):
     SizeCtrl = TextCtrl
     units = METRICS
 
-    def _CreateCtrls(self, value, **extra):
+    def _CreateCtrls(self, value, units=None, **extra):
+        if units is not None:
+            self.units = list(units)
         self.size = self.SizeCtrl(self, id=-1, value=value, **extra)
 ##        if  not sys.platform.startswith('win'):
 ##            self.size.SetSelection(-1, -1)
@@ -765,8 +781,7 @@ def ctrl_factory(name, CtrlMixin):
             #this control is defined in this module
             Ctrl = _globals[ctrl_name]
         else:
-            #unknown -> default to textctrl
-            Ctrl = globals().get(ctrl_name, TextCtrl)
+            raise UnsupportedEditorError(name)
         if CtrlMixin is not None:
             if isinstance(CtrlMixin, list):
                 bases = tuple(CtrlMixin + [Ctrl])
@@ -781,8 +796,11 @@ class EditPanel(wx.Panel):
     "See for example create_popup in treeEdit"
 
     def __init__(self, parent, typ, value, extra={}, size=(28, 28), pos=(0, 0),
-            offset=0, label='', border=0, CtrlMixin=None):
+            offset=0, label='', border=0, CtrlMixin=None, help_text='',
+            on_confirm=None, on_cancel=None):
         super(EditPanel, self).__init__(parent, id=-1, pos=pos, size=size)
+        self._on_confirm = on_confirm
+        self._on_cancel = on_cancel
         self.Freeze()
         self._SetColours()
         if label:
@@ -790,7 +808,23 @@ class EditPanel(wx.Panel):
         height = size[1]
         border = self._CreateEdit(value, extra, typ, height, border, CtrlMixin)
         self._Layout(offset, height, border, label)
+        if help_text:
+            self.SetToolTip(help_text)
+            self.edit.SetToolTip(help_text)
+        self.Bind(wx.EVT_CHAR_HOOK, self._OnKey)
         self.Thaw()
+
+    def _OnKey(self, event):
+        key_code = event.GetKeyCode()
+        if key_code in (wx.WXK_RETURN, wx.WXK_NUMPAD_ENTER):
+            if self._on_confirm is not None:
+                self._on_confirm()
+            return
+        if key_code == wx.WXK_ESCAPE:
+            if self._on_cancel is not None:
+                self._on_cancel()
+            return
+        event.Skip()
 
     def _CreateLabel(self, label):
         self.label = label
