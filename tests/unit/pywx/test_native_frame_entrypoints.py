@@ -258,3 +258,6 @@ def test_constructor_defers_initial_action_list_until_native_frame_exists(
     # Then: the callback populates the live tree after initialization
     assert frame.filename == str(path)
     assert [action.label for action in frame.controller.export_actions()] == ["Border"]
+    frame.Destroy()
+    wx.Yield()
+    assert frame._listeners == []
