@@ -12,7 +12,8 @@ from phatch.core.execution_types import RecoveryConfiguration
 from phatch.core.resource_config import packaged_config_paths
 from phatch.core.settings import create_settings
 from phatch.services.action_schema import ActionDocument, SchemaValidationError
-from phatch.services.automation_report import write_failure
+from phatch.services.automation_report import ReportDestination, write_failure
+from phatch.services.completion import completion_dispatch
 from phatch.services.legacy_execution import apply_actions_to_photos
 from phatch.services.legacy_recovery import execute_with_recovery
 from phatch.services.legacy_types import LegacyActionObject
@@ -27,6 +28,7 @@ from phatch.services.parallel_save_spec import (
     select_parallel_save,
 )
 from phatch.services.preflight import PreflightResult
+from phatch.services.report_privacy import privacy_for_paths
 from phatch.services.structured_report import (
     AutomationOutcome,
     execution_report,
@@ -44,6 +46,15 @@ class AutomationExecutionRequest:
 
 
 def execute_automation(
+    request: AutomationExecutionRequest,
+    stdout: TextIO,
+    stderr: TextIO,
+) -> int:
+    with completion_dispatch("automation"):
+        return _execute_automation(request, stdout, stderr)
+
+
+def _execute_automation(
     request: AutomationExecutionRequest,
     stdout: TextIO,
     stderr: TextIO,
@@ -77,8 +88,11 @@ def execute_automation(
                 )
                 match selection:
                     case SaveJobSpec() as spec:
-                        jobs = build_image_jobs(spec, preflight)
-                        result, batch = execute_parallel_save(jobs, options.max_workers)
+                        construction = build_image_jobs(spec, preflight)
+                        result, batch = execute_parallel_save(
+                            construction.jobs, options.max_workers
+                        )
+                        result = construction.reconcile(result)
                         if options.verbose:
                             print(
                                 "execution_mode=process "
@@ -115,9 +129,12 @@ def execute_automation(
         return write_failure(
             AutomationOutcome.PROCESSING_FAILURE,
             str(error),
-            options.report_format,
-            stdout,
-            stderr,
+            ReportDestination(
+                options.report_format,
+                stdout,
+                stderr,
+                privacy_for_paths(preflight.inputs, preflight.outputs),
+            ),
         )
     report = execution_report(result)
     if options.report_format == "json":
