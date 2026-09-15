@@ -11,6 +11,7 @@ from phatch.core.execution_types import (
     ExecutionOutcome,
     ExecutionRequest,
     ExecutionSelection,
+    FileOutcome,
     IssueResponse,
     IssueSeverity,
     IssueStage,
@@ -122,7 +123,8 @@ def test_execute_runs_repeats_with_run_local_state_and_reports() -> None:
 
     assert result.outcome is ExecutionOutcome.COMPLETED
     assert result.report == (report,)
-    assert result.files[0].decision is ExecutionDecision.CONTINUE
+    assert result.files[0].outcome is FileOutcome.PROCESSED
+    assert result.planned_sources == (source.path,)
     assert len(dependencies.runs) == 1
     assert dependencies.runs[0].applied_labels == ["resize", "resize"]
     assert progress.started == (2, 2)
@@ -194,6 +196,8 @@ def test_execute_aborts_on_action_failure_and_closes_photo() -> None:
 
     assert result.outcome is ExecutionOutcome.CANCELLED
     assert result.issues == (issue,)
+    assert result.files[0].outcome is FileOutcome.FAILED
+    assert result.files[0].cancellation.value == "requested"
     assert isinstance(photo_access.photo, PhotoFake)
     assert photo_access.photo.closed is True
     assert progress.closed is True
@@ -222,6 +226,7 @@ def test_execute_cancellation_suppresses_updates() -> None:
     )
 
     assert result.outcome is ExecutionOutcome.CANCELLED
+    assert result.files[0].outcome is FileOutcome.CANCELLED
     assert isinstance(photo_access.photo, PhotoFake)
     assert photo_access.photo.closed is True
     assert update.calls == 0
