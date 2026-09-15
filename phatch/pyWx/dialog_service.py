@@ -179,6 +179,17 @@ class DialogService:
         finally:
             dlg.Destroy()
 
+    def show_execution_result(self, result, message: str) -> None:
+        from phatch.pyWx.execution_results import show_result_dialog
+
+        show_result_dialog(
+            self._frame,
+            result,
+            message,
+            self._deps.wx,
+            self._deps.system,
+        )
+
     def show_question(self, message: str, style: int | None = None):
         style = (
             self._deps.wx.YES_NO | self._deps.wx.ICON_QUESTION
