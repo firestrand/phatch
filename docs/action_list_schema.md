@@ -45,6 +45,8 @@ phatch --resume /absolute/path/batch.jsonl --report-format json \
   actions.phatch input-folder
 phatch --max-workers 2 --verbose --report-format json \
   save-only.phatch input-folder
+phatch --report-version 2 --report-format json \
+  actions.phatch input.jpg
 ```
 
 `--dry-run` discovers inputs and reports planned outputs, existing conflicts,
@@ -62,9 +64,45 @@ silently ignored. See [Codec and Parallel Processing](parallel_processing.md)
 for the exact eligibility contract, worker limits, traces, and measured tuning
 guidance.
 
-JSON reports use `report_version: 1`. JSON keys and enum values are stable and
-unlocalized; diagnostics are written to stderr so stdout remains one parseable
-JSON document. Human-readable text is localized at the display boundary.
+JSON reports use `report_version: 2`; requesting any other report version is a
+validation error. JSON keys and enum values are stable and unlocalized;
+diagnostics are written to stderr so stdout remains one parseable JSON document.
+Human-readable text is localized at the display boundary.
+
+### Migrating report consumers from v1 to v2
+
+Action-list schema version and execution-report version are independent. Phatch
+still writes action-list schema version 3 and reads legacy action-list formats
+1.0 and 2.0. Report v2 is the only emitted automation format; there is no legacy
+report switch. `--report-version 1` is rejected with validation exit code 2. If
+JSON was requested, that rejection is itself a report-v2 error document.
+
+Consumers migrating from report v1 must read each explicit file `outcome`, use
+the four reconciled count fields, and accept an output only when its `survived`
+field is true. Do not reconstruct status from issue counts and do not use
+redacted report paths to access the filesystem. A version-pinned invocation is:
+
+```bash
+phatch --report-version 2 --report-format json actions.phatch input.jpg
+```
+
+Execution reports contain `outcome`, `elapsed_seconds`, `counts`, ordered
+`files`, and `issues`. Each file contains `source`, its explicit terminal
+`outcome` (`processed`, `skipped`, `failed`, or `cancelled`), `cancellation`,
+`rollback`, and output records. Each output record contains a `path` and a
+`survived` flag. Consumers must treat only records with `survived: true` as
+files produced by the run. The counts object contains each terminal outcome and
+`total`, which equals the number of ordered file records.
+
+Report paths are privacy-safe audit identifiers rather than reusable filesystem
+paths. Known action-list, input, output, home, and temporary roots are replaced
+by stable placeholders such as `<action-list>`, `<input>`, `<output>`, `<home>`,
+and `<temp>`; multiple roots use deterministic numbered forms such as
+`<input:1>`. The longest path root wins and replacement requires a path
+boundary. Credentials and common image-metadata values are redacted from
+diagnostic fields. Capability, preflight, execution, and error JSON documents
+all use this policy. Use the original action-list and CLI paths when filesystem
+access is required.
 
 ## Exit Codes
 
