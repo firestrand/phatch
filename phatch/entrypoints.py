@@ -39,16 +39,17 @@ def console_main() -> int:
         try:
             return run_automation_cli(arguments)
         except KeyboardInterrupt:
-            from phatch.services.automation_report import write_failure
+            from phatch.services.automation_report import (
+                ReportDestination,
+                write_failure,
+            )
             from phatch.services.structured_report import AutomationOutcome
 
             report_format = report_format_from_arguments(arguments)
             return write_failure(
                 AutomationOutcome.USER_CANCELLATION,
                 "Cancelled by user.",
-                report_format,
-                sys.stdout,
-                sys.stderr,
+                ReportDestination(report_format, sys.stdout, sys.stderr),
             )
     with packaged_config_paths() as resource_paths:
         app.main(
