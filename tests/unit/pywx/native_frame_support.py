@@ -22,7 +22,7 @@ from phatch.core.user_paths import (
     initialize_user_paths,
     resolve_user_paths,
 )
-from phatch.pyWx import gui
+from phatch.pyWx import dialogs, gui
 from phatch.pyWx.dialog_service import DialogService
 from phatch.pyWx.frame_dependencies import FrameDependencies
 
@@ -70,12 +70,19 @@ class DialogRecorder(DialogService):
 
     def show_files_message(self, result, message, title, files) -> None:
         self.calls.append(("files", (result, message, title, files)))
+        result["cancel"] = False
 
     def show_status(self, message: str, log: bool = True) -> None:
         self.calls.append(("status", (message, log)))
 
     def show_image_tree(
-        self, result, image_infos, widths, headers, ok_label="&OK", buttons=False,
+        self,
+        result,
+        image_infos,
+        widths,
+        headers,
+        ok_label="&OK",
+        buttons=False,
         modal=False,
     ) -> None:
         self.calls.append(
@@ -84,6 +91,7 @@ class DialogRecorder(DialogService):
                 (result, image_infos, widths, headers, ok_label, buttons, modal),
             )
         )
+        result["answer"] = True
 
     def show_report(self) -> None:
         self.calls.append(("report", ()))
@@ -95,15 +103,22 @@ class DialogRecorder(DialogService):
         self, title: str, parent_max: int, child_max: int = 1, message: str = ""
     ) -> None:
         self.calls.append(("progress", (title, parent_max, child_max, message)))
+        dialogs.ProgressDialog(
+            self.app.GetTopWindow(), title, parent_max, child_max, message
+        )
 
     def show_progress_error(self, result, message: str, ignore: bool = True) -> None:
         self.calls.append(("progress_error", (result, message, ignore)))
+        result.update(answer="ignore", stop_for_errors=False)
 
     def show_scrolled_message(self, message: str, title: str, **options) -> None:
         self.calls.append(("scrolled", (message, title, options)))
 
     def show_notification(self, message: str, force: bool = False, report=None) -> None:
         self.calls.append(("notification", (message, force, report)))
+
+    def show_execution_result(self, result, message: str) -> None:
+        self.calls.append(("execution_result", (result, message)))
 
 
 class NativeWxApp(wx.App):
@@ -162,7 +177,10 @@ def native_frame_harness(native_runtime) -> Iterator[NativeFrameHarness]:
         yield harness
     finally:
         if frame is not None and getattr(frame, "_listeners", None):
+            if frame.tree.popup is not None:
+                frame.tree.cancel_popup()
             frame.unsubscribe_all()
+        wx.Yield()
         for window in tuple(vars(wx)["GetTopLevelWindows"]()):
             window.Destroy()
         wx.Yield()
