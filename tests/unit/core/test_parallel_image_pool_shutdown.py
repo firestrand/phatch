@@ -4,6 +4,7 @@ from pathlib import Path
 from phatch.services import parallel_image_pool, parallel_worker_bootstrap
 from phatch.services.parallel_image_jobs import (
     ImageJob,
+    ImageJobCancelled,
     ImageJobFailure,
     ImageJobResult,
     ImageJobSuccess,
@@ -38,7 +39,7 @@ def test_finished_results_skips_pending_future(tmp_path: Path) -> None:
     assert results == ()
 
 
-def test_finished_results_converts_cancelled_future(tmp_path: Path) -> None:
+def test_finished_results_preserves_cancelled_future(tmp_path: Path) -> None:
     # Given
     cancelled: Future[ImageJobResult] = Future()
     cancelled.cancel()
@@ -48,8 +49,7 @@ def test_finished_results_converts_cancelled_future(tmp_path: Path) -> None:
 
     # Then
     assert len(results) == 1
-    assert isinstance(results[0], ImageJobFailure)
-    assert results[0].reason == "image worker failed: "
+    assert isinstance(results[0], ImageJobCancelled)
     assert results[0].worker_pid == 0
 
 

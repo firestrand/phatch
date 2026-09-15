@@ -16,6 +16,7 @@ from types import ModuleType
 from phatch.services.parallel_image_jobs import (
     ImageJob,
     ImageJobBatchResult,
+    ImageJobCancelled,
     ImageJobFailure,
     ImageJobResult,
     _execute_image_job,
@@ -86,7 +87,7 @@ def _execute_pool(
                 executor = _create_executor(effective_workers, registry)
                 for job in admitted:
                     futures[executor.submit(_execute_image_job, job)] = job
-            except (BrokenProcessPool, RuntimeError) as error:
+            except (BrokenProcessPool, OSError, RuntimeError) as error:
                 pool_failed = True
                 completed.extend(_finished_results(futures))
                 completed.extend(_unresolved_failures(admitted, completed, error))
@@ -101,8 +102,8 @@ def _execute_pool(
                             _unresolved_failures(admitted, completed, error)
                         )
                         break
-                    except CancelledError as error:
-                        completed.append(_future_failure(job, error))
+                    except CancelledError:
+                        completed.append(_cancelled(job))
                     except (
                         ArithmeticError,
                         BufferError,
@@ -117,6 +118,14 @@ def _execute_pool(
                     ) as error:
                         completed.append(_future_failure(job, error))
             aborting = False
+        except KeyboardInterrupt:
+            completed_indices = {result.index for result in completed}
+            completed.extend(
+                result
+                for result in _finished_results(futures)
+                if result.index not in completed_indices
+            )
+            completed.extend(_unresolved_cancellations(admitted, completed))
         finally:
             main_module.__spec__ = original_spec
             sys.path[:] = original_path
@@ -172,6 +181,10 @@ def _future_failure(job: ImageJob, error: BaseException) -> ImageJobFailure:
     )
 
 
+def _cancelled(job: ImageJob) -> ImageJobCancelled:
+    return ImageJobCancelled(job.index, job.source, job.destination, job.stage)
+
+
 def _unresolved_failures(
     jobs: tuple[ImageJob, ...],
     completed: list[ImageJobResult],
@@ -201,8 +214,10 @@ def _finished_results(
             continue
         try:
             results.append(future.result())
-        except CancelledError as error:
-            results.append(_future_failure(job, error))
+        except KeyboardInterrupt:
+            results.append(_cancelled(job))
+        except CancelledError:
+            results.append(_cancelled(job))
         except (
             ArithmeticError,
             BufferError,
@@ -217,6 +232,14 @@ def _finished_results(
         ) as error:
             results.append(_future_failure(job, error))
     return tuple(results)
+
+
+def _unresolved_cancellations(
+    jobs: tuple[ImageJob, ...],
+    completed: list[ImageJobResult],
+) -> tuple[ImageJobCancelled, ...]:
+    completed_indices = {result.index for result in completed}
+    return tuple(_cancelled(job) for job in jobs if job.index not in completed_indices)
 
 
 def _new_worker_processes(
