@@ -424,12 +424,20 @@ class TestCheckFonts:
 class TestInitConfigPaths:
     """Test init_config_paths function."""
 
+    def setup_method(self):
+        self.original_paths = config.PATHS
+
+    def teardown_method(self):
+        config.PATHS = self.original_paths
+
+    @patch('lib.fonts.set_font_cache')
     @patch('phatch.core.config.fix_python_path')
     @patch('phatch.core.config.check_config_paths')
     @patch('phatch.core.config.add_user_paths')
     @patch('phatch.lib.fonts.set_font_cache')
     def test_init_config_paths_calls_required_functions(
-        self, mock_set_font_cache, mock_add_user, mock_check_config, mock_fix_path
+        self, mock_set_font_cache, mock_add_user, mock_check_config, mock_fix_path,
+        mock_legacy_font_cache,
     ):
         """init_config_paths should call all required initialization functions."""
         # Mock return values
@@ -449,16 +457,19 @@ class TestInitConfigPaths:
 
         # Should call set_font_cache
         mock_set_font_cache.assert_called_once()
+        mock_legacy_font_cache.assert_called_once_with(*mock_set_font_cache.call_args.args)
 
         # Should return config dict
         assert isinstance(result, dict)
 
+    @patch('lib.fonts.set_font_cache')
     @patch('phatch.core.config.fix_python_path')
     @patch('phatch.core.config.check_config_paths')
     @patch('phatch.core.config.add_user_paths')
     @patch('phatch.lib.fonts.set_font_cache')
     def test_init_config_paths_with_custom_paths(
-        self, mock_set_font_cache, mock_add_user, mock_check_config, mock_fix_path
+        self, mock_set_font_cache, mock_add_user, mock_check_config, mock_fix_path,
+        mock_legacy_font_cache,
     ):
         """init_config_paths should accept custom config_paths."""
         custom_paths = {'PHATCH_PYTHON_PATH': '/custom/python'}

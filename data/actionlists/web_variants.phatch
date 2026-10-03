@@ -1,0 +1,21 @@
+{
+  "format_version": "2.0",
+  "description": "Web publishing variants: no upscale, sRGB, sharing metadata, WebP and AVIF.",
+  "actions": [
+    {
+      "plugin_id": "phatch.actions.variants",
+      "label": "Variants",
+      "fields": {
+        "Preset": "web",
+        "Variants": "[]",
+        "In": "<desktop>/phatch/web/<subfolder>",
+        "File Name": "<filename>",
+        "Write Manifest": "yes",
+        "Manifest Name": "<filename>-variants",
+        "Collision Policy": "inherit",
+        "Format Fallback": "error",
+        "__enabled__": "yes"
+      }
+    }
+  ]
+}

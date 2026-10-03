@@ -196,13 +196,14 @@ class TestSaveInterface:
         assert metadata_field is not None
         assert type(metadata_field).__name__ == 'BooleanField'
 
-    def test_interface_has_eleven_fields(self):
-        """Save should have eleven parameters."""
+    def test_interface_has_collision_policy(self):
+        """Save exposes the new collision policy alongside existing fields."""
         action = save.Action()
         fields = {}
         action.interface(fields)
 
-        assert len(fields) == 11
+        assert 'Collision Policy' in fields
+        assert fields['Collision Policy'].get_as_string() == 'inherit'
 
 
 class TestSaveHelperMethods:
@@ -272,7 +273,7 @@ class TestSaveIntegration:
         action = save.Action()
         fields = {}
         action.interface(fields)
-        assert len(fields) == 11
+        assert {'Metadata Policy', 'Metadata Tags', 'Color Policy'} <= fields.keys()
 
     def test_action_metadata_correct(self):
         """Action metadata is correctly set."""

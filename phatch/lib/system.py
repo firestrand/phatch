@@ -144,13 +144,9 @@ def ensure_path(path):
 def _ensure_path(path):
     """Ensure a path exists, create all not existing paths.
     (Helper function for ensure_path.)"""
-    if not os.path.exists(path):
-        parent = os.path.dirname(path)
-        if parent:
-            _ensure_path(parent)
-            os.mkdir(path)
-        else:
-            raise OSError("The path '%s' is not valid." % path)
+    if not path:
+        raise OSError("The path '%s' is not valid." % path)
+    os.makedirs(path, exist_ok=True)
 
 
 def fix_quotes(text):

@@ -52,8 +52,6 @@ from phatch.core.message import FrameReceiver, ProgressReceiver
 from phatch.lib import formField
 from phatch.lib import safe
 
-api.init()
-
 #---functions
 
 
@@ -163,11 +161,12 @@ class Frame(CliMixin, FrameReceiver):
                 raise safe.UnsafeError(warning)
         else:
             self.show_message(warning)
-        api.apply_actions_to_photos(data['actions'], settings, \
-                                                            paths=paths)
+        settings['recipe_path'] = str(actionlist)
+        self.result = api.apply_actions_to_photos(
+            data['actions'], settings, paths=paths)
 
     def append_save_action(self, actions):
-        self.show_error(ct.SAVE_ACTION_NEEDED, exit=True)
+        self.show_error(ct.SAVE_ACTION_NEEDED, exit=False)
 
     def verify_actionlist(self, actionlist):
         if actionlist:
@@ -179,7 +178,7 @@ class Frame(CliMixin, FrameReceiver):
                     % ct.EXTENSION).strip().lstrip('file://')
             return actionlist
         else:
-            self.show_error(_('No action list provided.'), exit=True)
+            raise ValueError('No action list provided')
 
     def show_execute_dialog(self, result, settings, files=None):
         """To be overwritten."""
@@ -203,7 +202,10 @@ class Frame(CliMixin, FrameReceiver):
             self.verbose, self.output, message)
 
     def show_progress_error(self, result, message, ignore=True):
-        self.show_error(message, exit=not self.settings['interactive'])
+        self.show_error(message, exit=False)
+        if not self.settings['interactive']:
+            result['answer'] = _('stop')
+            return
         result['stop_for_errors'] = True
         result['answer'] = ask(_('What do you want to do now?'),
             [_('abort'), _('skip'), _('ignore')])
@@ -228,7 +230,57 @@ def example():
 
 
 def main(actionlist, paths, settings):
-    Frame(actionlist, paths, settings)
+    import json
+    from phatch.core.batch import BatchPlan
+    from phatch.lib.atomic import AtomicOutput
+    try:
+        frame = Frame(actionlist, paths, settings)
+        result = frame.result
+    except (OSError, ValueError, KeyError, safe.UnsafeError) as exc:
+        # Recipe/input setup failures have a stable status; no traceback payload.
+        sys.stderr.write('Invalid batch setup: %s\n' % type(exc).__name__)
+        from phatch.core.batch import BatchResult, Issue
+        result = BatchResult(status='invalid_setup',
+                             issues=[Issue('invalid_recipe',
+                                           'Recipe could not be loaded')])
+    if isinstance(result, BatchPlan):
+        payload = result.to_dict(include_paths=settings.get('report_paths', False))
+        status = 0 if result.valid else 2
+        if not settings.get('report_path'):
+            sys.stdout.write(json.dumps(payload, indent=2) + '\n')
+    else:
+        payload = result.to_dict(include_paths=settings.get('report_paths', False))
+        status = result.exit_code
+    if settings.get('report_path'):
+        from pathlib import Path
+        report_path = Path(settings['report_path']).expanduser().resolve()
+        protected = {Path(actionlist).resolve()} if actionlist else set()
+        if settings.get('manifest_path'):
+            protected.add(Path(settings['manifest_path']).expanduser().resolve())
+        if hasattr(result, 'reserved_paths'):
+            protected.update(path.resolve() for path in result.reserved_paths)
+        if isinstance(result, BatchPlan):
+            protected.update(path.resolve() for path in result.resource_paths)
+        for item in result.files:
+            protected.add(item.source.resolve())
+            if isinstance(result, BatchPlan):
+                protected.update(dest.path.resolve() for dest in item.destinations)
+            else:
+                protected.update(output.resolve() for output in item.outputs)
+                protected.update(output.resolve() for output in item.artifacts)
+        for value in paths:
+            candidate = Path(value).expanduser().resolve()
+            protected.add(candidate)
+            if (candidate.is_dir() and report_path.is_relative_to(candidate)
+                and report_path.suffix.lstrip('.').lower() in settings['extensions']):
+                protected.add(report_path)
+        if report_path in protected:
+            sys.stderr.write('Report path overlaps a recipe, input or output; report not written.\n')
+            return 2
+        with AtomicOutput(report_path) as temporary:
+            temporary.write_text(json.dumps(payload, indent=2) + '\n',
+                                 encoding='utf-8')
+    return status
 
 if __name__ == '__main__':
     example()

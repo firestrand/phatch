@@ -148,17 +148,18 @@ class Action(Form):
         :returns: same filename, or on desktop in case of errors
         :rtype: str
         """
-        error = False
+        error = None
         if not desktop:
             try:
                 self.ensure_path(folder)
-            except OSError:
-                desktop = error = True
+            except OSError as exc:
+                error = exc
+                desktop = True
         if desktop:
             base = os.path.basename(filename)
             if error:
                 photo.log('Could not save "%s" in "%s":\n%s\n'\
-                    % (base, folder, message))
+                    % (base, folder, error))
                 photo.log('Will try to save in "%s" instead.\n'\
                     % DESKTOP_FOLDER)
             self.ensure_path(DESKTOP_FOLDER)
@@ -319,8 +320,22 @@ class OffsetMixin(object):
                 'Horizontal Offset': x,
                 'Vertical Offset': y,
             })
-        return super(OffsetMixin, self).values(info,
+        values = super(OffsetMixin, self).values(info,
             pixel_fields=pixel_fields, exclude=exclude)
+        # These parameters are derived from Position even when the editor
+        # hides the custom-position fields. Rendering still needs them.
+        resolved = {
+            'horizontal_offset': self.get_field_size(
+                'Horizontal Offset', info, x, info['dpi']),
+            'vertical_offset': self.get_field_size(
+                'Vertical Offset', info, y, info['dpi']),
+            'horizontal_justification': self.get_field(
+                'Horizontal Justification', info),
+            'vertical_justification': self.get_field(
+                'Vertical Justification', info),
+        }
+        values.update(resolved)
+        return values
 
 
 class StampMixin(OffsetMixin):

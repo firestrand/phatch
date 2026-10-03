@@ -1,12 +1,41 @@
 # Phatch - Photo Batch Processor
 # Python project configuration
 
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phatch"
+version = "0.3.0"
+description = "Photo batch processor with reusable action recipes"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "GPL-3.0-or-later"
+dependencies = ["Pillow>=11.3.0", "rich>=13"]
+
+[project.optional-dependencies]
+gui = ["wxPython>=4.2.3"]
+
+[project.scripts]
+phatch = "phatch.phatch:main"
+
+[dependency-groups]
+dev = ["pytest>=8.4.2", "pytest-cov>=7", "pytest-xdist>=3",
+       "ruff>=0.14", "ty", "build", "setuptools>=77"]
+
+[tool.setuptools.packages.find]
+include = ["phatch*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.wxg"]
+
 [tool.ruff]
 # Ruff configuration - modern Python linter
 # Replaces the bundled phatch/other/pep8.py with faster, modern tooling
 
-# Target Python 3.8+ (minimum version per pytest.ini)
-target-version = "py38"
+# Target the declared Python 3.12 compatibility floor.
+target-version = "py312"
 
 # Line length to match PEP8
 line-length = 79

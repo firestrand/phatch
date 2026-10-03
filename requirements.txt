@@ -4,8 +4,9 @@
 # Image processing library (replaces legacy PIL)
 Pillow>=11.3.0
 
-# Cross-platform GUI framework
-wxPython>=4.2.3
+# Console presentation (already used by phatch.console)
+rich>=13
+# Desktop support is optional: pip install '.[gui]'
 
 # Optional: EXIF metadata support
 # pyexiv2>=2.8.0  # Uncomment if needed - may require system packages

@@ -32,7 +32,7 @@ import json
 import operator
 import os
 import pprint
-import time
+import shutil
 import traceback
 from io import StringIO
 from datetime import timedelta
@@ -43,11 +43,12 @@ from lib import formField
 from lib import metadata
 from lib import openImage
 from lib import safe
-from lib.odict import ReadOnlyDict
+from phatch.lib.atomic import AtomicOutput
 from lib.unicoding import ensure_unicode, exception_to_unicode, ENCODING
 
 from . import ct
 from . import pil
+from .recipes import read_recipe
 from .message import send
 
 #---constants
@@ -55,6 +56,7 @@ ACTIONS_LIST_FORMAT_VERSION = '2.0'  # JSON format (was '1.0' for pprint format)
 
 # Action registry - populated by import_actions()
 ACTIONS = None
+ACTION_IDS = {}
 ACTION_LABELS = None
 ACTION_FIELDS = None
 
@@ -399,7 +401,7 @@ def check_actionlist(actions, settings):
     return actions
 
 
-def verify_images(image_infos, repeat):
+def verify_images(image_infos, repeat, state=None):
     """Filter invalid images out.
 
     Verify if images are not corrupt. Show the invalid images to
@@ -410,6 +412,7 @@ def verify_images(image_infos, repeat):
     :type image_infos: list of dictionaries
     :returns: None for error, valid image info dictionaries otherwise
     """
+    state = state if state is not None else {}
     #show dialog
     send.frame_show_progress(title=_("Checking images"),
         parent_max=len(image_infos),
@@ -420,7 +423,9 @@ def verify_images(image_infos, repeat):
     for index, image_info in enumerate(image_infos):
         result = {}
         send.progress_update_filename(result, index, image_info['path'])
-        if not result['keepgoing']:
+        if not result.get('keepgoing', True):
+            state['cancelled'] = True
+            send.progress_close()
             return
         openImage.verify_image(image_info, valid, invalid)
     send.progress_close()
@@ -431,7 +436,8 @@ def verify_images(image_infos, repeat):
             message=_('Phatch can not handle %d image(s):') % len(invalid),
             title=ct.FRAME_TITLE % ('', _('Invalid images')),
             files=invalid)
-        if result['cancel']:
+        if result.get('cancel', False):
+            state['cancelled'] = True
             return
     #Display an error when no files are left
     if not valid:
@@ -446,8 +452,9 @@ def verify_images(image_infos, repeat):
         widths=(200, 40, 200, 200, 200, 200, 60),
         headers=TREE_HEADERS,
         ok_label=_('C&ontinue'), buttons=True)
-    if result['answer']:
+    if result.get('answer', True):
         return valid
+    state['cancelled'] = True
 
 #---get
 
@@ -640,137 +647,87 @@ def apply_action_to_photo(action, photo, read_only_settings, cache,
 
 def apply_actions_to_photos(actions, settings, paths=None, drop=False,
         update=None):
-    """Apply all the actions to the photos in path.
-
-    :param actions: actions
-    :type actions: list of :class:`core.models.Action`
-    :param settings: process settings (writable, eg recursion, ...)
-    :type settings: dictionary
-    :param paths:
-
-        paths where the images are located. If they are not specified,
-        Phatch will ask them to the user.
-
-    :type paths: list of strings
-    :param drop:
-
-        True in case files were dropped or phatch is started as a
-        droplet.
-
-    :type drop: bool
-    """
-    # Start log file
-    init_error_log_file()
-
-    # Check action list
-    actions = check_actionlist(actions, settings)
-    if not actions:
-        return
-
-    # Get paths (and update settings) -> show execute dialog
+    """GUI/console adapter returning a structured engine result or plan."""
+    from phatch.core.batch import (
+        BatchResult, Issue, plan_batch, run_batch,
+    )
+    actions = list(actions)
+    if settings.get('dry_run'):
+        return plan_batch(actions, paths or settings.get('paths', []), settings)
+    checked = check_actionlist(actions, settings)
+    if not checked:
+        return BatchResult(status='invalid_setup', issues=[
+            Issue('invalid_recipe', 'Action list validation failed')])
     paths = get_paths_and_settings(paths, settings, drop=drop)
     if not paths:
-        return
-
-    # retrieve all necessary variables in one time
-    vars = set(pil.BASE_VARS).union(get_vars(actions))
-    if settings['check_images_first']:
-        # we need some extra vars for the list control
-        vars = TREE_VARS.union(vars)
-    vars_file, vars_not_file = metadata.InfoFile.split_vars(list(vars))
-    info_file = metadata.InfoFile(vars=list(vars_file))
-
-    # Check if all files exist
-    # folderindex is set here in filter_image_infos
-    image_infos = get_image_infos(paths, info_file,
-        settings['extensions'], settings['recursive'])
-    if not image_infos:
-        return
-
-    # Check if all the images are valid
-    #  -> show invalid to user
-    #  -> show valid to user in tree dialog (optional)
-    if settings['check_images_first']:
-        image_infos = verify_images(image_infos, settings['repeat'])
+        return BatchResult(status='cancelled')
+    execution_settings = dict(settings)
+    if settings.get('check_images_first'):
+        vars_file = metadata.InfoFile.split_vars(list(TREE_VARS))[0]
+        image_infos = get_image_infos(paths, metadata.InfoFile(vars=list(vars_file)),
+                                     settings['extensions'], settings['recursive'])
         if not image_infos:
-            return
+            return BatchResult(status='invalid_setup', issues=[
+                Issue('empty_input', 'No input images were selected')])
+        state = {}
+        verified = verify_images(image_infos, settings['repeat'], state)
+        if not verified:
+            return BatchResult(status='cancelled' if state.get('cancelled')
+                               else 'invalid_setup')
+        execution_settings['_selected_inputs'] = [info['path'] for info in verified]
+    cancelled = False
+    progress_started = False
 
-    # Initialize actions
-    if not init_actions(actions):
-        return
-
-    # Retrieve settings
-    skip_existing_images = not (settings['overwrite_existing_images'] or\
-        settings['overwrite_existing_images_forced']) and\
-        not settings['no_save']
-    result = {
-        'stop_for_errors': settings['stop_for_errors'],
-        'last_answer': None,
-    }
-
-    # only keep static vars
-    vars_not_file = pil.split_vars_static_dynamic(vars_not_file)[0]
-
-    # create parent info instance
-    #  -> will be used by different files with the open method
-    info_not_file = metadata.InfoExtract(vars=vars_not_file)
-
-    # Execute action list
-    image_amount = len(image_infos)
-    actions_amount = len(actions) + 1  # open image is extra action
-    cache = {}
-    is_done = actions[-1].is_done  # checking method for resuming
-    read_only_settings = ReadOnlyDict(settings)
-
-    # Start progress dialog
-    repeat = settings['repeat']
-    send.frame_show_progress(title=_("Executing action list"),
-        parent_max=image_amount * repeat,
-        child_max=actions_amount,
-        message=PROGRESS_MESSAGE)
-    report = []
-    start = time.time()
-    for image_index, image_info in enumerate(image_infos):
-        statement = apply_actions_to_photo(actions, image_info, info_not_file,
-            cache, read_only_settings, skip_existing_images, result, report,
-            is_done, image_index, repeat)
-        # reraise statement
-        if statement == 'return':
-            send.progress_close()
-            return
-        elif statement == 'break':
-            break
+    def progress(event):
+        nonlocal cancelled, progress_started
+        if not progress_started:
+            send.frame_show_progress(title=_("Executing action list"),
+                parent_max=event.input_count, child_max=len(checked) + 1,
+                message=PROGRESS_MESSAGE)
+            progress_started = True
+        response = {}
+        send.progress_update_filename(response, event.input_index,
+                                      str(event.source))
+        send.progress_update_index(response, event.input_index,
+                                   event.action_index)
+        if response and not response.get('keepgoing', True):
+            cancelled = True
         if update:
             update()
-    send.progress_close()
-    if update:
-        update()
 
-    # mention amount of photos and duration
-    delta = time.time() - start
-    duration = timedelta(seconds=int(delta))
-    if image_amount == 1:
-        message = _('One image done in %s') % duration
-    else:
-        message = _('%(amount)d images done in %(duration)s')\
-            % {'amount': image_amount, 'duration': duration}
-    # add error status
-    if ERROR_LOG_COUNTER == 1:
-        message += '\n' + _('One issue was logged')
-    elif ERROR_LOG_COUNTER:
-        message += '\n' + _('%d issues were logged')\
-            % ERROR_LOG_COUNTER
+    def on_error(failure, source):
+        if not settings['stop_for_errors']:
+            return 'skip'
+        response = {'answer': _('stop'), 'stop_for_errors': True}
+        send.frame_show_progress_error(response,
+            '%s: %s' % (failure.action, failure.message), ignore=True)
+        return next((choice for choice in ('abort', 'skip', 'ignore', 'stop')
+                     if response.get('answer') == _(choice)), 'stop')
 
-    # show notification
+    try:
+        result = run_batch(checked, paths, execution_settings,
+                           progress=progress, cancel=lambda: cancelled,
+                           on_error=on_error)
+    finally:
+        send.progress_close()
+    report = [{'path': str(output), 'filename': output.name,
+               'source': str(item.source)}
+              for item in result.files for output in item.outputs]
+    message = _('%(amount)d images done in %(duration)s') % {
+        'amount': result.succeeded,
+        'duration': timedelta(seconds=int(result.elapsed))}
     send.frame_show_notification(message, report=report)
-
-    # show status dialog
-    if ERROR_LOG_COUNTER == 0:
-        if settings['always_show_status_dialog']:
-            send.frame_show_status(message, log=False)
-    else:
-        message = '%s\n\n%s' % (message, SEE_LOG)
-        send.frame_show_status(message)
+    if result.failed or result.issues:
+        # Keep the existing Show Log UI usable without global engine state.
+        init_error_log_file()
+        for item in result.files:
+            for failure in item.failures:
+                log_error('%s: %s' % (failure.action, failure.message),
+                          str(item.source))
+        send.frame_show_status(message, log=True)
+    elif settings.get('always_show_status_dialog'):
+        send.frame_show_status(message, log=False)
+    return result
 
 
 def apply_actions_to_photo(actions, image_info, info_not_file,
@@ -850,21 +807,39 @@ def import_module(module, folder=None):
 
 def import_actions():
     """Import all actions from the ``ct.PHATCH_ACTIONS_PATH``."""
-    global ACTIONS, ACTION_LABELS, ACTION_FIELDS
+    global ACTIONS, ACTION_IDS, ACTION_LABELS, ACTION_FIELDS
     modules = \
         [import_module(os.path.basename(os.path.splitext(filename)[0]),
             'actions') for filename in \
             glob.glob(os.path.join(ct.PHATCH_ACTIONS_PATH, '*.py'))] + \
         [import_module(os.path.basename(os.path.splitext(filename)[0])) for
             filename in glob.glob(os.path.join(ct.USER_ACTIONS_PATH, '*.py'))]
-    ACTIONS = {}
+    actions = {}
+    identities = {}
     for module in modules:
         try:
             cl = getattr(module, ct.ACTION)
         except AttributeError:
             continue
         #register action
-        ACTIONS[cl.label] = cl
+        plugin_id = getattr(cl, 'plugin_id', None)
+        if plugin_id is None:
+            name = module.__name__.split('.')[-1]
+            plugin_id = ('phatch.actions.' + name
+                         if module.__name__.startswith(('actions.',
+                                                       'phatch.actions.'))
+                         else 'user.actions.' + name)
+        if not isinstance(plugin_id, str) or not plugin_id:
+            raise ValueError('Invalid plugin identity')
+        if plugin_id in identities:
+            raise ValueError('Duplicate plugin identity: ' + plugin_id)
+        if cl.label in actions:
+            raise ValueError('Duplicate plugin label: ' + cl.label)
+        cl.plugin_id = plugin_id
+        identities[plugin_id] = cl
+        actions[cl.label] = cl
+    ACTIONS = actions
+    ACTION_IDS = identities
     #ACTION_LABELS
     ACTION_LABELS = list(ACTIONS.keys())
     ACTION_LABELS.sort()
@@ -891,22 +866,25 @@ def save_actionlist(filename, data):
         data = {'actions':[...], 'description':'...'}
     """
     #add version number
-    data['version'] = VERSION
-    data['format_version'] = ACTIONS_LIST_FORMAT_VERSION
+    payload = dict(data)
+    payload['version'] = VERSION
+    payload['format_version'] = ACTIONS_LIST_FORMAT_VERSION
     #check filename
     if os.path.splitext(filename)[1].lower() != ct.EXTENSION:
         filename += ct.EXTENSION
     #prepare data
-    data['actions'] = [action.dump() for action in data['actions']]
-    #backup previous
-    previous = filename + '~'
-    if os.path.exists(previous):
-        os.remove(previous)
-    if os.path.isfile(filename):
-        os.rename(filename, previous)
-    #write it as JSON
-    with open(filename, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    payload['actions'] = []
+    for action in data['actions']:
+        dumped = action.dump()
+        if getattr(action, 'plugin_id', None):
+            dumped['plugin_id'] = action.plugin_id
+        payload['actions'].append(dumped)
+    with AtomicOutput(filename) as temporary:
+        with temporary.open('w', encoding='utf-8') as stream:
+            json.dump(payload, stream, indent=2, ensure_ascii=False)
+        if os.path.isfile(filename):
+            with AtomicOutput(filename + '~') as backup:
+                shutil.copyfile(filename, backup)
 
 
 def open_actionlist(filename):
@@ -917,37 +895,7 @@ def open_actionlist(filename):
     :returns: action list tuple (data, warning) or None if incompatible
     :rtype: tuple or None
     """
-    #read source
-    with open(filename, 'r', encoding='utf-8') as f:
-        source = f.read()
-
-    #try to load as JSON first (new format)
-    try:
-        data = json.loads(source)
-    except json.JSONDecodeError:
-        # Fall back to Python literal eval (legacy format)
-        try:
-            data = safe.eval_safe(source)
-        except Exception:
-            # If both fail, it's an invalid file
-            send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
-            return None
-
-    # Check version compatibility
-    format_version = data.get('format_version')
-    if format_version is not None:
-        # Accept format versions 1.0 (pprint) and 2.0 (JSON)
-        format_version_str = str(format_version)
-        if format_version_str not in ('1.0', '2.0'):
-            send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
-            return None
-    else:
-        version = str(data.get('version', '')).strip()
-        if version:
-            # Legacy files: accept any version that starts with "0.2" or "0.3"
-            if not (version.startswith('0.2') or version.startswith('0.3')):
-                send.frame_show_error(ERROR_INCOMPATIBLE_ACTIONLIST % ct.INFO)
-                return None
+    data = read_recipe(filename)
 
     # Reconstruct action objects from saved data
     # Check if actions have been imported
@@ -966,7 +914,9 @@ def open_actionlist(filename):
         actionLabel = action['label']
         actionFields = action['fields']
         try:
-            newAction = ACTIONS[actionLabel]()
+            plugin_id = action.get('plugin_id')
+            registry = ACTION_IDS if plugin_id else ACTIONS
+            newAction = registry[plugin_id or actionLabel]()
         except KeyError:
             raise
         invalid_labels.extend(['- %s (%s)' % (label, actionLabel)

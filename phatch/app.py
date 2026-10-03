@@ -138,13 +138,16 @@ def has_ext(path, ext):
 
 
 def _console(paths, settings):
-    from .core.api import init
-    init()
+    from .core.api import init, import_actions
+    if settings.get('dry_run'):
+        import_actions()
+    else:
+        init()
     from .console import console
     if paths and has_ext(paths[0], INFO['extension']):
-        console.main(actionlist=paths[0], paths=paths[1:], settings=settings)
+        return console.main(actionlist=paths[0], paths=paths[1:], settings=settings)
     else:
-        console.main(actionlist='', paths=paths, settings=settings)
+        return console.main(actionlist='', paths=paths, settings=settings)
 
 
 def main(config_paths=None, app_file=None, force_console=False):
@@ -157,6 +160,11 @@ def main(config_paths=None, app_file=None, force_console=False):
     options, paths = parse_options()
     from .core.settings import create_settings
     settings = create_settings(config_paths, options)
+    if settings.get('capabilities'):
+        import json
+        from .core.capabilities import capability_report
+        print(json.dumps(capability_report(), indent=2, sort_keys=True))
+        return 0
     if force_console:
         settings['console'] = True
     if settings['verbose']:
@@ -173,7 +181,8 @@ def main(config_paths=None, app_file=None, force_console=False):
         _init_fonts()
         return
     else:
-        config.check_fonts()
+        if not settings.get('dry_run'):
+            config.check_fonts()
     if paths and not (paths[0] == 'recent' or \
             has_ext(paths[0], INFO['extension'])):
         settings['droplet'] = True
@@ -183,7 +192,7 @@ def main(config_paths=None, app_file=None, force_console=False):
             paths = ['recent']
         _droplet(app_file, paths, settings)
     elif len(paths) > 1 or settings['console'] or settings['interactive']:
-        _console(paths, settings)
+        return _console(paths, settings)
     else:
         _gui(app_file, paths, settings)
 

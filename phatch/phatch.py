@@ -59,6 +59,11 @@ def create_paths(relative=''):
 
 
 def init_config_paths():
+    # Wheels install resources under the environment's share directory.
+    # A checkout continues to use its sibling data directory.
+    from pathlib import Path
+    if not (Path(__file__).resolve().parent.parent / 'data/geek.txt').is_file():
+        return config.init_config_paths()
     if hasattr(sys, "frozen"):
         sys.argv[0]
         relative = ''
@@ -71,7 +76,7 @@ def main():
     #override paths with local paths
     #start application
     from . import app
-    app.main(init_config_paths(), app_file=__file__)
+    return app.main(init_config_paths(), app_file=__file__)
 
 if __name__ == '__main__':
     main()

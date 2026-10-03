@@ -131,33 +131,27 @@ def check_config_paths(config_paths):
     PHATCH_FONTS_CACHE_PATH = os.path.join(PHATCH_SHARE_PATH,
                             "cache", "fonts")
 
-    if sys.platform.startswith('win'):
-        sys.stderr.write(
-            'Sorry your platform is not yet supported.\n' \
-            + 'The instructions for Windows are on the Phatch website.')
-        sys.exit()
-    else:
-        return {
-            'PHATCH_IMAGE_PATH': os.path.join(PHATCH_SHARE_PATH,
-                                    'images'),
-            'PHATCH_LOCALE_PATH': os.path.join(ROOT_SHARE_PATH,
-                                    'locale'),
-            'PHATCH_DOCS_PATH': os.path.join(ROOT_SHARE_PATH,
-                                    'doc', 'phatch', 'html'),
-            #cache
-            'PHATCH_FONTS_CACHE_PATH': PHATCH_FONTS_CACHE_PATH,
-            #data
-            'PHATCH_DATA_PATH': PHATCH_DATA_PATH,
-            'PHATCH_ACTIONLISTS_PATH': PHATCH_ACTIONLISTS_PATH,
-            'PHATCH_BLENDER_PATH': PHATCH_BLENDER_PATH,
-            'PHATCH_FONTS_PATH': PHATCH_FONTS_PATH,
-            'PHATCH_HIGHLIGHTS_PATH': os.path.join(PHATCH_DATA_PATH,
-                                    'highlights'),
-            'PHATCH_MASKS_PATH': os.path.join(PHATCH_DATA_PATH,
-                                    'masks'),
-            'PHATCH_PERSPECTIVE_PATH': os.path.join(PHATCH_DATA_PATH,
-                                    'perspective'),
-        }
+    return {
+        'PHATCH_IMAGE_PATH': os.path.join(PHATCH_SHARE_PATH,
+                                'images'),
+        'PHATCH_LOCALE_PATH': os.path.join(ROOT_SHARE_PATH,
+                                'locale'),
+        'PHATCH_DOCS_PATH': os.path.join(ROOT_SHARE_PATH,
+                                'doc', 'phatch', 'html'),
+        #cache
+        'PHATCH_FONTS_CACHE_PATH': PHATCH_FONTS_CACHE_PATH,
+        #data
+        'PHATCH_DATA_PATH': PHATCH_DATA_PATH,
+        'PHATCH_ACTIONLISTS_PATH': PHATCH_ACTIONLISTS_PATH,
+        'PHATCH_BLENDER_PATH': PHATCH_BLENDER_PATH,
+        'PHATCH_FONTS_PATH': PHATCH_FONTS_PATH,
+        'PHATCH_HIGHLIGHTS_PATH': os.path.join(PHATCH_DATA_PATH,
+                                'highlights'),
+        'PHATCH_MASKS_PATH': os.path.join(PHATCH_DATA_PATH,
+                                'masks'),
+        'PHATCH_PERSPECTIVE_PATH': os.path.join(PHATCH_DATA_PATH,
+                                'perspective'),
+    }
 
 
 def add_user_paths(config_paths):
@@ -258,9 +252,11 @@ def init_config_paths(config_paths=None):
     #user actions
     fix_python_path(USER_ACTIONS_PATH)
     #set font cache
-    from phatch.lib.fonts import set_font_cache
-    set_font_cache(USER_FONTS_PATH, PHATCH_FONTS_PATH,
-        USER_FONTS_CACHE_PATH, PHATCH_FONTS_CACHE_PATH)
+    from importlib import import_module
+    for module in ('lib.fonts', 'phatch.lib.fonts'):
+        import_module(module).set_font_cache(
+            USER_FONTS_PATH, PHATCH_FONTS_PATH,
+            USER_FONTS_CACHE_PATH, PHATCH_FONTS_CACHE_PATH)
     #register paths
     global PATHS
     PATHS = config_paths

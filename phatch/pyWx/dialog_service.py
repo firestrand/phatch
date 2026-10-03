@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Optional, Sequence
 from types import SimpleNamespace
 
@@ -74,11 +74,11 @@ class DialogDependencies:
 
     wx: Any = wx
     wx_lib_dialogs: Any = wx_lib_dialogs
-    dialogs: Any = dialogs_module
+    dialogs: Any = field(default_factory=lambda: dialogs_module)
     list_data: Any = list_data_module
     notify: Any = notify_module
-    graphics: Any = graphics_module
-    images: Any = images_module
+    graphics: Any = field(default_factory=lambda: graphics_module)
+    images: Any = field(default_factory=lambda: images_module)
     system: Any = system_module
     api: Any = api_module
 

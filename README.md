@@ -18,7 +18,7 @@ Phatch is a powerful, cross-platform photo batch processing application that ena
 
 ### Requirements
 
-- **Python 3.x** (3.8+ recommended)
+- **Python 3.12+**
 - **Pillow** (Python Imaging Library fork)
 - **wxPython 4.x** (Phoenix) - for GUI mode
 
@@ -44,10 +44,10 @@ python bin/phatch --droplet <actionlist.phatch> <image_files>
 
 ```bash
 # Install dependencies
-pip install Pillow wxPython
+pip install '.[gui]'
 
 # Install Phatch (Linux/macOS)
-python setup.py install
+pip install .
 ```
 
 ## 🧪 Testing
@@ -55,11 +55,11 @@ python setup.py install
 ```bash
 # Run all tests
 cd tests
-python -m pytest
+uv run --locked pytest
 
 # Run PEP8 style checks
 cd tests
-python pep8_test.py
+uv run --locked ruff check .
 ```
 
 ## 📚 Documentation
@@ -87,7 +87,7 @@ Each action is a self-contained plugin that declares its parameters and implemen
 
 Phatch has been successfully migrated from Python 2 to Python 3 with full functionality:
 
-- ✅ Python 3.8+ compatible
+- ✅ Python 3.12+ supported
 - ✅ wxPython 4.x Phoenix support
 - ✅ Pillow (modern PIL fork) integration
 - ✅ 2173 passing tests

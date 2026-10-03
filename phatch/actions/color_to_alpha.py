@@ -95,27 +95,18 @@ def color_to_alpha(image, color_value=None, select_color_by=None):
     img_bands = [band.convert("F") for band in imtools.split(image)]
 
     # Find the maximum difference rate between source and color.
-    # I had to use two difference functions because ImageMath.eval
+    # I had to use two difference functions because ImageMath
     # only evaluates the expression once.
-    alpha = ImageMath.eval(
-        """float(
-            max(
-                max(
-                    max(
-                        difference1(red_band, cred_band),
-                        difference1(green_band, cgreen_band)
-                    ),
-                    difference1(blue_band, cblue_band)
-                ),
-                max(
-                    max(
-                        difference2(red_band, cred_band),
-                        difference2(green_band, cgreen_band)
-                    ),
-                    difference2(blue_band, cblue_band)
-                )
-            )
-        )""",
+    alpha = ImageMath.lambda_eval(
+        lambda v: v['float'](v['max'](
+            v['max'](v['max'](
+                v['difference1'](v['red_band'], v['cred_band']),
+                v['difference1'](v['green_band'], v['cgreen_band'])),
+                v['difference1'](v['blue_band'], v['cblue_band'])),
+            v['max'](v['max'](
+                v['difference2'](v['red_band'], v['cred_band']),
+                v['difference2'](v['green_band'], v['cgreen_band'])),
+                v['difference2'](v['blue_band'], v['cblue_band'])))),
         difference1=difference1,
         difference2=difference2,
         red_band=img_bands[0],
@@ -127,16 +118,17 @@ def color_to_alpha(image, color_value=None, select_color_by=None):
 
     # Calculate the new image colors after the removal of the selected color
     new_bands = [
-        ImageMath.eval(
-            "convert((image - color) / alpha + color, 'L')",
+        ImageMath.lambda_eval(
+            lambda v: v['convert'](
+                (v['image'] - v['color']) / v['alpha'] + v['color'], 'L'),
             image=img_bands[i],
             color=color[i],
             alpha=alpha)
         for i in range(3)]
 
     # Add the new alpha band
-    new_bands.append(ImageMath.eval(
-        "convert(alpha_band * alpha, 'L')",
+    new_bands.append(ImageMath.lambda_eval(
+        lambda v: v['convert'](v['alpha_band'] * v['alpha'], 'L'),
         alpha=alpha,
         alpha_band=img_bands[3]))
 

@@ -32,10 +32,20 @@ COMMANDS = [
         + '+polaroid file_out.png',
     'convert -blur 0x5 file_in.tif file_out.png']
 
-try:
-    COMMANDS = [line.strip() for line in open(config.USER_GEEK_PATH).readlines()]
-except IndexError:
-    pass
+for command_file in (
+        config.USER_GEEK_PATH,
+        os.path.join(config.PHATCH_DATA_PATH, 'geek.txt')
+        if config.PHATCH_DATA_PATH else None):
+    if command_file is None:
+        continue
+    try:
+        with open(command_file, encoding='utf-8') as stream:
+            commands = [line.strip() for line in stream if line.strip()]
+    except FileNotFoundError:
+        continue
+    if commands:
+        COMMANDS = commands
+    break
 
 
 class Action(models.Action):

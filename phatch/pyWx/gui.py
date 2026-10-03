@@ -317,6 +317,7 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
         frame.Frame.__init__(self, *args, **keyw)
         _theme()
         self.dlg_library = None
+        self.workflow_preview = None
         self.controller = self.dependencies.controller_factory(self.tree)
         self.droplet_manager = self.dependencies.droplet_manager_factory(
             export_actions=self.controller.export_actions,
@@ -372,6 +373,9 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
 
     def _menu(self):
         #export menu
+        preview_item = self.menu_tools.Append(wx.ID_ANY, _('Workflow &preview…'),
+                                              _('Preview the configured action list'))
+        self.Bind(wx.EVT_MENU, self.on_menu_tools_preview, preview_item)
         self.menu_file_export = \
             self.menu_file_export_actionlist_to_clipboard.GetMenu()
         #file history
@@ -624,6 +628,23 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
     def on_menu_tools_execute(self, event):
         actionlist = self.controller.export_actions()
         self._execute(actionlist)
+
+    def on_menu_tools_preview(self, event):
+        if self.workflow_preview and not self.workflow_preview._closed:
+            self.workflow_preview.Show()
+            self.workflow_preview.Raise()
+            self.workflow_preview.refresh()
+            return
+        with wx.FileDialog(self, _('Choose an image to preview'),
+                           style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST) as dialog:
+            if dialog.ShowModal() != wx.ID_OK:
+                return
+            source = dialog.GetPath()
+        from .workflow_preview import WorkflowPreviewFrame
+        self.workflow_preview = WorkflowPreviewFrame(
+            self, source, lambda: list(self.controller.export_actions()),
+            lambda: wx.GetApp().settings)
+        self.workflow_preview.Show()
 
     def on_menu_tools_safe(self, event):
         self.set_safe_mode(event.IsChecked())
@@ -878,6 +899,8 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
     def on_close(self, event=None):
         if self.is_save_not_ok():
             return
+        if self.workflow_preview and not self.workflow_preview._closed:
+            self.workflow_preview.Close()
         self.Hide()
         wx.GetApp()._saveSettings()
         #Destroy everything
@@ -902,6 +925,8 @@ class Frame(DialogsMixin, dialogs.BrowseMixin, droplet.Mixin, paint.Mixin,
 
     #---settings
     def set_dirty(self, value, description=None):
+        if getattr(self, 'workflow_preview', None) and not self.workflow_preview._closed:
+            self.workflow_preview.workflow_changed()
         if value:
             self.controller.mark_dirty()
         else:

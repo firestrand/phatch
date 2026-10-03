@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any, Callable, Iterable, Mapping, Optional, Sequence
 
 from phatch.core import api
+from phatch.core.batch import BatchPlan, BatchResult
 from phatch.lib import formField
 
 
@@ -65,7 +66,7 @@ class ActionListService:
         self,
         open_actionlist: Callable[[str], tuple[Mapping[str, Any], str]] = api.open_actionlist,
         save_actionlist: Callable[[str, Mapping[str, Any]], None] = api.save_actionlist,
-        apply_actions_to_photos: Callable[..., None] = api.apply_actions_to_photos,
+        apply_actions_to_photos: Callable[..., BatchResult | BatchPlan | None] = api.apply_actions_to_photos,
         safe_mode_checker: Callable[[], bool] = formField.get_safe,
     ) -> None:
         self._open_actionlist = open_actionlist
@@ -118,10 +119,10 @@ class ActionListService:
         settings: Mapping[str, Any],
         update_callback: Optional[Callable[[], None]] = None,
         **kwargs: Any,
-    ) -> None:
-        """Apply the action list to the provided inputs."""
+    ) -> BatchResult | BatchPlan | None:
+        """Apply the action list and return its structured result."""
 
         call_kwargs = dict(kwargs)
         if update_callback is not None and "update" not in call_kwargs:
             call_kwargs["update"] = update_callback
-        self._apply_actions_to_photos(actions, settings, **call_kwargs)
+        return self._apply_actions_to_photos(actions, settings, **call_kwargs)

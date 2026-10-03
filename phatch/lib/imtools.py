@@ -16,7 +16,7 @@
 # Follows PEP8
 
 import os
-from io import StringIO
+from io import BytesIO
 from itertools import cycle
 from urllib.request import urlopen
 
@@ -114,7 +114,7 @@ def open_image_data(data):
     :returns: image
     :rtype: pil.Image
     """
-    return Image.open(StringIO(data))
+    return Image.open(BytesIO(data))
 
 
 def open_image_exif(uri):
@@ -160,7 +160,7 @@ def get_size(im, format, **options):
         return out.bytes
     except AttributeError:
         # fall back on full in-memory compression
-        out = StringIO()
+        out = BytesIO()
         im.save(out, format, **options)
         return len(out.getvalue())
 
@@ -535,7 +535,7 @@ def get_format_data(image, format):
     :type format: string
     :returns: byte data of the image
     """
-    f = StringIO()
+    f = BytesIO()
     convert_save_mode_by_format(image, format).save(f, format)
     return f.getvalue()
 
@@ -678,7 +678,7 @@ def remove_alpha(image):
         return image.convert('L')
     if image.mode == 'P' and 'transparency' in image.info:
         img = image.convert('RGB')
-        del img.info['transparency']
+        img.info.pop('transparency', None)
         return img
     return image
 
@@ -828,7 +828,7 @@ def convert_safe_mode(image):
         return image.convert('L')
     if image.mode == 'P' and 'transparency' in image.info:
         img = image.convert('RGBA')
-        del img.info['transparency']
+        img.info.pop('transparency', None)
         return img
     if image.mode in ['P', 'YCbCr', 'CMYK', 'RGBX']:
         return image.convert('RGB')
@@ -846,6 +846,8 @@ def convert_save_mode_by_format(image, format):
     :rtype: PIL image object
     """
     #TODO: Extend this helper function to support other formats as well
+    if format in ['WEBP', 'AVIF'] and image.mode == 'P':
+        return image.convert('RGBA' if has_alpha(image) else 'RGB')
     if image.mode == 'P':
         # Make sure P is handled correctly
         if format not in ['GIF', 'PNG', 'TIFF', 'IM', 'PCX']:

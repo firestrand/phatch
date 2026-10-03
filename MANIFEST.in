@@ -1,4 +1,6 @@
-include AUTHORS COPYING README linux/phatch.desktop
+include AUTHORS COPYING README.md CHANGELOG.md linux/phatch.desktop
+recursive-include data *
+recursive-include images *.svg *.gif *.ico
 recursive-include phatch *.wxg
 recursive-include locale */LC_MESSAGES/phatch.mo
 recursive-include images *.png

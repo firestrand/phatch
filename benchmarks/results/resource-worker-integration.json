@@ -1,0 +1,234 @@
+{
+  "phase": "after per-input resource identity and worker dictionary snapshots",
+  "before": "r11-crash-recovery.json",
+  "results": [
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 0.5367650379776023,
+      "images_per_second": 14.904100367904023,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "eadfc5171255378c0a122c57486c9425b25923c0262258fcc198550000d65ec9",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 1,
+      "workload": "resize",
+      "peak_aggregate_rss_bytes": 75337728,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 1
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 0.5223586059873924,
+      "images_per_second": 15.3151492256511,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "eadfc5171255378c0a122c57486c9425b25923c0262258fcc198550000d65ec9",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 1,
+      "workload": "resize",
+      "peak_aggregate_rss_bytes": 75337728,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 2
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 0.5463264210266061,
+      "images_per_second": 14.643260314899543,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "eadfc5171255378c0a122c57486c9425b25923c0262258fcc198550000d65ec9",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 1,
+      "workload": "resize",
+      "peak_aggregate_rss_bytes": 75411456,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 3
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 0.4579964199801907,
+      "images_per_second": 17.467385444510718,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "eadfc5171255378c0a122c57486c9425b25923c0262258fcc198550000d65ec9",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 2,
+      "workload": "resize",
+      "peak_aggregate_rss_bytes": 216608768,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 1
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 0.4708621940226294,
+      "images_per_second": 16.990108999100325,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "eadfc5171255378c0a122c57486c9425b25923c0262258fcc198550000d65ec9",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 2,
+      "workload": "resize",
+      "peak_aggregate_rss_bytes": 243535872,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 2
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 0.46595464198617265,
+      "images_per_second": 17.16905312049108,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "eadfc5171255378c0a122c57486c9425b25923c0262258fcc198550000d65ec9",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 2,
+      "workload": "resize",
+      "peak_aggregate_rss_bytes": 216485888,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 3
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 1.2564107869984582,
+      "images_per_second": 6.367344249814863,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "65894916579c31a8017a1de21c2e46bc7c4c9e67dd3879c11f881667f89cdbc0",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 1,
+      "workload": "watermark",
+      "peak_aggregate_rss_bytes": 121630720,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 1
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 1.2860280579770915,
+      "images_per_second": 6.220704089912249,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "65894916579c31a8017a1de21c2e46bc7c4c9e67dd3879c11f881667f89cdbc0",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 1,
+      "workload": "watermark",
+      "peak_aggregate_rss_bytes": 117743616,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 2
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 1.2775050020427443,
+      "images_per_second": 6.262206400137701,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "65894916579c31a8017a1de21c2e46bc7c4c9e67dd3879c11f881667f89cdbc0",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 1,
+      "workload": "watermark",
+      "peak_aggregate_rss_bytes": 121630720,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 3
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 0.8502738670213148,
+      "images_per_second": 9.408733245002171,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "65894916579c31a8017a1de21c2e46bc7c4c9e67dd3879c11f881667f89cdbc0",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 2,
+      "workload": "watermark",
+      "peak_aggregate_rss_bytes": 315154432,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 1
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 0.8594095719745383,
+      "images_per_second": 9.308716426813334,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "65894916579c31a8017a1de21c2e46bc7c4c9e67dd3879c11f881667f89cdbc0",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 2,
+      "workload": "watermark",
+      "peak_aggregate_rss_bytes": 307752960,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 2
+    },
+    {
+      "count": 8,
+      "cpu_count": 20,
+      "elapsed_seconds": 0.8709192370297387,
+      "images_per_second": 9.185696744148078,
+      "input_dimensions": [
+        2400,
+        1600
+      ],
+      "output_pixel_sha256": "65894916579c31a8017a1de21c2e46bc7c4c9e67dd3879c11f881667f89cdbc0",
+      "pillow": "12.3.0",
+      "platform": "Linux-7.0.0-1019-nvidia-aarch64-with-glibc2.39",
+      "python": "3.14.8",
+      "workers": 2,
+      "workload": "watermark",
+      "peak_aggregate_rss_bytes": 328400896,
+      "rss_sample_interval_seconds": 0.01,
+      "repeat": 3
+    }
+  ]
+}

@@ -54,7 +54,7 @@ GEO_EXTENSIONS = ['gpx']
 
 ICON_SIZE = (64, 64)
 
-IMAGE_EXTENSIONS = ['bmp', 'gif', 'jpe', 'jpeg', 'jpg', 'im',
+IMAGE_EXTENSIONS = ['avif', 'webp', 'bmp', 'gif', 'jpe', 'jpeg', 'jpg', 'im',
     'pcx', 'png', 'pbm', 'pgm', 'ppm', 'tif', 'tiff', 'xbm']
 IMAGE_READ_EXTENSIONS = IMAGE_EXTENSIONS + ['cur', 'dcx', 'fli', 'flc', 'fpx',
     'gbr', 'gd', 'ico', 'imt', 'mic', 'mcidas', 'pcd',
