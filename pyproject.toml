@@ -33,7 +33,7 @@ classifiers = [
 ]
 dependencies = [
     "Pillow>=11.3.0,<13",
-    "platformdirs>=4.9.6,<5",
+    "platformdirs>=4.12.2,<5",
     "rich>=14.1.0",
 ]
 
