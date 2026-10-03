@@ -56,8 +56,8 @@ def warmup(image, midtone, brighten, amount=100):
     b = brighten / 600.0
     # Calculate channels separately
     for channel in range(3):
-        o.append(ImageMath.eval(
-            "m*(255-i)*i+i",
+        o.append(ImageMath.lambda_eval(
+            lambda v: v['m'] * (255 - v['i']) * v['i'] + v['i'],
             i=luma,
             m=4 * ((m[channel] / 255.0) - 0.5 + b) / 255.0).convert('L'))
 

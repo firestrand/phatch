@@ -14,6 +14,7 @@ from phatch.core.action_registry import (
     build_action_registry,
 )
 from phatch.core.cli import add_cli_options
+from phatch.core.recipes import RecipeValidationError, read_recipe_text
 from phatch.core.resource_config import packaged_config_paths
 from phatch.core.settings import DEFAULT_SETTINGS
 from phatch.data.info import INFO
@@ -144,8 +145,13 @@ def _run_automation_cli(
     action_list = requested_paths[0]
     input_paths = requested_paths[1:]
     try:
-        parsed = parse_action_list(action_list.read_text(encoding="utf-8"))
-    except (OSError, UnicodeError, SchemaValidationError) as error:
+        parsed = parse_action_list(read_recipe_text(action_list))
+    except (
+        OSError,
+        UnicodeError,
+        SchemaValidationError,
+        RecipeValidationError,
+    ) as error:
         return write_failure(
             AutomationOutcome.VALIDATION_FAILURE,
             str(error),

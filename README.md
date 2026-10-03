@@ -19,7 +19,7 @@ Phatch is a powerful, cross-platform photo batch processing application that ena
 
 ### Requirements
 
-- **CPython 3.11-3.13**
+- **CPython 3.12-3.14**
 - **Pillow** (Python Imaging Library fork)
 - **wxPython 4.x** (Phoenix) - for GUI mode
 
@@ -125,6 +125,7 @@ new or unlisted files cannot bypass the changed-module threshold.
 ## 📚 Documentation
 
 - **Action Lists**: Pre-configured batch processing recipes shipped as package data
+- **Reliable Batch Workflows**: Planning, journals, workers and export policies in [`docs/BATCH_PROCESSING.md`](docs/BATCH_PROCESSING.md)
 - **0.5 Usability Candidate**: Preview, history, workflows, reports, and Ubuntu setup in [`docs/usability_050.md`](docs/usability_050.md)
 - **Developer Guide**: See `CLAUDE.md` for architecture and plugin development
 - **License**: See `COPYING` for GPL v3 license details
@@ -148,7 +149,7 @@ Each action is a self-contained plugin that declares its parameters and implemen
 
 Phatch has been successfully migrated from Python 2 to Python 3 with full functionality:
 
-- ✅ CPython 3.11-3.13 compatible
+- ✅ CPython 3.12-3.14 compatible
 - ✅ wxPython 4.x Phoenix support
 - ✅ Pillow (modern PIL fork) integration
 - ✅ Automated unit, integration, GUI, and release-gate tests

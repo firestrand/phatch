@@ -18,7 +18,7 @@ from phatch.resources.inventory import RESOURCE_CLASSES, ResourceClass
 from phatch.resources.provider import ResourceProvider
 
 EXPECTED_COUNTS = {
-    ResourceClass.ACTION_LISTS: 25,
+    ResourceClass.ACTION_LISTS: 26,
     ResourceClass.BLENDER: 105,
     ResourceClass.DOCUMENTATION: 360,
     ResourceClass.FONTS: 2,
@@ -147,7 +147,7 @@ def test_runtime_inventory_imports_modules_and_reads_starter_resources() -> None
         resource.size > 0 and len(resource.sha256) == 64
         for resource in inventory.resources
     )
-    assert dict(inventory.resource_counts)[ResourceClass.ACTION_LISTS.value] == 25
+    assert dict(inventory.resource_counts)[ResourceClass.ACTION_LISTS.value] == 26
 
 
 def test_runtime_inventory_script_reports_deterministic_json(tmp_path: Path) -> None:
@@ -168,7 +168,7 @@ def test_runtime_inventory_script_reports_deterministic_json(tmp_path: Path) -> 
     payload = json.loads(completed.stdout)
     assert payload["modules"] == sorted(release_inventory.REQUIRED_RUNTIME_MODULES)
     assert {item["path"] for item in payload["resources"]} == STARTER_RESOURCES
-    assert payload["resource_counts"][ResourceClass.ACTION_LISTS.value] == 25
+    assert payload["resource_counts"][ResourceClass.ACTION_LISTS.value] == 26
 
 
 @pytest.mark.slow

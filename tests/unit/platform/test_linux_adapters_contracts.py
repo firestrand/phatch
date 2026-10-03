@@ -248,3 +248,24 @@ def test_menu_handlers_dispatch_and_honor_save_guard(
     droplet.on_menu_file_export_nautilus_actionlist(frame, None)
     assert len(frame.exports) == 3
     assert len(calls) == 6
+
+
+def test_nautilus_extension_is_written_only_under_configured_directory(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    from phatch.lib.linux import nautilusExtension
+
+    folder = tmp_path / "extensions"
+    monkeypatch.setattr(nautilusExtension, "NAUTILUS_USER_PYTHON_EXTENSIONS", str(folder))
+    assert not nautilusExtension.nautilus_exists()
+    folder.mkdir()
+    assert nautilusExtension.nautilus_exists()
+    nautilusExtension.create_nautilus_extension(
+        "phatch_test", "'Batch Photos'", "phatch %s", "('image/png',)",
+        tooltip="'Process photos'"
+    )
+    script = (folder / "phatch_test.py").read_text(encoding="utf-8")
+    assert "class phatch_test_extension" in script
+    assert "phatch %s" in script
+    assert "'image/png'" in script
+    assert list(folder.iterdir()) == [folder / "phatch_test.py"]

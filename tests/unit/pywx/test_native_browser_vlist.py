@@ -192,3 +192,18 @@ def test_vlist_test_frames_construct_real_native_controls(native_frame) -> None:
     tags.Destroy()
     dialog.Destroy()
     pump_events()
+
+
+def test_explicit_light_blue_theme_uses_its_own_gradient(native_frame) -> None:
+    control = vlist.Box(panel(native_frame))
+    control.SetTheme("light_blue")
+    assert control._color_from == wx.Colour(180, 197, 214)
+    assert control._color_to == wx.Colour(217, 226, 234)
+    control.SetItemCount(1)
+    control.SetSelection(0)
+    dc, bitmap = memory_dc()
+    try:
+        control.OnDrawBackground(dc, wx.Rect(0, 0, 240, 72), 0)
+        assert bitmap.IsOk()
+    finally:
+        dc.SelectObject(wx.NullBitmap)

@@ -158,12 +158,32 @@ def _console(paths, settings):
     registry = init()
     from .console import console
 
+    batch_requested = (
+        any(
+            settings.get(name)
+            for name in (
+                "report_path",
+                "manifest_path",
+                "collision_policy",
+                "animation_policy",
+                "page_policy",
+            )
+        )
+        or settings.get("workers", 1) != 1
+    )
+    if batch_requested or settings.get("console"):
+        batch_requested = True
+        from .console import batch_console as console
+
+        settings["resume"] = bool(settings.get("resume"))
     if paths and has_ext(paths[0], INFO["extension"]):
-        console.main(
+        return console.main(
             actionlist=paths[0], paths=paths[1:], settings=settings, registry=registry
         )
     else:
-        console.main(actionlist="", paths=paths, settings=settings, registry=registry)
+        return console.main(
+            actionlist="", paths=paths, settings=settings, registry=registry
+        )
 
 
 def main(config_paths=None, app_file=None, force_console=False):
@@ -177,6 +197,13 @@ def main(config_paths=None, app_file=None, force_console=False):
     from .core.settings import create_settings
 
     settings = create_settings(config_paths, options)
+    if settings.get("capabilities"):
+        import json
+
+        from .core.capabilities import capability_report
+
+        print(json.dumps(capability_report(), indent=2, sort_keys=True))
+        return 0
     if force_console:
         settings["console"] = True
     if settings["verbose"]:
@@ -195,7 +222,8 @@ def main(config_paths=None, app_file=None, force_console=False):
         _init_fonts()
         return
     else:
-        config.check_fonts()
+        if not settings.get("dry_run"):
+            config.check_fonts()
     if paths and not (paths[0] == "recent" or has_ext(paths[0], INFO["extension"])):
         settings["droplet"] = True
         paths.insert(0, "recent")
@@ -204,7 +232,7 @@ def main(config_paths=None, app_file=None, force_console=False):
             paths = ["recent"]
         _droplet(app_file, paths, settings)
     elif len(paths) > 1 or settings["console"] or settings["interactive"]:
-        _console(paths, settings)
+        return _console(paths, settings)
     else:
         _gui(app_file, paths, settings)
 

@@ -23,6 +23,10 @@ sys.path.append(os.path.dirname(__file__))
 
 # Import the development-aware init_config_paths from phatch.py
 from .phatch import init_config_paths
+from .core import config as _config
+
+# Legacy action modules must observe the same configured resource paths.
+sys.modules.setdefault('core.config', _config)
 
 # Expose the function for explicit initialization
 # DO NOT call it here - let the caller (bin/phatch or tests) call it explicitly

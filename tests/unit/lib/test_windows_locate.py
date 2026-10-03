@@ -65,7 +65,11 @@ def executable_file(tmp_path: Path, name: str = "tool.exe") -> Path:
     return target
 
 
-def test_lookup_prefers_user_registration_and_closes_handle(tmp_path: Path) -> None:
+def test_lookup_prefers_user_registration_and_closes_handle(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Filesystem integration uses host paths; parser tests use Windows paths.
+    monkeypatch.setattr(locate.ntpath, "isabs", lambda value: Path(value).is_absolute())
     user = executable_file(tmp_path, "user.exe")
     machine = executable_file(tmp_path, "machine.exe")
     registry = FakeRegistry()
@@ -91,7 +95,10 @@ def test_lookup_prefers_user_registration_and_closes_handle(tmp_path: Path) -> N
     assert registry.keys[0].closed
 
 
-def test_lookup_checks_64_then_32_bit_views(tmp_path: Path) -> None:
+def test_lookup_checks_64_then_32_bit_views(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(locate.ntpath, "isabs", lambda value: Path(value).is_absolute())
     target = executable_file(tmp_path)
     registry = FakeRegistry()
     path = r"Software\Classes\svgfile\shell\edit\command"

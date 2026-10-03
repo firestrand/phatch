@@ -6,6 +6,34 @@ from typing import Final
 from phatch.lib.reverse_translation import _t
 
 _HELP_GROUPS: Final = (
+    (_t("Choose how animation frames are processed."), ("Animation Policy",)),
+    (_t("Choose how document pages are processed."), ("Page Policy",)),
+    (_t("Choose what happens when an output already exists."), ("Collision Policy",)),
+    (
+        _t("Choose whether an unavailable format fails or falls back to PNG."),
+        ("Format Fallback",),
+    ),
+    (
+        _t("Choose which source metadata is retained in the output."),
+        ("Metadata Policy",),
+    ),
+    (_t("Enter comma-separated metadata tags to retain."), ("Metadata Tags",)),
+    (_t("Preserve the color profile or convert pixels to sRGB."), ("Color Policy",)),
+    (_t("Set WebP encoding quality from 0 to 100."), ("WebP Quality",)),
+    (_t("Encode WebP without lossy compression."), ("WebP Lossless",)),
+    (_t("Set WebP compression effort from 0 to 6."), ("WebP Effort",)),
+    (_t("Set AVIF encoding quality from 0 to 100."), ("AVIF Quality",)),
+    (_t("Set AVIF encoding speed from 0 to 10."), ("AVIF Speed",)),
+    (_t("Choose a bundled variant preset or custom definitions."), ("Preset",)),
+    (_t("Enter the JSON list of named output sizes and formats."), ("Variants",)),
+    (
+        _t("Save a JSON association manifest after variant outputs commit."),
+        ("Write Manifest",),
+    ),
+    (
+        _t("Choose the file name for the variant association manifest."),
+        ("Manifest Name",),
+    ),
     (
         _t("Choose the operation or behavior used by this action."),
         ("Action", "Method", "Mode", "Transformation", "Utility"),

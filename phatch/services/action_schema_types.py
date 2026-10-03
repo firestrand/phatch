@@ -12,7 +12,7 @@ JsonScalar: TypeAlias = str | int | float | bool | None
 JsonValue: TypeAlias = JsonScalar | list["JsonValue"] | dict[str, "JsonValue"]
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(slots=True)
 class SchemaValidationError(ValueError):
     reason: str
 
@@ -74,6 +74,18 @@ ParsedActionDocument: TypeAlias = ActionDocument | LegacyActionDocument
 
 
 def parse_action_list(source: str) -> ParsedActionDocument:
+    from phatch.core.recipes import (
+        MAX_RECIPE_BYTES,
+        RecipeValidationError,
+        _bound_structure,
+    )
+
+    try:
+        if len(source.encode("utf-8")) > MAX_RECIPE_BYTES:
+            raise RecipeValidationError("$", "recipe size limit exceeded")
+        _bound_structure(source)
+    except RecipeValidationError as error:
+        raise SchemaValidationError(str(error)) from error
     try:
         raw = json.loads(source)
     except json.JSONDecodeError:

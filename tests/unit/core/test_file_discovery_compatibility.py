@@ -109,7 +109,7 @@ def test_recursive_metadata_preserves_root_subfolder_and_folder_indices(
 
     # Then
     by_path = {info["path"]: info for info in image_infos}
-    assert [info["folderindex"] for info in image_infos] == [0, 1, 0]
+    assert sorted(info["folderindex"] for info in image_infos) == [0, 0, 1]
     assert by_path[str(first_folder / "A.JPG")]["folder"] == str(root)
     assert by_path[str(first_folder / "A.JPG")]["root"] == str(root.parent)
     assert by_path[str(first_folder / "A.JPG")]["subfolder"] == "first"

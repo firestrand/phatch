@@ -37,8 +37,8 @@ class PasteObservation:
 
 
 class ForegroundPasteDriver:
-    def __init__(self) -> None:
-        self.app = NativeWxApp()
+    def __init__(self, app: NativeWxApp) -> None:
+        self.app = app
         self.dialogs = DialogRecorder(self.app)
         self.frame = gui.Frame(
             "",
@@ -68,9 +68,9 @@ class ForegroundPasteDriver:
             assert self.observation is not None
             return self.observation
         finally:
-            self.frame.Destroy()
+            if self.frame:
+                self.frame.Destroy()
             wx.Yield()
-            self.app.Destroy()
 
     def _schedule(self, callback: Callable[[], None], delay_ms: int) -> None:
         wx.CallLater(delay_ms, self._run_callback, callback)
@@ -152,9 +152,9 @@ class ForegroundPasteDriver:
 
 
 def test_focused_native_paste_commits_exactly_one_history_entry(
-    native_runtime,
+    native_runtime, native_application,
 ) -> None:
-    observation = ForegroundPasteDriver().run()
+    observation = ForegroundPasteDriver(native_application).run()
 
     print(json.dumps(asdict(observation), sort_keys=True))
     assert observation == PasteObservation(

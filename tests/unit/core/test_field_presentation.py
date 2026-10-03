@@ -26,8 +26,8 @@ def presentation_audit(project_root: Path):
 
 
 def test_runtime_inventory_has_every_audited_builtin_field(presentation_audit) -> None:
-    assert presentation_audit.action_count == 54
-    assert presentation_audit.field_count == 290
+    assert presentation_audit.action_count == 55
+    assert presentation_audit.field_count == 312
     assert presentation_audit.missing_descriptor_keys == ()
     assert presentation_audit.extra_descriptor_keys == ()
 

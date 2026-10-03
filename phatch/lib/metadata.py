@@ -33,7 +33,14 @@ import os
 import re
 import time
 
-_PYEXIV2_AVAILABLE = importlib.util.find_spec('pyexiv2') is not None
+def _legacy_metadata_available():
+    if importlib.util.find_spec('pyexiv2') is None:
+        return False
+    import pyexiv2
+    return callable(getattr(getattr(pyexiv2, 'Image', None), 'readMetadata', None))
+
+
+_PYEXIV2_AVAILABLE = _legacy_metadata_available()
 
 from . import imtools
 from . import odict
@@ -912,6 +919,9 @@ class _InfoPyexiv2(_InfoCache):
     def _load_module(cls):
         """Code to load the pyexiv2 module."""
         import pyexiv2
+        if not (callable(getattr(pyexiv2, 'Image', None))
+                and callable(getattr(pyexiv2.Image, 'readMetadata', None))):
+            raise ImportError('Legacy pyexiv2 Image API is unavailable')
         from . import _pyexiv2
         cls.pyexiv2 = pyexiv2
         cls._pyexiv2 = _pyexiv2
@@ -1412,7 +1422,8 @@ class InfoTest:
 
     @classmethod
     def provides(cls, var):
-        if var in ('desktop', 'index', 'folderindex'):
+        if var in ('desktop', 'index', 'imageindex', 'repeatindex',
+                   'folderindex', 'frameindex', 'framecount'):
             return True
         for Info in INFOS:
             if Info.provides(var):

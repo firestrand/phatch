@@ -90,3 +90,38 @@ def test_deferred_publication_refreshes_original_reserved_state(
     assert result.outputs[0].survived is True
     assert destination.read_bytes() == b"new"
     assert not tuple(tmp_path.glob(".*.bak"))
+
+
+@pytest.mark.parametrize("deny_restore", [False, True])
+def test_backup_failure_restores_prior_destinations_or_reports_retained_backup(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, deny_restore: bool
+) -> None:
+    from phatch.services import output_rollback
+
+    destinations = (tmp_path / "first.bin", tmp_path / "second.bin")
+    for destination in destinations:
+        destination.write_bytes(b"original")
+    originals = tuple(output_rollback.reserve_original(path) for path in destinations)
+    real_replace = os.replace
+
+    def fail(source: Path, destination: Path) -> None:
+        if source == destinations[1]:
+            raise PermissionError("backup denied")
+        if deny_restore and source.suffix == ".bak":
+            raise PermissionError("restore denied")
+        real_replace(source, destination)
+
+    monkeypatch.setattr(output_rollback, "_SAFE_REPLACE", fail)
+    error_type = output_rollback.PublicationRollbackError if deny_restore else PermissionError
+    with pytest.raises(error_type) as caught:
+        output_rollback.backup_originals(originals)
+    assert destinations[1].read_bytes() == b"original"
+    if deny_restore:
+        assert isinstance(caught.value.publication_error, PermissionError)
+        assert caught.value.rollback_error.failures[0].destination == destinations[0]
+        assert originals[0].backup.read_bytes() == b"original"
+        assert "backup denied" in str(caught.value)
+        assert "first.bin" in str(caught.value)
+    else:
+        assert destinations[0].read_bytes() == b"original"
+        assert not tuple(tmp_path.glob(".*.bak"))

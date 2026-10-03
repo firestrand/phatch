@@ -62,19 +62,8 @@ def wait_until(predicate: Callable[[], bool], timeout_ms: int = 1000) -> None:
 
 
 @pytest.fixture
-def wx_app() -> Iterator[wx.AppConsole]:
-    existing_app = wx.GetApp()
-    if existing_app is not None:
-        yield existing_app
-        return
-    app = wx.App(False)
-    destroy_app = app.Destroy
-    try:
-        yield app
-    finally:
-        pump_events()
-        if wx.GetApp() is app:
-            destroy_app()
+def wx_app(native_application) -> Iterator[wx.AppConsole]:
+    yield native_application
 
 
 @pytest.fixture

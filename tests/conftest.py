@@ -236,3 +236,30 @@ def pytest_collection_modifyitems(config, items):
     """
     # Add marker documentation is in pytest.ini
     pass
+
+
+@pytest.fixture(scope="module")
+def native_application_owner():
+    """Reuse a native application until an entrypoint test replaces it."""
+    wx = pytest.importorskip("wx")
+    from tests.unit.pywx.native_frame_support import NativeWxApp
+
+    owned = []
+
+    def acquire():
+        if not owned or wx.GetApp() is not owned[-1]:
+            owned.append(NativeWxApp(config_paths={}))
+        return owned[-1]
+
+    yield acquire
+    if owned and wx.GetApp() is owned[-1]:
+        for window in tuple(wx.GetTopLevelWindows()):
+            if window:
+                window.Destroy()
+        wx.Yield()
+        wx.App.Destroy(owned[-1])
+
+
+@pytest.fixture
+def native_application(native_application_owner):
+    return native_application_owner()

@@ -34,4 +34,4 @@ def init_config_paths():
 
 def main():
     from . import app
-    app.main(init_config_paths(), app_file=__file__)
+    return app.main(init_config_paths(), app_file=__file__)

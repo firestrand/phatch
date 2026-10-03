@@ -35,7 +35,7 @@ from lib.formField import files_dictionary, Form, Field, \
     ImageDictionaryReadFileField, \
     ImageDictionaryField, rotation_title_parser
 from lib.reverse_translation import _t
-from .config import PATHS
+from . import config as runtime_config
 from .plugin_context import PluginContext, default_plugin_context
 from lib import openImage
 from lib.desktop import DESKTOP_FOLDER, USER_FOLDER
@@ -72,6 +72,18 @@ def negative(value):
     else:
         negative_value = value
     return negative_value
+
+
+
+
+class _RuntimePaths:
+    """Read configured paths after startup rather than retaining import-time state."""
+
+    def __getitem__(self, key):
+        return runtime_config.PATHS[key]
+
+
+PATHS = _RuntimePaths()
 
 
 class Action(Form):

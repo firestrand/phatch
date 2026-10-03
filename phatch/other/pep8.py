@@ -380,7 +380,7 @@ def whitespace_before_parameters(logical_line, tokens):
 
 
 def whitespace_around_operator(logical_line):
-    """
+    r"""
     Avoid extraneous whitespace in the following situations:
 
     - More than one space around an assignment (or other) operator to
@@ -474,7 +474,7 @@ def missing_whitespace_around_operator(logical_line, tokens):
 
 
 def whitespace_around_comma(logical_line):
-    """
+    r"""
     Avoid extraneous whitespace in the following situations:
 
     - More than one space around an assignment (or other) operator to

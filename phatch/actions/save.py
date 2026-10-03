@@ -65,7 +65,26 @@ class Action(models.Action):
             self.FileSizeField('10 kb', choices=TOLERANCES)
         fields[_t('TIFF Compression')] = \
             self.TiffCompressionField(self.COMPRESSION)
+        fields[_t('WebP Quality')] = self.SliderField(80, 0, 100)
+        fields[_t('WebP Lossless')] = self.BooleanField(False)
+        fields[_t('WebP Effort')] = self.SliderField(4, 0, 6)
+        fields[_t('AVIF Quality')] = self.SliderField(75, 0, 100)
+        fields[_t('AVIF Speed')] = self.SliderField(6, 0, 10)
+        fields[_t('Format Fallback')] = self.ChoiceField(
+            'error', choices=['error', 'png'])
         fields[_t('Metadata')] = self.BooleanField(True)
+        fields[_t('Metadata Policy')] = self.ChoiceField(
+            'inherit', choices=['inherit', 'preserve', 'strip', 'selected', 'sharing'])
+        fields[_t('Metadata Tags')] = self.CharField('')
+        fields[_t('Color Policy')] = self.ChoiceField(
+            'preserve', choices=['preserve', 'srgb'])
+        fields[_t('Collision Policy')] = self.ChoiceField(
+            'inherit', choices=['inherit', 'skip', 'fail', 'replace', 'rename'])
+
+        fields[_t('Animation Policy')] = self.ChoiceField(
+            'inherit', choices=['inherit', 'reject', 'first', 'extract', 'preserve'])
+        fields[_t('Page Policy')] = self.ChoiceField(
+            'inherit', choices=['inherit', 'reject', 'first', 'extract', 'preserve'])
 
     def get_format(self, ext, photo=None):
         if ext == self.TYPE:
@@ -107,6 +126,16 @@ class Action(models.Action):
             relevant.append('TIFF Compression')
             if compression in ('<compression>', 'none'):
                 relevant.append('Metadata')
+        if format == 'WEBP' or advanced:
+            relevant.extend(['WebP Quality', 'WebP Lossless', 'WebP Effort'])
+        if format == 'AVIF' or advanced:
+            relevant.extend(['AVIF Quality', 'AVIF Speed'])
+        relevant.append('Format Fallback')
+        relevant.append('Metadata Policy')
+        if self.get_field_string('Metadata Policy') == 'selected':
+            relevant.append('Metadata Tags')
+        relevant.extend(['Color Policy',
+                         'Collision Policy', 'Animation Policy', 'Page Policy'])
         return relevant
 
     def apply(self, photo, setting, cache):
@@ -115,8 +144,18 @@ class Action(models.Action):
         #get file values
         folder, filename, typ = self.is_done_info(info)
         format = self.get_format(typ, photo)
-        if not setting('overwrite_existing_images') \
-                and self.plugin_context.files.exists(filename):
+        from phatch.core.capabilities import encoder_options, resolve_encoder
+        requested_format = format
+        fallback = self.get_field_string('Format Fallback')
+        format = resolve_encoder(format, fallback)
+        if format != requested_format:
+            filename = os.path.splitext(filename)[0] + '.png'
+            photo.log('%s encoder unavailable; explicit PNG fallback\n' % requested_format)
+        collision = self.get_field_string('Collision Policy')
+        if collision == 'inherit':
+            collision = setting('collision_policy') or ('replace' if setting('overwrite_existing_images')
+                         else 'skip')
+        if collision == 'skip' and self.plugin_context.files.exists(filename):
             return photo
 
         #get other values
@@ -126,7 +165,12 @@ class Action(models.Action):
         filename = self.ensure_path_or_desktop(folder, photo, filename,
             desktop=setting('desktop'))
         #construct options
-        options = {'dpi': (dpi, dpi)}
+        policy = self.get_field_string('Metadata Policy')
+        if policy == 'inherit':
+            policy = 'preserve' if save_metadata else 'strip'
+        options = {'dpi': (dpi, dpi), 'metadata_policy': policy,
+                   'metadata_tags': self.get_field_string('Metadata Tags'),
+                   'color_policy': self.get_field_string('Color Policy')}
         if format == 'PNG':
             optimize = self.get_field('PNG Optimize', info)
             if optimize:
@@ -147,16 +191,30 @@ class Action(models.Action):
         elif format == 'TIFF':
             compression = self.get_field('TIFF Compression', info)
             options['compression.tif'] = compression
+        elif format == 'WEBP':
+            options.update(encoder_options(
+                format, quality=self.get_field('WebP Quality', info),
+                lossless=self.get_field('WebP Lossless', info),
+                effort=self.get_field('WebP Effort', info)))
+        elif format == 'AVIF':
+            options.update(encoder_options(
+                format, quality=self.get_field('AVIF Quality', info),
+                speed=self.get_field('AVIF Speed', info),
+                max_threads=setting('encoder_threads') or 1))
 
         #save
         try:
             photo.save(filename, format=format,
-                save_metadata=save_metadata, **options)
+                save_metadata=save_metadata, collision_policy=collision,
+                **options)
         except InvalidWriteFormatError:
+            if fallback != 'png' or format == 'PNG':
+                raise
             filename = os.path.splitext(filename)[0] + '.png'
             photo.log('%s format has been saved as PNG\n' % format)
             photo.save(filename, format='PNG',
-                save_metadata=save_metadata, **options)
+                save_metadata=save_metadata, collision_policy=collision,
+                **options)
 
         return photo
 

@@ -88,10 +88,8 @@ requires_native_display = pytest.mark.skipif(
 
 
 @pytest.fixture
-def wx_app(initialized_runtime) -> Iterator[wx.App]:
-    app = wx.App(False)
-    yield app
-    app.Destroy()
+def wx_app(initialized_runtime, native_application) -> Iterator[wx.App]:
+    yield native_application
 
 
 @pytest.fixture

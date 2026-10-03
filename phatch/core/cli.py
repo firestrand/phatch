@@ -20,6 +20,8 @@ class CliOptionSpec(TypedDict):
     default: NotRequired[str | bool | int]
     choices: NotRequired[tuple[str, ...]]
     type: NotRequired[Callable[[str], int]]
+    nargs: NotRequired[str]
+    const: NotRequired[str]
 
 
 def _worker_count(value: str) -> int:
@@ -68,6 +70,54 @@ def get_cli_option_specs(info: Mapping[str, str]) -> list[CliOptionSpec]:
 
     return [
         {
+            "flags": ("--workers",),
+            "dest": "workers",
+            "type": int,
+            "default": 1,
+            "help": _("Bounded independent process workers (default: 1)"),
+        },
+        {
+            "flags": ("--memory-budget-mb",),
+            "dest": "memory_budget_mb",
+            "type": int,
+            "default": 2048,
+            "help": _("Total worker address-space budget in MiB (default: 2048)"),
+        },
+        {
+            "flags": ("--animation-policy",),
+            "dest": "animation_policy",
+            "choices": ("reject", "first", "extract", "preserve"),
+            "help": _("Explicit animation frame policy (default: reject)"),
+        },
+        {
+            "flags": ("--page-policy",),
+            "dest": "page_policy",
+            "choices": ("reject", "first", "extract", "preserve"),
+            "help": _("Explicit multipage document policy (default: reject)"),
+        },
+        {
+            "flags": ("--manifest",),
+            "dest": "manifest_path",
+            "help": _("Record a fingerprinted atomic batch journal"),
+        },
+        {
+            "flags": ("--report",),
+            "dest": "report_path",
+            "help": _("Write an atomic JSON batch report"),
+        },
+        {
+            "flags": ("--report-paths",),
+            "dest": "report_paths",
+            "action": "store_true",
+            "help": _("Include full paths in the report"),
+        },
+        {
+            "flags": ("--collision-policy",),
+            "dest": "collision_policy",
+            "choices": ("skip", "fail", "replace", "rename"),
+            "help": _("Policy for existing or colliding output files"),
+        },
+        {
             "flags": ("--max-workers",),
             "dest": "max_workers",
             "help": _("Maximum independent CPU image jobs (default: 1)"),
@@ -92,6 +142,8 @@ def get_cli_option_specs(info: Mapping[str, str]) -> list[CliOptionSpec]:
             "flags": ("--resume",),
             "dest": "resume",
             "help": _("Resume from the specified recovery journal"),
+            "nargs": "?",
+            "const": "manifest",
             "default": "",
         },
         {
@@ -211,6 +263,8 @@ def add_cli_options(
                 default=default,
                 choices=choices,
                 type=value_type,
+                nargs=spec.get("nargs"),
+                const=spec.get("const"),
             )
         elif action is None:
             parser.add_argument(
@@ -219,6 +273,8 @@ def add_cli_options(
                 help=spec["help"],
                 default=default,
                 choices=choices,
+                nargs=spec.get("nargs"),
+                const=spec.get("const"),
             )
         else:
             parser.add_argument(

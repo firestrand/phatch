@@ -39,6 +39,7 @@ ELIGIBLE_IDS = frozenset(
 BLOCKED_REASONS = {
     "blender": "external process/temp output",
     "copy": "file write",
+    "variants": "variant image and manifest output",
     "delete_tags": "metadata mutation",
     "geek": "arbitrary process",
     "geotag": "metadata/report I/O",
@@ -73,7 +74,7 @@ def test_manifest_has_exact_policy_partition() -> None:
     assert eligible == ELIGIBLE_IDS
     assert blocked == set(BLOCKED_REASONS)
     assert terminal == {"save"}
-    assert len(PREVIEW_POLICIES) == 54
+    assert len(PREVIEW_POLICIES) == 55
 
 
 @pytest.mark.parametrize(("action_id", "reason"), BLOCKED_REASONS.items())
@@ -185,8 +186,8 @@ def test_terminal_save_is_omitted_from_admitted_action_ids() -> None:
 def test_ast_audit_covers_current_primary_action_sources(project_root: Path) -> None:
     result = audit_action_sources(project_root / "phatch" / "actions")
 
-    assert result.covered == 54
-    assert result.total == 54
+    assert result.covered == 55
+    assert result.total == 55
     assert result.missing_policy_ids == frozenset()
     assert result.stale_policy_ids == frozenset()
     assert {source.action_id for source in result.sources} == set(PREVIEW_POLICIES)
@@ -273,7 +274,7 @@ def test_audit_cli_reports_success_and_complete_inventory(
     output = capsys.readouterr()
     assert exit_code == 0
     assert "auto_contrast: autocontrast.py" in output.out
-    assert output.out.endswith("54/54 covered\n")
+    assert output.out.endswith("55/55 covered\n")
     assert output.err == ""
 
 

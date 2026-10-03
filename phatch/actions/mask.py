@@ -49,7 +49,8 @@ def put_mask(image, mask, resample_mask, cache=None):
     else:
         image = image.convert('RGBA')
         alpha = imtools.get_alpha(image)
-        mask = (ImageMath.eval("convert(min(a, b), 'L')",
+        mask = (ImageMath.lambda_eval(
+            lambda v: v['convert'](v['min'](v['a'], v['b']), 'L'),
             a=alpha,
             b=mask))
     image.putalpha(mask)

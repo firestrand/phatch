@@ -260,14 +260,15 @@ def init_config_paths(config_paths=None, user_paths=None):
     # user actions
     fix_python_path(USER_ACTIONS_PATH)
     # set font cache
-    from phatch.lib.fonts import set_font_cache
+    from importlib import import_module
 
-    set_font_cache(
-        USER_FONTS_PATH,
-        PHATCH_FONTS_PATH,
-        USER_FONTS_CACHE_PATH,
-        PHATCH_FONTS_CACHE_PATH,
-    )
+    for module in ("lib.fonts", "phatch.lib.fonts"):
+        import_module(module).set_font_cache(
+            USER_FONTS_PATH,
+            PHATCH_FONTS_PATH,
+            USER_FONTS_CACHE_PATH,
+            PHATCH_FONTS_CACHE_PATH,
+        )
     # register paths
     global PATHS
     PATHS = config_paths

@@ -309,3 +309,24 @@ def test_cancelled_native_droplet_folder_prevents_export(
     assert calls == []
     assert not native_frame_harness.dialogs.infos
     assert not native_frame_harness.dialogs.errors
+
+
+def test_workflow_preview_menu_cancels_opens_and_reuses_window(
+    native_frame_harness, native_interaction, test_input_dir
+):
+    frame = native_frame_harness.frame
+    native_interaction.expect_dialog(wx.FileDialog, wx.ID_CANCEL)
+    frame.on_menu_tools_workflow_preview(None)
+    assert frame.workflow_preview is None
+    native_interaction.expect_dialog(
+        wx.FileDialog, wx.ID_OK, path=str(test_input_dir / 'frog.gif')
+    )
+    frame.on_menu_tools_workflow_preview(None)
+    window = frame.workflow_preview
+    assert window.IsShown()
+    frame.on_menu_tools_workflow_preview(None)
+    assert frame.workflow_preview is window
+    window._service.close()
+    frame.Close()
+    wx.Yield()
+    assert window._closed

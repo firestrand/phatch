@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
 from phatch.core import config, ct
@@ -108,7 +110,8 @@ def test_image_input_reports_guidance_and_opens_library_example(
 
     # Then: user guidance is reported without treating the image as an action list
     assert native_frame_harness.dialogs.errors[0] == gui.NO_PHOTOS
-    assert native_frame_harness.frame.filename == ct.UNKNOWN
+    assert Path(native_frame_harness.frame.filename).name == "polaroid.phatch"
+    assert not native_frame_harness.frame.IsEmpty()
 
 
 def test_append_save_advice_adds_real_save_action(native_frame_harness) -> None:

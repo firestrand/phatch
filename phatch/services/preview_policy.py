@@ -131,6 +131,7 @@ _BLOCKED_REASONS: Final = MappingProxyType(
     {
         "blender": "external process/temp output",
         "copy": "file write",
+        "variants": "variant image and manifest output",
         "delete_tags": "metadata mutation",
         "geek": "arbitrary process",
         "geotag": "metadata/report I/O",

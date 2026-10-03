@@ -60,7 +60,21 @@ class RegistrySchemaCatalog:
     __slots__ = ("_action_ids", "_descriptors", "_field_ids", "_fields", "_labels")
 
     def __init__(self, registry: SchemaActionRegistry) -> None:
-        self._action_ids, self._labels = _identifier_maps(registry.labels())
+        factories = getattr(registry, "factories", {})
+        if not isinstance(factories, Mapping):
+            factories = {}
+        canonical_labels = {
+            label: getattr(factories.get(label), "label", label)
+            for label in registry.labels()
+        }
+        canonical_ids, _ = _identifier_maps(tuple(canonical_labels.values()))
+        self._action_ids = {
+            label: canonical_ids[canonical]
+            for label, canonical in canonical_labels.items()
+        }
+        self._labels = {
+            identifier: label for label, identifier in self._action_ids.items()
+        }
         self._field_ids: dict[str, dict[str, str]] = {}
         self._fields: dict[str, dict[str, str]] = {}
         self._descriptors: dict[str, Mapping[str, RegistryField]] = {}

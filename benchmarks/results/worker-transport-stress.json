@@ -1,0 +1,1432 @@
+{
+  "platform": "Linux aarch64",
+  "test_selection": "tests/unit/core/test_workers.py -k crash",
+  "per_run_timeout_seconds": 20,
+  "final_cases_per_repetition": 8,
+  "stages": {
+    "shared-queue-and-event": [
+      {
+        "python": "3.12.14",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 2,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 3,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 4,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 5,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 6,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 7,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 8,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 9,
+            "status": 0,
+            "seconds": 1.167
+          },
+          {
+            "repetition": 10,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 11,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 12,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 13,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 14,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 15,
+            "status": 0,
+            "seconds": 1.167
+          },
+          {
+            "repetition": 16,
+            "status": 0,
+            "seconds": 1.117
+          },
+          {
+            "repetition": 17,
+            "status": 0,
+            "seconds": 1.167
+          },
+          {
+            "repetition": 18,
+            "status": 0,
+            "seconds": 1.166
+          },
+          {
+            "repetition": 19,
+            "status": 0,
+            "seconds": 1.167
+          },
+          {
+            "repetition": 20,
+            "status": 0,
+            "seconds": 1.167
+          },
+          {
+            "repetition": 21,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 22,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 23,
+            "status": 0,
+            "seconds": 1.218
+          },
+          {
+            "repetition": 24,
+            "status": 0,
+            "seconds": 1.167
+          },
+          {
+            "repetition": 25,
+            "status": 0,
+            "seconds": 1.166
+          },
+          {
+            "repetition": 26,
+            "status": 0,
+            "seconds": 1.167
+          },
+          {
+            "repetition": 27,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 28,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 29,
+            "status": 0,
+            "seconds": 1.117
+          },
+          {
+            "repetition": 30,
+            "status": 0,
+            "seconds": 1.118
+          },
+          {
+            "repetition": 31,
+            "status": 0,
+            "seconds": 1.218
+          },
+          {
+            "repetition": 32,
+            "status": 0,
+            "seconds": 1.218
+          },
+          {
+            "repetition": 33,
+            "status": 0,
+            "seconds": 1.218
+          },
+          {
+            "repetition": 34,
+            "status": 0,
+            "seconds": 1.218
+          },
+          {
+            "repetition": 35,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 36,
+            "status": 0,
+            "seconds": 1.218
+          },
+          {
+            "repetition": 37,
+            "status": 0,
+            "seconds": 1.167
+          },
+          {
+            "repetition": 38,
+            "status": 0,
+            "seconds": 1.168
+          },
+          {
+            "repetition": 39,
+            "status": 0,
+            "seconds": 1.168
+          },
+          {
+            "repetition": 40,
+            "status": 0,
+            "seconds": 1.267
+          }
+        ],
+        "passes": 40,
+        "timeouts": 0
+      },
+      {
+        "python": "3.13.15",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 2,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 3,
+            "status": "timeout",
+            "seconds": 20.008
+          }
+        ],
+        "passes": 2,
+        "timeouts": 1
+      },
+      {
+        "python": "3.14.8",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "status": 0,
+            "seconds": 1.417
+          },
+          {
+            "repetition": 2,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 3,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 4,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 5,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 6,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 7,
+            "status": "timeout",
+            "seconds": 20.008
+          }
+        ],
+        "passes": 6,
+        "timeouts": 1
+      }
+    ],
+    "-pipes": [
+      {
+        "python": "3.12.14",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "status": 0,
+            "seconds": 1.166
+          },
+          {
+            "repetition": 2,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 3,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 4,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 5,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 6,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 7,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 8,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 9,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 10,
+            "status": 0,
+            "seconds": 1.316
+          },
+          {
+            "repetition": 11,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 12,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 13,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 14,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 15,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 16,
+            "status": 0,
+            "seconds": 1.316
+          },
+          {
+            "repetition": 17,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 18,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 19,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 20,
+            "status": 0,
+            "seconds": 1.216
+          },
+          {
+            "repetition": 21,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 22,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 23,
+            "status": 0,
+            "seconds": 1.167
+          },
+          {
+            "repetition": 24,
+            "status": 0,
+            "seconds": 1.216
+          },
+          {
+            "repetition": 25,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 26,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 27,
+            "status": 0,
+            "seconds": 1.216
+          },
+          {
+            "repetition": 28,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 29,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 30,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 31,
+            "status": 0,
+            "seconds": 1.216
+          },
+          {
+            "repetition": 32,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 33,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 34,
+            "status": 0,
+            "seconds": 1.216
+          },
+          {
+            "repetition": 35,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 36,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 37,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 38,
+            "status": 0,
+            "seconds": 1.318
+          },
+          {
+            "repetition": 39,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 40,
+            "status": 0,
+            "seconds": 1.267
+          }
+        ],
+        "passes": 40,
+        "timeouts": 0
+      },
+      {
+        "python": "3.13.15",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "status": 0,
+            "seconds": 1.166
+          },
+          {
+            "repetition": 2,
+            "status": 0,
+            "seconds": 1.316
+          },
+          {
+            "repetition": 3,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 4,
+            "status": 0,
+            "seconds": 1.417
+          },
+          {
+            "repetition": 5,
+            "status": 0,
+            "seconds": 1.316
+          },
+          {
+            "repetition": 6,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 7,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 8,
+            "status": 0,
+            "seconds": 1.216
+          },
+          {
+            "repetition": 9,
+            "status": 0,
+            "seconds": 1.216
+          },
+          {
+            "repetition": 10,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 11,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 12,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 13,
+            "status": 0,
+            "seconds": 1.316
+          },
+          {
+            "repetition": 14,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 15,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 16,
+            "status": 0,
+            "seconds": 1.316
+          },
+          {
+            "repetition": 17,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 18,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 19,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 20,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 21,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 22,
+            "status": 0,
+            "seconds": 1.167
+          },
+          {
+            "repetition": 23,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 24,
+            "status": 0,
+            "seconds": 1.316
+          },
+          {
+            "repetition": 25,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 26,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 27,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 28,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 29,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 30,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 31,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 32,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 33,
+            "status": 0,
+            "seconds": 1.266
+          },
+          {
+            "repetition": 34,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 35,
+            "status": 0,
+            "seconds": 1.217
+          },
+          {
+            "repetition": 36,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 37,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 38,
+            "status": 0,
+            "seconds": 1.267
+          },
+          {
+            "repetition": 39,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 40,
+            "status": 0,
+            "seconds": 1.218
+          }
+        ],
+        "passes": 40,
+        "timeouts": 0
+      },
+      {
+        "python": "3.14.8",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "status": 0,
+            "seconds": 1.166
+          },
+          {
+            "repetition": 2,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 3,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 4,
+            "status": 0,
+            "seconds": 1.417
+          },
+          {
+            "repetition": 5,
+            "status": 0,
+            "seconds": 1.316
+          },
+          {
+            "repetition": 6,
+            "status": 0,
+            "seconds": 1.416
+          },
+          {
+            "repetition": 7,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 8,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 9,
+            "status": 0,
+            "seconds": 1.317
+          },
+          {
+            "repetition": 10,
+            "status": 0,
+            "seconds": 1.417
+          },
+          {
+            "repetition": 11,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 12,
+            "status": 0,
+            "seconds": 1.417
+          },
+          {
+            "repetition": 13,
+            "status": 0,
+            "seconds": 1.417
+          },
+          {
+            "repetition": 14,
+            "status": 0,
+            "seconds": 1.417
+          },
+          {
+            "repetition": 15,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 16,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 17,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 18,
+            "status": 0,
+            "seconds": 1.417
+          },
+          {
+            "repetition": 19,
+            "status": 0,
+            "seconds": 1.367
+          },
+          {
+            "repetition": 20,
+            "status": "timeout",
+            "seconds": 20.016
+          }
+        ],
+        "passes": 19,
+        "timeouts": 1
+      }
+    ],
+    "-isolated": [
+      {
+        "python": "3.12.14",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 2,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 3,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 4,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 5,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 6,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 7,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 8,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 9,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 10,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 11,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 12,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 13,
+            "status": 0,
+            "seconds": 1.467
+          },
+          {
+            "repetition": 14,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 15,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 16,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 17,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 18,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 19,
+            "status": 0,
+            "seconds": 1.467
+          },
+          {
+            "repetition": 20,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 21,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 22,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 23,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 24,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 25,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 26,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 27,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 28,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 29,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 30,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 31,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 32,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 33,
+            "status": 0,
+            "seconds": 1.518
+          },
+          {
+            "repetition": 34,
+            "status": 0,
+            "seconds": 1.518
+          },
+          {
+            "repetition": 35,
+            "status": 0,
+            "seconds": 1.467
+          },
+          {
+            "repetition": 36,
+            "status": 0,
+            "seconds": 1.467
+          },
+          {
+            "repetition": 37,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 38,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 39,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 40,
+            "status": 0,
+            "seconds": 1.517
+          }
+        ],
+        "passes": 40,
+        "timeouts": 0
+      },
+      {
+        "python": "3.13.15",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "status": 0,
+            "seconds": 1.668
+          },
+          {
+            "repetition": 2,
+            "status": 0,
+            "seconds": 1.667
+          },
+          {
+            "repetition": 3,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 4,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 5,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 6,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 7,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 8,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 9,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 10,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 11,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 12,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 13,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 14,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 15,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 16,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 17,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 18,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 19,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 20,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 21,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 22,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 23,
+            "status": 0,
+            "seconds": 1.667
+          },
+          {
+            "repetition": 24,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 25,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 26,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 27,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 28,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 29,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 30,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 31,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 32,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 33,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 34,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 35,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 36,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 37,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 38,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 39,
+            "status": 0,
+            "seconds": 1.517
+          },
+          {
+            "repetition": 40,
+            "status": 0,
+            "seconds": 1.618
+          }
+        ],
+        "passes": 40,
+        "timeouts": 0
+      },
+      {
+        "python": "3.14.8",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "status": 0,
+            "seconds": 1.768
+          },
+          {
+            "repetition": 2,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 3,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 4,
+            "status": 0,
+            "seconds": 1.668
+          },
+          {
+            "repetition": 5,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 6,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 7,
+            "status": 0,
+            "seconds": 1.667
+          },
+          {
+            "repetition": 8,
+            "status": 0,
+            "seconds": 1.718
+          },
+          {
+            "repetition": 9,
+            "status": 0,
+            "seconds": 1.718
+          },
+          {
+            "repetition": 10,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 11,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 12,
+            "status": 0,
+            "seconds": 1.667
+          },
+          {
+            "repetition": 13,
+            "status": 0,
+            "seconds": 1.667
+          },
+          {
+            "repetition": 14,
+            "status": 0,
+            "seconds": 1.668
+          },
+          {
+            "repetition": 15,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 16,
+            "status": 0,
+            "seconds": 1.667
+          },
+          {
+            "repetition": 17,
+            "status": 0,
+            "seconds": 1.718
+          },
+          {
+            "repetition": 18,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 19,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 20,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 21,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 22,
+            "status": 0,
+            "seconds": 1.668
+          },
+          {
+            "repetition": 23,
+            "status": 0,
+            "seconds": 1.618
+          },
+          {
+            "repetition": 24,
+            "status": 0,
+            "seconds": 1.567
+          },
+          {
+            "repetition": 25,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 26,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 27,
+            "status": 0,
+            "seconds": 1.668
+          },
+          {
+            "repetition": 28,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 29,
+            "status": 0,
+            "seconds": 1.668
+          },
+          {
+            "repetition": 30,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 31,
+            "status": 0,
+            "seconds": 1.668
+          },
+          {
+            "repetition": 32,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 33,
+            "status": 0,
+            "seconds": 1.668
+          },
+          {
+            "repetition": 34,
+            "status": 0,
+            "seconds": 1.667
+          },
+          {
+            "repetition": 35,
+            "status": 0,
+            "seconds": 1.718
+          },
+          {
+            "repetition": 36,
+            "status": 0,
+            "seconds": 1.667
+          },
+          {
+            "repetition": 37,
+            "status": 0,
+            "seconds": 1.667
+          },
+          {
+            "repetition": 38,
+            "status": 0,
+            "seconds": 1.617
+          },
+          {
+            "repetition": 39,
+            "status": 0,
+            "seconds": 1.568
+          },
+          {
+            "repetition": 40,
+            "status": 0,
+            "seconds": 1.518
+          }
+        ],
+        "passes": 40,
+        "timeouts": 0
+      }
+    ]
+  },
+  "captured_blocked_frames": [
+    "worker queue feeder: multiprocessing/queues.py _feed write-lock acquire; worker main: workers.py _response awaiting registration ACK",
+    "after event-pipe change: parent workers.py cancelled -> multiprocessing/synchronize.py Event.is_set lock acquire"
+  ],
+  "final_result": "40 repetitions of eight crash cases in each of three runtimes: 960 checks passed; no timeout"
+}

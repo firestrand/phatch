@@ -202,8 +202,25 @@ ACTION_IMAGE_MODES = {
 
 
 @pytest.mark.parametrize('action_name', get_all_action_modules())
-def test_action_executes_without_error(action_name, action_temp_dir):
+def test_action_executes_without_error(action_name, action_temp_dir, tmp_path):
     """Test that each action can be executed with valid default values."""
+
+    if action_name == 'variants':
+        # This action branches real layers and commits through Photo.save.
+        # Exercise that contract instead of the single-image MockPhoto stub.
+        from phatch.core.batch import run_batch
+        from phatch.core.variants import Variant, variant_action
+
+        source = tmp_path / 'source.png'
+        with Image.new('RGB', (100, 50), 'red') as image:
+            image.save(source)
+        action = variant_action([Variant('small', 50, 50, 'png')], tmp_path / 'outputs')
+        result = run_batch([action], [source])
+        assert result.status == 'success', result.to_dict(include_details=True)
+        with Image.open(result.files[0].outputs[0]) as output:
+            assert output.size == (50, 25)
+        assert result.files[0].artifacts[0].is_file()
+        return
 
     # Skip actions with external dependencies
     if action_name in SKIP_ACTIONS:

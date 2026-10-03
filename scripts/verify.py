@@ -95,7 +95,16 @@ def verification_steps(
                 VerificationStep("lint", (python, "-m", "ruff", "check", ".")),
                 VerificationStep(
                     "type",
-                    (python, "-m", "ty", "check", "--extra-search-path", "."),
+                    (
+                        python,
+                        "-m",
+                        "ty",
+                        "check",
+                        "--python",
+                        python,
+                        "--extra-search-path",
+                        ".",
+                    ),
                 ),
                 VerificationStep(
                     "tests",
@@ -126,7 +135,16 @@ def verification_steps(
                 VerificationStep("lint", (python, "-m", "ruff", "check", ".")),
                 VerificationStep(
                     "type",
-                    (python, "-m", "ty", "check", "--extra-search-path", "."),
+                    (
+                        python,
+                        "-m",
+                        "ty",
+                        "check",
+                        "--python",
+                        python,
+                        "--extra-search-path",
+                        ".",
+                    ),
                 ),
                 VerificationStep(
                     "tests",

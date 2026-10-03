@@ -122,8 +122,10 @@ class DialogRecorder(DialogService):
 
 
 class NativeWxApp(wx.App):
-    def __init__(self) -> None:
-        self.settings = settings.create_settings(config.PATHS)
+    def __init__(self, config_paths=None) -> None:
+        self.settings = settings.create_settings(
+            config.PATHS if config_paths is None else config_paths
+        )
         self.report: list[tuple[str, ...]] | None = []
         self.save_settings_calls = 0
         super().__init__(False)
@@ -161,8 +163,13 @@ def native_runtime(isolated_runtime):
 
 
 @pytest.fixture
-def native_frame_harness(native_runtime) -> Iterator[NativeFrameHarness]:
-    app = NativeWxApp()
+def native_frame_harness(
+    native_runtime, native_application
+) -> Iterator[NativeFrameHarness]:
+    app = native_application
+    app.settings = settings.create_settings(config.PATHS)
+    app.report = []
+    app.save_settings_calls = 0
     frame: gui.Frame | None = None
     try:
         dialogs = DialogRecorder(app)
@@ -184,4 +191,3 @@ def native_frame_harness(native_runtime) -> Iterator[NativeFrameHarness]:
         for window in tuple(vars(wx)["GetTopLevelWindows"]()):
             window.Destroy()
         wx.Yield()
-        wx.App.Destroy(app)

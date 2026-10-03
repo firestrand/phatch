@@ -229,7 +229,8 @@ def _font_dictionary(font_files=None):
     return d
 
 
-def font_dictionary(filename=None, force=False):
+def font_dictionary(filename: str | None = None, force: bool = False,
+                    write_cache: bool = True) -> dict[str, str]:
     """\
     Path specification for the font dictionary, cached
     """
@@ -247,7 +248,7 @@ def font_dictionary(filename=None, force=False):
             _FONT_DICTIONARY = {}
         if not _FONT_DICTIONARY:
             _FONT_DICTIONARY = _font_dictionary()
-            if WRITABLE_FONTS_CACHE_PATH is not None:
+            if WRITABLE_FONTS_CACHE_PATH is not None and write_cache:
                 with open(WRITABLE_FONTS_CACHE_PATH, 'wb') as f:
                     f.write(str(_FONT_DICTIONARY).encode('utf-8'))
     if not _FONT_DICTIONARY:

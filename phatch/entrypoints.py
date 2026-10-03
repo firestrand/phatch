@@ -35,7 +35,18 @@ def console_main() -> int:
     )
 
     arguments = tuple(sys.argv[1:])
-    if is_automation_request(arguments):
+    batch_flags = {
+        "--report",
+        "--report-paths",
+        "--manifest",
+        "--workers",
+        "--memory-budget-mb",
+        "--animation-policy",
+        "--page-policy",
+        "--collision-policy",
+    }
+    batch_request = any(value.split("=", 1)[0] in batch_flags for value in arguments)
+    if is_automation_request(arguments) and not batch_request:
         try:
             return run_automation_cli(arguments)
         except KeyboardInterrupt:
@@ -52,11 +63,11 @@ def console_main() -> int:
                 ReportDestination(report_format, sys.stdout, sys.stderr),
             )
     with packaged_config_paths() as resource_paths:
-        app.main(
+        result = app.main(
             config_paths=config.init_config_paths(resource_paths),
             force_console=True,
         )
-    return 0
+    return result if isinstance(result, int) else 0
 
 
 def gui_main() -> int:

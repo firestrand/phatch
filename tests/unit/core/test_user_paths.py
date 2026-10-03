@@ -130,14 +130,15 @@ def test_macos_platformdirs_provider_exposes_all_locations() -> None:
     assert provider.home_path.is_absolute()
 
 
-def test_windows_platformdirs_uses_documented_roaming_and_local_overrides(
+def test_windows_platformdirs_uses_roaming_and_local_known_folders(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     # Given
     roaming = tmp_path / "Roaming Profile"
     local = tmp_path / "Local Profile"
-    monkeypatch.setenv("WIN_PD_OVERRIDE_APPDATA", str(roaming))
-    monkeypatch.setenv("WIN_PD_OVERRIDE_LOCAL_APPDATA", str(local))
+    # Isolate the native Windows known-folder lookup on every test host.
+    folders = {"CSIDL_APPDATA": str(roaming), "CSIDL_LOCAL_APPDATA": str(local)}
+    monkeypatch.setattr("platformdirs.windows.get_win_folder", folders.__getitem__)
 
     # When
     paths = resolve_user_paths(request(HostPlatform.WINDOWS))

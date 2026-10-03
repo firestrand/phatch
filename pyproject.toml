@@ -7,7 +7,7 @@ name = "Phatch"
 dynamic = ["version"]
 description = "PHoto bATCH Processor"
 readme = "README.md"
-requires-python = ">=3.11,<3.14"
+requires-python = ">=3.12,<3.15"
 license = "GPL-3.0-or-later"
 license-files = ["COPYING"]
 authors = [
@@ -26,13 +26,13 @@ classifiers = [
     "Intended Audience :: End Users/Desktop",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Topic :: Multimedia :: Graphics :: Graphics Conversion",
 ]
 dependencies = [
-    "Pillow>=11.3.0,<12",
+    "Pillow>=11.3.0,<13",
     "platformdirs>=4.9.6,<5",
     "rich>=14.1.0",
 ]
@@ -48,6 +48,7 @@ dev = [
     "packaging>=25.0",
     "pytest>=8.4.0",
     "pytest-cov>=7.0.0",
+    "pytest-xdist>=3.8.0",
     "pyinstaller>=6.16.0,<7",
     "PyYAML>=6.0.2",
     "ruff>=0.14.0",
@@ -73,6 +74,7 @@ dev = [
     "packaging>=25.0",
     "pytest>=8.4.0",
     "pytest-cov>=7.0.0",
+    "pytest-xdist>=3.8.0",
     "pyinstaller>=6.16.0,<7",
     "PyYAML>=6.0.2",
     "ruff>=0.14.0",
@@ -107,6 +109,7 @@ builtins = ["_", "_t"]
 # Expand this positive boundary as legacy modules are modernized.
 include = [
     "phatch/app.py",
+    "phatch/console/batch_console.py",
     "phatch/core/action_registry.py",
     "phatch/core/preview.py",
     "phatch/core/plugin_context.py",
@@ -215,6 +218,10 @@ include = [
     "scripts/portable_state.py",
     "scripts/release_manifest.py",
     "scripts/verify.py",
+    "tests/integration/test_workflow_preview_gui.py",
+    "tests/unit/app/test_batch_execution_adapter.py",
+    "tests/unit/app/test_batch_console_adapter.py",
+    "tests/unit/core/test_batch_validation_boundaries.py",
     "tests/integration/test_packaged_resources.py",
     "tests/integration/test_installed_wheel_automation.py",
     "tests/tooling/*.py",
@@ -285,7 +292,7 @@ indent-style = "space"
 line-ending = "auto"
 
 [tool.ty.environment]
-python-version = "3.11"
+python-version = "3.12"
 extra-paths = ["."]
 
 [tool.pyright]
@@ -439,6 +446,9 @@ doctest_optionflags = ["NORMALIZE_WHITESPACE", "ELLIPSIS"]
 source = ["phatch", "scripts"]
 branch = true
 relative_files = true
+concurrency = ["multiprocessing", "thread"]
+patch = ["subprocess", "_exit"]
+sigterm = true
 
 [tool.coverage.report]
 fail_under = 90.0

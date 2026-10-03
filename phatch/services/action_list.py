@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from phatch.core import api
+from phatch.core.batch import BatchPlan, BatchResult
 from phatch.core.execution_ports import ActionRegistry
 from phatch.core.execution_types import ExecutionResult, RecoveryConfiguration
 from phatch.core.plugin_context import PluginContext
@@ -155,6 +156,18 @@ class ActionListService:
         if self._preflight is None:
             return PreflightService().build(request)
         return self._preflight(request)
+
+    def execute_batch(
+        self,
+        actions: Iterable[Any],
+        settings: Mapping[str, Any],
+        update_callback: Callable[[], None] | None = None,
+        **kwargs: Any,
+    ) -> BatchResult | BatchPlan:
+        """Run reliable batch workflows with planning and journal settings."""
+        if update_callback is not None and "update" not in kwargs:
+            kwargs["update"] = update_callback
+        return api.apply_batch_actions_to_photos(list(actions), settings, **kwargs)
 
     def execute(
         self,

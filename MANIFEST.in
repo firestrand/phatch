@@ -1,4 +1,4 @@
-include AUTHORS COPYING README.md linux/phatch.desktop
+include AUTHORS COPYING README.md CHANGELOG.md linux/phatch.desktop
 include scripts/runtime_inventory.py
 recursive-include phatch *.wxg
 recursive-include phatch_assets/data *

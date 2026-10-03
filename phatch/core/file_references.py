@@ -52,7 +52,11 @@ def _windows_uri(
     converter: PathConverter,
 ) -> Path | PureWindowsPath:
     _decoded_component(reference, component)
-    decoded = converter(component)
+    decoded = (
+        _decoded_component(reference, component)
+        if converter is url2pathname
+        else converter(component)
+    )
     if authority:
         if not decoded.startswith("/") or decoded == "/":
             raise FileReferenceError(reference, "UNC share is missing")

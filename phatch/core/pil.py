@@ -27,6 +27,7 @@
 
 import os
 import re
+from PIL import Image
 
 
 #todo make this lazy
@@ -51,12 +52,16 @@ system.set_bin_paths([USER_BIN_PATH])
 
 try:
     import pyexiv2
+    if not (callable(getattr(pyexiv2, 'Image', None))
+            and callable(getattr(pyexiv2.Image, 'readMetadata', None))):
+        raise ImportError('Legacy pyexiv2 Image API is unavailable')
     from lib import _pyexiv2 as exif
 except:
     pyexiv2 = None
     exif = False
-WWW_PYEXIV2 = 'http://tilloy.net/dev/pyexiv2/'
-NEEDS_PYEXIV2 = _('pyexiv2 needs to be installed') + ' (%s)' % WWW_PYEXIV2
+NEEDS_PYEXIV2 = _(
+    'This metadata-editing action requires the legacy pyexiv2 Image API; '
+    'native Save metadata policies do not require it')
 
 CONVERTED_MODE = \
 _('%(mode)s has been converted to %(mode_copy)s to save as %(format)s.')
@@ -409,16 +414,43 @@ class InfoPhoto(dict):
 class Photo:
     """Use :func:`get_photo` to obtain a photo from a filename."""
 
-    def __init__(self, info, info_to_dump=None):
+    def __init__(self, info, info_to_dump=None, frame_index=None):
         from phatch.services.output_transaction import AtomicOutputTransaction
 
         self.modify_date = None  # for time shift action
         self.report_files = []  # for reports
+        self.report_artifacts = []  # committed non-image outputs
         self._exif_transposition_reverse = None
         #layer
         path = info['path']
         name = self.current_layer_name = _t('background')
         layer = Layer(path, load=True)
+        if getattr(layer.image, 'n_frames', 1) > 1 and frame_index is None:
+            layer.image.close()
+            from phatch.core.sequences import SequenceError
+            raise SequenceError('Multiframe input requires an explicit frame/page policy')
+        if frame_index is not None and getattr(layer.image, 'n_frames', 1) > 1:
+            layer.image.seek(frame_index)
+        from phatch.core.export_policy import capture_metadata
+        self.source_metadata = capture_metadata(layer.image)
+        # Pillow's TIFF loader already applies orientation to decoded pixels.
+        self.source_orientation = (1 if layer.image.format == 'TIFF'
+            else layer.image.getexif().get(274, 1))
+        if frame_index is not None and getattr(layer.image, 'n_frames', 1) > 1:
+            detached = layer.image.copy()
+            if getattr(layer.image, 'n_frames', 1) > 1 and layer.image.format != 'TIFF':
+                normalized = detached.convert('RGBA')
+                detached.close()
+                detached = normalized
+            detached.format = layer.image.format
+            if self.source_metadata.exif:
+                detached.info['exif'] = self.source_metadata.exif
+            if layer.image.format == 'TIFF':
+                detached.info.pop('icc_profile', None)
+                if self.source_metadata.icc_profile:
+                    detached.info['icc_profile'] = self.source_metadata.icc_profile
+            layer.image.close()
+            layer.image = detached
         self.layers = {name: layer}
         #info
         self.info = InfoPhoto(info, info_to_dump, self.get_flattened_image,
@@ -428,6 +460,7 @@ class Photo:
 
     def set_output_transaction(self, transaction):
         self.output_transaction = transaction
+        self._output_transaction_explicit = True
 
     def close(self):
         """Remove circular references."""
@@ -466,57 +499,175 @@ class Photo:
         self.layers[name] = layer
 
     #---image operations affecting all layers
-    def save(self, filename, format=None, save_metadata=True, **options):
-        """Saves a flattened image"""
+    def save(self, filename, format=None, save_metadata=True,
+             collision_policy='replace', **options):
+        """Commit a fully encoded and verified image before reporting it."""
+        from phatch.lib.atomic import AtomicOutput
+        from phatch.core.sequences import extraction_path, save_sequence
+        from phatch.core.destinations import planned_destination
+
+        if getattr(self, 'sequence_policy', None) == 'preserve':
+            filename, collision_policy = planned_destination(self, filename, collision_policy)
+            return save_sequence(self, filename, format, save_metadata, collision_policy, options)
+        if hasattr(self, 'sequence_extract_index'):
+            filename = str(extraction_path(filename, self.sequence_extract_index))
+
+        filename, collision_policy = planned_destination(self, filename, collision_policy)
         from pathlib import Path
-
-        from phatch.services.image_output import (
-            ImageSaveRequest,
-            render_image,
-            save_transactionally,
+        from phatch.services.output_transaction import (
+            AtomicOutputTransaction, NoMetadataProvider, OutputRequest, PillowValidator,
         )
+        output_transaction = getattr(self, 'output_transaction', None)
+        if output_transaction is not None and (
+            getattr(self, '_output_transaction_explicit', False)
+            or type(output_transaction) is not AtomicOutputTransaction
+        ):
+            if collision_policy != 'replace':
+                raise ValueError('Deferred output publication requires replace collision policy')
+            destination = Path(filename)
+            actual_format = format or imtools.get_format_filename(filename)
+            def encode(path):
+                self._save_direct(str(path), actual_format, save_metadata, **options)
+            def after_publish():
+                with Image.open(destination) as output:
+                    self.append_to_report(str(destination), output)
+            output_transaction.execute(OutputRequest(
+                destination, encode, NoMetadataProvider(), PillowValidator(actual_format),
+                None, after_publish,
+            ))
+            return str(destination)
+        transaction = AtomicOutput(filename, collision_policy)
+        with transaction as temporary:
+            self._save_direct(str(temporary), format, save_metadata, **options)
+            with Image.open(temporary) as encoded:
+                encoded.verify()
+        if transaction.committed is not None:
+            committed = str(transaction.committed)
+            with Image.open(committed) as output:
+                self.append_to_report(committed, output)
+                if thumbnail.is_needed(output, output.format):
+                    try:
+                        thumbnail.save_to_cache(
+                            committed, output, thumb_info={
+                                'width': output.width, 'height': output.height})
+                    except OSError as exc:
+                        self.log('Unable to cache thumbnail: %s' % exc)
+            return committed
+        return None
 
+    def _save_direct(self, filename, format=None, save_metadata=True, **options):
+        """Saves a flattened image"""
+        #todo: flatten layers
         if format is None:
             format = imtools.get_format_filename(filename)
-        image = self.get_flattened_image()
-        save_metadata = save_metadata and exif \
-            and exif.is_writable_format(format)
-        rendered = render_image(
-            image, format, self._exif_transposition_reverse, save_metadata
-        )
-        if rendered.image.mode == 'P' and 'transparency' in rendered.image.info:
-            options['transparency'] = rendered.image.info['transparency']
-        if rendered.image.mode != image.mode:
-            self.log(CONVERTED_MODE % {'mode': image.mode,
-                'mode_copy': rendered.image.mode, 'format': format} + '\n')
-        compression = options.pop('compression.tif', 'none')
+        options['format'] = format
+        from contextlib import ExitStack
+        with ExitStack() as resources:
+            image = self.get_flattened_image()
+            resources.callback(image.close)
+            from phatch.core.export_policy import capture_metadata, prepare_export, validate_profile_mode
+            policy = options.pop('metadata_policy', None) or (
+                'preserve' if save_metadata else 'strip')
+            color_policy = options.pop('color_policy', 'preserve')
+            metadata_tags = options.pop('metadata_tags', '')
+            prepared, metadata_options, warnings = prepare_export(
+                image, getattr(self, 'source_metadata', None) or capture_metadata(image),
+                format, policy, color_policy, metadata_tags)
+            resources.callback(prepared.close)
+            options.update(metadata_options)
+            for warning in warnings:
+                self.log(warning + '\n')
+            image_copy = imtools.convert_save_mode_by_format(prepared, format)
+            resources.callback(image_copy.close)
+            if image_copy.mode == 'P' and 'transparency' in image_copy.info:
+                options['transparency'] = image_copy.info['transparency']
 
-        def log_conversion(source_mode, target_mode):
-            self.log(CONVERTED_MODE % {'mode': source_mode,
-                'mode_copy': target_mode, 'format': format} + '\n')
+            if image_copy.mode != image.mode:
+                self.log(CONVERTED_MODE % {'mode': image.mode,
+                    'mode_copy': image_copy.mode, 'format': format} + '\n')
 
-        modified_time_ns = None
-        if self.modify_date:
-            modified_time_ns = int(self.modify_date * 1_000_000_000)
-        def after_publish():
-            self.append_to_report(filename, rendered.image)
+            # Pixels remain normalized when retaining metadata.
+            #exif thumbnails are usually within 160x160
+            #desktop thumbnails size is defined by thumbnail.py and is
+            #probably 128x128
+            save_metadata = (policy == 'preserve') and exif \
+                and exif.is_writable_format(format)
+            if save_metadata:
+                # Exif thumbnails are stored in their own format (eg JPG)
+                thumb = thumbnail.thumbnail(image_copy, (160, 160))
+                resources.callback(thumb.close)
+                thumbdata = imtools.get_format_data(thumb, format)
+                # Export pixels stay normalized; metadata must describe that state.
+                if getattr(self.info, 'pyexiv2', None):
+                    self.info.pyexiv2['Exif.Image.Orientation'] = 1
+                    self.info.update_size()
+                #thumb = thumbnail.thumbnail(thumb, copy=False)
+            else:
+                thumbdata = None
+                #postpone thumbnail production to see later if it is needed
+                thumb = None
+
+            if 'compression.tif' in options:
+                compression = options['compression.tif']
+                del options['compression.tif']
+            else:
+                compression = 'none'
+
+            try:
+                if color_policy == 'preserve':
+                    validate_profile_mode(image_copy, options.get('icc_profile'))
+                if compression.lower() in ['raw', 'none']:
+                    #save image with pil
+                    file_mode = imtools.save_check_mode(image_copy, filename,
+                        **options)
+                    #did PIL silently change the image mode?
+                    if file_mode:
+                        #PIL did change the image mode without throwing
+                        # an exception.
+                        #Do not save thumbnails in this case
+                        # as they won't be reliable.
+                        if image_copy.mode.endswith('A') and \
+                                not file_mode.endswith('A'):
+                            #force RGBA when transparency gets lost
+                            #eg saving TIFF format with LA mode
+                            mode = image_copy.mode
+                            image_copy = image_copy.convert('RGBA')
+                            resources.callback(image_copy.close)
+                            file_mode = imtools.save_check_mode(image_copy,
+                                filename, **options)
+                            if file_mode:
+                                # RGBA failed
+                                self.log(CONVERTED_MODE % {'mode': mode,
+                                    'mode_copy': file_mode, 'format': format} \
+                                    + '\n')
+                            else:
+                                # RGBA succeeded
+                                self.log(CONVERTED_MODE % {'mode': mode,
+                                    'mode_copy': 'RGBA', 'format': format} + '\n')
+                        else:
+                            self.log(CONVERTED_MODE % {'mode': image_copy.mode,
+                                'mode_copy': file_mode, 'format': format} + '\n')
+                    # copy metadata if needed (problematic for tiff)
+                    # FIXME: if metdata corrupts the image, there should be
+                    # no thumbnail
+                    if save_metadata:
+                        self.info.save(filename, thumbdata=thumbdata)
+                else:
+                    # save with pil>libtiff
+                    openImage.check_libtiff(compression)
+                    self.log(openImage.save_libtiff(image_copy, filename,
+                        compression=compression, **options))
+                if self.modify_date:
+                    # Update file access and modification date
+                    os.utime(filename, (self.modify_date, self.modify_date))
+            except IOError as message:
+                # clean up corrupted drawing
+                if os.path.exists(filename):
+                    os.remove(filename)
+                raise IOError(message)
+            #update info
             if 'dpi' in options:
                 self.info['dpi'] = options['dpi'][0]
-
-        save_transactionally(
-            ImageSaveRequest(
-                Path(filename),
-                rendered,
-                format,
-                options,
-                compression,
-                self.info if save_metadata else None,
-                modified_time_ns,
-                log_conversion,
-                after_publish,
-            ),
-            getattr(self, "output_transaction", None),
-        )
 
     def append_to_report(self, filename, image=None):
         report = image_to_dict(filename, image)
@@ -555,7 +706,8 @@ class Photo:
             self._exif_transposition_reverse = ()
         else:
             transposition, self._exif_transposition_reverse = \
-                imtools.get_exif_transposition(self.info['orientation'])
+                imtools.get_exif_transposition(
+                    getattr(self, 'source_orientation', self.info['orientation']))
         if transposition:
             for layer in layers:
                 layer.image = imtools.transpose(layer.image, transposition)

@@ -49,7 +49,8 @@ def put_highlight(image, highlight, resample_highlight, opacity, cache=None):
             highlight_alpha = imtools.get_alpha(highlight)
             # Convert to int for Pillow 10+ compatibility
             opacity = int((255 * opacity) / 100)
-            highlight.putalpha(ImageMath.eval("convert((a * o) / 255, 'L')",
+            highlight.putalpha(ImageMath.lambda_eval(
+                lambda v: v['convert']((v['a'] * v['o']) / 255, 'L'),
                 a=highlight_alpha, o=opacity))
         #store in cache
         cache[id] = highlight
@@ -60,7 +61,8 @@ def put_highlight(image, highlight, resample_highlight, opacity, cache=None):
         alpha = imtools.get_alpha(image)
         highlight = highlight.copy()
         highlight_alpha = imtools.get_alpha(highlight)
-        highlight.putalpha(ImageMath.eval("convert(min(a, b), 'L')",
+        highlight.putalpha(ImageMath.lambda_eval(
+            lambda v: v['convert'](v['min'](v['a'], v['b']), 'L'),
             a=alpha, b=highlight_alpha))
 
     overlay = highlight.convert('RGB')

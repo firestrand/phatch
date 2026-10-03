@@ -359,3 +359,40 @@ def test_image_save_transaction_writes_metadata_before_publication(
     assert destination.exists()
     assert len(metadata.paths) == 1
     assert metadata.paths[0] != str(destination)
+
+
+def test_metadata_render_accepts_absent_orientation_and_retains_pixels() -> None:
+    with Image.new("RGB", (8, 4), "red") as source:
+        rendered = render_image(source, "JPEG", None, True)
+        try:
+            assert rendered.image.size == source.size
+            assert rendered.image.getpixel((0, 0)) == source.getpixel((0, 0))
+            assert rendered.thumbnail_data
+        finally:
+            if rendered.image is not source:
+                rendered.image.close()
+
+
+def test_image_adapter_strips_metadata_and_publishes_valid_pixels(tmp_path: Path) -> None:
+    destination = tmp_path / "stripped.png"
+    with Image.new("RGB", (8, 4), "red") as source:
+        source.info["comment"] = b"private description"
+        rendered = render_image(source, "PNG", None, False)
+        try:
+            assert rendered.thumbnail_data is None
+            identity = save_transactionally(ImageSaveRequest(
+                destination, rendered, "PNG", {}, "none", None, None,
+                lambda *args: None,
+            ))
+            assert identity.path == destination
+            assert identity.sha256 == _digest(destination)
+            with Image.open(destination) as saved:
+                saved.load()
+                assert saved.size == source.size
+                assert saved.getpixel((0, 0)) == source.getpixel((0, 0))
+                assert not saved.getexif()
+                assert "comment" not in saved.info
+            assert not tuple(tmp_path.glob(".*.tmp"))
+        finally:
+            if rendered.image is not source:
+                rendered.image.close()

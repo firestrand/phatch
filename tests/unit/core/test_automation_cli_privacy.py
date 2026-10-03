@@ -68,8 +68,8 @@ def test_unavailable_preflight_redacts_requested_paths_and_compound_text(
         1,
     )
     monkeypatch.setattr(
-        Path,
-        "read_text",
+        automation_cli,
+        "read_recipe_text",
         lambda _path, **_kwargs: (
             '{"schema_version": 3, "description": "", "actions": []}'
         ),

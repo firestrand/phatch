@@ -223,3 +223,35 @@ def test_modified_image_activation_requests_filter_focus(
     callback, args = scheduled[0]
     assert callback == frame.browser.filter.SetFocus
     assert args == ()
+
+
+@pytest.mark.parametrize("operation", ["cell", "row", "value"])
+def test_denied_metadata_changes_show_error_and_preserve_values(
+    native_runtime, jpeg_path: Path, metadata_provider, native_interaction,
+    monkeypatch: pytest.MonkeyPatch, operation: str,
+) -> None:
+    from phatch.lib.pyWx import imageInspector
+
+    _window, grid = _frame(str(jpeg_path))
+    key = "Exif_Image_ImageDescription"
+    grid.image_table.images[0].info[key] = "before"
+    grid.image_table._update_keys(imageInspector.ALL, "")
+    grid.RefreshAll()
+    row = grid.image_table.keys.index(key)
+    if operation == "cell":
+        monkeypatch.setattr(grid.image_table, "delete_cell", lambda *args: "write denied")
+        native_interaction.expect_dialog(wx.MessageDialog, wx.ID_YES)
+    elif operation == "row":
+        monkeypatch.setattr(grid.table, "DeleteRows", lambda *args: "write denied")
+        native_interaction.expect_dialog(wx.MessageDialog, wx.ID_YES)
+    else:
+        monkeypatch.setattr(grid, "AskText", lambda *args, **kwargs: "after")
+        monkeypatch.setattr(grid.image_table, "set_key_value", lambda *args: "write denied")
+    native_interaction.expect_dialog(wx.MessageDialog, wx.ID_OK)
+    if operation == "cell":
+        grid.DeleteCell(row, 0)
+    elif operation == "row":
+        grid.DeleteRows(row)
+    else:
+        grid.ChangeRowValues(row)
+    assert grid.image_table.images[0].info[key] == "before"

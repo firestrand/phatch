@@ -29,6 +29,7 @@ EXPECTED_CONDITIONAL_SOURCES = frozenset(
         "tamogen.py",
         "text.py",
         "time_shift.py",
+        "variants.py",
     }
 )
 
@@ -113,8 +114,8 @@ def test_inventory_cli_reports_runtime_counts(
         in output.out
     )
     assert output.out.endswith(
-        "54 actions, 290 fields, 17 conditional sources, "
-        "294 runtime branches; exhaustive\n"
+        "55 actions, 312 fields, 18 conditional sources, "
+        "310 runtime branches; exhaustive\n"
     )
     assert output.err == ""
 

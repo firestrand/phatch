@@ -60,7 +60,7 @@ def test_geotag_accepts_empty_report_path(monkeypatch):
 def test_save_relevant_fields_follow_output_format(monkeypatch, extension, fields):
     action = save.Action()
     values = {"As": extension, "Show Type Options": "false", "TIFF Compression": "none"}
-    monkeypatch.setattr(action, "get_field_string", lambda label: values[label])
+    monkeypatch.setattr(action, "get_field_string", lambda label: values.get(label, "inherit" if label.endswith("Policy") else ""))
     monkeypatch.setattr(action, "get_format", lambda ext: ext)
 
     labels = set(action.get_relevant_field_labels())
@@ -71,7 +71,7 @@ def test_save_relevant_fields_follow_output_format(monkeypatch, extension, field
 def test_save_type_options_reveal_all_advanced_fields(monkeypatch):
     action = save.Action()
     values = {"As": action.TYPE, "Show Type Options": "true", "TIFF Compression": "zip"}
-    monkeypatch.setattr(action, "get_field_string", lambda label: values[label])
+    monkeypatch.setattr(action, "get_field_string", lambda label: values.get(label, "inherit" if label.endswith("Policy") else ""))
     monkeypatch.setattr(action, "get_format", lambda _ext: None)
 
     labels = action.get_relevant_field_labels()
@@ -119,10 +119,13 @@ def test_save_applies_format_specific_options(monkeypatch, output_format):
 
 
 def test_save_retries_invalid_format_as_png(monkeypatch):
-    values = {"As": "BAD", "Resolution": 72, "Metadata": False}
+    values = {"As": "BAD", "Resolution": 72, "Metadata": False,
+              "JPEG Size Maximum": 0, "JPEG Quality": 85}
+    monkeypatch.setattr(save, "resolve_encoder", lambda format, fallback: format, raising=False)
     action = _save_action(monkeypatch, values)
     photo = SimpleNamespace(info={}, save=MagicMock(side_effect=[save.InvalidWriteFormatError(), None]), log=MagicMock())
-    monkeypatch.setattr(action, "get_format", lambda *_args: "BAD")
+    monkeypatch.setattr(action, "get_format", lambda *_args: "JPEG")
+    action.set_field_as_string("Format Fallback", "png")
     monkeypatch.setattr(save.os.path, "exists", lambda _path: False)
 
     result = action.apply(photo, lambda key: key == "overwrite_existing_images", {})

@@ -48,7 +48,7 @@ REQUIRED_RUNTIME_RESOURCES: Final = (
     "data/actionlists/web_size_export.phatch",
 )
 EXPECTED_RESOURCE_COUNTS: Final = (
-    ("action-lists", 25),
+    ("action-lists", 26),
     ("blender", 105),
     ("documentation", 360),
     ("fonts", 2),

@@ -21,15 +21,14 @@ pytestmark = pytest.mark.requires_display
 
 
 @pytest.fixture
-def wx_app():
+def wx_app(native_application):
     if not _display_available():
         pytest.skip("native wx tests require a display")
-    app = wx.App(False)
+    app = native_application
     yield app
     for window in list(wx.GetTopLevelWindows()):
         window.Destroy()
     wx.Yield()
-    app.Destroy()
 
 
 @pytest.fixture(autouse=True)

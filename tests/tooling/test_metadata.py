@@ -67,11 +67,11 @@ def test_pep621_metadata_declares_supported_runtime() -> None:
     project = load_pyproject()["project"]
 
     # When: installers inspect package identity and compatibility
-    # Then: metadata matches the supported CPython 3.11-3.13 policy
+    # Then: metadata matches the supported CPython 3.12-3.14 policy
     assert project["name"] == "Phatch"
     assert project["dynamic"] == ["version"]
     assert "version" not in project
-    assert project["requires-python"] == ">=3.11,<3.14"
+    assert project["requires-python"] == ">=3.12,<3.15"
     assert dependency_names(project["dependencies"]) == {
         "pillow",
         "platformdirs",
@@ -108,6 +108,7 @@ def test_optional_dependencies_match_capability_boundaries() -> None:
             "packaging",
             "pytest",
             "pytest-cov",
+            "pytest-xdist",
             "pyinstaller",
             "pyyaml",
             "ruff",
@@ -614,7 +615,7 @@ def test_quality_tools_have_explicit_incremental_configuration() -> None:
         "tests/usability_fixtures.py",
     } <= set(tools["ruff"]["include"])
     assert tools["ruff"]["lint"]["select"]
-    assert tools["ty"]["environment"]["python-version"] == "3.11"
+    assert tools["ty"]["environment"]["python-version"] == "3.12"
     assert tools["pyright"]["extraPaths"] == ["."]
     assert tools["ty"]["src"]["include"] == [
         "phatch/app.py",
