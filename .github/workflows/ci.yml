@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
-      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
         with:
           python-version: "3.12"
       - run: uv sync --locked --dev
@@ -30,7 +30,7 @@ jobs:
       - run: >-
           uv run pytest tests/unit tests/tooling --ignore=tests/unit/pywx --no-cov
           --junitxml=artifacts/junit-quality.xml
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: quality-results
           path: artifacts/junit-quality.xml
@@ -47,7 +47,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
-      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
         with:
           python-version: ${{ matrix.python-version }}
       - run: uv sync --locked --dev
@@ -62,7 +62,7 @@ jobs:
           --junitxml=artifacts/junit/junit-non-gui-${{ matrix.os }}-${{ matrix.python-version }}.xml
         env:
           COVERAGE_FILE: artifacts/coverage/.coverage.non-gui-${{ matrix.os }}-${{ matrix.python-version }}
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: non-gui-${{ matrix.os }}-${{ matrix.python-version }}
           path: |
@@ -80,7 +80,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
         with:
           python-version: ${{ matrix.python-version }}
       - run: uv sync --locked --dev
@@ -95,7 +95,7 @@ jobs:
         shell: bash
       - run: uv run pyspdxtools -i artifacts/release/sbom.spdx.json
       - run: uv run python scripts/artifact_scan.py artifacts/distributions
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: distributions-${{ matrix.os }}-${{ matrix.python-version }}
           path: artifacts/
@@ -104,7 +104,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
         with:
           python-version: "3.12"
       - run: uv sync --locked --extra gui --dev
@@ -117,7 +117,7 @@ jobs:
           --junitxml=artifacts/junit/junit-windows-gui-3.12.xml
         env:
           COVERAGE_FILE: artifacts/coverage/.coverage.windows-gui-3.12
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: windows-gui-3.12
           path: |
@@ -133,15 +133,15 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
-      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
         with:
           python-version: "3.12"
       - run: uv sync --locked --dev
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           pattern: non-gui-*
           path: artifacts/downloaded
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: windows-gui-3.12
           path: artifacts/downloaded/windows-gui-3.12
@@ -162,7 +162,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           path: checkout with spaces Ω
-      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
         with:
           python-version: "3.12"
       - working-directory: checkout with spaces Ω
@@ -175,7 +175,7 @@ jobs:
           tests/unit/lib/test_windows_shortcut_failures.py
           tests/integration/test_installed_wheel_automation.py
           --junitxml=artifacts/junit-windows-paths.xml
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: windows-path-results
           path: checkout with spaces Ω/artifacts/
@@ -200,12 +200,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
         with:
           python-version: "3.12"
       - run: uv sync --locked --dev ${{ matrix.extras }}
       - run: uv run pytest ${{ matrix.tests }} --junitxml=artifacts/junit-optional.xml
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: optional-${{ strategy.job-index }}
           path: artifacts/
@@ -214,7 +214,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
         with:
           python-version: "3.12"
       - run: uv sync --locked --extra gui --extra windows --dev
@@ -243,7 +243,7 @@ jobs:
           --cov=scripts.distribution_smoke --cov=scripts.portable_smoke --cov-branch
           --cov-fail-under=90 --cov-report=xml:artifacts/coverage-artifacts.xml
           --junitxml=artifacts/junit-artifacts.xml
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: windows-portable
           path: |
@@ -261,10 +261,10 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
         with:
           python-version: "3.12"
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: windows-portable
           path: downloaded
